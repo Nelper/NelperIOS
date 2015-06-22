@@ -1,0 +1,500 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF1F31B37A0A500B25B07 /* AppDelegate.swift */; };
+		199EF1F61B37A0A500B25B07 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF1F51B37A0A500B25B07 /* FirstViewController.swift */; };
+		199EF1F81B37A0A500B25B07 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF1F71B37A0A500B25B07 /* SecondViewController.swift */; };
+		199EF1FB1B37A0A500B25B07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1F91B37A0A500B25B07 /* Main.storyboard */; };
+		199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FC1B37A0A500B25B07 /* Images.xcassets */; };
+		199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */; };
+		199EF20C1B37A0A500B25B07 /* NelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF20B1B37A0A500B25B07 /* NelperTests.swift */; };
+		19D853921B37A730007AA3A8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D853911B37A730007AA3A8 /* LoginViewController.swift */; };
+		291C50CA07CE790A9BD281EE /* libPods-Nelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FFD010F2A4237C6B5CA4FE /* libPods-Nelper.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		199EF2061B37A0A500B25B07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 199EF1E61B37A0A500B25B07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 199EF1ED1B37A0A500B25B07;
+			remoteInfo = Nelper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		199EF1EE1B37A0A500B25B07 /* Nelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		199EF1F21B37A0A500B25B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		199EF1F31B37A0A500B25B07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		199EF1F51B37A0A500B25B07 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		199EF1F71B37A0A500B25B07 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		199EF1FA1B37A0A500B25B07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		199EF1FC1B37A0A500B25B07 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		199EF1FF1B37A0A500B25B07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		199EF2051B37A0A500B25B07 /* NelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NelperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		199EF20A1B37A0A500B25B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		199EF20B1B37A0A500B25B07 /* NelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NelperTests.swift; sourceTree = "<group>"; };
+		19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nelper-Bridging-Header.h"; sourceTree = "<group>"; };
+		19D853911B37A730007AA3A8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		23FFD010F2A4237C6B5CA4FE /* libPods-Nelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		87798EBB00047D99CB9E0DD9 /* Pods-Nelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.debug.xcconfig"; sourceTree = "<group>"; };
+		ACD517EDE4DF772851877774 /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		199EF1EB1B37A0A500B25B07 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				291C50CA07CE790A9BD281EE /* libPods-Nelper.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		199EF2021B37A0A500B25B07 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		004B883F6351E7FCFC97D223 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				87798EBB00047D99CB9E0DD9 /* Pods-Nelper.debug.xcconfig */,
+				ACD517EDE4DF772851877774 /* Pods-Nelper.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		199EF1E51B37A0A500B25B07 = {
+			isa = PBXGroup;
+			children = (
+				199EF1F01B37A0A500B25B07 /* Nelper */,
+				199EF2081B37A0A500B25B07 /* NelperTests */,
+				199EF1EF1B37A0A500B25B07 /* Products */,
+				004B883F6351E7FCFC97D223 /* Pods */,
+				E00C0A7D0D690598AC42849C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		199EF1EF1B37A0A500B25B07 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				199EF1EE1B37A0A500B25B07 /* Nelper.app */,
+				199EF2051B37A0A500B25B07 /* NelperTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		199EF1F01B37A0A500B25B07 /* Nelper */ = {
+			isa = PBXGroup;
+			children = (
+				199EF1F31B37A0A500B25B07 /* AppDelegate.swift */,
+				199EF1F51B37A0A500B25B07 /* FirstViewController.swift */,
+				199EF1F71B37A0A500B25B07 /* SecondViewController.swift */,
+				199EF1F91B37A0A500B25B07 /* Main.storyboard */,
+				199EF1FC1B37A0A500B25B07 /* Images.xcassets */,
+				199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */,
+				199EF1F11B37A0A500B25B07 /* Supporting Files */,
+				19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */,
+				19D853911B37A730007AA3A8 /* LoginViewController.swift */,
+			);
+			path = Nelper;
+			sourceTree = "<group>";
+		};
+		199EF1F11B37A0A500B25B07 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				199EF1F21B37A0A500B25B07 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		199EF2081B37A0A500B25B07 /* NelperTests */ = {
+			isa = PBXGroup;
+			children = (
+				199EF20B1B37A0A500B25B07 /* NelperTests.swift */,
+				199EF2091B37A0A500B25B07 /* Supporting Files */,
+			);
+			path = NelperTests;
+			sourceTree = "<group>";
+		};
+		199EF2091B37A0A500B25B07 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				199EF20A1B37A0A500B25B07 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E00C0A7D0D690598AC42849C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				23FFD010F2A4237C6B5CA4FE /* libPods-Nelper.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		199EF1ED1B37A0A500B25B07 /* Nelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 199EF20F1B37A0A500B25B07 /* Build configuration list for PBXNativeTarget "Nelper" */;
+			buildPhases = (
+				D1E657E03B4070A36A9F9F8A /* Check Pods Manifest.lock */,
+				199EF1EA1B37A0A500B25B07 /* Sources */,
+				199EF1EB1B37A0A500B25B07 /* Frameworks */,
+				199EF1EC1B37A0A500B25B07 /* Resources */,
+				47D32AA8D566F2583FCB9409 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Nelper;
+			productName = Nelper;
+			productReference = 199EF1EE1B37A0A500B25B07 /* Nelper.app */;
+			productType = "com.apple.product-type.application";
+		};
+		199EF2041B37A0A500B25B07 /* NelperTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 199EF2121B37A0A500B25B07 /* Build configuration list for PBXNativeTarget "NelperTests" */;
+			buildPhases = (
+				199EF2011B37A0A500B25B07 /* Sources */,
+				199EF2021B37A0A500B25B07 /* Frameworks */,
+				199EF2031B37A0A500B25B07 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				199EF2071B37A0A500B25B07 /* PBXTargetDependency */,
+			);
+			name = NelperTests;
+			productName = NelperTests;
+			productReference = 199EF2051B37A0A500B25B07 /* NelperTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		199EF1E61B37A0A500B25B07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = Nelper;
+				TargetAttributes = {
+					199EF1ED1B37A0A500B25B07 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					199EF2041B37A0A500B25B07 = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 199EF1ED1B37A0A500B25B07;
+					};
+				};
+			};
+			buildConfigurationList = 199EF1E91B37A0A500B25B07 /* Build configuration list for PBXProject "Nelper" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 199EF1E51B37A0A500B25B07;
+			productRefGroup = 199EF1EF1B37A0A500B25B07 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				199EF1ED1B37A0A500B25B07 /* Nelper */,
+				199EF2041B37A0A500B25B07 /* NelperTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		199EF1EC1B37A0A500B25B07 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				199EF1FB1B37A0A500B25B07 /* Main.storyboard in Resources */,
+				199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */,
+				199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		199EF2031B37A0A500B25B07 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		47D32AA8D566F2583FCB9409 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Nelper/Pods-Nelper-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1E657E03B4070A36A9F9F8A /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		199EF1EA1B37A0A500B25B07 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19D853921B37A730007AA3A8 /* LoginViewController.swift in Sources */,
+				199EF1F81B37A0A500B25B07 /* SecondViewController.swift in Sources */,
+				199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */,
+				199EF1F61B37A0A500B25B07 /* FirstViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		199EF2011B37A0A500B25B07 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				199EF20C1B37A0A500B25B07 /* NelperTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		199EF2071B37A0A500B25B07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 199EF1ED1B37A0A500B25B07 /* Nelper */;
+			targetProxy = 199EF2061B37A0A500B25B07 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		199EF1F91B37A0A500B25B07 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				199EF1FA1B37A0A500B25B07 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				199EF1FF1B37A0A500B25B07 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		199EF20D1B37A0A500B25B07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		199EF20E1B37A0A500B25B07 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		199EF2101B37A0A500B25B07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 87798EBB00047D99CB9E0DD9 /* Pods-Nelper.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = Nelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Nelper/Nelper-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		199EF2111B37A0A500B25B07 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ACD517EDE4DF772851877774 /* Pods-Nelper.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = Nelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Nelper/Nelper-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		199EF2131B37A0A500B25B07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = NelperTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nelper.app/Nelper";
+			};
+			name = Debug;
+		};
+		199EF2141B37A0A500B25B07 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = NelperTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nelper.app/Nelper";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		199EF1E91B37A0A500B25B07 /* Build configuration list for PBXProject "Nelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				199EF20D1B37A0A500B25B07 /* Debug */,
+				199EF20E1B37A0A500B25B07 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		199EF20F1B37A0A500B25B07 /* Build configuration list for PBXNativeTarget "Nelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				199EF2101B37A0A500B25B07 /* Debug */,
+				199EF2111B37A0A500B25B07 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		199EF2121B37A0A500B25B07 /* Build configuration list for PBXNativeTarget "NelperTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				199EF2131B37A0A500B25B07 /* Debug */,
+				199EF2141B37A0A500B25B07 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 199EF1E61B37A0A500B25B07 /* Project object */;
+}

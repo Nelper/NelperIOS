@@ -1,0 +1,2 @@
+PODS_NELPER_PARSECRASHREPORTING_LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/ParseCrashReporting"
+PODS_NELPER_PARSECRASHREPORTING_OTHER_LDFLAGS = -l"ParseCrashReporting" -l"sqlite3" -l"stdc++.6" -l"z" -framework "CFNetwork" -framework "Foundation" -framework "MobileCoreServices" -framework "Security" -framework "SystemConfiguration"
