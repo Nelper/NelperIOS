@@ -26,6 +26,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     PFFacebookUtils.initializeFacebook()
     
+    if(PFUser.currentUser() == nil) {
+      // If the user is not logged show the login page.
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let loginVC = storyboard.instantiateViewControllerWithIdentifier("loginViewController") as UIViewController
+      self.window!.makeKeyAndVisible()
+      self.window!.rootViewController!.presentViewController(loginVC, animated: false, completion: nil)
+    }
+    
     return true
   }
 
