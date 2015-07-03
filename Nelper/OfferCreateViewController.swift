@@ -12,9 +12,15 @@ class OfferCreateViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    self.title = "New offer"
     
+  }
+  
+  @IBAction func onDoneClicked(sender: UIBarButtonItem) {
+    
+  }
+  
+  @IBAction func onCancelClicked(sender: UIBarButtonItem) {
+    self.dismissViewControllerAnimated(true, completion: nil)
   }
 }
 

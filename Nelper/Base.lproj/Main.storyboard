@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Offer-->
@@ -24,6 +24,7 @@
         <!--Offer-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
                 <viewController title="Offer" id="9pv-A4-QxB" userLabel="Offer" customClass="OfferListViewController" customModule="Nelper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
@@ -48,32 +49,62 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Offer" image="first" id="acW-dT-cKf"/>
-                    <navigationItem key="navigationItem" id="89x-rS-Gg1"/>
-                    <connections>
-                        <segue destination="mSa-If-6r1" kind="showDetail" identifier="offer_create" id="6ZW-eM-wtg"/>
-                    </connections>
+                    <navigationItem key="navigationItem" title="Offer" id="89x-rS-Gg1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="TNM-gL-1Nd">
+                            <connections>
+                                <segue destination="XB2-kO-6c9" kind="presentation" id="GGf-qA-swx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1506" y="-794"/>
         </scene>
-        <!--Offer Create View Controller-->
-        <scene sceneID="7CR-mm-HVu">
+        <!--Navigation Controller-->
+        <scene sceneID="GYL-ue-Bqq">
             <objects>
-                <viewController id="mSa-If-6r1" customClass="OfferCreateViewController" customModule="Nelper" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="XB2-kO-6c9" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JGY-pd-tLW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="XcX-05-7VU" kind="relationship" relationship="rootViewController" id="UmX-Ni-c5z"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SE2-VH-tZP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2174" y="-794"/>
+        </scene>
+        <!--New offer-->
+        <scene sceneID="wp2-IJ-RI7">
+            <objects>
+                <viewController id="XcX-05-7VU" customClass="OfferCreateViewController" customModule="Nelper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="CdI-yh-VOz"/>
-                        <viewControllerLayoutGuide type="bottom" id="hIA-2r-Wk2"/>
+                        <viewControllerLayoutGuide type="top" id="vzu-DO-pda"/>
+                        <viewControllerLayoutGuide type="bottom" id="fha-Tk-7hf"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="dA8-Pq-cnO">
+                    <view key="view" contentMode="scaleToFill" id="fRF-r1-ddQ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="New offer" id="ybs-4N-8bz">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="a5r-zg-Dz1">
+                            <connections>
+                                <action selector="onCancelClicked:" destination="XcX-05-7VU" id="gK3-jB-cdS"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="bza-Kb-2lp">
+                            <connections>
+                                <action selector="onDoneClicked:" destination="XcX-05-7VU" id="QT0-oX-nVv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0CK-vh-CBh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tq0-hN-46t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2178" y="-794"/>
+            <point key="canvasLocation" x="2826" y="-794"/>
         </scene>
         <!--Ask-->
         <scene sceneID="wg7-f3-ORb">

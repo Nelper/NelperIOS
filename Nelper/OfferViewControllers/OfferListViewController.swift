@@ -13,15 +13,6 @@ class OfferListViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.title = "Offer"
-    
-    let addButton = UIBarButtonItem(title: "new", style: UIBarButtonItemStyle.Plain, target: self, action: "onAddButtonClick")
-    self.navigationItem.rightBarButtonItem = addButton;
   }
-  
-  func onAddButtonClick() {
-    performSegueWithIdentifier("offer_create", sender: self)
-  }
-
 }
 
