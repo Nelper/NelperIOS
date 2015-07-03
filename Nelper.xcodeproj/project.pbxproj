@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		191FBBB71B3A768900D0CE64 /* OfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191FBBB61B3A768900D0CE64 /* OfferViewController.swift */; };
 		199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF1F31B37A0A500B25B07 /* AppDelegate.swift */; };
 		199EF1F61B37A0A500B25B07 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF1F51B37A0A500B25B07 /* ProfileViewController.swift */; };
 		199EF1F81B37A0A500B25B07 /* AskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF1F71B37A0A500B25B07 /* AskViewController.swift */; };
@@ -16,6 +15,8 @@
 		199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */; };
 		199EF20C1B37A0A500B25B07 /* NelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF20B1B37A0A500B25B07 /* NelperTests.swift */; };
 		19D853921B37A730007AA3A8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D853911B37A730007AA3A8 /* LoginViewController.swift */; };
+		19E5A5D71B46127B0044D094 /* OfferListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E5A5D61B46127B0044D094 /* OfferListViewController.swift */; };
+		19E5A5DA1B4612F20044D094 /* OfferCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E5A5D91B4612F20044D094 /* OfferCreateViewController.swift */; };
 		291C50CA07CE790A9BD281EE /* libPods-Nelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FFD010F2A4237C6B5CA4FE /* libPods-Nelper.a */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +31,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		191FBBB61B3A768900D0CE64 /* OfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferViewController.swift; sourceTree = "<group>"; };
 		199EF1EE1B37A0A500B25B07 /* Nelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		199EF1F21B37A0A500B25B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		199EF1F31B37A0A500B25B07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +44,8 @@
 		199EF20B1B37A0A500B25B07 /* NelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NelperTests.swift; sourceTree = "<group>"; };
 		19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nelper-Bridging-Header.h"; sourceTree = "<group>"; };
 		19D853911B37A730007AA3A8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		19E5A5D61B46127B0044D094 /* OfferListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OfferListViewController.swift; path = OfferViewControllers/OfferListViewController.swift; sourceTree = "<group>"; };
+		19E5A5D91B4612F20044D094 /* OfferCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferCreateViewController.swift; sourceTree = "<group>"; };
 		23FFD010F2A4237C6B5CA4FE /* libPods-Nelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		87798EBB00047D99CB9E0DD9 /* Pods-Nelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.debug.xcconfig"; sourceTree = "<group>"; };
 		ACD517EDE4DF772851877774 /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
@@ -100,16 +102,16 @@
 		199EF1F01B37A0A500B25B07 /* Nelper */ = {
 			isa = PBXGroup;
 			children = (
+				19E5A5D81B46128F0044D094 /* OfferViewControllers */,
 				199EF1F31B37A0A500B25B07 /* AppDelegate.swift */,
-				191FBBB61B3A768900D0CE64 /* OfferViewController.swift */,
 				199EF1F71B37A0A500B25B07 /* AskViewController.swift */,
 				199EF1F51B37A0A500B25B07 /* ProfileViewController.swift */,
+				19D853911B37A730007AA3A8 /* LoginViewController.swift */,
 				199EF1F91B37A0A500B25B07 /* Main.storyboard */,
 				199EF1FC1B37A0A500B25B07 /* Images.xcassets */,
 				199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */,
 				199EF1F11B37A0A500B25B07 /* Supporting Files */,
 				19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */,
-				19D853911B37A730007AA3A8 /* LoginViewController.swift */,
 			);
 			path = Nelper;
 			sourceTree = "<group>";
@@ -137,6 +139,15 @@
 				199EF20A1B37A0A500B25B07 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		19E5A5D81B46128F0044D094 /* OfferViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				19E5A5D61B46127B0044D094 /* OfferListViewController.swift */,
+				19E5A5D91B4612F20044D094 /* OfferCreateViewController.swift */,
+			);
+			name = OfferViewControllers;
 			sourceTree = "<group>";
 		};
 		E00C0A7D0D690598AC42849C /* Frameworks */ = {
@@ -282,11 +293,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				191FBBB71B3A768900D0CE64 /* OfferViewController.swift in Sources */,
 				19D853921B37A730007AA3A8 /* LoginViewController.swift in Sources */,
 				199EF1F81B37A0A500B25B07 /* AskViewController.swift in Sources */,
 				199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */,
+				19E5A5DA1B4612F20044D094 /* OfferCreateViewController.swift in Sources */,
 				199EF1F61B37A0A500B25B07 /* ProfileViewController.swift in Sources */,
+				19E5A5D71B46127B0044D094 /* OfferListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

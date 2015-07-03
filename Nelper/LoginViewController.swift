@@ -44,8 +44,8 @@ class LoginViewController: UIViewController {
       if error != nil {
         self.loginCompleted()
       } else {
-        PFUser.currentUser().setValue(user.name, forKey: "name")
-        PFUser.currentUser().saveInBackgroundWithBlock({ (success:Bool, error:NSError!) -> Void in
+        PFUser.currentUser()!.setValue(user.name, forKey: "name")
+        PFUser.currentUser()!.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
           self.loginCompleted()
         })
       }
