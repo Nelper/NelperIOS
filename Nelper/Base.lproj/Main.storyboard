@@ -49,13 +49,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Offer" image="first" id="acW-dT-cKf"/>
-                    <navigationItem key="navigationItem" title="Offer" id="89x-rS-Gg1">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="TNM-gL-1Nd">
-                            <connections>
-                                <action selector="onAddOfferClick:" destination="9pv-A4-QxB" id="XcM-qv-jeM"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Offer" id="89x-rS-Gg1"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1506" y="-794"/>

@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol OfferCreateViewControllerDelegate {
+  func offerAdded(offer: Offer) -> Void
+}
+
 class OfferCreateViewController: UIViewController {
   
   @IBOutlet weak var titleTextField: UITextField!
   @IBOutlet weak var descriptionTextView: UITextView!
   
   var offerStore: OfferStore!
+  var delegate: OfferCreateViewControllerDelegate?
   
   convenience init(offerStore: OfferStore) {
     self.init(nibName: "OfferCreateViewController", bundle: nil)
@@ -45,9 +50,18 @@ class OfferCreateViewController: UIViewController {
   
   func onDoneClicked() {
     
-    offerStore.createWithTitle(titleTextField.text, description: descriptionTextView.text)
+    let title = titleTextField.text
+    let desc = descriptionTextView.text
+    
+    if title.isEmpty || desc.isEmpty {
+      return
+    }
+    
+    let offer = offerStore.createWithTitle(titleTextField.text, description: descriptionTextView.text)
     
     self.navigationController?.popViewControllerAnimated(true)
+    
+    delegate?.offerAdded(offer)
   }
   
   func onCancelClicked() {

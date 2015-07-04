@@ -10,7 +10,7 @@ import Foundation
 
 class OfferStore {
   
-  func createWithTitle(title: String, description: String) {
+  func createWithTitle(title: String, description: String) -> Offer {
     let user = PFUser.currentUser()!
     
     let offer = Offer()
@@ -24,6 +24,8 @@ class OfferStore {
     offer.ACL = acl
     
     offer.saveEventually()
+    
+    return offer
   }
   
   func listMyOffers(block: ([Offer]?, NSError?) -> Void) {
