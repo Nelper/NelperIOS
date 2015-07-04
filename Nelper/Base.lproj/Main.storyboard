@@ -52,59 +52,13 @@
                     <navigationItem key="navigationItem" title="Offer" id="89x-rS-Gg1">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="TNM-gL-1Nd">
                             <connections>
-                                <segue destination="XB2-kO-6c9" kind="presentation" id="GGf-qA-swx"/>
+                                <action selector="onAddOfferClick:" destination="9pv-A4-QxB" id="XcM-qv-jeM"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1506" y="-794"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="GYL-ue-Bqq">
-            <objects>
-                <navigationController id="XB2-kO-6c9" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JGY-pd-tLW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="XcX-05-7VU" kind="relationship" relationship="rootViewController" id="UmX-Ni-c5z"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SE2-VH-tZP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2174" y="-794"/>
-        </scene>
-        <!--New offer-->
-        <scene sceneID="wp2-IJ-RI7">
-            <objects>
-                <viewController id="XcX-05-7VU" customClass="OfferCreateViewController" customModule="Nelper" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="vzu-DO-pda"/>
-                        <viewControllerLayoutGuide type="bottom" id="fha-Tk-7hf"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="fRF-r1-ddQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="New offer" id="ybs-4N-8bz">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="a5r-zg-Dz1">
-                            <connections>
-                                <action selector="onCancelClicked:" destination="XcX-05-7VU" id="gK3-jB-cdS"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="bza-Kb-2lp">
-                            <connections>
-                                <action selector="onDoneClicked:" destination="XcX-05-7VU" id="QT0-oX-nVv"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Tq0-hN-46t" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2826" y="-794"/>
         </scene>
         <!--Ask-->
         <scene sceneID="wg7-f3-ORb">

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		193F04011B478AF8003CBDA6 /* OfferStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193F04001B478AF8003CBDA6 /* OfferStore.swift */; };
+		193F04041B478D3E003CBDA6 /* Offer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193F04031B478D3E003CBDA6 /* Offer.swift */; };
+		195E48D11B477B7C000922B1 /* OfferCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195E48CF1B477B7C000922B1 /* OfferCreateViewController.swift */; };
+		195E48D21B477B7C000922B1 /* OfferCreateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 195E48D01B477B7C000922B1 /* OfferCreateViewController.xib */; };
 		199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF1F31B37A0A500B25B07 /* AppDelegate.swift */; };
 		199EF1F61B37A0A500B25B07 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF1F51B37A0A500B25B07 /* ProfileViewController.swift */; };
 		199EF1F81B37A0A500B25B07 /* AskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF1F71B37A0A500B25B07 /* AskViewController.swift */; };
@@ -16,7 +20,6 @@
 		199EF20C1B37A0A500B25B07 /* NelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF20B1B37A0A500B25B07 /* NelperTests.swift */; };
 		19D853921B37A730007AA3A8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D853911B37A730007AA3A8 /* LoginViewController.swift */; };
 		19E5A5D71B46127B0044D094 /* OfferListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E5A5D61B46127B0044D094 /* OfferListViewController.swift */; };
-		19E5A5DA1B4612F20044D094 /* OfferCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E5A5D91B4612F20044D094 /* OfferCreateViewController.swift */; };
 		291C50CA07CE790A9BD281EE /* libPods-Nelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FFD010F2A4237C6B5CA4FE /* libPods-Nelper.a */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +34,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		193F04001B478AF8003CBDA6 /* OfferStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OfferStore.swift; path = Stores/OfferStore.swift; sourceTree = "<group>"; };
+		193F04031B478D3E003CBDA6 /* Offer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Offer.swift; path = Models/Offer.swift; sourceTree = "<group>"; };
+		195E48CF1B477B7C000922B1 /* OfferCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OfferCreateViewController.swift; path = OfferViewControllers/OfferCreateViewController.swift; sourceTree = "<group>"; };
+		195E48D01B477B7C000922B1 /* OfferCreateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OfferCreateViewController.xib; path = OfferViewControllers/OfferCreateViewController.xib; sourceTree = "<group>"; };
 		199EF1EE1B37A0A500B25B07 /* Nelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		199EF1F21B37A0A500B25B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		199EF1F31B37A0A500B25B07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,7 +52,6 @@
 		19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nelper-Bridging-Header.h"; sourceTree = "<group>"; };
 		19D853911B37A730007AA3A8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		19E5A5D61B46127B0044D094 /* OfferListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OfferListViewController.swift; path = OfferViewControllers/OfferListViewController.swift; sourceTree = "<group>"; };
-		19E5A5D91B4612F20044D094 /* OfferCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferCreateViewController.swift; sourceTree = "<group>"; };
 		23FFD010F2A4237C6B5CA4FE /* libPods-Nelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		87798EBB00047D99CB9E0DD9 /* Pods-Nelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.debug.xcconfig"; sourceTree = "<group>"; };
 		ACD517EDE4DF772851877774 /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
@@ -79,6 +85,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		193F03FF1B478AC4003CBDA6 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				193F04001B478AF8003CBDA6 /* OfferStore.swift */,
+			);
+			name = Stores;
+			sourceTree = "<group>";
+		};
+		193F04021B478D18003CBDA6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				193F04031B478D3E003CBDA6 /* Offer.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		199EF1E51B37A0A500B25B07 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +124,8 @@
 		199EF1F01B37A0A500B25B07 /* Nelper */ = {
 			isa = PBXGroup;
 			children = (
+				193F04021B478D18003CBDA6 /* Models */,
+				193F03FF1B478AC4003CBDA6 /* Stores */,
 				19E5A5D81B46128F0044D094 /* OfferViewControllers */,
 				199EF1F31B37A0A500B25B07 /* AppDelegate.swift */,
 				199EF1F71B37A0A500B25B07 /* AskViewController.swift */,
@@ -145,7 +169,8 @@
 			isa = PBXGroup;
 			children = (
 				19E5A5D61B46127B0044D094 /* OfferListViewController.swift */,
-				19E5A5D91B4612F20044D094 /* OfferCreateViewController.swift */,
+				195E48CF1B477B7C000922B1 /* OfferCreateViewController.swift */,
+				195E48D01B477B7C000922B1 /* OfferCreateViewController.xib */,
 			);
 			name = OfferViewControllers;
 			sourceTree = "<group>";
@@ -243,6 +268,7 @@
 				199EF1FB1B37A0A500B25B07 /* Main.storyboard in Resources */,
 				199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */,
 				199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */,
+				195E48D21B477B7C000922B1 /* OfferCreateViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,8 +322,10 @@
 				19D853921B37A730007AA3A8 /* LoginViewController.swift in Sources */,
 				199EF1F81B37A0A500B25B07 /* AskViewController.swift in Sources */,
 				199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */,
-				19E5A5DA1B4612F20044D094 /* OfferCreateViewController.swift in Sources */,
+				195E48D11B477B7C000922B1 /* OfferCreateViewController.swift in Sources */,
 				199EF1F61B37A0A500B25B07 /* ProfileViewController.swift in Sources */,
+				193F04041B478D3E003CBDA6 /* Offer.swift in Sources */,
+				193F04011B478AF8003CBDA6 /* OfferStore.swift in Sources */,
 				19E5A5D71B46127B0044D094 /* OfferListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
