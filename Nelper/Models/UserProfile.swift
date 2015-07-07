@@ -1,15 +1,15 @@
 //
-//  Nelp.swift
+//  UserProfile.swift
 //  Nelper
 //
-//  Created by Janic Duplessis on 2015-07-03.
+//  Created by Janic Duplessis on 2015-07-06.
 //  Copyright (c) 2015 Nelper. All rights reserved.
 //
 
 import Foundation
 
-class NelpTask : PFObject, PFSubclassing {
-
+class UserProfile : PFObject, PFSubclassing {
+  
   override class func initialize() {
     struct Static {
       static var onceToken : dispatch_once_t = 0;
@@ -20,11 +20,11 @@ class NelpTask : PFObject, PFSubclassing {
   }
   
   static func parseClassName() -> String {
-    return "NelpTask"
+    return "UserProfile"
   }
   
-  @NSManaged var title: String!
-  @NSManaged var desc: String!
-  @NSManaged var user: PFUser!
+  @NSManaged var firstName: String?
+  @NSManaged var lastName: String?
+  
   
 }
