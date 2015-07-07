@@ -7,25 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		193F04011B478AF8003CBDA6 /* NelpTasksStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193F04001B478AF8003CBDA6 /* NelpTasksStore.swift */; };
-		193F04041B478D3E003CBDA6 /* NelpTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193F04031B478D3E003CBDA6 /* NelpTask.swift */; };
-		193F04171B485F75003CBDA6 /* AskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193F040F1B485F75003CBDA6 /* AskViewController.swift */; };
-		193F04181B485F75003CBDA6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193F04111B485F75003CBDA6 /* LoginViewController.swift */; };
-		193F04191B485F75003CBDA6 /* NelpTaskCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193F04131B485F75003CBDA6 /* NelpTaskCreateViewController.swift */; };
-		193F041A1B485F75003CBDA6 /* NelpTaskCreateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193F04141B485F75003CBDA6 /* NelpTaskCreateViewController.xib */; };
-		193F041B1B485F75003CBDA6 /* NelpTasksListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193F04151B485F75003CBDA6 /* NelpTasksListViewController.swift */; };
-		193F041F1B487915003CBDA6 /* NelpTasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193F041E1B487915003CBDA6 /* NelpTasksTableViewCell.swift */; };
-		195FD99C1B4B629C0040AD20 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195FD99A1B4B629C0040AD20 /* ProfileViewController.swift */; };
-		195FD99D1B4B629C0040AD20 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 195FD99B1B4B629C0040AD20 /* ProfileViewController.xib */; };
-		195FD99F1B4B63390040AD20 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195FD99E1B4B63390040AD20 /* UserProfile.swift */; };
-		195FD9A11B4B636E0040AD20 /* NelpTaskOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195FD9A01B4B636E0040AD20 /* NelpTaskOffer.swift */; };
 		199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF1F31B37A0A500B25B07 /* AppDelegate.swift */; };
 		199EF1FB1B37A0A500B25B07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1F91B37A0A500B25B07 /* Main.storyboard */; };
 		199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FC1B37A0A500B25B07 /* Images.xcassets */; };
 		199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */; };
 		199EF20C1B37A0A500B25B07 /* NelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF20B1B37A0A500B25B07 /* NelperTests.swift */; };
 		291C50CA07CE790A9BD281EE /* libPods-Nelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FFD010F2A4237C6B5CA4FE /* libPods-Nelper.a */; };
-		F762CFFC1B4B4C6A00812235 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F762CFFB1B4B4C6A00812235 /* LoginViewController.xib */; };
+		F762D0021B4B65DC00812235 /* NelpTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0001B4B65DC00812235 /* NelpTask.swift */; };
+		F762D0031B4B65DC00812235 /* NelpTasksStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0011B4B65DC00812235 /* NelpTasksStore.swift */; };
+		F762D0061B4B66B000812235 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0041B4B66B000812235 /* LoginViewController.swift */; };
+		F762D0071B4B66B000812235 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F762D0051B4B66B000812235 /* LoginViewController.xib */; };
+		F762D0091B4B66E900812235 /* AskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0081B4B66E900812235 /* AskViewController.swift */; };
+		F762D00C1B4B673200812235 /* NelpTaskCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D00A1B4B673200812235 /* NelpTaskCreateViewController.swift */; };
+		F762D00D1B4B673200812235 /* NelpTaskCreateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F762D00B1B4B673200812235 /* NelpTaskCreateViewController.xib */; };
+		F762D00F1B4B67B200812235 /* NelpTasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D00E1B4B67B200812235 /* NelpTasksTableViewCell.swift */; };
+		F762D0111B4B67D900812235 /* NelpTasksListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0101B4B67D900812235 /* NelpTasksListViewController.swift */; };
+		F762D0131B4B680300812235 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0121B4B680300812235 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,18 +36,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		193F04001B478AF8003CBDA6 /* NelpTasksStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTasksStore.swift; path = ../../Stores/NelpTasksStore.swift; sourceTree = "<group>"; };
-		193F04031B478D3E003CBDA6 /* NelpTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTask.swift; path = ../../Models/NelpTask.swift; sourceTree = "<group>"; };
-		193F040F1B485F75003CBDA6 /* AskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AskViewController.swift; path = ViewControllers/AskViewController.swift; sourceTree = "<group>"; };
-		193F04111B485F75003CBDA6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		193F04131B485F75003CBDA6 /* NelpTaskCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpTaskCreateViewController.swift; sourceTree = "<group>"; };
-		193F04141B485F75003CBDA6 /* NelpTaskCreateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NelpTaskCreateViewController.xib; sourceTree = "<group>"; };
-		193F04151B485F75003CBDA6 /* NelpTasksListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpTasksListViewController.swift; sourceTree = "<group>"; };
-		193F041E1B487915003CBDA6 /* NelpTasksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTasksTableViewCell.swift; path = ../../Views/NelpTasksTableViewCell.swift; sourceTree = "<group>"; };
-		195FD99A1B4B629C0040AD20 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		195FD99B1B4B629C0040AD20 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
-		195FD99E1B4B63390040AD20 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfile.swift; path = Nelper/Models/UserProfile.swift; sourceTree = SOURCE_ROOT; };
-		195FD9A01B4B636E0040AD20 /* NelpTaskOffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpTaskOffer.swift; sourceTree = "<group>"; };
 		199EF1EE1B37A0A500B25B07 /* Nelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		199EF1F21B37A0A500B25B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		199EF1F31B37A0A500B25B07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +49,16 @@
 		23FFD010F2A4237C6B5CA4FE /* libPods-Nelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		87798EBB00047D99CB9E0DD9 /* Pods-Nelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.debug.xcconfig"; sourceTree = "<group>"; };
 		ACD517EDE4DF772851877774 /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
-		F762CFFB1B4B4C6A00812235 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		F762D0001B4B65DC00812235 /* NelpTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpTask.swift; sourceTree = "<group>"; };
+		F762D0011B4B65DC00812235 /* NelpTasksStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpTasksStore.swift; sourceTree = "<group>"; };
+		F762D0041B4B66B000812235 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Nelper/Login/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
+		F762D0051B4B66B000812235 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Nelper/Login/LoginViewController.xib; sourceTree = SOURCE_ROOT; };
+		F762D0081B4B66E900812235 /* AskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AskViewController.swift; path = Nelp/AskViewController.swift; sourceTree = "<group>"; };
+		F762D00A1B4B673200812235 /* NelpTaskCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTaskCreateViewController.swift; path = "Nelper/Find Nelp/Create Nelp Task/NelpTaskCreateViewController.swift"; sourceTree = SOURCE_ROOT; };
+		F762D00B1B4B673200812235 /* NelpTaskCreateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NelpTaskCreateViewController.xib; path = "Nelper/Find Nelp/Create Nelp Task/NelpTaskCreateViewController.xib"; sourceTree = SOURCE_ROOT; };
+		F762D00E1B4B67B200812235 /* NelpTasksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTasksTableViewCell.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/NelpTasksTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
+		F762D0101B4B67D900812235 /* NelpTasksListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTasksListViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/NelpTasksListViewController.swift"; sourceTree = SOURCE_ROOT; };
+		F762D0121B4B680300812235 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = Nelper/Profile/ProfileViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +94,6 @@
 			children = (
 				F762CFFF1B4B594D00812235 /* Create Nelp Task */,
 				F762CFFE1B4B593600812235 /* Nelp Task Collection View */,
-				F762CFFD1B4B591D00812235 /* Model */,
 			);
 			name = "Find Nelp";
 			path = ViewControllers;
@@ -109,8 +102,8 @@
 		193F04101B485F75003CBDA6 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				193F04111B485F75003CBDA6 /* LoginViewController.swift */,
-				F762CFFB1B4B4C6A00812235 /* LoginViewController.xib */,
+				F762D0041B4B66B000812235 /* LoginViewController.swift */,
+				F762D0051B4B66B000812235 /* LoginViewController.xib */,
 			);
 			name = Login;
 			path = ViewControllers/Login;
@@ -119,7 +112,7 @@
 		193F041D1B4878E3003CBDA6 /* Nelp */ = {
 			isa = PBXGroup;
 			children = (
-				193F040F1B485F75003CBDA6 /* AskViewController.swift */,
+				F762D0081B4B66E900812235 /* AskViewController.swift */,
 			);
 			name = Nelp;
 			sourceTree = "<group>";
@@ -151,6 +144,7 @@
 				193F041D1B4878E3003CBDA6 /* Nelp */,
 				193F040E1B485F75003CBDA6 /* Find Nelp */,
 				F762CFF61B49E72800812235 /* Profile */,
+				F762CFFD1B4B591D00812235 /* Model */,
 				199EF1F91B37A0A500B25B07 /* Main.storyboard */,
 				199EF1F31B37A0A500B25B07 /* AppDelegate.swift */,
 				199EF1FC1B37A0A500B25B07 /* Images.xcassets */,
@@ -197,8 +191,7 @@
 		F762CFF61B49E72800812235 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				195FD99A1B4B629C0040AD20 /* ProfileViewController.swift */,
-				195FD99B1B4B629C0040AD20 /* ProfileViewController.xib */,
+				F762D0121B4B680300812235 /* ProfileViewController.swift */,
 			);
 			name = Profile;
 			path = ViewControllers;
@@ -207,20 +200,18 @@
 		F762CFFD1B4B591D00812235 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				193F04031B478D3E003CBDA6 /* NelpTask.swift */,
-				193F04001B478AF8003CBDA6 /* NelpTasksStore.swift */,
-				195FD99E1B4B63390040AD20 /* UserProfile.swift */,
-				195FD9A01B4B636E0040AD20 /* NelpTaskOffer.swift */,
+				F762D0001B4B65DC00812235 /* NelpTask.swift */,
+				F762D0011B4B65DC00812235 /* NelpTasksStore.swift */,
 			);
 			name = Model;
-			path = Offer;
+			path = ViewControllers/Offer;
 			sourceTree = "<group>";
 		};
 		F762CFFE1B4B593600812235 /* Nelp Task Collection View */ = {
 			isa = PBXGroup;
 			children = (
-				193F04151B485F75003CBDA6 /* NelpTasksListViewController.swift */,
-				193F041E1B487915003CBDA6 /* NelpTasksTableViewCell.swift */,
+				F762D0101B4B67D900812235 /* NelpTasksListViewController.swift */,
+				F762D00E1B4B67B200812235 /* NelpTasksTableViewCell.swift */,
 			);
 			name = "Nelp Task Collection View";
 			path = Offer;
@@ -229,8 +220,8 @@
 		F762CFFF1B4B594D00812235 /* Create Nelp Task */ = {
 			isa = PBXGroup;
 			children = (
-				193F04131B485F75003CBDA6 /* NelpTaskCreateViewController.swift */,
-				193F04141B485F75003CBDA6 /* NelpTaskCreateViewController.xib */,
+				F762D00A1B4B673200812235 /* NelpTaskCreateViewController.swift */,
+				F762D00B1B4B673200812235 /* NelpTaskCreateViewController.xib */,
 			);
 			name = "Create Nelp Task";
 			path = Offer;
@@ -318,12 +309,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				195FD99D1B4B629C0040AD20 /* ProfileViewController.xib in Resources */,
-				F762CFFC1B4B4C6A00812235 /* LoginViewController.xib in Resources */,
+				F762D0071B4B66B000812235 /* LoginViewController.xib in Resources */,
 				199EF1FB1B37A0A500B25B07 /* Main.storyboard in Resources */,
+				F762D00D1B4B673200812235 /* NelpTaskCreateViewController.xib in Resources */,
 				199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */,
 				199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */,
-				193F041A1B485F75003CBDA6 /* NelpTaskCreateViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,17 +364,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				193F04181B485F75003CBDA6 /* LoginViewController.swift in Sources */,
+				F762D0061B4B66B000812235 /* LoginViewController.swift in Sources */,
 				199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */,
-				195FD99F1B4B63390040AD20 /* UserProfile.swift in Sources */,
-				193F04041B478D3E003CBDA6 /* NelpTask.swift in Sources */,
-				193F041F1B487915003CBDA6 /* NelpTasksTableViewCell.swift in Sources */,
-				195FD9A11B4B636E0040AD20 /* NelpTaskOffer.swift in Sources */,
-				193F04011B478AF8003CBDA6 /* NelpTasksStore.swift in Sources */,
-				193F04191B485F75003CBDA6 /* NelpTaskCreateViewController.swift in Sources */,
-				195FD99C1B4B629C0040AD20 /* ProfileViewController.swift in Sources */,
-				193F041B1B485F75003CBDA6 /* NelpTasksListViewController.swift in Sources */,
-				193F04171B485F75003CBDA6 /* AskViewController.swift in Sources */,
+				F762D0091B4B66E900812235 /* AskViewController.swift in Sources */,
+				F762D0021B4B65DC00812235 /* NelpTask.swift in Sources */,
+				F762D00F1B4B67B200812235 /* NelpTasksTableViewCell.swift in Sources */,
+				F762D00C1B4B673200812235 /* NelpTaskCreateViewController.swift in Sources */,
+				F762D0131B4B680300812235 /* ProfileViewController.swift in Sources */,
+				F762D0031B4B65DC00812235 /* NelpTasksStore.swift in Sources */,
+				F762D0111B4B67D900812235 /* NelpTasksListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
