@@ -9,11 +9,11 @@
 import UIKit
 
 class OfferListViewController: UIViewController,
-  UITableViewDelegate, UITableViewDataSource, OfferCreateViewControllerDelegate {
+  UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate {
   
-  var offerStore = OfferStore()
+  var nelpStore = NelpTasksStore()
   
-  var offers = [Offer]()
+  var nelpTasks = [NelpTask]()
   
   var tableView: UITableView!
   var refreshView: UIRefreshControl!
@@ -21,7 +21,7 @@ class OfferListViewController: UIViewController,
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "onAddOfferClick")
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "onAddNelpTaskClick")
     
     let tableView = UITableView()
     tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
@@ -40,16 +40,16 @@ class OfferListViewController: UIViewController,
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return offers.count
+    return nelpTasks.count
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
     let cell = tableView.dequeueReusableCellWithIdentifier(OfferTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! OfferTableViewCell
     
-    let offer = self.offers[indexPath.item]
+    let nelpTask = self.nelpTasks[indexPath.item]
     
-    cell.setOffer(offer)
+    cell.setNelpTask(nelpTask)
     
     return cell
   }
@@ -58,13 +58,13 @@ class OfferListViewController: UIViewController,
     
   }
   
-  func offerAdded(offer: Offer) {
-    self.offers.append(offer)
+  func nelpTaskAdded(nelpTask: NelpTask) {
+    self.nelpTasks.append(nelpTask)
     self.tableView.reloadData()
   }
   
-  func onAddOfferClick() {
-    let vc = OfferCreateViewController(offerStore: offerStore)
+  func onAddNelpTaskClick() {
+    let vc = NelpTaskCreateViewController(nelpTasksStore: NelpTasksStore())
     vc.delegate = self
     self.navigationController?.pushViewController(vc, animated: true)
   }
@@ -74,11 +74,11 @@ class OfferListViewController: UIViewController,
   }
   
   func loadData() {
-    offerStore.listMyOffers { (offers: [Offer]?, error: NSError?) -> Void in
+    nelpStore.listMyOffers { (nelpTasks: [NelpTask]?, error: NSError?) -> Void in
       if error != nil {
         
       } else {
-        self.offers = offers!
+        self.nelpTasks = nelpTasks!
         
         self.refreshView?.endRefreshing()
         self.tableView?.reloadData()

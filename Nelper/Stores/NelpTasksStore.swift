@@ -8,12 +8,12 @@
 
 import Foundation
 
-class OfferStore {
+class NelpTasksStore {
   
-  func createWithTitle(title: String, description: String) -> Offer {
+  func createWithTitle(title: String, description: String) -> NelpTask {
     let user = PFUser.currentUser()!
     
-    let offer = Offer()
+    let offer = NelpTask()
     offer.title = title
     offer.desc = description
     offer.user = user
@@ -28,14 +28,14 @@ class OfferStore {
     return offer
   }
   
-  func listMyOffers(block: ([Offer]?, NSError?) -> Void) {
-    let query = Offer.query()!
+  func listMyOffers(block: ([NelpTask]?, NSError?) -> Void) {
+    let query = NelpTask.query()!
     query.whereKey("user", equalTo: PFUser.currentUser()!)
     query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
       if error != nil {
         block(nil, error)
       } else {
-        let offers = objects as! [Offer]
+        let offers = objects as! [NelpTask]
         block(offers, nil)
       }
     }

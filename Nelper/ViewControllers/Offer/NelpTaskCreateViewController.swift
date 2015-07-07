@@ -8,22 +8,22 @@
 
 import UIKit
 
-protocol OfferCreateViewControllerDelegate {
-  func offerAdded(offer: Offer) -> Void
+protocol NelpTaskCreateViewControllerDelegate {
+  func nelpTaskAdded(nelpTask: NelpTask) -> Void
 }
 
-class OfferCreateViewController: UIViewController {
+class NelpTaskCreateViewController: UIViewController {
   
   @IBOutlet weak var titleTextField: UITextField!
   @IBOutlet weak var descriptionTextView: UITextView!
   
-  var offerStore: OfferStore!
-  var delegate: OfferCreateViewControllerDelegate?
+  var nelpTasksStore: NelpTasksStore!
+  var delegate: NelpTaskCreateViewControllerDelegate?
   
-  convenience init(offerStore: OfferStore) {
-    self.init(nibName: "OfferCreateViewController", bundle: nil)
+  convenience init(nelpTasksStore: NelpTasksStore) {
+    self.init(nibName: "NelpTaskCreateViewController", bundle: nil)
     
-    self.offerStore = offerStore
+    self.nelpTasksStore = nelpTasksStore
   }
   
   override func viewDidLoad() {
@@ -32,7 +32,7 @@ class OfferCreateViewController: UIViewController {
     self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "onDoneClicked")
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "onCancelClicked")
     
-    self.title = "New offer"
+    self.title = "New task"
     
     titleTextField.layer.cornerRadius = 5
     titleTextField.layer.borderColor = UIColor.lightGrayColor().CGColor
@@ -57,11 +57,11 @@ class OfferCreateViewController: UIViewController {
       return
     }
     
-    let offer = offerStore.createWithTitle(titleTextField.text, description: descriptionTextView.text)
+    let nelpTask = nelpTasksStore.createWithTitle(titleTextField.text, description: descriptionTextView.text)
     
     self.navigationController?.popViewControllerAnimated(true)
     
-    delegate?.offerAdded(offer)
+    delegate?.nelpTaskAdded(nelpTask)
   }
   
   func onCancelClicked() {

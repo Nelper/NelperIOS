@@ -62,7 +62,7 @@ class OfferTableViewCell: UITableViewCell {
     }
   }
   
-  func setOffer(offer: Offer) {
-    titleLabel.text = offer.title
+  func setNelpTask(nelpTask: NelpTask) {
+    titleLabel.text = nelpTask.title
   }
 }

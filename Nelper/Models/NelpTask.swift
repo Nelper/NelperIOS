@@ -1,5 +1,5 @@
 //
-//  Offer.swift
+//  Nelp.swift
 //  Nelper
 //
 //  Created by Janic Duplessis on 2015-07-03.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Offer : PFObject, PFSubclassing {
+class NelpTask : PFObject, PFSubclassing {
   
   override class func initialize() {
     struct Static {
