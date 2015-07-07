@@ -15,14 +15,16 @@ class LoginViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
-  }
+  
+    
+}
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
   
-  @IBAction func loginWithFacebook(sender: UIButton) {
+@IBAction func facebookLogin(sender: AnyObject){
     PFFacebookUtils.logInWithPermissions(self.permissions, block: { (user: PFUser?, error: NSError?) -> Void in
       if error != nil {
         self.handleFBLoginError(error!)
@@ -37,7 +39,7 @@ class LoginViewController: UIViewController {
         self.getFBUserInfo()
       }
     })
-  }
+}
   
   private func getFBUserInfo() {
     FBRequestConnection.startForMeWithCompletionHandler { (conn:FBRequestConnection!, user:AnyObject!, error:NSError!) -> Void in

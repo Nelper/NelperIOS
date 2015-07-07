@@ -22,6 +22,7 @@
 		199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */; };
 		199EF20C1B37A0A500B25B07 /* NelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF20B1B37A0A500B25B07 /* NelperTests.swift */; };
 		291C50CA07CE790A9BD281EE /* libPods-Nelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23FFD010F2A4237C6B5CA4FE /* libPods-Nelper.a */; };
+		F762CFFC1B4B4C6A00812235 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F762CFFB1B4B4C6A00812235 /* LoginViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		23FFD010F2A4237C6B5CA4FE /* libPods-Nelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		87798EBB00047D99CB9E0DD9 /* Pods-Nelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.debug.xcconfig"; sourceTree = "<group>"; };
 		ACD517EDE4DF772851877774 /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
+		F762CFFB1B4B4C6A00812235 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +92,7 @@
 		193F03FF1B478AC4003CBDA6 /* Stores */ = {
 			isa = PBXGroup;
 			children = (
-				193F04001B478AF8003CBDA6 /* OfferStore.swift */,
+				F762CFFA1B49E76900812235 /* Offer */,
 			);
 			name = Stores;
 			sourceTree = "<group>";
@@ -98,7 +100,7 @@
 		193F04021B478D18003CBDA6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				193F04031B478D3E003CBDA6 /* Offer.swift */,
+				F762CFF91B49E75C00812235 /* Offer */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -106,10 +108,10 @@
 		193F040E1B485F75003CBDA6 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				193F040F1B485F75003CBDA6 /* AskViewController.swift */,
-				193F04101B485F75003CBDA6 /* Login */,
+				F762CFF71B49E73800812235 /* Ask */,
 				193F04121B485F75003CBDA6 /* Offer */,
-				193F04161B485F75003CBDA6 /* ProfileViewController.swift */,
+				193F04101B485F75003CBDA6 /* Login */,
+				F762CFF61B49E72800812235 /* Profile */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				193F04111B485F75003CBDA6 /* LoginViewController.swift */,
+				F762CFFB1B4B4C6A00812235 /* LoginViewController.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -135,7 +138,7 @@
 		193F041D1B4878E3003CBDA6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				193F041E1B487915003CBDA6 /* OfferTableViewCell.swift */,
+				F762CFF81B49E75300812235 /* Offer */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -208,6 +211,46 @@
 				23FFD010F2A4237C6B5CA4FE /* libPods-Nelper.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F762CFF61B49E72800812235 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				193F04161B485F75003CBDA6 /* ProfileViewController.swift */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		F762CFF71B49E73800812235 /* Ask */ = {
+			isa = PBXGroup;
+			children = (
+				193F040F1B485F75003CBDA6 /* AskViewController.swift */,
+			);
+			name = Ask;
+			sourceTree = "<group>";
+		};
+		F762CFF81B49E75300812235 /* Offer */ = {
+			isa = PBXGroup;
+			children = (
+				193F041E1B487915003CBDA6 /* OfferTableViewCell.swift */,
+			);
+			name = Offer;
+			sourceTree = "<group>";
+		};
+		F762CFF91B49E75C00812235 /* Offer */ = {
+			isa = PBXGroup;
+			children = (
+				193F04031B478D3E003CBDA6 /* Offer.swift */,
+			);
+			name = Offer;
+			sourceTree = "<group>";
+		};
+		F762CFFA1B49E76900812235 /* Offer */ = {
+			isa = PBXGroup;
+			children = (
+				193F04001B478AF8003CBDA6 /* OfferStore.swift */,
+			);
+			name = Offer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,6 +335,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F762CFFC1B4B4C6A00812235 /* LoginViewController.xib in Resources */,
 				199EF1FB1B37A0A500B25B07 /* Main.storyboard in Resources */,
 				199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */,
 				199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */,
