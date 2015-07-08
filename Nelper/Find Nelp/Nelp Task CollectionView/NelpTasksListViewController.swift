@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OfferListViewController: UIViewController,
+class NelpTasksListViewController: UIViewController,
   UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate {
   
   var nelpStore = NelpTasksStore()
@@ -17,6 +17,10 @@ class OfferListViewController: UIViewController,
   
   var tableView: UITableView!
   var refreshView: UIRefreshControl!
+  
+  convenience init() {
+    self.init(nibName: "NelpTasksListViewController", bundle: nil)
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -28,13 +32,15 @@ class OfferListViewController: UIViewController,
     tableView.delegate = self
     tableView.dataSource = self
     tableView.registerClass(OfferTableViewCell.classForCoder(), forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
-    self.view = tableView
+    
     self.tableView = tableView
     
     let refreshView = UIRefreshControl()
     refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
     self.tableView.addSubview(refreshView)
     self.refreshView = refreshView
+    
+    self.view = tableView
     
     loadData()
   }

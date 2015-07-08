@@ -8,23 +8,30 @@
 
 import UIKit
 
+protocol LoginViewControllerDelegate {
+  func onLogin() -> Void
+}
+
 class LoginViewController: UIViewController {
   
   let permissions = ["public_profile"]
   
+  var delegate: LoginViewControllerDelegate?
+  
+  convenience init() {
+    self.init(nibName: "LoginViewController", bundle: nil)
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
-  
-    
-}
+  }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
   
-@IBAction func facebookLogin(sender: AnyObject){
+  @IBAction func facebookLogin(sender: UIButton) {
     PFFacebookUtils.logInWithPermissions(self.permissions, block: { (user: PFUser?, error: NSError?) -> Void in
       if error != nil {
         self.handleFBLoginError(error!)
@@ -39,9 +46,9 @@ class LoginViewController: UIViewController {
         self.getFBUserInfo()
       }
     })
-}
-  
-  private func getFBUserInfo() {
+  }
+
+  func getFBUserInfo() {
     FBRequestConnection.startForMeWithCompletionHandler { (conn:FBRequestConnection!, user:AnyObject!, error:NSError!) -> Void in
       if error != nil {
         self.loginCompleted()
@@ -54,11 +61,11 @@ class LoginViewController: UIViewController {
     }
   }
   
-  private func loginCompleted() {
-    performSegueWithIdentifier("login_segue", sender: self)
+  func loginCompleted() {
+    delegate?.onLogin()
   }
-
-  private func handleFBLoginError(error: NSError) {
+  
+  func handleFBLoginError(error: NSError) {
     var alertMessage,
     alertTitle: String?
     var errorCategory = FBErrorUtility.errorCategoryForError(error)

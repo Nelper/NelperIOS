@@ -15,7 +15,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ngc-t7-N0o">
-                    <rect key="frame" x="277" y="285" width="49" height="30"/>
+                    <rect key="frame" x="276" y="285" width="49" height="30"/>
                     <state key="normal" title="Logout">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -23,7 +23,7 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Ngc-t7-N0o" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="277" id="3gT-Ee-8jn"/>
+                <constraint firstAttribute="centerX" secondItem="Ngc-t7-N0o" secondAttribute="centerX" constant="-0.5" id="dje-h7-vrb"/>
                 <constraint firstItem="Ngc-t7-N0o" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="mFe-yu-Ugz"/>
             </constraints>
         </view>

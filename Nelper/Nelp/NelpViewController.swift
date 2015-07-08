@@ -1,23 +1,23 @@
 //
-//  ProfileViewController.swift
+//  NelpViewController.swift
 //  Nelper
 //
-//  Created by Janic Duplessis on 2015-07-06.
+//  Created by Janic Duplessis on 2015-07-07.
 //  Copyright (c) 2015 Nelper. All rights reserved.
 //
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class NelpViewController: UIViewController {
   
   convenience init() {
-    self.init(nibName: "ProfileViewController", bundle: nil)
+    self.init(nibName: "NelpViewController", bundle: nil)
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    
+    // Do any additional setup after loading the view.
   }
   
   override func didReceiveMemoryWarning() {
