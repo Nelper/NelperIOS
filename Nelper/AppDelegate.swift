@@ -10,7 +10,7 @@ import UIKit
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelegate {
 
   var window: UIWindow?
 
@@ -26,15 +26,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     PFFacebookUtils.initializeFacebook()
     
-    if(PFUser.currentUser() == nil) {
+    self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+    self.window!.rootViewController = UIViewController()
+    self.window!.makeKeyAndVisible()
+    
+    let user = PFUser.currentUser()
+    if(PFUser.currentUser()?.username == nil) {
       // If the user is not logged show the login page.
-      let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      let loginVC = storyboard.instantiateViewControllerWithIdentifier("loginViewController") as! UIViewController
-      self.window!.makeKeyAndVisible()
-      self.window!.rootViewController!.presentViewController(loginVC, animated: false, completion: nil)
+      let loginVC = LoginViewController()
+      loginVC.delegate = self
+      self.window!.rootViewController = loginVC
+    } else {
+      // Show the main app.
+      let tabVC = initAppViewController()
+      self.window?.rootViewController = tabVC
     }
     
     return true
+  }
+  
+  // LoginViewControllerDelegate
+  func onLogin() {
+    let tabVC = initAppViewController()
+    self.window?.rootViewController?.presentViewController(tabVC, animated: true, completion: nil)
+  }
+  
+  // Init the main app tab view controller
+  func initAppViewController() -> UITabBarController {
+    let nelpVC = NelpViewController()
+    nelpVC.tabBarItem = UITabBarItem(title: "Nelp", image: nil, tag: 1)
+    let findNelpVC = NelpTasksListViewController()
+    findNelpVC.tabBarItem = UITabBarItem(title: "Find Nelp", image: nil, tag: 2)
+    let profileVC = ProfileViewController()
+    profileVC.tabBarItem = UITabBarItem(title: "Profile", image: nil, tag: 3)
+    
+    let controllers = [nelpVC, findNelpVC, profileVC]
+    
+    let tabVC = UITabBarController()
+    tabVC.viewControllers = controllers
+    
+    return tabVC
   }
 
   func applicationWillResignActive(application: UIApplication) {

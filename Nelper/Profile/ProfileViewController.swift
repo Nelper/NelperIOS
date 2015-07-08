@@ -10,6 +10,10 @@ import UIKit
 
 class ProfileViewController: UIViewController {
   
+  convenience init() {
+    self.init(nibName: "ProfileViewController", bundle: nil)
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     

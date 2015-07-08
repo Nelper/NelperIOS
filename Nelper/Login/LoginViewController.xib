@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="Nelper" customModuleProvider="target">
             <connections>
-                <outlet property="facebookLogin" destination="8Jp-zK-qb5" id="8UA-iW-9bG"/>
+                <outlet property="view" destination="iN0-l3-epB" id="0Qp-Q5-02s"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -14,49 +14,66 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StackingDemMILLIS" translatesAutoresizingMaskIntoConstraints="NO" id="YVV-BU-1A8">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StackingDemMILLIS" translatesAutoresizingMaskIntoConstraints="NO" id="3oG-Xr-gvR">
+                    <rect key="frame" x="0.0" y="1" width="375" height="667"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Jp-zK-qb5">
-                    <rect key="frame" x="119" y="319" width="136" height="30"/>
-                    <state key="normal" title="Facebook Login">
-                        <color key="titleColor" red="0.90196084980000002" green="0.16078431900000001" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="facebookLogin:" destination="-1" eventType="touchUpInside" id="HSk-Sa-vhd"/>
-                    </connections>
-                </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OiZ-YG-YFN">
-                    <rect key="frame" x="139" y="281" width="97" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nD1-lz-BOS">
-                    <rect key="frame" x="139" y="243" width="97" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9V-fp-1i3">
+                    <rect key="frame" x="132" y="275" width="111" height="118"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nD1-lz-BOS">
+                            <rect key="frame" x="20" y="20" width="72" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OiZ-YG-YFN">
+                            <rect key="frame" x="20" y="58" width="72" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Jp-zK-qb5">
+                            <rect key="frame" x="0.0" y="88" width="111" height="30"/>
+                            <state key="normal" title="Facebook Login">
+                                <color key="titleColor" red="0.90196084980000002" green="0.16078431900000001" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="facebookLogin:" destination="-1" eventType="touchUpInside" id="ShK-3F-dhn"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="nD1-lz-BOS" firstAttribute="leading" secondItem="OiZ-YG-YFN" secondAttribute="leading" id="1ce-OU-9iv"/>
+                        <constraint firstItem="8Jp-zK-qb5" firstAttribute="centerX" secondItem="OiZ-YG-YFN" secondAttribute="centerX" id="1eP-0U-yNm"/>
+                        <constraint firstAttribute="bottom" secondItem="8Jp-zK-qb5" secondAttribute="bottom" id="2Zc-vb-WNq"/>
+                        <constraint firstItem="nD1-lz-BOS" firstAttribute="top" secondItem="g9V-fp-1i3" secondAttribute="top" constant="20" id="8YI-n8-3lp"/>
+                        <constraint firstItem="nD1-lz-BOS" firstAttribute="leading" secondItem="g9V-fp-1i3" secondAttribute="leading" constant="20" id="BfJ-uX-5pR"/>
+                        <constraint firstItem="8Jp-zK-qb5" firstAttribute="leading" secondItem="g9V-fp-1i3" secondAttribute="leading" id="ITL-m2-MOk"/>
+                        <constraint firstItem="OiZ-YG-YFN" firstAttribute="top" secondItem="nD1-lz-BOS" secondAttribute="bottom" constant="8" symbolic="YES" id="ac1-r0-uz8"/>
+                        <constraint firstAttribute="trailing" secondItem="8Jp-zK-qb5" secondAttribute="trailing" id="gX8-ep-0Dk"/>
+                        <constraint firstItem="nD1-lz-BOS" firstAttribute="trailing" secondItem="OiZ-YG-YFN" secondAttribute="trailing" id="sOS-1E-bYk"/>
+                        <constraint firstItem="8Jp-zK-qb5" firstAttribute="top" secondItem="OiZ-YG-YFN" secondAttribute="bottom" id="wde-uf-TzT"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="YVV-BU-1A8" secondAttribute="bottom" id="Xcu-u4-zEF"/>
-                <constraint firstItem="YVV-BU-1A8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dLU-9R-w49"/>
-                <constraint firstItem="YVV-BU-1A8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="iI8-t2-SXn"/>
-                <constraint firstItem="YVV-BU-1A8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="nb8-7e-d1r"/>
-                <constraint firstAttribute="trailing" secondItem="YVV-BU-1A8" secondAttribute="trailing" id="pU9-Im-4ee"/>
-                <constraint firstItem="YVV-BU-1A8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ulO-S3-Fs1"/>
-                <constraint firstAttribute="trailing" secondItem="YVV-BU-1A8" secondAttribute="trailing" id="xnE-D0-NMO"/>
+                <constraint firstItem="3oG-Xr-gvR" firstAttribute="centerY" secondItem="g9V-fp-1i3" secondAttribute="centerY" id="0zs-0e-cYj"/>
+                <constraint firstItem="g9V-fp-1i3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="8em-eE-JKv"/>
+                <constraint firstAttribute="centerY" secondItem="g9V-fp-1i3" secondAttribute="centerY" id="EgP-4J-kZV"/>
+                <constraint firstItem="3oG-Xr-gvR" firstAttribute="centerX" secondItem="g9V-fp-1i3" secondAttribute="centerX" id="aEf-6m-xSN"/>
+                <constraint firstItem="g9V-fp-1i3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="261" id="dIv-sq-yaS"/>
+                <constraint firstItem="g9V-fp-1i3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="119" id="dyc-EK-X4O"/>
+                <constraint firstItem="3oG-Xr-gvR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="1" id="faq-76-afE"/>
+                <constraint firstItem="3oG-Xr-gvR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="wjB-o3-h1u"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
             <variation key="default">
                 <mask key="constraints">
-                    <exclude reference="iI8-t2-SXn"/>
-                    <exclude reference="nb8-7e-d1r"/>
-                    <exclude reference="pU9-Im-4ee"/>
+                    <exclude reference="dIv-sq-yaS"/>
+                    <exclude reference="dyc-EK-X4O"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="315.5" y="236.5"/>
+            <point key="canvasLocation" x="342.5" y="247.5"/>
         </view>
     </objects>
     <resources>
