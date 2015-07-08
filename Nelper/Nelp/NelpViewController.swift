@@ -1,5 +1,5 @@
 //
-//  AskViewController.swift
+//  NelpViewController.swift
 //  Nelper
 //
 //  Created by Janic Duplessis on 2015-06-21.
@@ -8,8 +8,12 @@
 
 import UIKit
 
-class AskViewController: UIViewController {
+class NelpViewController: UIViewController {
 
+    @IBOutlet weak var mapViewContainer: UIView!
+    @IBOutlet weak var auctionsListContainer: UIView!
+    
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
