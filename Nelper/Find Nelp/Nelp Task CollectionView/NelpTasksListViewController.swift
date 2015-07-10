@@ -8,8 +8,6 @@
 
 import UIKit
 
-import SnapKit
-
 class NelpTasksListViewController: UIViewController,
   UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate {
   
@@ -29,24 +27,24 @@ class NelpTasksListViewController: UIViewController,
     
     self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "onAddNelpTaskClick")
     
-    let tableView = UITableView()
-    tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
-    tableView.delegate = self
-    tableView.dataSource = self
-    tableView.registerClass(OfferTableViewCell.classForCoder(), forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
-    
-    let box = UIView()
-    
-    self.tableView = tableView
-    
-    let refreshView = UIRefreshControl()
-    refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
-    self.tableView.addSubview(refreshView)
-    self.refreshView = refreshView
-    
-    self.view = tableView
-    
-    loadData()
+//    let tableView = UITableView()
+//    tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+//    tableView.delegate = self
+//    tableView.dataSource = self
+//    tableView.registerClass(OfferTableViewCell.classForCoder(), forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
+//    
+//    let box = UIView()
+//    
+//    self.tableView = tableView
+//    
+//    let refreshView = UIRefreshControl()
+//    refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
+//    self.tableView.addSubview(refreshView)
+//    self.refreshView = refreshView
+//    
+//    self.view = tableView
+//    
+//    loadData()
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
