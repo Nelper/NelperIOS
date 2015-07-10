@@ -49,7 +49,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		108652A897B5CD3C3E143DF4 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		190F622E1B4F5BC80091A1D1 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Nelper/Frameworks/Bolts.framework; sourceTree = "<group>"; };
 		190F622F1B4F5BC80091A1D1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = Nelper/Frameworks/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		190F62301B4F5BC80091A1D1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = Nelper/Frameworks/FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -77,8 +76,6 @@
 		199EF20A1B37A0A500B25B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		199EF20B1B37A0A500B25B07 /* NelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NelperTests.swift; sourceTree = "<group>"; };
 		19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nelper-Bridging-Header.h"; sourceTree = "<group>"; };
-		87798EBB00047D99CB9E0DD9 /* Pods-Nelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.debug.xcconfig"; sourceTree = "<group>"; };
-		ACD517EDE4DF772851877774 /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
 		F762D0041B4B66B000812235 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Nelper/Login/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		F762D0051B4B66B000812235 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Nelper/Login/LoginViewController.xib; sourceTree = SOURCE_ROOT; };
 		F762D00A1B4B673200812235 /* NelpTaskCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTaskCreateViewController.swift; path = "Nelper/Find Nelp/Create Nelp Task/NelpTaskCreateViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -116,15 +113,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		004B883F6351E7FCFC97D223 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				87798EBB00047D99CB9E0DD9 /* Pods-Nelper.debug.xcconfig */,
-				ACD517EDE4DF772851877774 /* Pods-Nelper.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		193F040E1B485F75003CBDA6 /* Find Nelp */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,7 +148,6 @@
 				199EF1F01B37A0A500B25B07 /* Nelper */,
 				199EF2081B37A0A500B25B07 /* NelperTests */,
 				199EF1EF1B37A0A500B25B07 /* Products */,
-				004B883F6351E7FCFC97D223 /* Pods */,
 				E00C0A7D0D690598AC42849C /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -229,7 +216,6 @@
 				190F62311B4F5BC80091A1D1 /* Parse.framework */,
 				190F62321B4F5BC80091A1D1 /* ParseCrashReporting.framework */,
 				190F62331B4F5BC80091A1D1 /* ParseFacebookUtilsV4.framework */,
-				108652A897B5CD3C3E143DF4 /* Pods_Nelper.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -506,7 +492,6 @@
 		};
 		199EF2101B37A0A500B25B07 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 87798EBB00047D99CB9E0DD9 /* Pods-Nelper.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -528,7 +513,6 @@
 		};
 		199EF2111B37A0A500B25B07 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ACD517EDE4DF772851877774 /* Pods-Nelper.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
