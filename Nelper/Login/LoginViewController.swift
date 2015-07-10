@@ -32,9 +32,10 @@ class LoginViewController: UIViewController {
   }
   
   @IBAction func facebookLogin(sender: UIButton) {
-    PFFacebookUtils.logInWithPermissions(self.permissions, block: { (user: PFUser?, error: NSError?) -> Void in
+    PFFacebookUtils.logInInBackgroundWithReadPermissions(self.permissions) { (user: PFUser?, error: NSError?) -> Void in
       if error != nil {
-        self.handleFBLoginError(error!)
+        //TODO: handle login errors.
+        NSLog("Login error")
         return
       }
       
@@ -45,15 +46,16 @@ class LoginViewController: UIViewController {
         NSLog("User logged in through Facebook! \(user!.username)")
         self.getFBUserInfo()
       }
-    })
+    }
   }
 
   func getFBUserInfo() {
-    FBRequestConnection.startForMeWithCompletionHandler { (conn:FBRequestConnection!, user:AnyObject!, error:NSError!) -> Void in
+    let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
+    request.startWithCompletionHandler { (conn:FBSDKGraphRequestConnection!, user:AnyObject!, error:NSError!) -> Void in
       if error != nil {
         self.loginCompleted()
       } else {
-        PFUser.currentUser()!.setValue(user.name, forKey: "name")
+        PFUser.currentUser()!.setValue(user.valueForKey("name"), forKey: "name")
         PFUser.currentUser()!.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
           self.loginCompleted()
         })
@@ -63,32 +65,6 @@ class LoginViewController: UIViewController {
   
   func loginCompleted() {
     delegate?.onLogin()
-  }
-  
-  func handleFBLoginError(error: NSError) {
-    var alertMessage,
-    alertTitle: String?
-    var errorCategory = FBErrorUtility.errorCategoryForError(error)
-    if FBErrorUtility.shouldNotifyUserForError(error) {
-      // If the SDK has a message for the user, show it.
-      alertTitle = "Something Went Wrong"
-      alertMessage = FBErrorUtility.userMessageForError(error)
-    } else if errorCategory == FBErrorCategory.AuthenticationReopenSession {
-      // It is important to handle session closures. We notify the user.
-      alertTitle = "Session Error"
-      alertMessage = "Your current session is no longer valid. Please log in again."
-    } else if errorCategory == FBErrorCategory.UserCancelled {
-      NSLog("user cancelled login")
-    } else {
-      // Handle all other errors in a generic fashion
-      alertTitle  = "Unknown Error"
-      alertMessage = "Error. Please try again later."
-    }
-    
-    if alertMessage != nil {
-      var alert = UIAlertController(title: alertTitle, message: alertMessage,preferredStyle: UIAlertControllerStyle.Alert)
-      self.presentViewController(alert, animated: true, completion: nil)
-    }
   }
 }
 
