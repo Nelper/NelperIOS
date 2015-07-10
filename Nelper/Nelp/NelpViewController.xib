@@ -6,29 +6,38 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NelpViewController" customModule="Nelper" customModuleProvider="target">
             <connections>
+                <outlet property="mapView" destination="FhG-X9-U6s" id="lXy-5t-YgY"/>
+                <outlet property="taskTableView" destination="pac-RJ-fwd" id="GeJ-RX-D0z"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nelp" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jb5-Uc-pBd">
-                    <rect key="frame" x="282" y="289" width="36" height="21"/>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="FhG-X9-U6s">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="21" id="GAW-bC-Onh"/>
+                        <constraint firstAttribute="height" constant="450" id="m1u-Th-htt"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                </mapView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pac-RJ-fwd">
+                    <rect key="frame" x="0.0" y="450" width="375" height="217"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerY" secondItem="jb5-Uc-pBd" secondAttribute="centerY" id="Z4i-4p-6o5"/>
-                <constraint firstItem="jb5-Uc-pBd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="iif-TZ-hbS"/>
+                <constraint firstItem="pac-RJ-fwd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5ig-X6-2ds"/>
+                <constraint firstAttribute="bottom" secondItem="pac-RJ-fwd" secondAttribute="bottom" id="GgF-6K-wsi"/>
+                <constraint firstItem="FhG-X9-U6s" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TEJ-rZ-BEP"/>
+                <constraint firstAttribute="trailing" secondItem="pac-RJ-fwd" secondAttribute="trailing" id="bgh-eb-Pqm"/>
+                <constraint firstAttribute="trailing" secondItem="FhG-X9-U6s" secondAttribute="trailing" id="c9z-RB-XIw"/>
+                <constraint firstItem="pac-RJ-fwd" firstAttribute="top" secondItem="FhG-X9-U6s" secondAttribute="bottom" id="pC8-JR-JPj"/>
+                <constraint firstItem="FhG-X9-U6s" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="xVJ-Bi-Abx"/>
             </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
         </view>
     </objects>
 </document>

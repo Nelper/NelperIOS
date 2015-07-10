@@ -7,14 +7,22 @@
 //
 
 import UIKit
+import MapKit
 
 class NelpViewController: UIViewController {
-
-    @IBOutlet weak var mapViewContainer: UIView!
-    @IBOutlet weak var auctionsListContainer: UIView!
     
+
+@IBOutlet weak var mapView: MKMapView!
+@IBOutlet weak var taskTableView: UITableView!
+    
+    
+    convenience init() {
+        self.init(nibName: "NelpViewController", bundle: nil)
+    }
+
     
   override func viewDidLoad() {
+    
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
   }

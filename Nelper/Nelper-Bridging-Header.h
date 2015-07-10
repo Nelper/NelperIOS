@@ -6,3 +6,4 @@
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <Parse/Parse.h>
 #import <Bolts/Bolts.h>
+#import <MapKit/MapKit.h>
