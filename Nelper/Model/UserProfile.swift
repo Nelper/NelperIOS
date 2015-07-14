@@ -23,8 +23,9 @@ class UserProfile : PFObject, PFSubclassing {
     return "UserProfile"
   }
   
-  @NSManaged var firstName: String?
-  @NSManaged var lastName: String?
+    @NSManaged var firstName: String?
+    @NSManaged var lastName: String?
+    @NSManaged var feedback:Int
   
   
 }

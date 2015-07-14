@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 class NelpTask : PFObject, PFSubclassing {
   
   override class func initialize() {
@@ -20,10 +21,14 @@ class NelpTask : PFObject, PFSubclassing {
   }
   
   static func parseClassName() -> String {
-    return "Offer"
+    return "NelpTask"
   }
   
-  @NSManaged var title: String!
-  @NSManaged var desc: String!
-  @NSManaged var user: PFUser!
+    @NSManaged var title: String!
+    @NSManaged var desc: String!
+    @NSManaged var user: PFUser!
+    @NSManaged var location : String!
+    @NSManaged var priceOffered : String!
+    @NSManaged var pictures : Array<UIImage>
+		@NSManaged var applications:Array<NelpTaskApplication>
 }

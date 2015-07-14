@@ -10,22 +10,23 @@ import Foundation
 
 class NelpTasksStore {
   
-  func createWithTitle(title: String, description: String) -> NelpTask {
+	func createWithTitle(title: String, description: String, priceOffered:String) -> NelpTask {
     let user = PFUser.currentUser()!
     
-    let offer = NelpTask()
-    offer.title = title
-    offer.desc = description
-    offer.user = user
+    let task = NelpTask()
+    task.title = title
+    task.desc = description
+    task.user = user
+		task.priceOffered = priceOffered
     
     let acl = PFACL(user: user)
     acl.setPublicReadAccess(true)
     acl.setPublicWriteAccess(false)
-    offer.ACL = acl
+    task.ACL = acl
     
-    offer.saveEventually()
+    task.saveEventually()
     
-    return offer
+    return task
   }
   
   func listMyOffers(block: ([NelpTask]?, NSError?) -> Void) {
@@ -35,8 +36,8 @@ class NelpTasksStore {
       if error != nil {
         block(nil, error)
       } else {
-        let offers = objects as! [NelpTask]
-        block(offers, nil)
+        let tasks = objects as! [NelpTask]
+        block(tasks, nil)
       }
     }
   }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OfferTableViewCell: UITableViewCell {
+class NelpTasksTableViewCell: UITableViewCell {
   
   var titleLabel: UILabel!
   
@@ -58,7 +58,7 @@ class OfferTableViewCell: UITableViewCell {
   
   static var reuseIdentifier: String {
     get {
-      return "OfferTableViewCell"
+      return "NelpTasksTableViewCell"
     }
   }
   

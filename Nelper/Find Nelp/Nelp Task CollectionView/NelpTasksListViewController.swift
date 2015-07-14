@@ -8,52 +8,78 @@
 
 import UIKit
 
+
 class NelpTasksListViewController: UIViewController,
   UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate {
   
-  var nelpStore = NelpTasksStore()
   
-  var nelpTasks = [NelpTask]()
+    @IBOutlet weak var tasksListContainer: UIView!
+    @IBOutlet weak var navBar: UIView!
+    @IBOutlet weak var addTaskButton: UIButton!
+		@IBOutlet weak var logoImage: UIImageView!
+    
+    var nelpStore = NelpTasksStore()
+    var nelpTasks = [NelpTask]()
   
-  var tableView: UITableView!
-  var refreshView: UIRefreshControl!
+    var tableView: UITableView!
+    var refreshView: UIRefreshControl!
+    
   
-  convenience init() {
-    self.init(nibName: "NelpTasksListViewController", bundle: nil)
+    
+    convenience init() {
+        self.init(nibName: "NelpTasksListViewController", bundle: nil)
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
+		self.adjustUI()
+		loadData()
+		//If the users has no tasks, the TableView is not created, else it does.
+    if (!self.nelpTasks.isEmpty){
+        self.createTasksTableView()
+    }
+}
+
+    //If the user has tasks, creates the tableView.
+    func createTasksTableView(){
+        let tableView = UITableView()
+        tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.registerClass(NelpTasksTableViewCell.classForCoder(), forCellReuseIdentifier: NelpTasksTableViewCell.reuseIdentifier)
+        
+        
+        self.tableView = tableView
+        
+        let refreshView = UIRefreshControl()
+        refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshView)
+        self.refreshView = refreshView
+        
+        self.tasksListContainer.addSubview(tableView)
+        
+        loadData()
+	}
+	
+	
+	//Adjusts UI(Font,colors etc)
+	func adjustUI(){
+		self.navBar.backgroundColor = fireColor
+		self.logoImage.image = UIImage(named: "logo_nobackground_v2")
+		self.tasksListContainer.backgroundColor = fireColor
+		
+	}
     
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "onAddNelpTaskClick")
     
-//    let tableView = UITableView()
-//    tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
-//    tableView.delegate = self
-//    tableView.dataSource = self
-//    tableView.registerClass(OfferTableViewCell.classForCoder(), forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
-//    
-//    let box = UIView()
-//    
-//    self.tableView = tableView
-//    
-//    let refreshView = UIRefreshControl()
-//    refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
-//    self.tableView.addSubview(refreshView)
-//    self.refreshView = refreshView
-//    
-//    self.view = tableView
-//    
-//    loadData()
-  }
-  
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	
+	//Delegate methods
+	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return nelpTasks.count
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-    let cell = tableView.dequeueReusableCellWithIdentifier(OfferTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! OfferTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier(NelpTasksTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpTasksTableViewCell
     
     let nelpTask = self.nelpTasks[indexPath.item]
     
@@ -65,22 +91,23 @@ class NelpTasksListViewController: UIViewController,
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
   }
-  
+    
   func nelpTaskAdded(nelpTask: NelpTask) {
     self.nelpTasks.append(nelpTask)
-    self.tableView.reloadData()
-  }
-  
-  func onAddNelpTaskClick() {
-    let vc = NelpTaskCreateViewController(nelpTasksStore: NelpTasksStore())
-    vc.delegate = self
-    self.navigationController?.pushViewController(vc, animated: true)
+		self.loadData()
+		if(self.tableView == nil){
+			self.createTasksTableView()
+			self.tableView.reloadData()
+		}else{
+    self.tableView?.reloadData()
+		}
   }
   
   func onPullToRefresh() {
     loadData()
   }
-  
+	
+	
   func loadData() {
     nelpStore.listMyOffers { (nelpTasks: [NelpTask]?, error: NSError?) -> Void in
       if error != nil {
@@ -93,6 +120,14 @@ class NelpTasksListViewController: UIViewController,
       }
     }
     
-  }
+}
+ 
+//When the add task button is tapped, shows the form to create a task.
+	@IBAction func addTaskButtonTapped(sender: AnyObject) {
+		var taskCreateVC = NelpTaskCreateViewController(nibName:"NelpTaskCreateViewController", bundle: nil)
+		taskCreateVC.delegate = self
+		self.presentViewController(taskCreateVC, animated:true, completion: nil)
+	
+	}
   
 }
