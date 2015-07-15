@@ -9,7 +9,9 @@
 import Foundation
 
 
-let fireColor = hexStringToUIColor("de1f1f")
+let orangeMainColor = hexStringToUIColor("d95330")
+let orangeSecondaryColor = hexStringToUIColor("d98b30")
+let whiteNelpyColor = hexStringToUIColor ("eaeaea")
 
 
 

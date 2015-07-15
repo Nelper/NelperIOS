@@ -9,6 +9,7 @@
                 <outlet property="addTaskButton" destination="6gR-Bu-HZe" id="OhY-Qd-kdV"/>
                 <outlet property="logoImage" destination="hqd-FJ-XYr" id="8IA-h0-qib"/>
                 <outlet property="navBar" destination="iUh-zX-ahT" id="rlY-6f-zPc"/>
+                <outlet property="noTaskMessage" destination="tSp-VW-IfB" id="iNg-ld-1cf"/>
                 <outlet property="tasksListContainer" destination="cy9-vA-CR1" id="hN4-8F-YLW"/>
                 <outlet property="view" destination="iN0-l3-epB" id="waj-4D-607"/>
             </connections>
@@ -37,8 +38,9 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iUh-zX-ahT">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6gR-Bu-HZe">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6gR-Bu-HZe">
                             <rect key="frame" x="334" y="24" width="64" height="30"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                             <state key="normal" title="Add Task">
                                 <color key="titleColor" red="0.97307621160000002" green="1" blue="0.93897722709999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -48,7 +50,7 @@
                             </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hqd-FJ-XYr">
-                            <rect key="frame" x="187" y="18" width="40" height="40"/>
+                            <rect key="frame" x="187" y="30" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="40" id="D9C-tO-MeM"/>
                                 <constraint firstAttribute="height" constant="40" id="bVF-no-yQU"/>
@@ -58,7 +60,7 @@
                     <color key="backgroundColor" red="1" green="0.0" blue="0.1107546368" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="centerY" secondItem="hqd-FJ-XYr" secondAttribute="centerY" id="0ps-eQ-NUd"/>
-                        <constraint firstItem="hqd-FJ-XYr" firstAttribute="top" secondItem="iUh-zX-ahT" secondAttribute="top" constant="18" id="K4Q-OP-tDt"/>
+                        <constraint firstItem="hqd-FJ-XYr" firstAttribute="top" secondItem="iUh-zX-ahT" secondAttribute="top" constant="30" id="K4Q-OP-tDt"/>
                         <constraint firstItem="hqd-FJ-XYr" firstAttribute="top" secondItem="iUh-zX-ahT" secondAttribute="top" constant="8" id="LI7-bY-CPY"/>
                         <constraint firstAttribute="bottom" secondItem="6gR-Bu-HZe" secondAttribute="bottom" constant="10" id="Pzd-37-187"/>
                         <constraint firstAttribute="height" constant="64" id="bF6-OC-3M1"/>
