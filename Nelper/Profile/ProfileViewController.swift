@@ -26,7 +26,6 @@ class ProfileViewController: UIViewController {
 	@IBOutlet weak var thirdStar: UIImageView!
 	@IBOutlet weak var fourthStar: UIImageView!
 	@IBOutlet weak var fifthStar: UIImageView!
-	@IBOutlet weak var numberOfCompletedTasks: UILabel!
 	@IBOutlet weak var completedTasksString: UILabel!
 	
 	@IBOutlet weak var taskTypeSelectorContainer: UIView!
@@ -65,9 +64,12 @@ class ProfileViewController: UIViewController {
 		self.logoImage.image = UIImage(named: "logo_nobackground_v2")
 		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
 		self.settingsButton.setBackgroundImage(UIImage(named:"cogwheel.png"), forState: UIControlState.Normal)
+		self.navBar.backgroundColor = orangeMainColor
 		
+		self.infoContainer.backgroundColor = orangeSecondaryColor
 		self.nameLabel.text = PFUser.currentUser()?.objectForKey("name") as? String
-		self.nameLabel.font = UIFont(name: "Railway", size: kSubtitleFontSize)
+		self.nameLabel.font = UIFont(name: "Railway", size: kTitleFontSize)
+		self.nameLabel.textColor = whiteNelpyColor
 		self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
 		self.profilePicture.clipsToBounds = true;
 		self.profilePicture.layer.borderWidth = 3;
@@ -79,13 +81,18 @@ class ProfileViewController: UIViewController {
 		self.fourthStar.image = UIImage(named:"empty_star.png")
 		self.fifthStar.image = UIImage(named:"empty_star.png")
 		
-		self.numberOfCompletedTasks.text = String(tasksCompleted)
-		self.numberOfCompletedTasks.font = UIFont(name: "Railway", size: kTextFontSize)
+		self.completedTasksString.text = "\(String(tasksCompleted)) tasks completed"
+		self.completedTasksString.font = UIFont(name: "Railway", size: kSubtitleFontSize)
+		self.completedTasksString.textColor = whiteNelpyColor
 		
-		self.completedTasksString.font = UIFont(name: "Railway", size: kTextFontSize)
-	
+		self.taskTypeSelectorContainer.backgroundColor = orangeMainColor
+		self.activeTasksButton.titleLabel?.font = UIFont(name: "Railway", size: kTextFontSize);
+		self.activeTasksButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
+		self.completedTasksButton.titleLabel?.font = UIFont(name: "Railway", size: kTextFontSize);
+		self.completedTasksButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
 		
-	}
+		self.taskVCContainer.backgroundColor = whiteNelpyColor
+}
 
 
 }

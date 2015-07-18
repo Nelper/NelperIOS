@@ -12,8 +12,9 @@ import MapKit
 class NelpViewController: UIViewController {
     
 
-@IBOutlet weak var mapView: MKMapView!
-@IBOutlet weak var taskTableView: UITableView!
+
+	@IBOutlet weak var mapViewContainer: UIView!
+	@IBOutlet weak var taskTableView: UITableView!
     
     
     convenience init() {
@@ -25,7 +26,7 @@ class NelpViewController: UIViewController {
   override func viewDidLoad() {
     
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+		
   }
 
 }
