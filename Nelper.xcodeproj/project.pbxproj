@@ -29,6 +29,9 @@
 		199EF20C1B37A0A500B25B07 /* NelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF20B1B37A0A500B25B07 /* NelperTests.swift */; };
 		F7067AAF1B55F0B300F19745 /* Railway.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7067AAE1B55F0B300F19745 /* Railway.ttf */; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
+		F70E23CF1B587E1B00B7ADA9 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23C51B587CA600B7ADA9 /* Alamofire.framework */; };
+		F70E23D01B587E1B00B7ADA9 /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23C51B587CA600B7ADA9 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
 		F72F27D31B5302DE00CD3B0B /* NelpTaskCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F27D11B5302DE00CD3B0B /* NelpTaskCreateViewController.swift */; };
 		F72F27D41B5302DE00CD3B0B /* NelpTaskCreateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F72F27D21B5302DE00CD3B0B /* NelpTaskCreateViewController.xib */; };
 		F72F27D61B53070D00CD3B0B /* NelpTasksListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F72F27D51B53070D00CD3B0B /* NelpTasksListViewController.xib */; };
@@ -49,6 +52,41 @@
 			proxyType = 1;
 			remoteGlobalIDString = 199EF1ED1B37A0A500B25B07;
 			remoteInfo = Nelper;
+		};
+		F70E23C41B587CA600B7ADA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F70E23BD1B587CA600B7ADA9 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
+		};
+		F70E23C61B587CA600B7ADA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F70E23BD1B587CA600B7ADA9 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
+			remoteInfo = "Alamofire OSX";
+		};
+		F70E23C81B587CA600B7ADA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F70E23BD1B587CA600B7ADA9 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS Tests";
+		};
+		F70E23CA1B587CA600B7ADA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F70E23BD1B587CA600B7ADA9 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F829C6B21A7A94F100A2CD59;
+			remoteInfo = "Alamofire OSX Tests";
+		};
+		F70E23D11B587E1B00B7ADA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F70E23BD1B587CA600B7ADA9 /* Alamofire.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
 		};
 		F7FE12341B51C16400F27D92 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -95,6 +133,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				F7FE123F1B51C31500F27D92 /* SnapKit.framework in Copy Frameworks */,
+				F70E23D01B587E1B00B7ADA9 /* Alamofire.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,6 +168,8 @@
 		19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nelper-Bridging-Header.h"; sourceTree = "<group>"; };
 		F7067AAE1B55F0B300F19745 /* Railway.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Railway.ttf; sourceTree = "<group>"; };
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
+		F70E23BD1B587CA600B7ADA9 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
+		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		F72F27D11B5302DE00CD3B0B /* NelpTaskCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTaskCreateViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/NelpTaskCreateViewController.swift"; sourceTree = SOURCE_ROOT; };
 		F72F27D21B5302DE00CD3B0B /* NelpTaskCreateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NelpTaskCreateViewController.xib; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/NelpTaskCreateViewController.xib"; sourceTree = SOURCE_ROOT; };
 		F72F27D51B53070D00CD3B0B /* NelpTasksListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NelpTasksListViewController.xib; path = "Nelper/Find Nelp/Nelp Task CollectionView/NelpTasksListViewController.xib"; sourceTree = SOURCE_ROOT; };
@@ -147,6 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */,
 				190F62491B4F618C0091A1D1 /* SystemConfiguration.framework in Frameworks */,
 				190F62471B4F617D0091A1D1 /* libsqlite3.dylib in Frameworks */,
 				190F62451B4F616A0091A1D1 /* libstdc++.6.dylib in Frameworks */,
@@ -154,6 +196,7 @@
 				190F62381B4F5BC80091A1D1 /* ParseCrashReporting.framework in Frameworks */,
 				190F62391B4F5BC80091A1D1 /* ParseFacebookUtilsV4.framework in Frameworks */,
 				190F62351B4F5BC80091A1D1 /* FBSDKCoreKit.framework in Frameworks */,
+				F70E23CF1B587E1B00B7ADA9 /* Alamofire.framework in Frameworks */,
 				190F62361B4F5BC80091A1D1 /* FBSDKLoginKit.framework in Frameworks */,
 				190F62341B4F5BC80091A1D1 /* Bolts.framework in Frameworks */,
 				190F62371B4F5BC80091A1D1 /* Parse.framework in Frameworks */,
@@ -205,6 +248,7 @@
 				199EF2081B37A0A500B25B07 /* NelperTests */,
 				199EF1EF1B37A0A500B25B07 /* Products */,
 				E00C0A7D0D690598AC42849C /* Frameworks */,
+				F70E23BD1B587CA600B7ADA9 /* Alamofire.xcodeproj */,
 				F7FE122D1B51C16400F27D92 /* SnapKit.xcodeproj */,
 			);
 			sourceTree = "<group>";
@@ -265,6 +309,7 @@
 		E00C0A7D0D690598AC42849C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F70E23E31B58836900B7ADA9 /* ImageIO.framework */,
 				190F62481B4F618C0091A1D1 /* SystemConfiguration.framework */,
 				190F62461B4F617D0091A1D1 /* libsqlite3.dylib */,
 				190F62441B4F616A0091A1D1 /* libstdc++.6.dylib */,
@@ -277,6 +322,17 @@
 				190F62331B4F5BC80091A1D1 /* ParseFacebookUtilsV4.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F70E23BE1B587CA600B7ADA9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F70E23C51B587CA600B7ADA9 /* Alamofire.framework */,
+				F70E23C71B587CA600B7ADA9 /* Alamofire.framework */,
+				F70E23C91B587CA600B7ADA9 /* Alamofire iOS Tests.xctest */,
+				F70E23CB1B587CA600B7ADA9 /* Alamofire OSX Tests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		F72F28501B53608E00CD3B0B /* Helpers */ = {
@@ -292,8 +348,10 @@
 		F762CFF61B49E72800812235 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				195FD9B11B4B6B760040AD20 /* ProfileViewController.xib */,
 				F762D0121B4B680300812235 /* ProfileViewController.swift */,
+				195FD9B11B4B6B760040AD20 /* ProfileViewController.xib */,
+				F7CA5C661B59D59B001A70EE /* Completed Tasks */,
+				F7CA5C5F1B59D558001A70EE /* Active Tasks */,
 			);
 			name = Profile;
 			path = ViewControllers;
@@ -332,6 +390,22 @@
 			name = "Create Nelp Task";
 			sourceTree = "<group>";
 		};
+		F7CA5C5F1B59D558001A70EE /* Active Tasks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Active Tasks";
+			path = Offer;
+			sourceTree = "<group>";
+		};
+		F7CA5C661B59D59B001A70EE /* Completed Tasks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Completed Tasks";
+			path = Offer;
+			sourceTree = "<group>";
+		};
 		F7FE122E1B51C16400F27D92 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +433,7 @@
 			);
 			dependencies = (
 				F7FE123D1B51C26E00F27D92 /* PBXTargetDependency */,
+				F70E23D21B587E1B00B7ADA9 /* PBXTargetDependency */,
 			);
 			name = Nelper;
 			productName = Nelper;
@@ -414,6 +489,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = F70E23BE1B587CA600B7ADA9 /* Products */;
+					ProjectRef = F70E23BD1B587CA600B7ADA9 /* Alamofire.xcodeproj */;
+				},
+				{
 					ProductGroup = F7FE122E1B51C16400F27D92 /* Products */;
 					ProjectRef = F7FE122D1B51C16400F27D92 /* SnapKit.xcodeproj */;
 				},
@@ -427,6 +506,34 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		F70E23C51B587CA600B7ADA9 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = F70E23C41B587CA600B7ADA9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F70E23C71B587CA600B7ADA9 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = F70E23C61B587CA600B7ADA9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F70E23C91B587CA600B7ADA9 /* Alamofire iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire iOS Tests.xctest";
+			remoteRef = F70E23C81B587CA600B7ADA9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F70E23CB1B587CA600B7ADA9 /* Alamofire OSX Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire OSX Tests.xctest";
+			remoteRef = F70E23CA1B587CA600B7ADA9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		F7FE12351B51C16400F27D92 /* SnapKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -518,6 +625,11 @@
 			isa = PBXTargetDependency;
 			target = 199EF1ED1B37A0A500B25B07 /* Nelper */;
 			targetProxy = 199EF2061B37A0A500B25B07 /* PBXContainerItemProxy */;
+		};
+		F70E23D21B587E1B00B7ADA9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Alamofire iOS";
+			targetProxy = F70E23D11B587E1B00B7ADA9 /* PBXContainerItemProxy */;
 		};
 		F7FE123D1B51C26E00F27D92 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -623,17 +735,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/janic/Downloads/parse-library-1.7.5",
-					/Users/janic/Documents/FacebookSDK,
-					"/Users/janic/Downloads/parse-library-1.7.5",
-					"(2)",
 					"$(PROJECT_DIR)/Nelper/Frameworks",
 					"$(PROJECT_DIR)/SnapKit/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = Nelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Nelper/Nelper-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -646,17 +754,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/janic/Downloads/parse-library-1.7.5",
-					/Users/janic/Documents/FacebookSDK,
-					"/Users/janic/Downloads/parse-library-1.7.5",
-					"(2)",
 					"$(PROJECT_DIR)/Nelper/Frameworks",
 					"$(PROJECT_DIR)/SnapKit/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = Nelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Nelper/Nelper-Bridging-Header.h";
 			};

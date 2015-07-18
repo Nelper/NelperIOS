@@ -7,22 +7,85 @@
 //
 
 import UIKit
+import Alamofire
 
 class ProfileViewController: UIViewController {
-  
+	
+	
+	
+	@IBOutlet weak var logoImage: UIImageView!
+	@IBOutlet weak var navBar: UIView!
+	@IBOutlet weak var settingsButton: UIButton!
+	
+	
+	@IBOutlet weak var infoContainer: UIView!
+	@IBOutlet weak var nameLabel: UILabel!
+	@IBOutlet weak var profilePicture: UIImageView!
+	@IBOutlet weak var firstStar: UIImageView!
+	@IBOutlet weak var secondStar: UIImageView!
+	@IBOutlet weak var thirdStar: UIImageView!
+	@IBOutlet weak var fourthStar: UIImageView!
+	@IBOutlet weak var fifthStar: UIImageView!
+	@IBOutlet weak var numberOfCompletedTasks: UILabel!
+	@IBOutlet weak var completedTasksString: UILabel!
+	
+	@IBOutlet weak var taskTypeSelectorContainer: UIView!
+	@IBOutlet weak var activeTasksButton: UIButton!
+	@IBOutlet weak var completedTasksButton: UIButton!
+	
+	@IBOutlet weak var taskVCContainer: UIView!
+	
+	var tasksCompleted = 0
+	
+//	INITIALIZER
   convenience init() {
     self.init(nibName: "ProfileViewController", bundle: nil)
-  }
+	}
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    
-  }
-  
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-  
+		getFacebookInfos()
+		adjustUI()
+	}
+	
+//	DATA
+	func getFacebookInfos(){
+		
+		var fbProfilePicture = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
+		request(.GET,fbProfilePicture).response(){
+				(_, _, data, _) in
+				var image = UIImage(data: data as! NSData)
+				self.profilePicture.image = image
+				}
+}
+
+//	UI
+	
+	func adjustUI(){
+		self.logoImage.image = UIImage(named: "logo_nobackground_v2")
+		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
+		self.settingsButton.setBackgroundImage(UIImage(named:"cogwheel.png"), forState: UIControlState.Normal)
+		
+		self.nameLabel.text = PFUser.currentUser()?.objectForKey("name") as? String
+		self.nameLabel.font = UIFont(name: "Railway", size: kSubtitleFontSize)
+		self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
+		self.profilePicture.clipsToBounds = true;
+		self.profilePicture.layer.borderWidth = 3;
+		self.profilePicture.layer.borderColor = whiteNelpyColor.CGColor
+		
+		self.firstStar.image = UIImage(named:"empty_star.png")
+		self.secondStar.image = UIImage(named:"empty_star.png")
+		self.thirdStar.image = UIImage(named:"empty_star.png")
+		self.fourthStar.image = UIImage(named:"empty_star.png")
+		self.fifthStar.image = UIImage(named:"empty_star.png")
+		
+		self.numberOfCompletedTasks.text = String(tasksCompleted)
+		self.numberOfCompletedTasks.font = UIFont(name: "Railway", size: kTextFontSize)
+		
+		self.completedTasksString.font = UIFont(name: "Railway", size: kTextFontSize)
+	
+		
+	}
+
+
 }

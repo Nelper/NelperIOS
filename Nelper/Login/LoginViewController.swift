@@ -55,7 +55,15 @@ class LoginViewController: UIViewController {
       if error != nil {
         self.loginCompleted()
       } else {
-        PFUser.currentUser()!.setValue(user.valueForKey("name"), forKey: "name")
+				var results = user as! Dictionary<String, AnyObject>
+				
+				var currentUser = PFUser.currentUser()!
+				var fbID = results["id"] as AnyObject? as! String
+				let profilePictureURL : String = "https://graph.facebook.com/\(fbID)/picture?type=large&return_ssl_resources=1"
+				
+				currentUser.setValue(profilePictureURL, forKey: "pictureURL")
+				currentUser.setValue(user.valueForKey("name"), forKey: "name")
+
         PFUser.currentUser()!.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
           self.loginCompleted()
         })
