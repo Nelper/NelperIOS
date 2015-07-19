@@ -14,11 +14,19 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	@IBOutlet weak var navBar: UIView!
 	@IBOutlet weak var logoImage: UIImageView!
+	@IBOutlet weak var container: UIView!
 	
 	
 	@IBOutlet weak var taskTableView: UITableView!
 	@IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var centerButton: UIButton!
+	
+	@IBOutlet weak var tabView: UIView!
+	@IBOutlet weak var nelpTabBarImage: UIButton!
+	@IBOutlet weak var findNelpTabBarImage: UIButton!
+	@IBOutlet weak var profileTabBarImage: UIButton!
+
+	
 	
 	let locationManager = CLLocationManager()
     
@@ -61,6 +69,12 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.logoImage.image = UIImage(named: "logo_nobackground_v2")
 		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
 		self.centerButton.setBackgroundImage(UIImage(named: "centerMap.png"), forState: UIControlState.Normal)
+		self.container.backgroundColor = orangeMainColor
+		self.tabView.backgroundColor = orangeMainColor
+		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_black.png"), forState: UIControlState.Normal)
+		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_white.png"), forState: UIControlState.Normal)
+		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_white.png"), forState: UIControlState.Normal)
+	
 	}
 
 //UIGesture delegate methods
@@ -110,6 +124,16 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	@IBAction func centerMapOnUser(sender: AnyObject) {
 		self.mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
+	}
+	
+	@IBAction func findNelpTabButtonTouched(sender: AnyObject) {
+		var nextVC = NelpTasksListViewController()
+		self.presentViewController(nextVC, animated: false, completion: nil)
+	}
+	
+	@IBAction func profileTabButtonTouched(sender: AnyObject) {
+		var nextVC = ProfileViewController()
+		self.presentViewController(nextVC, animated: false, completion: nil)
 	}
 
 	

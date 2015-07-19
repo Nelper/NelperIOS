@@ -56,27 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
   }
   
   // Init the main app tab view controller
-  func initAppViewController() -> UITabBarController {
+  func initAppViewController() -> NelpViewController {
     let nelpVC = NelpViewController()
-    nelpVC.tabBarItem = UITabBarItem(title: "Nelp", image: nil, tag: 1)
-		var selectedImageNelp: UIImage = UIImage(named:"help_white.png")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
-    let findNelpVC = NelpTasksListViewController()
-    findNelpVC.tabBarItem = UITabBarItem(title: "Find", image: nil, tag: 2)
-    let profileVC = ProfileViewController()
-    profileVC.tabBarItem = UITabBarItem(title: "Profile", image: nil, tag: 3)
-    
-    let controllers = [nelpVC, findNelpVC, profileVC]
-    
-    let tabVC = UITabBarController()
-		tabVC.tabBar.translucent = false
-		tabVC.tabBar.barTintColor = orangeMainColor
-		tabVC.tabBar.tintColor = orangeMainColor
-		
-		
-		
-    tabVC.viewControllers = controllers
-
-    return tabVC
+		return nelpVC
   }
   
   func application(application: UIApplication,

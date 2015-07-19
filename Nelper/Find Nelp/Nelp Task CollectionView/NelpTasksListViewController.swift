@@ -14,12 +14,31 @@ class NelpTasksListViewController: UIViewController,
   UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate {
   
 	@IBOutlet weak var noTaskMessage: UILabel!
-  
-    @IBOutlet weak var tasksListContainer: UIView!
+
+	
     @IBOutlet weak var navBar: UIView!
-    @IBOutlet weak var addTaskButton: UIButton!
 		@IBOutlet weak var logoImage: UIImageView!
-    
+	  @IBOutlet weak var settingsButton: UIButton!
+	
+	
+	@IBOutlet weak var tabBarView: UIView!
+	@IBOutlet weak var nelpTabBarImage: UIButton!
+	@IBOutlet weak var findNelpTabBarImage: UIButton!
+	@IBOutlet weak var profileTabBarImage: UIButton!
+	
+	@IBOutlet weak var askForNelpContainer: UIView!
+	@IBOutlet weak var addTaskButton: UIButton!
+	@IBOutlet weak var askForNelpLabel: UILabel!
+
+	
+	
+	
+	@IBOutlet weak var myNelpRequestsContainer: UIView!
+	@IBOutlet weak var myNelpRequestsLabel: UILabel!
+	
+	@IBOutlet weak var taskListContainer: UIView!
+	@IBOutlet weak var noTasksMessage: UILabel!
+	
     var nelpStore = NelpTasksStore()
     var nelpTasks = [NelpTask]()
   
@@ -54,10 +73,10 @@ class NelpTasksListViewController: UIViewController,
         refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(refreshView)
         
-			self.tasksListContainer.addSubview(tableView);
+			self.taskListContainer.addSubview(tableView);
 			
 			tableView.snp_makeConstraints { (make) -> Void in
-    make.edges.equalTo(self.tasksListContainer.snp_edges)
+    make.edges.equalTo(self.taskListContainer.snp_edges)
 			}
 				self.tableView = tableView
 
@@ -70,9 +89,30 @@ class NelpTasksListViewController: UIViewController,
 		self.navBar.backgroundColor = orangeMainColor
 		self.logoImage.image = UIImage(named: "logo_nobackground_v2")
 		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
-		self.tasksListContainer.backgroundColor = orangeSecondaryColor
-		self.addTaskButton.titleLabel?.font = UIFont(name: "Railway", size: kButtonFontSize)
-		self.noTaskMessage.font = UIFont(name: "Railway", size: kSubtitleFontSize)
+		self.settingsButton.setBackgroundImage(UIImage(named: "cogwheel.png"), forState: UIControlState.Normal)
+		
+		self.askForNelpContainer.backgroundColor = orangeSecondaryColor
+
+		self.myNelpRequestsContainer.backgroundColor = orangeMainColor
+		self.myNelpRequestsLabel.text = "My Nelp Requests"
+		self.myNelpRequestsLabel.font = UIFont(name: "Railway", size: kSubtitleFontSize)
+		self.myNelpRequestsLabel!.textColor = whiteNelpyColor
+		
+		self.taskListContainer.backgroundColor = whiteNelpyColor
+		self.noTasksMessage.font = UIFont(name: "Railway", size: kSubtitleFontSize)
+		self.noTasksMessage.textColor = orangeMainColor
+		self.noTasksMessage.text = "You have no active requests!"
+		
+		self.tabBarView.backgroundColor = orangeMainColor
+		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_black.png"), forState: UIControlState.Normal)
+		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_white.png"), forState: UIControlState.Normal)
+		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_white.png"), forState: UIControlState.Normal)
+		
+		self.addTaskButton.setBackgroundImage(UIImage(named: "add_white.png"), forState: UIControlState.Normal)
+		self.askForNelpLabel.text = "Ask for Nelp!"
+		self.askForNelpLabel.textColor = whiteNelpyColor
+		self.askForNelpLabel.font = UIFont(name: "Railway", size: kTitleFontSize)
+		
 	}
 	
 	
@@ -162,6 +202,16 @@ class NelpTasksListViewController: UIViewController,
 		taskCreateVC.delegate = self
 		self.presentViewController(taskCreateVC, animated:true, completion: nil)
 	
+	}
+	
+	@IBAction func nelpTabBarButtonTapped(sender: AnyObject) {
+		var nextVC = NelpViewController()
+		self.presentViewController(nextVC, animated: false, completion: nil)
+	}
+	
+	@IBAction func profileTabBarButtonTapped(sender: AnyObject) {
+		var nextVC = ProfileViewController()
+		self.presentViewController(nextVC, animated: false, completion: nil)
 	}
   
 }

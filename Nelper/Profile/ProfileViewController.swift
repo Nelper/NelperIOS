@@ -34,6 +34,12 @@ class ProfileViewController: UIViewController {
 	
 	@IBOutlet weak var taskVCContainer: UIView!
 	
+	@IBOutlet weak var tabBarView: UIView!
+	@IBOutlet weak var nelpTabBarImage: UIButton!
+	@IBOutlet weak var findNelpTabBarImage: UIButton!
+	@IBOutlet weak var profileTabBarImage: UIButton!
+	
+	
 	var tasksCompleted = 0
 	
 //	INITIALIZER
@@ -92,7 +98,25 @@ class ProfileViewController: UIViewController {
 		self.completedTasksButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
 		
 		self.taskVCContainer.backgroundColor = whiteNelpyColor
+		
+		self.tabBarView.backgroundColor = orangeMainColor
+		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_white.png"), forState: UIControlState.Normal)
+		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_white.png"), forState: UIControlState.Normal)
+		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_black.png"), forState: UIControlState.Normal)
 }
+	
+	@IBAction func nelpTabBarButtonTapped(sender: AnyObject) {
+		var nextVC = NelpViewController()
+		self.presentViewController(nextVC, animated: false, completion: nil)
+	}
+	
+	@IBAction func findNelpTabBarButtonTapped(sender: AnyObject) {
+		var nextVC = NelpTasksListViewController()
+		self.presentViewController(nextVC, animated: false, completion: nil)
+	}
+	
+	
+	
 
 
 }
