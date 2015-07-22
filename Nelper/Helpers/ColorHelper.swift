@@ -12,6 +12,7 @@ import Foundation
 let orangeMainColor = hexStringToUIColor("d95330")
 let orangeSecondaryColor = hexStringToUIColor("d98b30")
 let whiteNelpyColor = hexStringToUIColor ("eaeaea")
+let blackNelpyColor = hexStringToUIColor ("2c2c2c")
 
 
 
