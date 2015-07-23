@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import pop
 
 protocol NelpTaskCreateViewControllerDelegate {
   func nelpTaskAdded(nelpTask: NelpTask) -> Void
@@ -21,8 +22,6 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	@IBOutlet weak var navBar: UIView!
 	@IBOutlet weak var logoImage: UIImageView!
 	
-
-
 	@IBOutlet weak var nelpyTextBubble: UIImageView!
 	@IBOutlet weak var nelpyText: UILabel!
 	
@@ -33,7 +32,6 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 
 	convenience init() {
     self.init(nibName: "NelpTaskCreateViewController", bundle: nil)
-		
   }
   
   override func viewDidLoad() {
@@ -45,8 +43,8 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		}
 	
 	override func viewDidAppear(animated: Bool) {
+		var animation = POPBasicAnimation.defaultAnimation()
 		self.nelpyTextBubble.image = UIImage(named: "bubble.png")
-		
 		self.nelpyText.text = "Please enter short title for your request. \n ( Ex: Install a wifi router.)"
 		self.nelpyText.textColor = blackNelpyColor
 		self.nelpyText.font = UIFont(name: "Railway", size: kTextFontSize)

@@ -44,6 +44,8 @@
 		F7D94C9D1B5AC22100380157 /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94C951B5AC1BE00380157 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F7D94CB21B5AC37B00380157 /* SnapKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CA81B5AC31C00380157 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F7D94CB41B5AC41000380157 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CB31B5AC41000380157 /* MapKit.framework */; };
+		F7D94DB61B608D9D00380157 /* pop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94DAF1B608D5500380157 /* pop.framework */; };
+		F7D94DB71B608D9D00380157 /* pop.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94DAF1B608D5500380157 /* pop.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +126,48 @@
 			remoteGlobalIDString = EEBCC9D719CC627D0083B827;
 			remoteInfo = "SnapKit iOS";
 		};
+		F7D94DAC1B608D5500380157 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EC191218162FB53A00E0CC76;
+			remoteInfo = "pop-ios-static";
+		};
+		F7D94DAE1B608D5500380157 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0B6BE74819FFD3B900762101;
+			remoteInfo = "pop-ios-framework";
+		};
+		F7D94DB01B608D5500380157 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EC68857F18C7B60000C6194C;
+			remoteInfo = "pop-osx-framework";
+		};
+		F7D94DB21B608D5500380157 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ECF01ED318C92B7F009E0AD1;
+			remoteInfo = "pop-tests-ios";
+		};
+		F7D94DB41B608D5500380157 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EC7E319918C93D6500B38170;
+			remoteInfo = "pop-tests-osx";
+		};
+		F7D94DB81B608D9D00380157 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0B6BE74719FFD3B900762101;
+			remoteInfo = "pop-ios-framework";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -133,6 +177,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F7D94DB71B608D9D00380157 /* pop.framework in Copy Frameworks */,
 				F7D94C9D1B5AC22100380157 /* Alamofire.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -193,6 +238,7 @@
 		F7D94C8D1B5AC1BE00380157 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		F7D94CA01B5AC31C00380157 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
 		F7D94CB31B5AC41000380157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F7D94DA41B608D5400380157 /* pop.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = pop.xcodeproj; path = pop/pop.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +246,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7D94DB61B608D9D00380157 /* pop.framework in Frameworks */,
 				F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */,
 				190F62491B4F618C0091A1D1 /* SystemConfiguration.framework in Frameworks */,
 				190F62471B4F617D0091A1D1 /* libsqlite3.dylib in Frameworks */,
@@ -263,6 +310,7 @@
 				E00C0A7D0D690598AC42849C /* Frameworks */,
 				F7D94C8D1B5AC1BE00380157 /* Alamofire.xcodeproj */,
 				F7D94CA01B5AC31C00380157 /* SnapKit.xcodeproj */,
+				F7D94DA41B608D5400380157 /* pop.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -431,6 +479,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F7D94DA51B608D5400380157 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F7D94DAD1B608D5500380157 /* libpop.a */,
+				F7D94DAF1B608D5500380157 /* pop.framework */,
+				F7D94DB11B608D5500380157 /* pop.framework */,
+				F7D94DB31B608D5500380157 /* pop-tests.xctest */,
+				F7D94DB51B608D5500380157 /* pop-tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -449,6 +509,7 @@
 			dependencies = (
 				F7D94CB01B5AC34B00380157 /* PBXTargetDependency */,
 				F7D94C9F1B5AC22100380157 /* PBXTargetDependency */,
+				F7D94DB91B608D9D00380157 /* PBXTargetDependency */,
 			);
 			name = Nelper;
 			productName = Nelper;
@@ -511,6 +572,10 @@
 				{
 					ProductGroup = F7D94C8E1B5AC1BE00380157 /* Products */;
 					ProjectRef = F7D94C8D1B5AC1BE00380157 /* Alamofire.xcodeproj */;
+				},
+				{
+					ProductGroup = F7D94DA51B608D5400380157 /* Products */;
+					ProjectRef = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
 				},
 				{
 					ProductGroup = F7D94CA11B5AC31C00380157 /* Products */;
@@ -580,6 +645,41 @@
 			fileType = wrapper.cfbundle;
 			path = "SnapKit OSX Tests.xctest";
 			remoteRef = F7D94CAD1B5AC31C00380157 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F7D94DAD1B608D5500380157 /* libpop.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libpop.a;
+			remoteRef = F7D94DAC1B608D5500380157 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F7D94DAF1B608D5500380157 /* pop.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = pop.framework;
+			remoteRef = F7D94DAE1B608D5500380157 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F7D94DB11B608D5500380157 /* pop.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = pop.framework;
+			remoteRef = F7D94DB01B608D5500380157 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F7D94DB31B608D5500380157 /* pop-tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "pop-tests.xctest";
+			remoteRef = F7D94DB21B608D5500380157 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F7D94DB51B608D5500380157 /* pop-tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "pop-tests.xctest";
+			remoteRef = F7D94DB41B608D5500380157 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -656,6 +756,11 @@
 			name = "SnapKit iOS";
 			targetProxy = F7D94CAF1B5AC34B00380157 /* PBXContainerItemProxy */;
 		};
+		F7D94DB91B608D9D00380157 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "pop-ios-framework";
+			targetProxy = F7D94DB81B608D9D00380157 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -673,7 +778,7 @@
 		199EF20D1B37A0A500B25B07 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -717,7 +822,7 @@
 		199EF20E1B37A0A500B25B07 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
