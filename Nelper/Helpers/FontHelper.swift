@@ -10,5 +10,5 @@ import Foundation
 
 let kTitleFontSize:CGFloat = 26
 let kSubtitleFontSize:CGFloat = 20
-let kTextFontSize:CGFloat = 14
-let kButtonFontSize:CGFloat = 14
+let kTextFontSize:CGFloat = 18
+let kButtonFontSize:CGFloat = 16

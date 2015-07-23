@@ -21,14 +21,16 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	@IBOutlet weak var navBar: UIView!
 	@IBOutlet weak var logoImage: UIImageView!
 	
+
+
+	@IBOutlet weak var nelpyTextBubble: UIImageView!
+	@IBOutlet weak var nelpyText: UILabel!
+	
 	@IBOutlet weak var formView: UIView!
 	@IBOutlet weak var titleTextField: UITextField!
 	@IBOutlet weak var descriptionTextField: UITextView!
 	
 
-	
-	
-	
 	convenience init() {
     self.init(nibName: "NelpTaskCreateViewController", bundle: nil)
 		
@@ -41,6 +43,16 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.nelpTasksStore = NelpTasksStore()
 		self.adjustUI()
 		}
+	
+	override func viewDidAppear(animated: Bool) {
+		self.nelpyTextBubble.image = UIImage(named: "bubble.png")
+		
+		self.nelpyText.text = "Please enter short title for your request. \n ( Ex: Install a wifi router.)"
+		self.nelpyText.textColor = blackNelpyColor
+		self.nelpyText.font = UIFont(name: "Railway", size: kTextFontSize)
+		self.nelpyText.textAlignment = NSTextAlignment.Center
+	}
+	
 	
 	func adjustUI(){
 		self.formView.backgroundColor = orangeSecondaryColor
