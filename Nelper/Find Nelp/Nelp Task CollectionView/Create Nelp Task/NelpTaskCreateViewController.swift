@@ -13,10 +13,10 @@ protocol NelpTaskCreateViewControllerDelegate {
   func nelpTaskAdded(nelpTask: NelpTask) -> Void
 }
 
-class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
-  
-  var nelpTasksStore: NelpTasksStore!
+class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, SecondFormViewControllerDelegate {
+	
   var delegate: NelpTaskCreateViewControllerDelegate?
+	var task: NelpTask!
 	
 	@IBOutlet weak var backButton: UIButton!
 	@IBOutlet weak var navBar: UIView!
@@ -29,28 +29,41 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	@IBOutlet weak var titleTextField: UITextField!
 	@IBOutlet weak var descriptionTextField: UITextView!
 	
+	
+	@IBOutlet weak var nextButton: UIButton!
+	
 
+//INITIALIZATION
+	
 	convenience init() {
     self.init(nibName: "NelpTaskCreateViewController", bundle: nil)
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
+		self.task = NelpTask()
 		self.titleTextField.delegate = self
 		self.descriptionTextField.delegate = self
-		self.nelpTasksStore = NelpTasksStore()
-		self.adjustUI()
-		}
-	
-	override func viewDidAppear(animated: Bool) {
-		var animation = POPBasicAnimation.defaultAnimation()
-		self.nelpyTextBubble.image = UIImage(named: "bubble.png")
-		self.nelpyText.text = "Please enter short title for your request. \n ( Ex: Install a wifi router.)"
+		self.nelpyText.alpha = 0
+		self.nelpyTextBubble.alpha = 0
+		self.nextButton.alpha = 0
 		self.nelpyText.textColor = blackNelpyColor
 		self.nelpyText.font = UIFont(name: "Railway", size: kTextFontSize)
 		self.nelpyText.textAlignment = NSTextAlignment.Center
+		self.nelpyTextBubble.image = UIImage(named: "bubble.png")
+		self.nelpyText.text = "Please enter short title for your request. \n ( Ex: Install a wifi router.)"
+		self.adjustUI()
+		
+		
+		}
+	
+	override func viewDidAppear(animated: Bool) {
+		UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 1}, completion: nil)
+		UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 1}, completion: nil)
 	}
 	
+	
+//UI
 	
 	func adjustUI(){
 		self.formView.backgroundColor = orangeSecondaryColor
@@ -59,7 +72,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
 		self.backButton.titleLabel?.font = UIFont(name: "Railway", size: kButtonFontSize)
 		
-		self.titleTextField.backgroundColor = orangeSecondaryColor
+		self.titleTextField.backgroundColor = whiteNelpyColor.colorWithAlphaComponent(0.2)
 		self.titleTextField.font = UIFont(name: "Railway", size: kTitleFontSize)
 		self.titleTextField.textAlignment = NSTextAlignment.Center
 		self.titleTextField.attributedPlaceholder = NSAttributedString(string:"Title",
@@ -74,13 +87,29 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.descriptionTextField.font = UIFont(name: "Railway", size: kTextFontSize)
 		self.descriptionTextField.textColor = blackNelpyColor
 		
+		self.nextButton.backgroundColor = orangeSecondaryColor
+		self.nextButton.setTitle("NEXT", forState: UIControlState.Normal)
+		self.nextButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
+		self.nextButton.titleLabel?.font = UIFont(name: "Railway", size: kTitleFontSize)
+		
 
 		
 	}
 	
+//DELEGATE METHODS
+	
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		self.descriptionTextField.backgroundColor = whiteNelpyColor.colorWithAlphaComponent(1)
 		self.descriptionTextField.becomeFirstResponder()
+		
+		UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 0}, completion: nil)
+		UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 0}, completion: nil)
+		
+		self.nelpyText.text = "Great! \n Now please enter a description of what you need to get done."
+		
+		UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 1}, completion: nil)
+		UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 1}, completion: nil)
+		
 		return false
 	}
 	
@@ -88,15 +117,38 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		
 		if(text == "\n") {
 			textView.resignFirstResponder()
+			UIView.animateWithDuration(0.4, animations:{self.nextButton.alpha = 1}, completion: nil)
 			return false
 		}
 		return true
 	}
 	
+//NELPTASK DELEGATE METHODS
+	
+	func nelpTaskAdded(nelpTask: NelpTask) {
+		delegate?.nelpTaskAdded(nelpTask)
+	}
+	
+	func dismiss(){
+		self.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+
+//IBACTIONS
 	
 	@IBAction func backButtonTapped(sender: AnyObject) {
 	
 		self.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	@IBAction func nextButtonTapped(sender: AnyObject) {
+		
+		self.task.title = self.titleTextField.text
+		self.task.desc = self.descriptionTextField.text
+		let nextScreenVC = SecondFormViewController(task: self.task)
+		nextScreenVC.delegate = self
+		self.presentViewController(nextScreenVC, animated: true, completion: nil)
+		
 	}
 	
 //	TODO: Additional verifications: price offered = numbers only etc

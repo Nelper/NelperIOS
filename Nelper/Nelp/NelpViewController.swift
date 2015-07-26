@@ -26,8 +26,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	@IBOutlet weak var findNelpTabBarImage: UIButton!
 	@IBOutlet weak var profileTabBarImage: UIButton!
 
-	
-	
 	let locationManager = CLLocationManager()
     
     convenience init() {
@@ -108,6 +106,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
 		println("Error:" + error.localizedDescription)
 	}
+	
 	
 //NavBar animation functions
 	

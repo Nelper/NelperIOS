@@ -12,9 +12,6 @@ import SnapKit
 
 class NelpTasksListViewController: UIViewController,
   UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate {
-  
-	@IBOutlet weak var noTaskMessage: UILabel!
-
 	
     @IBOutlet weak var navBar: UIView!
 		@IBOutlet weak var logoImage: UIImageView!
@@ -178,7 +175,7 @@ class NelpTasksListViewController: UIViewController,
 	
 	
 	
-	//Add actions to the table view cells
+	// NelpCreateTaskViewController Delegate
 	
 
 	

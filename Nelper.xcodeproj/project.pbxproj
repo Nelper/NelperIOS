@@ -40,6 +40,9 @@
 		F762D00F1B4B67B200812235 /* NelpTasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D00E1B4B67B200812235 /* NelpTasksTableViewCell.swift */; };
 		F762D0111B4B67D900812235 /* NelpTasksListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0101B4B67D900812235 /* NelpTasksListViewController.swift */; };
 		F762D0131B4B680300812235 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0121B4B680300812235 /* ProfileViewController.swift */; };
+		F782A6261B6411DD00C78470 /* SecondFormScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F782A6241B6411DD00C78470 /* SecondFormScreen.xib */; };
+		F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6251B6411DD00C78470 /* SecondFormViewController.swift */; };
+		F782A6291B6567E100C78470 /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ParseHelper.swift */; };
 		F7D94C9C1B5AC22100380157 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94C951B5AC1BE00380157 /* Alamofire.framework */; };
 		F7D94C9D1B5AC22100380157 /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94C951B5AC1BE00380157 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F7D94CB21B5AC37B00380157 /* SnapKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CA81B5AC31C00380157 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -235,6 +238,9 @@
 		F762D00E1B4B67B200812235 /* NelpTasksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTasksTableViewCell.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/NelpTasksTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		F762D0101B4B67D900812235 /* NelpTasksListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTasksListViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/NelpTasksListViewController.swift"; sourceTree = SOURCE_ROOT; };
 		F762D0121B4B680300812235 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = Nelper/Profile/ProfileViewController.swift; sourceTree = SOURCE_ROOT; };
+		F782A6241B6411DD00C78470 /* SecondFormScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SecondFormScreen.xib; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormScreen.xib"; sourceTree = SOURCE_ROOT; };
+		F782A6251B6411DD00C78470 /* SecondFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondFormViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormViewController.swift"; sourceTree = SOURCE_ROOT; };
+		F782A6281B6567E100C78470 /* ParseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseHelper.swift; path = Nelper/Helpers/ParseHelper.swift; sourceTree = SOURCE_ROOT; };
 		F7D94C8D1B5AC1BE00380157 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		F7D94CA01B5AC31C00380157 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
 		F7D94CB31B5AC41000380157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -391,6 +397,7 @@
 			children = (
 				F72F284E1B53607C00CD3B0B /* ColorHelper.swift */,
 				F7067AB31B56001300F19745 /* FontHelper.swift */,
+				F782A6281B6567E100C78470 /* ParseHelper.swift */,
 			);
 			name = Helpers;
 			path = ViewControllers/Offer;
@@ -437,6 +444,8 @@
 			children = (
 				F72F27D11B5302DE00CD3B0B /* NelpTaskCreateViewController.swift */,
 				F72F27D21B5302DE00CD3B0B /* NelpTaskCreateViewController.xib */,
+				F782A6251B6411DD00C78470 /* SecondFormViewController.swift */,
+				F782A6241B6411DD00C78470 /* SecondFormScreen.xib */,
 			);
 			name = "Create Nelp Task";
 			sourceTree = "<group>";
@@ -696,6 +705,7 @@
 				F762D0071B4B66B000812235 /* LoginViewController.xib in Resources */,
 				199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */,
 				F72F27D41B5302DE00CD3B0B /* NelpTaskCreateViewController.xib in Resources */,
+				F782A6261B6411DD00C78470 /* SecondFormScreen.xib in Resources */,
 				199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -726,7 +736,9 @@
 				190F62401B4F5CAB0091A1D1 /* NelpTasksStore.swift in Sources */,
 				F7067AB41B56001300F19745 /* FontHelper.swift in Sources */,
 				F762D0131B4B680300812235 /* ProfileViewController.swift in Sources */,
+				F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */,
 				F762D0111B4B67D900812235 /* NelpTasksListViewController.swift in Sources */,
+				F782A6291B6567E100C78470 /* ParseHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

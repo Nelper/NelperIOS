@@ -30,5 +30,6 @@ class NelpTask : PFObject, PFSubclassing {
     @NSManaged var location : String!
     @NSManaged var priceOffered : String!
     @NSManaged var pictures : Array<UIImage>
+		@NSManaged var state: Int
 		@NSManaged var applications:Array<NelpTaskApplication>
 }

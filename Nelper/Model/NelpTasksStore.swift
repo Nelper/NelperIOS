@@ -10,13 +10,14 @@ import Foundation
 
 class NelpTasksStore {
   
-	func createWithTitle(title: String, description: String, priceOffered:String) -> NelpTask {
+	func createWithTitle(title: String, description: String, priceOffered:String, stateValue:Int) -> NelpTask {
     let user = PFUser.currentUser()!
     
     let task = NelpTask()
     task.title = title
     task.desc = description
     task.user = user
+		task["state"] = stateValue
 		task.priceOffered = priceOffered
     
     let acl = PFACL(user: user)
