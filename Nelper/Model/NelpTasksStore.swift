@@ -42,4 +42,18 @@ class NelpTasksStore {
       }
     }
   }
+	
+	func listTasks(block: ([NelpTask]?, NSError?) -> Void){
+		let query = NelpTask.query()!
+		query.findObjectsInBackgroundWithBlock { (objects:[AnyObject]?, error: NSError?) -> Void in
+			if error != nil{
+				block(nil,error)
+			}else{
+				let tasks = objects as! [NelpTask]
+				block(tasks,nil)
+			}
+		}
+	}
+	
 }
+
