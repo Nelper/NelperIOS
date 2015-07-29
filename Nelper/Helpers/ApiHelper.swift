@@ -11,7 +11,7 @@ import Foundation
 private let kParseTask = "NelpTask"
 private let kParseTaskApplication = "NelpTaskApplication"
 
-class ParseHelper {
+class ApiHelper {
   
   static func loginWithEmail(email: String, password: String, block: (User?, NSError?) -> Void) {
     PFUser.logInWithUsernameInBackground(email, password: password) { (user, error) -> Void in
@@ -163,23 +163,89 @@ class ParseHelper {
     
   }
   
-  static func createWithTitle(title: String, description: String, priceOffered:String) -> FindNelpTask {
+  static func addTask(task: FindNelpTask, block: (FindNelpTask?, NSError?) -> Void) {
     let user = PFUser.currentUser()!
     
     let parseTask = PFObject(className: kParseTask)
-    parseTask["title"] = title
-    parseTask["desc"] = description
-    parseTask["user"] = user
-    parseTask["state"] = 0
-    parseTask["priceOffered"] = priceOffered
+    parseTask["title"] = task.title
+    parseTask["desc"] = task.desc
+    parseTask["user"] = PFUser.currentUser()!
+    parseTask["state"] = task.state.rawValue
+    parseTask["priceOffered"] = task.priceOffered
     
     let acl = PFACL(user: user)
     acl.setPublicReadAccess(true)
     acl.setPublicWriteAccess(false)
     parseTask.ACL = acl
     
+    parseTask.saveInBackgroundWithBlock { (ok, error) -> Void in
+      if error != nil {
+        block(nil, error)
+        return
+      }
+      if ok {
+        task.objectId = parseTask.objectId!
+        block(task, nil)
+      } else {
+        //TODO(janic): Handle this.
+      }
+    }
+  }
+  
+  static func deleteTask(task: FindNelpTask) {
+    let parseTask = PFObject(className: kParseTask)
+    parseTask.objectId = task.objectId
+    parseTask.setValue(FindNelpTask.State.Deleted.rawValue, forKey: "state")
     parseTask.saveEventually()
+  }
+  
+  static func applyForTask(task: NelpTask) {
+    let parseTask = PFObject(className: kParseTask)
+    parseTask.objectId = task.objectId
+    let parseApplication = PFObject(className: kParseTaskApplication)
+    parseApplication.setValue(NelpTaskApplication.State.Pending.rawValue, forKey: "state")
+    parseApplication.setValue(PFUser.currentUser()!, forKey: "user")
+    parseApplication.setValue(parseTask, forKey: "task")
+    parseApplication.setValue(true, forKey: "isNew")
+    task.application = NelpTaskApplication(parseApplication: parseApplication)
+    parseApplication.saveEventually()
+  }
+  
+  static func cancelApplyForTask(task: NelpTask) {
+    let parseApplication = PFObject(className: kParseTaskApplication)
+    parseApplication.objectId = task.objectId
+    parseApplication.setValue(NelpTaskApplication.State.Canceled.rawValue, forKey: "state")
+    parseApplication.saveEventually()
+  }
+  
+  static func acceptApplication(application: NelpTaskApplication) {
+    let parseApplication = PFObject(className: kParseTaskApplication)
+    parseApplication.objectId = application.objectId
+    parseApplication.setValue(NelpTaskApplication.State.Accepted.rawValue, forKey: "state:")
+    let parseTask = PFObject(className: kParseTask)
+    parseTask.objectId = application.task.objectId
+    parseTask.setValue(FindNelpTask.State.Accepted.rawValue, forKey: "state")
     
-    return FindNelpTask(parseTask: parseTask)
+    PFObject.saveAllInBackground([parseApplication, parseTask])
+  }
+  
+  static func denyApplication(application: NelpTaskApplication) {
+    let parseApplication = PFObject(className: kParseTaskApplication)
+    parseApplication.objectId = application.objectId
+    parseApplication.setValue(NelpTaskApplication.State.Denied.rawValue, forKey: "state:")
+    parseApplication.saveEventually()
+  }
+  
+  static func setTaskViewed(task: FindNelpTask) {
+    let parseApplications = task.applications
+      .filter({ $0.isNew })
+      .map({ (a: NelpTaskApplication) -> PFObject in
+        let parseApplication = PFObject(className: kParseTaskApplication)
+        parseApplication.objectId = a.objectId
+        parseApplication.setValue(false, forKey: "isNew")
+        return parseApplication
+      })
+    
+    PFObject.saveAllInBackground(parseApplications)
   }
 }

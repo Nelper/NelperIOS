@@ -41,6 +41,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.task = FindNelpTask()
 		self.titleTextField.delegate = self
 		self.descriptionTextField.delegate = self
 		self.nelpyText.alpha = 0

@@ -22,10 +22,14 @@ class BaseTask: BaseModel {
   var location : GeoPoint?
   var priceOffered : String?
   var pictures : Array<UIImage>?
-  var state: Int = 0
+  var state: State = .Active
   
-  init(parseTask: PFObject) {
+  override init() {
     super.init()
+  }
+  
+  convenience init(parseTask: PFObject) {
+    self.init()
     
     objectId = parseTask.objectId!
     title = parseTask["title"] as! String
@@ -40,6 +44,6 @@ class BaseTask: BaseModel {
     }
     priceOffered = parseTask["priceOffered"] as? String
     pictures = nil //TODO: pictures
-    state = parseTask["state"] as! Int
+    state = State(rawValue: parseTask["state"] as! Int)!
   }
 }

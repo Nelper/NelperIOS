@@ -129,7 +129,7 @@ class NelpTasksListViewController: UIViewController,
 	
 	
   func loadData() {
-    ParseHelper.listMyNelpTasksWithBlock{ (nelpTasks: [FindNelpTask]?, error: NSError?) -> Void in
+    ApiHelper.listMyNelpTasksWithBlock{ (nelpTasks: [FindNelpTask]?, error: NSError?) -> Void in
       if error != nil {
         
       } else {

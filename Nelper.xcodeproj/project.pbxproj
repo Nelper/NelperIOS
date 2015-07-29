@@ -45,7 +45,7 @@
 		F762D0131B4B680300812235 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0121B4B680300812235 /* ProfileViewController.swift */; };
 		F782A6261B6411DD00C78470 /* SecondFormScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F782A6241B6411DD00C78470 /* SecondFormScreen.xib */; };
 		F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6251B6411DD00C78470 /* SecondFormViewController.swift */; };
-		F782A6291B6567E100C78470 /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ParseHelper.swift */; };
+		F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ApiHelper.swift */; };
 		F7D94C9C1B5AC22100380157 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94C951B5AC1BE00380157 /* Alamofire.framework */; };
 		F7D94C9D1B5AC22100380157 /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94C951B5AC1BE00380157 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F7D94CB21B5AC37B00380157 /* SnapKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CA81B5AC31C00380157 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -246,7 +246,7 @@
 		F762D0121B4B680300812235 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = Nelper/Profile/ProfileViewController.swift; sourceTree = SOURCE_ROOT; };
 		F782A6241B6411DD00C78470 /* SecondFormScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SecondFormScreen.xib; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormScreen.xib"; sourceTree = SOURCE_ROOT; };
 		F782A6251B6411DD00C78470 /* SecondFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondFormViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormViewController.swift"; sourceTree = SOURCE_ROOT; };
-		F782A6281B6567E100C78470 /* ParseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseHelper.swift; path = Nelper/Helpers/ParseHelper.swift; sourceTree = SOURCE_ROOT; };
+		F782A6281B6567E100C78470 /* ApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHelper.swift; path = Nelper/Helpers/ApiHelper.swift; sourceTree = SOURCE_ROOT; };
 		F7D94C8D1B5AC1BE00380157 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		F7D94CA01B5AC31C00380157 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
 		F7D94CB31B5AC41000380157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -403,7 +403,7 @@
 			children = (
 				F72F284E1B53607C00CD3B0B /* ColorHelper.swift */,
 				F7067AB31B56001300F19745 /* FontHelper.swift */,
-				F782A6281B6567E100C78470 /* ParseHelper.swift */,
+				F782A6281B6567E100C78470 /* ApiHelper.swift */,
 			);
 			name = Helpers;
 			path = ViewControllers/Offer;
@@ -750,7 +750,7 @@
 				F762D0131B4B680300812235 /* ProfileViewController.swift in Sources */,
 				F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */,
 				F762D0111B4B67D900812235 /* NelpTasksListViewController.swift in Sources */,
-				F782A6291B6567E100C78470 /* ParseHelper.swift in Sources */,
+				F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

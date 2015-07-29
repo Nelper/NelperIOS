@@ -183,11 +183,11 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
     //TODO: set location using GeoPoint
 		//self.task.location = locationTextField.text
 		
-		let taskComplete = ParseHelper.createWithTitle(self.task.title, description: self.task.desc, priceOffered:self.task.priceOffered!)
-		
-		delegate?.nelpTaskAdded(taskComplete)
-		self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-		self.dismissViewControllerAnimated(true, completion: nil)
+    ApiHelper.addTask(self.task, block: { (task, error) -> Void in
+      self.delegate?.nelpTaskAdded(self.task)
+      self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+      self.dismissViewControllerAnimated(true, completion: nil)
+    })
 	}
 	
 	

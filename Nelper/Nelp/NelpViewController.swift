@@ -83,12 +83,12 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.mapView.addGestureRecognizer(touchesDetector)
 		
 		self.mapView.showsUserLocation = true
-		var userLocation: CLLocation = self.locationManager.location
+		/*var userLocation: CLLocation = self.locationManager.location
 		var userLocationForCenter = userLocation.coordinate
 		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.01 , 0.01)
 		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
 		self.mapView.setRegion(locationToZoom, animated: true)
-		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
+		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)*/
 		
 	}
 	
@@ -113,7 +113,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 	
 	func loadData() {
-		ParseHelper.listNelpTasksWithBlock { (nelpTasks: [NelpTask]?, error: NSError?) -> Void in
+		ApiHelper.listNelpTasksWithBlock { (nelpTasks: [NelpTask]?, error: NSError?) -> Void in
 			if error != nil {
 				
 			} else {
