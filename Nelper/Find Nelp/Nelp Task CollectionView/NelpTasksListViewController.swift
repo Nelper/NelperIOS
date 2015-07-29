@@ -36,8 +36,7 @@ class NelpTasksListViewController: UIViewController,
 	@IBOutlet weak var taskListContainer: UIView!
 	@IBOutlet weak var noTasksMessage: UILabel!
 	
-    var nelpStore = NelpTasksStore()
-    var nelpTasks = [NelpTask]()
+    var nelpTasks = [FindNelpTask]()
   
     var tableView: UITableView!
     var refreshView: UIRefreshControl!
@@ -130,7 +129,7 @@ class NelpTasksListViewController: UIViewController,
 	
 	
   func loadData() {
-    nelpStore.listMyOffers { (nelpTasks: [NelpTask]?, error: NSError?) -> Void in
+    ParseHelper.listMyNelpTasksWithBlock{ (nelpTasks: [FindNelpTask]?, error: NSError?) -> Void in
       if error != nil {
         
       } else {
@@ -166,10 +165,11 @@ class NelpTasksListViewController: UIViewController,
 	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 		if (editingStyle == UITableViewCellEditingStyle.Delete){
 			var nelpTask = nelpTasks[indexPath.row];
-			nelpTask.deleteInBackgroundWithBlock({ (YES, NSError: NSError?) -> Void in
+      //TODO: use ParseHelper
+			/*nelpTask.deleteInBackgroundWithBlock({ (YES, NSError: NSError?) -> Void in
 				self.loadData()
 				self.checkForEmptyTasks()
-			})
+			})*/
 		}
 	}
 	
@@ -179,7 +179,7 @@ class NelpTasksListViewController: UIViewController,
 	
 
 	
-	func nelpTaskAdded(nelpTask: NelpTask) {
+	func nelpTaskAdded(nelpTask: FindNelpTask) {
 		self.nelpTasks.append(nelpTask)
 		if(nelpTasks.count > 0){
 			createTasksTableView()

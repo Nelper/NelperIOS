@@ -30,7 +30,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	var tableView: UITableView!
 	var refreshView: UIRefreshControl!
 	
-	var nelpStore = NelpTasksStore()
 	var nelpTasks = [NelpTask]()
 
 	let locationManager = CLLocationManager()
@@ -114,7 +113,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 	
 	func loadData() {
-		nelpStore.listTasks { (nelpTasks: [NelpTask]?, error: NSError?) -> Void in
+		ParseHelper.listNelpTasksWithBlock { (nelpTasks: [NelpTask]?, error: NSError?) -> Void in
 			if error != nil {
 				
 			} else {
@@ -138,7 +137,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 		let nelpTask = self.nelpTasks[indexPath.item]
 		
-		cell.setNelpTask(nelpTask)
+    // TODO: Need different table cell class.
+		//cell.setNelpTask(nelpTask)
 		
 		return cell
 		

@@ -10,16 +10,15 @@ import Foundation
 import UIKit
 
 protocol SecondFormViewControllerDelegate {
-	func nelpTaskAdded(nelpTask: NelpTask) -> Void
+	func nelpTaskAdded(nelpTask: FindNelpTask) -> Void
 	func dismiss()
 }
 
 class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate{
 	
-	var task: NelpTask!
+	var task: FindNelpTask!
 	
 	var delegate: SecondFormViewControllerDelegate?
-	var nelpTasksStore: NelpTasksStore!
 	
 	@IBOutlet weak var navBar: UIView!
 	@IBOutlet weak var backButton: UIButton!
@@ -43,7 +42,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	@IBOutlet weak var postButton: UIButton!
 	
 	
-	convenience init(task: NelpTask){
+	convenience init(task: FindNelpTask){
 		self.init(nibName: "SecondFormScreen", bundle: nil)
 		self.task = task
 	}
@@ -52,7 +51,6 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.nelpyText.alpha = 0
 		self.nelpyTextBubble.alpha = 0
 		self.priceOfferedTextField.alpha = 0
-		self.nelpTasksStore = NelpTasksStore()
 		self.nelpyText.textColor = blackNelpyColor
 		self.nelpyText.font = UIFont(name: "Railway", size: kTextFontSize)
 		self.nelpyText.textAlignment = NSTextAlignment.Center
@@ -182,10 +180,10 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	@IBAction func postButtonTapped(sender: AnyObject) {
 		self.task.priceOffered = priceOfferedTextField.text
-		self.task.location = locationTextField.text
-		self.task.state = kActive
+    //TODO: set location using GeoPoint
+		//self.task.location = locationTextField.text
 		
-		let taskComplete = nelpTasksStore.createWithTitle(self.task.title, description: self.task.desc, priceOffered:self.task.priceOffered, stateValue:self.task.state)
+		let taskComplete = ParseHelper.createWithTitle(self.task.title, description: self.task.desc, priceOffered:self.task.priceOffered!)
 		
 		delegate?.nelpTaskAdded(taskComplete)
 		self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
