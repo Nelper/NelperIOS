@@ -16,7 +16,7 @@
                 <outlet property="nelpTabBarImage" destination="lsw-Ra-fhS" id="cQk-dv-rwU"/>
                 <outlet property="profileTabBarImage" destination="TvF-0q-71q" id="CqX-aV-cnx"/>
                 <outlet property="tabView" destination="WhO-cu-Kkt" id="Gd9-KL-iAP"/>
-                <outlet property="taskTableView" destination="JnM-iI-TuN" id="C4L-m6-rLY"/>
+                <outlet property="tableViewContainer" destination="PfD-u6-Vdz" id="B9v-vI-PoC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -139,10 +139,10 @@
                                 <constraint firstAttribute="height" constant="45" id="uT5-mN-10Y"/>
                             </constraints>
                         </view>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="JnM-iI-TuN">
-                            <rect key="frame" x="0.0" y="449" width="375" height="174"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </tableView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-u6-Vdz">
+                            <rect key="frame" x="0.0" y="449" width="375" height="173"/>
+                            <color key="backgroundColor" red="1" green="0.80969880760000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.039511486040000002" green="0.80666035349999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -150,16 +150,16 @@
                         <constraint firstItem="Vwf-Ak-zmN" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="HYe-uY-X7k"/>
                         <constraint firstItem="Vwf-Ak-zmN" firstAttribute="height" secondItem="yLw-jR-XsS" secondAttribute="height" multiplier="2:3" id="IPr-rr-xRk"/>
                         <constraint firstAttribute="bottom" secondItem="WhO-cu-Kkt" secondAttribute="bottom" id="Inu-2b-wFw"/>
-                        <constraint firstItem="JnM-iI-TuN" firstAttribute="top" secondItem="EDr-9j-ED3" secondAttribute="bottom" constant="4" id="LpD-gs-3ep"/>
                         <constraint firstAttribute="trailing" secondItem="WhO-cu-Kkt" secondAttribute="trailing" id="QZQ-NL-xSg"/>
                         <constraint firstItem="WhO-cu-Kkt" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="RWt-bv-762"/>
                         <constraint firstItem="WhO-cu-Kkt" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="SJU-T7-qdf"/>
+                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="YYu-MX-uDe"/>
                         <constraint firstAttribute="bottom" secondItem="WhO-cu-Kkt" secondAttribute="bottom" id="czO-Zh-XJB"/>
-                        <constraint firstAttribute="trailing" secondItem="JnM-iI-TuN" secondAttribute="trailing" id="ija-Hv-2lz"/>
+                        <constraint firstItem="WhO-cu-Kkt" firstAttribute="top" secondItem="PfD-u6-Vdz" secondAttribute="bottom" id="dC2-WZ-Cfi"/>
+                        <constraint firstAttribute="trailing" secondItem="PfD-u6-Vdz" secondAttribute="trailing" id="irH-e9-3Z0"/>
                         <constraint firstItem="Vwf-Ak-zmN" firstAttribute="top" secondItem="yLw-jR-XsS" secondAttribute="top" id="kbn-1E-O6t"/>
                         <constraint firstAttribute="trailing" secondItem="Vwf-Ak-zmN" secondAttribute="trailing" id="lz6-nx-503"/>
-                        <constraint firstItem="JnM-iI-TuN" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="nXS-mE-4en"/>
-                        <constraint firstItem="WhO-cu-Kkt" firstAttribute="top" secondItem="JnM-iI-TuN" secondAttribute="bottom" constant="-1" id="plF-Of-YBn"/>
+                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="top" secondItem="EDr-9j-ED3" secondAttribute="bottom" constant="4" id="wRw-xe-BP5"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">

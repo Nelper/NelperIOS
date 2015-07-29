@@ -49,8 +49,13 @@ class ProfileViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+		
+		if(PFUser.currentUser()?.username == nil){
+		showNeedToLoginScreen()
+		}else{
 		getFacebookInfos()
 		adjustUI()
+		}
 	}
 	
 //	DATA
@@ -104,6 +109,88 @@ class ProfileViewController: UIViewController {
 		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_white.png"), forState: UIControlState.Normal)
 		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_black.png"), forState: UIControlState.Normal)
 }
+		
+		func showNeedToLoginScreen(){
+			
+			self.logoImage.image = UIImage(named: "logo_nobackground_v2")
+			self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
+			self.settingsButton.setBackgroundImage(UIImage(named:"cogwheel.png"), forState: UIControlState.Normal)
+			self.navBar.backgroundColor = orangeMainColor
+			self.tabBarView.backgroundColor = orangeMainColor
+			self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_white.png"), forState: UIControlState.Normal)
+			self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_white.png"), forState: UIControlState.Normal)
+			self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_black.png"), forState: UIControlState.Normal)
+			self.taskVCContainer.backgroundColor = orangeSecondaryColor
+			
+			self.infoContainer.backgroundColor = orangeSecondaryColor
+			self.nameLabel.removeFromSuperview()
+			self.profilePicture.removeFromSuperview()
+			self.firstStar.removeFromSuperview()
+			self.secondStar.removeFromSuperview()
+			self.thirdStar.removeFromSuperview()
+			self.fourthStar.removeFromSuperview()
+			self.fifthStar.removeFromSuperview()
+			self.completedTasksString.removeFromSuperview()
+			self.activeTasksButton.removeFromSuperview()
+			self.completedTasksButton.removeFromSuperview()
+			
+			
+			self.taskTypeSelectorContainer.backgroundColor = orangeSecondaryColor
+			
+			var button = UIButton()
+			button.backgroundColor = facebookBlueColor
+			button.layer.cornerRadius = 6
+			button.setTitle("Login with Facebook", forState: UIControlState.Normal)
+			button.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
+			button.titleLabel?.font = UIFont(name: "Railway", size: kSubtitleFontSize)
+			button.layer.borderColor = blackNelpyColor.CGColor
+			button.layer.borderWidth = 2
+			button.setImage(UIImage(named: "facebookButtonIcon"), forState: UIControlState.Normal)
+			button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 4, 6)
+			self.taskTypeSelectorContainer.addSubview(button)
+			button.addTarget(self, action: "facebookLoginPressed:", forControlEvents: .TouchUpInside)
+			
+			button.snp_makeConstraints { (make) -> Void in
+				make.center.equalTo(self.taskTypeSelectorContainer)
+				make.width.equalTo(225)
+				make.height.equalTo(50)
+			}
+			
+			var nelpyBubble = UIImageView()
+			nelpyBubble.image = UIImage(named: "bubble.png")
+			self.infoContainer.addSubview(nelpyBubble)
+			
+			nelpyBubble.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(self.logoImage).offset(40)
+				make.left.equalTo(self.infoContainer.snp_left).offset(40)
+				make.right.equalTo(self.infoContainer.snp_right).offset(-40)
+				make.height.equalTo(70)
+			}
+			
+			var nelpyText = UILabel()
+			nelpyText.numberOfLines = 0
+			nelpyText.text = "You need to login to have a profile!"
+			nelpyText.textColor = blackNelpyColor
+			nelpyText.font = UIFont(name: "Railway", size: kTextFontSize)
+			nelpyText.textAlignment = NSTextAlignment.Center
+			self.infoContainer.addSubview(nelpyText)
+			
+			nelpyText.snp_makeConstraints { (make) -> Void in
+				
+				make.top.equalTo(self.logoImage).offset(50)
+				make.left.equalTo(self.infoContainer.snp_left).offset(50)
+				make.right.equalTo(self.infoContainer.snp_right).offset(-50)
+				make.height.equalTo(60)
+				
+			}
+			
+		}
+	
+	func facebookLoginPressed (sender:UIButton!){
+		
+	}
+	
+	
 	
 	@IBAction func nelpTabBarButtonTapped(sender: AnyObject) {
 		var nextVC = NelpViewController()
@@ -115,8 +202,4 @@ class ProfileViewController: UIViewController {
 		self.presentViewController(nextVC, animated: false, completion: nil)
 	}
 	
-	
-	
-
-
 }

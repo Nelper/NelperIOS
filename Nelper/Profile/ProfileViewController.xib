@@ -121,31 +121,35 @@
                             <rect key="frame" x="0.0" y="246" width="344" height="199"/>
                             <color key="backgroundColor" red="0.17028166119999999" green="0.55733449840000004" blue="0.97687088820000001" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffX-gO-Ebc">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffX-gO-Ebc" userLabel="selector">
                             <rect key="frame" x="0.0" y="196" width="344" height="50"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J29-fl-ejw">
-                                    <rect key="frame" x="40" y="12" width="70" height="30"/>
-                                    <state key="normal" title="Active Tasks">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppf-r9-9Ee">
+                                    <rect key="frame" x="188" y="10" width="140" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="140" id="l6x-yK-6nT"/>
+                                    </constraints>
+                                    <state key="normal" title="Completed Tasks">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppf-r9-9Ee">
-                                    <rect key="frame" x="214" y="12" width="90" height="30"/>
-                                    <state key="normal" title="Completed Tasks">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J29-fl-ejw">
+                                    <rect key="frame" x="16" y="10" width="100" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="7QG-F1-kdf"/>
+                                    </constraints>
+                                    <state key="normal" title="Active Tasks">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="centerX" secondItem="ppf-r9-9Ee" secondAttribute="centerX" constant="-87" id="7JM-k8-jC4"/>
-                                <constraint firstAttribute="trailing" secondItem="ppf-r9-9Ee" secondAttribute="trailing" constant="40" id="JU7-Ng-5UU"/>
-                                <constraint firstAttribute="centerY" secondItem="ppf-r9-9Ee" secondAttribute="centerY" constant="-2" id="KAO-zk-tQL"/>
-                                <constraint firstItem="J29-fl-ejw" firstAttribute="leading" secondItem="ffX-gO-Ebc" secondAttribute="leading" constant="40" id="Tow-Kc-fgO"/>
-                                <constraint firstAttribute="centerX" secondItem="J29-fl-ejw" secondAttribute="centerX" constant="97" id="ahL-mX-rKj"/>
-                                <constraint firstAttribute="centerY" secondItem="J29-fl-ejw" secondAttribute="centerY" constant="-2" id="eGR-4r-DJU"/>
+                                <constraint firstItem="ppf-r9-9Ee" firstAttribute="top" secondItem="ffX-gO-Ebc" secondAttribute="top" constant="10" id="0r5-h4-7Zp"/>
+                                <constraint firstItem="J29-fl-ejw" firstAttribute="top" secondItem="ffX-gO-Ebc" secondAttribute="top" constant="10" id="BhV-3Q-MZJ"/>
+                                <constraint firstItem="J29-fl-ejw" firstAttribute="leading" secondItem="ffX-gO-Ebc" secondAttribute="leading" constant="16" id="Gvt-VZ-rWD"/>
                                 <constraint firstAttribute="height" constant="50" id="qB7-sL-cal"/>
+                                <constraint firstAttribute="trailing" secondItem="ppf-r9-9Ee" secondAttribute="trailing" constant="16" id="qCW-T4-B0V"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcB-ub-1p0">

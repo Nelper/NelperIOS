@@ -35,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		
 		
     let user = PFUser.currentUser()
+		
     if(PFUser.currentUser()?.username == nil) {
       // If the user is not logged show the login page.
       let loginVC = LoginViewController()

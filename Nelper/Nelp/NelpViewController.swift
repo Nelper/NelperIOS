@@ -10,14 +10,15 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
+class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
 	
 	@IBOutlet weak var navBar: UIView!
 	@IBOutlet weak var logoImage: UIImageView!
 	@IBOutlet weak var container: UIView!
+	@IBOutlet weak var tableViewContainer: UIView!
 	
 	
-	@IBOutlet weak var taskTableView: UITableView!
+	
 	@IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var centerButton: UIButton!
 	
@@ -25,6 +26,12 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	@IBOutlet weak var nelpTabBarImage: UIButton!
 	@IBOutlet weak var findNelpTabBarImage: UIButton!
 	@IBOutlet weak var profileTabBarImage: UIButton!
+	
+	var tableView: UITableView!
+	var refreshView: UIRefreshControl!
+	
+	var nelpStore = NelpTasksStore()
+	var nelpTasks = [NelpTask]()
 
 	let locationManager = CLLocationManager()
     
@@ -39,8 +46,32 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
     super.viewDidLoad()
 		self.initializeMapview()
 		self.adjustUI()
+		self.createTaskTableView()
+		self.loadData()
 		
   }
+	
+	func createTaskTableView(){
+		let tableView = UITableView()
+		self.tableView = tableView
+		self.tableView.delegate = self
+		self.tableView.dataSource = self
+		tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+		tableView.registerClass(NelpTasksTableViewCell.classForCoder(), forCellReuseIdentifier: NelpTasksTableViewCell.reuseIdentifier)
+		
+		let refreshView = UIRefreshControl()
+		refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
+		tableView.addSubview(refreshView)
+		
+		self.tableViewContainer.addSubview(tableView)
+		
+		tableView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(self.tableViewContainer.snp_edges)
+		}
+		self.refreshView = refreshView
+		
+	
+	}
 
 	func initializeMapview(){
 		self.locationManager.delegate = self;
@@ -73,6 +104,48 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_white.png"), forState: UIControlState.Normal)
 		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_white.png"), forState: UIControlState.Normal)
 	
+	}
+	
+	
+//DATAFetching
+	
+	func onPullToRefresh() {
+		loadData()
+	}
+	
+	func loadData() {
+		nelpStore.listTasks { (nelpTasks: [NelpTask]?, error: NSError?) -> Void in
+			if error != nil {
+				
+			} else {
+				self.nelpTasks = nelpTasks!
+				self.refreshView?.endRefreshing()
+				self.tableView?.reloadData()
+			}
+		}
+		
+	}
+	
+	//TableView Delegate/Datasource methods
+	
+	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return nelpTasks.count
+	}
+	
+	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		
+		let cell = self.tableView.dequeueReusableCellWithIdentifier(NelpTasksTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpTasksTableViewCell
+		
+		let nelpTask = self.nelpTasks[indexPath.item]
+		
+		cell.setNelpTask(nelpTask)
+		
+		return cell
+		
+	}
+	
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		
 	}
 
 //UIGesture delegate methods
