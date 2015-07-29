@@ -14,8 +14,6 @@
 		190F62381B4F5BC80091A1D1 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62321B4F5BC80091A1D1 /* ParseCrashReporting.framework */; };
 		190F62391B4F5BC80091A1D1 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62331B4F5BC80091A1D1 /* ParseFacebookUtilsV4.framework */; };
 		190F623E1B4F5CAB0091A1D1 /* NelpTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190F623A1B4F5CAB0091A1D1 /* NelpTask.swift */; };
-		190F62401B4F5CAB0091A1D1 /* NelpTasksStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190F623C1B4F5CAB0091A1D1 /* NelpTasksStore.swift */; };
-		190F62411B4F5CAB0091A1D1 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190F623D1B4F5CAB0091A1D1 /* UserProfile.swift */; };
 		190F62431B4F614A0091A1D1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62421B4F614A0091A1D1 /* AudioToolbox.framework */; };
 		190F62451B4F616A0091A1D1 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62441B4F616A0091A1D1 /* libstdc++.6.dylib */; };
 		190F62471B4F617D0091A1D1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62461B4F617D0091A1D1 /* libsqlite3.dylib */; };
@@ -23,6 +21,11 @@
 		195FD9B21B4B6B760040AD20 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 195FD9B11B4B6B760040AD20 /* ProfileViewController.xib */; };
 		195FD9B51B4CA6A50040AD20 /* NelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195FD9B31B4CA6A50040AD20 /* NelpViewController.swift */; };
 		195FD9B61B4CA6A50040AD20 /* NelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 195FD9B41B4CA6A50040AD20 /* NelpViewController.xib */; };
+		19761A131B684F41001600E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A121B684F41001600E1 /* User.swift */; };
+		19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A141B684FDB001600E1 /* GeoPoint.swift */; };
+		19761A171B6850C4001600E1 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A161B6850C4001600E1 /* BaseModel.swift */; };
+		19761A191B6877FB001600E1 /* FindNelpTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A181B6877FB001600E1 /* FindNelpTask.swift */; };
+		19761A1B1B687858001600E1 /* BaseTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A1A1B687858001600E1 /* BaseTask.swift */; };
 		199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF1F31B37A0A500B25B07 /* AppDelegate.swift */; };
 		199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FC1B37A0A500B25B07 /* Images.xcassets */; };
 		199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */; };
@@ -207,8 +210,6 @@
 		190F62321B4F5BC80091A1D1 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = Nelper/Frameworks/ParseCrashReporting.framework; sourceTree = "<group>"; };
 		190F62331B4F5BC80091A1D1 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtilsV4.framework; path = Nelper/Frameworks/ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
 		190F623A1B4F5CAB0091A1D1 /* NelpTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTask.swift; path = Nelper/Model/NelpTask.swift; sourceTree = SOURCE_ROOT; };
-		190F623C1B4F5CAB0091A1D1 /* NelpTasksStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTasksStore.swift; path = Nelper/Model/NelpTasksStore.swift; sourceTree = SOURCE_ROOT; };
-		190F623D1B4F5CAB0091A1D1 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfile.swift; path = Nelper/Model/UserProfile.swift; sourceTree = SOURCE_ROOT; };
 		190F62421B4F614A0091A1D1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		190F62441B4F616A0091A1D1 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		190F62461B4F617D0091A1D1 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -216,6 +217,11 @@
 		195FD9B11B4B6B760040AD20 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfileViewController.xib; path = Nelper/Profile/ProfileViewController.xib; sourceTree = SOURCE_ROOT; };
 		195FD9B31B4CA6A50040AD20 /* NelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpViewController.swift; path = Nelp/NelpViewController.swift; sourceTree = "<group>"; };
 		195FD9B41B4CA6A50040AD20 /* NelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NelpViewController.xib; path = Nelp/NelpViewController.xib; sourceTree = "<group>"; };
+		19761A121B684F41001600E1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Nelper/Model/User.swift; sourceTree = SOURCE_ROOT; };
+		19761A141B684FDB001600E1 /* GeoPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeoPoint.swift; path = Nelper/Model/GeoPoint.swift; sourceTree = SOURCE_ROOT; };
+		19761A161B6850C4001600E1 /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseModel.swift; path = Nelper/Model/BaseModel.swift; sourceTree = SOURCE_ROOT; };
+		19761A181B6877FB001600E1 /* FindNelpTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FindNelpTask.swift; path = Nelper/Model/FindNelpTask.swift; sourceTree = SOURCE_ROOT; };
+		19761A1A1B687858001600E1 /* BaseTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTask.swift; path = Nelper/Model/BaseTask.swift; sourceTree = SOURCE_ROOT; };
 		199EF1EE1B37A0A500B25B07 /* Nelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		199EF1F21B37A0A500B25B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		199EF1F31B37A0A500B25B07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -419,9 +425,12 @@
 			isa = PBXGroup;
 			children = (
 				190F623A1B4F5CAB0091A1D1 /* NelpTask.swift */,
-				190F623C1B4F5CAB0091A1D1 /* NelpTasksStore.swift */,
-				190F623D1B4F5CAB0091A1D1 /* UserProfile.swift */,
 				F72F27DB1B53224100CD3B0B /* NelpTaskApplication.swift */,
+				19761A121B684F41001600E1 /* User.swift */,
+				19761A141B684FDB001600E1 /* GeoPoint.swift */,
+				19761A161B6850C4001600E1 /* BaseModel.swift */,
+				19761A181B6877FB001600E1 /* FindNelpTask.swift */,
+				19761A1A1B687858001600E1 /* BaseTask.swift */,
 			);
 			name = Model;
 			path = ViewControllers/Offer;
@@ -724,16 +733,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19761A1B1B687858001600E1 /* BaseTask.swift in Sources */,
+				19761A171B6850C4001600E1 /* BaseModel.swift in Sources */,
 				F72F27DC1B53224100CD3B0B /* NelpTaskApplication.swift in Sources */,
+				19761A191B6877FB001600E1 /* FindNelpTask.swift in Sources */,
 				F762D0061B4B66B000812235 /* LoginViewController.swift in Sources */,
 				F72F27D31B5302DE00CD3B0B /* NelpTaskCreateViewController.swift in Sources */,
 				199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */,
+				19761A131B684F41001600E1 /* User.swift in Sources */,
 				F762D00F1B4B67B200812235 /* NelpTasksTableViewCell.swift in Sources */,
 				F72F284F1B53607C00CD3B0B /* ColorHelper.swift in Sources */,
 				190F623E1B4F5CAB0091A1D1 /* NelpTask.swift in Sources */,
-				190F62411B4F5CAB0091A1D1 /* UserProfile.swift in Sources */,
 				195FD9B51B4CA6A50040AD20 /* NelpViewController.swift in Sources */,
-				190F62401B4F5CAB0091A1D1 /* NelpTasksStore.swift in Sources */,
+				19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */,
 				F7067AB41B56001300F19745 /* FontHelper.swift in Sources */,
 				F762D0131B4B680300812235 /* ProfileViewController.swift in Sources */,
 				F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */,

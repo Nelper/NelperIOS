@@ -10,13 +10,13 @@ import UIKit
 import pop
 
 protocol NelpTaskCreateViewControllerDelegate {
-  func nelpTaskAdded(nelpTask: NelpTask) -> Void
+  func nelpTaskAdded(nelpTask: FindNelpTask) -> Void
 }
 
 class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, SecondFormViewControllerDelegate {
 	
   var delegate: NelpTaskCreateViewControllerDelegate?
-	var task: NelpTask!
+	var task: FindNelpTask!
 	
 	@IBOutlet weak var backButton: UIButton!
 	@IBOutlet weak var navBar: UIView!
@@ -41,7 +41,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
   
   override func viewDidLoad() {
     super.viewDidLoad()
-		self.task = NelpTask()
+		//self.task = NelpTask()
 		self.titleTextField.delegate = self
 		self.descriptionTextField.delegate = self
 		self.nelpyText.alpha = 0
@@ -125,7 +125,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	
 //NELPTASK DELEGATE METHODS
 	
-	func nelpTaskAdded(nelpTask: NelpTask) {
+	func nelpTaskAdded(nelpTask: FindNelpTask) {
 		delegate?.nelpTaskAdded(nelpTask)
 	}
 	

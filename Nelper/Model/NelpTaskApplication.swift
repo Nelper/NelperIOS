@@ -8,6 +8,26 @@
 
 import Foundation
 
-class NelpTaskApplication{
-	
+class NelpTaskApplication: BaseModel {
+  enum State: Int {
+    case Pending = 0
+    case Canceled
+    case Accepted
+    case Denied
+  }
+  
+  var state: State = .Pending
+  var createdAt: NSDate!
+  var isNew: Bool = true
+  var user: User!
+  var task: NelpTask!
+  
+  init(parseApplication: PFObject) {
+    super.init()
+    
+    state = State(rawValue: parseApplication["state"] as! Int)!
+    createdAt = parseApplication.createdAt!
+    isNew = parseApplication["isNew"] as! Bool
+    user = User(parseUser: parseApplication["user"] as! PFUser)
+  }
 }
