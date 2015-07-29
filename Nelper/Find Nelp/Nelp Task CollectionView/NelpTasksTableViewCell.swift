@@ -62,7 +62,7 @@ class NelpTasksTableViewCell: UITableViewCell {
     }
   }
   
-  func setNelpTask(nelpTask: FindNelpTask) {
+  func setNelpTask(nelpTask: NelpTask) {
     titleLabel.text = nelpTask.title
   }
 }

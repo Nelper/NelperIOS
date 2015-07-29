@@ -10,15 +10,16 @@ import Foundation
 import UIKit
 
 protocol SecondFormViewControllerDelegate {
-	func nelpTaskAdded(nelpTask: FindNelpTask) -> Void
+	func nelpTaskAdded(nelpTask: NelpTask) -> Void
 	func dismiss()
 }
 
 class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate{
 	
-	var task: FindNelpTask!
+	var task: NelpTask!
 	
 	var delegate: SecondFormViewControllerDelegate?
+	var nelpTasksStore: NelpTasksStore!
 	
 	@IBOutlet weak var navBar: UIView!
 	@IBOutlet weak var backButton: UIButton!
@@ -42,7 +43,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	@IBOutlet weak var postButton: UIButton!
 	
 	
-	convenience init(task: FindNelpTask){
+	convenience init(task: NelpTask){
 		self.init(nibName: "SecondFormScreen", bundle: nil)
 		self.task = task
 	}
@@ -51,6 +52,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.nelpyText.alpha = 0
 		self.nelpyTextBubble.alpha = 0
 		self.priceOfferedTextField.alpha = 0
+		self.nelpTasksStore = NelpTasksStore()
 		self.nelpyText.textColor = blackNelpyColor
 		self.nelpyText.font = UIFont(name: "Railway", size: kTextFontSize)
 		self.nelpyText.textAlignment = NSTextAlignment.Center
@@ -180,9 +182,10 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	@IBAction func postButtonTapped(sender: AnyObject) {
 		self.task.priceOffered = priceOfferedTextField.text
-    //TODO: set location
-		//self.task.location = locationTextField.text
-		let taskComplete = ParseHelper.createWithTitle(self.task.title, description: self.task.desc, priceOffered:self.task.priceOffered!)
+		self.task.location = locationTextField.text
+		self.task.state = kActive
+		
+		let taskComplete = nelpTasksStore.createWithTitle(self.task.title, description: self.task.desc, priceOffered:self.task.priceOffered, stateValue:self.task.state)
 		
 		delegate?.nelpTaskAdded(taskComplete)
 		self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
