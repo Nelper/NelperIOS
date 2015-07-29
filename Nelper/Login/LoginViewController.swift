@@ -8,28 +8,89 @@
 
 import UIKit
 
+
+
 protocol LoginViewControllerDelegate {
   func onLogin() -> Void
 }
 
 class LoginViewController: UIViewController {
+	
+	@IBOutlet weak var logoImage: UIImageView!
+	
+	@IBOutlet weak var nelperLabel: UILabel!
+	
+	@IBOutlet weak var facebookLoginButton: UIButton!
+	
+	@IBOutlet weak var skipButton: UIButton!
+	
+	@IBOutlet weak var container: UIView!
   
   let permissions = ["public_profile"]
   
   var delegate: LoginViewControllerDelegate?
   
-  convenience init() {
+	
+	
+	//Initialization
+	
+	convenience init() {
     self.init(nibName: "LoginViewController", bundle: nil)
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
-  }
+			self.adjustUI()
+	}
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
+	
+	
+	//UI
+	
+	func adjustUI(){
+		
+		self.logoImage.image = UIImage(named: "logo_nobackground_v2")
+		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFill
+		
+		var gradient: CAGradientLayer = CAGradientLayer()
+		gradient.frame = view.bounds
+		gradient.colors = [orangeSecondaryGradientColor.CGColor, orangeMainGradientColor.CGColor]
+		self.container.layer.insertSublayer(gradient, atIndex: 0)
+		
+		
+		
+		
+		self.nelperLabel.text = "Nelper"
+		self.nelperLabel.textColor = whiteNelpyColor
+		self.nelperLabel.font = UIFont(name: "Railway", size: kLoginScreenFontSize)
+		
+		
+		self.facebookLoginButton.backgroundColor = facebookBlueColor
+		self.facebookLoginButton.layer.cornerRadius = 6
+		self.facebookLoginButton.setTitle("Login with Facebook", forState: UIControlState.Normal)
+		self.facebookLoginButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
+		self.facebookLoginButton.titleLabel?.font = UIFont(name: "Railway", size: kSubtitleFontSize)
+		self.facebookLoginButton.layer.borderColor = blackNelpyColor.CGColor
+		self.facebookLoginButton.layer.borderWidth = 2
+		self.facebookLoginButton.setImage(UIImage(named: "facebookButtonIcon"), forState: UIControlState.Normal)
+		self.facebookLoginButton.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0)
+		
+		self.skipButton.backgroundColor = grayNelpyColor
+		self.skipButton.layer.cornerRadius = 6
+		self.skipButton.setTitle("Mmm, maybe later", forState: UIControlState.Normal)
+		self.skipButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
+		self.skipButton.titleLabel?.font = UIFont(name: "Railway", size: kSubtitleFontSize)
+		self.skipButton.layer.borderColor = UIColor.blackColor().CGColor
+		self.skipButton.layer.borderWidth = 2
+		
+		
+	}
+	
+	//IBActions
   
   @IBAction func facebookLogin(sender: UIButton) {
     PFFacebookUtils.logInInBackgroundWithReadPermissions(self.permissions) { (user: PFUser?, error: NSError?) -> Void in
@@ -48,6 +109,15 @@ class LoginViewController: UIViewController {
       }
     }
   }
+	
+	@IBAction func skipLogin(sender: AnyObject) {
+		self.loginCompleted()
+	}
+	
+	
+	
+	
+	//Login
 
   func getFBUserInfo() {
     let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
@@ -70,7 +140,7 @@ class LoginViewController: UIViewController {
       }
     }
   }
-  
+	
   func loginCompleted() {
     delegate?.onLogin()
   }

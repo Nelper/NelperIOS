@@ -9,10 +9,18 @@
 import Foundation
 
 
-let orangeMainColor = hexStringToUIColor("d95330")
+let orangeMainColor = hexStringToUIColor("db412a")
 let orangeSecondaryColor = hexStringToUIColor("d98b30")
+
+let orangeMainGradientColor = hexStringToUIColor("de1f1f")
+let orangeSecondaryGradientColor = hexStringToUIColor("d95330")
+
 let whiteNelpyColor = hexStringToUIColor ("eaeaea")
 let blackNelpyColor = hexStringToUIColor ("2c2c2c")
+let grayNelpyColor = hexStringToUIColor("525252")
+
+let facebookBlueColor = hexStringToUIColor ("3b5998")
+
 
 
 

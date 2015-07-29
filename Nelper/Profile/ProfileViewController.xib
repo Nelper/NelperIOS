@@ -121,7 +121,7 @@
                             <rect key="frame" x="0.0" y="246" width="344" height="199"/>
                             <color key="backgroundColor" red="0.17028166119999999" green="0.55733449840000004" blue="0.97687088820000001" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffX-gO-Ebc">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffX-gO-Ebc" userLabel="selector">
                             <rect key="frame" x="0.0" y="196" width="344" height="50"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppf-r9-9Ee">
