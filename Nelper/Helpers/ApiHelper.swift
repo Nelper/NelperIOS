@@ -195,7 +195,7 @@ class ApiHelper {
   static func deleteTask(task: FindNelpTask) {
     let parseTask = PFObject(className: kParseTask)
     parseTask.objectId = task.objectId
-    parseTask.setValue(FindNelpTask.State.Deleted.rawValue, forKey: "state")
+		parseTask["state"] = FindNelpTask.State.Deleted.rawValue
     parseTask.saveEventually()
   }
   

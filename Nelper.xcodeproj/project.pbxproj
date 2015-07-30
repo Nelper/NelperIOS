@@ -52,6 +52,7 @@
 		F7D94CB41B5AC41000380157 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CB31B5AC41000380157 /* MapKit.framework */; };
 		F7D94DB61B608D9D00380157 /* pop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94DAF1B608D5500380157 /* pop.framework */; };
 		F7D94DB71B608D9D00380157 /* pop.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94DAF1B608D5500380157 /* pop.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F7DEC2111B69CB6C00B03747 /* NelpViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -251,6 +252,7 @@
 		F7D94CA01B5AC31C00380157 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
 		F7D94CB31B5AC41000380157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F7D94DA41B608D5400380157 /* pop.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = pop.xcodeproj; path = pop/pop.xcodeproj; sourceTree = "<group>"; };
+		F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,6 +311,7 @@
 			children = (
 				195FD9B31B4CA6A50040AD20 /* NelpViewController.swift */,
 				195FD9B41B4CA6A50040AD20 /* NelpViewController.xib */,
+				F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */,
 			);
 			name = Nelp;
 			sourceTree = "<group>";
@@ -747,6 +750,7 @@
 				195FD9B51B4CA6A50040AD20 /* NelpViewController.swift in Sources */,
 				19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */,
 				F7067AB41B56001300F19745 /* FontHelper.swift in Sources */,
+				F7DEC2111B69CB6C00B03747 /* NelpViewCell.swift in Sources */,
 				F762D0131B4B680300812235 /* ProfileViewController.swift in Sources */,
 				F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */,
 				F762D0111B4B67D900812235 /* NelpTasksListViewController.swift in Sources */,

@@ -165,11 +165,11 @@ class NelpTasksListViewController: UIViewController,
 	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 		if (editingStyle == UITableViewCellEditingStyle.Delete){
 			var nelpTask = nelpTasks[indexPath.row];
-      //TODO: use ParseHelper
-			/*nelpTask.deleteInBackgroundWithBlock({ (YES, NSError: NSError?) -> Void in
-				self.loadData()
-				self.checkForEmptyTasks()
-			})*/
+			ApiHelper.deleteTask(nelpTask)
+			self.nelpTasks.removeAtIndex(indexPath.row)
+			self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
+			self.checkForEmptyTasks()
+			
 		}
 	}
 	

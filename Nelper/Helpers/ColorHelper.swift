@@ -21,6 +21,8 @@ let grayNelpyColor = hexStringToUIColor("525252")
 
 let facebookBlueColor = hexStringToUIColor ("3b5998")
 
+let yellowTechnology = hexStringToUIColor ("f7cc39")
+
 
 
 

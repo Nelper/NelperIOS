@@ -31,6 +31,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	var refreshView: UIRefreshControl!
 	
 	var nelpTasks = [NelpTask]()
+	var findNelpTasks = [FindNelpTask]()
 
 	let locationManager = CLLocationManager()
     
@@ -56,7 +57,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.tableView.delegate = self
 		self.tableView.dataSource = self
 		tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
-		tableView.registerClass(NelpTasksTableViewCell.classForCoder(), forCellReuseIdentifier: NelpTasksTableViewCell.reuseIdentifier)
+		tableView.registerClass(NelpViewCell.classForCoder(), forCellReuseIdentifier: NelpViewCell.reuseIdentifier)
 		
 		let refreshView = UIRefreshControl()
 		refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
@@ -83,12 +84,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.mapView.addGestureRecognizer(touchesDetector)
 		
 		self.mapView.showsUserLocation = true
-		/*var userLocation: CLLocation = self.locationManager.location
-		var userLocationForCenter = userLocation.coordinate
-		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.01 , 0.01)
-		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
-		self.mapView.setRegion(locationToZoom, animated: true)
-		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)*/
 		
 	}
 	
@@ -113,11 +108,21 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 	
 	func loadData() {
-		ApiHelper.listNelpTasksWithBlock { (nelpTasks: [NelpTask]?, error: NSError?) -> Void in
-			if error != nil {
+//		ApiHelper.listNelpTasksWithBlock { (nelpTasks: [NelpTask]?, error: NSError?) -> Void in
+//			if error != nil {
+//				
+//			} else {
+//				self.nelpTasks = nelpTasks!
+//				self.refreshView?.endRefreshing()
+//				self.tableView?.reloadData()
+//			}
+//		}
+		
+		ApiHelper.listMyNelpTasksWithBlock { (nelpTasks: [FindNelpTask]?, error: NSError?) -> Void in
+			if error != nil{
 				
-			} else {
-				self.nelpTasks = nelpTasks!
+			}else{
+				self.findNelpTasks = nelpTasks!
 				self.refreshView?.endRefreshing()
 				self.tableView?.reloadData()
 			}
@@ -128,17 +133,16 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	//TableView Delegate/Datasource methods
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return nelpTasks.count
+		return self.findNelpTasks.count
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-		let cell = self.tableView.dequeueReusableCellWithIdentifier(NelpTasksTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpTasksTableViewCell
+		let cell = self.tableView.dequeueReusableCellWithIdentifier(NelpViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpViewCell
 		
-		let nelpTask = self.nelpTasks[indexPath.item]
+		let nelpTask = self.findNelpTasks[indexPath.item]
 		
-    // TODO: Need different table cell class.
-		//cell.setNelpTask(nelpTask)
+		cell.setNelpTask(nelpTask)
 		
 		return cell
 		
@@ -147,6 +151,11 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		
 	}
+	
+	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+		return 100
+	}
+	
 
 //UIGesture delegate methods
 	
@@ -176,8 +185,22 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		})
 	}
 	
+	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+		var userLocation: CLLocation = self.locationManager.location
+		self.zoomToUserLocation(userLocation)
+		
+	}
+	
 	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
 		println("Error:" + error.localizedDescription)
+	}
+	
+	func zoomToUserLocation (userLocation: CLLocation){
+				var userLocationForCenter = userLocation.coordinate
+				var span :MKCoordinateSpan = MKCoordinateSpanMake(0.01 , 0.01)
+				var locationToZoom: CLLocationCoordinate2D = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
+				var region:MKCoordinateRegion = MKCoordinateRegionMake(locationToZoom, span)
+				self.mapView.setRegion(region, animated: true)
 	}
 	
 	

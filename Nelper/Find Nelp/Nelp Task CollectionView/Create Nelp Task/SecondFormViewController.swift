@@ -166,6 +166,9 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			self.categoriesBackground.alpha = 1
 			self.postButton.alpha = 1
 			
+			self.priceOfferedTextField.endEditing(true)
+			return false
+			
 		}
 		return false
 	}
