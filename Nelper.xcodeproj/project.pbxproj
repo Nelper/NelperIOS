@@ -30,6 +30,7 @@
 		199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FC1B37A0A500B25B07 /* Images.xcassets */; };
 		199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */; };
 		199EF20C1B37A0A500B25B07 /* NelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF20B1B37A0A500B25B07 /* NelperTests.swift */; };
+		9FB9076C1CAA3EC7FCDFB9DE /* Pods_Nelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F7067AAF1B55F0B300F19745 /* Railway.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7067AAE1B55F0B300F19745 /* Railway.ttf */; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
@@ -38,6 +39,8 @@
 		F72F27D61B53070D00CD3B0B /* NelpTasksListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F72F27D51B53070D00CD3B0B /* NelpTasksListViewController.xib */; };
 		F72F27DC1B53224100CD3B0B /* NelpTaskApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F27DB1B53224100CD3B0B /* NelpTaskApplication.swift */; };
 		F72F284F1B53607C00CD3B0B /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F284E1B53607C00CD3B0B /* ColorHelper.swift */; };
+		F73AE64A1B6D3CEA00FE672E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73AE6491B6D3CEA00FE672E /* Accounts.framework */; };
+		F73AE64C1B6D3CFF00FE672E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73AE64B1B6D3CFF00FE672E /* Social.framework */; };
 		F762D0061B4B66B000812235 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0041B4B66B000812235 /* LoginViewController.swift */; };
 		F762D0071B4B66B000812235 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F762D0051B4B66B000812235 /* LoginViewController.xib */; };
 		F762D00F1B4B67B200812235 /* NelpTasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D00E1B4B67B200812235 /* NelpTasksTableViewCell.swift */; };
@@ -46,13 +49,10 @@
 		F782A6261B6411DD00C78470 /* SecondFormScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F782A6241B6411DD00C78470 /* SecondFormScreen.xib */; };
 		F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6251B6411DD00C78470 /* SecondFormViewController.swift */; };
 		F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ApiHelper.swift */; };
-		F7D94C9C1B5AC22100380157 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94C951B5AC1BE00380157 /* Alamofire.framework */; };
-		F7D94C9D1B5AC22100380157 /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94C951B5AC1BE00380157 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F7D94CB21B5AC37B00380157 /* SnapKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CA81B5AC31C00380157 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F7D94CB41B5AC41000380157 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CB31B5AC41000380157 /* MapKit.framework */; };
-		F7D94DB61B608D9D00380157 /* pop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94DAF1B608D5500380157 /* pop.framework */; };
-		F7D94DB71B608D9D00380157 /* pop.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94DAF1B608D5500380157 /* pop.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F7DEC2111B69CB6C00B03747 /* NelpViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */; };
+		F7EE46B81B6D219C005ECFCA /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = F7EE46B71B6D219C005ECFCA /* Podfile */; };
+		F7EE46D71B6D32D4005ECFCA /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,118 +63,6 @@
 			remoteGlobalIDString = 199EF1ED1B37A0A500B25B07;
 			remoteInfo = Nelper;
 		};
-		F7D94C941B5AC1BE00380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94C8D1B5AC1BE00380157 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
-			remoteInfo = "Alamofire iOS";
-		};
-		F7D94C961B5AC1BE00380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94C8D1B5AC1BE00380157 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
-			remoteInfo = "Alamofire OSX";
-		};
-		F7D94C981B5AC1BE00380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94C8D1B5AC1BE00380157 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
-			remoteInfo = "Alamofire iOS Tests";
-		};
-		F7D94C9A1B5AC1BE00380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94C8D1B5AC1BE00380157 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F829C6B21A7A94F100A2CD59;
-			remoteInfo = "Alamofire OSX Tests";
-		};
-		F7D94C9E1B5AC22100380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94C8D1B5AC1BE00380157 /* Alamofire.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
-			remoteInfo = "Alamofire iOS";
-		};
-		F7D94CA71B5AC31C00380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94CA01B5AC31C00380157 /* SnapKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EEBCC9D819CC627D0083B827;
-			remoteInfo = "SnapKit iOS";
-		};
-		F7D94CA91B5AC31C00380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94CA01B5AC31C00380157 /* SnapKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EECDB37A1AC0C9D4006BBC11;
-			remoteInfo = "SnapKit OSX";
-		};
-		F7D94CAB1B5AC31C00380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94CA01B5AC31C00380157 /* SnapKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EEBCC9E219CC627E0083B827;
-			remoteInfo = "SnapKit iOS Tests";
-		};
-		F7D94CAD1B5AC31C00380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94CA01B5AC31C00380157 /* SnapKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EECDB3841AC0C9D4006BBC11;
-			remoteInfo = "SnapKit OSX Tests";
-		};
-		F7D94CAF1B5AC34B00380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94CA01B5AC31C00380157 /* SnapKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = EEBCC9D719CC627D0083B827;
-			remoteInfo = "SnapKit iOS";
-		};
-		F7D94DAC1B608D5500380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EC191218162FB53A00E0CC76;
-			remoteInfo = "pop-ios-static";
-		};
-		F7D94DAE1B608D5500380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0B6BE74819FFD3B900762101;
-			remoteInfo = "pop-ios-framework";
-		};
-		F7D94DB01B608D5500380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EC68857F18C7B60000C6194C;
-			remoteInfo = "pop-osx-framework";
-		};
-		F7D94DB21B608D5500380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = ECF01ED318C92B7F009E0AD1;
-			remoteInfo = "pop-tests-ios";
-		};
-		F7D94DB41B608D5500380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EC7E319918C93D6500B38170;
-			remoteInfo = "pop-tests-osx";
-		};
-		F7D94DB81B608D9D00380157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 0B6BE74719FFD3B900762101;
-			remoteInfo = "pop-ios-framework";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -184,8 +72,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F7D94DB71B608D9D00380157 /* pop.framework in Copy Frameworks */,
-				F7D94C9D1B5AC22100380157 /* Alamofire.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,7 +82,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F7D94CB21B5AC37B00380157 /* SnapKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,6 +117,8 @@
 		199EF20A1B37A0A500B25B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		199EF20B1B37A0A500B25B07 /* NelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NelperTests.swift; sourceTree = "<group>"; };
 		19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nelper-Bridging-Header.h"; sourceTree = "<group>"; };
+		3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
+		81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7067AAE1B55F0B300F19745 /* Railway.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Railway.ttf; sourceTree = "<group>"; };
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
 		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -240,6 +127,8 @@
 		F72F27D51B53070D00CD3B0B /* NelpTasksListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NelpTasksListViewController.xib; path = "Nelper/Find Nelp/Nelp Task CollectionView/NelpTasksListViewController.xib"; sourceTree = SOURCE_ROOT; };
 		F72F27DB1B53224100CD3B0B /* NelpTaskApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTaskApplication.swift; path = Nelper/Model/NelpTaskApplication.swift; sourceTree = SOURCE_ROOT; };
 		F72F284E1B53607C00CD3B0B /* ColorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorHelper.swift; path = Nelper/Helpers/ColorHelper.swift; sourceTree = SOURCE_ROOT; };
+		F73AE6491B6D3CEA00FE672E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		F73AE64B1B6D3CFF00FE672E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		F762D0041B4B66B000812235 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Nelper/Login/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		F762D0051B4B66B000812235 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Nelper/Login/LoginViewController.xib; sourceTree = SOURCE_ROOT; };
 		F762D00E1B4B67B200812235 /* NelpTasksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTasksTableViewCell.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/NelpTasksTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
@@ -248,11 +137,11 @@
 		F782A6241B6411DD00C78470 /* SecondFormScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SecondFormScreen.xib; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormScreen.xib"; sourceTree = SOURCE_ROOT; };
 		F782A6251B6411DD00C78470 /* SecondFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondFormViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormViewController.swift"; sourceTree = SOURCE_ROOT; };
 		F782A6281B6567E100C78470 /* ApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHelper.swift; path = Nelper/Helpers/ApiHelper.swift; sourceTree = SOURCE_ROOT; };
-		F7D94C8D1B5AC1BE00380157 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
-		F7D94CA01B5AC31C00380157 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
 		F7D94CB31B5AC41000380157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		F7D94DA41B608D5400380157 /* pop.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = pop.xcodeproj; path = pop/pop.xcodeproj; sourceTree = "<group>"; };
 		F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpViewCell.swift; sourceTree = "<group>"; };
+		F7EE46B71B6D219C005ECFCA /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Pods/GoogleMaps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
+		F81CFE6A4154D592275ED493 /* Pods-Nelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,7 +149,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7D94DB61B608D9D00380157 /* pop.framework in Frameworks */,
+				F73AE64C1B6D3CFF00FE672E /* Social.framework in Frameworks */,
+				F73AE64A1B6D3CEA00FE672E /* Accounts.framework in Frameworks */,
+				F7EE46D71B6D32D4005ECFCA /* GoogleMaps.framework in Frameworks */,
 				F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */,
 				190F62491B4F618C0091A1D1 /* SystemConfiguration.framework in Frameworks */,
 				190F62471B4F617D0091A1D1 /* libsqlite3.dylib in Frameworks */,
@@ -269,11 +160,11 @@
 				190F62381B4F5BC80091A1D1 /* ParseCrashReporting.framework in Frameworks */,
 				190F62391B4F5BC80091A1D1 /* ParseFacebookUtilsV4.framework in Frameworks */,
 				F7D94CB41B5AC41000380157 /* MapKit.framework in Frameworks */,
-				F7D94C9C1B5AC22100380157 /* Alamofire.framework in Frameworks */,
 				190F62351B4F5BC80091A1D1 /* FBSDKCoreKit.framework in Frameworks */,
 				190F62361B4F5BC80091A1D1 /* FBSDKLoginKit.framework in Frameworks */,
 				190F62341B4F5BC80091A1D1 /* Bolts.framework in Frameworks */,
 				190F62371B4F5BC80091A1D1 /* Parse.framework in Frameworks */,
+				9FB9076C1CAA3EC7FCDFB9DE /* Pods_Nelper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,9 +214,7 @@
 				199EF2081B37A0A500B25B07 /* NelperTests */,
 				199EF1EF1B37A0A500B25B07 /* Products */,
 				E00C0A7D0D690598AC42849C /* Frameworks */,
-				F7D94C8D1B5AC1BE00380157 /* Alamofire.xcodeproj */,
-				F7D94CA01B5AC31C00380157 /* SnapKit.xcodeproj */,
-				F7D94DA41B608D5400380157 /* pop.xcodeproj */,
+				7FF6DFF7DB0C2085ABB3104B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -361,6 +250,7 @@
 				19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */,
 				199EF1F21B37A0A500B25B07 /* Info.plist */,
 				F7067AAE1B55F0B300F19745 /* Railway.ttf */,
+				F7EE46B71B6D219C005ECFCA /* Podfile */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -382,9 +272,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		7FF6DFF7DB0C2085ABB3104B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F81CFE6A4154D592275ED493 /* Pods-Nelper.debug.xcconfig */,
+				3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		E00C0A7D0D690598AC42849C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F73AE64B1B6D3CFF00FE672E /* Social.framework */,
+				F73AE6491B6D3CEA00FE672E /* Accounts.framework */,
+				F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */,
 				F7D94CB31B5AC41000380157 /* MapKit.framework */,
 				F70E23E31B58836900B7ADA9 /* ImageIO.framework */,
 				190F62481B4F618C0091A1D1 /* SystemConfiguration.framework */,
@@ -397,6 +299,7 @@
 				190F62311B4F5BC80091A1D1 /* Parse.framework */,
 				190F62321B4F5BC80091A1D1 /* ParseCrashReporting.framework */,
 				190F62331B4F5BC80091A1D1 /* ParseFacebookUtilsV4.framework */,
+				81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -478,40 +381,6 @@
 			path = Offer;
 			sourceTree = "<group>";
 		};
-		F7D94C8E1B5AC1BE00380157 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F7D94C951B5AC1BE00380157 /* Alamofire.framework */,
-				F7D94C971B5AC1BE00380157 /* Alamofire.framework */,
-				F7D94C991B5AC1BE00380157 /* Alamofire iOS Tests.xctest */,
-				F7D94C9B1B5AC1BE00380157 /* Alamofire OSX Tests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		F7D94CA11B5AC31C00380157 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F7D94CA81B5AC31C00380157 /* SnapKit.framework */,
-				F7D94CAA1B5AC31C00380157 /* SnapKit.framework */,
-				F7D94CAC1B5AC31C00380157 /* SnapKit iOS Tests.xctest */,
-				F7D94CAE1B5AC31C00380157 /* SnapKit OSX Tests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		F7D94DA51B608D5400380157 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F7D94DAD1B608D5500380157 /* libpop.a */,
-				F7D94DAF1B608D5500380157 /* pop.framework */,
-				F7D94DB11B608D5500380157 /* pop.framework */,
-				F7D94DB31B608D5500380157 /* pop-tests.xctest */,
-				F7D94DB51B608D5500380157 /* pop-tests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -519,18 +388,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 199EF20F1B37A0A500B25B07 /* Build configuration list for PBXNativeTarget "Nelper" */;
 			buildPhases = (
+				3CC2E2B81D1FC4E9BEDE0262 /* Check Pods Manifest.lock */,
 				199EF1EA1B37A0A500B25B07 /* Sources */,
 				199EF1EB1B37A0A500B25B07 /* Frameworks */,
 				199EF1EC1B37A0A500B25B07 /* Resources */,
 				19B63F091B4F6B9500C73E48 /* Copy Frameworks */,
 				F7D94CB11B5AC35D00380157 /* Copy Frameworks */,
+				CAD06E38B3B081F462B0FB56 /* Copy Pods Resources */,
+				959203C715F1816D7DEDFA69 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				F7D94CB01B5AC34B00380157 /* PBXTargetDependency */,
-				F7D94C9F1B5AC22100380157 /* PBXTargetDependency */,
-				F7D94DB91B608D9D00380157 /* PBXTargetDependency */,
 			);
 			name = Nelper;
 			productName = Nelper;
@@ -589,20 +458,6 @@
 			mainGroup = 199EF1E51B37A0A500B25B07;
 			productRefGroup = 199EF1EF1B37A0A500B25B07 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = F7D94C8E1B5AC1BE00380157 /* Products */;
-					ProjectRef = F7D94C8D1B5AC1BE00380157 /* Alamofire.xcodeproj */;
-				},
-				{
-					ProductGroup = F7D94DA51B608D5400380157 /* Products */;
-					ProjectRef = F7D94DA41B608D5400380157 /* pop.xcodeproj */;
-				},
-				{
-					ProductGroup = F7D94CA11B5AC31C00380157 /* Products */;
-					ProjectRef = F7D94CA01B5AC31C00380157 /* SnapKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				199EF1ED1B37A0A500B25B07 /* Nelper */,
@@ -611,105 +466,12 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		F7D94C951B5AC1BE00380157 /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = F7D94C941B5AC1BE00380157 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F7D94C971B5AC1BE00380157 /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = F7D94C961B5AC1BE00380157 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F7D94C991B5AC1BE00380157 /* Alamofire iOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Alamofire iOS Tests.xctest";
-			remoteRef = F7D94C981B5AC1BE00380157 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F7D94C9B1B5AC1BE00380157 /* Alamofire OSX Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Alamofire OSX Tests.xctest";
-			remoteRef = F7D94C9A1B5AC1BE00380157 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F7D94CA81B5AC31C00380157 /* SnapKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SnapKit.framework;
-			remoteRef = F7D94CA71B5AC31C00380157 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F7D94CAA1B5AC31C00380157 /* SnapKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SnapKit.framework;
-			remoteRef = F7D94CA91B5AC31C00380157 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F7D94CAC1B5AC31C00380157 /* SnapKit iOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SnapKit iOS Tests.xctest";
-			remoteRef = F7D94CAB1B5AC31C00380157 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F7D94CAE1B5AC31C00380157 /* SnapKit OSX Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SnapKit OSX Tests.xctest";
-			remoteRef = F7D94CAD1B5AC31C00380157 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F7D94DAD1B608D5500380157 /* libpop.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libpop.a;
-			remoteRef = F7D94DAC1B608D5500380157 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F7D94DAF1B608D5500380157 /* pop.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = pop.framework;
-			remoteRef = F7D94DAE1B608D5500380157 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F7D94DB11B608D5500380157 /* pop.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = pop.framework;
-			remoteRef = F7D94DB01B608D5500380157 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F7D94DB31B608D5500380157 /* pop-tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "pop-tests.xctest";
-			remoteRef = F7D94DB21B608D5500380157 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F7D94DB51B608D5500380157 /* pop-tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "pop-tests.xctest";
-			remoteRef = F7D94DB41B608D5500380157 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXResourcesBuildPhase section */
 		199EF1EC1B37A0A500B25B07 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7EE46B81B6D219C005ECFCA /* Podfile in Resources */,
 				F7067AAF1B55F0B300F19745 /* Railway.ttf in Resources */,
 				F72F27D61B53070D00CD3B0B /* NelpTasksListViewController.xib in Resources */,
 				195FD9B61B4CA6A50040AD20 /* NelpViewController.xib in Resources */,
@@ -730,6 +492,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3CC2E2B81D1FC4E9BEDE0262 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		959203C715F1816D7DEDFA69 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Nelper/Pods-Nelper-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CAD06E38B3B081F462B0FB56 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Nelper/Pods-Nelper-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		199EF1EA1B37A0A500B25B07 /* Sources */ = {
@@ -774,21 +584,6 @@
 			target = 199EF1ED1B37A0A500B25B07 /* Nelper */;
 			targetProxy = 199EF2061B37A0A500B25B07 /* PBXContainerItemProxy */;
 		};
-		F7D94C9F1B5AC22100380157 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Alamofire iOS";
-			targetProxy = F7D94C9E1B5AC22100380157 /* PBXContainerItemProxy */;
-		};
-		F7D94CB01B5AC34B00380157 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "SnapKit iOS";
-			targetProxy = F7D94CAF1B5AC34B00380157 /* PBXContainerItemProxy */;
-		};
-		F7D94DB91B608D9D00380157 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "pop-ios-framework";
-			targetProxy = F7D94DB81B608D9D00380157 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -807,6 +602,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -823,7 +619,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = Users/charlesvinette/Documents/Nelper;
+				FRAMEWORK_SEARCH_PATHS = (
+					Users/charlesvinette/Documents/Nelper,
+					"$(inherited)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -840,10 +639,13 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "$(inherited)";
+				"OTHER_LDFLAGS[arch=*]" = "$(inherited)";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -851,6 +653,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -868,7 +671,10 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = Users/charlesvinette/Documents/Nelper;
+				FRAMEWORK_SEARCH_PATHS = (
+					Users/charlesvinette/Documents/Nelper,
+					"$(inherited)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -878,25 +684,35 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
 		199EF2101B37A0A500B25B07 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F81CFE6A4154D592275ED493 /* Pods-Nelper.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/Nelper/Frameworks",
 					"$(PROJECT_DIR)/SnapKit/build/Debug-iphoneos",
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleMaps/Frameworks",
 				);
 				INFOPLIST_FILE = Nelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Nelper/Nelper-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -905,17 +721,24 @@
 		};
 		199EF2111B37A0A500B25B07 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/Nelper/Frameworks",
 					"$(PROJECT_DIR)/SnapKit/build/Debug-iphoneos",
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleMaps/Frameworks",
 				);
 				INFOPLIST_FILE = Nelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Nelper/Nelper-Bridging-Header.h";
 			};

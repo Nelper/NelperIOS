@@ -88,6 +88,7 @@ class ApiHelper {
   
   static func listNelpTasksWithBlock(block: ([NelpTask]?, NSError?) -> Void) {
     let taskQuery = PFQuery(className: kParseTask)
+		taskQuery.includeKey("user")
     taskQuery.orderByDescending("createdAt")
     taskQuery.limit = 20
     taskQuery.findObjectsInBackgroundWithBlock { (pfTasks, error) -> Void in

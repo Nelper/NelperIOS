@@ -34,7 +34,7 @@ class BaseTask: BaseModel {
     objectId = parseTask.objectId!
     title = parseTask["title"] as! String
     desc = parseTask["desc"] as! String
-    user = User(parseUser: PFUser.currentUser()!)
+    user = User(parseUser: parseTask["user"] as! PFUser)
     let pfLoc = parseTask["location"] as? PFGeoPoint
     if let pfLoc = pfLoc {
       location = GeoPoint(

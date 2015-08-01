@@ -64,7 +64,7 @@ class ProfileViewController: UIViewController {
 		var fbProfilePicture = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
 		request(.GET,fbProfilePicture).response(){
 				(_, _, data, _) in
-				var image = UIImage(data: data as! NSData)
+				var image = UIImage(data: data as NSData!)
 				self.profilePicture.image = image
 				}
 }

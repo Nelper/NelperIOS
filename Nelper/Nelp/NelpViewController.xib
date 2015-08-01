@@ -7,11 +7,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NelpViewController" customModule="Nelper" customModuleProvider="target">
             <connections>
-                <outlet property="centerButton" destination="ot0-8F-pmV" id="Ur6-ub-Qp3"/>
                 <outlet property="container" destination="yLw-jR-XsS" id="1Ha-iP-pCA"/>
                 <outlet property="findNelpTabBarImage" destination="uGa-bu-038" id="5Ws-dR-tf5"/>
                 <outlet property="logoImage" destination="oBg-br-ksA" id="hqn-ag-rej"/>
-                <outlet property="mapView" destination="EDr-9j-ED3" id="doH-op-SFh"/>
+                <outlet property="mapViewContainer" destination="Ga4-Ld-Uh8" id="PYE-9i-MML"/>
                 <outlet property="navBar" destination="pSm-h1-kgF" id="3El-6J-lba"/>
                 <outlet property="nelpTabBarImage" destination="lsw-Ra-fhS" id="cQk-dv-rwU"/>
                 <outlet property="profileTabBarImage" destination="TvF-0q-71q" id="CqX-aV-cnx"/>
@@ -29,11 +28,12 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vwf-Ak-zmN">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="445"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="390"/>
                             <subviews>
-                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="EDr-9j-ED3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="445"/>
-                                </mapView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ga4-Ld-Uh8">
+                                    <rect key="frame" x="0.0" y="64" width="375" height="326"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSm-h1-kgF">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                     <subviews>
@@ -59,30 +59,15 @@
                                         </mask>
                                     </variation>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ot0-8F-pmV">
-                                    <rect key="frame" x="335" y="405" width="30" height="30"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="7dG-iF-4FR"/>
-                                        <constraint firstAttribute="width" constant="30" id="Esh-QL-7vj"/>
-                                    </constraints>
-                                    <state key="normal">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="centerMapOnUser:" destination="-1" eventType="touchUpInside" id="RPF-Vi-Xmb"/>
-                                    </connections>
-                                </button>
                             </subviews>
-                            <color key="backgroundColor" red="0.90196084980000002" green="0.16078431900000001" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="backgroundColor" red="0.46661662850000002" green="1" blue="0.7643357355" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstItem="ot0-8F-pmV" firstAttribute="leading" secondItem="EDr-9j-ED3" secondAttribute="trailing" constant="-40" id="5MK-9e-QyF"/>
+                                <constraint firstItem="Ga4-Ld-Uh8" firstAttribute="top" secondItem="pSm-h1-kgF" secondAttribute="bottom" id="5EC-ow-3wO"/>
                                 <constraint firstAttribute="trailing" secondItem="pSm-h1-kgF" secondAttribute="trailing" id="BDO-Lz-jxm"/>
-                                <constraint firstAttribute="trailing" secondItem="EDr-9j-ED3" secondAttribute="trailing" id="GcO-JP-her"/>
-                                <constraint firstItem="EDr-9j-ED3" firstAttribute="top" secondItem="Vwf-Ak-zmN" secondAttribute="top" id="bz4-uj-LVV"/>
+                                <constraint firstItem="Ga4-Ld-Uh8" firstAttribute="leading" secondItem="Vwf-Ak-zmN" secondAttribute="leading" id="ST8-X9-nvT"/>
                                 <constraint firstItem="pSm-h1-kgF" firstAttribute="leading" secondItem="Vwf-Ak-zmN" secondAttribute="leading" id="eFg-oa-Pgw"/>
-                                <constraint firstAttribute="bottom" secondItem="EDr-9j-ED3" secondAttribute="bottom" id="jYi-73-uGW"/>
-                                <constraint firstItem="EDr-9j-ED3" firstAttribute="leading" secondItem="Vwf-Ak-zmN" secondAttribute="leading" id="uwY-aP-bkJ"/>
-                                <constraint firstItem="ot0-8F-pmV" firstAttribute="top" secondItem="EDr-9j-ED3" secondAttribute="bottom" constant="-40" id="xpb-1i-Mb9"/>
+                                <constraint firstAttribute="trailing" secondItem="Ga4-Ld-Uh8" secondAttribute="trailing" id="pjE-pX-1HH"/>
+                                <constraint firstAttribute="bottom" secondItem="Ga4-Ld-Uh8" secondAttribute="bottom" id="tG1-1j-Ip7"/>
                                 <constraint firstItem="pSm-h1-kgF" firstAttribute="top" secondItem="Vwf-Ak-zmN" secondAttribute="top" id="zEP-uf-CcS"/>
                             </constraints>
                         </view>
@@ -140,26 +125,27 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-u6-Vdz">
-                            <rect key="frame" x="0.0" y="449" width="375" height="173"/>
+                            <rect key="frame" x="0.0" y="398" width="375" height="224"/>
                             <color key="backgroundColor" red="1" green="0.80969880760000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.039511486040000002" green="0.80666035349999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="WhO-cu-Kkt" secondAttribute="trailing" id="81s-E4-uo6"/>
+                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="top" secondItem="Vwf-Ak-zmN" secondAttribute="bottom" constant="8" id="9dM-iX-7az"/>
                         <constraint firstItem="Vwf-Ak-zmN" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="HYe-uY-X7k"/>
-                        <constraint firstItem="Vwf-Ak-zmN" firstAttribute="height" secondItem="yLw-jR-XsS" secondAttribute="height" multiplier="2:3" id="IPr-rr-xRk"/>
+                        <constraint firstItem="Vwf-Ak-zmN" firstAttribute="height" secondItem="yLw-jR-XsS" secondAttribute="height" multiplier="2:3" constant="-54.666666666666629" id="IPr-rr-xRk"/>
                         <constraint firstAttribute="bottom" secondItem="WhO-cu-Kkt" secondAttribute="bottom" id="Inu-2b-wFw"/>
+                        <constraint firstAttribute="trailing" secondItem="PfD-u6-Vdz" secondAttribute="trailing" id="Mna-68-eLH"/>
                         <constraint firstAttribute="trailing" secondItem="WhO-cu-Kkt" secondAttribute="trailing" id="QZQ-NL-xSg"/>
                         <constraint firstItem="WhO-cu-Kkt" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="RWt-bv-762"/>
                         <constraint firstItem="WhO-cu-Kkt" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="SJU-T7-qdf"/>
-                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="YYu-MX-uDe"/>
+                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="ZXG-Bz-IxN"/>
+                        <constraint firstItem="WhO-cu-Kkt" firstAttribute="top" secondItem="PfD-u6-Vdz" secondAttribute="bottom" id="bAV-X6-mPE"/>
                         <constraint firstAttribute="bottom" secondItem="WhO-cu-Kkt" secondAttribute="bottom" id="czO-Zh-XJB"/>
-                        <constraint firstItem="WhO-cu-Kkt" firstAttribute="top" secondItem="PfD-u6-Vdz" secondAttribute="bottom" id="dC2-WZ-Cfi"/>
-                        <constraint firstAttribute="trailing" secondItem="PfD-u6-Vdz" secondAttribute="trailing" id="irH-e9-3Z0"/>
                         <constraint firstItem="Vwf-Ak-zmN" firstAttribute="top" secondItem="yLw-jR-XsS" secondAttribute="top" id="kbn-1E-O6t"/>
                         <constraint firstAttribute="trailing" secondItem="Vwf-Ak-zmN" secondAttribute="trailing" id="lz6-nx-503"/>
-                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="top" secondItem="EDr-9j-ED3" secondAttribute="bottom" constant="4" id="wRw-xe-BP5"/>
+                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="top" secondItem="yLw-jR-XsS" secondAttribute="top" constant="398" id="mLG-6x-ugC"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">

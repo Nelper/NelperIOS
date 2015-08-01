@@ -9,17 +9,18 @@
 import UIKit
 import MapKit
 import CoreLocation
+import GoogleMaps
 
 class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
 	
 	@IBOutlet weak var navBar: UIView!
 	@IBOutlet weak var logoImage: UIImageView!
 	@IBOutlet weak var container: UIView!
+	@IBOutlet weak var mapViewContainer: UIView!
+
+	
 	@IBOutlet weak var tableViewContainer: UIView!
-	
-	
-	
-	@IBOutlet weak var mapView: MKMapView!
+
 	@IBOutlet weak var centerButton: UIButton!
 	
 	@IBOutlet weak var tabView: UIView!
@@ -32,7 +33,9 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	var nelpTasks = [NelpTask]()
 	var findNelpTasks = [FindNelpTask]()
-
+	
+	var mapView: GMSMapView!
+	var placesClient: GMSPlacesClient?
 	let locationManager = CLLocationManager()
     
     convenience init() {
@@ -44,8 +47,9 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
   override func viewDidLoad() {
     
     super.viewDidLoad()
-		self.initializeMapview()
+		placesClient = GMSPlacesClient()
 		self.adjustUI()
+		self.initializeMapview()
 		self.createTaskTableView()
 		self.loadData()
 		
@@ -74,16 +78,37 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 
 	func initializeMapview(){
+		
 		self.locationManager.delegate = self;
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.requestWhenInUseAuthorization()
 		self.locationManager.startUpdatingLocation()
+		self.locationManager.distanceFilter = 50;
+
+
+		var camera = GMSCameraPosition.cameraWithLatitude(77.0167, longitude:38.8833 , zoom: 6)
+		
+		var mapview = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
+		
+		self.mapView = mapview;
+		mapview.myLocationEnabled = true
+		
+		if((mapview.myLocation) != nil){
+		var myLocation = mapview.myLocation
+		var myLocationCamera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 100)
+		}
+		
+		
+		self.mapViewContainer.addSubview(mapview)
+		
+		mapview.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(mapViewContainer.snp_edges)
+		}
 		
 		var touchesDetector = UIPanGestureRecognizer(target: self, action:Selector("didTouchMap:"))
 		touchesDetector.delegate = self
-		self.mapView.addGestureRecognizer(touchesDetector)
 		
-		self.mapView.showsUserLocation = true
+		
 		
 	}
 	
@@ -91,7 +116,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.navBar.backgroundColor = orangeMainColor
 		self.logoImage.image = UIImage(named: "logo_nobackground_v2")
 		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
-		self.centerButton.setBackgroundImage(UIImage(named: "centerMap.png"), forState: UIControlState.Normal)
 		self.container.backgroundColor = orangeMainColor
 		self.tabView.backgroundColor = orangeMainColor
 		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_black.png"), forState: UIControlState.Normal)
@@ -108,21 +132,11 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 	
 	func loadData() {
-//		ApiHelper.listNelpTasksWithBlock { (nelpTasks: [NelpTask]?, error: NSError?) -> Void in
-//			if error != nil {
-//				
-//			} else {
-//				self.nelpTasks = nelpTasks!
-//				self.refreshView?.endRefreshing()
-//				self.tableView?.reloadData()
-//			}
-//		}
-		
-		ApiHelper.listMyNelpTasksWithBlock { (nelpTasks: [FindNelpTask]?, error: NSError?) -> Void in
-			if error != nil{
+		ApiHelper.listNelpTasksWithBlock { (nelpTasks: [NelpTask]?, error: NSError?) -> Void in
+			if error != nil {
 				
-			}else{
-				self.findNelpTasks = nelpTasks!
+			} else {
+				self.nelpTasks = nelpTasks!
 				self.refreshView?.endRefreshing()
 				self.tableView?.reloadData()
 			}
@@ -133,16 +147,17 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	//TableView Delegate/Datasource methods
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return self.findNelpTasks.count
+		return self.nelpTasks.count
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
 		let cell = self.tableView.dequeueReusableCellWithIdentifier(NelpViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpViewCell
 		
-		let nelpTask = self.findNelpTasks[indexPath.item]
+		let nelpTask = self.nelpTasks[indexPath.item]
 		
 		cell.setNelpTask(nelpTask)
+		cell.setImages(nelpTask)
 		
 		return cell
 		
@@ -153,7 +168,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		return 100
+		return 80
 	}
 	
 
@@ -186,11 +201,12 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 	
 	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-		var userLocation: CLLocation = self.locationManager.location
-		self.zoomToUserLocation(userLocation)
-		
+		if let myLocation = self.mapView.myLocation{
+		var myLocationCamera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 15)
+		self.mapView.camera = myLocationCamera
+		}
 	}
-	
+
 	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
 		println("Error:" + error.localizedDescription)
 	}
@@ -200,7 +216,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 				var span :MKCoordinateSpan = MKCoordinateSpanMake(0.01 , 0.01)
 				var locationToZoom: CLLocationCoordinate2D = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
 				var region:MKCoordinateRegion = MKCoordinateRegionMake(locationToZoom, span)
-				self.mapView.setRegion(region, animated: true)
+		
 	}
 	
 	
@@ -218,7 +234,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 //IBActions
 	
 	@IBAction func centerMapOnUser(sender: AnyObject) {
-		self.mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
+
 	}
 	
 	@IBAction func findNelpTabButtonTouched(sender: AnyObject) {

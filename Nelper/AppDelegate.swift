@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import GoogleMaps
 
 
 @UIApplicationMain
@@ -26,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
     PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
     
     PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
+		
+		GMSServices.provideAPIKey("AIzaSyC-i1sng-DRHtIebizLHthHiL0XJv6yKps")
     
     self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
     self.window!.rootViewController = UIViewController()
