@@ -85,6 +85,7 @@ class ProfileViewController: UIViewController {
 		self.profilePicture.clipsToBounds = true;
 		self.profilePicture.layer.borderWidth = 3;
 		self.profilePicture.layer.borderColor = whiteNelpyColor.CGColor
+		self.profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
 		
 		self.firstStar.image = UIImage(named:"empty_star.png")
 		self.secondStar.image = UIImage(named:"empty_star.png")

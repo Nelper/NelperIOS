@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
     
     PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
 		
-		GMSServices.provideAPIKey("AIzaSyC-i1sng-DRHtIebizLHthHiL0XJv6yKps")
+		GMSServices.provideAPIKey("AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8")
     
     self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
     self.window!.rootViewController = UIViewController()

@@ -17,6 +17,7 @@ protocol SecondFormViewControllerDelegate {
 class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate{
 	
 	var task: FindNelpTask!
+	var placesClient: GMSPlacesClient?
 	
 	var delegate: SecondFormViewControllerDelegate?
 	
@@ -45,6 +46,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	convenience init(task: FindNelpTask){
 		self.init(nibName: "SecondFormScreen", bundle: nil)
 		self.task = task
+		self.placesClient = GMSPlacesClient()
 	}
 	
 	override func viewDidLoad() {
@@ -55,7 +57,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.nelpyText.font = UIFont(name: "Railway", size: kTextFontSize)
 		self.nelpyText.textAlignment = NSTextAlignment.Center
 		self.nelpyTextBubble.image = UIImage(named: "bubble.png")
-		self.nelpyText.text = "Enter the postal code where the task needs to be done."
+		self.nelpyText.text = "Enter the address where the task needs to be done."
 		self.adjustUI()
 		
 	}
@@ -77,7 +79,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.locationTextField.delegate = self
 		self.locationTextField.font = UIFont(name: "Railway", size: kTitleFontSize)
 		self.locationTextField.textAlignment = NSTextAlignment.Center
-		self.locationTextField.attributedPlaceholder = NSAttributedString(string:"Postal Code",
+		self.locationTextField.attributedPlaceholder = NSAttributedString(string:"Address",
 			attributes:[NSForegroundColorAttributeName: whiteNelpyColor])
 		self.locationTextField.becomeFirstResponder()
 		self.locationTextField.tintColor = whiteNelpyColor
@@ -140,6 +142,15 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	//TextFieldDelegate
 	
+	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+		
+		var substring = textField.text as NSString
+   substring = substring.stringByReplacingCharactersInRange(range, withString: string)
+		self.placeAutocomplete(substring as String)
+  return true
+		
+	}
+	
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		
 		if(textField == locationTextField){
@@ -171,6 +182,26 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			
 		}
 		return false
+	}
+	
+	//Google Places auto complete
+	
+	func placeAutocomplete(text:String) {
+		let filter = GMSAutocompleteFilter()
+		filter.type = GMSPlacesAutocompleteTypeFilter.Address
+		self.placesClient?.autocompleteQuery(text, bounds: nil, filter: filter, callback: { (results, error: NSError?) -> Void in
+			if let error = error {
+				println("Autocomplete error \(error)")
+			}
+			
+			if(results != nil){
+			for result in results! {
+				if let result = result as? GMSAutocompletePrediction {
+					println("Result \(result.attributedFullText) with placeID \(result.placeID)")
+				}
+			}
+			}
+			})
 	}
 	
 	//IBACTIONS
