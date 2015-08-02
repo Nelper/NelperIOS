@@ -6,6 +6,7 @@ target 'Nelper' do
 pod 'GoogleMaps'
 pod 'Alamofire'
 pod 'SnapKit'
+pod 'SwiftyJSON'
 
 use_frameworks!
 

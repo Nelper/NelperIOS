@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 protocol SecondFormViewControllerDelegate {
 	func nelpTaskAdded(nelpTask: FindNelpTask) -> Void
@@ -16,6 +17,7 @@ protocol SecondFormViewControllerDelegate {
 
 class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate{
 	
+	var kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	var task: FindNelpTask!
 	var placesClient: GMSPlacesClient?
 	var autocompleteArray = [GMSAutocompletePrediction]()
@@ -94,6 +96,8 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.locationTextField.tintColor = whiteNelpyColor
 		self.locationTextField.textColor = blackNelpyColor
 		
+		self.autocompleteTableView.backgroundColor = orangeSecondaryColor
+		
 		self.priceOfferedTextField.backgroundColor = whiteNelpyColor.colorWithAlphaComponent(0.2)
 		self.priceOfferedTextField.delegate = self
 		self.priceOfferedTextField.font = UIFont(name: "Railway", size: kTitleFontSize)
@@ -161,7 +165,6 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		return false
 	}
 
-	
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		
 		if(textField == locationTextField){
@@ -212,7 +215,28 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let prediction = self.autocompleteArray[indexPath.row]
+		self.locationTextField.text = prediction.attributedFullText.string
+		var geocodeURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(prediction.placeID)&key=\(kGoogleAPIKey)"
 		
+		request(.GET, geocodeURL)
+			.responseJSON { _, _, JSON, _ in
+				println(JSON)
+				
+				if let lattitude = JSON["result"]["geometry"]["location"][
+					"lat"].double {
+					println("NSURLSession: \(lattitude)")
+				}
+				
+				if let longitude = JSON["result"]["geometry"]["location"][
+					"lng"].double {
+						println("NSURLSession: \(longitude)")
+				}
+		}
+	}
+	
+	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+			return 70
 	}
 	
 	
@@ -238,6 +262,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			}
 			})
 	}
+	
 	
 	//IBACTIONS
 	
