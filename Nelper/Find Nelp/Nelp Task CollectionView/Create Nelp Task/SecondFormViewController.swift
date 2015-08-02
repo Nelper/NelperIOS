@@ -14,10 +14,11 @@ protocol SecondFormViewControllerDelegate {
 	func dismiss()
 }
 
-class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate{
+class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate{
 	
 	var task: FindNelpTask!
 	var placesClient: GMSPlacesClient?
+	var autocompleteArray = [GMSAutocompletePrediction]()
 	
 	var delegate: SecondFormViewControllerDelegate?
 	
@@ -29,6 +30,9 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	@IBOutlet weak var nelpyText: UILabel!
 	
 	@IBOutlet weak var locationTextField: UITextField!
+	
+	@IBOutlet weak var autocompleteTableView: UITableView!
+	
 	@IBOutlet weak var priceOfferedTextField: UITextField!
 
 	@IBOutlet weak var formBackground: UIView!
@@ -50,6 +54,11 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	}
 	
 	override func viewDidLoad() {
+		self.autocompleteTableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+		self.autocompleteTableView.delegate = self
+		self.autocompleteTableView.dataSource = self
+		self.autocompleteTableView.registerClass(AutocompleteCell.classForCoder(), forCellReuseIdentifier: AutocompleteCell.reuseIdentifier)
+		self.autocompleteTableView.hidden = true
 		self.nelpyText.alpha = 0
 		self.nelpyTextBubble.alpha = 0
 		self.priceOfferedTextField.alpha = 0
@@ -143,13 +152,15 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	//TextFieldDelegate
 	
 	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-		
+		if(textField == locationTextField){
 		var substring = textField.text as NSString
    substring = substring.stringByReplacingCharactersInRange(range, withString: string)
 		self.placeAutocomplete(substring as String)
   return true
-		
+		}
+		return false
 	}
+
 	
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		
@@ -184,6 +195,27 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		return false
 	}
 	
+	//TableView delegate methods
+	
+	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return autocompleteArray.count
+	}
+	
+	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		
+		let cell = tableView.dequeueReusableCellWithIdentifier(AutocompleteCell.reuseIdentifier, forIndexPath: indexPath) as! AutocompleteCell
+		
+		let prediction: GMSAutocompletePrediction = self.autocompleteArray[indexPath.item]
+		
+		cell.setAddress(prediction)
+		return cell
+	}
+	
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		
+	}
+	
+	
 	//Google Places auto complete
 	
 	func placeAutocomplete(text:String) {
@@ -197,6 +229,10 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			if(results != nil){
 			for result in results! {
 				if let result = result as? GMSAutocompletePrediction {
+					var resultArray = [result]
+					self.autocompleteArray = resultArray
+					self.autocompleteTableView.hidden = false
+					self.autocompleteTableView.reloadData()
 					println("Result \(result.attributedFullText) with placeID \(result.placeID)")
 				}
 			}
@@ -223,8 +259,4 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
       self.dismissViewControllerAnimated(true, completion: nil)
     })
 	}
-	
-	
-	
-	
 }
