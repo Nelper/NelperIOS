@@ -227,12 +227,11 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			}
 			
 			if(results != nil){
+				self.autocompleteArray = results as! [GMSAutocompletePrediction]
+				self.autocompleteTableView.reloadData()
+				self.autocompleteTableView.hidden = false
 			for result in results! {
 				if let result = result as? GMSAutocompletePrediction {
-					var resultArray = [result]
-					self.autocompleteArray = resultArray
-					self.autocompleteTableView.hidden = false
-					self.autocompleteTableView.reloadData()
 					println("Result \(result.attributedFullText) with placeID \(result.placeID)")
 				}
 			}
