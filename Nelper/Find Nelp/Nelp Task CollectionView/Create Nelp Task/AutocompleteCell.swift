@@ -11,9 +11,6 @@ import Foundation
 import UIKit
 import SnapKit
 import Alamofire
-import SwiftyJSON
-
-
 
 class AutocompleteCell: UITableViewCell {
 	var prediction: GMSAutocompletePrediction!

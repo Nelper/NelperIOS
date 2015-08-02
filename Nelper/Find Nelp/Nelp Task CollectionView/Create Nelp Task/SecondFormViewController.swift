@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 protocol SecondFormViewControllerDelegate {
 	func nelpTaskAdded(nelpTask: FindNelpTask) -> Void
@@ -162,7 +163,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.placeAutocomplete(substring as String)
   return true
 		}
-		return false
+		return true
 	}
 
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -220,19 +221,34 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		var geocodeURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(prediction.placeID)&key=\(kGoogleAPIKey)"
 		
 		request(.GET, geocodeURL)
-			.responseJSON { _, _, JSON, _ in
-				println(JSON)
+			.responseJSON { _, _, response, _ in
+				println(response)
 				
-				if let lattitude = JSON["result"]["geometry"]["location"][
+				let json = JSON(response!)
+				
+				
+				if let lattitude = json["result"]["geometry"]["location"][
 					"lat"].double {
 					println("NSURLSession: \(lattitude)")
 				}
 				
-				if let longitude = JSON["result"]["geometry"]["location"][
+				if let longitude = json["result"]["geometry"]["location"][
 					"lng"].double {
 						println("NSURLSession: \(longitude)")
 				}
 		}
+		self.autocompleteTableView.hidden = true
+		self.priceOfferedTextField.alpha = 1
+		self.priceOfferedTextField.becomeFirstResponder()
+		
+		UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 0}, completion: nil)
+		UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 0}, completion: nil)
+		
+		self.nelpyText.text = "Now that I know where you are, tell me how much you are willing to pay :D ."
+		
+		UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 1}, completion: nil)
+		UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 1}, completion: nil)
+		self.autocompleteTableView.hidden = true
 	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
