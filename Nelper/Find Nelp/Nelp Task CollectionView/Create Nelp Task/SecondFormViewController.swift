@@ -22,6 +22,8 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	var task: FindNelpTask!
 	var placesClient: GMSPlacesClient?
 	var autocompleteArray = [GMSAutocompletePrediction]()
+	var lng: Double?
+	var lat: Double?
 	
 	var delegate: SecondFormViewControllerDelegate?
 	
@@ -44,8 +46,10 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	@IBOutlet weak var technologyFilter: UIButton!
 	@IBOutlet weak var houseCleaningFilter: UIButton!
 	@IBOutlet weak var gardeningFilter: UIButton!
-	@IBOutlet weak var cookingFilter: UIButton!
+	@IBOutlet weak var businessFilter: UIButton!
 	@IBOutlet weak var handyMan: UIButton!
+	@IBOutlet weak var multimediaFilter: UIButton!
+	
 	
 	@IBOutlet weak var postButton: UIButton!
 	
@@ -135,11 +139,17 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.gardeningFilter.setTitleColor(orangeMainColor, forState: UIControlState.Selected)
 		self.gardeningFilter.titleLabel?.font = UIFont(name: "Railway", size: kTextFontSize)
 		
-		self.cookingFilter.backgroundColor = whiteNelpyColor.colorWithAlphaComponent(0.0)
-		self.cookingFilter.setTitle("Cooking", forState: UIControlState.Normal)
-		self.cookingFilter.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
-		self.cookingFilter.setTitleColor(orangeMainColor, forState: UIControlState.Selected)
-		self.cookingFilter.titleLabel?.font = UIFont(name: "Railway", size: kTextFontSize)
+		self.businessFilter.backgroundColor = whiteNelpyColor.colorWithAlphaComponent(0.0)
+		self.businessFilter.setTitle("Business & Admin", forState: UIControlState.Normal)
+		self.businessFilter.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
+		self.businessFilter.setTitleColor(orangeMainColor, forState: UIControlState.Selected)
+		self.businessFilter.titleLabel?.font = UIFont(name: "Railway", size: kTextFontSize)
+		
+		self.multimediaFilter.backgroundColor = whiteNelpyColor.colorWithAlphaComponent(0.0)
+		self.multimediaFilter.setTitle("Multimedia", forState: UIControlState.Normal)
+		self.multimediaFilter.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
+		self.multimediaFilter.setTitleColor(orangeMainColor, forState: UIControlState.Selected)
+		self.multimediaFilter.titleLabel?.font = UIFont(name: "Railway", size: kTextFontSize)
 		
 		self.categoriesBackground.alpha = 0
 		
@@ -230,12 +240,23 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 				if let lattitude = json["result"]["geometry"]["location"][
 					"lat"].double {
 					println("NSURLSession: \(lattitude)")
+						self.lat = lattitude
 				}
 				
 				if let longitude = json["result"]["geometry"]["location"][
 					"lng"].double {
 						println("NSURLSession: \(longitude)")
+						self.lng = longitude
 				}
+				if(self.lat != nil){
+					if(self.lng != nil){
+						let point = GeoPoint(latitude:self.lat!, longitude:self.lng!)
+						self.task.location = point
+					}
+				}
+				
+				
+				
 		}
 		self.autocompleteTableView.hidden = true
 		self.priceOfferedTextField.alpha = 1
@@ -279,14 +300,53 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			})
 	}
 	
+	func deselectAllButton(){
+		self.multimediaFilter.selected = false
+		self.handyMan.selected = false
+		self.businessFilter.selected = false
+		self.technologyFilter.selected = false
+		self.gardeningFilter.selected = false
+		self.houseCleaningFilter.selected = false
+	}
+	
 	
 	//IBACTIONS
+	
+	@IBAction func technologyFilterTapped(sender: AnyObject) {
+		deselectAllButton()
+		self.task.category = "technology"
+	}
+	
+	@IBAction func gardeningFilterTapped(sender: AnyObject) {
+		deselectAllButton()
+		self.task.category = "gardening"
+	}
+
+	@IBAction func cleaningFilterTapped(sender: AnyObject) {
+		deselectAllButton()
+		self.task.category = "housecleaning"
+	}
+	
+	@IBAction func businessFilterTapped(sender: AnyObject) {
+		deselectAllButton()
+		self.task.category = "business"
+	}
+	
+	@IBAction func handyManFilterTapped(sender: AnyObject) {
+		deselectAllButton()
+		self.task.category = "handywork"
+	}
+	
+	@IBAction func multimediaFilterTapped(sender: AnyObject) {
+		deselectAllButton()
+		self.task.category = "multimedia"
+	}
+	
+	
 	
 	@IBAction func backButtonTapped(sender: AnyObject) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
-	
-	
 	
 	@IBAction func postButtonTapped(sender: AnyObject) {
 		self.task.priceOffered = priceOfferedTextField.text

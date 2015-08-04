@@ -12,7 +12,7 @@ private let kParseTask = "NelpTask"
 private let kParseTaskApplication = "NelpTaskApplication"
 
 class ApiHelper {
-  
+	
   static func loginWithEmail(email: String, password: String, block: (User?, NSError?) -> Void) {
     PFUser.logInWithUsernameInBackground(email, password: password) { (user, error) -> Void in
       if(error != nil) {
@@ -173,6 +173,11 @@ class ApiHelper {
     parseTask["user"] = PFUser.currentUser()!
     parseTask["state"] = task.state.rawValue
     parseTask["priceOffered"] = task.priceOffered
+		parseTask["category"] = task.category
+		var latti = task.location?.latitude
+		var longi = task.location?.longitude
+		let location = PFGeoPoint(latitude: latti!, longitude: longi!)
+		parseTask["location"] = location
     
     let acl = PFACL(user: user)
     acl.setPublicReadAccess(true)

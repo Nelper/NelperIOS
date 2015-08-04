@@ -83,7 +83,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.requestWhenInUseAuthorization()
 		self.locationManager.startUpdatingLocation()
-		self.locationManager.distanceFilter = 50;
+		self.locationManager.distanceFilter = kCLDistanceFilterNone
 
 
 		var camera = GMSCameraPosition.cameraWithLatitude(77.0167, longitude:38.8833 , zoom: 6)
@@ -101,14 +101,17 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 		self.mapViewContainer.addSubview(mapview)
 		
+		if let myLocation = self.mapView.myLocation{
+			var myLocationCamera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 15)
+			println(myLocation.coordinate)
+			self.mapView.camera = myLocationCamera
+		}
+		
 		mapview.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(mapViewContainer.snp_edges)
 		}
 		
-		var touchesDetector = UIPanGestureRecognizer(target: self, action:Selector("didTouchMap:"))
-		touchesDetector.delegate = self
-		
-		
+		self.locationManager(self.locationManager, didUpdateLocations: nil)
 		
 	}
 	
@@ -203,9 +206,13 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
 		if let myLocation = self.mapView.myLocation{
 		var myLocationCamera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 15)
+			println(myLocation.coordinate)
 		self.mapView.camera = myLocationCamera
 		}
 	}
+	
+	
+	
 
 	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
 		println("Error:" + error.localizedDescription)
