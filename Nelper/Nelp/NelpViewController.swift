@@ -169,9 +169,9 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
 		let currentLocation = locations.last as! CLLocation
-		mapView.animateToLocation(currentLocation.coordinate);
+		self.mapView.animateToLocation(currentLocation.coordinate);
+		self.locationManager.stopUpdatingLocation()
 	}
-	
 	
 	//NavBar animation functions
 	
