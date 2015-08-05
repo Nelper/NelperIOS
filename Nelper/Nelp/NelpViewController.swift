@@ -89,9 +89,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.locationManager.startUpdatingLocation()
 		self.locationManager.distanceFilter = 20
 
-		
-		var camera = GMSCameraPosition.cameraWithLatitude(77.0167, longitude:38.8833 , zoom: 6)
-		
 		var mapview = MKMapView()
 		
 		self.mapView = mapview;
@@ -99,12 +96,21 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 		self.mapViewContainer.addSubview(mapview)
 		
-		self.mapView.addGestureRecognizer(touchesDetector)
+//		self.mapView.addGestureRecognizer(touchesDetector)
 		self.mapView.showsUserLocation = true
+		
+		var userLocation: CLLocation = self.locationManager.location
+		var userLocationForCenter = userLocation.coordinate
+		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
+		self.mapView.setRegion(locationToZoom, animated: true)
+		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
+
 		
 		mapview.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(mapViewContainer.snp_edges)
 		}
+		
 		
 	}
 	
