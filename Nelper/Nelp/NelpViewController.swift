@@ -37,7 +37,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	var nelpTasks = [NelpTask]()
 	var findNelpTasks = [FindNelpTask]()
 	
-	var mapView: GMSMapView!
+	var mapView: MKMapView!
 	var placesClient: GMSPlacesClient?
 	let locationManager = CLLocationManager()
 	var target: CLLocationCoordinate2D?
@@ -92,26 +92,15 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 		var camera = GMSCameraPosition.cameraWithLatitude(77.0167, longitude:38.8833 , zoom: 6)
 		
-		var mapview = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
-		mapview.myLocationEnabled = true
+		var mapview = MKMapView()
 		
 		self.mapView = mapview;
-		self.mapView.addObserver(self, forKeyPath: "myLocation", options: nil, context: nil)
-		mapview.myLocationEnabled = true
-		
-		if((mapview.myLocation) != nil){
-		var myLocation = mapview.myLocation
-		var myLocationCamera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 15)
-		}
 		
 		
 		self.mapViewContainer.addSubview(mapview)
 		
-		if let myLocation = self.mapView.myLocation{
-			var myLocationCamera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 15)
-			println(myLocation.coordinate)
-			self.mapView.camera = myLocationCamera
-		}
+		self.mapView.addGestureRecognizer(touchesDetector)
+		self.mapView.showsUserLocation = true
 		
 		mapview.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(mapViewContainer.snp_edges)
@@ -214,12 +203,11 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 	
 	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-		if let myLocation = self.mapView.myLocation{
-		var myLocationCamera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 15)
-			println(myLocation.coordinate)
-		self.mapView.camera = myLocationCamera
-		}
+		var userLocation: CLLocation = self.locationManager.location
+		self.zoomToUserLocation(userLocation)
+
 	}
+	
 	
 
 	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
@@ -232,19 +220,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 				var locationToZoom: CLLocationCoordinate2D = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
 				var region:MKCoordinateRegion = MKCoordinateRegionMake(locationToZoom, span)
 		
-	}
-	
-	override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-		if(keyPath == "myLocation"){
-			var location: CLLocation = object.myLocation
-			
-			if(self.target == nil){
-			var target: CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
-				self.target = target
-			self.mapView.animateToLocation(target)
-			self.mapView.animateToZoom(15)
-			}
-		}
 	}
 	
 	
@@ -275,7 +250,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.presentViewController(nextVC, animated: false, completion: nil)
 	}
 
-	
+
 
 }
 
