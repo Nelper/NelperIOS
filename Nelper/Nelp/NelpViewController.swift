@@ -17,10 +17,10 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	@IBOutlet weak var logoImage: UIImageView!
 	@IBOutlet weak var container: UIView!
 	@IBOutlet weak var mapViewContainer: UIView!
-	
+
 	
 	@IBOutlet weak var tableViewContainer: UIView!
-	
+
 	@IBOutlet weak var centerButton: UIButton!
 	
 	@IBOutlet weak var tabView: UIView!
@@ -37,22 +37,23 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	var mapView: GMSMapView!
 	var placesClient: GMSPlacesClient?
 	let locationManager = CLLocationManager()
+    
+    convenience init() {
+        self.init(nibName: "NelpViewController", bundle: nil)
 	
-	convenience init() {
-		self.init(nibName: "NelpViewController", bundle: nil)
-		
-	}
-	
-	override func viewDidLoad() {
-		
-		super.viewDidLoad()
+    }
+
+    
+  override func viewDidLoad() {
+    
+    super.viewDidLoad()
 		placesClient = GMSPlacesClient()
 		self.adjustUI()
 		self.initializeMapview()
 		self.createTaskTableView()
 		self.loadData()
 		
-	}
+  }
 	
 	func createTaskTableView(){
 		let tableView = UITableView()
@@ -72,26 +73,46 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 			make.edges.equalTo(self.tableViewContainer.snp_edges)
 		}
 		self.refreshView = refreshView
-	}
+		
 	
+	}
+
 	func initializeMapview(){
+		
 		self.locationManager.delegate = self;
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.requestWhenInUseAuthorization()
 		self.locationManager.startUpdatingLocation()
 		self.locationManager.distanceFilter = kCLDistanceFilterNone
-		
+
+
 		var camera = GMSCameraPosition.cameraWithLatitude(77.0167, longitude:38.8833 , zoom: 6)
+		
 		var mapview = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
 		
 		self.mapView = mapview;
 		mapview.myLocationEnabled = true
 		
+		if((mapview.myLocation) != nil){
+		var myLocation = mapview.myLocation
+		var myLocationCamera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 100)
+		}
+		
+		
 		self.mapViewContainer.addSubview(mapview)
+		
+		if let myLocation = self.mapView.myLocation{
+			var myLocationCamera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 15)
+			println(myLocation.coordinate)
+			self.mapView.camera = myLocationCamera
+		}
 		
 		mapview.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(mapViewContainer.snp_edges)
 		}
+		
+		self.locationManager(self.locationManager, didUpdateLocations: nil)
+		
 	}
 	
 	func adjustUI(){
@@ -103,9 +124,11 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_black.png"), forState: UIControlState.Normal)
 		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_white.png"), forState: UIControlState.Normal)
 		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_white.png"), forState: UIControlState.Normal)
+	
 	}
 	
-	//DATA Fetching
+	
+//DATAFetching
 	
 	func onPullToRefresh() {
 		loadData()
@@ -121,6 +144,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 				self.tableView?.reloadData()
 			}
 		}
+		
 	}
 	
 	//TableView Delegate/Datasource methods
@@ -150,8 +174,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		return 80
 	}
 	
-	
-	//UIGesture delegate methods
+
+//UIGesture delegate methods
 	
 	func didTouchMap(sender:UIPanGestureRecognizer){
 		navBarHide()
@@ -164,16 +188,46 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 		return true
 	}
+
+
+//Location delegate methods
 	
-	//Location delegate methods
-	
-	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-		let currentLocation = locations.last as! CLLocation
-		self.mapView.animateToLocation(currentLocation.coordinate);
-		self.locationManager.stopUpdatingLocation()
+	func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
+		CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
+			if error != nil{
+					println("Error:" + error.localizedDescription)
+				return
+					//fuck
+				}
+
+		})
 	}
 	
-	//NavBar animation functions
+	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+		if let myLocation = self.mapView.myLocation{
+		var myLocationCamera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 15)
+			println(myLocation.coordinate)
+		self.mapView.camera = myLocationCamera
+		}
+	}
+	
+	
+	
+
+	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+		println("Error:" + error.localizedDescription)
+	}
+	
+	func zoomToUserLocation (userLocation: CLLocation){
+				var userLocationForCenter = userLocation.coordinate
+				var span :MKCoordinateSpan = MKCoordinateSpanMake(0.01 , 0.01)
+				var locationToZoom: CLLocationCoordinate2D = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
+				var region:MKCoordinateRegion = MKCoordinateRegionMake(locationToZoom, span)
+		
+	}
+	
+	
+//NavBar animation functions
 	
 	func navBarHide(){
 		UIView.animateWithDuration(0.3, animations:{self.navBar.alpha = 0}, completion: nil)
@@ -183,11 +237,11 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		UIView.animateWithDuration(0.5, animations:{self.navBar.alpha = 1}, completion: nil)
 	}
 	
-	
-	//IBActions
+
+//IBActions
 	
 	@IBAction func centerMapOnUser(sender: AnyObject) {
-		
+
 	}
 	
 	@IBAction func findNelpTabButtonTouched(sender: AnyObject) {
@@ -199,5 +253,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		var nextVC = ProfileViewController()
 		self.presentViewController(nextVC, animated: false, completion: nil)
 	}
+
+	
+
 }
 
