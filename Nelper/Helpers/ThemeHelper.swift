@@ -8,6 +8,7 @@
 
 import Foundation
 
+//COLORS
 
 let orangeMainColor = hexStringToUIColor("de1f1f")
 let orangeSecondaryColor = hexStringToUIColor("d98b30")
@@ -17,12 +18,28 @@ let orangeSecondaryGradientColor = hexStringToUIColor("d95330")
 
 let whiteNelpyColor = hexStringToUIColor ("eaeaea")
 let blackNelpyColor = hexStringToUIColor ("2c2c2c")
-let grayNelpyColor = hexStringToUIColor("525252")
+let blueGrayColor = hexStringToUIColor("545866")
+let whiteGrayColor = hexStringToUIColor("f7f7f7")
+let orangeTextColor = hexStringToUIColor("ef4d18")
+let mediumGray = hexStringToUIColor("9e9e9e")
+
 
 let facebookBlueColor = hexStringToUIColor ("3b5998")
 let greenPriceButton = hexStringToUIColor ("7fae79")
 let yellowTechnology = hexStringToUIColor ("f7cc39")
 
+let navBarColor = whiteGrayColor
+let tabBarColor = whiteGrayColor
+
+//IMAGES
+
+let tabBarSearch:UIImage = UIImage(named: "search_dark.png")!
+let tabBarNelp:UIImage = UIImage(named:"help_dark.png")!
+let tabBarProfile:UIImage = UIImage(named:"profile_dark.png")!
+
+let tabBarSearchSelected:UIImage = UIImage(named: "search_orange.png")!
+let tabBarNelpSelected:UIImage = UIImage(named:"help_orange.png")!
+let tabBarProfileSelected:UIImage = UIImage(named:"profile_orange.png")!
 
 
 

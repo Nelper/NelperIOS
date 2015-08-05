@@ -79,7 +79,7 @@ class LoginViewController: UIViewController {
 		self.facebookLoginButton.setImage(UIImage(named: "facebookButtonIcon"), forState: UIControlState.Normal)
 		self.facebookLoginButton.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0)
 		
-		self.skipButton.backgroundColor = grayNelpyColor
+		self.skipButton.backgroundColor = whiteNelpyColor
 		self.skipButton.layer.cornerRadius = 6
 		self.skipButton.setTitle("Mmm, maybe later", forState: UIControlState.Normal)
 		self.skipButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)

@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
     self.window!.rootViewController = UIViewController()
     self.window!.makeKeyAndVisible()
 		
-		UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+		UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
 		
 		
     let user = PFUser.currentUser()

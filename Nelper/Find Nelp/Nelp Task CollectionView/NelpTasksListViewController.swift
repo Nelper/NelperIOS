@@ -82,7 +82,7 @@ class NelpTasksListViewController: UIViewController,
 	
 //UI
 	func adjustUI(){
-		self.navBar.backgroundColor = orangeMainColor
+		self.navBar.backgroundColor = navBarColor
 		self.logoImage.image = UIImage(named: "logo_nobackground_v2")
 		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
 		self.settingsButton.setBackgroundImage(UIImage(named: "cogwheel.png"), forState: UIControlState.Normal)
@@ -99,10 +99,10 @@ class NelpTasksListViewController: UIViewController,
 		self.noTasksMessage.textColor = orangeMainColor
 		self.noTasksMessage.text = "You have no active requests!"
 		
-		self.tabBarView.backgroundColor = orangeMainColor
-		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_black.png"), forState: UIControlState.Normal)
-		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_white.png"), forState: UIControlState.Normal)
-		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_white.png"), forState: UIControlState.Normal)
+		self.tabBarView.backgroundColor = tabBarColor
+		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_orange.png"), forState: UIControlState.Normal)
+		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_dark"), forState: UIControlState.Normal)
+		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_dark.png"), forState: UIControlState.Normal)
 		
 		self.addTaskButton.setBackgroundImage(UIImage(named: "add_white.png"), forState: UIControlState.Normal)
 		self.askForNelpLabel.text = "Ask for Nelp!"

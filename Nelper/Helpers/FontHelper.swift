@@ -9,7 +9,6 @@
 import Foundation
 
 let kLoginScreenFontSize:CGFloat = 50
-
 let kCellPriceFontSize:CGFloat = 25
 let kCellTitleFontSize:CGFloat = 22
 
@@ -18,3 +17,5 @@ let kTitleFontSize:CGFloat = 26
 let kSubtitleFontSize:CGFloat = 20
 let kTextFontSize:CGFloat = 18
 let kButtonFontSize:CGFloat = 16
+
+let kNavBarTitleFont:CGFloat = 26

@@ -91,9 +91,9 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		self.distance.text = "Distance: 1.2 km"
 		self.distance.font = UIFont(name: "Railway", size: kSubtitleFontSize)
-		self.distance.textColor = grayNelpyColor
+		self.distance.textColor = whiteNelpyColor
 		
 		self.price.text = nelpTask.priceOffered
 		self.price.font = UIFont(name: "Railway", size: kCellPriceFontSize)
-		self.price.textColor = grayNelpyColor
+		self.price.textColor = whiteNelpyColor
 	}}

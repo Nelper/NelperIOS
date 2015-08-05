@@ -227,9 +227,17 @@
                         <constraint firstAttribute="centerX" secondItem="E9p-OV-8OH" secondAttribute="centerX" constant="0.5" id="1Gb-2I-E3e"/>
                         <constraint firstItem="btr-h3-0LC" firstAttribute="leading" secondItem="sqH-1n-dHr" secondAttribute="leading" constant="10" id="8RW-1b-JxV"/>
                         <constraint firstAttribute="height" constant="64" id="BUw-6h-bol"/>
+                        <constraint firstAttribute="centerY" secondItem="E9p-OV-8OH" secondAttribute="centerY" constant="-18" id="G1r-xr-2lL"/>
+                        <constraint firstAttribute="centerY" secondItem="E9p-OV-8OH" secondAttribute="centerY" constant="-18" id="UBf-fz-iFI"/>
                         <constraint firstItem="E9p-OV-8OH" firstAttribute="top" secondItem="sqH-1n-dHr" secondAttribute="top" constant="30" id="chN-L2-WZy"/>
                         <constraint firstItem="btr-h3-0LC" firstAttribute="top" secondItem="sqH-1n-dHr" secondAttribute="top" constant="34" id="rBI-fD-TSM"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="UBf-fz-iFI"/>
+                            <exclude reference="chN-L2-WZy"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

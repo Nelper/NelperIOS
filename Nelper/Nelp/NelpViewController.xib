@@ -8,11 +8,13 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NelpViewController" customModule="Nelper" customModuleProvider="target">
             <connections>
                 <outlet property="container" destination="yLw-jR-XsS" id="1Ha-iP-pCA"/>
+                <outlet property="entireContainer" destination="Vwf-Ak-zmN" id="Yxh-bb-wHa"/>
                 <outlet property="findNelpTabBarImage" destination="uGa-bu-038" id="5Ws-dR-tf5"/>
                 <outlet property="logoImage" destination="oBg-br-ksA" id="hqn-ag-rej"/>
                 <outlet property="mapViewContainer" destination="Ga4-Ld-Uh8" id="PYE-9i-MML"/>
                 <outlet property="navBar" destination="pSm-h1-kgF" id="3El-6J-lba"/>
                 <outlet property="nelpTabBarImage" destination="lsw-Ra-fhS" id="cQk-dv-rwU"/>
+                <outlet property="nelperTitle" destination="PK0-yM-LIy" id="Djn-aP-Jbp"/>
                 <outlet property="profileTabBarImage" destination="TvF-0q-71q" id="CqX-aV-cnx"/>
                 <outlet property="tabView" destination="WhO-cu-Kkt" id="Gd9-KL-iAP"/>
                 <outlet property="tableViewContainer" destination="PfD-u6-Vdz" id="B9v-vI-PoC"/>
@@ -30,34 +32,45 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vwf-Ak-zmN">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="390"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ga4-Ld-Uh8">
-                                    <rect key="frame" x="0.0" y="64" width="375" height="326"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSm-h1-kgF">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oBg-br-ksA">
-                                            <rect key="frame" x="167" y="30" width="40" height="40"/>
+                                            <rect key="frame" x="128" y="16" width="40" height="40"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="J65-Mr-avW"/>
-                                                <constraint firstAttribute="width" constant="40" id="aZW-NR-KDm"/>
+                                                <constraint firstAttribute="height" constant="40" id="PhK-YG-ktR"/>
+                                                <constraint firstAttribute="width" constant="40" id="Rmo-6D-whm"/>
                                             </constraints>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PK0-yM-LIy">
+                                            <rect key="frame" x="176" y="25" width="90" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="90" id="OcS-EF-DhN"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" red="0.90196084980000002" green="0.16078431900000001" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
                                     <constraints>
-                                        <constraint firstItem="oBg-br-ksA" firstAttribute="top" secondItem="pSm-h1-kgF" secondAttribute="top" constant="30" id="1r0-te-DRx"/>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="5g9-gJ-FRs"/>
-                                        <constraint firstAttribute="centerX" secondItem="oBg-br-ksA" secondAttribute="centerX" constant="0.5" id="bNx-LA-GAb"/>
+                                        <constraint firstAttribute="centerY" secondItem="oBg-br-ksA" secondAttribute="centerY" constant="-4" id="7bg-aG-w4f"/>
+                                        <constraint firstAttribute="centerX" secondItem="oBg-br-ksA" secondAttribute="centerX" constant="39.5" id="7wN-hW-Ajs"/>
+                                        <constraint firstAttribute="centerY" secondItem="PK0-yM-LIy" secondAttribute="centerY" constant="-3.5" id="Vf3-rg-KiC"/>
                                         <constraint firstAttribute="height" constant="64" id="bhz-ie-U0u"/>
                                         <constraint firstAttribute="centerX" secondItem="oBg-br-ksA" secondAttribute="centerX" constant="0.5" id="jmu-l7-b6d"/>
+                                        <constraint firstItem="PK0-yM-LIy" firstAttribute="leading" secondItem="oBg-br-ksA" secondAttribute="trailing" constant="8" id="zHU-Le-gmA"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="jmu-l7-b6d"/>
                                         </mask>
                                     </variation>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ga4-Ld-Uh8">
+                                    <rect key="frame" x="0.0" y="64" width="375" height="261"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" red="0.46661662850000002" green="1" blue="0.7643357355" alpha="1" colorSpace="calibratedRGB"/>
@@ -67,7 +80,7 @@
                                 <constraint firstItem="Ga4-Ld-Uh8" firstAttribute="leading" secondItem="Vwf-Ak-zmN" secondAttribute="leading" id="ST8-X9-nvT"/>
                                 <constraint firstItem="pSm-h1-kgF" firstAttribute="leading" secondItem="Vwf-Ak-zmN" secondAttribute="leading" id="eFg-oa-Pgw"/>
                                 <constraint firstAttribute="trailing" secondItem="Ga4-Ld-Uh8" secondAttribute="trailing" id="pjE-pX-1HH"/>
-                                <constraint firstAttribute="bottom" secondItem="Ga4-Ld-Uh8" secondAttribute="bottom" id="tG1-1j-Ip7"/>
+                                <constraint firstAttribute="bottom" secondItem="Ga4-Ld-Uh8" secondAttribute="bottom" constant="65" id="tG1-1j-Ip7"/>
                                 <constraint firstItem="pSm-h1-kgF" firstAttribute="top" secondItem="Vwf-Ak-zmN" secondAttribute="top" id="zEP-uf-CcS"/>
                             </constraints>
                         </view>
@@ -125,7 +138,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-u6-Vdz">
-                            <rect key="frame" x="0.0" y="398" width="375" height="224"/>
+                            <rect key="frame" x="0.0" y="333" width="375" height="289"/>
                             <color key="backgroundColor" red="1" green="0.80969880760000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                     </subviews>
@@ -143,12 +156,15 @@
                         <constraint firstItem="PfD-u6-Vdz" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="ZXG-Bz-IxN"/>
                         <constraint firstItem="WhO-cu-Kkt" firstAttribute="top" secondItem="PfD-u6-Vdz" secondAttribute="bottom" id="bAV-X6-mPE"/>
                         <constraint firstAttribute="bottom" secondItem="WhO-cu-Kkt" secondAttribute="bottom" id="czO-Zh-XJB"/>
+                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="top" secondItem="Ga4-Ld-Uh8" secondAttribute="bottom" constant="8" id="jZp-9i-rlT"/>
                         <constraint firstItem="Vwf-Ak-zmN" firstAttribute="top" secondItem="yLw-jR-XsS" secondAttribute="top" id="kbn-1E-O6t"/>
                         <constraint firstAttribute="trailing" secondItem="Vwf-Ak-zmN" secondAttribute="trailing" id="lz6-nx-503"/>
                         <constraint firstItem="PfD-u6-Vdz" firstAttribute="top" secondItem="yLw-jR-XsS" secondAttribute="top" constant="398" id="mLG-6x-ugC"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
+                            <exclude reference="9dM-iX-7az"/>
+                            <exclude reference="mLG-6x-ugC"/>
                             <exclude reference="81s-E4-uo6"/>
                             <exclude reference="SJU-T7-qdf"/>
                             <exclude reference="czO-Zh-XJB"/>
@@ -164,7 +180,7 @@
                 <constraint firstItem="yLw-jR-XsS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="l7b-ZU-zKI"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-            <point key="canvasLocation" x="199.5" y="93.5"/>
+            <point key="canvasLocation" x="26.5" y="104.5"/>
         </view>
     </objects>
 </document>

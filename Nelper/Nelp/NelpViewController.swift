@@ -11,10 +11,13 @@ import MapKit
 import CoreLocation
 import GoogleMaps
 
-class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
+class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate {
 	
 	@IBOutlet weak var navBar: UIView!
 	@IBOutlet weak var logoImage: UIImageView!
+	@IBOutlet weak var nelperTitle: UILabel!
+	
+	@IBOutlet weak var entireContainer: UIView!
 	@IBOutlet weak var container: UIView!
 	@IBOutlet weak var mapViewContainer: UIView!
 
@@ -37,6 +40,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	var mapView: GMSMapView!
 	var placesClient: GMSPlacesClient?
 	let locationManager = CLLocationManager()
+	var target: CLLocationCoordinate2D?
     
     convenience init() {
         self.init(nibName: "NelpViewController", bundle: nil)
@@ -83,19 +87,21 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.requestWhenInUseAuthorization()
 		self.locationManager.startUpdatingLocation()
-		self.locationManager.distanceFilter = kCLDistanceFilterNone
+		self.locationManager.distanceFilter = 20
 
-
+		
 		var camera = GMSCameraPosition.cameraWithLatitude(77.0167, longitude:38.8833 , zoom: 6)
 		
 		var mapview = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
+		mapview.myLocationEnabled = true
 		
 		self.mapView = mapview;
+		self.mapView.addObserver(self, forKeyPath: "myLocation", options: nil, context: nil)
 		mapview.myLocationEnabled = true
 		
 		if((mapview.myLocation) != nil){
 		var myLocation = mapview.myLocation
-		var myLocationCamera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 100)
+		var myLocationCamera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 15)
 		}
 		
 		
@@ -111,19 +117,22 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 			make.edges.equalTo(mapViewContainer.snp_edges)
 		}
 		
-		self.locationManager(self.locationManager, didUpdateLocations: nil)
-		
 	}
 	
 	func adjustUI(){
-		self.navBar.backgroundColor = orangeMainColor
-		self.logoImage.image = UIImage(named: "logo_nobackground_v2")
+
+		self.navBar.backgroundColor = navBarColor
+		self.entireContainer.backgroundColor = blueGrayColor
+		self.nelperTitle.text = "Nelper"
+		self.nelperTitle.font = UIFont(name: "Railway", size: kNavBarTitleFont)
+		self.nelperTitle.textColor = orangeTextColor
+		self.logoImage.image = UIImage(named: "logo_round_v2")
 		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
-		self.container.backgroundColor = orangeMainColor
-		self.tabView.backgroundColor = orangeMainColor
-		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_black.png"), forState: UIControlState.Normal)
-		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_white.png"), forState: UIControlState.Normal)
-		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_white.png"), forState: UIControlState.Normal)
+		self.container.backgroundColor = blueGrayColor
+		self.tabView.backgroundColor = navBarColor
+		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_orange.png"), forState: UIControlState.Normal)
+		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_dark.png"), forState: UIControlState.Normal)
+		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_dark.png"), forState: UIControlState.Normal)
 	
 	}
 	
@@ -158,6 +167,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		let cell = self.tableView.dequeueReusableCellWithIdentifier(NelpViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpViewCell
 		
 		let nelpTask = self.nelpTasks[indexPath.item]
+		
 		
 		cell.setNelpTask(nelpTask)
 		cell.setImages(nelpTask)
@@ -211,8 +221,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		}
 	}
 	
-	
-	
 
 	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
 		println("Error:" + error.localizedDescription)
@@ -224,6 +232,19 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 				var locationToZoom: CLLocationCoordinate2D = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
 				var region:MKCoordinateRegion = MKCoordinateRegionMake(locationToZoom, span)
 		
+	}
+	
+	override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+		if(keyPath == "myLocation"){
+			var location: CLLocation = object.myLocation
+			
+			if(self.target == nil){
+			var target: CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+				self.target = target
+			self.mapView.animateToLocation(target)
+			self.mapView.animateToZoom(15)
+			}
+		}
 	}
 	
 	

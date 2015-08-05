@@ -75,7 +75,7 @@ class ProfileViewController: UIViewController {
 		self.logoImage.image = UIImage(named: "logo_nobackground_v2")
 		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
 		self.settingsButton.setBackgroundImage(UIImage(named:"cogwheel.png"), forState: UIControlState.Normal)
-		self.navBar.backgroundColor = orangeMainColor
+		self.navBar.backgroundColor = navBarColor
 		
 		self.infoContainer.backgroundColor = orangeSecondaryColor
 		self.nameLabel.text = PFUser.currentUser()?.objectForKey("name") as? String
@@ -105,10 +105,10 @@ class ProfileViewController: UIViewController {
 		
 		self.taskVCContainer.backgroundColor = whiteNelpyColor
 		
-		self.tabBarView.backgroundColor = orangeMainColor
-		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_white.png"), forState: UIControlState.Normal)
-		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_white.png"), forState: UIControlState.Normal)
-		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_black.png"), forState: UIControlState.Normal)
+		self.tabBarView.backgroundColor = tabBarColor
+		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_dark.png"), forState: UIControlState.Normal)
+		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_dark.png"), forState: UIControlState.Normal)
+		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_orange.png"), forState: UIControlState.Normal)
 }
 		
 		func showNeedToLoginScreen(){
@@ -118,9 +118,9 @@ class ProfileViewController: UIViewController {
 			self.settingsButton.setBackgroundImage(UIImage(named:"cogwheel.png"), forState: UIControlState.Normal)
 			self.navBar.backgroundColor = orangeMainColor
 			self.tabBarView.backgroundColor = orangeMainColor
-			self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_white.png"), forState: UIControlState.Normal)
-			self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_white.png"), forState: UIControlState.Normal)
-			self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_black.png"), forState: UIControlState.Normal)
+			self.nelpTabBarImage.setBackgroundImage(UIImage(named: "deal_gray.png"), forState: UIControlState.Normal)
+			self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_gray.png"), forState: UIControlState.Normal)
+			self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_gray.png"), forState: UIControlState.Normal)
 			self.taskVCContainer.backgroundColor = orangeSecondaryColor
 			
 			self.infoContainer.backgroundColor = orangeSecondaryColor
