@@ -94,6 +94,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.mapViewContainer.addSubview(mapview)
 		self.mapView.showsUserLocation = true
 		
+		if((self.locationManager.location) != nil){
 		var userLocation: CLLocation = self.locationManager.location
 		self.currentLocation = userLocation
 		var userLocationForCenter = userLocation.coordinate
@@ -101,6 +102,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
 		self.mapView.setRegion(locationToZoom, animated: true)
 		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
+		}
 
 		
 		mapview.snp_makeConstraints { (make) -> Void in
@@ -208,8 +210,14 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 	
 	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+		
 		var userLocation: CLLocation = self.locationManager.location
-		self.zoomToUserLocation(userLocation)
+		self.currentLocation = userLocation
+		var userLocationForCenter = userLocation.coordinate
+		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
+		self.mapView.setRegion(locationToZoom, animated: true)
+		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
 
 	}
 	
