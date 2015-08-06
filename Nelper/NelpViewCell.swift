@@ -12,8 +12,10 @@ import SnapKit
 import Alamofire
 
 class NelpViewCell: UITableViewCell {
+    
 	
-	var title: UILabel!
+    
+    var title: UILabel!
 	var author:UILabel!
 	var price:UILabel!
 	var picture:UIImageView!
@@ -36,10 +38,10 @@ class NelpViewCell: UITableViewCell {
 		cellView.addSubview(picture)
 		
 		picture.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(cellView.snp_left).offset(4)
+			make.left.equalTo(cellView.snp_left).offset(10)
 			make.centerY.equalTo(cellView.snp_centerY)
-			make.width.equalTo(70)
-			make.height.equalTo(70)
+			make.width.equalTo(60)
+			make.height.equalTo(60)
 		}
 		
 		let categoryPicture = UIImageView()
@@ -50,8 +52,8 @@ class NelpViewCell: UITableViewCell {
 		categoryPicture.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(picture.snp_bottom)
 			make.left.equalTo(picture.snp_right).offset(-22)
-			make.width.equalTo(35)
-			make.height.equalTo(35)
+			make.width.equalTo(28)
+			make.height.equalTo(28)
 		}
 		
 		let title = UILabel()
@@ -60,8 +62,8 @@ class NelpViewCell: UITableViewCell {
 		cellView.addSubview(title)
 		
 		title.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(cellView.snp_top).offset(2)
-			make.left.equalTo(picture.snp_right).offset(30)
+			make.top.equalTo(cellView.snp_top).offset(10)
+			make.left.equalTo(picture.snp_right).offset(15)
 			}
 		
 		let author = UILabel()
@@ -70,7 +72,7 @@ class NelpViewCell: UITableViewCell {
 		
 		author.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(title.snp_bottom).offset(2)
-			make.left.equalTo(picture.snp_right).offset(40)
+			make.left.equalTo(picture.snp_right).offset(35)
 		}
 		
 		let distance = UILabel()
@@ -89,8 +91,8 @@ class NelpViewCell: UITableViewCell {
 		cellView.addSubview(price)
 		
 		price.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(cellView.snp_right).offset(-4)
-			make.centerY.equalTo(cellView.snp_centerY)
+			make.right.equalTo(cellView.snp_right).offset(-10)
+			make.bottom.equalTo(distance.snp_bottom).offset(-2)
 			make.width.equalTo(70)
 			make.height.equalTo(30)
 		}
@@ -130,7 +132,7 @@ class NelpViewCell: UITableViewCell {
 		var price = nelpTask.priceOffered
 		
 		if(price != nil){
-		self.price.text = price! + "$"
+		self.price.text = "$" + price!
 		}
 		self.price.font = UIFont(name: "ABeeZee-Regular", size: kCellPriceFontSize)
 		self.price.textColor = whiteNelpyColor
