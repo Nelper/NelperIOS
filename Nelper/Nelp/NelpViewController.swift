@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 import GoogleMaps
 
-class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate {
+class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate{
 	
 	@IBOutlet weak var navBar: UIView!
 	@IBOutlet weak var logoImage: UIImageView!
@@ -38,25 +38,25 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	var findNelpTasks = [FindNelpTask]()
 	
 	var mapView: MKMapView!
+	var currentLocation: CLLocation?
 	var placesClient: GMSPlacesClient?
 	let locationManager = CLLocationManager()
 	var target: CLLocationCoordinate2D?
+	
+	//Initialization
     
     convenience init() {
         self.init(nibName: "NelpViewController", bundle: nil)
-	
-    }
+	}
 
-    
-  override func viewDidLoad() {
+    override func viewDidLoad() {
     
     super.viewDidLoad()
 		placesClient = GMSPlacesClient()
 		self.adjustUI()
 		self.initializeMapview()
 		self.createTaskTableView()
-		self.loadData()
-		
+		self.loadData()		
   }
 	
 	func createTaskTableView(){
@@ -77,9 +77,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 			make.edges.equalTo(self.tableViewContainer.snp_edges)
 		}
 		self.refreshView = refreshView
-		
-	
-	}
+		}
 
 	func initializeMapview(){
 		
@@ -93,13 +91,11 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 		self.mapView = mapview;
 		
-		
 		self.mapViewContainer.addSubview(mapview)
-		
-//		self.mapView.addGestureRecognizer(touchesDetector)
 		self.mapView.showsUserLocation = true
 		
 		var userLocation: CLLocation = self.locationManager.location
+		self.currentLocation = userLocation
 		var userLocationForCenter = userLocation.coordinate
 		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
 		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
@@ -110,16 +106,16 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		mapview.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(mapViewContainer.snp_edges)
 		}
-		
-		
 	}
+	
+	//UI
 	
 	func adjustUI(){
 
 		self.navBar.backgroundColor = navBarColor
 		self.entireContainer.backgroundColor = blueGrayColor
 		self.nelperTitle.text = "Nelper"
-		self.nelperTitle.font = UIFont(name: "Railway", size: kNavBarTitleFont)
+		self.nelperTitle.font = UIFont(name: "ABeeZee-Regular", size: kNavBarTitleFont)
 		self.nelperTitle.textColor = orangeTextColor
 		self.logoImage.image = UIImage(named: "logo_round_v2")
 		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
@@ -130,6 +126,18 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_dark.png"), forState: UIControlState.Normal)
 	
 	}
+	
+	func createPins(){
+		
+			for task in self.nelpTasks{
+				var taskPin = MKPointAnnotation()
+				if(task.location != nil){
+				var location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(task.location!.latitude, task.location!.longitude)
+				taskPin.coordinate = location
+				self.mapView.addAnnotation(taskPin)
+				}
+		}
+}
 	
 	
 //DATAFetching
@@ -144,6 +152,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 				
 			} else {
 				self.nelpTasks = nelpTasks!
+				self.createPins()
 				self.refreshView?.endRefreshing()
 				self.tableView?.reloadData()
 			}
@@ -165,6 +174,9 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 		
 		cell.setNelpTask(nelpTask)
+		if(self.currentLocation != nil){
+		cell.setLocation(self.currentLocation!)
+		}
 		cell.setImages(nelpTask)
 		
 		return cell
@@ -179,20 +191,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		return 80
 	}
 	
-
-//UIGesture delegate methods
-	
-	func didTouchMap(sender:UIPanGestureRecognizer){
-		navBarHide()
-		if(sender.state == UIGestureRecognizerState.Ended){
-			println("drag over")
-			navBarShow()
-		}
-	}
-	
-	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-		return true
-	}
 
 
 //Location delegate methods
@@ -226,17 +224,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 				var locationToZoom: CLLocationCoordinate2D = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
 				var region:MKCoordinateRegion = MKCoordinateRegionMake(locationToZoom, span)
 		
-	}
-	
-	
-//NavBar animation functions
-	
-	func navBarHide(){
-		UIView.animateWithDuration(0.3, animations:{self.navBar.alpha = 0}, completion: nil)
-	}
-	
-	func navBarShow(){
-		UIView.animateWithDuration(0.5, animations:{self.navBar.alpha = 1}, completion: nil)
 	}
 	
 

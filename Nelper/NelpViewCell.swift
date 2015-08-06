@@ -14,10 +14,12 @@ import Alamofire
 class NelpViewCell: UITableViewCell {
 	
 	var title: UILabel!
-	var distance:UILabel!
+	var author:UILabel!
 	var price:UILabel!
 	var picture:UIImageView!
 	var categoryPicture:UIImageView!
+	var distance:UILabel?
+	var task: NelpTask!
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -34,7 +36,7 @@ class NelpViewCell: UITableViewCell {
 		cellView.addSubview(picture)
 		
 		picture.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(cellView.snp_left).offset(0)
+			make.left.equalTo(cellView.snp_left).offset(4)
 			make.centerY.equalTo(cellView.snp_centerY)
 			make.width.equalTo(70)
 			make.height.equalTo(70)
@@ -42,15 +44,14 @@ class NelpViewCell: UITableViewCell {
 		
 		let categoryPicture = UIImageView()
 		self.categoryPicture = categoryPicture
-		self.categoryPicture.image = UIImage(named: "technologyIcon.png")
 		
 		cellView.addSubview(categoryPicture)
 		
 		categoryPicture.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(picture.snp_bottom)
-			make.left.equalTo(picture.snp_right).offset(-14)
-			make.width.equalTo(40)
-			make.height.equalTo(40)
+			make.left.equalTo(picture.snp_right).offset(-22)
+			make.width.equalTo(35)
+			make.height.equalTo(35)
 		}
 		
 		let title = UILabel()
@@ -60,16 +61,25 @@ class NelpViewCell: UITableViewCell {
 		
 		title.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cellView.snp_top).offset(2)
-			make.left.equalTo(picture.snp_right).offset(2)
+			make.left.equalTo(picture.snp_right).offset(30)
 			}
+		
+		let author = UILabel()
+		self.author = author
+		cellView.addSubview(author)
+		
+		author.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(title.snp_bottom).offset(2)
+			make.left.equalTo(picture.snp_right).offset(40)
+		}
 		
 		let distance = UILabel()
 		self.distance = distance
 		cellView.addSubview(distance)
 		
 		distance.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(title.snp_bottom).offset(2)
-			make.centerX.equalTo(cellView.snp_centerX)
+			make.top.equalTo(author.snp_bottom).offset(3)
+			make.left.equalTo(author.snp_left)
 		}
 		
 		let price = UILabel()
@@ -80,9 +90,9 @@ class NelpViewCell: UITableViewCell {
 		
 		price.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(cellView.snp_right).offset(-4)
-			make.centerY.equalTo(distance.snp_centerY)
+			make.centerY.equalTo(cellView.snp_centerY)
 			make.width.equalTo(70)
-			make.height.equalTo(35)
+			make.height.equalTo(30)
 		}
 		
 		self.addSubview(cellView)
@@ -108,20 +118,21 @@ class NelpViewCell: UITableViewCell {
 	}
 	
 	func setNelpTask(nelpTask:NelpTask) {
+		self.task = nelpTask
 		self.title.text = nelpTask.title
-		self.title.font = UIFont(name: "Railway", size: kCellTitleFontSize)
+		self.title.font = UIFont(name: "ABeeZee-Regular", size: kCellTitleFontSize)
 		self.title.textColor = blackNelpyColor
 		
-		self.distance.text = "Distance: 1.2 km"
-		self.distance.font = UIFont(name: "Railway", size: kSubtitleFontSize)
-		self.distance.textColor = whiteNelpyColor
+		self.author.text = "By \(nelpTask.user.name)"
+		self.author.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		self.author.textColor = blackNelpyColor
 		
 		var price = nelpTask.priceOffered
 		
 		if(price != nil){
 		self.price.text = price! + "$"
 		}
-		self.price.font = UIFont(name: "Railway", size: kCellPriceFontSize)
+		self.price.font = UIFont(name: "ABeeZee-Regular", size: kCellPriceFontSize)
 		self.price.textColor = whiteNelpyColor
 		self.price.layer.cornerRadius = 6
 		self.price.clipsToBounds = true
@@ -139,15 +150,36 @@ class NelpViewCell: UITableViewCell {
 			self.picture.layer.cornerRadius = self.picture.frame.size.width / 2;
 			self.picture.clipsToBounds = true;
 			self.picture.layer.borderWidth = 3;
-			self.picture.layer.borderColor = whiteNelpyColor.CGColor
+			self.picture.layer.borderColor = blackNelpyColor.CGColor
 			self.picture.contentMode = UIViewContentMode.ScaleAspectFill
 			
 			self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2;
 			self.categoryPicture.clipsToBounds = true;
-			self.categoryPicture.layer.borderWidth = 2;
-			self.categoryPicture.layer.borderColor = whiteNelpyColor.CGColor
+			self.categoryPicture.image = UIImage(named: nelpTask.category!)
 		}
 	}
+	
+	func setLocation(userLocation:CLLocation){
+		var taskLocation = CLLocation(latitude: self.task.location!.latitude, longitude: self.task.location!.longitude)
+		var distance: String = self.calculateDistanceBetweenTwoLocations(userLocation, destination: taskLocation)
+		
+		self.distance!.text = distance
+		self.distance!.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		self.distance!.textColor = blackNelpyColor
+		
+	}
+	
+	func calculateDistanceBetweenTwoLocations(source:CLLocation,destination:CLLocation) -> String{
+		
+		var distanceMeters = source.distanceFromLocation(destination)
+		if(distanceMeters > 1000){
+		var distanceKM = distanceMeters / 1000
+		return "\(round(distanceKM)) km away from you"
+		}else{
+			return String(format:"%.0f m away from you", distanceMeters)
+		}
+	}
+
 }
 
 

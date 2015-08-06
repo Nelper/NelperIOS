@@ -39,6 +39,7 @@
 	<string>We need your location in order to find tasks near you!</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>ABeeZee-Regular.ttf</string>
 		<string>Railway.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
