@@ -174,10 +174,14 @@ class ApiHelper {
     parseTask["state"] = task.state.rawValue
     parseTask["priceOffered"] = task.priceOffered
 		parseTask["category"] = task.category
-		var latti = task.location?.latitude
-		var longi = task.location?.longitude
-		let location = PFGeoPoint(latitude: latti!, longitude: longi!)
-		parseTask["location"] = location
+		var lat = task.location?.latitude
+		var lng = task.location?.longitude
+		if lat != nil && lng != nil {
+			let location = PFGeoPoint(latitude: lat!, longitude: lng!)
+			parseTask["location"] = location
+		}
+		parseTask["city"] = task.city
+		parseTask["pictures"] = [] //TODO: set this.
     
     let acl = PFACL(user: user)
     acl.setPublicReadAccess(true)

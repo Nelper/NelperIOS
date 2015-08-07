@@ -18,12 +18,10 @@ protocol SecondFormViewControllerDelegate {
 
 class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate{
 	
-	var kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
+	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	var task: FindNelpTask!
 	var placesClient: GMSPlacesClient?
 	var autocompleteArray = [GMSAutocompletePrediction]()
-	var lng: Double?
-	var lat: Double?
 	
 	var delegate: SecondFormViewControllerDelegate?
 	
@@ -39,7 +37,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	@IBOutlet weak var autocompleteTableView: UITableView!
 	
 	@IBOutlet weak var priceOfferedTextField: UITextField!
-
+	
 	@IBOutlet weak var formBackground: UIView!
 	
 	@IBOutlet weak var categoriesBackground: UIView!
@@ -79,7 +77,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-	
+		
 		UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 1}, completion: nil)
 		UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 1}, completion: nil)
 		
@@ -168,27 +166,27 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
 		if(textField == locationTextField){
-		var substring = textField.text as NSString
+			var substring = textField.text as NSString
    substring = substring.stringByReplacingCharactersInRange(range, withString: string)
-		self.placeAutocomplete(substring as String)
-  return true
+			self.placeAutocomplete(substring as String)
+			return true
 		}
 		return true
 	}
-
+	
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		
 		if(textField == locationTextField){
-		self.priceOfferedTextField.alpha = 1
-		self.priceOfferedTextField.becomeFirstResponder()
-		
-		UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 0}, completion: nil)
-		UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 0}, completion: nil)
-		
-		self.nelpyText.text = "Now that I know where you are, tell me how much you are willing to pay :D ."
-		
-		UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 1}, completion: nil)
-		UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 1}, completion: nil)
+			self.priceOfferedTextField.alpha = 1
+			self.priceOfferedTextField.becomeFirstResponder()
+			
+			UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 0}, completion: nil)
+			UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 0}, completion: nil)
+			
+			self.nelpyText.text = "Now that I know where you are, tell me how much you are willing to pay :D ."
+			
+			UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 1}, completion: nil)
+			UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 1}, completion: nil)
 		}else if(textField == priceOfferedTextField){
 			
 			UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 0}, completion: nil)
@@ -230,34 +228,20 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.locationTextField.text = prediction.attributedFullText.string
 		var geocodeURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(prediction.placeID)&key=\(kGoogleAPIKey)"
 		
-		request(.GET, geocodeURL)
-			.responseJSON { _, _, response, _ in
-				println(response)
-				
-				let json = JSON(response!)
-				
-				
-				if let lattitude = json["result"]["geometry"]["location"][
-					"lat"].double {
-					println("NSURLSession: \(lattitude)")
-						self.lat = lattitude
-				}
-				
-				if let longitude = json["result"]["geometry"]["location"][
-					"lng"].double {
-						println("NSURLSession: \(longitude)")
-						self.lng = longitude
-				}
-				if(self.lat != nil){
-					if(self.lng != nil){
-						let point = GeoPoint(latitude:self.lat!, longitude:self.lng!)
-						self.task.location = point
-					}
-				}
-				
-				
-				
+		request(.GET, geocodeURL).responseJSON { _, _, response, _ in
+			let json = JSON(response!)
+			let res = json["result"]
+			
+			let latitude = res["geometry"]["location"]["lat"].doubleValue
+			let longitude = res["geometry"]["location"]["lng"].doubleValue
+			
+			let city = self.getCity(res["address_components"])
+			
+			let point = GeoPoint(latitude:latitude, longitude:longitude)
+			self.task.location = point
+			self.task.city = city
 		}
+		
 		self.autocompleteTableView.hidden = true
 		self.priceOfferedTextField.alpha = 1
 		self.priceOfferedTextField.becomeFirstResponder()
@@ -265,7 +249,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 0}, completion: nil)
 		UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 0}, completion: nil)
 		
-		self.nelpyText.text = "Now that I know where you are, tell me how much you are willing to pay :D ."
+		self.nelpyText.text = "Now that I know where you are, tell me how much you are willing to pay 8==D ."
 		
 		UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 1}, completion: nil)
 		UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 1}, completion: nil)
@@ -273,7 +257,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-			return 70
+		return 70
 	}
 	
 	
@@ -291,13 +275,13 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 				self.autocompleteArray = results as! [GMSAutocompletePrediction]
 				self.autocompleteTableView.reloadData()
 				self.autocompleteTableView.hidden = false
-			for result in results! {
-				if let result = result as? GMSAutocompletePrediction {
-					println("Result \(result.attributedFullText) with placeID \(result.placeID)")
+				for result in results! {
+					if let result = result as? GMSAutocompletePrediction {
+						println("Result \(result.attributedFullText) with placeID \(result.placeID)")
+					}
 				}
 			}
-			}
-			})
+		})
 	}
 	
 	func deselectAllButton(){
@@ -307,6 +291,19 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.technologyFilter.selected = false
 		self.gardeningFilter.selected = false
 		self.houseCleaningFilter.selected = false
+	}
+	
+	func getCity(addressComponents: JSON) -> String? {
+		for (_, comp: JSON) in addressComponents {
+			let locale = comp["types"].arrayValue.filter({ $0.stringValue == "locality" })
+			for (_, t: JSON) in comp["types"] {
+				if t.stringValue == "locality" {
+					return comp["long_name"].string
+				}
+			}
+		}
+		
+		return nil
 	}
 	
 	
@@ -321,7 +318,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		deselectAllButton()
 		self.task.category = "gardening"
 	}
-
+	
 	@IBAction func cleaningFilterTapped(sender: AnyObject) {
 		deselectAllButton()
 		self.task.category = "housecleaning"
@@ -350,13 +347,13 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	@IBAction func postButtonTapped(sender: AnyObject) {
 		self.task.priceOffered = priceOfferedTextField.text
-    //TODO: set location using GeoPoint
+		//TODO: set location using GeoPoint
 		//self.task.location = locationTextField.text
 		
-    ApiHelper.addTask(self.task, block: { (task, error) -> Void in
-      self.delegate?.nelpTaskAdded(self.task)
-      self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-      self.dismissViewControllerAnimated(true, completion: nil)
-    })
+		ApiHelper.addTask(self.task, block: { (task, error) -> Void in
+			self.delegate?.nelpTaskAdded(self.task)
+			self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+			self.dismissViewControllerAnimated(true, completion: nil)
+		})
 	}
 }
