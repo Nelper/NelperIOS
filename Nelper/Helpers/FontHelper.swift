@@ -12,12 +12,15 @@ let kLoginScreenFontSize:CGFloat = 50
 
 let kCellPriceFontSize:CGFloat = 18
 let kCellTitleFontSize:CGFloat = 18
-let kCellTextFontSize:CGFloat = 12
+let kCellTextFontSize:CGFloat = 14
+
+let kDetailsViewTitleFontSize:CGFloat = 20
+let kDetailsViewTextFontSize:CGFloat = 16
 
 
 let kTitleFontSize:CGFloat = 26
 let kSubtitleFontSize:CGFloat = 20
 let kTextFontSize:CGFloat = 18
-let kButtonFontSize:CGFloat = 16
+let kButtonFontSize:CGFloat = 18
 
 let kNavBarTitleFont:CGFloat = 26

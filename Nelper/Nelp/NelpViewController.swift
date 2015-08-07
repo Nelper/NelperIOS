@@ -85,7 +85,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.requestWhenInUseAuthorization()
 		self.locationManager.startUpdatingLocation()
-		self.locationManager.distanceFilter = 20
 
 		var mapview = MKMapView()
 		
@@ -186,7 +185,9 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		
+		var selectedTask = self.nelpTasks[indexPath.row]
+		var vc = NelpTasksDetailsViewController(nelpTask: selectedTask)
+		self.presentViewController(vc, animated: false, completion: nil)
 		
 		}
 	
