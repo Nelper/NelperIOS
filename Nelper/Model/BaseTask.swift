@@ -20,9 +20,10 @@ class BaseTask: BaseModel {
   var desc: String!
   var user: User!
   var location : GeoPoint?
-  var priceOffered : String?
-	var category : String?
-  var pictures : Array<UIImage>?
+	var city: String?
+  var priceOffered: String?
+	var category: String?
+  var pictures: Array<UIImage>?
   var state: State = .Active
 	var createdAt: NSDate!
   
