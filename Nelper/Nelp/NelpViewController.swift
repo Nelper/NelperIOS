@@ -94,13 +94,13 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.mapViewContainer.addSubview(mapview)
 		self.mapView.showsUserLocation = true
 		
-		var userLocation: CLLocation = self.locationManager.location
+		/*var userLocation: CLLocation = self.locationManager.location
 		self.currentLocation = userLocation
 		var userLocationForCenter = userLocation.coordinate
 		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
 		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
 		self.mapView.setRegion(locationToZoom, animated: true)
-		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
+		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)*/
 
 		
 		mapview.snp_makeConstraints { (make) -> Void in
