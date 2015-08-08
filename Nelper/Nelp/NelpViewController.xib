@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F6a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -53,6 +53,10 @@
                                 <constraint firstItem="pSm-h1-kgF" firstAttribute="top" secondItem="Vwf-Ak-zmN" secondAttribute="top" id="zEP-uf-CcS"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-u6-Vdz">
+                            <rect key="frame" x="0.0" y="329" width="375" height="293"/>
+                            <color key="backgroundColor" red="1" green="0.80969880760000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WhO-cu-Kkt">
                             <rect key="frame" x="0.0" y="622" width="375" height="45"/>
                             <subviews>
@@ -105,10 +109,6 @@
                                 <constraint firstItem="lsw-Ra-fhS" firstAttribute="top" secondItem="WhO-cu-Kkt" secondAttribute="top" constant="7" id="epu-28-KGi"/>
                                 <constraint firstAttribute="height" constant="45" id="uT5-mN-10Y"/>
                             </constraints>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-u6-Vdz">
-                            <rect key="frame" x="0.0" y="329" width="375" height="293"/>
-                            <color key="backgroundColor" red="1" green="0.80969880760000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.039511486040000002" green="0.80666035349999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

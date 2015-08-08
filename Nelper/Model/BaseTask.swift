@@ -25,6 +25,7 @@ class BaseTask: BaseModel {
 	var category: String?
   var pictures: Array<UIImage>?
   var state: State = .Active
+	var createdAt: NSDate!
   
   override init() {
     super.init()
@@ -37,6 +38,7 @@ class BaseTask: BaseModel {
     title = parseTask["title"] as! String
     desc = parseTask["desc"] as! String
 		category = parseTask["category"] as? String
+		createdAt = parseTask.createdAt
     user = User(parseUser: parseTask["user"] as! PFUser)
     let pfLoc = parseTask["location"] as? PFGeoPoint
     if let pfLoc = pfLoc {
