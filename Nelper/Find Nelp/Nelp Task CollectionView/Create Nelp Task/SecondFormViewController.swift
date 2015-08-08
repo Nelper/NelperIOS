@@ -98,9 +98,11 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.locationTextField.becomeFirstResponder()
 		self.locationTextField.tintColor = whiteNelpyColor
 		self.locationTextField.textColor = blackNelpyColor
+		self.locationTextField.layer.cornerRadius = 3
 		
-		self.autocompleteTableView.backgroundColor = orangeSecondaryColor
-		
+		self.autocompleteTableView.layer.cornerRadius = 3
+		self.autocompleteTableView.backgroundColor = whiteNelpyColor
+				
 		self.priceOfferedTextField.backgroundColor = whiteNelpyColor.colorWithAlphaComponent(0.2)
 		self.priceOfferedTextField.delegate = self
 		self.priceOfferedTextField.font = UIFont(name: "Railway", size: kTitleFontSize)
@@ -110,6 +112,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.priceOfferedTextField.becomeFirstResponder()
 		self.priceOfferedTextField.tintColor = whiteNelpyColor
 		self.priceOfferedTextField.textColor = blackNelpyColor
+		self.priceOfferedTextField.layer.cornerRadius = 3
 		
 		self.categoriesBackground.backgroundColor = whiteNelpyColor.colorWithAlphaComponent(0.2)
 		
@@ -226,7 +229,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let prediction = self.autocompleteArray[indexPath.row]
 		self.locationTextField.text = prediction.attributedFullText.string
-		var geocodeURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(prediction.placeID)&key=\(kGoogleAPIKey)"
+		let geocodeURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(prediction.placeID)&key=\(kGoogleAPIKey)"
 		
 		request(.GET, geocodeURL).responseJSON { _, _, response, _ in
 			let json = JSON(response!)
@@ -242,7 +245,6 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			self.task.city = city
 		}
 		
-		self.autocompleteTableView.hidden = true
 		self.priceOfferedTextField.alpha = 1
 		self.priceOfferedTextField.becomeFirstResponder()
 		
@@ -257,7 +259,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		return 70
+		return 40
 	}
 	
 	
@@ -295,7 +297,6 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	func getCity(addressComponents: JSON) -> String? {
 		for (_, comp: JSON) in addressComponents {
-			let locale = comp["types"].arrayValue.filter({ $0.stringValue == "locality" })
 			for (_, t: JSON) in comp["types"] {
 				if t.stringValue == "locality" {
 					return comp["long_name"].string
@@ -347,9 +348,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	@IBAction func postButtonTapped(sender: AnyObject) {
 		self.task.priceOffered = priceOfferedTextField.text
-		//TODO: set location using GeoPoint
-		//self.task.location = locationTextField.text
-		
+
 		ApiHelper.addTask(self.task, block: { (task, error) -> Void in
 			self.delegate?.nelpTaskAdded(self.task)
 			self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)

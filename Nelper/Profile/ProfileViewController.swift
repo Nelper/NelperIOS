@@ -72,8 +72,6 @@ class ProfileViewController: UIViewController {
 //	UI
 	
 	func adjustUI(){
-		self.logoImage.image = UIImage(named: "logo_nobackground_v2")
-		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
 		self.settingsButton.setBackgroundImage(UIImage(named:"cogwheel.png"), forState: UIControlState.Normal)
 		self.navBar.backgroundColor = navBarColor
 		

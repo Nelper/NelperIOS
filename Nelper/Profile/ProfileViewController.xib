@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F6a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -15,7 +15,6 @@
                 <outlet property="firstStar" destination="1Zp-8v-Jit" id="oFv-2v-ITt"/>
                 <outlet property="fourthStar" destination="GuR-aK-ZUL" id="0RT-Xr-I1q"/>
                 <outlet property="infoContainer" destination="Dnq-Ic-IAb" id="Gyk-em-1Or"/>
-                <outlet property="logoImage" destination="tO1-tr-Kmo" id="MPY-pK-sBS"/>
                 <outlet property="nameLabel" destination="q3X-DP-qXH" id="chq-l2-F0M"/>
                 <outlet property="navBar" destination="ToR-Oc-Whs" id="Jhc-O6-QSZ"/>
                 <outlet property="nelpTabBarImage" destination="kM8-kM-7yW" id="XP0-kG-6vb"/>
@@ -248,7 +247,7 @@
                         </mask>
                     </variation>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ToR-Oc-Whs">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ToR-Oc-Whs" customClass="NavBar" customModule="Nelper" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="344" height="64"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydk-8a-wJD">
@@ -263,33 +262,13 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tO1-tr-Kmo">
-                            <rect key="frame" x="152" y="30" width="40" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="A04-3r-bcH"/>
-                                <constraint firstAttribute="width" constant="40" id="HDQ-jX-tE9"/>
-                            </constraints>
-                        </imageView>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="0.0" blue="0.1107546368" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="At2-Ts-dXZ"/>
-                        <constraint firstItem="tO1-tr-Kmo" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ToR-Oc-Whs" secondAttribute="top" constant="8" id="EOJ-hs-Nju"/>
-                        <constraint firstAttribute="centerX" secondItem="tO1-tr-Kmo" secondAttribute="centerX" id="Rjl-iM-e0z"/>
                         <constraint firstAttribute="bottom" secondItem="ydk-8a-wJD" secondAttribute="bottom" constant="4" id="ZZJ-vH-lPQ"/>
-                        <constraint firstItem="tO1-tr-Kmo" firstAttribute="top" secondItem="ToR-Oc-Whs" secondAttribute="top" constant="8" id="b5r-u0-Lxe"/>
                         <constraint firstAttribute="height" constant="64" id="e0i-sA-Zp5"/>
                         <constraint firstAttribute="trailing" secondItem="ydk-8a-wJD" secondAttribute="trailing" constant="16" id="ort-tj-iTD"/>
-                        <constraint firstItem="tO1-tr-Kmo" firstAttribute="top" secondItem="ToR-Oc-Whs" secondAttribute="top" constant="30" id="pi8-VD-xPA"/>
-                        <constraint firstAttribute="centerY" secondItem="tO1-tr-Kmo" secondAttribute="centerY" id="rdL-Bx-RQL"/>
                     </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="EOJ-hs-Nju"/>
-                            <exclude reference="b5r-u0-Lxe"/>
-                            <exclude reference="rdL-Bx-RQL"/>
-                        </mask>
-                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

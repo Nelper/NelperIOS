@@ -15,16 +15,20 @@ import Alamofire
 class AutocompleteCell: UITableViewCell {
 	var prediction: GMSAutocompletePrediction!
 	var suggestedAddress: UILabel!
-
+	
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		
 		self.clipsToBounds = true
+		self.backgroundColor = whiteNelpyColor
 		
 		let cellView = UIView(frame: self.bounds)
+		self.addSubview(cellView)
+		cellView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(self).inset(UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+		}
 		
-		cellView.backgroundColor = orangeSecondaryColor
 		cellView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
 		
 		let suggestedAddress = UILabel()
@@ -39,11 +43,7 @@ class AutocompleteCell: UITableViewCell {
 		suggestedAddress.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(cellView.snp_edges)
 		}
-		
-		
-		
-		self.addSubview(cellView)
-}
+	}
 	required init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
@@ -59,12 +59,12 @@ class AutocompleteCell: UITableViewCell {
 			return "AutocompleteCell"
 		}
 	}
-
+	
 	func setAddress(prediction:GMSAutocompletePrediction){
 		self.prediction = prediction
 		var predictionText = prediction.attributedFullText
 		self.suggestedAddress.text = predictionText.string
 	}
-
-
+	
+	
 }

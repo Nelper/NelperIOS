@@ -52,7 +52,6 @@ class LoginViewController: UIViewController {
 	//UI
 	
 	func adjustUI(){
-		
 		self.logoImage.image = UIImage(named: "logo_nobackground_v2")
 		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFill
 		
@@ -86,7 +85,6 @@ class LoginViewController: UIViewController {
 		self.skipButton.titleLabel?.font = UIFont(name: "Railway", size: kSubtitleFontSize)
 		self.skipButton.layer.borderColor = UIColor.blackColor().CGColor
 		self.skipButton.layer.borderWidth = 2
-		
 		
 	}
 	

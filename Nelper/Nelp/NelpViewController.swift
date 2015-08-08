@@ -112,13 +112,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	func adjustUI(){
 
-		self.navBar.backgroundColor = navBarColor
 		self.entireContainer.backgroundColor = blueGrayColor
-		self.nelperTitle.text = "Nelper"
-		self.nelperTitle.font = UIFont(name: "ABeeZee-Regular", size: kNavBarTitleFont)
-		self.nelperTitle.textColor = orangeTextColor
-		self.logoImage.image = UIImage(named: "logo_round_v2")
-		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
 		self.container.backgroundColor = blueGrayColor
 		self.tabView.backgroundColor = navBarColor
 		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_orange.png"), forState: UIControlState.Normal)

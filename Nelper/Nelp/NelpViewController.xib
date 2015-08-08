@@ -10,11 +10,9 @@
                 <outlet property="container" destination="yLw-jR-XsS" id="1Ha-iP-pCA"/>
                 <outlet property="entireContainer" destination="Vwf-Ak-zmN" id="Yxh-bb-wHa"/>
                 <outlet property="findNelpTabBarImage" destination="uGa-bu-038" id="5Ws-dR-tf5"/>
-                <outlet property="logoImage" destination="oBg-br-ksA" id="hqn-ag-rej"/>
                 <outlet property="mapViewContainer" destination="Ga4-Ld-Uh8" id="PYE-9i-MML"/>
                 <outlet property="navBar" destination="pSm-h1-kgF" id="3El-6J-lba"/>
                 <outlet property="nelpTabBarImage" destination="lsw-Ra-fhS" id="cQk-dv-rwU"/>
-                <outlet property="nelperTitle" destination="PK0-yM-LIy" id="Djn-aP-Jbp"/>
                 <outlet property="profileTabBarImage" destination="TvF-0q-71q" id="CqX-aV-cnx"/>
                 <outlet property="tabView" destination="WhO-cu-Kkt" id="Gd9-KL-iAP"/>
                 <outlet property="tableViewContainer" destination="PfD-u6-Vdz" id="B9v-vI-PoC"/>
@@ -32,41 +30,12 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vwf-Ak-zmN">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="390"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSm-h1-kgF">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSm-h1-kgF" customClass="NavBar" customModule="Nelper" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oBg-br-ksA">
-                                            <rect key="frame" x="128" y="16" width="40" height="40"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="PhK-YG-ktR"/>
-                                                <constraint firstAttribute="width" constant="40" id="Rmo-6D-whm"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PK0-yM-LIy">
-                                            <rect key="frame" x="176" y="25" width="90" height="21"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="90" id="OcS-EF-DhN"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.90196084980000002" green="0.16078431900000001" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="5g9-gJ-FRs"/>
-                                        <constraint firstAttribute="centerY" secondItem="oBg-br-ksA" secondAttribute="centerY" constant="-4" id="7bg-aG-w4f"/>
-                                        <constraint firstAttribute="centerX" secondItem="oBg-br-ksA" secondAttribute="centerX" constant="39.5" id="7wN-hW-Ajs"/>
-                                        <constraint firstAttribute="centerY" secondItem="PK0-yM-LIy" secondAttribute="centerY" constant="-3.5" id="Vf3-rg-KiC"/>
                                         <constraint firstAttribute="height" constant="64" id="bhz-ie-U0u"/>
-                                        <constraint firstAttribute="centerX" secondItem="oBg-br-ksA" secondAttribute="centerX" constant="0.5" id="jmu-l7-b6d"/>
-                                        <constraint firstItem="PK0-yM-LIy" firstAttribute="leading" secondItem="oBg-br-ksA" secondAttribute="trailing" constant="8" id="zHU-Le-gmA"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="jmu-l7-b6d"/>
-                                        </mask>
-                                    </variation>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ga4-Ld-Uh8">
                                     <rect key="frame" x="0.0" y="64" width="375" height="261"/>

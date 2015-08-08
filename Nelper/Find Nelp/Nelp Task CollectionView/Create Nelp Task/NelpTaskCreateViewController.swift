@@ -17,9 +17,8 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
   var delegate: NelpTaskCreateViewControllerDelegate?
 	var task: FindNelpTask!
 	
-	@IBOutlet weak var backButton: UIButton!
-	@IBOutlet weak var navBar: UIView!
-	@IBOutlet weak var logoImage: UIImageView!
+	@IBOutlet weak var navBar: NavBar!
+
 	
 	@IBOutlet weak var nelpyTextBubble: UIImageView!
 	@IBOutlet weak var nelpyText: UILabel!
@@ -65,12 +64,12 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 //UI
 	
 	func adjustUI(){
-		self.formView.backgroundColor = orangeSecondaryColor
-		self.navBar.backgroundColor = orangeMainColor
-		self.logoImage.image = UIImage(named: "logo_nobackground_v2")
-		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFit
-		self.backButton.titleLabel?.font = UIFont(name: "Railway", size: kButtonFontSize)
+		let backBtn = UIButton()
+		backBtn.addTarget(self, action: "backButtonTapped", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.backButton = backBtn
 		
+		self.formView.backgroundColor = orangeSecondaryColor
+
 		self.titleTextField.backgroundColor = whiteNelpyColor.colorWithAlphaComponent(0.2)
 		self.titleTextField.font = UIFont(name: "Railway", size: kTitleFontSize)
 		self.titleTextField.textAlignment = NSTextAlignment.Center
@@ -135,8 +134,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 
 //IBACTIONS
 	
-	@IBAction func backButtonTapped(sender: AnyObject) {
-	
+	func backButtonTapped() {
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	

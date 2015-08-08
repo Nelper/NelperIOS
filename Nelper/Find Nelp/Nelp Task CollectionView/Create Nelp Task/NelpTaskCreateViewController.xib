@@ -6,11 +6,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NelpTaskCreateViewController" customModule="Nelper" customModuleProvider="target">
             <connections>
-                <outlet property="backButton" destination="yjt-bw-CBL" id="gOS-Lh-6Y2"/>
                 <outlet property="descriptionTextField" destination="akW-v8-gK6" id="ftc-30-d50"/>
                 <outlet property="formView" destination="cAl-N1-i1u" id="Pqd-SQ-tA2"/>
-                <outlet property="logoImage" destination="QzP-2K-NjT" id="p5w-bd-f1k"/>
-                <outlet property="navBar" destination="eYj-hM-gfS" id="Z3X-KU-LeA"/>
+                <outlet property="navBar" destination="eYj-hM-gfS" id="OEs-40-JWj"/>
                 <outlet property="nelpyText" destination="xgj-re-uX7" id="O2h-Kd-4rM"/>
                 <outlet property="nelpyTextBubble" destination="3by-rW-nI2" id="gXL-hp-dao"/>
                 <outlet property="nextButton" destination="Ugv-Mf-dhL" id="hjq-Ub-4sx"/>
@@ -43,10 +41,10 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                         </textView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3by-rW-nI2">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3by-rW-nI2">
                             <rect key="frame" x="50" y="8" width="275" height="128"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgj-re-uX7">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgj-re-uX7">
                             <rect key="frame" x="62" y="28" width="250" height="100"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="100" id="ctl-X7-U5z"/>
@@ -87,41 +85,16 @@
                         <constraint firstAttribute="centerY" secondItem="O7k-vQ-jdE" secondAttribute="centerY" constant="94.5" id="zRc-n4-Fom"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYj-hM-gfS">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYj-hM-gfS" customClass="NavBar" customModule="Nelper" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QzP-2K-NjT">
-                            <rect key="frame" x="167" y="30" width="40" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="40" id="8V7-Xd-ITK"/>
-                                <constraint firstAttribute="height" constant="40" id="Z5Q-mz-84O"/>
-                            </constraints>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yjt-bw-CBL">
-                            <rect key="frame" x="10" y="34" width="35" height="30"/>
-                            <state key="normal" title="Back">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="backButtonTapped:" destination="-1" eventType="touchUpInside" id="Z5U-wh-r4I"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" red="0.90196084980000002" green="0.16078431900000001" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="64" id="Cxj-dA-gea"/>
-                        <constraint firstAttribute="centerX" secondItem="QzP-2K-NjT" secondAttribute="centerX" constant="0.5" id="U1g-Qa-qPa"/>
-                        <constraint firstAttribute="bottom" secondItem="yjt-bw-CBL" secondAttribute="bottom" id="YnW-2J-VfF"/>
-                        <constraint firstItem="yjt-bw-CBL" firstAttribute="leading" secondItem="eYj-hM-gfS" secondAttribute="leading" constant="10" id="pxI-si-8ex"/>
-                        <constraint firstItem="QzP-2K-NjT" firstAttribute="top" secondItem="eYj-hM-gfS" secondAttribute="top" constant="30" id="vsS-96-G2k"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="eYj-hM-gfS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1A3-l0-qcz"/>
-                <constraint firstItem="3by-rW-nI2" firstAttribute="top" secondItem="QzP-2K-NjT" secondAttribute="bottom" constant="2" id="I1q-ic-uFR"/>
                 <constraint firstAttribute="trailing" secondItem="cAl-N1-i1u" secondAttribute="trailing" id="JFA-Rj-5ef"/>
                 <constraint firstItem="cAl-N1-i1u" firstAttribute="top" secondItem="eYj-hM-gfS" secondAttribute="bottom" id="O4H-pd-Vhb"/>
                 <constraint firstItem="cAl-N1-i1u" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VC9-qe-LiR"/>

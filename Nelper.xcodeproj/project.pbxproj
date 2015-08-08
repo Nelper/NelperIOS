@@ -18,6 +18,7 @@
 		190F62451B4F616A0091A1D1 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62441B4F616A0091A1D1 /* libstdc++.6.dylib */; };
 		190F62471B4F617D0091A1D1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62461B4F617D0091A1D1 /* libsqlite3.dylib */; };
 		190F62491B4F618C0091A1D1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62481B4F618C0091A1D1 /* SystemConfiguration.framework */; };
+		192635451B744D9C005597E3 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192635441B744D9C005597E3 /* NavBar.swift */; };
 		195FD9B21B4B6B760040AD20 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 195FD9B11B4B6B760040AD20 /* ProfileViewController.xib */; };
 		195FD9B51B4CA6A50040AD20 /* NelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195FD9B31B4CA6A50040AD20 /* NelpViewController.swift */; };
 		195FD9B61B4CA6A50040AD20 /* NelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 195FD9B41B4CA6A50040AD20 /* NelpViewController.xib */; };
@@ -106,6 +107,7 @@
 		190F62441B4F616A0091A1D1 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		190F62461B4F617D0091A1D1 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		190F62481B4F618C0091A1D1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		192635441B744D9C005597E3 /* NavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavBar.swift; path = Views/NavBar.swift; sourceTree = "<group>"; };
 		195FD9B11B4B6B760040AD20 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfileViewController.xib; path = Nelper/Profile/ProfileViewController.xib; sourceTree = SOURCE_ROOT; };
 		195FD9B31B4CA6A50040AD20 /* NelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpViewController.swift; path = Nelp/NelpViewController.swift; sourceTree = "<group>"; };
 		195FD9B41B4CA6A50040AD20 /* NelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NelpViewController.xib; path = Nelp/NelpViewController.xib; sourceTree = "<group>"; };
@@ -190,6 +192,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		192635431B744C57005597E3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				192635441B744D9C005597E3 /* NavBar.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		193F040E1B485F75003CBDA6 /* Find Nelp */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +254,7 @@
 		199EF1F01B37A0A500B25B07 /* Nelper */ = {
 			isa = PBXGroup;
 			children = (
+				192635431B744C57005597E3 /* Views */,
 				193F04101B485F75003CBDA6 /* Login */,
 				193F041D1B4878E3003CBDA6 /* Nelp */,
 				193F040E1B485F75003CBDA6 /* Find Nelp */,
@@ -583,6 +594,7 @@
 				195FD9B51B4CA6A50040AD20 /* NelpViewController.swift in Sources */,
 				19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */,
 				F7067AB41B56001300F19745 /* FontHelper.swift in Sources */,
+				192635451B744D9C005597E3 /* NavBar.swift in Sources */,
 				F7DEC2111B69CB6C00B03747 /* NelpViewCell.swift in Sources */,
 				F762D0131B4B680300812235 /* ProfileViewController.swift in Sources */,
 				F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */,
