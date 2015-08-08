@@ -24,7 +24,7 @@ class BaseTask: BaseModel {
 	var city: String?
   var priceOffered: String?
 	var category: String?
-  var pictures: Array<UIImage>?
+  var pictures: Array<PFFile>?
   var state: State = .Active
 	var createdAt: NSDate!
   
@@ -53,12 +53,11 @@ class BaseTask: BaseModel {
 		if(parseTask["pictures"] != nil){
     var picturesPF = parseTask["pictures"] as! [PFFile]
 			if(!picturesPF.isEmpty){
-		pictures = getArrayOfPictures(picturesPF)
+		pictures = picturesPF
 			}
 		}
     state = State(rawValue: parseTask["state"] as! Int)!
   }
-	
 	
 	func getArrayOfPictures(arrayOfPictures: Array<PFFile>) -> Array<UIImage> {
 		var arrayOfImages: Array = Array<UIImage>()

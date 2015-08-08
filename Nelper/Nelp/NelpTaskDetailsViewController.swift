@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 import iCarousel
 
-class NelpTasksDetailsViewController: UIViewController, iCarouselDataSource, iCarouselDelegate{
+class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCarouselDelegate{
 	
 	@IBOutlet weak var navBar: UIView!
 	@IBOutlet weak var backButton: UIButton!
@@ -28,8 +28,7 @@ class NelpTasksDetailsViewController: UIViewController, iCarouselDataSource, iCa
 	@IBOutlet weak var applyButton: UIButton!
 	
 	var task: NelpTask!
-	var carousel:iCarousel?
-	
+	var carousel:iCarousel!
 	var pageViewController: UIPageViewController?
 	var pictures:NSArray?
 	
@@ -113,7 +112,11 @@ class NelpTasksDetailsViewController: UIViewController, iCarouselDataSource, iCa
 	func createCarousel(){
 		var carousel = iCarousel()
 		self.carousel = carousel
-		self.carousel!.type = .Rotary
+		self.carousel.type = .Rotary
+		self.carousel.dataSource = self
+		self.carousel.delegate = self
+		self.carousel.reloadData()
+		
 		
 	
 	}
@@ -141,20 +144,23 @@ class NelpTasksDetailsViewController: UIViewController, iCarouselDataSource, iCa
 	
 	func numberOfItemsInCarousel(carousel: iCarousel!) -> Int
 	{
-		if(self.task.pictures != nil){
-		return self.task.pictures!.count
-		}
-		return 0
+		
+		return 1
+//		if(self.task.pictures != nil){
+//			println(self.task.pictures!.count)
+//		return self.task.pictures!.count
+//		}
+//		return 0
 	}
 
 func carousel(carousel: iCarousel!, viewForItemAtIndex index: Int, reusingView view: UIView!) -> UIView!
 	{
 			var picture = UIImageView(frame:self.picturesContainer.bounds)
-			picture.image = self.task.pictures![index]
+			var imageURL = self.task.pictures![index].url!
+			picture.image = getPictures(imageURL)
 			picture.contentMode = .Center
 		return picture
 	}
-	
 	
 	//IBActions
 	
@@ -164,6 +170,18 @@ func carousel(carousel: iCarousel!, viewForItemAtIndex index: Int, reusingView v
 	}
 	
 	//Utilities
+	
+	func getPictures(imageURL: String) -> UIImage {
+		var image: UIImage!
+			request(.GET,imageURL).response(){
+				(_, _, data, error) in
+				if(error != nil){
+					println(error)
+				}
+				image = UIImage(data: data as NSData!)
+			}
+		return image
+	}
 	
 	func timeAgoSinceDate(date:NSDate, numericDates:Bool) -> String {
 		let calendar = NSCalendar.currentCalendar()
