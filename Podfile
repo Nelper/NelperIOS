@@ -7,6 +7,7 @@ pod 'GoogleMaps'
 pod 'Alamofire'
 pod 'SnapKit'
 pod 'SwiftyJSON'
+pod 'iCarousel'
 
 use_frameworks!
 

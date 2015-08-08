@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class BaseTask: BaseModel {
   
@@ -48,7 +49,30 @@ class BaseTask: BaseModel {
       )
     }
     priceOffered = parseTask["priceOffered"] as? String
-    pictures = nil //TODO: pictures
+		
+		if(parseTask["pictures"] != nil){
+    var picturesPF = parseTask["pictures"] as! [PFFile]
+			if(!picturesPF.isEmpty){
+		pictures = getArrayOfPictures(picturesPF)
+			}
+		}
     state = State(rawValue: parseTask["state"] as! Int)!
   }
+	
+	
+	func getArrayOfPictures(arrayOfPictures: Array<PFFile>) -> Array<UIImage> {
+		var arrayOfImages: Array = Array<UIImage>()
+		
+		for picture in arrayOfPictures{
+			request(.GET,picture.url!).response(){
+				(_, _, data, error) in
+				if(error != nil){
+					println(error)
+				}
+				var image = UIImage(data: data as NSData!)
+				arrayOfImages.append(image!)
+			}
+		}
+		return arrayOfImages
+	}
 }

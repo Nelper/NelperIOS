@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 import Alamofire
+import iCarousel
 
-
-class NelpTasksDetailsViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate{
+class NelpTasksDetailsViewController: UIViewController, iCarouselDataSource, iCarouselDelegate{
 	
 	@IBOutlet weak var navBar: UIView!
 	@IBOutlet weak var backButton: UIButton!
@@ -28,6 +28,7 @@ class NelpTasksDetailsViewController: UIViewController, UIPageViewControllerData
 	@IBOutlet weak var applyButton: UIButton!
 	
 	var task: NelpTask!
+	var carousel:iCarousel?
 	
 	var pageViewController: UIPageViewController?
 	var pictures:NSArray?
@@ -44,8 +45,11 @@ class NelpTasksDetailsViewController: UIViewController, UIPageViewControllerData
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.createPageViewController()
 		self.adjustUI()
+		if(self.task.pictures != nil){
+				self.createCarousel()
+			}
+		
 	}
 	
 	//UI
@@ -95,6 +99,7 @@ class NelpTasksDetailsViewController: UIViewController, UIPageViewControllerData
 		self.descriptionTextView.textColor = blackNelpyColor
 		self.descriptionTextView.editable = false
 		
+		self.picturesContainer.backgroundColor = whiteNelpyColor
 		
 		self.applyButton.setTitle("Apply", forState: UIControlState.Normal)
 		self.applyButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kButtonFontSize)
@@ -105,18 +110,12 @@ class NelpTasksDetailsViewController: UIViewController, UIPageViewControllerData
 	
 	}
 	
-	func createPageViewController(){
-		self.pageViewController = UIPageViewController()
-
-		self.pageViewController!.delegate = self
-		self.pageViewController!.dataSource = self
+	func createCarousel(){
+		var carousel = iCarousel()
+		self.carousel = carousel
+		self.carousel!.type = .Rotary
 		
-		self.addChildViewController(self.pageViewController!)
-		self.pageViewController!.didMoveToParentViewController(self)
-		self.picturesContainer.addSubview(self.pageViewController!.view)
-		self.pageViewController!.view.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(picturesContainer.snp_edges)
-		}
+	
 	}
 	
 	func setImages(nelpTask:NelpTask){
@@ -138,17 +137,24 @@ class NelpTasksDetailsViewController: UIViewController, UIPageViewControllerData
 		}
 	}
 	
-	//Page View Controller
+	//iCarousel Delegate
 	
-	func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-		return nil
+	func numberOfItemsInCarousel(carousel: iCarousel!) -> Int
+	{
+		if(self.task.pictures != nil){
+		return self.task.pictures!.count
+		}
+		return 0
 	}
-	
-	func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-		return nil
-	}
-	
 
+func carousel(carousel: iCarousel!, viewForItemAtIndex index: Int, reusingView view: UIView!) -> UIView!
+	{
+			var picture = UIImageView(frame:self.picturesContainer.bounds)
+			picture.image = self.task.pictures![index]
+			picture.contentMode = .Center
+		return picture
+	}
+	
 	
 	//IBActions
 	
@@ -190,17 +196,9 @@ class NelpTasksDetailsViewController: UIViewController, UIPageViewControllerData
 			} else {
 				return "Last week"
 			}
-		} else if (components.day == 6) {
+		} else if (components.day >= 2) {
 			return "\(components.day) days ago"
-		} else if (components.day == 5){
-			return "\(components.day) days ago"
-		} else if (components.day == 4){
-			return "\(components.day) days ago"
-		} else if (components.day == 3){
-			return "\(components.day) days ago"
-		} else if (components.day == 2){
-			return "\(components.day) days ago"
-		} else if (components.day == 1){
+		} else if(components.day >= 1){
 			if (numericDates){
 				return "1 day ago"
 			} else {

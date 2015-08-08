@@ -18,10 +18,6 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	var task: FindNelpTask!
 	
 	@IBOutlet weak var navBar: NavBar!
-
-	
-	@IBOutlet weak var nelpyTextBubble: UIImageView!
-	@IBOutlet weak var nelpyText: UILabel!
 	
 	@IBOutlet weak var formView: UIView!
 	@IBOutlet weak var titleTextField: UITextField!
@@ -42,22 +38,15 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
     self.task = FindNelpTask()
 		self.titleTextField.delegate = self
 		self.descriptionTextField.delegate = self
-		self.nelpyText.alpha = 0
-		self.nelpyTextBubble.alpha = 0
-		self.nextButton.alpha = 0
-		self.nelpyText.textColor = blackNelpyColor
-		self.nelpyText.font = UIFont(name: "Railway", size: kTextFontSize)
-		self.nelpyText.textAlignment = NSTextAlignment.Center
-		self.nelpyTextBubble.image = UIImage(named: "bubble.png")
-		self.nelpyText.text = "Please enter short title for your request. \n ( Ex: Install a wifi router.)"
+				self.nextButton.alpha = 0
+
 		self.adjustUI()
 		
 		
 		}
 	
 	override func viewDidAppear(animated: Bool) {
-		UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 1}, completion: nil)
-		UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 1}, completion: nil)
+
 	}
 	
 	
@@ -100,13 +89,8 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.descriptionTextField.backgroundColor = whiteNelpyColor.colorWithAlphaComponent(1)
 		self.descriptionTextField.becomeFirstResponder()
 		
-		UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 0}, completion: nil)
-		UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 0}, completion: nil)
 		
-		self.nelpyText.text = "Great! \n Now please enter a description of what you need to get done."
 		
-		UIView.animateWithDuration(0.4, animations:{self.nelpyText.alpha = 1}, completion: nil)
-		UIView.animateWithDuration(0.4, animations:{self.nelpyTextBubble.alpha = 1}, completion: nil)
 		
 		return false
 	}

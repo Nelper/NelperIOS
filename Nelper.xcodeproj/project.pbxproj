@@ -56,6 +56,7 @@
 		F782A6261B6411DD00C78470 /* SecondFormScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F782A6241B6411DD00C78470 /* SecondFormScreen.xib */; };
 		F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6251B6411DD00C78470 /* SecondFormViewController.swift */; };
 		F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ApiHelper.swift */; };
+		F7AB48A21B75AE5C00B602C4 /* iCarousel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB48A11B75AE5C00B602C4 /* iCarousel.framework */; };
 		F7D94CB41B5AC41000380157 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CB31B5AC41000380157 /* MapKit.framework */; };
 		F7DEC2111B69CB6C00B03747 /* NelpViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */; };
 		F7EE46B81B6D219C005ECFCA /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = F7EE46B71B6D219C005ECFCA /* Podfile */; };
@@ -151,6 +152,7 @@
 		F782A6241B6411DD00C78470 /* SecondFormScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SecondFormScreen.xib; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormScreen.xib"; sourceTree = SOURCE_ROOT; };
 		F782A6251B6411DD00C78470 /* SecondFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondFormViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormViewController.swift"; sourceTree = SOURCE_ROOT; };
 		F782A6281B6567E100C78470 /* ApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHelper.swift; path = Nelper/Helpers/ApiHelper.swift; sourceTree = SOURCE_ROOT; };
+		F7AB48A11B75AE5C00B602C4 /* iCarousel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iCarousel.framework; path = "Pods/../build/Debug-iphoneos/iCarousel.framework"; sourceTree = "<group>"; };
 		F7D94CB31B5AC41000380157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpViewCell.swift; sourceTree = "<group>"; };
 		F7EE46B71B6D219C005ECFCA /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -163,6 +165,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7AB48A21B75AE5C00B602C4 /* iCarousel.framework in Frameworks */,
 				F73AE64C1B6D3CFF00FE672E /* Social.framework in Frameworks */,
 				F73AE64A1B6D3CEA00FE672E /* Accounts.framework in Frameworks */,
 				F7EE46D71B6D32D4005ECFCA /* GoogleMaps.framework in Frameworks */,
@@ -310,6 +313,7 @@
 		E00C0A7D0D690598AC42849C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7AB48A11B75AE5C00B602C4 /* iCarousel.framework */,
 				F73AE64B1B6D3CFF00FE672E /* Social.framework */,
 				F73AE6491B6D3CEA00FE672E /* Accounts.framework */,
 				F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */,
@@ -742,6 +746,7 @@
 					"$(PROJECT_DIR)/SnapKit/build/Debug-iphoneos",
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/GoogleMaps/Frameworks",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = Nelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -769,6 +774,7 @@
 					"$(PROJECT_DIR)/SnapKit/build/Debug-iphoneos",
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/GoogleMaps/Frameworks",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = Nelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
