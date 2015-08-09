@@ -8,4 +8,5 @@
 #import <Bolts/Bolts.h>
 #import <MapKit/MapKit.h>
 #import <GoogleMaps/GoogleMaps.h>
+#import <iCarousel.h>
 

@@ -116,9 +116,6 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.carousel.dataSource = self
 		self.carousel.delegate = self
 		self.carousel.reloadData()
-		
-		
-	
 	}
 	
 	func setImages(nelpTask:NelpTask){

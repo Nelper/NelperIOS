@@ -640,6 +640,7 @@
 /* Begin XCBuildConfiguration section */
 		199EF20D1B37A0A500B25B07 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F81CFE6A4154D592275ED493 /* Pods-Nelper.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -691,6 +692,7 @@
 		};
 		199EF20E1B37A0A500B25B07 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -748,6 +750,14 @@
 					"$(PROJECT_DIR)/Pods/GoogleMaps/Frameworks",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"/**",
+					"\"${PODS_ROOT}/Headers/Public/GoogleMaps\"/**",
+					"\"${PODS_ROOT}/Headers/Public/GoogleMaps/GoogleMaps\"/**",
+					"$(inherited)/**",
+					"\"${PODS_ROOT}/BuildHeaders\"",
+					"\"$(SRCROOT)/Pods/Headers/\"/**",
+				);
 				INFOPLIST_FILE = Nelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -758,6 +768,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Nelper/Nelper-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USER_HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/BuildHeaders\"/** $(BUILT_PRODUCTS_DIR)/** $(inherited)";
 			};
 			name = Debug;
 		};
@@ -776,6 +787,14 @@
 					"$(PROJECT_DIR)/Pods/GoogleMaps/Frameworks",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"/**",
+					"\"${PODS_ROOT}/Headers/Public/GoogleMaps\"/**",
+					"\"${PODS_ROOT}/Headers/Public/GoogleMaps/GoogleMaps\"/**",
+					"$(inherited)/**",
+					"\"${PODS_ROOT}/BuildHeaders\"",
+					"\"$(SRCROOT)/Pods/Headers/\"/**",
+				);
 				INFOPLIST_FILE = Nelper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -785,11 +804,13 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Nelper/Nelper-Bridging-Header.h";
+				USER_HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/BuildHeaders\"/** $(BUILT_PRODUCTS_DIR)/** $(inherited)";
 			};
 			name = Release;
 		};
 		199EF2131B37A0A500B25B07 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F81CFE6A4154D592275ED493 /* Pods-Nelper.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -809,6 +830,7 @@
 		};
 		199EF2141B37A0A500B25B07 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
