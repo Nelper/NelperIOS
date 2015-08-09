@@ -109,6 +109,12 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	}
 	
+	func createPageView(){
+		var pageView = UIPageViewController()
+		self.pageViewController = pageView
+		self.addChildViewController(self.pageViewController!)
+	}
+	
 	func createCarousel(){
 		var carousel = iCarousel()
 		self.carousel = carousel
@@ -142,7 +148,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	func numberOfItemsInCarousel(carousel: iCarousel!) -> Int
 	{
-		
+
 		if(self.task.pictures != nil){
 			println(self.task.pictures!.count)
 		return self.task.pictures!.count
