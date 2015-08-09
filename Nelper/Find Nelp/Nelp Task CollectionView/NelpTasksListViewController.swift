@@ -13,9 +13,6 @@ import SnapKit
 class NelpTasksListViewController: UIViewController,
 UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate {
 	
-	@IBOutlet weak var navBar: UIView!
-	@IBOutlet weak var logoImage: UIImageView!
-	@IBOutlet weak var settingsButton: UIButton!
 	
 	
 	@IBOutlet weak var tabBarView: UIView!
@@ -24,10 +21,7 @@ UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate
 	@IBOutlet weak var profileTabBarImage: UIButton!
 	
 	@IBOutlet weak var askForNelpContainer: UIView!
-	@IBOutlet weak var addTaskButton: UIButton!
-	@IBOutlet weak var askForNelpLabel: UILabel!
-	
-	
+	@IBOutlet weak var askForNelpButton: UIButton!
 	
 	
 	@IBOutlet weak var myNelpRequestsContainer: UIView!
@@ -82,29 +76,36 @@ UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate
 	
 	//UI
 	func adjustUI(){
-		self.settingsButton.setBackgroundImage(UIImage(named: "cogwheel.png"), forState: UIControlState.Normal)
 		
-		self.askForNelpContainer.backgroundColor = orangeSecondaryColor
+		self.askForNelpContainer.backgroundColor = blueGrayColor
 		
-		self.myNelpRequestsContainer.backgroundColor = orangeMainColor
+		self.askForNelpButton.layer.borderColor = navBarColor.CGColor
+		self.askForNelpButton.layer.borderWidth = 2
+		self.askForNelpButton.layer.cornerRadius = 6
+		self.askForNelpButton.setTitle("Ask for Nelp!", forState: UIControlState.Normal)
+		self.askForNelpButton.setTitleColor(navBarColor, forState: UIControlState.Normal)
+		
+		self.askForNelpButton.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(askForNelpContainer.snp_height).multipliedBy(1/3)
+			make.width.equalTo(askForNelpContainer.snp_width).multipliedBy(1/2)
+		}
+		
+		
+		self.myNelpRequestsContainer.backgroundColor = navBarColor
 		self.myNelpRequestsLabel.text = "My Nelp Requests"
-		self.myNelpRequestsLabel.font = UIFont(name: "Railway", size: kSubtitleFontSize)
+		self.myNelpRequestsLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
 		self.myNelpRequestsLabel!.textColor = whiteNelpyColor
 		
 		self.taskListContainer.backgroundColor = whiteNelpyColor
-		self.noTasksMessage.font = UIFont(name: "Railway", size: kSubtitleFontSize)
-		self.noTasksMessage.textColor = orangeMainColor
+		self.noTasksMessage.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		self.noTasksMessage.textColor = blueGrayColor
 		self.noTasksMessage.text = "You have no active requests!"
 		
 		self.tabBarView.backgroundColor = tabBarColor
 		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_orange.png"), forState: UIControlState.Normal)
 		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_dark"), forState: UIControlState.Normal)
 		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_dark.png"), forState: UIControlState.Normal)
-		
-		self.addTaskButton.setBackgroundImage(UIImage(named: "add_white.png"), forState: UIControlState.Normal)
-		self.askForNelpLabel.text = "Ask for Nelp!"
-		self.askForNelpLabel.textColor = whiteNelpyColor
-		self.askForNelpLabel.font = UIFont(name: "Railway", size: kTitleFontSize)
+	
 		
 	}
 	

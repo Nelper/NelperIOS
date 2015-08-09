@@ -122,9 +122,9 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	}
 	
 	func setImages(nelpTask:NelpTask){
-		
+		if(nelpTask.user.profilePictureURL != nil){
 		var fbProfilePicture = nelpTask.user.profilePictureURL
-		request(.GET,fbProfilePicture).response(){
+		request(.GET,fbProfilePicture!).response(){
 			(_, _, data, _) in
 			var image = UIImage(data: data as NSData!)
 			self.profilePicture.image = image
@@ -137,6 +137,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 			self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2;
 			self.categoryPicture.clipsToBounds = true;
 			self.categoryPicture.image = UIImage(named: nelpTask.category!)
+			}
 		}
 	}
 	
@@ -145,16 +146,17 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	func numberOfItemsInCarousel(carousel: iCarousel!) -> Int
 	{
 		
-		return 1
-//		if(self.task.pictures != nil){
-//			println(self.task.pictures!.count)
-//		return self.task.pictures!.count
-//		}
-//		return 0
+		if(self.task.pictures != nil){
+			println(self.task.pictures!.count)
+		return self.task.pictures!.count
+		}
+		return 0
 	}
 
-func carousel(carousel: iCarousel!, viewForItemAtIndex index: Int, reusingView view: UIView!) -> UIView!
+	
+ func carousel(carousel: iCarousel!, viewForItemAtIndex index: Int, reusingView view: UIView!) -> UIView!
 	{
+		println("test")
 			var picture = UIImageView(frame:self.picturesContainer.bounds)
 			var imageURL = self.task.pictures![index].url!
 			picture.image = getPictures(imageURL)

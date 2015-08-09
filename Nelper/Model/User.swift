@@ -15,7 +15,7 @@ class User : BaseModel {
   var name: String!
   var location: GeoPoint?
   var createdAt: NSDate!
-	var profilePictureURL:String!
+	var profilePictureURL:String?
   
   init(parseUser: PFUser) {
     super.init();
@@ -25,6 +25,9 @@ class User : BaseModel {
     name = parseUser["name"] as! String
     location = parseUser["location"] as? GeoPoint
     createdAt = parseUser.createdAt!
-		profilePictureURL = parseUser["pictureURL"] as! String
+		if (parseUser["pictureURL"] != nil){
+			profilePictureURL = parseUser["pictureURL"] as? String
+		}
+		
   }
 }

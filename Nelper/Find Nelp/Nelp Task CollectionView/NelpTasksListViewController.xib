@@ -7,17 +7,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NelpTasksListViewController" customModule="Nelper" customModuleProvider="target">
             <connections>
-                <outlet property="addTaskButton" destination="bBJ-bC-vNV" id="hMe-KV-Zjk"/>
+                <outlet property="askForNelpButton" destination="jB3-U7-Utv" id="t8u-sE-ape"/>
                 <outlet property="askForNelpContainer" destination="Dnd-qV-3WC" id="di7-ba-ZYP"/>
-                <outlet property="askForNelpLabel" destination="IMa-cg-vau" id="jgo-e3-yah"/>
                 <outlet property="findNelpTabBarImage" destination="g57-dF-Bkx" id="Ykz-fl-NXW"/>
                 <outlet property="myNelpRequestsContainer" destination="RnA-Af-1i3" id="ZpD-I1-L3q"/>
                 <outlet property="myNelpRequestsLabel" destination="jQ6-ap-OfM" id="Q12-b3-ryh"/>
-                <outlet property="navBar" destination="iUh-zX-ahT" id="rlY-6f-zPc"/>
                 <outlet property="nelpTabBarImage" destination="lS3-mk-NNn" id="iED-qg-PG6"/>
                 <outlet property="noTasksMessage" destination="GSV-2P-85W" id="xYi-lB-R2p"/>
                 <outlet property="profileTabBarImage" destination="MNT-yy-VyZ" id="Zar-Ii-kL5"/>
-                <outlet property="settingsButton" destination="6gR-Bu-HZe" id="sFE-jn-gGB"/>
                 <outlet property="tabBarView" destination="J9h-MW-RhE" id="4m3-qU-oYO"/>
                 <outlet property="taskListContainer" destination="Ctf-Wk-xfh" id="nIV-ek-mTf"/>
                 <outlet property="view" destination="iN0-l3-epB" id="waj-4D-607"/>
@@ -84,41 +81,27 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcq-6U-JAl">
                     <rect key="frame" x="0.0" y="64" width="414" height="564"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dnd-qV-3WC">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="226"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dnd-qV-3WC" userLabel="AskForNelpContainer">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMa-cg-vau">
-                                    <rect key="frame" x="186" y="150" width="42" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBJ-bC-vNV">
-                                    <rect key="frame" x="157" y="35" width="100" height="100"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="100" id="FJb-nt-Nm1"/>
-                                        <constraint firstAttribute="width" constant="100" id="fGW-hg-iBc"/>
-                                    </constraints>
-                                    <state key="normal">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jB3-U7-Utv">
+                                    <rect key="frame" x="184" y="42" width="46" height="30"/>
+                                    <state key="normal" title="Button">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
-                                    <connections>
-                                        <action selector="addTaskButtonTapped:" destination="-1" eventType="touchUpInside" id="9sX-Bl-g2E"/>
-                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.46661662850000002" green="1" blue="0.7643357355" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstItem="IMa-cg-vau" firstAttribute="top" secondItem="bBJ-bC-vNV" secondAttribute="bottom" constant="15" id="5ai-yV-AaP"/>
-                                <constraint firstAttribute="centerX" secondItem="IMa-cg-vau" secondAttribute="centerX" id="VMe-xz-aHP"/>
-                                <constraint firstAttribute="centerX" secondItem="bBJ-bC-vNV" secondAttribute="centerX" id="oSE-AM-KS8"/>
+                                <constraint firstAttribute="centerX" secondItem="jB3-U7-Utv" secondAttribute="centerX" id="HVC-it-W47"/>
+                                <constraint firstAttribute="centerY" secondItem="jB3-U7-Utv" secondAttribute="centerY" constant="-0.5" id="NSP-be-h56"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ctf-Wk-xfh">
-                            <rect key="frame" x="0.0" y="276" width="414" height="288"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ctf-Wk-xfh" userLabel="tasksTableView">
+                            <rect key="frame" x="0.0" y="163" width="414" height="401"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSV-2P-85W">
-                                    <rect key="frame" x="186" y="133" width="42" height="21"/>
+                                    <rect key="frame" x="186" y="189" width="42" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -130,8 +113,8 @@
                                 <constraint firstAttribute="centerY" secondItem="GSV-2P-85W" secondAttribute="centerY" constant="0.5" id="hxd-Ot-peT"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RnA-Af-1i3">
-                            <rect key="frame" x="0.0" y="226" width="414" height="50"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RnA-Af-1i3" userLabel="myTaskRequests">
+                            <rect key="frame" x="0.0" y="113" width="414" height="50"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQ6-ap-OfM">
                                     <rect key="frame" x="28" y="14" width="42" height="21"/>
@@ -161,7 +144,7 @@
                         <constraint firstAttribute="trailing" secondItem="Dnd-qV-3WC" secondAttribute="trailing" id="ZLF-JU-I4l"/>
                         <constraint firstItem="RnA-Af-1i3" firstAttribute="leading" secondItem="bcq-6U-JAl" secondAttribute="leading" id="fzc-kK-L3K"/>
                         <constraint firstItem="Ctf-Wk-xfh" firstAttribute="leading" secondItem="bcq-6U-JAl" secondAttribute="leading" id="rDh-HY-04H"/>
-                        <constraint firstItem="Dnd-qV-3WC" firstAttribute="height" secondItem="bcq-6U-JAl" secondAttribute="height" multiplier="4:10" id="ugs-PP-Geg"/>
+                        <constraint firstItem="Dnd-qV-3WC" firstAttribute="height" secondItem="bcq-6U-JAl" secondAttribute="height" multiplier="2:10" id="ugs-PP-Geg"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
@@ -199,7 +182,6 @@
                 <constraint firstItem="bcq-6U-JAl" firstAttribute="top" secondItem="iUh-zX-ahT" secondAttribute="bottom" id="0YA-jB-C4X"/>
                 <constraint firstAttribute="bottom" secondItem="J9h-MW-RhE" secondAttribute="bottom" id="0aK-DE-Bx8"/>
                 <constraint firstItem="J9h-MW-RhE" firstAttribute="top" secondItem="bcq-6U-JAl" secondAttribute="bottom" id="9dW-vX-ooO"/>
-                <constraint firstItem="bBJ-bC-vNV" firstAttribute="top" secondItem="iUh-zX-ahT" secondAttribute="bottom" constant="35" id="Su7-HG-NUB"/>
                 <constraint firstItem="J9h-MW-RhE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="T0u-HG-4Qq"/>
                 <constraint firstItem="bcq-6U-JAl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="TOa-Yu-yRC"/>
                 <constraint firstAttribute="trailing" secondItem="iUh-zX-ahT" secondAttribute="trailing" id="VDE-el-J0M"/>

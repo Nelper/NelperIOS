@@ -143,9 +143,9 @@ class NelpViewCell: UITableViewCell {
 	}
 	
 	func setImages(nelpTask:NelpTask){
-		
+		if(nelpTask.user.profilePictureURL != nil){
 		var fbProfilePicture = nelpTask.user.profilePictureURL
-		request(.GET,fbProfilePicture).response(){
+		request(.GET,fbProfilePicture!).response(){
 			(_, _, data, _) in
 			var image = UIImage(data: data as NSData!)
 			self.picture.image = image
@@ -158,6 +158,7 @@ class NelpViewCell: UITableViewCell {
 			self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2;
 			self.categoryPicture.clipsToBounds = true;
 			self.categoryPicture.image = UIImage(named: nelpTask.category!)
+			}
 		}
 	}
 	
