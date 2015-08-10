@@ -95,7 +95,13 @@
                             <constraints>
                                 <constraint firstAttribute="centerX" secondItem="jB3-U7-Utv" secondAttribute="centerX" id="HVC-it-W47"/>
                                 <constraint firstAttribute="centerY" secondItem="jB3-U7-Utv" secondAttribute="centerY" constant="-0.5" id="NSP-be-h56"/>
+                                <constraint firstAttribute="centerY" secondItem="jB3-U7-Utv" secondAttribute="centerY" constant="-0.5" id="jRy-U4-Ak1"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="NSP-be-h56"/>
+                                </mask>
+                            </variation>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ctf-Wk-xfh" userLabel="tasksTableView">
                             <rect key="frame" x="0.0" y="163" width="414" height="401"/>

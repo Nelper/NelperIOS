@@ -9,12 +9,12 @@
                 <outlet property="applyButton" destination="wdd-fv-NQj" id="qya-xR-FFL"/>
                 <outlet property="authorLabel" destination="qhS-jJ-Paq" id="D8f-xz-SDD"/>
                 <outlet property="backButton" destination="2fh-2y-dWX" id="gQB-wP-fik"/>
+                <outlet property="carousel" destination="ttY-VW-FqG" id="MKT-Iu-Obj"/>
                 <outlet property="categoryPicture" destination="KbN-cZ-VMe" id="0sJ-dY-eZK"/>
                 <outlet property="container" destination="M13-YW-MmA" id="hkN-Ec-TQA"/>
                 <outlet property="creationDateLabel" destination="y2y-9C-xh0" id="TTy-lr-BF3"/>
                 <outlet property="descriptionTextView" destination="X6l-2P-TMe" id="Gus-a4-nPq"/>
                 <outlet property="navBar" destination="YIU-rT-qnL" id="AXH-cr-i2Z"/>
-                <outlet property="picturesContainer" destination="ttY-VW-FqG" id="TJn-3b-aaZ"/>
                 <outlet property="priceLabel" destination="gDD-hI-0a8" id="rsv-IU-PCx"/>
                 <outlet property="profilePicture" destination="MvS-yJ-pew" id="fhw-U1-ygh"/>
                 <outlet property="titleLabel" destination="ZJV-rv-NnY" id="Rum-3v-nNV"/>
@@ -103,13 +103,18 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ttY-VW-FqG">
-                            <rect key="frame" x="65" y="306" width="250" height="150"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ttY-VW-FqG" customClass="iCarousel">
+                            <rect key="frame" x="65" y="306" width="250" height="217"/>
                             <color key="backgroundColor" red="1" green="0.0" blue="0.1107546368" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="250" id="pVh-O7-erc"/>
-                                <constraint firstAttribute="height" constant="150" id="zN2-M6-ApQ"/>
+                                <constraint firstAttribute="height" constant="250" id="zN2-M6-ApQ"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="zN2-M6-ApQ"/>
+                                </mask>
+                            </variation>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wdd-fv-NQj">
                             <rect key="frame" x="140" y="531" width="100" height="40"/>
@@ -120,6 +125,9 @@
                             <state key="normal" title="Button">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="applyButtonTapped:" destination="-1" eventType="touchUpInside" id="cYG-DH-1bs"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2y-9C-xh0">
                             <rect key="frame" x="139" y="86" width="193" height="20"/>
@@ -142,6 +150,7 @@
                         <constraint firstItem="y2y-9C-xh0" firstAttribute="leading" secondItem="gDD-hI-0a8" secondAttribute="trailing" constant="-74" id="NIv-Yc-jKz"/>
                         <constraint firstAttribute="centerX" secondItem="wdd-fv-NQj" secondAttribute="centerX" id="PBS-Xp-WnY"/>
                         <constraint firstItem="qhS-jJ-Paq" firstAttribute="leading" secondItem="MvS-yJ-pew" secondAttribute="trailing" constant="45" id="VQw-Bv-Tvg"/>
+                        <constraint firstItem="wdd-fv-NQj" firstAttribute="top" secondItem="ttY-VW-FqG" secondAttribute="bottom" constant="8" id="W3Q-Fc-yb0"/>
                         <constraint firstItem="gDD-hI-0a8" firstAttribute="top" secondItem="y2y-9C-xh0" secondAttribute="bottom" constant="8" id="aJ3-Uv-3F1"/>
                         <constraint firstItem="y2y-9C-xh0" firstAttribute="top" secondItem="qhS-jJ-Paq" secondAttribute="bottom" constant="2" id="aKm-Ko-edE"/>
                         <constraint firstAttribute="bottom" secondItem="wdd-fv-NQj" secondAttribute="bottom" constant="16" id="eaR-uT-UsY"/>

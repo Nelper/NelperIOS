@@ -213,10 +213,10 @@ class ApiHelper {
     let parseTask = PFObject(className: kParseTask)
     parseTask.objectId = task.objectId
     let parseApplication = PFObject(className: kParseTaskApplication)
-    parseApplication.setValue(NelpTaskApplication.State.Pending.rawValue, forKey: "state")
-    parseApplication.setValue(PFUser.currentUser()!, forKey: "user")
-    parseApplication.setValue(parseTask, forKey: "task")
-    parseApplication.setValue(true, forKey: "isNew")
+    parseApplication["state"] = NelpTaskApplication.State.Pending.rawValue
+		parseApplication["user"] = PFUser.currentUser()!
+    parseApplication["task"] = parseTask
+    parseApplication["isNew"] = true
     task.application = NelpTaskApplication(parseApplication: parseApplication)
     parseApplication.saveEventually()
   }

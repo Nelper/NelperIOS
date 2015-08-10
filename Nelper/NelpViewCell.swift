@@ -34,6 +34,9 @@ class NelpViewCell: UITableViewCell {
 		
 		let picture = UIImageView()
 		self.picture = picture
+		self.picture.layer.cornerRadius = self.picture.frame.size.width / 2;
+		self.picture.layer.masksToBounds = true
+		self.picture.clipsToBounds = true
 		
 		cellView.addSubview(picture)
 		
@@ -160,6 +163,17 @@ class NelpViewCell: UITableViewCell {
 			self.categoryPicture.image = UIImage(named: nelpTask.category!)
 			}
 		}
+		var image = UIImage(named: "noProfilePicture")
+		self.picture.image = image
+		self.picture.layer.cornerRadius = self.picture.frame.size.width / 2;
+		self.picture.clipsToBounds = true;
+		self.picture.layer.borderWidth = 3;
+		self.picture.layer.borderColor = blackNelpyColor.CGColor
+		self.picture.contentMode = UIViewContentMode.ScaleAspectFill
+		
+		self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2;
+		self.categoryPicture.clipsToBounds = true;
+		self.categoryPicture.image = UIImage(named: nelpTask.category!)
 	}
 	
 	func setLocation(userLocation:CLLocation){

@@ -17,6 +17,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	@IBOutlet weak var backButton: UIButton!
 	@IBOutlet weak var container: UIView!
 	
+	@IBOutlet weak var carousel: iCarousel!
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var profilePicture: UIImageView!
 	@IBOutlet weak var categoryPicture: UIImageView!
@@ -24,11 +25,10 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	@IBOutlet weak var creationDateLabel: UILabel!
 	@IBOutlet weak var priceLabel: UILabel!
 	@IBOutlet weak var descriptionTextView: UITextView!
-	@IBOutlet weak var picturesContainer: UIView!
 	@IBOutlet weak var applyButton: UIButton!
 	
 	var task: NelpTask!
-	var carousel:iCarousel!
+//	var carousel:iCarousel!
 	var pageViewController: UIPageViewController?
 	var pictures:NSArray?
 	
@@ -48,7 +48,9 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		if(self.task.pictures != nil){
 				self.createCarousel()
 			}
-		
+		if (self.task.application != nil){
+			self.updateButton()
+		}
 	}
 	
 	//UI
@@ -57,7 +59,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.navBar.backgroundColor = navBarColor
 		self.container.backgroundColor = whiteNelpyColor
 		self.backButton.setTitle("Back", forState: UIControlState.Normal)
-		self.backButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
+		self.backButton.setTitleColor(orangeTextColor, forState: UIControlState.Normal)
 		self.backButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kButtonFontSize)
 		
 		self.titleLabel.text = self.task.title
@@ -90,7 +92,8 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 			self.priceLabel.text = "N/A"
 		}
 		
-		self.setImages(self.task)
+		self.profilePicture.layer.masksToBounds = true
+		self.setProfilePicture(self.task)
 		
 		self.descriptionTextView.backgroundColor = whiteNelpyColor
 		self.descriptionTextView.text = self.task.desc
@@ -98,7 +101,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.descriptionTextView.textColor = blackNelpyColor
 		self.descriptionTextView.editable = false
 		
-		self.picturesContainer.backgroundColor = whiteNelpyColor
+		self.carousel.backgroundColor = whiteNelpyColor
 		
 		self.applyButton.setTitle("Apply", forState: UIControlState.Normal)
 		self.applyButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kButtonFontSize)
@@ -109,40 +112,14 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	}
 	
-	func createPageView(){
-		var pageView = UIPageViewController()
-		self.pageViewController = pageView
-		self.addChildViewController(self.pageViewController!)
-	}
-	
 	func createCarousel(){
-		var carousel = iCarousel()
-		self.carousel = carousel
+//		var carousel = iCarousel()
 		self.carousel.type = .Rotary
 		self.carousel.dataSource = self
 		self.carousel.delegate = self
 		self.carousel.reloadData()
 	}
 	
-	func setImages(nelpTask:NelpTask){
-		if(nelpTask.user.profilePictureURL != nil){
-		var fbProfilePicture = nelpTask.user.profilePictureURL
-		request(.GET,fbProfilePicture!).response(){
-			(_, _, data, _) in
-			var image = UIImage(data: data as NSData!)
-			self.profilePicture.image = image
-			self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
-			self.profilePicture.clipsToBounds = true;
-			self.profilePicture.layer.borderWidth = 3;
-			self.profilePicture.layer.borderColor = blackNelpyColor.CGColor
-			self.profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
-			
-			self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2;
-			self.categoryPicture.clipsToBounds = true;
-			self.categoryPicture.image = UIImage(named: nelpTask.category!)
-			}
-		}
-	}
 	
 	//iCarousel Delegate
 	
@@ -150,8 +127,11 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	{
 
 		if(self.task.pictures != nil){
-			println(self.task.pictures!.count)
-		return self.task.pictures!.count
+		
+			if(self.task.pictures!.count == 1){
+				self.carousel.scrollEnabled = false
+			}
+			return self.task.pictures!.count
 		}
 		return 0
 	}
@@ -159,16 +139,26 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
  func carousel(carousel: iCarousel!, viewForItemAtIndex index: Int, reusingView view: UIView!) -> UIView!
 	{
-		println("test")
-			var picture = UIImageView(frame:self.picturesContainer.bounds)
+		
+			var picture = UIImageView(frame: self.carousel.frame)
+			picture.clipsToBounds = true
 			var imageURL = self.task.pictures![index].url!
-			picture.image = getPictures(imageURL)
-			picture.contentMode = .Center
-		return picture
+			getPictures(imageURL, block: { (imageReturned:UIImage) -> Void in
+				picture.image = imageReturned
+			})
+			picture.contentMode = .ScaleAspectFit
+
+		  return picture
 	}
 	
 	//IBActions
 	
+	
+	
+	@IBAction func applyButtonTapped(sender: AnyObject) {
+		ApiHelper.applyForTask(self.task)
+		self.updateButton()
+	}
 	
 	@IBAction func backButtonTapped(sender: AnyObject) {
 		self.dismissViewControllerAnimated(false, completion: nil)
@@ -176,7 +166,46 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	//Utilities
 	
-	func getPictures(imageURL: String) -> UIImage {
+	func updateButton(){
+		self.applyButton.setTitle("Applied", forState: UIControlState.Normal)
+		self.applyButton.backgroundColor = blueGrayColor
+	}
+	
+	
+	func setProfilePicture(nelpTask:NelpTask){
+		if(nelpTask.user.profilePictureURL != nil){
+			var fbProfilePicture = nelpTask.user.profilePictureURL
+			request(.GET,fbProfilePicture!).response(){
+				(_, _, data, _) in
+				var image = UIImage(data: data as NSData!)
+				self.profilePicture.image = image
+				self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
+				self.profilePicture.clipsToBounds = true;
+				self.profilePicture.layer.borderWidth = 3;
+				self.profilePicture.layer.borderColor = blackNelpyColor.CGColor
+				self.profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
+				
+				self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2;
+				self.categoryPicture.clipsToBounds = true;
+				self.categoryPicture.image = UIImage(named: nelpTask.category!)
+			}
+		}
+		var image = UIImage(named: "noProfilePicture")
+		self.profilePicture.image = image
+		self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
+		self.profilePicture.clipsToBounds = true;
+		self.profilePicture.layer.masksToBounds = true
+		self.profilePicture.layer.borderWidth = 3;
+		self.profilePicture.layer.borderColor = blackNelpyColor.CGColor
+		self.profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
+		
+		self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2;
+		self.categoryPicture.clipsToBounds = true;
+		self.categoryPicture.image = UIImage(named: nelpTask.category!)
+	}
+
+	
+	func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {
 		var image: UIImage!
 			request(.GET,imageURL).response(){
 				(_, _, data, error) in
@@ -184,8 +213,8 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 					println(error)
 				}
 				image = UIImage(data: data as NSData!)
+				block(image)
 			}
-		return image
 	}
 	
 	func timeAgoSinceDate(date:NSDate, numericDates:Bool) -> String {

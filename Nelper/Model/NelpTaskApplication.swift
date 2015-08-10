@@ -24,9 +24,10 @@ class NelpTaskApplication: BaseModel {
   
   init(parseApplication: PFObject) {
     super.init()
-    
     state = State(rawValue: parseApplication["state"] as! Int)!
+		if(parseApplication.createdAt != nil){
     createdAt = parseApplication.createdAt!
+		}
     isNew = parseApplication["isNew"] as! Bool
     user = User(parseUser: parseApplication["user"] as! PFUser)
   }

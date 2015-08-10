@@ -85,6 +85,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.requestWhenInUseAuthorization()
 		self.locationManager.startUpdatingLocation()
+		self.locationManager.distanceFilter = 20
 
 		var mapview = MKMapView()
 		

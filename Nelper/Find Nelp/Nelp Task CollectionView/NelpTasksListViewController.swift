@@ -84,19 +84,20 @@ UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate
 		self.askForNelpButton.layer.cornerRadius = 6
 		self.askForNelpButton.setTitle("Ask for Nelp!", forState: UIControlState.Normal)
 		self.askForNelpButton.setTitleColor(navBarColor, forState: UIControlState.Normal)
+		self.askForNelpButton.titleLabel!.font = UIFont(name: "ABeeZee-Regular", size: kTitleFontSize)
 		
 		self.askForNelpButton.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(askForNelpContainer.snp_height).multipliedBy(1/3)
-			make.width.equalTo(askForNelpContainer.snp_width).multipliedBy(1/2)
+			make.height.equalTo(self.askForNelpContainer.snp_height).dividedBy(2)
+			make.width.equalTo(self.askForNelpContainer.snp_width).dividedBy(1.5)
 		}
 		
 		
 		self.myNelpRequestsContainer.backgroundColor = navBarColor
 		self.myNelpRequestsLabel.text = "My Nelp Requests"
 		self.myNelpRequestsLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
-		self.myNelpRequestsLabel!.textColor = whiteNelpyColor
+		self.myNelpRequestsLabel!.textColor = blueGrayColor
 		
-		self.taskListContainer.backgroundColor = whiteNelpyColor
+		self.taskListContainer.backgroundColor = navBarColor
 		self.noTasksMessage.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
 		self.noTasksMessage.textColor = blueGrayColor
 		self.noTasksMessage.text = "You have no active requests!"
@@ -105,9 +106,7 @@ UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate
 		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_orange.png"), forState: UIControlState.Normal)
 		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_dark"), forState: UIControlState.Normal)
 		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_dark.png"), forState: UIControlState.Normal)
-	
-		
-	}
+}
 	
 	
 	//DATA FETCHING
@@ -152,6 +151,7 @@ UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate
 		let nelpTask = self.nelpTasks[indexPath.item]
 		
 		cell.setNelpTask(nelpTask)
+		cell.setImages(nelpTask)
 		
 		return cell
 	}
@@ -172,7 +172,7 @@ UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate
 	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		return 90
+		return 220
 	}
 	
 	
