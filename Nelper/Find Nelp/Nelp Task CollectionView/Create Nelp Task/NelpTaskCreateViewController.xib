@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F25a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7706"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NelpTaskCreateViewController" customModule="Nelper" customModuleProvider="target">
             <connections>
-                <outlet property="descriptionTextField" destination="akW-v8-gK6" id="ftc-30-d50"/>
                 <outlet property="formView" destination="cAl-N1-i1u" id="Pqd-SQ-tA2"/>
                 <outlet property="navBar" destination="eYj-hM-gfS" id="OEs-40-JWj"/>
-                <outlet property="nextButton" destination="Ugv-Mf-dhL" id="hjq-Ub-4sx"/>
-                <outlet property="titleTextField" destination="O7k-vQ-jdE" id="eBZ-jR-0YI"/>
                 <outlet property="view" destination="iN0-l3-epB" id="IYI-Uw-KJN"/>
             </connections>
         </placeholder>
@@ -21,49 +18,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAl-N1-i1u">
                     <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                    <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O7k-vQ-jdE">
-                            <rect key="frame" x="20" y="172" width="335" height="70"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="70" id="fhN-4H-k8u"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                        </textField>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="akW-v8-gK6">
-                            <rect key="frame" x="20" y="262" width="335" height="140"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="140" id="4wK-Xe-eKr"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
-                        </textView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ugv-Mf-dhL">
-                            <rect key="frame" x="117" y="481" width="140" height="50"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="50" id="AEA-fM-mv5"/>
-                                <constraint firstAttribute="width" constant="140" id="jU3-GG-VbF"/>
-                            </constraints>
-                            <state key="normal">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="nextButtonTapped:" destination="-1" eventType="touchUpInside" id="eAv-iB-yWq"/>
-                            </connections>
-                        </button>
-                    </subviews>
                     <color key="backgroundColor" red="0.19376453760000001" green="0.50850099329999998" blue="0.85232251879999998" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstItem="akW-v8-gK6" firstAttribute="leading" secondItem="cAl-N1-i1u" secondAttribute="leading" constant="20" id="LB6-m7-ei7"/>
-                        <constraint firstAttribute="trailing" secondItem="O7k-vQ-jdE" secondAttribute="trailing" constant="20" id="Vxy-cM-rpT"/>
-                        <constraint firstItem="O7k-vQ-jdE" firstAttribute="leading" secondItem="cAl-N1-i1u" secondAttribute="leading" constant="20" id="h65-zV-yA6"/>
-                        <constraint firstAttribute="centerX" secondItem="Ugv-Mf-dhL" secondAttribute="centerX" constant="0.5" id="j82-CT-9Ug"/>
-                        <constraint firstItem="Ugv-Mf-dhL" firstAttribute="top" secondItem="akW-v8-gK6" secondAttribute="bottom" constant="79" id="kNE-NX-G74"/>
-                        <constraint firstItem="akW-v8-gK6" firstAttribute="top" secondItem="O7k-vQ-jdE" secondAttribute="bottom" constant="20" id="mZI-XJ-0ch"/>
-                        <constraint firstAttribute="trailing" secondItem="akW-v8-gK6" secondAttribute="trailing" constant="20" id="oje-lx-JIj"/>
-                        <constraint firstAttribute="centerY" secondItem="O7k-vQ-jdE" secondAttribute="centerY" constant="94.5" id="zRc-n4-Fom"/>
-                    </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYj-hM-gfS" customClass="NavBar" customModule="Nelper" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>

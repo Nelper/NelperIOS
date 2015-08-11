@@ -172,7 +172,7 @@ UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate
 	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		return 220
+		return 260
 	}
 	
 	

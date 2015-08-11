@@ -91,8 +91,9 @@ class NelpTasksTableViewCell: UITableViewCell {
 		titleLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(topContainer.snp_bottom).offset(12)
+			make.top.equalTo(topContainer.snp_bottom).offset(4)
 			make.left.equalTo(cellView.snp_left).offset(12)
+			make.height.equalTo(40)
 		}
 		
 		//Price tag
@@ -100,7 +101,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.price = price
 		cellView.addSubview(price)
 		price.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(titleLabel.snp_bottom).offset(4)
+			make.top.equalTo(titleLabel.snp_bottom)
 			make.right.equalTo(cellView.snp_right).offset(-12)
 			make.width.equalTo(70)
 			make.height.equalTo(30)
@@ -118,6 +119,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		desc.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
 		desc.textColor = blackNelpyColor
 		desc.editable = false
+		desc.scrollEnabled = false
 		desc.backgroundColor = whiteNelpyColor
 		cellView.addSubview(desc)
 		desc.snp_makeConstraints { (make) -> Void in

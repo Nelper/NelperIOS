@@ -89,6 +89,9 @@
                                     <state key="normal" title="Button">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="addTaskButtonTapped:" destination="-1" eventType="touchUpInside" id="odv-ii-Jhh"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.46661662850000002" green="1" blue="0.7643357355" alpha="1" colorSpace="calibratedRGB"/>

@@ -34,7 +34,7 @@ class NelpViewCell: UITableViewCell {
 		
 		let picture = UIImageView()
 		self.picture = picture
-		self.picture.layer.cornerRadius = self.picture.frame.size.width / 2;
+		picture.layer.cornerRadius = self.picture.frame.size.width / 2;
 		self.picture.layer.masksToBounds = true
 		self.picture.clipsToBounds = true
 		
