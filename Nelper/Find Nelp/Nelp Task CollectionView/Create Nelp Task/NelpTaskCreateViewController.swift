@@ -16,14 +16,15 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	
   var delegate: NelpTaskCreateViewControllerDelegate?
 	var task: FindNelpTask!
+	var technologyButton: UIButton!
+	var multimediaButton: UIButton!
+	var handyworkButton: UIButton!
+	var gardeningButton: UIButton!
+	var businessButton: UIButton!
+	var cleaningButton: UIButton!
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var formView: UIView!
-
-
-	
-	
-	@IBOutlet weak var nextButton: UIButton!
 	
 
 //INITIALIZATION
@@ -73,15 +74,18 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		
 		//Technology Button + Label
 		var technologyButton = UIButton()
-		self.formView.addSubview(technologyButton)
-		technologyButton.setBackgroundImage(UIImage(named: "technology"), forState: UIControlState.Normal)
-		technologyButton.layer.cornerRadius = technologyButton.frame.size.width / 2;
-		technologyButton.snp_makeConstraints { (make) -> Void in
+		self.technologyButton = technologyButton
+		self.formView.addSubview(self.technologyButton)
+		self.technologyButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(selectCategoryLabel.snp_bottom).offset(24)
 			make.centerX.equalTo(self.formView.snp_centerX).offset(-85)
 			make.width.equalTo(65)
 			make.height.equalTo(65)
 		}
+		self.technologyButton.addTarget(self, action: "technologyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.technologyButton.setBackgroundImage(UIImage(named: "technology"), forState: UIControlState.Normal)
+
+		
 		
 		var technologyLabel = UILabel()
 		self.formView.addSubview(technologyLabel)
@@ -98,9 +102,12 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		
 		//Multimedia & Design
 		var multimediaButton = UIButton()
+		self.multimediaButton = multimediaButton
+		self.multimediaButton.addTarget(self, action: "multimediaButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.formView.addSubview(multimediaButton)
 		multimediaButton.setBackgroundImage(UIImage(named: "multimedia"), forState: UIControlState.Normal)
 		multimediaButton.layer.cornerRadius = multimediaButton.frame.size.width / 2;
+		
 		multimediaButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(selectCategoryLabel.snp_bottom).offset(24)
 			make.centerX.equalTo(self.formView.snp_centerX).offset(85)
@@ -123,6 +130,8 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		
 		//Handywork
 		var handyworkButton = UIButton()
+		self.handyworkButton = handyworkButton
+		self.handyworkButton.addTarget(self, action: "handyworkButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.formView.addSubview(handyworkButton)
 		handyworkButton.setBackgroundImage(UIImage(named: "handywork"), forState: UIControlState.Normal)
 		handyworkButton.layer.cornerRadius = multimediaButton.frame.size.width / 2;
@@ -148,6 +157,8 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		
 		//Gardening
 		var gardeningButton = UIButton()
+		self.gardeningButton = gardeningButton
+		self.gardeningButton.addTarget(self, action: "gardeningButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.formView.addSubview(gardeningButton)
 		gardeningButton.setBackgroundImage(UIImage(named: "gardening"), forState: UIControlState.Normal)
 		gardeningButton.layer.cornerRadius = multimediaButton.frame.size.width / 2;
@@ -173,6 +184,8 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		
 		//Business
 		var businessButton = UIButton()
+		self.businessButton = businessButton
+		self.businessButton.addTarget(self, action: "businessButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.formView.addSubview(businessButton)
 		businessButton.setBackgroundImage(UIImage(named: "business"), forState: UIControlState.Normal)
 		businessButton.layer.cornerRadius = multimediaButton.frame.size.width / 2;
@@ -198,6 +211,8 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		
 		//Cleaning
 		var cleaningButton = UIButton()
+		self.cleaningButton = cleaningButton
+		self.cleaningButton.addTarget(self, action: "cleaningButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.formView.addSubview(cleaningButton)
 		cleaningButton.setBackgroundImage(UIImage(named: "housecleaning"), forState: UIControlState.Normal)
 		cleaningButton.layer.cornerRadius = multimediaButton.frame.size.width / 2;
@@ -220,25 +235,54 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.top.equalTo(cleaningButton.snp_bottom).offset(6)
 			make.centerX.equalTo(cleaningButton.snp_centerX)
 		}
-		
-		//Next Button
-		var nextButton = UIButton()
-		self.formView.addSubview(nextButton)
-		nextButton.backgroundColor = whiteNelpyColor
-		nextButton.setTitle("NEXT", forState: UIControlState.Normal)
-		nextButton.setTitleColor(orangeTextColor, forState: UIControlState.Normal)
-		nextButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
-		nextButton.layer.borderWidth = 2
-		nextButton.layer.borderColor = orangeTextColor.CGColor
-		nextButton.layer.cornerRadius = 6
-		
-		nextButton.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.formView.snp_bottom).offset(-40)
-			make.centerX.equalTo(self.formView.snp_centerX)
-			make.width.equalTo(160)
-			make.height.equalTo(40)
-		}
 
+	}
+	
+//Category Buttons Actions
+	
+	func deselectAllButton(){
+		self.multimediaButton.selected = false
+		self.handyworkButton.selected = false
+		self.businessButton.selected = false
+		self.technologyButton.selected = false
+		self.gardeningButton.selected = false
+		self.cleaningButton.selected = false
+	}
+	
+	func technologyButtonTapped(sender:UIButton){
+		self.task.category = "technology"
+		self.moveToNextView()
+	}
+	
+	func multimediaButtonTapped(sender:UIButton){
+		self.task.category = "multimedia"
+		self.moveToNextView()
+	}
+	
+	func handyworkButtonTapped(sender:UIButton){
+		self.task.category = "handywork"
+		self.moveToNextView()
+	}
+	
+	func gardeningButtonTapped(sender:UIButton){
+		self.task.category = "gardening"
+		self.moveToNextView()
+	}
+	
+	func businessButtonTapped(sender:UIButton){
+		self.task.category = "business"
+		self.moveToNextView()
+	}
+	
+	func cleaningButtonTapped(sender:UIButton){
+		self.task.category = "housecleaning"
+		self.moveToNextView()
+	}
+
+	func moveToNextView(){
+		let nextScreenVC = SecondFormViewController(task: self.task)
+		nextScreenVC.delegate = self
+		self.presentViewController(nextScreenVC, animated: true, completion: nil)
 	}
 	
 	
