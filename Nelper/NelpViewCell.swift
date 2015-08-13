@@ -12,10 +12,10 @@ import SnapKit
 import Alamofire
 
 class NelpViewCell: UITableViewCell {
-    
 	
-    
-    var title: UILabel!
+	
+	
+	var title: UILabel!
 	var author:UILabel!
 	var price:UILabel!
 	var picture:UIImageView!
@@ -32,23 +32,29 @@ class NelpViewCell: UITableViewCell {
 		cellView.backgroundColor = whiteNelpyColor
 		cellView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
 		
+		let pictureSize: CGFloat = 60
 		let picture = UIImageView()
 		self.picture = picture
-		picture.layer.cornerRadius = self.picture.frame.size.width / 2;
+		self.picture.layer.cornerRadius = pictureSize / 2;
 		self.picture.layer.masksToBounds = true
 		self.picture.clipsToBounds = true
+		self.picture.layer.borderWidth = 3;
+		self.picture.layer.borderColor = blackNelpyColor.CGColor
+		self.picture.contentMode = UIViewContentMode.ScaleAspectFill
 		
 		cellView.addSubview(picture)
 		
 		picture.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(cellView.snp_left).offset(10)
 			make.centerY.equalTo(cellView.snp_centerY)
-			make.width.equalTo(60)
-			make.height.equalTo(60)
+			make.width.equalTo(pictureSize)
+			make.height.equalTo(pictureSize)
 		}
 		
 		let categoryPicture = UIImageView()
 		self.categoryPicture = categoryPicture
+		self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2;
+		self.categoryPicture.clipsToBounds = true;
 		
 		cellView.addSubview(categoryPicture)
 		
@@ -67,7 +73,7 @@ class NelpViewCell: UITableViewCell {
 		title.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cellView.snp_top).offset(10)
 			make.left.equalTo(picture.snp_right).offset(15)
-			}
+		}
 		
 		let author = UILabel()
 		self.author = author
@@ -135,7 +141,7 @@ class NelpViewCell: UITableViewCell {
 		var price = nelpTask.priceOffered
 		
 		if(price != nil){
-		self.price.text = "$" + price!
+			self.price.text = "$" + price!
 		}
 		self.price.font = UIFont(name: "ABeeZee-Regular", size: kCellPriceFontSize)
 		self.price.textColor = whiteNelpyColor
@@ -143,37 +149,22 @@ class NelpViewCell: UITableViewCell {
 		self.price.clipsToBounds = true
 		self.price.textAlignment = NSTextAlignment.Center
 		
+		self.categoryPicture.image = UIImage(named: nelpTask.category!)
+		
 	}
 	
 	func setImages(nelpTask:NelpTask){
 		if(nelpTask.user.profilePictureURL != nil){
-		var fbProfilePicture = nelpTask.user.profilePictureURL
-		request(.GET,fbProfilePicture!).response(){
-			(_, _, data, _) in
-			var image = UIImage(data: data as NSData!)
-			self.picture.image = image
-			self.picture.layer.cornerRadius = self.picture.frame.size.width / 2;
-			self.picture.clipsToBounds = true;
-			self.picture.layer.borderWidth = 3;
-			self.picture.layer.borderColor = blackNelpyColor.CGColor
-			self.picture.contentMode = UIViewContentMode.ScaleAspectFill
-			
-			self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2;
-			self.categoryPicture.clipsToBounds = true;
-			self.categoryPicture.image = UIImage(named: nelpTask.category!)
+			var fbProfilePicture = nelpTask.user.profilePictureURL
+			request(.GET,fbProfilePicture!).response(){
+				(_, _, data, _) in
+				var image = UIImage(data: data as NSData!)
+				self.picture.image = image
 			}
 		}
+		
 		var image = UIImage(named: "noProfilePicture")
 		self.picture.image = image
-		self.picture.layer.cornerRadius = self.picture.frame.size.width / 2;
-		self.picture.clipsToBounds = true;
-		self.picture.layer.borderWidth = 3;
-		self.picture.layer.borderColor = blackNelpyColor.CGColor
-		self.picture.contentMode = UIViewContentMode.ScaleAspectFill
-		
-		self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2;
-		self.categoryPicture.clipsToBounds = true;
-		self.categoryPicture.image = UIImage(named: nelpTask.category!)
 	}
 	
 	func setLocation(userLocation:CLLocation){
@@ -190,13 +181,13 @@ class NelpViewCell: UITableViewCell {
 		
 		var distanceMeters = source.distanceFromLocation(destination)
 		if(distanceMeters > 1000){
-		var distanceKM = distanceMeters / 1000
-		return "\(round(distanceKM)) km away from you"
+			var distanceKM = distanceMeters / 1000
+			return "\(round(distanceKM)) km away from you"
 		}else{
 			return String(format:"%.0f m away from you", distanceMeters)
 		}
 	}
-
+	
 }
 
 
