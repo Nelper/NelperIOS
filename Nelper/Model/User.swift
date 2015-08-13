@@ -25,9 +25,10 @@ class User : BaseModel {
     name = parseUser["name"] as! String
     location = parseUser["location"] as? GeoPoint
     createdAt = parseUser.createdAt!
-		if (parseUser["pictureURL"] != nil){
-			profilePictureURL = parseUser["pictureURL"] as? String
+		if let pic = parseUser["customPicture"] as? PFFile {
+			profilePictureURL = pic.url
+		} else if let picURL = parseUser["pictureURL"] as? String {
+			profilePictureURL = picURL
 		}
-		
   }
 }
