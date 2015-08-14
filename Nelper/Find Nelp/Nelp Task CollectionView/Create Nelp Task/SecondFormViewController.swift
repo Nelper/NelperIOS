@@ -31,9 +31,9 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	var delegate: SecondFormViewControllerDelegate?
 	
-
+	
 	@IBOutlet weak var navBar: NavBar!
-    
+	
 	@IBOutlet weak var contentView: UIView!
 	
 	@IBOutlet weak var formBackground: UIView!
@@ -50,38 +50,38 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	}
 	
 	override func viewDidLoad() {
-//		self.autocompleteTableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
-//		self.autocompleteTableView.delegate = self
-//		self.autocompleteTableView.dataSource = self
-//		self.autocompleteTableView.registerClass(AutocompleteCell.classForCoder(), forCellReuseIdentifier: AutocompleteCell.reuseIdentifier)
-//		self.autocompleteTableView.hidden = true
+		//		self.autocompleteTableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+		//		self.autocompleteTableView.delegate = self
+		//		self.autocompleteTableView.dataSource = self
+		//		self.autocompleteTableView.registerClass(AutocompleteCell.classForCoder(), forCellReuseIdentifier: AutocompleteCell.reuseIdentifier)
+		//		self.autocompleteTableView.hidden = true
 		self.imagePicker.delegate = self
 		self.createView()
 		self.adjustUI()
 		
-        // looks for tap (keyboard dismiss)
-        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
-        view.addGestureRecognizer(tap)
-    
-    }
-	
-    //keyboard dismiss on screen touch
-    func DismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        
-    }
-    
-    func createView(){
+		// looks for tap (keyboard dismiss)
+		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		view.addGestureRecognizer(tap)
 		
-        //To avoid width calculation for each textField, insets
-        
-        var frameWidth = self.view.frame.size.width
-        
-        let contentInset: CGFloat = 12
-        
+	}
+	
+	//keyboard dismiss on screen touch
+	func DismissKeyboard() {
+		view.endEditing(true)
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		
+	}
+	
+	func createView(){
+		
+		//To avoid width calculation for each textField, insets
+		
+		var frameWidth = self.view.frame.size.width
+		
+		let contentInset: CGFloat = 12
+		
 		//Task Title Label + TextField
 		
 		var taskTitleLabel = UILabel()
@@ -202,7 +202,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		descriptionTextView.layer.cornerRadius = 3
 		descriptionTextView.layer.borderColor = grayDetails.CGColor
 		descriptionTextView.layer.borderWidth = 1
-
+		
 		
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
@@ -302,7 +302,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.navBar.backButton = backBtn
 		self.formBackground.backgroundColor = whiteNelpyColor
 		self.contentView.backgroundColor = whiteNelpyColor
-
+		
 	}
 	
 	func convertImagesToData(){
@@ -421,22 +421,21 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		imagePicker.allowsEditing = false
 		imagePicker.sourceType = .PhotoLibrary
 		presentViewController(imagePicker, animated: true, completion: nil)
-		
 	}
 	
 	func backButtonTapped(sender: UIButton) {
 		self.dismissViewControllerAnimated(true, completion: nil)
-        view.endEditing(true) // dissmiss keyboard without delay
+		view.endEditing(true) // dissmiss keyboard without delay
 	}
 	
 	func postButtonTapped(sender: UIButton) {
 		if(self.imagesArray.count != 0){
 			self.convertImagesToData()
 		}
-//		ApiHelper.addTask(self.task, block: { (task, error) -> Void in
-//			self.delegate?.nelpTaskAdded(self.task)
-//			self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-//			self.dismissViewControllerAnimated(true, completion: nil)
-//		})
+		//		ApiHelper.addTask(self.task, block: { (task, error) -> Void in
+		//			self.delegate?.nelpTaskAdded(self.task)
+		//			self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+		//			self.dismissViewControllerAnimated(true, completion: nil)
+		//		})
 	}
 }
