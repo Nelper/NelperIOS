@@ -20,12 +20,24 @@ class NavBar: UINavigationBar {
 			if let value = backButton {
 				self.backButtonView?.removeFromSuperview()
 				self.backButtonView = value
-				self.backButtonView?.setTitle("Back", forState: UIControlState.Normal)
+				self.backButtonView?.setTitle("    Back", forState: UIControlState.Normal)
 				self.backButtonView?.setTitleColor(orangeTextColor, forState: UIControlState.Normal)
 				self.backButtonView?.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: 18)
 				self.container.addSubview(self.backButtonView!)
-				self.backButtonView?.snp_makeConstraints(closure: { (make) -> Void in
-					make.left.equalTo(self.container.snp_left).offset(10)
+				
+                var backArrow = UIImageView()
+                backArrow.image = UIImage(named: "left_arrow_orange")
+                backArrow.contentMode = UIViewContentMode.ScaleAspectFit
+                self.backButtonView?.addSubview(backArrow)
+                backArrow.snp_makeConstraints { (make) -> Void in
+                    make.left.equalTo(self.container.snp_left).offset(4)
+                    make.centerY.equalTo(self.container.snp_centerY).offset(8)
+                    make.width.equalTo(18)
+                    make.height.equalTo(18)
+                }
+                
+                self.backButtonView?.snp_makeConstraints(closure: { (make) -> Void in
+					make.left.equalTo(backArrow.snp_left).offset(0)
 					make.centerY.equalTo(self.container.snp_centerY).offset(8)
 				})
 			}

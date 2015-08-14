@@ -32,9 +32,8 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	var delegate: SecondFormViewControllerDelegate?
 	
 
-
 	@IBOutlet weak var navBar: NavBar!
-	
+    
 	@IBOutlet weak var contentView: UIView!
 	
 	@IBOutlet weak var formBackground: UIView!
@@ -60,14 +59,29 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.createView()
 		self.adjustUI()
 		
-	}
+        // looks for tap (keyboard dismiss)
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        view.addGestureRecognizer(tap)
+    
+    }
 	
-	override func viewDidAppear(animated: Bool) {
-
-	}
-	
-	func createView(){
+    //keyboard dismiss on screen touch
+    func DismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
+    }
+    
+    func createView(){
 		
+        //To avoid width calculation for each textField, insets
+        
+        var frameWidth = self.view.frame.size.width
+        
+        let contentInset: CGFloat = 12
+        
 		//Task Title Label + TextField
 		
 		var taskTitleLabel = UILabel()
@@ -78,7 +92,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		
 		taskTitleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(20)
-			make.left.equalTo(contentView.snp_left).offset(12)
+			make.left.equalTo(contentView.snp_left).offset(contentInset)
 		}
 		var taskTitleTextField = UITextField()
 		self.contentView.addSubview(taskTitleTextField)
@@ -87,7 +101,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		taskTitleTextField.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
 		taskTitleTextField.textColor = blackNelpyColor
 		taskTitleTextField.textAlignment = NSTextAlignment.Left
-		taskTitleTextField.layer.cornerRadius = 6
+		taskTitleTextField.layer.cornerRadius = 3
 		taskTitleTextField.layer.borderColor = grayDetails.CGColor
 		taskTitleTextField.layer.borderWidth = 1
 		var paddingViewTitle = UIView(frame: CGRectMake(0, 0, 10, 0))
@@ -97,7 +111,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		taskTitleTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(taskTitleLabel.snp_bottom).offset(10)
-			make.width.equalTo(300)
+			make.width.equalTo(frameWidth - contentInset * 2)
 			make.height.equalTo(50)
 		}
 		
@@ -120,7 +134,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		priceOfferedTextField.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
 		priceOfferedTextField.textColor = blackNelpyColor
 		priceOfferedTextField.textAlignment = NSTextAlignment.Left
-		priceOfferedTextField.layer.cornerRadius = 6
+		priceOfferedTextField.layer.cornerRadius = 3
 		priceOfferedTextField.layer.borderColor = grayDetails.CGColor
 		priceOfferedTextField.layer.borderWidth = 1
 		var paddingViewPrice = UIView(frame: CGRectMake(0, 0, 10, 0))
@@ -130,7 +144,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		priceOfferedTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(priceOfferedLabel.snp_bottom).offset(10)
-			make.width.equalTo(150)
+			make.width.equalTo((frameWidth - 24)/2)
 			make.height.equalTo(50)
 		}
 		
@@ -153,7 +167,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		locationTextField.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
 		locationTextField.textColor = blackNelpyColor
 		locationTextField.textAlignment = NSTextAlignment.Left
-		locationTextField.layer.cornerRadius = 6
+		locationTextField.layer.cornerRadius = 3
 		locationTextField.layer.borderColor = grayDetails.CGColor
 		locationTextField.layer.borderWidth = 1
 		var paddingViewLocation = UIView(frame: CGRectMake(0, 0, 10, 0))
@@ -163,7 +177,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		locationTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(locationLabel.snp_bottom).offset(10)
-			make.width.equalTo(300)
+			make.width.equalTo(frameWidth - contentInset * 2)
 			make.height.equalTo(50)
 		}
 		
@@ -185,7 +199,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		descriptionTextView.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
 		descriptionTextView.textColor = blackNelpyColor
 		descriptionTextView.textAlignment = NSTextAlignment.Left
-		descriptionTextView.layer.cornerRadius = 6
+		descriptionTextView.layer.cornerRadius = 3
 		descriptionTextView.layer.borderColor = grayDetails.CGColor
 		descriptionTextView.layer.borderWidth = 1
 
@@ -193,7 +207,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(descriptionLabel.snp_bottom).offset(10)
-			make.width.equalTo(300)
+			make.width.equalTo(frameWidth - contentInset * 2)
 			make.height.equalTo(150)
 		}
 		
@@ -201,7 +215,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		
 		var picturesLabel = UILabel()
 		self.contentView.addSubview(picturesLabel)
-		picturesLabel.text = "Attach pictures(optional)"
+		picturesLabel.text = "Attach pictures (optional)"
 		picturesLabel.textColor = blackNelpyColor
 		picturesLabel.font = UIFont(name: "ABeeZee-Regular", size: kFormViewLabelFontSize)
 		
@@ -217,7 +231,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		
 		picturesButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(picturesLabel.snp_bottom).offset(10)
-			make.left.equalTo(picturesLabel.snp_left)
+			make.left.equalTo(picturesLabel.snp_left).offset(12)
 			make.height.equalTo(80)
 			make.width.equalTo(80)
 		}
@@ -271,12 +285,12 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		createTaskButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
 		createTaskButton.backgroundColor = greenPriceButton
 		createTaskButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kFormButtonFontSize)
-		createTaskButton.layer.cornerRadius = 6
+		createTaskButton.layer.cornerRadius = 3
 		
 		createTaskButton.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(250)
 			make.height.equalTo(50)
-			make.top.equalTo(picturesButton.snp_bottom).offset(30)
+			make.top.equalTo(picturesButton.snp_bottom).offset(45)
 			make.centerX.equalTo(self.contentView.snp_centerX)
 		}
 		
@@ -412,6 +426,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	func backButtonTapped(sender: UIButton) {
 		self.dismissViewControllerAnimated(true, completion: nil)
+        view.endEditing(true) // dissmiss keyboard without delay
 	}
 	
 	func postButtonTapped(sender: UIButton) {

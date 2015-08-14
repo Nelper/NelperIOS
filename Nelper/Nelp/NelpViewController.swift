@@ -50,14 +50,15 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 
     override func viewDidLoad() {
-    
-    super.viewDidLoad()
-		placesClient = GMSPlacesClient()
-		self.adjustUI()
-		self.initializeMapview()
-		self.createTaskTableView()
-		self.loadData()		
-  }
+        
+        super.viewDidLoad()
+        placesClient = GMSPlacesClient()
+        self.adjustUI()
+        self.initializeMapview()
+        self.createTaskTableView()
+        self.loadData()
+        
+    }
 	
 	func createTaskTableView(){
 		let tableView = UITableView()
@@ -108,6 +109,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		mapview.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(mapViewContainer.snp_edges)
 		}
+        
 	}
 	
 	//UI
@@ -123,17 +125,44 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	}
 	
-	func createPins(){
-		
-			for task in self.nelpTasks{
-				var taskPin = MKPointAnnotation()
-				if(task.location != nil){
-				var location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(task.location!.latitude, task.location!.longitude)
-				taskPin.coordinate = location
-				self.mapView.addAnnotation(taskPin)
-				}
-		}
-}
+    func createPins(){
+        
+        for task in self.nelpTasks {
+            var taskPin = MKPointAnnotation()
+            if(task.location != nil) {
+                var location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(task.location!.latitude, task.location!.longitude)
+                taskPin.coordinate = location
+                self.mapView.addAnnotation(taskPin)
+                
+            }
+        }
+    }
+    
+    /** Pin image code???
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        if (annotation is MKUserLocation) {
+            //if annotation is not an MKPointAnnotation (eg. MKUserLocation),
+            //return nil so map draws default view for it (eg. blue dot)...
+            return nil
+        }
+        
+        let reuseId = "test"
+        
+        var anView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
+        if anView == nil {
+            anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            anView.image = UIImage(named:"logo_round_v2")
+            anView.canShowCallout = true
+        }
+        else {
+            //we are re-using a view, update its annotation reference...
+            anView.annotation = annotation
+        }
+        
+        return anView
+    }
+    */
 	
 	
 //DATAFetching
