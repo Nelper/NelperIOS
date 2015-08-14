@@ -228,8 +228,8 @@
 				195FD9B31B4CA6A50040AD20 /* NelpViewController.swift */,
 				195FD9B41B4CA6A50040AD20 /* NelpViewController.xib */,
 				F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */,
-				F73A45C51B741F4000FD8C79 /* NelpTaskDetailsViewController.swift */,
 				F73A45C71B741F8F00FD8C79 /* NelpTaskDetailsViewController.xib */,
+				F73A45C51B741F4000FD8C79 /* NelpTaskDetailsViewController.swift */,
 			);
 			name = Nelp;
 			sourceTree = "<group>";

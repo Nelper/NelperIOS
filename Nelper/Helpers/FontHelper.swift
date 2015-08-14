@@ -17,6 +17,8 @@ let kCellTextFontSize:CGFloat = 14
 let kDetailsViewTitleFontSize:CGFloat = 20
 let kDetailsViewTextFontSize:CGFloat = 16
 
+let kFormViewLabelFontSize:CGFloat = 22
+let kFormButtonFontSize:CGFloat = 20
 
 let kTitleFontSize:CGFloat = 26
 let kSubtitleFontSize:CGFloat = 20

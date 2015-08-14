@@ -16,12 +16,18 @@ protocol SecondFormViewControllerDelegate {
 	func dismiss()
 }
 
-class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate{
+class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
+	let imagePicker = UIImagePickerController()
 	var task: FindNelpTask!
 	var placesClient: GMSPlacesClient?
 	var autocompleteArray = [GMSAutocompletePrediction]()
+	var imagesArray = NSMutableArray()
+	var imageOne: UIImageView?
+	var imageTwo: UIImageView?
+	var imageThree: UIImageView?
+	var imageFour: UIImageView?
 	
 	var delegate: SecondFormViewControllerDelegate?
 	
@@ -29,10 +35,11 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 
 	@IBOutlet weak var navBar: NavBar!
 	
-	@IBOutlet weak var autocompleteTableView: UITableView!
+	@IBOutlet weak var contentView: UIView!
 	
 	@IBOutlet weak var formBackground: UIView!
 	
+	@IBOutlet weak var autocompleteTableView: UITableView!
 	
 	@IBOutlet weak var postButton: UIButton!
 	
@@ -49,13 +56,229 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 //		self.autocompleteTableView.dataSource = self
 //		self.autocompleteTableView.registerClass(AutocompleteCell.classForCoder(), forCellReuseIdentifier: AutocompleteCell.reuseIdentifier)
 //		self.autocompleteTableView.hidden = true
-
+		self.imagePicker.delegate = self
+		self.createView()
 		self.adjustUI()
 		
 	}
 	
 	override func viewDidAppear(animated: Bool) {
 
+	}
+	
+	func createView(){
+		
+		//Task Title Label + TextField
+		
+		var taskTitleLabel = UILabel()
+		self.contentView.addSubview(taskTitleLabel)
+		taskTitleLabel.text = "Enter your Task Title"
+		taskTitleLabel.textColor = blackNelpyColor
+		taskTitleLabel.font = UIFont(name: "ABeeZee-Regular", size: kFormViewLabelFontSize)
+		
+		taskTitleLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(contentView.snp_top).offset(20)
+			make.left.equalTo(contentView.snp_left).offset(12)
+		}
+		var taskTitleTextField = UITextField()
+		self.contentView.addSubview(taskTitleTextField)
+		taskTitleTextField.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
+		taskTitleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
+		taskTitleTextField.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		taskTitleTextField.textColor = blackNelpyColor
+		taskTitleTextField.textAlignment = NSTextAlignment.Left
+		taskTitleTextField.layer.cornerRadius = 6
+		taskTitleTextField.layer.borderColor = grayDetails.CGColor
+		taskTitleTextField.layer.borderWidth = 1
+		var paddingViewTitle = UIView(frame: CGRectMake(0, 0, 10, 0))
+		taskTitleTextField.leftView = paddingViewTitle
+		taskTitleTextField.leftViewMode = UITextFieldViewMode.Always
+		
+		taskTitleTextField.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(taskTitleLabel.snp_left)
+			make.top.equalTo(taskTitleLabel.snp_bottom).offset(10)
+			make.width.equalTo(300)
+			make.height.equalTo(50)
+		}
+		
+		//Price Offered Label + TextField
+		
+		var priceOfferedLabel = UILabel()
+		self.contentView.addSubview(priceOfferedLabel)
+		priceOfferedLabel.text = "How much are you offering?"
+		priceOfferedLabel.textColor = blackNelpyColor
+		priceOfferedLabel.font = UIFont(name: "ABeeZee-Regular", size: kFormViewLabelFontSize)
+		
+		priceOfferedLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(taskTitleTextField.snp_bottom).offset(20)
+			make.left.equalTo(taskTitleTextField.snp_left)
+		}
+		var priceOfferedTextField = UITextField()
+		self.contentView.addSubview(priceOfferedTextField)
+		priceOfferedTextField.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
+		priceOfferedTextField.attributedPlaceholder = NSAttributedString(string: "$", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
+		priceOfferedTextField.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		priceOfferedTextField.textColor = blackNelpyColor
+		priceOfferedTextField.textAlignment = NSTextAlignment.Left
+		priceOfferedTextField.layer.cornerRadius = 6
+		priceOfferedTextField.layer.borderColor = grayDetails.CGColor
+		priceOfferedTextField.layer.borderWidth = 1
+		var paddingViewPrice = UIView(frame: CGRectMake(0, 0, 10, 0))
+		priceOfferedTextField.leftView = paddingViewPrice
+		priceOfferedTextField.leftViewMode = UITextFieldViewMode.Always
+		
+		priceOfferedTextField.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(taskTitleLabel.snp_left)
+			make.top.equalTo(priceOfferedLabel.snp_bottom).offset(10)
+			make.width.equalTo(150)
+			make.height.equalTo(50)
+		}
+		
+		//Location Label + TextField
+		
+		var locationLabel = UILabel()
+		self.contentView.addSubview(locationLabel)
+		locationLabel.text = "Enter a location for the task"
+		locationLabel.textColor = blackNelpyColor
+		locationLabel.font = UIFont(name: "ABeeZee-Regular", size: kFormViewLabelFontSize)
+		
+		locationLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(priceOfferedTextField.snp_bottom).offset(20)
+			make.left.equalTo(taskTitleTextField.snp_left)
+		}
+		var locationTextField = UITextField()
+		self.contentView.addSubview(locationTextField)
+		locationTextField.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
+		locationTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
+		locationTextField.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		locationTextField.textColor = blackNelpyColor
+		locationTextField.textAlignment = NSTextAlignment.Left
+		locationTextField.layer.cornerRadius = 6
+		locationTextField.layer.borderColor = grayDetails.CGColor
+		locationTextField.layer.borderWidth = 1
+		var paddingViewLocation = UIView(frame: CGRectMake(0, 0, 10, 0))
+		locationTextField.leftView = paddingViewLocation
+		locationTextField.leftViewMode = UITextFieldViewMode.Always
+		
+		locationTextField.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(taskTitleLabel.snp_left)
+			make.top.equalTo(locationLabel.snp_bottom).offset(10)
+			make.width.equalTo(300)
+			make.height.equalTo(50)
+		}
+		
+		//Description Label + Textfield
+		
+		var descriptionLabel = UILabel()
+		self.contentView.addSubview(descriptionLabel)
+		descriptionLabel.text = "Briefly describe the task"
+		descriptionLabel.textColor = blackNelpyColor
+		descriptionLabel.font = UIFont(name: "ABeeZee-Regular", size: kFormViewLabelFontSize)
+		
+		descriptionLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(locationTextField.snp_bottom).offset(20)
+			make.left.equalTo(taskTitleTextField.snp_left)
+		}
+		var descriptionTextView = UITextView()
+		self.contentView.addSubview(descriptionTextView)
+		descriptionTextView.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
+		descriptionTextView.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		descriptionTextView.textColor = blackNelpyColor
+		descriptionTextView.textAlignment = NSTextAlignment.Left
+		descriptionTextView.layer.cornerRadius = 6
+		descriptionTextView.layer.borderColor = grayDetails.CGColor
+		descriptionTextView.layer.borderWidth = 1
+
+		
+		descriptionTextView.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(taskTitleLabel.snp_left)
+			make.top.equalTo(descriptionLabel.snp_bottom).offset(10)
+			make.width.equalTo(300)
+			make.height.equalTo(150)
+		}
+		
+		//Attach Pictures label + Button
+		
+		var picturesLabel = UILabel()
+		self.contentView.addSubview(picturesLabel)
+		picturesLabel.text = "Attach pictures(optional)"
+		picturesLabel.textColor = blackNelpyColor
+		picturesLabel.font = UIFont(name: "ABeeZee-Regular", size: kFormViewLabelFontSize)
+		
+		picturesLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(descriptionTextView.snp_bottom).offset(20)
+			make.left.equalTo(descriptionLabel.snp_left)
+		}
+		
+		var picturesButton = UIButton()
+		self.contentView.addSubview(picturesButton)
+		picturesButton.setBackgroundImage(UIImage(named: "plus"), forState: UIControlState.Normal)
+		picturesButton.addTarget(self, action: "attachPicturesButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		
+		picturesButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(picturesLabel.snp_bottom).offset(10)
+			make.left.equalTo(picturesLabel.snp_left)
+			make.height.equalTo(80)
+			make.width.equalTo(80)
+		}
+		
+		//Image preview for attached images
+		var imageOne = UIImageView()
+		self.imageOne = imageOne
+		self.contentView.addSubview(imageOne)
+		imageOne.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(picturesButton.snp_right).offset(20)
+			make.centerY.equalTo(picturesButton.snp_centerY)
+			make.width.equalTo(50)
+			make.height.equalTo(50)
+		}
+		
+		var imageTwo = UIImageView()
+		self.imageTwo = imageTwo
+		self.contentView.addSubview(imageTwo)
+		imageTwo.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(imageOne.snp_right).offset(10)
+			make.centerY.equalTo(picturesButton.snp_centerY)
+			make.width.equalTo(50)
+			make.height.equalTo(50)
+		}
+		
+		var imageThree = UIImageView()
+		self.imageThree = imageThree
+		self.contentView.addSubview(imageThree)
+		imageThree.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(imageTwo.snp_right).offset(10)
+			make.centerY.equalTo(picturesButton.snp_centerY)
+			make.width.equalTo(50)
+			make.height.equalTo(50)
+		}
+		
+		var imageFour = UIImageView()
+		self.imageFour = imageFour
+		self.contentView.addSubview(imageFour)
+		imageFour.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(imageThree.snp_right).offset(10)
+			make.centerY.equalTo(picturesButton.snp_centerY)
+			make.width.equalTo(50)
+			make.height.equalTo(50)
+		}
+		
+		//Create task button
+		
+		var createTaskButton = UIButton()
+		self.contentView.addSubview(createTaskButton)
+		createTaskButton.setTitle("Create Task", forState: UIControlState.Normal)
+		createTaskButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+		createTaskButton.backgroundColor = greenPriceButton
+		createTaskButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kFormButtonFontSize)
+		createTaskButton.layer.cornerRadius = 6
+		
+		createTaskButton.snp_makeConstraints { (make) -> Void in
+			make.width.equalTo(250)
+			make.height.equalTo(50)
+			make.top.equalTo(picturesButton.snp_bottom).offset(30)
+			make.centerX.equalTo(self.contentView.snp_centerX)
+		}
 		
 	}
 	
@@ -64,10 +287,40 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.backButton = backBtn
 		self.formBackground.backgroundColor = whiteNelpyColor
+		self.contentView.backgroundColor = whiteNelpyColor
 
 	}
 	
-
+	func convertImagesToData(){
+		self.task.pictures = Array()
+		for image in self.imagesArray{
+			var imageData = UIImagePNGRepresentation(image as! UIImage)
+			var imageFile = PFFile(name:"image.png", data:imageData)
+			self.task.pictures!.append(imageFile)
+		}
+	}
+	
+	//Image Picker delegate methods
+	
+	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+		if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
+			self.imagesArray.addObject(pickedImage)
+			if(self.imagesArray.count == 1){
+				self.imageOne!.image = pickedImage
+			}else if(self.imagesArray.count == 2){
+				self.imageTwo!.image = pickedImage
+			}else if(self.imagesArray.count == 3){
+				self.imageThree!.image = pickedImage
+			}else if(self.imagesArray.count == 4){
+				self.imageFour!.image = pickedImage
+			}
+		}
+		dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+		dismissViewControllerAnimated(true, completion: nil)
+	}
 	
 	
 	//TableView delegate methods
@@ -148,18 +401,27 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	}
 	
 	
-	//IBACTIONS
-
+	//ACTIONS
+	
+	func attachPicturesButtonTapped(sender: UIButton){
+		imagePicker.allowsEditing = false
+		imagePicker.sourceType = .PhotoLibrary
+		presentViewController(imagePicker, animated: true, completion: nil)
+		
+	}
+	
 	func backButtonTapped(sender: UIButton) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	@IBAction func postButtonTapped(sender: AnyObject) {
-
-		ApiHelper.addTask(self.task, block: { (task, error) -> Void in
-			self.delegate?.nelpTaskAdded(self.task)
-			self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-			self.dismissViewControllerAnimated(true, completion: nil)
-		})
+	func postButtonTapped(sender: UIButton) {
+		if(self.imagesArray.count != 0){
+			self.convertImagesToData()
+		}
+//		ApiHelper.addTask(self.task, block: { (task, error) -> Void in
+//			self.delegate?.nelpTaskAdded(self.task)
+//			self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+//			self.dismissViewControllerAnimated(true, completion: nil)
+//		})
 	}
 }

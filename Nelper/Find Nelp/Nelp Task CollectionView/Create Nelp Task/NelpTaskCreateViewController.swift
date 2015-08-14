@@ -65,7 +65,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.formView.addSubview(selectCategoryLabel);
 		selectCategoryLabel.text = "Select your task category"
 		selectCategoryLabel.textColor = blackNelpyColor
-		selectCategoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		selectCategoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kFormViewLabelFontSize)
 		
 		selectCategoryLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.navBar.snp_bottom).offset(24)
