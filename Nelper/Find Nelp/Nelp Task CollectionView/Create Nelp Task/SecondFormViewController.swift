@@ -16,18 +16,23 @@ protocol SecondFormViewControllerDelegate {
 	func dismiss()
 }
 
-class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate{
 	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	let imagePicker = UIImagePickerController()
 	var task: FindNelpTask!
 	var placesClient: GMSPlacesClient?
+	var locationTextField: UITextField?
+	var titleTextField:UITextField?
+	var descriptionTextView:UITextView?
+	var priceOffered:UITextField?
 	var autocompleteArray = [GMSAutocompletePrediction]()
 	var imagesArray = NSMutableArray()
 	var imageOne: UIImageView?
 	var imageTwo: UIImageView?
 	var imageThree: UIImageView?
 	var imageFour: UIImageView?
+	var tap: UITapGestureRecognizer?
 	
 	var delegate: SecondFormViewControllerDelegate?
 	
@@ -61,13 +66,18 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		
 		// looks for tap (keyboard dismiss)
 		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
-		view.addGestureRecognizer(tap)
+		self.tap = tap
+		contentView.addGestureRecognizer(tap)
 		
 	}
 	
 	//keyboard dismiss on screen touch
 	func DismissKeyboard() {
+
 		view.endEditing(true)
+		if(self.autocompleteTableView.hidden == false){
+			self.autocompleteTableView.hidden = true
+		}
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -95,6 +105,8 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.left.equalTo(contentView.snp_left).offset(contentInset)
 		}
 		var taskTitleTextField = UITextField()
+		taskTitleTextField.delegate = self
+		self.titleTextField = taskTitleTextField
 		self.contentView.addSubview(taskTitleTextField)
 		taskTitleTextField.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
 		taskTitleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
@@ -128,6 +140,8 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.left.equalTo(taskTitleTextField.snp_left)
 		}
 		var priceOfferedTextField = UITextField()
+		priceOfferedTextField.delegate = self
+		self.priceOffered = priceOfferedTextField
 		self.contentView.addSubview(priceOfferedTextField)
 		priceOfferedTextField.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
 		priceOfferedTextField.attributedPlaceholder = NSAttributedString(string: "$", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
@@ -140,6 +154,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		var paddingViewPrice = UIView(frame: CGRectMake(0, 0, 10, 0))
 		priceOfferedTextField.leftView = paddingViewPrice
 		priceOfferedTextField.leftViewMode = UITextFieldViewMode.Always
+		priceOfferedTextField.keyboardType = UIKeyboardType.NumberPad
 		
 		priceOfferedTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
@@ -149,7 +164,6 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		}
 		
 		//Location Label + TextField
-		
 		var locationLabel = UILabel()
 		self.contentView.addSubview(locationLabel)
 		locationLabel.text = "Enter a location for the task"
@@ -162,6 +176,8 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		}
 		var locationTextField = UITextField()
 		self.contentView.addSubview(locationTextField)
+		self.locationTextField = locationTextField
+		self.locationTextField!.delegate = self
 		locationTextField.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
 		locationTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
 		locationTextField.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
@@ -181,6 +197,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.height.equalTo(50)
 		}
 		
+		
 		//Description Label + Textfield
 		
 		var descriptionLabel = UILabel()
@@ -194,6 +211,8 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.left.equalTo(taskTitleTextField.snp_left)
 		}
 		var descriptionTextView = UITextView()
+		self.descriptionTextView = descriptionTextView
+		descriptionTextView.delegate = self
 		self.contentView.addSubview(descriptionTextView)
 		descriptionTextView.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
 		descriptionTextView.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
@@ -210,6 +229,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.width.equalTo(frameWidth - contentInset * 2)
 			make.height.equalTo(150)
 		}
+
 		
 		//Attach Pictures label + Button
 		
@@ -277,6 +297,27 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.height.equalTo(50)
 		}
 		
+		//Google Autocomplete Table View
+		
+		var autocompleteTableView = UITableView()
+		self.contentView.addSubview(autocompleteTableView)
+		self.autocompleteTableView = autocompleteTableView
+		self.autocompleteTableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+		self.autocompleteTableView.delegate = self
+		self.autocompleteTableView.dataSource = self
+		self.autocompleteTableView.registerClass(AutocompleteCell.classForCoder(), forCellReuseIdentifier: AutocompleteCell.reuseIdentifier)
+		self.autocompleteTableView.hidden = true
+		self.autocompleteTableView.layer.borderColor = grayDetails.CGColor
+		self.autocompleteTableView.layer.borderWidth = 1
+		self.autocompleteTableView.backgroundColor = whiteNelpyColor
+		
+		self.autocompleteTableView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(locationTextField.snp_bottom)
+			make.left.equalTo(locationTextField.snp_left)
+			make.width.equalTo(locationTextField.snp_width)
+			make.height.equalTo(self.contentView.snp_height).dividedBy(3)
+		}
+		
 		//Create task button
 		
 		var createTaskButton = UIButton()
@@ -286,6 +327,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		createTaskButton.backgroundColor = greenPriceButton
 		createTaskButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kFormButtonFontSize)
 		createTaskButton.layer.cornerRadius = 3
+		createTaskButton.addTarget(self, action: "postButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		
 		createTaskButton.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(250)
@@ -308,7 +350,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	func convertImagesToData(){
 		self.task.pictures = Array()
 		for image in self.imagesArray{
-			var imageData = UIImagePNGRepresentation(image as! UIImage)
+			var imageData = UIImageJPEGRepresentation(image as! UIImage, 1.0)
 			var imageFile = PFFile(name:"image.png", data:imageData)
 			self.task.pictures!.append(imageFile)
 		}
@@ -355,6 +397,8 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let prediction = self.autocompleteArray[indexPath.row]
+		self.locationTextField!.text = prediction.attributedFullText.string
+
 		let geocodeURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(prediction.placeID)&key=\(kGoogleAPIKey)"
 		
 		request(.GET, geocodeURL).responseJSON { _, _, response, _ in
@@ -374,9 +418,44 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		return 0
+		return 80
 	}
 	
+	//TextField Delegate methods
+	
+	func textFieldDidBeginEditing(textField: UITextField) {
+		if (textField == self.locationTextField){
+			self.autocompleteTableView.hidden = false
+			self.tap!.enabled = false
+		}else{
+		self.tap!.enabled = true
+		}
+	}
+	
+	func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+		if(textField == self.locationTextField){
+			self.tap!.enabled = false
+			return true
+		}
+		self.tap!.enabled = true
+		return true
+	}
+	
+	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+		if(textField == locationTextField){
+			var substring = textField.text as NSString
+   substring = substring.stringByReplacingCharactersInRange(range, withString: string)
+			self.placeAutocomplete(substring as String)
+			return true
+		}
+		return true
+	}
+	
+	//TextView delegate
+	
+	func textViewDidBeginEditing(textView: UITextView) {
+		self.tap!.enabled = true
+	}
 	
 	//Google Places auto complete
 	
@@ -432,10 +511,13 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		if(self.imagesArray.count != 0){
 			self.convertImagesToData()
 		}
-		//		ApiHelper.addTask(self.task, block: { (task, error) -> Void in
-		//			self.delegate?.nelpTaskAdded(self.task)
-		//			self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-		//			self.dismissViewControllerAnimated(true, completion: nil)
-		//		})
+		self.task.title = self.titleTextField!.text
+		self.task.desc = self.descriptionTextView!.text
+		self.task.priceOffered = self.priceOffered!.text
+				ApiHelper.addTask(self.task, block: { (task, error) -> Void in
+					self.delegate?.nelpTaskAdded(self.task)
+					self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+					self.dismissViewControllerAnimated(true, completion: nil)
+				})
 	}
 }

@@ -48,9 +48,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		if(self.task.pictures != nil){
 				self.createCarousel()
 			}
-		if (self.task.application != nil){
-			self.updateButton()
-		}
+		self.startButtonConfig()
 	}
 	
 	//UI
@@ -108,7 +106,6 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.applyButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
 		self.applyButton.backgroundColor = greenPriceButton
 		self.applyButton.layer.cornerRadius = 6
-		
 	
 	}
 	
@@ -156,8 +153,17 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	
 	@IBAction func applyButtonTapped(sender: AnyObject) {
+		if(!self.applyButton.selected){
 		ApiHelper.applyForTask(self.task)
+		self.task.application!.state == .Pending
+		self.applyButton.selected = true
 		self.updateButton()
+		}else{
+		ApiHelper.cancelApplyForTask(self.task)
+		self.applyButton.selected = false
+		self.task.application!.state == .Canceled
+		self.updateButton()
+		}
 	}
 	
 	@IBAction func backButtonTapped(sender: AnyObject) {
@@ -166,9 +172,26 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	//Utilities
 	
+	func startButtonConfig(){
+		if(self.task.application != nil){
+			if(self.task.application!.state == .Pending){
+			self.applyButton.selected = true
+			self.updateButton()
+			}
+		}else{
+			self.applyButton.selected = false
+			self.updateButton()
+		}
+	}
+	
 	func updateButton(){
-		self.applyButton.setTitle("Applied", forState: UIControlState.Normal)
+		if(self.applyButton.selected){
+		self.applyButton.setTitle("Applied", forState: UIControlState.Selected)
 		self.applyButton.backgroundColor = blueGrayColor
+		}else{
+			self.applyButton.setTitle("Apply", forState: UIControlState.Normal)
+			self.applyButton.backgroundColor = greenPriceButton
+			}
 	}
 	
 	

@@ -19,6 +19,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 //	var categoryLabel:UILabel!
 	var topContainer:UIImageView!
 	var desc:UITextView!
+	var notificationIcon: UIImageView!
 	
 	var nelpTask:FindNelpTask!
 	
@@ -62,9 +63,10 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.height.equalTo(cellView.snp_height).dividedBy(3)
 		}
 		
-		topContainer.backgroundColor = yellowTechnology
+		topContainer.backgroundColor = orangeTextColor
 		//Category Icon + label
 		
+		//Category Icon
 		var categoryIcon = UIImageView()
 		self.categoryIcon = categoryIcon
 		topContainer.addSubview(categoryIcon)
@@ -85,6 +87,22 @@ class NelpTasksTableViewCell: UITableViewCell {
 //			make.centerY.equalTo(categoryIcon.snp_centerY)
 //		}
 		
+		//Notification Icon
+		
+		var notificationIcon = UIImageView()
+		self.notificationIcon = notificationIcon
+		topContainer.addSubview(notificationIcon)
+		self.notificationIcon.image = UIImage(named: "exclamation.png")
+		self.notificationIcon.hidden = true
+		notificationIcon.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(topContainer.snp_bottom).offset(-4)
+			make.right.equalTo(topContainer.snp_right).offset(-8)
+			make.height.equalTo(40)
+			make.width.equalTo(40)
+		}
+		
+		
+		//Title Label
 		var titleLabel = UILabel()
 		self.titleLabel = titleLabel
 		titleLabel.textColor = blackNelpyColor
@@ -112,6 +130,29 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.price.layer.cornerRadius = 6
 		self.price.clipsToBounds = true
 		self.price.textAlignment = NSTextAlignment.Center
+		
+		//Number of applicants
+		
+		var numberOfApplicantsIcon = UIImageView()
+		numberOfApplicantsIcon.image = UIImage(named: "applicants.png")
+		cellView.addSubview(numberOfApplicantsIcon)
+		numberOfApplicantsIcon.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(titleLabel.snp_bottom)
+			make.left.equalTo(cellView.snp_left).offset(12)
+			make.height.equalTo(40)
+			make.width.equalTo(40)
+		}
+		
+		
+		var numberOfApplicants = UILabel()
+		self.numberOfApplicants = numberOfApplicants
+		self.numberOfApplicants.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		self.numberOfApplicants.textColor = blackNelpyColor
+		cellView.addSubview(numberOfApplicants)
+		numberOfApplicants.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(numberOfApplicantsIcon.snp_right)
+			make.centerY.equalTo(numberOfApplicantsIcon.snp_centerY)
+		}
 		
 		//Description
 		var description = UITextView()
@@ -153,8 +194,12 @@ class NelpTasksTableViewCell: UITableViewCell {
 	
 	func setImages(nelpTask:FindNelpTask){
 		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2;
-		self.categoryIcon.clipsToBounds = true;
+		self.categoryIcon.clipsToBounds = true
 		self.categoryIcon.image = UIImage(named: nelpTask.category!)
+		self.notificationIcon.layer.cornerRadius = self.notificationIcon.frame.size.width / 2;
+		self.notificationIcon.clipsToBounds = true
+		self.setNotification(nelpTask)
+
 		if(nelpTask.pictures != nil){
 		if(!nelpTask.pictures!.isEmpty){
 		getPictures(nelpTask.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
@@ -173,6 +218,23 @@ class NelpTasksTableViewCell: UITableViewCell {
 			}
 			image = UIImage(data: data as NSData!)
 			block(image)
+		}
+	}
+	
+	func setNotification(nelpTask:FindNelpTask){
+		
+		if (nelpTask.applications.count == 0){
+			self.numberOfApplicants.text = "0 applicants"
+		}else{
+			self.numberOfApplicants.text = "\(nelpTask.applications.count) applicants."
+		}
+		
+		for application in nelpTask.applications{
+			if(application.isNew){
+				self.notificationIcon.hidden = false
+			}
+			
+		ApiHelper.setTaskViewed(nelpTask)
 		}
 	}
 	

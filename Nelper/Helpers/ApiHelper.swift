@@ -181,7 +181,7 @@ class ApiHelper {
 			parseTask["location"] = location
 		}
 		parseTask["city"] = task.city
-		parseTask["pictures"] = [] //TODO: set this.
+		parseTask["pictures"] = task.pictures
     
     let acl = PFACL(user: user)
     acl.setPublicReadAccess(true)
@@ -222,15 +222,24 @@ class ApiHelper {
   }
   
   static func cancelApplyForTask(task: NelpTask) {
-    let parseApplication = PFObject(className: kParseTaskApplication)
-    parseApplication.objectId = task.objectId
-    parseApplication.setValue(NelpTaskApplication.State.Canceled.rawValue, forKey: "state")
-    parseApplication.saveEventually()
+		
+		var query = PFQuery(className: kParseTaskApplication)
+		let pointer = PFObject(withoutDataWithClassName:"NelpTask", objectId:task.objectId)
+		query.whereKey("task", equalTo: pointer)
+		query.getFirstObjectInBackgroundWithBlock {
+			(NelpTaskApplication: PFObject?, error: NSError?) -> Void in
+			if error != nil || NelpTaskApplication == nil {
+    println("The getFirstObject request failed.")
+			} else if let NelpTaskApplication = NelpTaskApplication {
+    // The find succeeded.
+				NelpTaskApplication["state"] = 1
+				NelpTaskApplication.saveInBackground()
+				}
+		}
   }
   
   static func acceptApplication(application: NelpTaskApplication) {
-    let parseApplication = PFObject(className: kParseTaskApplication)
-    parseApplication.objectId = application.objectId
+    let parseApplication = PFObject(withoutDataWithClassName: kParseTaskApplication, objectId: application.objectId)
     parseApplication.setValue(NelpTaskApplication.State.Accepted.rawValue, forKey: "state:")
     let parseTask = PFObject(className: kParseTask)
     parseTask.objectId = application.task.objectId
@@ -240,8 +249,7 @@ class ApiHelper {
   }
   
   static func denyApplication(application: NelpTaskApplication) {
-    let parseApplication = PFObject(className: kParseTaskApplication)
-    parseApplication.objectId = application.objectId
+    let parseApplication = PFObject(withoutDataWithClassName: kParseTaskApplication, objectId: application.objectId)
     parseApplication.setValue(NelpTaskApplication.State.Denied.rawValue, forKey: "state:")
     parseApplication.saveEventually()
   }
@@ -250,8 +258,7 @@ class ApiHelper {
     let parseApplications = task.applications
       .filter({ $0.isNew })
       .map({ (a: NelpTaskApplication) -> PFObject in
-        let parseApplication = PFObject(className: kParseTaskApplication)
-        parseApplication.objectId = a.objectId
+        let parseApplication = PFObject(withoutDataWithClassName: kParseTaskApplication, objectId: a.objectId)
         parseApplication.setValue(false, forKey: "isNew")
         return parseApplication
       })

@@ -25,23 +25,22 @@ class AutocompleteCell: UITableViewCell {
 		
 		let cellView = UIView(frame: self.bounds)
 		self.addSubview(cellView)
-		cellView.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(self).inset(UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
-		}
 		
 		cellView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
 		
 		let suggestedAddress = UILabel()
 		suggestedAddress.numberOfLines = 0
 		suggestedAddress.textColor = blackNelpyColor
-		suggestedAddress.font = UIFont(name: "Railway", size: kTextFontSize)
+		suggestedAddress.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
 		self.suggestedAddress = suggestedAddress
 		self.suggestedAddress.backgroundColor = whiteNelpyColor.colorWithAlphaComponent(0.2)
-		
 		cellView.addSubview(suggestedAddress)
 		
 		suggestedAddress.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(cellView.snp_edges)
+			make.top.equalTo(cellView.snp_top)
+			make.right.equalTo(cellView.snp_right).offset(-10)
+			make.bottom.equalTo(cellView.snp_bottom)
+			make.left.equalTo(cellView.snp_left).offset(10)
 		}
 	}
 	required init(coder aDecoder: NSCoder) {
