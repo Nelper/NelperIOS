@@ -20,7 +20,7 @@ let whiteNelpyColor = hexStringToUIColor ("eaeaea")
 let blackNelpyColor = hexStringToUIColor ("2c2c2c")
 let blueGrayColor = hexStringToUIColor("545866")
 let whiteGrayColor = hexStringToUIColor("f7f7f7")
-let orangeTextColor = hexStringToUIColor("ef4d18")
+let orangeTextColor = hexStringToUIColor("f32a18")
 let grayDetails = hexStringToUIColor("cfcfcf")
 
 

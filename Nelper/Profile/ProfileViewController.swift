@@ -54,7 +54,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 			make.top.equalTo(self.navBar.snp_bottom)
 			make.left.equalTo(self.containerView.snp_left)
 			make.right.equalTo(self.containerView.snp_right)
-			make.height.equalTo(self.containerView).dividedBy(3)
+			make.height.equalTo(self.containerView).dividedBy(4)
 		}
 		
 		//Profile Picture
@@ -133,6 +133,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		segmentControl.tintColor = orangeTextColor
 		segmentControl.snp_makeConstraints { (make) -> Void in
 			make.center.equalTo(segmentContainer.snp_center)
+			make.width.equalTo(segmentContainer.snp_width).dividedBy(1.2)
 		}
 		
 		//Tasks container 
