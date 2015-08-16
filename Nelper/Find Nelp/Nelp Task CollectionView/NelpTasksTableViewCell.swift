@@ -35,6 +35,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		//CellContainer (hackForSpacing)
 		let cellView = UIView();
+		cellView.backgroundColor = whiteNelpyColor
 		backView.addSubview(cellView)
 		cellView.backgroundColor = whiteNelpyColor
 		cellView.layer.cornerRadius = 6
