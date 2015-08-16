@@ -210,32 +210,22 @@ class ApiHelper {
   }
   
   static func applyForTask(task: NelpTask) {
-    let parseTask = PFObject(className: kParseTask)
-    parseTask.objectId = task.objectId
+    let parseTask = PFObject(withoutDataWithClassName: kParseTask, objectId: task.objectId)
     let parseApplication = PFObject(className: kParseTaskApplication)
     parseApplication["state"] = NelpTaskApplication.State.Pending.rawValue
 		parseApplication["user"] = PFUser.currentUser()!
     parseApplication["task"] = parseTask
     parseApplication["isNew"] = true
-    task.application = NelpTaskApplication(parseApplication: parseApplication)
-    parseApplication.saveEventually()
+		task.application = NelpTaskApplication(parseApplication: parseApplication)
+		parseApplication.saveInBackgroundWithBlock { (ok, error) -> Void in
+			task.application?.objectId = parseApplication.objectId
+		}
   }
   
   static func cancelApplyForTask(task: NelpTask) {
-		
-		var query = PFQuery(className: kParseTaskApplication)
-		let pointer = PFObject(withoutDataWithClassName:"NelpTask", objectId:task.objectId)
-		query.whereKey("task", equalTo: pointer)
-		query.getFirstObjectInBackgroundWithBlock {
-			(NelpTaskApplication: PFObject?, error: NSError?) -> Void in
-			if error != nil || NelpTaskApplication == nil {
-    println("The getFirstObject request failed.")
-			} else if let NelpTaskApplication = NelpTaskApplication {
-    // The find succeeded.
-				NelpTaskApplication["state"] = 1
-				NelpTaskApplication.saveInBackground()
-				}
-		}
+		let parseApplication = PFObject(withoutDataWithClassName:kParseTaskApplication, objectId:task.application!.objectId)
+		parseApplication["state"] = NelpTaskApplication.State.Canceled.rawValue
+		parseApplication.saveEventually()
   }
   
   static func acceptApplication(application: NelpTaskApplication) {
