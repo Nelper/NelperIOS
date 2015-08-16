@@ -53,6 +53,7 @@
 		F762D00F1B4B67B200812235 /* NelpTasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D00E1B4B67B200812235 /* NelpTasksTableViewCell.swift */; };
 		F762D0111B4B67D900812235 /* NelpTasksListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0101B4B67D900812235 /* NelpTasksListViewController.swift */; };
 		F762D0131B4B680300812235 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0121B4B680300812235 /* ProfileViewController.swift */; };
+		F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775C0C61B803E9600F7525B /* TabBarCustom.swift */; };
 		F782A6261B6411DD00C78470 /* SecondFormScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F782A6241B6411DD00C78470 /* SecondFormScreen.xib */; };
 		F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6251B6411DD00C78470 /* SecondFormViewController.swift */; };
 		F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ApiHelper.swift */; };
@@ -149,6 +150,7 @@
 		F762D00E1B4B67B200812235 /* NelpTasksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTasksTableViewCell.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/NelpTasksTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		F762D0101B4B67D900812235 /* NelpTasksListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTasksListViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/NelpTasksListViewController.swift"; sourceTree = SOURCE_ROOT; };
 		F762D0121B4B680300812235 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = Nelper/Profile/ProfileViewController.swift; sourceTree = SOURCE_ROOT; };
+		F775C0C61B803E9600F7525B /* TabBarCustom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarCustom.swift; path = Views/TabBarCustom.swift; sourceTree = "<group>"; };
 		F782A6241B6411DD00C78470 /* SecondFormScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SecondFormScreen.xib; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormScreen.xib"; sourceTree = SOURCE_ROOT; };
 		F782A6251B6411DD00C78470 /* SecondFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondFormViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormViewController.swift"; sourceTree = SOURCE_ROOT; };
 		F782A6281B6567E100C78470 /* ApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHelper.swift; path = Nelper/Helpers/ApiHelper.swift; sourceTree = SOURCE_ROOT; };
@@ -199,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				192635441B744D9C005597E3 /* NavBar.swift */,
+				F775C0C61B803E9600F7525B /* TabBarCustom.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -351,8 +354,8 @@
 			children = (
 				F762D0121B4B680300812235 /* ProfileViewController.swift */,
 				195FD9B11B4B6B760040AD20 /* ProfileViewController.xib */,
-				F7CA5C661B59D59B001A70EE /* Completed Tasks */,
-				F7CA5C5F1B59D558001A70EE /* Active Tasks */,
+				F7CA5C661B59D59B001A70EE /* My Tasks */,
+				F7CA5C5F1B59D558001A70EE /* My Applications */,
 			);
 			name = Profile;
 			path = ViewControllers;
@@ -398,19 +401,19 @@
 			name = "Create Nelp Task";
 			sourceTree = "<group>";
 		};
-		F7CA5C5F1B59D558001A70EE /* Active Tasks */ = {
+		F7CA5C5F1B59D558001A70EE /* My Applications */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "Active Tasks";
+			name = "My Applications";
 			path = Offer;
 			sourceTree = "<group>";
 		};
-		F7CA5C661B59D59B001A70EE /* Completed Tasks */ = {
+		F7CA5C661B59D59B001A70EE /* My Tasks */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "Completed Tasks";
+			name = "My Tasks";
 			path = Offer;
 			sourceTree = "<group>";
 		};
@@ -583,6 +586,7 @@
 			files = (
 				F73A45C61B741F4000FD8C79 /* NelpTaskDetailsViewController.swift in Sources */,
 				19761A1B1B687858001600E1 /* BaseTask.swift in Sources */,
+				F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */,
 				19761A171B6850C4001600E1 /* BaseModel.swift in Sources */,
 				F72F27DC1B53224100CD3B0B /* NelpTaskApplication.swift in Sources */,
 				19761A191B6877FB001600E1 /* FindNelpTask.swift in Sources */,

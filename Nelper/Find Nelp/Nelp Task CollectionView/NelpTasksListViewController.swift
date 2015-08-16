@@ -136,8 +136,7 @@ UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate
 				self.checkForEmptyTasks()
 			}
 		}
-		
-	}
+}
 	//DELEGATE METHODS
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

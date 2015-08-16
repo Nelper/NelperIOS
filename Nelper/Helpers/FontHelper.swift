@@ -25,4 +25,6 @@ let kSubtitleFontSize:CGFloat = 20
 let kTextFontSize:CGFloat = 18
 let kButtonFontSize:CGFloat = 18
 
+let kProfileButtonSize:CGFloat = 14
+
 let kNavBarTitleFont:CGFloat = 26
