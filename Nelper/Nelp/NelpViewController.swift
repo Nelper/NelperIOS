@@ -67,7 +67,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.tableView.dataSource = self
 		tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
 		tableView.registerClass(NelpViewCell.classForCoder(), forCellReuseIdentifier: NelpViewCell.reuseIdentifier)
-		
+		self.tableView.backgroundColor = whiteNelpyColor
+
 		let refreshView = UIRefreshControl()
 		refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
 		tableView.addSubview(refreshView)
@@ -118,10 +119,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 		self.entireContainer.backgroundColor = blueGrayColor
 		self.container.backgroundColor = blueGrayColor
-		self.tabView.backgroundColor = navBarColor
-		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_orange.png"), forState: UIControlState.Normal)
-		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_dark.png"), forState: UIControlState.Normal)
-		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_dark.png"), forState: UIControlState.Normal)
 		
 	}
 	
@@ -267,15 +264,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 	}
 	
-	@IBAction func findNelpTabButtonTouched(sender: AnyObject) {
-		var nextVC = NelpTasksListViewController()
-		self.presentViewController(nextVC, animated: false, completion: nil)
-	}
 	
-	@IBAction func profileTabButtonTouched(sender: AnyObject) {
-		var nextVC = ProfileViewController()
-		self.presentViewController(nextVC, animated: false, completion: nil)
-	}
+	
 	
 	
 	

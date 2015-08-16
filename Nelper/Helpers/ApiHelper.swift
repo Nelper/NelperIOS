@@ -89,6 +89,7 @@ class ApiHelper {
 	static func listNelpTasksWithBlock(block: ([NelpTask]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		taskQuery.includeKey("user")
+		taskQuery.whereKey("state", equalTo: NelpTask.State.Active.rawValue)
 		taskQuery.orderByDescending("createdAt")
 		taskQuery.limit = 20
 		taskQuery.findObjectsInBackgroundWithBlock { (pfTasks, error) -> Void in
@@ -162,6 +163,26 @@ class ApiHelper {
 			})
 		}
 		
+	}
+	
+	static func listMyNelpApplicationsWithBlock(block: ([NelpTaskApplication]?, NSError?) -> Void) {
+		let taskQuery = PFQuery(className: kParseTaskApplication)
+		taskQuery.includeKey("task.user")
+		taskQuery.whereKey("user", equalTo: PFUser.currentUser()!)
+		taskQuery.whereKey("state", notEqualTo: NelpTaskApplication.State.Canceled.rawValue)
+		taskQuery.orderByDescending("createdAt")
+		taskQuery.limit = 20
+		taskQuery.findObjectsInBackgroundWithBlock { (pfTaskApplications, error) -> Void in
+			if error != nil {
+				block(nil, error)
+				return
+			}
+			let applications = pfTaskApplications!.map({ (pfTaskApplication) -> NelpTaskApplication in
+			let application = NelpTaskApplication(parseApplication: pfTaskApplication as! PFObject)
+			return application
+			})
+			block(applications, nil)
+		}
 	}
 	
 	static func addTask(task: FindNelpTask, block: (FindNelpTask?, NSError?) -> Void) {

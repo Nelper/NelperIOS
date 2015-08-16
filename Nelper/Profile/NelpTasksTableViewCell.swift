@@ -18,8 +18,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 	var categoryIcon:UIImageView!
 //	var categoryLabel:UILabel!
 	var topContainer:UIImageView!
-	var desc:UITextView!
 	var notificationIcon: UIImageView!
+	var postedDate: UILabel!
 	
 	var nelpTask:FindNelpTask!
 	
@@ -72,10 +72,9 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.categoryIcon = categoryIcon
 		topContainer.addSubview(categoryIcon)
 		categoryIcon.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(topContainer.snp_bottom).offset(-4)
-			make.left.equalTo(topContainer.snp_left).offset(8)
-			make.height.equalTo(40)
-			make.width.equalTo(40)
+			make.center.equalTo(topContainer.snp_center)
+			make.height.equalTo(60)
+			make.width.equalTo(60)
 		}
 		
 //		var categoryLabel = UILabel()
@@ -96,8 +95,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.notificationIcon.image = UIImage(named: "exclamation.png")
 		self.notificationIcon.hidden = true
 		notificationIcon.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(topContainer.snp_bottom).offset(-4)
-			make.right.equalTo(topContainer.snp_right).offset(-8)
+			make.top.equalTo(topContainer.snp_top).offset(4)
+			make.left.equalTo(topContainer.snp_left).offset(4)
 			make.height.equalTo(40)
 			make.width.equalTo(40)
 		}
@@ -144,36 +143,42 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.width.equalTo(40)
 		}
 		
-		
 		var numberOfApplicants = UILabel()
 		self.numberOfApplicants = numberOfApplicants
 		self.numberOfApplicants.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
 		self.numberOfApplicants.textColor = blackNelpyColor
 		cellView.addSubview(numberOfApplicants)
 		numberOfApplicants.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(numberOfApplicantsIcon.snp_right)
+			make.left.equalTo(numberOfApplicantsIcon.snp_right).offset(4)
 			make.centerY.equalTo(numberOfApplicantsIcon.snp_centerY)
 		}
 		
-		//Description
-		var description = UITextView()
-		self.desc = description
-		desc.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
-		desc.textColor = blackNelpyColor
-		desc.editable = false
-		desc.scrollEnabled = false
-		desc.backgroundColor = whiteNelpyColor
-		cellView.addSubview(desc)
-		desc.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(price.snp_bottom).offset(4)
-			make.left.equalTo(cellView.snp_left).offset(12)
-			make.right.equalTo(cellView.snp_right).offset(-12)
-			make.bottom.equalTo(cellView.snp_bottom).offset(-4)
+		//Posted date
+		
+		var calendarImage = UIImageView()
+		cellView.addSubview(calendarImage)
+		calendarImage.image = UIImage(named: "calendar.png")
+		calendarImage.contentMode = UIViewContentMode.ScaleAspectFit
+		calendarImage.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(cellView.snp_bottom).offset(-10)
+			make.left.equalTo(numberOfApplicantsIcon.snp_left)
+			make.width.equalTo(40)
+			make.height.equalTo(40)
+		}
+		
+		var postedDate = UILabel()
+		self.postedDate = postedDate
+		cellView.addSubview(postedDate)
+		postedDate.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		
+		postedDate.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(calendarImage.snp_right).offset(4)
+			make.centerY.equalTo(calendarImage.snp_centerY)
 		}
 		
 		self.addSubview(backView)
-	}
-	
+		
+}
 	
 	
 	
@@ -233,6 +238,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 		for application in nelpTask.applications{
 			if(application.isNew){
 				self.notificationIcon.hidden = false
+			}else {
+				self.notificationIcon.hidden = true
 			}
 			
 		ApiHelper.setTaskViewed(nelpTask)
@@ -243,8 +250,73 @@ class NelpTasksTableViewCell: UITableViewCell {
 //		self.categoryLabel.text = nelpTask.category!.uppercaseString
 		self.titleLabel.text = nelpTask.title
 		self.price.text = "$\(nelpTask.priceOffered!)"
-		self.desc.text = nelpTask.desc
+		self.postedDate.text = "Posted \(timeAgoSinceDate(nelpTask.createdAt!, numericDates: true))"
 
+
+	}
+	
+//UTILITIES
+	
+	func timeAgoSinceDate(date:NSDate, numericDates:Bool) -> String {
+		let calendar = NSCalendar.currentCalendar()
+		let unitFlags = NSCalendarUnit.CalendarUnitMinute | NSCalendarUnit.CalendarUnitHour | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitWeekOfYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitSecond
+		let now = NSDate()
+		let earliest = now.earlierDate(date)
+		let latest = (earliest == now) ? date : now
+		let components:NSDateComponents = calendar.components(unitFlags, fromDate: earliest, toDate: latest, options: nil)
+		if (components.year >= 2) {
+			return "\(components.year) years ago"
+		} else if (components.year >= 1){
+			if (numericDates){
+				return "1 year ago"
+			} else {
+				return "Last year"
+			}
+		} else if (components.month >= 2) {
+			return "\(components.month) months ago"
+		} else if (components.month >= 1){
+			if (numericDates){
+				return "1 month ago"
+			} else {
+				return "Last month"
+			}
+		} else if (components.weekOfYear >= 2) {
+			return "\(components.weekOfYear) weeks ago"
+		} else if (components.weekOfYear >= 1){
+			if (numericDates){
+				return "1 week ago"
+			} else {
+				return "Last week"
+			}
+		} else if (components.day >= 2) {
+			return "\(components.day) days ago"
+		} else if(components.day >= 1){
+			if (numericDates){
+				return "1 day ago"
+			} else {
+				return "Yesterday"
+			}
+		} else if (components.hour >= 2) {
+			return "\(components.hour) hours ago"
+		} else if (components.hour >= 1){
+			if (numericDates){
+				return "1 hour ago"
+			} else {
+				return "An hour ago"
+			}
+		} else if (components.minute >= 2) {
+			return "\(components.minute) minutes ago"
+		} else if (components.minute >= 1){
+			if (numericDates){
+				return "1 minute ago"
+			} else {
+				return "A minute ago"
+			}
+		} else if (components.second >= 3) {
+			return "\(components.second) seconds ago"
+		} else {
+			return "Just now"
+		}
 	}
 }
 

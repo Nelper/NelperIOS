@@ -31,5 +31,10 @@ class NelpTaskApplication: BaseModel {
 		}
     isNew = parseApplication["isNew"] as! Bool
     user = User(parseUser: parseApplication["user"] as! PFUser)
+		if parseApplication["task"] != nil{
+		if parseApplication["task"]!.isDataAvailable() == true {
+		task = NelpTask(parseTask: parseApplication["task"] as! PFObject)
+			}
+		}
   }
 }

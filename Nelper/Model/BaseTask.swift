@@ -40,7 +40,9 @@ class BaseTask: BaseModel {
     desc = parseTask["desc"] as! String
 		category = parseTask["category"] as? String
 		createdAt = parseTask.createdAt
+		if(parseTask["user"] != nil){
     user = User(parseUser: parseTask["user"] as! PFUser)
+		}
     let pfLoc = parseTask["location"] as? PFGeoPoint
     if let pfLoc = pfLoc {
       location = GeoPoint(

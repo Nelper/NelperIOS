@@ -50,10 +50,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 //UI
 	
 	func adjustUI(){
-		let backBtn = UIButton()
-		backBtn.addTarget(self, action: "backButtonTapped", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.backButton = backBtn
-		
+			
 		self.formView.backgroundColor = whiteNelpyColor
 }
 	
@@ -299,12 +296,8 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 
 //IBACTIONS
 	
-	func backButtonTapped() {
-		self.dismissViewControllerAnimated(true, completion: nil)
-	}
 	
 	@IBAction func nextButtonTapped(sender: AnyObject) {
-		
 		let nextScreenVC = SecondFormViewController(task: self.task)
 		nextScreenVC.delegate = self
 		self.presentViewController(nextScreenVC, animated: true, completion: nil)

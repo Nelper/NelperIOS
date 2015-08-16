@@ -350,7 +350,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	func convertImagesToData(){
 		self.task.pictures = Array()
 		for image in self.imagesArray{
-			var imageData = UIImageJPEGRepresentation(image as! UIImage, 1.0)
+			var imageData = UIImageJPEGRepresentation(image as! UIImage, 0.50)
 			var imageFile = PFFile(name:"image.png", data:imageData)
 			self.task.pictures!.append(imageFile)
 		}
@@ -516,7 +516,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.task.priceOffered = self.priceOffered!.text
 				ApiHelper.addTask(self.task, block: { (task, error) -> Void in
 					self.delegate?.nelpTaskAdded(self.task)
-					self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+					self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
 					self.dismissViewControllerAnimated(true, completion: nil)
 				})
 	}

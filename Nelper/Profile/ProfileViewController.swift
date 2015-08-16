@@ -22,6 +22,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	var segmentControl:UISegmentedControl!
 	var tasksContainer:UIView!
 	var nelpTasks = [FindNelpTask]()
+	var nelpApplications = [NelpTaskApplication]()
 	var myTasksTableView: UITableView!
 	var myApplicationsTableView:UITableView!
 	var refreshView: UIRefreshControl!
@@ -34,12 +35,16 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
   
   override func viewDidLoad() {
     super.viewDidLoad()
+		loadData()
 		createView()
 		createMyTasksTableView()
 		self.segmentControl.selectedSegmentIndex = 0
 		getFacebookInfos()
-		loadData()
 		adjustUI()
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		loadData()
 	}
 	
 //View Creation
@@ -151,6 +156,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	
 	func createMyTasksTableView(){
 		//My Tasks
+
 		let tableView = UITableView()
 		tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
 		tableView.delegate = self
@@ -168,6 +174,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		}
 		self.myTasksTableView = tableView
 		self.refreshView = refreshView
+		self.myTasksTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		
 		//My Applications
 		
@@ -175,7 +182,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		tableViewApplications.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
 		tableViewApplications.delegate = self
 		tableViewApplications.dataSource = self
-		tableViewApplications.registerClass(NelpTasksTableViewCell.classForCoder(), forCellReuseIdentifier: NelpTasksTableViewCell.reuseIdentifier)
+		tableViewApplications.registerClass(NelpApplicationsTableViewCell.classForCoder(), forCellReuseIdentifier: NelpApplicationsTableViewCell.reuseIdentifier)
 		tableViewApplications.backgroundColor = whiteNelpyColor
 		
 		let refreshViewApplication = UIRefreshControl()
@@ -183,12 +190,14 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		tableViewApplications.addSubview(refreshViewApplication)
 		
 		self.tasksContainer.addSubview(tableViewApplications);
-		tableView.snp_makeConstraints { (make) -> Void in
+		tableViewApplications.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.tasksContainer.snp_edges)
 		}
 		self.myApplicationsTableView = tableViewApplications
 		self.refreshViewApplication = refreshViewApplication
 		self.myApplicationsTableView.hidden = true
+		self.myApplicationsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+		
 		
 	}
 	
@@ -236,8 +245,19 @@ func loadData() {
 			self.nelpTasks = nelpTasks!
 			self.refreshView?.endRefreshing()
 			self.myTasksTableView?.reloadData()
+			self.myApplicationsTableView?.reloadData()
 			self.checkForEmptyTasks()
 		}
+	}
+	
+	ApiHelper.listMyNelpApplicationsWithBlock { (nelpApplications: [NelpTaskApplication]?, error: NSError?) -> Void in
+		if error != nil{
+			
+		} else{
+			self.nelpApplications = nelpApplications!
+			self.refreshViewApplication?.endRefreshing()
+			self.myApplicationsTableView?.reloadData()
+			}
 	}
 }
 	
@@ -248,14 +268,32 @@ func loadData() {
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		
+		if(tableView == myTasksTableView){
+		if (!self.nelpTasks.isEmpty){
 		let cell = tableView.dequeueReusableCellWithIdentifier(NelpTasksTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpTasksTableViewCell
 		
-		let nelpTask = self.nelpTasks[indexPath.item]
+			
+			let nelpTask = self.nelpTasks[indexPath.item]
 		
 		cell.setNelpTask(nelpTask)
 		cell.setImages(nelpTask)
 		
+		return cell
+			}
+		}else if (tableView == myApplicationsTableView) {
+		if(!self.nelpApplications.isEmpty){
+		let cell = tableView.dequeueReusableCellWithIdentifier(NelpApplicationsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpApplicationsTableViewCell
+			
+		let nelpApplication = self.nelpApplications[indexPath.item]
+		
+		cell.setNelpApplication(nelpApplication)
+		cell.setImages(nelpApplication)
+		
+		return cell
+			}
+		}
+		var cell = UITableViewCell()
+		cell.backgroundColor = whiteNelpyColor
 		return cell
 	}
 	
@@ -264,18 +302,24 @@ func loadData() {
 	}
 	
 	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+		if(tableView == myTasksTableView){
 		if (editingStyle == UITableViewCellEditingStyle.Delete){
 			var nelpTask = nelpTasks[indexPath.row];
 			ApiHelper.deleteTask(nelpTask)
 			self.nelpTasks.removeAtIndex(indexPath.row)
 			self.myTasksTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
 			self.checkForEmptyTasks()
-			
+			}
 		}
 	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		return 260
+		if (tableView == myTasksTableView){
+		return 220
+		}else if (tableView == myApplicationsTableView){
+			return 260
+		}
+		return 0
 	}
 	
 	//ACTIONS
