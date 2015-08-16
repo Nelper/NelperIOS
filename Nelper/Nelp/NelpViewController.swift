@@ -20,10 +20,10 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	@IBOutlet weak var entireContainer: UIView!
 	@IBOutlet weak var container: UIView!
 	@IBOutlet weak var mapViewContainer: UIView!
-
+	
 	
 	@IBOutlet weak var tableViewContainer: UIView!
-
+	
 	@IBOutlet weak var centerButton: UIButton!
 	
 	@IBOutlet weak var tabView: UIView!
@@ -44,21 +44,21 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	var target: CLLocationCoordinate2D?
 	
 	//Initialization
-    
-    convenience init() {
-        self.init(nibName: "NelpViewController", bundle: nil)
+	
+	convenience init() {
+		self.init(nibName: "NelpViewController", bundle: nil)
 	}
-
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        placesClient = GMSPlacesClient()
-        self.adjustUI()
-        self.initializeMapview()
-        self.createTaskTableView()
-        self.loadData()
-        
-    }
+	
+	override func viewDidLoad() {
+		
+		super.viewDidLoad()
+		placesClient = GMSPlacesClient()
+		self.adjustUI()
+		self.initializeMapview()
+		self.createTaskTableView()
+		self.loadData()
+		
+	}
 	
 	func createTaskTableView(){
 		let tableView = UITableView()
@@ -78,8 +78,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 			make.edges.equalTo(self.tableViewContainer.snp_edges)
 		}
 		self.refreshView = refreshView
-		}
-
+	}
+	
 	func initializeMapview(){
 		
 		self.locationManager.delegate = self;
@@ -87,7 +87,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.locationManager.requestWhenInUseAuthorization()
 		self.locationManager.startUpdatingLocation()
 		self.locationManager.distanceFilter = 20
-
+		
 		var mapview = MKMapView()
 		
 		self.mapView = mapview;
@@ -96,76 +96,76 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.mapView.showsUserLocation = true
 		
 		if((self.locationManager.location) != nil){
-		var userLocation: CLLocation = self.locationManager.location
-		self.currentLocation = userLocation
-		var userLocationForCenter = userLocation.coordinate
-		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
-		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
-		self.mapView.setRegion(locationToZoom, animated: true)
-		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
+			var userLocation: CLLocation = self.locationManager.location
+			self.currentLocation = userLocation
+			var userLocationForCenter = userLocation.coordinate
+			var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+			var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
+			self.mapView.setRegion(locationToZoom, animated: true)
+			self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
 		}
-
+		
 		
 		mapview.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(mapViewContainer.snp_edges)
 		}
-        
+		
 	}
 	
 	//UI
 	
 	func adjustUI(){
-
+		
 		self.entireContainer.backgroundColor = blueGrayColor
 		self.container.backgroundColor = blueGrayColor
 		self.tabView.backgroundColor = navBarColor
 		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_orange.png"), forState: UIControlState.Normal)
 		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_dark.png"), forState: UIControlState.Normal)
 		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_dark.png"), forState: UIControlState.Normal)
-	
+		
 	}
 	
-    func createPins(){
-        
-        for task in self.nelpTasks {
-            var taskPin = MKPointAnnotation()
-            if(task.location != nil) {
-                var location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(task.location!.latitude, task.location!.longitude)
-                taskPin.coordinate = location
-                self.mapView.addAnnotation(taskPin)
-                
-            }
-        }
-    }
-    
-    /** Pin image code???
-    
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        if (annotation is MKUserLocation) {
-            //if annotation is not an MKPointAnnotation (eg. MKUserLocation),
-            //return nil so map draws default view for it (eg. blue dot)...
-            return nil
-        }
-        
-        let reuseId = "test"
-        
-        var anView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
-        if anView == nil {
-            anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            anView.image = UIImage(named:"logo_round_v2")
-            anView.canShowCallout = true
-        }
-        else {
-            //we are re-using a view, update its annotation reference...
-            anView.annotation = annotation
-        }
-        
-        return anView
-    }
-    */
+	func createPins(){
+		
+		for task in self.nelpTasks {
+			var taskPin = MKPointAnnotation()
+			if(task.location != nil) {
+				var location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(task.location!.latitude, task.location!.longitude)
+				taskPin.coordinate = location
+				self.mapView.addAnnotation(taskPin)
+				
+			}
+		}
+	}
+	
+	/** Pin image code???
+	
+	func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+	if (annotation is MKUserLocation) {
+	//if annotation is not an MKPointAnnotation (eg. MKUserLocation),
+	//return nil so map draws default view for it (eg. blue dot)...
+	return nil
+	}
+	
+	let reuseId = "test"
+	
+	var anView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
+	if anView == nil {
+	anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+	anView.image = UIImage(named:"logo_round_v2")
+	anView.canShowCallout = true
+	}
+	else {
+	//we are re-using a view, update its annotation reference...
+	anView.annotation = annotation
+	}
+	
+	return anView
+	}
+	*/
 	
 	
-//DATAFetching
+	//DATAFetching
 	
 	func onPullToRefresh() {
 		loadData()
@@ -200,7 +200,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 		cell.setNelpTask(nelpTask)
 		if(self.currentLocation != nil){
-		cell.setLocation(self.currentLocation!)
+			cell.setLocation(self.currentLocation!)
 		}
 		cell.setImages(nelpTask)
 		
@@ -213,24 +213,24 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		var vc = NelpTasksDetailsViewController(nelpTask: selectedTask)
 		self.presentViewController(vc, animated: false, completion: nil)
 		
-		}
+	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return 80
 	}
 	
-
-
-//Location delegate methods
+	
+	
+	//Location delegate methods
 	
 	func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
 		CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
 			if error != nil{
-					println("Error:" + error.localizedDescription)
+				println("Error:" + error.localizedDescription)
 				return
-					//fuck
-				}
-
+				//fuck
+			}
+			
 		})
 	}
 	
@@ -243,28 +243,28 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
 		self.mapView.setRegion(locationToZoom, animated: true)
 		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
-
+		
 	}
 	
 	
-
+	
 	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
 		println("Error:" + error.localizedDescription)
 	}
 	
 	func zoomToUserLocation (userLocation: CLLocation){
-				var userLocationForCenter = userLocation.coordinate
-				var span :MKCoordinateSpan = MKCoordinateSpanMake(0.01 , 0.01)
-				var locationToZoom: CLLocationCoordinate2D = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
-				var region:MKCoordinateRegion = MKCoordinateRegionMake(locationToZoom, span)
+		var userLocationForCenter = userLocation.coordinate
+		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.01 , 0.01)
+		var locationToZoom: CLLocationCoordinate2D = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
+		var region:MKCoordinateRegion = MKCoordinateRegionMake(locationToZoom, span)
 		
 	}
 	
-
-//IBActions
+	
+	//IBActions
 	
 	@IBAction func centerMapOnUser(sender: AnyObject) {
-
+		
 	}
 	
 	@IBAction func findNelpTabButtonTouched(sender: AnyObject) {
@@ -276,8 +276,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		var nextVC = ProfileViewController()
 		self.presentViewController(nextVC, animated: false, completion: nil)
 	}
-
-
-
+	
+	
+	
 }
 

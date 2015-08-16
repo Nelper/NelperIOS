@@ -28,7 +28,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	@IBOutlet weak var applyButton: UIButton!
 	
 	var task: NelpTask!
-//	var carousel:iCarousel!
+	//	var carousel:iCarousel!
 	var pageViewController: UIPageViewController?
 	var pictures:NSArray?
 	
@@ -46,8 +46,8 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		super.viewDidLoad()
 		self.adjustUI()
 		if(self.task.pictures != nil){
-				self.createCarousel()
-			}
+			self.createCarousel()
+		}
 		self.startButtonConfig()
 	}
 	
@@ -69,9 +69,9 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.authorLabel.font = UIFont(name: "ABeeZee-Regular", size: kDetailsViewTextFontSize)
 		
 		if(self.task.createdAt != nil){
-		self.creationDateLabel.text = "Created \(timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
-		self.creationDateLabel.textColor = blackNelpyColor
-		self.creationDateLabel.font = UIFont(name: "ABeeZee", size: kDetailsViewTextFontSize)
+			self.creationDateLabel.text = "Created \(timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
+			self.creationDateLabel.textColor = blackNelpyColor
+			self.creationDateLabel.font = UIFont(name: "ABeeZee", size: kDetailsViewTextFontSize)
 		}else{
 			self.creationDateLabel.text = "Unknown creation date"
 			self.creationDateLabel.textColor = blackNelpyColor
@@ -85,7 +85,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.priceLabel.clipsToBounds = true
 		self.priceLabel.textAlignment = NSTextAlignment.Center
 		if(self.task.priceOffered != nil){
-		self.priceLabel.text = "$\(self.task.priceOffered!)"
+			self.priceLabel.text = "$\(self.task.priceOffered!)"
 		}else{
 			self.priceLabel.text = "N/A"
 		}
@@ -106,11 +106,11 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.applyButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
 		self.applyButton.backgroundColor = greenPriceButton
 		self.applyButton.layer.cornerRadius = 6
-	
+		
 	}
 	
 	func createCarousel(){
-//		var carousel = iCarousel()
+		//		var carousel = iCarousel()
 		self.carousel.type = .Rotary
 		self.carousel.dataSource = self
 		self.carousel.delegate = self
@@ -120,49 +120,43 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	//iCarousel Delegate
 	
-	func numberOfItemsInCarousel(carousel: iCarousel!) -> Int
-	{
-
-		if(self.task.pictures != nil){
+	func numberOfItemsInCarousel(carousel: iCarousel!) -> Int {
 		
-			if(self.task.pictures!.count == 1){
+		if self.task.pictures != nil {
+			if self.task.pictures!.count == 1 {
 				self.carousel.scrollEnabled = false
 			}
+			
 			return self.task.pictures!.count
 		}
+		
 		return 0
 	}
-
 	
- func carousel(carousel: iCarousel!, viewForItemAtIndex index: Int, reusingView view: UIView!) -> UIView!
-	{
-		
-			var picture = UIImageView(frame: self.carousel.frame)
-			picture.clipsToBounds = true
-			var imageURL = self.task.pictures![index].url!
-			getPictures(imageURL, block: { (imageReturned:UIImage) -> Void in
-				picture.image = imageReturned
-			})
-			picture.contentMode = .ScaleAspectFit
-
-		  return picture
+	
+ func carousel(carousel: iCarousel!, viewForItemAtIndex index: Int, reusingView view: UIView!) -> UIView! {
+		var picture = UIImageView(frame: self.carousel.frame)
+		picture.clipsToBounds = true
+		var imageURL = self.task.pictures![index].url!
+		getPictures(imageURL, block: { (imageReturned:UIImage) -> Void in
+			picture.image = imageReturned
+		})
+		picture.contentMode = .ScaleAspectFit
+		return picture
 	}
 	
 	//IBActions
 	
-	
-	
 	@IBAction func applyButtonTapped(sender: AnyObject) {
 		if(!self.applyButton.selected){
-		ApiHelper.applyForTask(self.task)
-		self.task.application!.state == .Pending
-		self.applyButton.selected = true
-		self.updateButton()
+			ApiHelper.applyForTask(self.task)
+			self.applyButton.selected = true
+			self.updateButton()
 		}else{
-		ApiHelper.cancelApplyForTask(self.task)
-		self.applyButton.selected = false
-		self.task.application!.state == .Canceled
-		self.updateButton()
+			ApiHelper.cancelApplyForTask(self.task)
+			self.applyButton.selected = false
+			self.task.application!.state = .Canceled
+			self.updateButton()
 		}
 	}
 	
@@ -173,25 +167,23 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	//Utilities
 	
 	func startButtonConfig(){
-		if(self.task.application != nil){
-			if(self.task.application!.state == .Pending){
+		if self.task.application != nil && self.task.application!.state != .Canceled {
 			self.applyButton.selected = true
 			self.updateButton()
-			}
-		}else{
+		} else {
 			self.applyButton.selected = false
 			self.updateButton()
 		}
 	}
 	
 	func updateButton(){
-		if(self.applyButton.selected){
-		self.applyButton.setTitle("Applied", forState: UIControlState.Selected)
-		self.applyButton.backgroundColor = blueGrayColor
-		}else{
+		if self.applyButton.selected {
+			self.applyButton.setTitle("Applied", forState: UIControlState.Selected)
+			self.applyButton.backgroundColor = blueGrayColor
+		} else {
 			self.applyButton.setTitle("Apply", forState: UIControlState.Normal)
 			self.applyButton.backgroundColor = greenPriceButton
-			}
+		}
 	}
 	
 	
@@ -226,18 +218,18 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.categoryPicture.clipsToBounds = true;
 		self.categoryPicture.image = UIImage(named: nelpTask.category!)
 	}
-
+	
 	
 	func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {
 		var image: UIImage!
-			request(.GET,imageURL).response(){
-				(_, _, data, error) in
-				if(error != nil){
-					println(error)
-				}
-				image = UIImage(data: data as NSData!)
-				block(image)
+		request(.GET,imageURL).response(){
+			(_, _, data, error) in
+			if(error != nil){
+				println(error)
 			}
+			image = UIImage(data: data as NSData!)
+			block(image)
+		}
 	}
 	
 	func timeAgoSinceDate(date:NSDate, numericDates:Bool) -> String {
