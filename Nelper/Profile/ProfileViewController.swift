@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
+class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
 	
 	@IBOutlet weak var navBar: UIView!
 	@IBOutlet weak var tabBarView: UIView!
@@ -27,6 +27,8 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	var myApplicationsTableView:UITableView!
 	var refreshView: UIRefreshControl!
 	var refreshViewApplication: UIRefreshControl!
+	var locationManager = CLLocationManager()
+	var currentLocation: CLLocation?
 	
 //	INITIALIZER
   convenience init() {
@@ -50,6 +52,15 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 //View Creation
 	
 	func createView(){
+		//Location
+		
+		self.locationManager.delegate = self;
+		
+		if self.locationManager.location != nil {
+			self.locationManager.delegate = self;
+			var userLocation: CLLocation = self.locationManager.location
+			self.currentLocation = userLocation
+		}
 		
 		//Profile Header
 		var profileView = UIView()
@@ -245,7 +256,6 @@ func loadData() {
 			self.nelpTasks = nelpTasks!
 			self.refreshView?.endRefreshing()
 			self.myTasksTableView?.reloadData()
-			self.myApplicationsTableView?.reloadData()
 			self.checkForEmptyTasks()
 		}
 	}
@@ -255,6 +265,7 @@ func loadData() {
 			
 		} else{
 			self.nelpApplications = nelpApplications!
+			println(nelpApplications)
 			self.refreshViewApplication?.endRefreshing()
 			self.myApplicationsTableView?.reloadData()
 			}
@@ -264,36 +275,42 @@ func loadData() {
 	//DELEGATE METHODS
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		if(tableView == self.myTasksTableView){
 		return nelpTasks.count
+		}else if (tableView == self.myApplicationsTableView){
+			return nelpApplications.count
+		}
+		return 0
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		if(tableView == myTasksTableView){
 		if (!self.nelpTasks.isEmpty){
-		let cell = tableView.dequeueReusableCellWithIdentifier(NelpTasksTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpTasksTableViewCell
+		let cellTask = tableView.dequeueReusableCellWithIdentifier(NelpTasksTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpTasksTableViewCell
 		
 			
 			let nelpTask = self.nelpTasks[indexPath.item]
 		
-		cell.setNelpTask(nelpTask)
-		cell.setImages(nelpTask)
+		cellTask.setNelpTask(nelpTask)
+		cellTask.setImages(nelpTask)
 		
-		return cell
+		return cellTask
 			}
 		}else if (tableView == myApplicationsTableView) {
 		if(!self.nelpApplications.isEmpty){
-		let cell = tableView.dequeueReusableCellWithIdentifier(NelpApplicationsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpApplicationsTableViewCell
+		let cellApplication = tableView.dequeueReusableCellWithIdentifier(NelpApplicationsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpApplicationsTableViewCell
 			
 		let nelpApplication = self.nelpApplications[indexPath.item]
+			if self.currentLocation != nil{
+				cellApplication.setLocation(self.currentLocation!, nelpApplication: nelpApplication)
+			}
+		cellApplication.setNelpApplication(nelpApplication)
+		cellApplication.setImages(nelpApplication)
 		
-		cell.setNelpApplication(nelpApplication)
-		cell.setImages(nelpApplication)
-		
-		return cell
+		return cellApplication
 			}
 		}
-		var cell = UITableViewCell()
-		cell.backgroundColor = whiteNelpyColor
+		var cell: UITableViewCell!
 		return cell
 	}
 	
@@ -317,7 +334,7 @@ func loadData() {
 		if (tableView == myTasksTableView){
 		return 220
 		}else if (tableView == myApplicationsTableView){
-			return 260
+			return 300
 		}
 		return 0
 	}

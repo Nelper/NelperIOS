@@ -84,11 +84,9 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.priceLabel.textColor = whiteNelpyColor
 		self.priceLabel.clipsToBounds = true
 		self.priceLabel.textAlignment = NSTextAlignment.Center
-		if(self.task.priceOffered != nil){
-			self.priceLabel.text = "$\(self.task.priceOffered!)"
-		}else{
-			self.priceLabel.text = "N/A"
-		}
+		var price = String(format: "%.0f", self.task.priceOffered!)
+		self.priceLabel.text = "$"+price
+
 		
 		self.profilePicture.layer.masksToBounds = true
 		self.setProfilePicture(self.task)

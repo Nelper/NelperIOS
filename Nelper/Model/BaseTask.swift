@@ -22,7 +22,7 @@ class BaseTask: BaseModel {
   var user: User!
   var location : GeoPoint?
 	var city: String?
-  var priceOffered: String?
+  var priceOffered: Double?
 	var category: String?
   var pictures: Array<PFFile>?
   var state: State = .Active
@@ -50,7 +50,8 @@ class BaseTask: BaseModel {
         longitude: pfLoc.longitude
       )
     }
-    priceOffered = parseTask["priceOffered"] as? String
+		city = parseTask["city"] as? String
+    priceOffered = parseTask["priceOffered"] as? Double
 		
 		if(parseTask["pictures"] != nil){
     var picturesPF = parseTask["pictures"] as! [PFFile]

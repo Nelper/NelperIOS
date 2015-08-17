@@ -513,7 +513,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		}
 		self.task.title = self.titleTextField!.text
 		self.task.desc = self.descriptionTextView!.text
-		self.task.priceOffered = self.priceOffered!.text
+		self.task.priceOffered = (self.priceOffered!.text as NSString).doubleValue
 				ApiHelper.addTask(self.task, block: { (task, error) -> Void in
 					self.delegate?.nelpTaskAdded(self.task)
 					self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)

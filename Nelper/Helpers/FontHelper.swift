@@ -13,6 +13,7 @@ let kLoginScreenFontSize:CGFloat = 36
 let kCellPriceFontSize:CGFloat = 18
 let kCellTitleFontSize:CGFloat = 18
 let kCellTextFontSize:CGFloat = 14
+let kCellSubtitleFontSize:CGFloat = 16
 
 let kDetailsViewTitleFontSize:CGFloat = 20
 let kDetailsViewTextFontSize:CGFloat = 16

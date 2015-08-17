@@ -19,6 +19,10 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	//	var categoryLabel:UILabel!
 	var topContainer:UIImageView!
 	var appliedDate: UILabel!
+	var applicationStateIcon: UIImageView!
+	var applicationStateLabel: UILabel!
+	var distanceLabel: UILabel!
+	var cityLabel: UILabel!
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -60,9 +64,13 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			make.left.equalTo(cellView.snp_left)
 			make.height.equalTo(cellView.snp_height).dividedBy(3)
 		}
-		
-		topContainer.backgroundColor = orangeTextColor
-		//Category Icon + label
+		topContainer.backgroundColor = blueGrayColor
+		var blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
+		var blurView = UIVisualEffectView(effect: blur)
+		topContainer.addSubview(blurView)
+		blurView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(topContainer.snp_edges)
+		}
 		
 		//Category Icon
 		var categoryIcon = UIImageView()
@@ -88,7 +96,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		var titleLabel = UILabel()
 		self.titleLabel = titleLabel
 		titleLabel.textColor = blackNelpyColor
-		titleLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		titleLabel.font = UIFont(name: "ABeeZee-Regular", size: kCellTitleFontSize)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_bottom).offset(4)
@@ -96,12 +104,37 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			make.height.equalTo(40)
 		}
 		
+		//Application State Icon + Label
+		
+		var applicationStateIcon = UIImageView()
+		self.applicationStateIcon = applicationStateIcon
+		cellView.addSubview(applicationStateIcon)
+		applicationStateIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		applicationStateIcon.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(titleLabel.snp_bottom)
+			make.left.equalTo(cellView.snp_left).offset(12)
+			make.height.equalTo(40)
+			make.width.equalTo(40)
+		}
+		
+		var applicationLabel = UILabel()
+		self.applicationStateLabel = applicationLabel
+		cellView.addSubview(applicationLabel)
+		applicationLabel.font = UIFont(name: "ABeeZee-Regular", size: kCellSubtitleFontSize)
+		applicationLabel.textColor = blackNelpyColor
+		
+		applicationLabel.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(applicationStateIcon.snp_right).offset(4)
+			make.centerY.equalTo(applicationStateIcon.snp_centerY)
+		}
+	
+		
 		//Price tag
 		var price = UILabel()
 		self.price = price
 		cellView.addSubview(price)
 		price.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(titleLabel.snp_bottom)
+			make.centerY.equalTo(applicationLabel.snp_centerY)
 			make.right.equalTo(cellView.snp_right).offset(-12)
 			make.width.equalTo(70)
 			make.height.equalTo(30)
@@ -120,8 +153,8 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		calendarImage.image = UIImage(named: "calendar.png")
 		calendarImage.contentMode = UIViewContentMode.ScaleAspectFit
 		calendarImage.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(cellView.snp_bottom).offset(-10)
-			make.left.equalTo(cellView.snp_left).offset(20)
+			make.top.equalTo(applicationStateIcon.snp_bottom).offset(10)
+			make.left.equalTo(applicationStateIcon.snp_left)
 			make.width.equalTo(40)
 			make.height.equalTo(40)
 		}
@@ -129,11 +162,45 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		var postedDate = UILabel()
 		self.appliedDate = postedDate
 		cellView.addSubview(postedDate)
-		postedDate.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		postedDate.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		postedDate.textColor = blackNelpyColor
 		
 		postedDate.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(calendarImage.snp_right).offset(4)
 			make.centerY.equalTo(calendarImage.snp_centerY)
+		}
+		
+		//Location Icon + City + Distance
+		
+		var pinImageView = UIImageView()
+		cellView.addSubview(pinImageView)
+		pinImageView.image = UIImage(named: "pin.png")
+		pinImageView.contentMode = UIViewContentMode.ScaleAspectFill
+		pinImageView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(calendarImage.snp_bottom).offset(10)
+			make.left.equalTo(calendarImage.snp_left)
+			make.height.equalTo(40)
+			make.width.equalTo(40)
+		}
+		
+		var cityLabel = UILabel()
+		self.cityLabel = cityLabel
+		cellView.addSubview(cityLabel)
+		cityLabel.textColor = blackNelpyColor
+		cityLabel.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		cityLabel.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(pinImageView.snp_right).offset(4)
+			make.centerY.equalTo(pinImageView.snp_centerY).offset(-10)
+		}
+		
+		var distanceLabel = UILabel()
+		self.distanceLabel = distanceLabel
+		cellView.addSubview(distanceLabel)
+		distanceLabel.textColor = blackNelpyColor
+		distanceLabel.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		distanceLabel.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(pinImageView.snp_right).offset(4)
+			make.centerY.equalTo(pinImageView.snp_centerY).offset(10)
 		}
 		
 		self.addSubview(backView)
@@ -154,7 +221,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	
 	static var reuseIdentifier: String {
 		get {
-			return "NelpViewCell"
+			return "NelpApplicationsTableViewCell"
 		}
 	}
 	
@@ -163,6 +230,8 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		self.categoryIcon.clipsToBounds = true
 		self.categoryIcon.image = UIImage(named: nelpApplication.task.category!)
 		
+		setStateInformation(nelpApplication)
+		
 		if(nelpApplication.task.pictures != nil){
 			if(!nelpApplication.task.pictures!.isEmpty){
 				getPictures(nelpApplication.task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
@@ -170,6 +239,21 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 				})}}
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true
+	}
+	
+	func setStateInformation(nelpApplication:NelpTaskApplication){
+		
+		if nelpApplication.state.rawValue == 0 {
+			self.applicationStateIcon.image = UIImage(named: "pending.png")!
+			self.applicationStateLabel.text = "Pending"
+		}else if nelpApplication.state.rawValue == 2{
+			self.applicationStateIcon.image = UIImage(named:"accepted.png")
+			self.applicationStateLabel.text = "Accepted"
+		} else if nelpApplication.state.rawValue == 3{
+			self.applicationStateIcon.image = UIImage(named: "declined.png")!
+			self.applicationStateLabel.text = "Declined"
+		}
+		
 	}
 	
 	func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {
@@ -188,13 +272,36 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	func setNelpApplication(nelpApplication: NelpTaskApplication) {
 		//		self.categoryLabel.text = nelpTask.category!.uppercaseString
 		self.titleLabel.text = nelpApplication.task.title
-		self.price.text = "$\(nelpApplication.task.priceOffered!)"
+		var price = String(format: "%.0f", nelpApplication.task.priceOffered!)
+		self.price.text = "$"+price
 		self.appliedDate.text = "Applied \(timeAgoSinceDate(nelpApplication.createdAt!, numericDates: true))"
+		if((nelpApplication.task.city) != nil){
+		self.cityLabel.text = nelpApplication.task.city
+		}
+	
 		
 		
 	}
 	
 	//UTILITIES
+	
+	func setLocation(userLocation:CLLocation, nelpApplication:NelpTaskApplication){
+
+		var taskLocation = CLLocation(latitude: nelpApplication.task.location!.latitude, longitude: nelpApplication.task.location!.longitude)
+		var distance: String = self.calculateDistanceBetweenTwoLocations(userLocation, destination: taskLocation)
+		self.distanceLabel.text = distance
+	}
+	
+	func calculateDistanceBetweenTwoLocations(source:CLLocation,destination:CLLocation) -> String{
+		
+		var distanceMeters = source.distanceFromLocation(destination)
+		if(distanceMeters > 1000){
+			var distanceKM = distanceMeters / 1000
+			return "\(round(distanceKM)) km away from you"
+		}else{
+			return String(format:"%.0f m away from you", distanceMeters)
+		}
+	}
 	
 	func timeAgoSinceDate(date:NSDate, numericDates:Bool) -> String {
 		let calendar = NSCalendar.currentCalendar()

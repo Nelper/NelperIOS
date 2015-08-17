@@ -138,11 +138,10 @@ class NelpViewCell: UITableViewCell {
 		self.author.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
 		self.author.textColor = blackNelpyColor
 		
-		var price = nelpTask.priceOffered
+		var price = String(format: "%.0f", nelpTask.priceOffered!)
 		
-		if(price != nil){
-			self.price.text = "$" + price!
-		}
+		self.price.text = "$"+price
+		
 		self.price.font = UIFont(name: "ABeeZee-Regular", size: kCellPriceFontSize)
 		self.price.textColor = whiteNelpyColor
 		self.price.layer.cornerRadius = 6

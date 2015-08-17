@@ -63,9 +63,14 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.left.equalTo(cellView.snp_left)
 			make.height.equalTo(cellView.snp_height).dividedBy(3)
 		}
+		topContainer.backgroundColor = blueGrayColor		//Category Icon + label
 		
-		topContainer.backgroundColor = orangeTextColor
-		//Category Icon + label
+		var blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
+		var blurView = UIVisualEffectView(effect: blur)
+		topContainer.addSubview(blurView)
+		blurView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(topContainer.snp_edges)
+		}
 		
 		//Category Icon
 		var categoryIcon = UIImageView()
@@ -106,7 +111,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		var titleLabel = UILabel()
 		self.titleLabel = titleLabel
 		titleLabel.textColor = blackNelpyColor
-		titleLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		titleLabel.font = UIFont(name: "ABeeZee-Regular", size: kCellTitleFontSize)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_bottom).offset(4)
@@ -114,22 +119,6 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.height.equalTo(40)
 		}
 		
-		//Price tag
-		var price = UILabel()
-		self.price = price
-		cellView.addSubview(price)
-		price.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(titleLabel.snp_bottom)
-			make.right.equalTo(cellView.snp_right).offset(-12)
-			make.width.equalTo(70)
-			make.height.equalTo(30)
-		}
-		self.price.backgroundColor = greenPriceButton
-		self.price.font = UIFont(name: "ABeeZee-Regular", size: kCellPriceFontSize)
-		self.price.textColor = whiteNelpyColor
-		self.price.layer.cornerRadius = 6
-		self.price.clipsToBounds = true
-		self.price.textAlignment = NSTextAlignment.Center
 		
 		//Number of applicants
 		
@@ -145,13 +134,30 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		var numberOfApplicants = UILabel()
 		self.numberOfApplicants = numberOfApplicants
-		self.numberOfApplicants.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		self.numberOfApplicants.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
 		self.numberOfApplicants.textColor = blackNelpyColor
 		cellView.addSubview(numberOfApplicants)
 		numberOfApplicants.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(numberOfApplicantsIcon.snp_right).offset(4)
 			make.centerY.equalTo(numberOfApplicantsIcon.snp_centerY)
 		}
+		
+		//Price tag
+		var price = UILabel()
+		self.price = price
+		cellView.addSubview(price)
+		price.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(numberOfApplicants.snp_centerY)
+			make.right.equalTo(cellView.snp_right).offset(-12)
+			make.width.equalTo(70)
+			make.height.equalTo(30)
+		}
+		self.price.backgroundColor = greenPriceButton
+		self.price.font = UIFont(name: "ABeeZee-Regular", size: kCellPriceFontSize)
+		self.price.textColor = whiteNelpyColor
+		self.price.layer.cornerRadius = 6
+		self.price.clipsToBounds = true
+		self.price.textAlignment = NSTextAlignment.Center
 		
 		//Posted date
 		
@@ -169,7 +175,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		var postedDate = UILabel()
 		self.postedDate = postedDate
 		cellView.addSubview(postedDate)
-		postedDate.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		postedDate.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
 		
 		postedDate.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(calendarImage.snp_right).offset(4)
@@ -194,7 +200,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 	
 	static var reuseIdentifier: String {
 		get {
-			return "NelpViewCell"
+			return "NelpTasksTableViewCell"
 		}
 	}
 	
@@ -249,7 +255,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 	func setNelpTask(nelpTask: FindNelpTask) {
 //		self.categoryLabel.text = nelpTask.category!.uppercaseString
 		self.titleLabel.text = nelpTask.title
-		self.price.text = "$\(nelpTask.priceOffered!)"
+		var price = String(format: "%.0f", nelpTask.priceOffered!)
+		self.price.text = "$"+price
 		self.postedDate.text = "Posted \(timeAgoSinceDate(nelpTask.createdAt!, numericDates: true))"
 
 
