@@ -158,12 +158,12 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		//Segment Control Container + SegmentControl
 		var segmentContainer = UIView()
 		containerView.addSubview(segmentContainer)
-		segmentContainer.backgroundColor = whiteNelpyColor
+		segmentContainer.backgroundColor = whiteGrayColor
 		segmentContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileView.snp_bottom)
 			make.left.equalTo(containerView.snp_left)
 			make.right.equalTo(containerView.snp_right)
-			make.height.equalTo(profileView.snp_height).dividedBy(4)
+			make.height.equalTo(profileView.snp_height).dividedBy(2.5)
 		}
 		
 		var segmentControl = UISegmentedControl()
@@ -175,7 +175,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		segmentControl.tintColor = orangeTextColor
 		segmentControl.snp_makeConstraints { (make) -> Void in
 			make.center.equalTo(segmentContainer.snp_center)
-			make.width.equalTo(segmentContainer.snp_width).dividedBy(1.2)
+			make.width.equalTo(segmentContainer.snp_width).dividedBy(1.1)
 		}
 		
 		//Tasks container

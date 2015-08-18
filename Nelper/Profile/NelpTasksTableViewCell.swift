@@ -39,8 +39,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 		backView.addSubview(cellView)
 		cellView.backgroundColor = whiteNelpyColor
 		cellView.layer.cornerRadius = 6
-		cellView.layer.borderWidth = 2
-		cellView.layer.borderColor = grayDetails.CGColor
+		cellView.layer.borderWidth = 1
+		cellView.layer.borderColor = blackNelpyColor.CGColor
 		cellView.layer.masksToBounds = true
 		cellView.clipsToBounds = true
 		cellView.snp_makeConstraints { (make) -> Void in
@@ -49,7 +49,6 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.right.equalTo(backView).offset(-4)
 			make.bottom.equalTo(backView).offset(-4)
 		}
-		
 		
 		//Top container
 		var topContainer = UIImageView()
@@ -61,7 +60,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.top.equalTo(cellView.snp_top)
 			make.right.equalTo(cellView.snp_right)
 			make.left.equalTo(cellView.snp_left)
-			make.height.equalTo(cellView.snp_height).dividedBy(3)
+			make.height.equalTo(cellView.snp_height).dividedBy(2.8)
 		}
 		topContainer.backgroundColor = blueGrayColor		//Category Icon + label
 		
@@ -93,7 +92,6 @@ class NelpTasksTableViewCell: UITableViewCell {
 //		}
 		
 		//Notification Icon
-		
 		var notificationIcon = UIImageView()
 		self.notificationIcon = notificationIcon
 		topContainer.addSubview(notificationIcon)
@@ -121,15 +119,14 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		
 		//Number of applicants
-		
 		var numberOfApplicantsIcon = UIImageView()
 		numberOfApplicantsIcon.image = UIImage(named: "applicants.png")
 		cellView.addSubview(numberOfApplicantsIcon)
 		numberOfApplicantsIcon.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleLabel.snp_bottom)
-			make.left.equalTo(cellView.snp_left).offset(12)
-			make.height.equalTo(40)
-			make.width.equalTo(40)
+			make.left.equalTo(cellView.snp_left).offset(20)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
 		}
 		
 		var numberOfApplicants = UILabel()
@@ -138,7 +135,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.numberOfApplicants.textColor = blackNelpyColor
 		cellView.addSubview(numberOfApplicants)
 		numberOfApplicants.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(numberOfApplicantsIcon.snp_right).offset(4)
+			make.left.equalTo(numberOfApplicantsIcon.snp_right).offset(6)
 			make.centerY.equalTo(numberOfApplicantsIcon.snp_centerY)
 		}
 		
@@ -148,7 +145,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		cellView.addSubview(price)
 		price.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(numberOfApplicants.snp_centerY)
-			make.right.equalTo(cellView.snp_right).offset(-12)
+			make.right.equalTo(cellView.snp_right).offset(-20)
 			make.width.equalTo(70)
 			make.height.equalTo(30)
 		}
@@ -160,16 +157,15 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.price.textAlignment = NSTextAlignment.Center
 		
 		//Posted date
-		
 		var calendarImage = UIImageView()
 		cellView.addSubview(calendarImage)
 		calendarImage.image = UIImage(named: "calendar.png")
 		calendarImage.contentMode = UIViewContentMode.ScaleAspectFit
 		calendarImage.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(cellView.snp_bottom).offset(-10)
+			make.top.equalTo(numberOfApplicantsIcon.snp_bottom).offset(4)
 			make.left.equalTo(numberOfApplicantsIcon.snp_left)
-			make.width.equalTo(40)
-			make.height.equalTo(40)
+			make.width.equalTo(30)
+			make.height.equalTo(30)
 		}
 		
 		var postedDate = UILabel()
@@ -178,7 +174,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		postedDate.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
 		
 		postedDate.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(calendarImage.snp_right).offset(4)
+			make.left.equalTo(calendarImage.snp_right).offset(6)
 			make.centerY.equalTo(calendarImage.snp_centerY)
 		}
 		
@@ -233,12 +229,14 @@ class NelpTasksTableViewCell: UITableViewCell {
 		}
 	}
 	
-	func setNotification(nelpTask:FindNelpTask){
+	func setNotification(nelpTask:FindNelpTask) {
 		
-		if (nelpTask.applications.count == 0){
-			self.numberOfApplicants.text = "0 applicants"
-		}else{
-			self.numberOfApplicants.text = "\(nelpTask.applications.count) applicants."
+		if (nelpTask.applications.count == 0) {
+			self.numberOfApplicants.text = "0 applicant"
+		} else if (nelpTask.applications.count == 1) {
+			self.numberOfApplicants.text = "1 applicant"
+		} else {
+			self.numberOfApplicants.text = "\(nelpTask.applications.count) applicants"
 		}
 		
 		for application in nelpTask.applications{
