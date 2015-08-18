@@ -74,7 +74,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.technologyButton = technologyButton
 		self.formView.addSubview(self.technologyButton)
 		self.technologyButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(selectCategoryLabel.snp_bottom).offset(35)
+			make.top.equalTo(selectCategoryLabel.snp_bottom).offset(30)
 			make.centerX.equalTo(self.formView.snp_centerX).offset(-85)
 			make.width.equalTo(65)
 			make.height.equalTo(65)

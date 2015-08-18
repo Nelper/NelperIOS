@@ -23,6 +23,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	var applicationStateLabel: UILabel!
 	var distanceLabel: UILabel!
 	var cityLabel: UILabel!
+	var nelpApplication: NelpTaskApplication!
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -270,6 +271,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	
 
 	func setNelpApplication(nelpApplication: NelpTaskApplication) {
+		self.nelpApplication = nelpApplication
 		//		self.categoryLabel.text = nelpTask.category!.uppercaseString
 		self.titleLabel.text = nelpApplication.task.title
 		var price = String(format: "%.0f", nelpApplication.task.priceOffered!)

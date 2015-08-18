@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F25a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FullProfileViewController" customModule="Nelper" customModuleProvider="target">
+            <connections>
+                <outlet property="containerView" destination="bRT-YB-eLx" id="eos-EH-za7"/>
+                <outlet property="navBar" destination="wtc-15-BoF" id="KaO-jV-tKk"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="-1" width="350" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bRT-YB-eLx">
+                    <rect key="frame" x="0.0" y="64" width="350" height="536"/>
+                    <color key="backgroundColor" red="1" green="0.0" blue="0.1107546368" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wtc-15-BoF" userLabel="navBar">
+                    <rect key="frame" x="0.0" y="0.0" width="350" height="64"/>
+                    <color key="backgroundColor" red="1" green="0.80969880760000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="aNx-Fb-NbQ"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="wtc-15-BoF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="4N5-02-CBx"/>
+                <constraint firstAttribute="trailing" secondItem="bRT-YB-eLx" secondAttribute="trailing" id="6e0-WG-BJV"/>
+                <constraint firstAttribute="trailing" secondItem="wtc-15-BoF" secondAttribute="trailing" id="ILT-YP-LXz"/>
+                <constraint firstItem="bRT-YB-eLx" firstAttribute="top" secondItem="wtc-15-BoF" secondAttribute="bottom" id="Uk0-X8-wCJ"/>
+                <constraint firstItem="wtc-15-BoF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="bTw-hZ-vPD"/>
+                <constraint firstAttribute="bottom" secondItem="bRT-YB-eLx" secondAttribute="bottom" id="dKq-6h-ajB"/>
+                <constraint firstItem="bRT-YB-eLx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="syp-ux-Yfc"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="342" y="528"/>
+        </view>
+    </objects>
+</document>

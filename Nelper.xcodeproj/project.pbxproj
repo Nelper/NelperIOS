@@ -55,6 +55,10 @@
 		F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775C0C61B803E9600F7525B /* TabBarCustom.swift */; };
 		F775C0C91B81150300F7525B /* NelpTasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775C0C81B81150300F7525B /* NelpTasksTableViewCell.swift */; };
 		F775C0CB1B81160400F7525B /* NelpApplicationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775C0CA1B81160400F7525B /* NelpApplicationsTableViewCell.swift */; };
+		F775C0CD1B82CC9B00F7525B /* MyTaskDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775C0CC1B82CC9B00F7525B /* MyTaskDetailsViewController.swift */; };
+		F775C0CF1B82CEAF00F7525B /* MyTaskDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F775C0CE1B82CEAF00F7525B /* MyTaskDetailsViewController.xib */; };
+		F775C0D11B82D1FB00F7525B /* FullProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775C0D01B82D1FB00F7525B /* FullProfileViewController.swift */; };
+		F775C0D31B82D22200F7525B /* FullProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F775C0D21B82D22200F7525B /* FullProfileViewController.xib */; };
 		F782A6261B6411DD00C78470 /* SecondFormScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F782A6241B6411DD00C78470 /* SecondFormScreen.xib */; };
 		F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6251B6411DD00C78470 /* SecondFormViewController.swift */; };
 		F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ApiHelper.swift */; };
@@ -153,6 +157,10 @@
 		F775C0C61B803E9600F7525B /* TabBarCustom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarCustom.swift; path = Views/TabBarCustom.swift; sourceTree = "<group>"; };
 		F775C0C81B81150300F7525B /* NelpTasksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTasksTableViewCell.swift; path = Nelper/Profile/NelpTasksTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		F775C0CA1B81160400F7525B /* NelpApplicationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpApplicationsTableViewCell.swift; path = Nelper/Profile/NelpApplicationsTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		F775C0CC1B82CC9B00F7525B /* MyTaskDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyTaskDetailsViewController.swift; path = Nelper/Profile/MyTaskDetailsViewController.swift; sourceTree = SOURCE_ROOT; };
+		F775C0CE1B82CEAF00F7525B /* MyTaskDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyTaskDetailsViewController.xib; path = Nelper/Profile/MyTaskDetailsViewController.xib; sourceTree = SOURCE_ROOT; };
+		F775C0D01B82D1FB00F7525B /* FullProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FullProfileViewController.swift; path = Nelper/Profile/FullProfileViewController.swift; sourceTree = SOURCE_ROOT; };
+		F775C0D21B82D22200F7525B /* FullProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FullProfileViewController.xib; path = Nelper/Profile/FullProfileViewController.xib; sourceTree = SOURCE_ROOT; };
 		F782A6241B6411DD00C78470 /* SecondFormScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SecondFormScreen.xib; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormScreen.xib"; sourceTree = SOURCE_ROOT; };
 		F782A6251B6411DD00C78470 /* SecondFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondFormViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormViewController.swift"; sourceTree = SOURCE_ROOT; };
 		F782A6281B6567E100C78470 /* ApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHelper.swift; path = Nelper/Helpers/ApiHelper.swift; sourceTree = SOURCE_ROOT; };
@@ -358,6 +366,10 @@
 				195FD9B11B4B6B760040AD20 /* ProfileViewController.xib */,
 				F775C0C81B81150300F7525B /* NelpTasksTableViewCell.swift */,
 				F775C0CA1B81160400F7525B /* NelpApplicationsTableViewCell.swift */,
+				F775C0D01B82D1FB00F7525B /* FullProfileViewController.swift */,
+				F775C0D21B82D22200F7525B /* FullProfileViewController.xib */,
+				F775C0CC1B82CC9B00F7525B /* MyTaskDetailsViewController.swift */,
+				F775C0CE1B82CEAF00F7525B /* MyTaskDetailsViewController.xib */,
 			);
 			name = Profile;
 			path = ViewControllers;
@@ -499,6 +511,8 @@
 				F73A45C81B741F8F00FD8C79 /* NelpTaskDetailsViewController.xib in Resources */,
 				195FD9B61B4CA6A50040AD20 /* NelpViewController.xib in Resources */,
 				195FD9B21B4B6B760040AD20 /* ProfileViewController.xib in Resources */,
+				F775C0D31B82D22200F7525B /* FullProfileViewController.xib in Resources */,
+				F775C0CF1B82CEAF00F7525B /* MyTaskDetailsViewController.xib in Resources */,
 				F762D0071B4B66B000812235 /* LoginViewController.xib in Resources */,
 				199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */,
 				F72F27D41B5302DE00CD3B0B /* NelpTaskCreateViewController.xib in Resources */,
@@ -585,6 +599,8 @@
 				F775C0CB1B81160400F7525B /* NelpApplicationsTableViewCell.swift in Sources */,
 				F73AC3BC1B6E80A30086B0B4 /* AutocompleteCell.swift in Sources */,
 				F73A45C01B72FEA400FD8C79 /* LocationHelper.swift in Sources */,
+				F775C0CD1B82CC9B00F7525B /* MyTaskDetailsViewController.swift in Sources */,
+				F775C0D11B82D1FB00F7525B /* FullProfileViewController.swift in Sources */,
 				195FD9B51B4CA6A50040AD20 /* NelpViewController.swift in Sources */,
 				19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */,
 				F7067AB41B56001300F19745 /* FontHelper.swift in Sources */,

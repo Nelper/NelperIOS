@@ -18,13 +18,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="629"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sqH-1n-dHr" customClass="NavBar" customModule="Nelper" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                    <color key="backgroundColor" red="0.90196084980000002" green="0.16078431900000001" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="64" id="VhC-tP-Eqp"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rCA-f7-ey0" userLabel="Background">
                     <rect key="frame" x="0.0" y="64" width="375" height="565"/>
                     <subviews>
@@ -52,6 +45,13 @@
                         <constraint firstAttribute="trailing" secondItem="lcZ-PX-lMT" secondAttribute="trailing" id="aul-wb-AZD"/>
                         <constraint firstItem="Wo9-ru-6e7" firstAttribute="width" secondItem="rCA-f7-ey0" secondAttribute="width" id="dRr-oN-Is9"/>
                         <constraint firstAttribute="bottom" secondItem="lcZ-PX-lMT" secondAttribute="bottom" id="uar-te-o8Q"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sqH-1n-dHr" customClass="NavBar" customModule="Nelper" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <color key="backgroundColor" red="0.90196084980000002" green="0.16078431900000001" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="VhC-tP-Eqp"/>
                     </constraints>
                 </view>
             </subviews>

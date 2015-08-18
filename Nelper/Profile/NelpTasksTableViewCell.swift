@@ -30,7 +30,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
-		backView.backgroundColor = navBarColor
+		backView.backgroundColor = whiteNelpyColor
 		backView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
 		
 		//CellContainer (hackForSpacing)
