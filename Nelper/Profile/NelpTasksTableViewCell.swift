@@ -31,16 +31,16 @@ class NelpTasksTableViewCell: UITableViewCell {
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
 		backView.backgroundColor = navBarColor
-		backView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+		backView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
 		
 		//CellContainer (hackForSpacing)
-		let cellView = UIView();
+		let cellView = UIView()
 		cellView.backgroundColor = whiteNelpyColor
 		backView.addSubview(cellView)
 		cellView.backgroundColor = whiteNelpyColor
 		cellView.layer.cornerRadius = 6
 		cellView.layer.borderWidth = 2
-		cellView.layer.borderColor = blackNelpyColor.CGColor
+		cellView.layer.borderColor = grayDetails.CGColor
 		cellView.layer.masksToBounds = true
 		cellView.clipsToBounds = true
 		cellView.snp_makeConstraints { (make) -> Void in

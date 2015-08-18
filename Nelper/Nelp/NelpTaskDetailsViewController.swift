@@ -13,8 +13,8 @@ import iCarousel
 
 class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCarouselDelegate{
 	
-	@IBOutlet weak var navBar: UIView!
-	@IBOutlet weak var backButton: UIButton!
+
+	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var container: UIView!
 	
 	@IBOutlet weak var carousel: iCarousel!
@@ -56,9 +56,10 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	func adjustUI(){
 		self.navBar.backgroundColor = navBarColor
 		self.container.backgroundColor = whiteNelpyColor
-		self.backButton.setTitle("Back", forState: UIControlState.Normal)
-		self.backButton.setTitleColor(orangeTextColor, forState: UIControlState.Normal)
-		self.backButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kButtonFontSize)
+		
+		let backBtn = UIButton()
+		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.backButton = backBtn
 		
 		self.titleLabel.text = self.task.title
 		self.titleLabel.textColor = blackNelpyColor
@@ -158,8 +159,11 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		}
 	}
 	
-	@IBAction func backButtonTapped(sender: AnyObject) {
-		self.dismissViewControllerAnimated(false, completion: nil)
+	//Actions
+	
+	func backButtonTapped(sender: UIButton) {
+		self.dismissViewControllerAnimated(true, completion: nil)
+		view.endEditing(true) // dissmiss keyboard without delay
 	}
 	
 	//Utilities
