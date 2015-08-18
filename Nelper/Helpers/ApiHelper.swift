@@ -202,7 +202,11 @@ class ApiHelper {
 			parseTask["location"] = location
 		}
 		parseTask["city"] = task.city
-		parseTask["pictures"] = task.pictures
+		if task.pictures == nil {
+			parseTask["pictures"] = []
+		} else {
+			parseTask["pictures"] = task.pictures
+		}
 		
 		let acl = PFACL(user: user)
 		acl.setPublicReadAccess(true)

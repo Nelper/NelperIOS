@@ -32,7 +32,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
-		backView.backgroundColor = whiteNelpyColor
+		backView.backgroundColor = navBarColor
 		backView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
 		
 		//CellContainer (hackForSpacing)
@@ -41,8 +41,8 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		backView.addSubview(cellView)
 		cellView.backgroundColor = whiteNelpyColor
 		cellView.layer.cornerRadius = 6
-		cellView.layer.borderWidth = 2
-		cellView.layer.borderColor = grayDetails.CGColor
+		cellView.layer.borderWidth = 1
+		cellView.layer.borderColor = blackNelpyColor.CGColor
 		cellView.layer.masksToBounds = true
 		cellView.clipsToBounds = true
 		cellView.snp_makeConstraints { (make) -> Void in
