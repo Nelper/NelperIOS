@@ -91,6 +91,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         self.container.layer.insertSublayer(gradient, atIndex: 0)
         
         self.nelperLabel.textColor = whiteNelpyColor
+				self.nelperLabel.text = "Nelper"
         self.nelperLabel.font = UIFont(name: "ABeeZee-Regular", size: kLoginScreenFontSize)
         
         self.emailField.layer.cornerRadius = 3
