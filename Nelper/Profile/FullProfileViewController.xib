@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="containerView" destination="bRT-YB-eLx" id="eos-EH-za7"/>
                 <outlet property="navBar" destination="wtc-15-BoF" id="KaO-jV-tKk"/>
+                <outlet property="view" destination="iN0-l3-epB" id="bd4-Sf-97Z"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -15,16 +16,16 @@
             <rect key="frame" x="0.0" y="-1" width="350" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bRT-YB-eLx">
-                    <rect key="frame" x="0.0" y="64" width="350" height="536"/>
-                    <color key="backgroundColor" red="1" green="0.0" blue="0.1107546368" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wtc-15-BoF" userLabel="navBar">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wtc-15-BoF" userLabel="navBar" customClass="NavBar" customModule="Nelper" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="350" height="64"/>
                     <color key="backgroundColor" red="1" green="0.80969880760000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="64" id="aNx-Fb-NbQ"/>
                     </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bRT-YB-eLx">
+                    <rect key="frame" x="0.0" y="64" width="350" height="536"/>
+                    <color key="backgroundColor" red="1" green="0.0" blue="0.1107546368" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

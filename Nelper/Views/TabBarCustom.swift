@@ -31,6 +31,7 @@ class TabBarCustom: UITabBar {
 		}
 	container.backgroundColor = tabBarColor
 	self.tintColor = orangeTextColor
+	self.translucent = false
 		
 		var nelpVC = NelpViewController()
 		var nelpVCItem = UITabBarItem(title: "Nelp", image: UIImage(named: "nelp_dark"), selectedImage: UIImage(named: "nelp_dark"))
