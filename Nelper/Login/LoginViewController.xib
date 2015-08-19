@@ -16,9 +16,10 @@
                 <outlet property="container" destination="TKU-TZ-o8K" id="bCz-FK-jRu"/>
                 <outlet property="emailField" destination="KS4-Vi-Gs6" id="M5H-gm-MjQ"/>
                 <outlet property="facebookLoginButton" destination="rDS-17-Et8" id="nYd-aB-Sai"/>
+                <outlet property="forgotPass" destination="ClD-Qc-My6" id="064-6c-SHp"/>
                 <outlet property="loginButton" destination="e9R-jC-9o7" id="TfU-9P-nlX"/>
                 <outlet property="logoImage" destination="Ylw-qr-aN9" id="KcT-SM-uP4"/>
-                <outlet property="nelperLabel" destination="YHb-Mv-yuy" id="EMS-l6-hMl"/>
+                <outlet property="nelperLabel" destination="YHb-Mv-yuy" id="2xy-xI-saz"/>
                 <outlet property="passwordField" destination="dTl-Je-k71" id="WUl-7d-kRK"/>
                 <outlet property="skipButton" destination="H2X-yK-TkJ" id="OKj-7G-4wh"/>
                 <outlet property="view" destination="iN0-l3-epB" id="0Qp-Q5-02s"/>

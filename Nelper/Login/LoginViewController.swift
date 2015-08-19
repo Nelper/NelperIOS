@@ -14,12 +14,12 @@ protocol LoginViewControllerDelegate {
     func onLogin() -> Void
 }
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var logoImage: UIImageView!
-    
-    @IBOutlet weak var nelperLabel: UILabel!
-    
+
+	@IBOutlet weak var nelperLabel: UILabel!
+	
     @IBOutlet weak var facebookLoginButton: UIButton!
     
     @IBOutlet weak var skipButton: UIButton!
@@ -31,14 +31,14 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     
     @IBOutlet weak var loginButton: UIButton!
-    
-    @IBOutlet weak var forgotPass: UIButton!
-    
+
+	@IBOutlet weak var forgotPass: UIButton!
+		
     let permissions = ["public_profile"]
     
     var delegate: LoginViewControllerDelegate?
-    
-    
+	
+	var tap: UITapGestureRecognizer?
     
     //Initialization
     
@@ -48,20 +48,41 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.adjustUI()
+		
+		self.logoImage.alpha = 0
+		self.nelperLabel.alpha = 0
+		self.emailField.alpha = 0
+		self.passwordField.alpha = 0
+		self.loginButton.alpha = 0
+		self.facebookLoginButton.alpha = 0
+		self.skipButton.alpha = 0
+		self.forgotPass.alpha = 0
+		
+		self.adjustUI()
+		
+		// checks for tap (keyboard dismiss)
+		
+		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		self.tap = tap
+		container.addGestureRecognizer(tap)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
+	
+	// keyboard dismiss on screen touch
+	
+	func DismissKeyboard() {
+		view.endEditing(true)
+	}
+	
     //UI
     
     func adjustUI(){
-        
-        self.logoImage.image = UIImage(named: "logo_beige_nobackground_v2")
+		
+		self.logoImage.image = UIImage(named: "logo_beige_nobackground_v2")
         self.logoImage.contentMode = UIViewContentMode.ScaleAspectFill
         
         var gradient: CAGradientLayer = CAGradientLayer()
@@ -110,11 +131,52 @@ class LoginViewController: UIViewController {
         self.skipButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kButtonFontSize)
         self.skipButton.layer.borderColor = UIColor.blackColor().CGColor
         self.skipButton.layer.borderWidth = 2
-        
+		
+		self.forgotPass.setTitle("I forgot my password", forState: UIControlState.Normal)
+
     }
-    
+	
+	// Elements animation (fade in)
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		UIView.animateWithDuration(0.8, animations: {
+			self.logoImage.alpha = 1
+		})
+		
+		UIView.animateWithDuration(1, animations: {
+			self.nelperLabel.alpha = 1
+		})
+		
+		UIView.animateWithDuration(1.2, animations: {
+			self.emailField.alpha = 1
+		})
+		
+		UIView.animateWithDuration(1.4, animations: {
+			self.passwordField.alpha = 1
+		})
+		
+		UIView.animateWithDuration(1.6, animations: {
+			self.loginButton.alpha = 1
+		})
+		
+		UIView.animateWithDuration(1.8, animations: {
+			self.facebookLoginButton.alpha = 1
+		})
+		
+		UIView.animateWithDuration(2, animations: {
+			self.skipButton.alpha = 1
+		})
+		
+		UIView.animateWithDuration(2.2, animations: {
+			self.forgotPass.alpha = 1
+		})
+		
+	}
+	
     //IBActions
-    
+	
     @IBAction func facebookLogin(sender: UIButton) {
         PFFacebookUtils.logInInBackgroundWithReadPermissions(self.permissions) { (user: PFUser?, error: NSError?) -> Void in
             if error != nil {
