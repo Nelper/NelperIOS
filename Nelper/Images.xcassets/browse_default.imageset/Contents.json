@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "browse@1x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "browse@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "nelpcenter_orange.png"
+      "filename" : "browse@3x.png"
     }
   ],
   "info" : {
