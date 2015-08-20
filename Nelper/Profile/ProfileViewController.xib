@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F25a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7706"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="Nelper" customModuleProvider="target">
             <connections>
                 <outlet property="containerView" destination="gIK-z9-u8s" id="6Z2-Mc-syQ"/>
-                <outlet property="findNelpTabBarImage" destination="d4w-ny-nth" id="lxQ-O9-8bZ"/>
                 <outlet property="navBar" destination="ToR-Oc-Whs" id="Jhc-O6-QSZ"/>
-                <outlet property="nelpTabBarImage" destination="kM8-kM-7yW" id="XP0-kG-6vb"/>
-                <outlet property="profileTabBarImage" destination="Umc-at-kOL" id="goM-Lg-F4i"/>
-                <outlet property="tabBarView" destination="hcB-ub-1p0" id="Wkp-gx-pDh"/>
+                <outlet property="tabBarView" destination="hcB-ub-1p0" id="z83-xk-4Mk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -33,71 +30,9 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcB-ub-1p0" userLabel="TabBar">
                     <rect key="frame" x="0.0" y="509" width="344" height="45"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d4w-ny-nth">
-                            <rect key="frame" x="157" y="8" width="30" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="30" id="Bbk-Wx-65f"/>
-                                <constraint firstAttribute="width" constant="30" id="yhe-QL-KJb"/>
-                            </constraints>
-                            <state key="normal">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="findNelpTabBarButtonTapped:" destination="-1" eventType="touchUpInside" id="3IJ-he-wh2"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Umc-at-kOL">
-                            <rect key="frame" x="272" y="8" width="30" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="3b3-wQ-y0L"/>
-                                <constraint firstAttribute="width" constant="30" id="dmO-df-eZJ"/>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="qst-hY-GNZ"/>
-                                <constraint firstAttribute="height" constant="30" id="wsv-jc-dWb"/>
-                            </constraints>
-                            <state key="normal">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="3b3-wQ-y0L"/>
-                                    <exclude reference="qst-hY-GNZ"/>
-                                </mask>
-                            </variation>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kM8-kM-7yW">
-                            <rect key="frame" x="42" y="8" width="30" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="30" id="IpQ-5N-DFd"/>
-                                <constraint firstAttribute="height" constant="30" id="LFS-70-hyO"/>
-                                <constraint firstAttribute="width" constant="30" id="SRn-Xj-9kp"/>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="gxe-LE-VZp"/>
-                            </constraints>
-                            <state key="normal">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="IpQ-5N-DFd"/>
-                                    <exclude reference="gxe-LE-VZp"/>
-                                </mask>
-                            </variation>
-                            <connections>
-                                <action selector="nelpTabBarButtonTapped:" destination="-1" eventType="touchUpInside" id="g9w-Em-c4M"/>
-                            </connections>
-                        </button>
-                    </subviews>
                     <color key="backgroundColor" red="1" green="0.80969880760000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="Umc-at-kOL" firstAttribute="top" secondItem="hcB-ub-1p0" secondAttribute="top" constant="8" id="1Di-8o-Fuo"/>
-                        <constraint firstAttribute="bottom" secondItem="Umc-at-kOL" secondAttribute="bottom" constant="7" id="5Br-8G-h0n"/>
-                        <constraint firstItem="kM8-kM-7yW" firstAttribute="top" secondItem="hcB-ub-1p0" secondAttribute="top" constant="8" id="K0P-Ry-Esl"/>
-                        <constraint firstAttribute="bottom" secondItem="kM8-kM-7yW" secondAttribute="bottom" constant="7" id="QZg-e7-WTA"/>
-                        <constraint firstItem="d4w-ny-nth" firstAttribute="leading" secondItem="kM8-kM-7yW" secondAttribute="trailing" constant="85" id="dli-DZ-xDM"/>
-                        <constraint firstAttribute="centerX" secondItem="d4w-ny-nth" secondAttribute="centerX" id="gSw-qk-PzL"/>
-                        <constraint firstItem="Umc-at-kOL" firstAttribute="leading" secondItem="d4w-ny-nth" secondAttribute="trailing" constant="85" id="jcw-aH-EYF"/>
                         <constraint firstAttribute="height" constant="45" id="r73-yK-j3q"/>
-                        <constraint firstAttribute="centerY" secondItem="d4w-ny-nth" secondAttribute="centerY" constant="-0.5" id="yT0-k2-jtF"/>
                     </constraints>
                 </view>
             </subviews>

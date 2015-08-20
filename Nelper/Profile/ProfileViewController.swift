@@ -12,11 +12,8 @@ import Alamofire
 class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
 	
 	@IBOutlet weak var navBar: UIView!
-	@IBOutlet weak var tabBarView: UIView!
-	@IBOutlet weak var nelpTabBarImage: UIButton!
-	@IBOutlet weak var findNelpTabBarImage: UIButton!
-	@IBOutlet weak var profileTabBarImage: UIButton!
 	@IBOutlet weak var containerView: UIView!
+	@IBOutlet weak var tabBarView: UIView!
 	
 	var profilePicture:UIImageView!
 	var segmentControl:UISegmentedControl!
@@ -123,6 +120,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		//Profile Button
 		var profileButton = UIButton()
 		profileView.addSubview(profileButton)
+		profileButton.addTarget(self, action: "profileButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		profileButton.setTitle("MY PROFILE", forState: UIControlState.Normal)
 		profileButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kProfileButtonSize)
 		profileButton.titleLabel?.textColor = whiteNelpyColor
@@ -361,6 +359,11 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	}
 	
 	//ACTIONS
+	
+	func profileButtonTapped(sender:UIButton){
+		var nextVC = FullProfileViewController()
+		self.presentViewController(nextVC, animated: true, completion: nil)
+	}
 	
 	func segmentTouched(sender:UISegmentedControl) {
 		if sender.selectedSegmentIndex == 0 {
