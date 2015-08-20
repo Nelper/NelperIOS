@@ -10,54 +10,39 @@ import Foundation
 import UIKit
 import SnapKit
 
-class TabBarCustom: UITabBar {
+class TabBarCustom: UITabBarController {
+	
+	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+		self.createView()
+	}
 	
 	required init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		createView()
-	}
-	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		createView()
+		self.createView()
 	}
 	
 	func createView(){
 		
-	var container = UIView()
-	self.addSubview(container)
-	container.snp_makeConstraints { (make) -> Void in
-		make.edges.equalTo(self)
-		}
-	container.backgroundColor = tabBarColor
-	self.tintColor = orangeTextColor
-		
-		var nelpVC = NelpViewController()
-		var nelpVCItem = UITabBarItem(title: "Nelp", image: UIImage(named: "nelp_dark"), selectedImage: UIImage(named: "nelp_dark"))
+		var browseVC = NelpViewController()
+		var browseVCItem = UITabBarItem(title: "Browse tasks", image: UIImage(named: "browse_default"), selectedImage: UIImage(named: "browse_default"))
+		browseVCItem.setTitlePositionAdjustment(UIOffsetMake(0, -2))
+		browseVC.tabBarItem = browseVCItem
 		
 		var nelpCenterVC = ProfileViewController()
-		var nelpCenterVCItem = UITabBarItem(title: "Nelp Center", image: UIImage(named: "nelpcenter_dark"), selectedImage: UIImage(named: "nelpcenter_dark"))
+		var nelpCenterVCItem = UITabBarItem(title: "Nelp Center", image: UIImage(named: "nelpcenter_default"), selectedImage: UIImage(named: "nelpcenter_default"))
+		nelpCenterVCItem.setTitlePositionAdjustment(UIOffsetMake(0, -2))
+		nelpCenterVC.tabBarItem = nelpCenterVCItem
 		
-		var findNelpVC = NelpTaskCreateViewController()
-		var findNelpVCItem = UITabBarItem(title: "Find Nelp", image: UIImage(named: "find_nelp_dark"), selectedImage: UIImage(named: "search_orange"))
-		var controllersArray = [nelpVC, nelpCenterVC, findNelpVC]
+		var postVC = NelpTaskCreateViewController()
+		var postVCItem = UITabBarItem(title: "Post a task", image: UIImage(named: "post_default"), selectedImage: UIImage(named: "post_default"))
+		postVCItem.setTitlePositionAdjustment(UIOffsetMake(0, -2))
+		postVC.tabBarItem = postVCItem
 		
-		var tabs = UITabBarController()
-		tabs.viewControllers = controllersArray
-		self.window!.rootViewController = tabs
+		var controllersArray = [browseVC, nelpCenterVC, postVC]
 		
-		
-		
-		
-		
-		
+		self.viewControllers = controllersArray
+		self.tabBar.tintColor = orangeTextColor
 		
 	}
-	
-
-	
-	
-	
-
-
 }

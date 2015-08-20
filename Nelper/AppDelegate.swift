@@ -70,24 +70,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	
 	// Init the main app tab view controller
 	func initAppViewController() -> UITabBarController {
-		var nelpVC = NelpViewController()
-		var nelpVCItem = UITabBarItem(title: "Nelp", image: UIImage(named: "nelp_dark"), selectedImage: UIImage(named: "nelp_dark"))
-		nelpVC.tabBarItem = nelpVCItem
 		
-		var nelpCenterVC = ProfileViewController()
-		var nelpCenterVCItem = UITabBarItem(title: "Nelp Center", image: UIImage(named: "nelpcenter_dark"), selectedImage: UIImage(named: "nelpcenter_dark"))
-		nelpCenterVC.tabBarItem = nelpCenterVCItem
+		let tabBar = TabBarCustom(nibName: nil, bundle: nil)
 		
-		var findNelpVC = NelpTaskCreateViewController()
-		var findNelpVCItem = UITabBarItem(title: "Find Nelp", image: UIImage(named: "find_nelp_dark"), selectedImage: UIImage(named: "search_orange"))
-		var controllersArray = [nelpVC, nelpCenterVC, findNelpVC]
-		findNelpVC.tabBarItem = findNelpVCItem
-		
-		var tabs = UITabBarController()
-		tabs.viewControllers = controllersArray
-		tabs.tabBar.tintColor = orangeTextColor
-		
-		return tabs
+		return tabBar
 	}
 	
 	func application(application: UIApplication,

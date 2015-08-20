@@ -113,10 +113,10 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		profileIcon.contentMode = UIViewContentMode.ScaleAspectFit
 		
 		profileIcon.snp_makeConstraints { (make) -> Void in
-			make.width.equalTo(40)
-			make.height.equalTo(40)
+			make.width.equalTo(30)
+			make.height.equalTo(30)
 			make.left.equalTo(name.snp_left)
-			make.top.equalTo(name.snp_bottom).offset(15)
+			make.top.equalTo(name.snp_bottom).offset(13)
 		}
 		profileIcon.image = UIImage(named:"profile_white.png")
 		
@@ -134,8 +134,8 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		profileButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(profileIcon.snp_centerY)
 			make.left.equalTo(profileIcon.snp_right).offset(10)
-			make.height.equalTo(35)
-			make.width.equalTo(135)
+			make.height.equalTo(30)
+			make.width.equalTo(130)
 		}
 		
 		//Logout Button
@@ -158,12 +158,12 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		//Segment Control Container + SegmentControl
 		var segmentContainer = UIView()
 		containerView.addSubview(segmentContainer)
-		segmentContainer.backgroundColor = whiteGrayColor
+		segmentContainer.backgroundColor = whiteNelpyColor
 		segmentContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileView.snp_bottom)
 			make.left.equalTo(containerView.snp_left)
 			make.right.equalTo(containerView.snp_right)
-			make.height.equalTo(profileView.snp_height).dividedBy(2.5)
+			make.height.equalTo(profileView.snp_height).dividedBy(2.75)
 		}
 		
 		var segmentControl = UISegmentedControl()
@@ -175,7 +175,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		segmentControl.tintColor = orangeTextColor
 		segmentControl.snp_makeConstraints { (make) -> Void in
 			make.center.equalTo(segmentContainer.snp_center)
-			make.width.equalTo(segmentContainer.snp_width).dividedBy(1.1)
+			make.width.equalTo(segmentContainer.snp_width).offset(-20)
 		}
 		
 		//Tasks container
@@ -192,6 +192,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	
 	
 	func createMyTasksTableView(){
+		
 		//My Tasks
 		
 		let tableView = UITableView()
@@ -241,12 +242,10 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	
 	func adjustUI() {
 		self.tabBarView.backgroundColor = tabBarColor
-		self.nelpTabBarImage.setBackgroundImage(UIImage(named: "help_dark.png"), forState: UIControlState.Normal)
-		self.findNelpTabBarImage.setBackgroundImage(UIImage(named: "search_dark.png"), forState: UIControlState.Normal)
-		self.profileTabBarImage.setBackgroundImage(UIImage(named: "profile_orange.png"), forState: UIControlState.Normal)
 	}
 	
 	//	DATA
+	
 	func getFacebookInfos() {
 		
 		var fbProfilePicture = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
@@ -338,7 +337,6 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		
 	}
 	
 	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -355,9 +353,9 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if (tableView == myTasksTableView){
-			return 220
+			return 230
 		}else if (tableView == myApplicationsTableView) {
-			return 300
+			return 295
 		}
 		return 0
 	}
