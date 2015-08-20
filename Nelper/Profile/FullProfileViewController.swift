@@ -10,13 +10,20 @@ import Foundation
 import Alamofire
 import SnapKit
 
-class FullProfileViewController: UIViewController{
+class FullProfileViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource{
 	
 	@IBOutlet weak var navBar: UIView!
-	@IBOutlet weak var containerView: UIView!
-	
+	@IBOutlet weak var backGroundView: UIView!
+	@IBOutlet weak var contentView: UIView!
+
+
 	
 	var profilePicture:UIImageView!
+	var aboutTextView: UITextView!
+	var skillsTableView:UITableView!
+	var arrayOfSkills = [String]()
+	var newSkillToAdd:String!
+	var skillsLabel:UILabel!
 	
 	//	INITIALIZER
 	convenience init() {
@@ -39,18 +46,20 @@ class FullProfileViewController: UIViewController{
 	//View Creation
 	
 	func createView(){
-		self.containerView.backgroundColor = whiteNelpyColor
+		
+		self.contentView.backgroundColor = whiteNelpyColor
+		self.backGroundView.backgroundColor = whiteNelpyColor
 		
 		//Profile Header
 		var profileView = UIView()
-		self.containerView.addSubview(profileView)
+		self.contentView.addSubview(profileView)
 		profileView.backgroundColor = blueGrayColor
 		
 		profileView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.navBar.snp_bottom)
-			make.left.equalTo(self.containerView.snp_left)
-			make.right.equalTo(self.containerView.snp_right)
-			make.height.equalTo(self.containerView).dividedBy(4.5)
+			make.top.equalTo(self.contentView.snp_top)
+			make.left.equalTo(self.contentView.snp_left)
+			make.right.equalTo(self.contentView.snp_right)
+			make.height.equalTo(self.contentView).dividedBy(6)
 		}
 		
 		//Profile Picture
@@ -156,7 +165,7 @@ class FullProfileViewController: UIViewController{
 		//About
 		
 		var aboutLabel = UILabel()
-		self.containerView.addSubview(aboutLabel)
+		self.contentView.addSubview(aboutLabel)
 		aboutLabel.textColor = blackNelpyColor
 		aboutLabel.text = "About"
 		aboutLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
@@ -165,7 +174,120 @@ class FullProfileViewController: UIViewController{
 			make.top.equalTo(profileView.snp_bottom).offset(20)
 		}
 		
+		var aboutTextView = UITextView()
+		self.contentView.addSubview(aboutTextView)
+		self.aboutTextView = aboutTextView
+		aboutTextView.backgroundColor = whiteNelpyColor
+		aboutTextView.textColor = UIColor.yellowColor()
+		aboutTextView.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		aboutTextView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(aboutLabel.snp_bottom).offset(6)
+			make.left.equalTo(aboutLabel.snp_left).offset(4)
+			make.width.equalTo(contentView.snp_width).dividedBy(1.2)
+			make.height.equalTo(contentView.snp_height).dividedBy(10)
+		}
+		
+		var editAboutIcon = UIButton()
+		self.contentView.addSubview(editAboutIcon)
+		editAboutIcon.setBackgroundImage(UIImage(named: "pen.png"), forState: UIControlState.Normal)
+		editAboutIcon.addTarget(self, action: "editAbout:", forControlEvents: UIControlEvents.TouchUpInside)
+		editAboutIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		editAboutIcon.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(aboutTextView.snp_right)
+			make.top.equalTo(aboutTextView.snp_top)
+			make.width.equalTo(30)
+			make.height.equalTo(30)
+		}
+		
+		//My skills
+		
+		var skillsLabel = UILabel()
+		self.skillsLabel = skillsLabel
+		self.contentView.addSubview(skillsLabel)
+		skillsLabel.textColor = blackNelpyColor
+		skillsLabel.text = "Skills"
+		skillsLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		skillsLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(aboutTextView.snp_bottom).offset(10)
+			make.left.equalTo(aboutLabel)
+		}
+		
+		var skillsTableView = UITableView()
+		skillsTableView.scrollEnabled = false
+		self.skillsTableView = skillsTableView
+		self.contentView.addSubview(skillsTableView)
+		skillsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+		skillsTableView.delegate = self
+		skillsTableView.dataSource = self
+		skillsTableView.registerClass(skillsTableViewCell.classForCoder(), forCellReuseIdentifier: skillsTableViewCell.reuseIdentifier)
+		skillsTableView.backgroundColor = whiteNelpyColor
+		skillsTableView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
+			make.left.equalTo(aboutTextView.snp_left)
+			make.right.equalTo(contentView.snp_right).offset(-19)
+			make.height.equalTo(60)
+		}
+		
+		var addSkillButton = UIButton()
+		self.contentView.addSubview(addSkillButton)
+		addSkillButton.addTarget(self, action: "addSkillButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		addSkillButton.setTitle("Add new skill", forState: UIControlState.Normal)
+		addSkillButton.setTitleColor(orangeTextColor, forState: UIControlState.Normal)
+		addSkillButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		addSkillButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(skillsTableView.snp_bottom).offset(4).priorityLow()
+			make.left.equalTo(skillsTableView.snp_left)
+		}
+		
 	}
+	
+	//TableView Delegate Method
+	
+	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		if(tableView == skillsTableView){
+			println("\(self.arrayOfSkills.count)")
+			skillsTableView.snp_remakeConstraints { (make) -> Void in
+				make.top.equalTo(skillsLabel.snp_bottom).offset(6)
+				make.left.equalTo(aboutTextView.snp_left)
+				make.right.equalTo(contentView.snp_right).offset(-19)
+				make.height.equalTo(60).multipliedBy(self.arrayOfSkills.count).priorityHigh()
+			}
+			return arrayOfSkills.count
+			
+		}
+		return 0
+	}
+	
+	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		if(tableView == skillsTableView) {
+			if (!self.arrayOfSkills.isEmpty) {
+				let skillCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
+				
+				let skill = self.arrayOfSkills[indexPath.item]
+				
+				skillCell.sendSkillName(skill)
+				
+				return skillCell
+			}
+		}
+		
+		var cell: UITableViewCell!
+		return cell
+
+	}
+	
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		
+	}
+	
+	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+
+	}
+	
+	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+		return 60
+	}
+	
 	
 	//	DATA
 	func getFacebookInfos() {
@@ -179,12 +301,44 @@ class FullProfileViewController: UIViewController{
 	}
 	
 	func loadData() {
+		//get user skills etc...
+		
+		var testSkill = "English"
+		var testArrayOfSkills = [testSkill]
+		self.arrayOfSkills = testArrayOfSkills
 		
 	}
 	
 	func setInformations() {
 		
 		
+	}
+	
+	//Actions
+	
+	func editAbout(sender:UIButton){
+		
+	}
+	
+	func addSkillButtonTapped(sender:UIButton){
+		var popup = UIAlertController(title: "Add a Skill", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
+			self.newSkillToAdd = textField.text!
+			}
+		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
+			self.arrayOfSkills.append(self.newSkillToAdd)
+			self.refreshTableView()
+		}))
+		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+			self.dismissViewControllerAnimated(true, completion: nil)
+		}))
+		
+		presentViewController(popup, animated: true, completion: nil)
+		
+	}
+	
+	func refreshTableView(){
+		self.skillsTableView.reloadData()
 	}
 	
 }

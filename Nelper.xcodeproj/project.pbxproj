@@ -67,6 +67,7 @@
 		F7DEC2111B69CB6C00B03747 /* NelpViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */; };
 		F7EE46B81B6D219C005ECFCA /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = F7EE46B71B6D219C005ECFCA /* Podfile */; };
 		F7EE46D71B6D32D4005ECFCA /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */; };
+		F7F0D23D1B857AA40018FC0B /* skillsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +170,7 @@
 		F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpViewCell.swift; sourceTree = "<group>"; };
 		F7EE46B71B6D219C005ECFCA /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Pods/GoogleMaps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
+		F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = skillsTableViewCell.swift; path = Nelper/Profile/skillsTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		F81CFE6A4154D592275ED493 /* Pods-Nelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -368,6 +370,7 @@
 				F775C0CA1B81160400F7525B /* NelpApplicationsTableViewCell.swift */,
 				F775C0D01B82D1FB00F7525B /* FullProfileViewController.swift */,
 				F775C0D21B82D22200F7525B /* FullProfileViewController.xib */,
+				F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */,
 				F775C0CC1B82CC9B00F7525B /* MyTaskDetailsViewController.swift */,
 				F775C0CE1B82CEAF00F7525B /* MyTaskDetailsViewController.xib */,
 			);
@@ -586,6 +589,7 @@
 				F73A45C61B741F4000FD8C79 /* NelpTaskDetailsViewController.swift in Sources */,
 				19761A1B1B687858001600E1 /* BaseTask.swift in Sources */,
 				F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */,
+				F7F0D23D1B857AA40018FC0B /* skillsTableViewCell.swift in Sources */,
 				19761A171B6850C4001600E1 /* BaseModel.swift in Sources */,
 				F72F27DC1B53224100CD3B0B /* NelpTaskApplication.swift in Sources */,
 				19761A191B6877FB001600E1 /* FindNelpTask.swift in Sources */,
