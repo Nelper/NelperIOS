@@ -35,18 +35,17 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		//CellContainer (hackForSpacing)
 		let cellView = UIView()
-		cellView.backgroundColor = whiteNelpyColor
+		cellView.backgroundColor = whiteGrayColor
 		backView.addSubview(cellView)
-		cellView.backgroundColor = whiteNelpyColor
 		cellView.layer.cornerRadius = 6
 		cellView.layer.borderWidth = 1
 		cellView.layer.borderColor = blackNelpyColor.CGColor
 		cellView.layer.masksToBounds = true
 		cellView.clipsToBounds = true
 		cellView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(backView).offset(4)
-			make.left.equalTo(backView).offset(4)
-			make.right.equalTo(backView).offset(-4)
+			make.top.equalTo(backView).offset(12)
+			make.left.equalTo(backView).offset(12)
+			make.right.equalTo(backView).offset(-12)
 			make.bottom.equalTo(backView).offset(-4)
 		}
 		
@@ -55,14 +54,17 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.topContainer = topContainer
 		self.topContainer.clipsToBounds = true
 		self.topContainer.layer.masksToBounds = true
+		self.topContainer.clipsToBounds = true
 		cellView.addSubview(topContainer)
 		topContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cellView.snp_top)
 			make.right.equalTo(cellView.snp_right)
 			make.left.equalTo(cellView.snp_left)
-			make.height.equalTo(cellView.snp_height).dividedBy(2.8)
+			make.height.equalTo(85)
 		}
 		topContainer.backgroundColor = blueGrayColor		//Category Icon + label
+		
+
 		
 		var blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
 		var blurView = UIVisualEffectView(effect: blur)
@@ -100,10 +102,9 @@ class NelpTasksTableViewCell: UITableViewCell {
 		notificationIcon.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_top).offset(4)
 			make.left.equalTo(topContainer.snp_left).offset(4)
-			make.height.equalTo(40)
-			make.width.equalTo(40)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
 		}
-		
 		
 		//Title Label
 		var titleLabel = UILabel()
@@ -117,13 +118,12 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.height.equalTo(40)
 		}
 		
-		
 		//Number of applicants
 		var numberOfApplicantsIcon = UIImageView()
 		numberOfApplicantsIcon.image = UIImage(named: "applicants.png")
 		cellView.addSubview(numberOfApplicantsIcon)
 		numberOfApplicantsIcon.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(titleLabel.snp_bottom)
+			make.top.equalTo(titleLabel.snp_bottom).offset(4)
 			make.left.equalTo(cellView.snp_left).offset(20)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
