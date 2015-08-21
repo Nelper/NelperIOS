@@ -12,18 +12,20 @@ import SnapKit
 
 class FullProfileViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource{
 	
-	@IBOutlet weak var navBar: UIView!
+	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var backGroundView: UIView!
 	@IBOutlet weak var contentView: UIView!
-
+	@IBOutlet weak var scrollView: UIScrollView!
 
 	
 	var profilePicture:UIImageView!
 	var aboutTextView: UITextView!
 	var skillsTableView:UITableView!
 	var arrayOfSkills = [String]()
-	var newSkillToAdd:String!
 	var skillsLabel:UILabel!
+	var educationLabel:UILabel!
+	var arrayOfEducation = [String]()
+	var educationTableView:UITableView!
 	
 	//	INITIALIZER
 	convenience init() {
@@ -32,10 +34,12 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		self.automaticallyAdjustsScrollViewInsets = false
 		loadData()
 		createView()
 		setInformations()
 		getFacebookInfos()
+		self.refreshTableView("yo")
 
 	}
 	
@@ -44,8 +48,13 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	}
 	
 	//View Creation
-	
 	func createView(){
+		
+		self.scrollView.backgroundColor = UIColor.redColor()
+		
+		let backBtn = UIButton()
+		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.backButton = backBtn
 		
 		self.contentView.backgroundColor = whiteNelpyColor
 		self.backGroundView.backgroundColor = whiteNelpyColor
@@ -59,7 +68,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(self.contentView.snp_top)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
-			make.height.equalTo(self.contentView).dividedBy(6)
+			make.height.equalTo(self.contentView).dividedBy(4)
 		}
 		
 		//Profile Picture
@@ -239,21 +248,55 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.left.equalTo(skillsTableView.snp_left)
 		}
 		
+		//Education
+		
+		var educationLabel = UILabel()
+		self.educationLabel = educationLabel
+		self.contentView.addSubview(educationLabel)
+		educationLabel.textColor = blackNelpyColor
+		educationLabel.text = "Education"
+		educationLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		educationLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(addSkillButton.snp_bottom).offset(10)
+			make.left.equalTo(aboutLabel)
+		}
+		
+		var educationTableView = UITableView()
+		educationTableView.scrollEnabled = false
+		self.educationTableView = educationTableView
+		self.contentView.addSubview(educationTableView)
+		educationTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+		educationTableView.delegate = self
+		educationTableView.dataSource = self
+		educationTableView.registerClass(skillsTableViewCell.classForCoder(), forCellReuseIdentifier: skillsTableViewCell.reuseIdentifier)
+		educationTableView.backgroundColor = whiteNelpyColor
+		educationTableView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(educationLabel.snp_bottom).offset(6)
+			make.left.equalTo(aboutTextView.snp_left)
+			make.right.equalTo(contentView.snp_right).offset(-19)
+			make.height.equalTo(60)
+		}
+		
+		var addEducationButton = UIButton()
+		self.contentView.addSubview(addEducationButton)
+		addEducationButton.addTarget(self, action: "addEducationButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		addEducationButton.setTitle("Add Education", forState: UIControlState.Normal)
+		addEducationButton.setTitleColor(orangeTextColor, forState: UIControlState.Normal)
+		addEducationButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		addEducationButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(educationTableView.snp_bottom).offset(4)
+			make.left.equalTo(skillsTableView.snp_left)
+		}
+		
 	}
 	
 	//TableView Delegate Method
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if(tableView == skillsTableView){
-			println("\(self.arrayOfSkills.count)")
-			skillsTableView.snp_remakeConstraints { (make) -> Void in
-				make.top.equalTo(skillsLabel.snp_bottom).offset(6)
-				make.left.equalTo(aboutTextView.snp_left)
-				make.right.equalTo(contentView.snp_right).offset(-19)
-				make.height.equalTo(60).multipliedBy(self.arrayOfSkills.count).priorityHigh()
-			}
 			return arrayOfSkills.count
-			
+		}else if tableView == educationTableView{
+			return arrayOfEducation.count
 		}
 		return 0
 	}
@@ -269,8 +312,17 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 				
 				return skillCell
 			}
+		}else if tableView == educationTableView{
+			if (!self.arrayOfEducation.isEmpty) {
+				let educationCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
+				
+				let education = self.arrayOfEducation[indexPath.item]
+				
+				educationCell.sendSkillName(education)
+				
+				return educationCell
+			}
 		}
-		
 		var cell: UITableViewCell!
 		return cell
 
@@ -280,13 +332,10 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 	}
 	
-	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-
-	}
-	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return 60
 	}
+	
 	
 	
 	//	DATA
@@ -307,6 +356,10 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		var testArrayOfSkills = [testSkill]
 		self.arrayOfSkills = testArrayOfSkills
 		
+		var testEducation = "Computer Science, UQAM"
+		var testEducationArray = [testEducation]
+		self.arrayOfEducation = testEducationArray
+		
 	}
 	
 	func setInformations() {
@@ -316,29 +369,80 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	//Actions
 	
+	func backButtonTapped(sender:UIButton){
+		self.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
 	func editAbout(sender:UIButton){
 		
 	}
 	
+	//Add Skill Button
 	func addSkillButtonTapped(sender:UIButton){
 		var popup = UIAlertController(title: "Add a Skill", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
-			self.newSkillToAdd = textField.text!
-			}
+	}
+		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
-			self.arrayOfSkills.append(self.newSkillToAdd)
-			self.refreshTableView()
+			var skillTitle: String = (popup.textFields?.first as! UITextField).text
+			self.arrayOfSkills.append(skillTitle)
+			self.refreshTableView("skill")
 		}))
+		
 		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
-			self.dismissViewControllerAnimated(true, completion: nil)
 		}))
 		
 		presentViewController(popup, animated: true, completion: nil)
-		
 	}
 	
-	func refreshTableView(){
+	
+	//Add Education Button
+	func addEducationButtonTapped(sender:UIButton){
+		var popup = UIAlertController(title: "Add Education", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
+		}
+		
+		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
+			var educationTitle: String = (popup.textFields?.first as! UITextField).text
+			self.arrayOfEducation.append(educationTitle)
+			self.refreshTableView("education")
+		}))
+		
+		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+		}))
+		
+		presentViewController(popup, animated: true, completion: nil)
+	}
+	
+	//Refresh table view and re-draw frame
+	func refreshTableView(category:String){
+		if(category == "skill"){
+		var numberToMultiplyBy:Int = self.arrayOfSkills.count * 60
+		println(numberToMultiplyBy)
+		
+		skillsTableView.snp_remakeConstraints { (make) -> Void in
+			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
+			make.left.equalTo(aboutTextView.snp_left)
+			make.right.equalTo(contentView.snp_right).offset(-19)
+			make.height.equalTo(numberToMultiplyBy)
+		}
+		}else if (category == "education"){
+			var numberToMultiplyBy:Int = self.arrayOfEducation.count * 60
+			
+			educationTableView.snp_remakeConstraints { (make) -> Void in
+				make.top.equalTo(educationLabel.snp_bottom).offset(6)
+				make.left.equalTo(aboutTextView.snp_left)
+				make.right.equalTo(contentView.snp_right).offset(-19)
+				make.height.equalTo(numberToMultiplyBy)
+			}
+		}
+		var numberToAdd:Int = 600 + ((self.arrayOfSkills.count + self.arrayOfEducation.count) * 60)
+		var newFrame = CGRectMake(self.contentView.frame.origin.x, self.contentView.frame.origin.y, self.contentView.frame.width, CGFloat(numberToAdd))
+		self.contentView.frame = newFrame
+		println("\(contentView.frame.size)")
+		self.scrollView.contentSize = self.contentView.frame.size
 		self.skillsTableView.reloadData()
+		self.educationTableView.reloadData()
 	}
 	
 }

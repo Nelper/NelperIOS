@@ -37,18 +37,6 @@ class skillsTableViewCell: UITableViewCell {
 			make.width.equalTo(20)
 		}
 		
-		//Skill name
-		var skillName = UILabel()
-		self.skillName = skillName
-		backView.addSubview(skillName)
-		skillName.textColor = blackNelpyColor
-		skillName.font = UIFont(name: "ABeeZee-Regular", size: kCellSubtitleFontSize)
-		skillName.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(checkImage.snp_right).offset(4)
-			make.centerY.equalTo(backView.snp_centerY)
-			make.width.equalTo(backView.snp_width).dividedBy(2)
-		}
-		
 		//Trash Can Icon
 		var trashImage = UIImageView()
 		trashImage.image = UIImage(named: "trashcan")
@@ -59,6 +47,19 @@ class skillsTableViewCell: UITableViewCell {
 			make.centerY.equalTo(backView.snp_centerY)
 			make.width.equalTo(20)
 			make.height.equalTo(20)
+		}
+		
+		//Skill name
+		var skillName = UILabel()
+		self.skillName = skillName
+		backView.addSubview(skillName)
+		skillName.textColor = blackNelpyColor
+		skillName.font = UIFont(name: "ABeeZee-Regular", size: kCellSubtitleFontSize)
+		skillName.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(checkImage.snp_right).offset(4)
+			make.centerY.equalTo(backView.snp_centerY)
+			make.right.equalTo(trashImage.snp_right).offset(-4)
+			
 		}
 	
 		self.addSubview(backView)
