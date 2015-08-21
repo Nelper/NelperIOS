@@ -14,7 +14,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var backGroundView: UIView!
-	@IBOutlet weak var contentView: UIView!
 	@IBOutlet weak var scrollView: UIScrollView!
 
 	
@@ -26,6 +25,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	var educationLabel:UILabel!
 	var arrayOfEducation = [String]()
 	var educationTableView:UITableView!
+    var contentView: UIView!
 	
 	//	INITIALIZER
 	convenience init() {
@@ -39,22 +39,31 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		createView()
 		setInformations()
 		getFacebookInfos()
-		self.refreshTableView("yo")
-
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-		loadData()
+        loadData()
 	}
 	
 	//View Creation
 	func createView(){
 		
-		self.scrollView.backgroundColor = UIColor.redColor()
-		
+		self.scrollView.backgroundColor = whiteNelpyColor
 		let backBtn = UIButton()
 		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.backButton = backBtn
+        
+        var contentView = UIView()
+        self.contentView = contentView
+        self.scrollView.addSubview(contentView)
+        contentView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(self.scrollView.snp_top)
+            make.left.equalTo(self.scrollView.snp_left)
+            make.right.equalTo(self.scrollView.snp_right)
+//            make.bottom.equalTo(self.scrollView.snp_bottom)
+            make.height.greaterThanOrEqualTo(self.backGroundView.snp_height)
+            make.width.equalTo(self.backGroundView.snp_width)
+        }
 		
 		self.contentView.backgroundColor = whiteNelpyColor
 		self.backGroundView.backgroundColor = whiteNelpyColor
@@ -68,7 +77,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(self.contentView.snp_top)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
-			make.height.equalTo(self.contentView).dividedBy(4)
+			make.height.equalTo(150)
 		}
 		
 		//Profile Picture
@@ -193,7 +202,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(aboutLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left).offset(4)
 			make.width.equalTo(contentView.snp_width).dividedBy(1.2)
-			make.height.equalTo(contentView.snp_height).dividedBy(10)
+			make.height.equalTo(80)
 		}
 		
 		var editAboutIcon = UIButton()
@@ -234,7 +243,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
 			make.right.equalTo(contentView.snp_right).offset(-19)
-			make.height.equalTo(60)
+            make.height.equalTo(self.arrayOfSkills.count * 60)
 		}
 		
 		var addSkillButton = UIButton()
@@ -244,8 +253,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		addSkillButton.setTitleColor(orangeTextColor, forState: UIControlState.Normal)
 		addSkillButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
 		addSkillButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(skillsTableView.snp_bottom).offset(4).priorityLow()
-			make.left.equalTo(skillsTableView.snp_left)
+			make.top.equalTo(skillsTableView.snp_bottom).offset(4)
+            make.left.equalTo(skillsTableView.snp_left)
 		}
 		
 		//Education
@@ -274,7 +283,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(educationLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
 			make.right.equalTo(contentView.snp_right).offset(-19)
-			make.height.equalTo(60)
+            make.height.equalTo(self.arrayOfEducation.count * 60)
+
 		}
 		
 		var addEducationButton = UIButton()
@@ -286,6 +296,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		addEducationButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationTableView.snp_bottom).offset(4)
 			make.left.equalTo(skillsTableView.snp_left)
+            make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
 		}
 		
 	}
@@ -339,11 +350,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	//View Delegate
 	
 	override func viewDidLayoutSubviews() {
-	 var numberToAdd:Int = 600 + ((self.arrayOfSkills.count + self.arrayOfEducation.count) * 60)
-		var newFrame = CGRectMake(self.contentView.frame.origin.x, self.contentView.frame.origin.y, self.contentView.frame.width, CGFloat(numberToAdd))
-		self.contentView.frame = newFrame
-		println("\(contentView.frame.size)")
-}
+        super.viewDidLayoutSubviews()
+        self.scrollView.contentSize = self.contentView.frame.size
+    }
 	
 	
 	
@@ -390,19 +399,23 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	func addSkillButtonTapped(sender:UIButton){
 		var popup = UIAlertController(title: "Add a Skill", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
-	}
+        }
 		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
 			var skillTitle: String = (popup.textFields?.first as! UITextField).text
 			self.arrayOfSkills.append(skillTitle)
-			self.refreshTableView("skill")
+            self.skillsTableView.snp_updateConstraints { (make) -> Void in
+                make.height.equalTo(self.arrayOfSkills.count * 60)
+            }
+            self.addScrollContent()
+			self.refreshTableView()
 		}))
 		
 		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
 		}))
 		
 		presentViewController(popup, animated: true, completion: nil)
-	}
+    }
 	
 	
 	//Add Education Button
@@ -414,7 +427,11 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
 			var educationTitle: String = (popup.textFields?.first as! UITextField).text
 			self.arrayOfEducation.append(educationTitle)
-			self.refreshTableView("education")
+            self.educationTableView.snp_updateConstraints { (make) -> Void in
+                make.height.equalTo(self.arrayOfEducation.count * 60)
+            }
+            self.addScrollContent()
+			self.refreshTableView()
 		}))
 		
 		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
@@ -424,34 +441,18 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	}
 	
 	//Refresh table view and re-draw frame
-	func refreshTableView(category:String){
-		if(category == "skill"){
-		var numberToMultiplyBy:Int = self.arrayOfSkills.count * 60
-		println(numberToMultiplyBy)
-		
-		skillsTableView.snp_remakeConstraints { (make) -> Void in
-			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
-			make.left.equalTo(aboutTextView.snp_left)
-			make.right.equalTo(contentView.snp_right).offset(-19)
-			make.height.equalTo(numberToMultiplyBy)
-		}
-		}else if (category == "education"){
-			var numberToMultiplyBy:Int = self.arrayOfEducation.count * 60
-			
-			educationTableView.snp_remakeConstraints { (make) -> Void in
-				make.top.equalTo(educationLabel.snp_bottom).offset(6)
-				make.left.equalTo(aboutTextView.snp_left)
-				make.right.equalTo(contentView.snp_right).offset(-19)
-				make.height.equalTo(numberToMultiplyBy)
-			}
-		}
-		var numberToAdd:Int = 600 + ((self.arrayOfSkills.count + self.arrayOfEducation.count) * 60)
-		var newFrame = CGRectMake(self.contentView.frame.origin.x, self.contentView.frame.origin.y, self.contentView.frame.width, CGFloat(numberToAdd))
-		self.contentView.frame = newFrame
-		println("\(contentView.frame.size)")
-		self.scrollView.contentSize = self.contentView.frame.size
+    func refreshTableView(){
 		self.skillsTableView.reloadData()
 		self.educationTableView.reloadData()
 	}
+    
+    func addScrollContent(){
+        self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + 60)
+        self.contentView.snp_updateConstraints { (make) -> Void in
+            make.height.equalTo(self.scrollView.contentSize.height)
+        }
+        println("\(self.scrollView.contentSize.height)")
+        
+    }
 	
 }
