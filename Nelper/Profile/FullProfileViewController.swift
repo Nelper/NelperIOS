@@ -336,6 +336,15 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		return 60
 	}
 	
+	//View Delegate
+	
+	override func viewDidLayoutSubviews() {
+	 var numberToAdd:Int = 600 + ((self.arrayOfSkills.count + self.arrayOfEducation.count) * 60)
+		var newFrame = CGRectMake(self.contentView.frame.origin.x, self.contentView.frame.origin.y, self.contentView.frame.width, CGFloat(numberToAdd))
+		self.contentView.frame = newFrame
+		println("\(contentView.frame.size)")
+}
+	
 	
 	
 	//	DATA
