@@ -1,7 +1,4 @@
 
-[submodule "Alamofire"]
-	path = Alamofire
-	url = https://github.com/Alamofire/Alamofire.git
 [submodule "SnapKit"]
 	path = SnapKit
 	url = https://github.com/SnapKit/SnapKit.git
