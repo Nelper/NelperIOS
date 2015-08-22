@@ -25,8 +25,12 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	var educationLabel:UILabel!
 	var arrayOfEducation = [String]()
 	var educationTableView:UITableView!
-    var contentView: UIView!
-	
+	var contentView: UIView!
+	var experienceLabel:UILabel!
+	var experienceTableView:UITableView!
+	var arrayOfExperience = [String]()
+	var tap: UITapGestureRecognizer?
+
 	//	INITIALIZER
 	convenience init() {
 		self.init(nibName: "FullProfileViewController", bundle: nil)
@@ -39,10 +43,15 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		createView()
 		setInformations()
 		getFacebookInfos()
+		// looks for tap (keyboard dismiss)
+		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		self.tap = tap
+		contentView.addGestureRecognizer(tap)
+		
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-        loadData()
+        self.addScrollContent()
 	}
 	
 	//View Creation
@@ -173,11 +182,13 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		var numberOfTasksLabel = UILabel()
 		profileView.addSubview(numberOfTasksLabel)
+		numberOfTasksLabel.text = "12 tasks completed"
 		numberOfTasksLabel.textColor = navBarColor
 		numberOfTasksLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
 		numberOfTasksLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(name.snp_left)
-			make.top.equalTo(firstStar.snp_bottom).offset(4)
+			make.top.equalTo(firstStar.snp_bottom).offset(8)
+			make.right.equalTo(self.contentView.snp_right).offset(-4)
 		}
 		
 		//About
@@ -195,8 +206,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		var aboutTextView = UITextView()
 		self.contentView.addSubview(aboutTextView)
 		self.aboutTextView = aboutTextView
+		aboutTextView.textColor = blackNelpyColor
 		aboutTextView.backgroundColor = whiteNelpyColor
-		aboutTextView.textColor = UIColor.yellowColor()
+		aboutTextView.editable = false
 		aboutTextView.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
 		aboutTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutLabel.snp_bottom).offset(6)
@@ -211,7 +223,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		editAboutIcon.addTarget(self, action: "editAbout:", forControlEvents: UIControlEvents.TouchUpInside)
 		editAboutIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		editAboutIcon.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(aboutTextView.snp_right)
+			make.right.equalTo(self.contentView.snp_right).offset(-19)
 			make.top.equalTo(aboutTextView.snp_top)
 			make.width.equalTo(30)
 			make.height.equalTo(30)
@@ -243,18 +255,18 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
 			make.right.equalTo(contentView.snp_right).offset(-19)
-            make.height.equalTo(self.arrayOfSkills.count * 60)
+			make.height.equalTo(self.arrayOfSkills.count * 60)
 		}
 		
 		var addSkillButton = UIButton()
 		self.contentView.addSubview(addSkillButton)
 		addSkillButton.addTarget(self, action: "addSkillButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		addSkillButton.setTitle("Add new skill", forState: UIControlState.Normal)
-		addSkillButton.setTitleColor(orangeTextColor, forState: UIControlState.Normal)
-		addSkillButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		addSkillButton.setBackgroundImage(UIImage(named: "plus_orange"), forState: UIControlState.Normal)
 		addSkillButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(skillsTableView.snp_bottom).offset(4)
-            make.left.equalTo(skillsTableView.snp_left)
+			make.centerY.equalTo(skillsLabel.snp_centerY)
+            make.right.equalTo(contentView.snp_right).offset(-20)
+						make.height.equalTo(30)
+						make.width.equalTo(30)
 		}
 		
 		//Education
@@ -266,7 +278,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		educationLabel.text = "Education"
 		educationLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
 		educationLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(addSkillButton.snp_bottom).offset(10)
+			make.top.equalTo(skillsTableView.snp_bottom).offset(10)
 			make.left.equalTo(aboutLabel)
 		}
 		
@@ -290,15 +302,63 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		var addEducationButton = UIButton()
 		self.contentView.addSubview(addEducationButton)
 		addEducationButton.addTarget(self, action: "addEducationButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		addEducationButton.setTitle("Add Education", forState: UIControlState.Normal)
-		addEducationButton.setTitleColor(orangeTextColor, forState: UIControlState.Normal)
-		addEducationButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		addEducationButton.setBackgroundImage(UIImage(named:"plus_orange"), forState: UIControlState.Normal)
 		addEducationButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(educationTableView.snp_bottom).offset(4)
-			make.left.equalTo(skillsTableView.snp_left)
-            make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
+			make.centerY.equalTo(educationLabel.snp_centerY)
+			make.right.equalTo(contentView.snp_right).offset(-20)
+			make.width.equalTo(30)
+			make.height.equalTo(30)
 		}
 		
+		//Work Experience
+		
+		var experienceLabel = UILabel()
+		self.experienceLabel = experienceLabel
+		self.contentView.addSubview(experienceLabel)
+		experienceLabel.textColor = blackNelpyColor
+		experienceLabel.text = "Work experience"
+		experienceLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		experienceLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(educationTableView.snp_bottom).offset(10)
+			make.left.equalTo(aboutLabel)
+		}
+		
+		var experienceTableView = UITableView()
+		experienceTableView.scrollEnabled = false
+		self.experienceTableView = experienceTableView
+		self.contentView.addSubview(experienceTableView)
+		experienceTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+		experienceTableView.delegate = self
+		experienceTableView.dataSource = self
+		experienceTableView.registerClass(skillsTableViewCell.classForCoder(), forCellReuseIdentifier: skillsTableViewCell.reuseIdentifier)
+		experienceTableView.backgroundColor = whiteNelpyColor
+		experienceTableView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(experienceLabel.snp_bottom).offset(6)
+			make.left.equalTo(aboutTextView.snp_left)
+			make.right.equalTo(contentView.snp_right).offset(-19)
+			make.height.equalTo(self.arrayOfExperience.count * 60)
+			
+		}
+		
+		var addExperienceButton = UIButton()
+		self.contentView.addSubview(addExperienceButton)
+		addExperienceButton.addTarget(self, action: "addExperienceButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		addExperienceButton.setBackgroundImage(UIImage(named:"plus_orange"), forState: UIControlState.Normal)
+		addExperienceButton.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(experienceLabel.snp_centerY)
+			make.right.equalTo(contentView.snp_right).offset(-20)
+			make.width.equalTo(30)
+			make.height.equalTo(30)
+		}
+		
+	}
+	
+	//keyboard dismiss on screen touch
+	func DismissKeyboard() {
+		view.endEditing(true)
+		if(self.aboutTextView.editable == true){
+			self.aboutTextView.editable = false
+		}
 	}
 	
 	//TableView Delegate Method
@@ -308,6 +368,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			return arrayOfSkills.count
 		}else if tableView == educationTableView{
 			return arrayOfEducation.count
+		}else if tableView == experienceTableView{
+			return arrayOfExperience.count
 		}
 		return 0
 	}
@@ -333,6 +395,11 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 				
 				return educationCell
 			}
+		}else if tableView == experienceTableView{
+			let experienceCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
+			let experience = self.arrayOfExperience[indexPath.item]
+			experienceCell.sendSkillName(experience)
+			return experienceCell
 		}
 		var cell: UITableViewCell!
 		return cell
@@ -378,6 +445,10 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		var testEducationArray = [testEducation]
 		self.arrayOfEducation = testEducationArray
 		
+		var testExperience = "Worked at the Apple Store"
+		var testExperienceArray = [testExperience]
+		self.arrayOfExperience = testExperienceArray
+		
 	}
 	
 	func setInformations() {
@@ -392,6 +463,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	}
 	
 	func editAbout(sender:UIButton){
+		self.aboutTextView.editable = true
+		self.aboutTextView.becomeFirstResponder()
 		
 	}
 	
@@ -440,19 +513,41 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		presentViewController(popup, animated: true, completion: nil)
 	}
 	
+	//Add Experience Button
+	func addExperienceButtonTapped(sender:UIButton){
+		var popup = UIAlertController(title: "Add Experience", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
+		}
+		
+		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
+			var experienceTitle: String = (popup.textFields?.first as! UITextField).text
+			self.arrayOfExperience.append(experienceTitle)
+			self.experienceTableView.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(self.arrayOfExperience.count * 60)
+			}
+			self.addScrollContent()
+			self.refreshTableView()
+		}))
+		
+		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+		}))
+		
+		presentViewController(popup, animated: true, completion: nil)
+	}
+	
 	//Refresh table view and re-draw frame
     func refreshTableView(){
 		self.skillsTableView.reloadData()
 		self.educationTableView.reloadData()
+		self.experienceTableView.reloadData()
 	}
     
-    func addScrollContent(){
+	
+		func addScrollContent(){
         self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + 60)
         self.contentView.snp_updateConstraints { (make) -> Void in
             make.height.equalTo(self.scrollView.contentSize.height)
         }
         println("\(self.scrollView.contentSize.height)")
-        
-    }
-	
+			}
 }
