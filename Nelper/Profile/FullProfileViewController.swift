@@ -214,7 +214,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(aboutLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left).offset(4)
 			make.width.equalTo(contentView.snp_width).dividedBy(1.2)
-			make.height.equalTo(80)
+			make.height.equalTo(90)
 		}
 		
 		var editAboutIcon = UIButton()
