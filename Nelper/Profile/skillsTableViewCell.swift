@@ -10,10 +10,17 @@ import Foundation
 import UIKit
 import Alamofire
 
+protocol skillsTableViewCellDelegate{
+	func didTapDeleteButton(index:Int, type:String)
+}
+
 class skillsTableViewCell: UITableViewCell {
 	
 	var skillName:UILabel!
-	
+	var trashImage:UIButton!
+	var index:Int!
+	var delegate: skillsTableViewCellDelegate?
+	var cellType: String!
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,9 +45,11 @@ class skillsTableViewCell: UITableViewCell {
 		}
 		
 		//Trash Can Icon
-		var trashImage = UIImageView()
-		trashImage.image = UIImage(named: "trashcan")
+		var trashImage = UIButton()
+		self.trashImage = trashImage
+		trashImage.setBackgroundImage(UIImage(named: "trashcan"), forState: UIControlState.Normal)
 		backView.addSubview(trashImage)
+		trashImage.addTarget(self, action: "didTapDelete:", forControlEvents: UIControlEvents.TouchUpInside)
 		trashImage.contentMode = UIViewContentMode.ScaleAspectFill
 		trashImage.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(backView.snp_right).offset(-4)
@@ -81,10 +90,22 @@ class skillsTableViewCell: UITableViewCell {
 		}
 	}
 	
+	func didTapDelete(sender:UIButton){
+		self.delegate!.didTapDeleteButton(self.index, type: self.cellType)
+	}
+	
 	//Sets the property
 	
 	func sendSkillName(skillName: String){
 			self.skillName.text = skillName
+	}
+	
+	func sendCellType(category:String){
+		self.cellType = category
+	}
+	
+	func setIndex(index:Int){
+		self.index = index
 	}
 
 }

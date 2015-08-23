@@ -40,6 +40,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		self.segmentControl.selectedSegmentIndex = 0
 		getFacebookInfos()
 		adjustUI()
+
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -88,14 +89,14 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		}
 		
 		self.profilePicture.layer.cornerRadius = 84 / 2
-		self.profilePicture.layer.borderColor = grayDetails.CGColor
-		self.profilePicture.layer.borderWidth = 2
+//		self.profilePicture.layer.borderColor = grayDetails.CGColor
+//		self.profilePicture.layer.borderWidth = 2
 		
 		//Name
 		var name = UILabel()
 		profileView.addSubview(name)
 		name.numberOfLines = 0
-		name.textColor = whiteNelpyColor
+		name.textColor = blackNelpyColor
 		name.text = PFUser.currentUser()?.objectForKey("name") as? String
 		name.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
 		
@@ -115,18 +116,18 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 			make.left.equalTo(name.snp_left)
 			make.top.equalTo(name.snp_bottom).offset(13)
 		}
-		profileIcon.image = UIImage(named:"profile_white.png")
+		profileIcon.image = UIImage(named:"profile_dark.png")
 		
 		//Profile Button
 		var profileButton = UIButton()
 		profileView.addSubview(profileButton)
 		profileButton.addTarget(self, action: "profileButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		profileButton.setTitle("MY PROFILE", forState: UIControlState.Normal)
-		profileButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kProfileButtonSize)
-		profileButton.titleLabel?.textColor = whiteNelpyColor
+		profileButton.titleLabel!.font = UIFont(name: "ABeeZee-Regular", size: kProfileButtonSize)
+		profileButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
 		profileButton.backgroundColor = blueGrayColor
 		profileButton.layer.borderWidth = 2
-		profileButton.layer.borderColor = whiteNelpyColor.CGColor
+		profileButton.layer.borderColor = blackNelpyColor.CGColor
 		profileButton.layer.cornerRadius = 3
 		
 		profileButton.snp_makeConstraints { (make) -> Void in
@@ -141,7 +142,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		profileView.addSubview(logoutButton)
 		logoutButton.setTitle("Logout", forState: UIControlState.Normal)
 		logoutButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kLogoutButtonSize)
-		logoutButton.titleLabel?.textColor = whiteNelpyColor
+		logoutButton.titleLabel?.textColor = blackNelpyColor
 		logoutButton.backgroundColor = blueGrayColor
 		
 		logoutButton.addTarget(self, action: "logoutButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -195,6 +196,9 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		
 		let tableView = UITableView()
 		tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+		tableView.contentInset = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
+
+
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.registerClass(NelpTasksTableViewCell.classForCoder(), forCellReuseIdentifier: NelpTasksTableViewCell.reuseIdentifier)
@@ -254,14 +258,6 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		}
 	}
 	
-	func checkForEmptyTasks() {
-		if(nelpTasks.isEmpty) {
-			if(self.myTasksTableView != nil) {
-				self.myTasksTableView.removeFromSuperview()
-			}
-		}
-	}
-	
 	
 	func onPullToRefresh() {
 		loadData()
@@ -276,7 +272,6 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 				self.nelpTasks = nelpTasks!
 				self.refreshView?.endRefreshing()
 				self.myTasksTableView?.reloadData()
-				self.checkForEmptyTasks()
 			}
 		}
 		
@@ -344,7 +339,6 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 				ApiHelper.deleteTask(nelpTask)
 				self.nelpTasks.removeAtIndex(indexPath.row)
 				self.myTasksTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
-				self.checkForEmptyTasks()
 			}
 		}
 	}

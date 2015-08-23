@@ -13,6 +13,8 @@ private let kParseTaskApplication = "NelpTaskApplication"
 
 class ApiHelper {
 	
+	//Login with Email
+
 	static func loginWithEmail(email: String, password: String, block: (User?, NSError?) -> Void) {
 		PFUser.logInWithUsernameInBackground(email, password: password) { (user, error) -> Void in
 			if(error != nil) {
@@ -23,6 +25,8 @@ class ApiHelper {
 			block(User(parseUser: user!), nil)
 		}
 	}
+	
+	//Register with Email
 	
 	static func registerWithEmail(email: String, password: String, name: String, block: (User?, NSError?) -> Void) {
 		let user = PFUser()
@@ -42,6 +46,9 @@ class ApiHelper {
 			}
 		}
 	}
+	
+	
+	//Login using Facebook
 	
 	static func loginWithFacebook(block: (User?, NSError?) -> Void) {
 		PFFacebookUtils.logInInBackgroundWithReadPermissions(["public_profile"]) { (user: PFUser?, error: NSError?) -> Void in
@@ -65,10 +72,13 @@ class ApiHelper {
 		}
 	}
 	
+	//Logout
 	static func logout() {
 		PFUser.logOut()
 	}
 	
+	
+	//Get Facebook Informations
 	static func getUserInfoFromFacebookWithBlock(block: (AnyObject?, NSError?) -> Void) {
 		let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
 		request.startWithCompletionHandler { (conn:FBSDKGraphRequestConnection!, user:AnyObject!, error:NSError!) -> Void in
@@ -80,12 +90,14 @@ class ApiHelper {
 		}
 	}
 	
+	//Sets the user location
 	static func setUserLocation(loc: GeoPoint) {
 		let user = PFUser.currentUser()!
 		user["location"] = PFGeoPoint(latitude: loc.latitude, longitude: loc.longitude)
 		user.save()
 	}
 	
+	//List all the Nelp Tasks
 	static func listNelpTasksWithBlock(block: ([NelpTask]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		taskQuery.includeKey("user")
@@ -126,6 +138,7 @@ class ApiHelper {
 		}
 	}
 	
+	//List the user's tasks
 	static func listMyNelpTasksWithBlock(block: ([FindNelpTask]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		taskQuery.whereKey("user", equalTo: PFUser.currentUser()!)
@@ -165,6 +178,7 @@ class ApiHelper {
 		
 	}
 	
+	//List the user's application
 	static func listMyNelpApplicationsWithBlock(block: ([NelpTaskApplication]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTaskApplication)
 		taskQuery.includeKey("task.user")
@@ -185,6 +199,8 @@ class ApiHelper {
 		}
 	}
 	
+	
+	//Create a new task
 	static func addTask(task: FindNelpTask, block: (FindNelpTask?, NSError?) -> Void) {
 		let user = PFUser.currentUser()!
 		
@@ -227,12 +243,15 @@ class ApiHelper {
 		}
 	}
 	
+	//Delete the task
 	static func deleteTask(task: FindNelpTask) {
 		let parseTask = PFObject(className: kParseTask)
 		parseTask.objectId = task.objectId
 		parseTask["state"] = FindNelpTask.State.Deleted.rawValue
 		parseTask.saveEventually()
 	}
+	
+	//Apply for a task
 	
 	static func applyForTask(task: NelpTask) {
 		let parseTask = PFObject(withoutDataWithClassName: kParseTask, objectId: task.objectId)
@@ -247,11 +266,15 @@ class ApiHelper {
 		}
 	}
 	
+	//Cancel application on a task
+	
 	static func cancelApplyForTask(task: NelpTask) {
 		let parseApplication = PFObject(withoutDataWithClassName:kParseTaskApplication, objectId:task.application!.objectId)
 		parseApplication["state"] = NelpTaskApplication.State.Canceled.rawValue
 		parseApplication.saveEventually()
 	}
+	
+	//Accept applicant
 	
 	static func acceptApplication(application: NelpTaskApplication) {
 		let parseApplication = PFObject(withoutDataWithClassName: kParseTaskApplication, objectId: application.objectId)
@@ -263,12 +286,15 @@ class ApiHelper {
 		PFObject.saveAllInBackground([parseApplication, parseTask])
 	}
 	
+	//Deny an applicant
+	
 	static func denyApplication(application: NelpTaskApplication) {
 		let parseApplication = PFObject(withoutDataWithClassName: kParseTaskApplication, objectId: application.objectId)
 		parseApplication.setValue(NelpTaskApplication.State.Denied.rawValue, forKey: "state:")
 		parseApplication.saveEventually()
 	}
 	
+	//Set task as view
 	static func setTaskViewed(task: FindNelpTask) {
 		let parseApplications = task.applications
 			.filter({ $0.isNew })

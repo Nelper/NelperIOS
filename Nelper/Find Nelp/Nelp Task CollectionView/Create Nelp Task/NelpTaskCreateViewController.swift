@@ -22,6 +22,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	var gardeningButton: UIButton!
 	var businessButton: UIButton!
 	var cleaningButton: UIButton!
+	var otherButton: UIButton!
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var formView: UIView!
@@ -65,7 +66,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		selectCategoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kFormViewLabelFontSize)
 		
 		selectCategoryLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.navBar.snp_bottom).offset(24)
+			make.top.equalTo(self.navBar.snp_bottom).offset(10)
 			make.left.equalTo(self.formView.snp_left).offset(20)
 		}
 		
@@ -74,7 +75,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.technologyButton = technologyButton
 		self.formView.addSubview(self.technologyButton)
 		self.technologyButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(selectCategoryLabel.snp_bottom).offset(30)
+			make.top.equalTo(selectCategoryLabel.snp_bottom).offset(20)
 			make.centerX.equalTo(self.formView.snp_centerX).offset(-85)
 			make.width.equalTo(65)
 			make.height.equalTo(65)
@@ -106,7 +107,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		multimediaButton.layer.cornerRadius = multimediaButton.frame.size.width / 2;
 		
 		multimediaButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(selectCategoryLabel.snp_bottom).offset(30)
+			make.top.equalTo(selectCategoryLabel.snp_bottom).offset(20)
 			make.centerX.equalTo(self.formView.snp_centerX).offset(85)
 			make.width.equalTo(65)
 			make.height.equalTo(65)
@@ -133,7 +134,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		handyworkButton.setBackgroundImage(UIImage(named: "handywork"), forState: UIControlState.Normal)
 		handyworkButton.layer.cornerRadius = multimediaButton.frame.size.width / 2;
 		handyworkButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(technologyLabel.snp_bottom).offset(30)
+			make.top.equalTo(technologyLabel.snp_bottom).offset(20)
 			make.centerX.equalTo(self.formView.snp_centerX).offset(-85)
 			make.width.equalTo(65)
 			make.height.equalTo(65)
@@ -160,7 +161,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		gardeningButton.setBackgroundImage(UIImage(named: "gardening"), forState: UIControlState.Normal)
 		gardeningButton.layer.cornerRadius = multimediaButton.frame.size.width / 2;
 		gardeningButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(multimediaLabel.snp_bottom).offset(30)
+			make.top.equalTo(multimediaLabel.snp_bottom).offset(20)
 			make.centerX.equalTo(self.formView.snp_centerX).offset(85)
 			make.width.equalTo(65)
 			make.height.equalTo(65)
@@ -187,7 +188,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		businessButton.setBackgroundImage(UIImage(named: "business"), forState: UIControlState.Normal)
 		businessButton.layer.cornerRadius = multimediaButton.frame.size.width / 2;
 		businessButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(handyworkLabel.snp_bottom).offset(30)
+			make.top.equalTo(handyworkLabel.snp_bottom).offset(20)
 			make.centerX.equalTo(self.formView.snp_centerX).offset(-85)
 			make.width.equalTo(65)
 			make.height.equalTo(65)
@@ -214,7 +215,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		cleaningButton.setBackgroundImage(UIImage(named: "housecleaning"), forState: UIControlState.Normal)
 		cleaningButton.layer.cornerRadius = multimediaButton.frame.size.width / 2;
 		cleaningButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(gardeningLabel.snp_bottom).offset(30)
+			make.top.equalTo(gardeningLabel.snp_bottom).offset(20)
 			make.centerX.equalTo(self.formView.snp_centerX).offset(85)
 			make.width.equalTo(65)
 			make.height.equalTo(65)
@@ -231,6 +232,33 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		cleaningLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cleaningButton.snp_bottom).offset(6)
 			make.centerX.equalTo(cleaningButton.snp_centerX)
+		}
+		
+		//Other
+		var otherButton = UIButton()
+		self.otherButton = otherButton
+		self.otherButton.addTarget(self, action: "otherButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.formView.addSubview(otherButton)
+		otherButton.setBackgroundImage(UIImage(named: "other"), forState: UIControlState.Normal)
+		otherButton.layer.cornerRadius = multimediaButton.frame.size.width / 2;
+		otherButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(cleaningLabel.snp_bottom).offset(20)
+			make.centerX.equalTo(self.formView.snp_centerX)
+			make.width.equalTo(65)
+			make.height.equalTo(65)
+		}
+		
+		var otherLabel = UILabel()
+		self.formView.addSubview(otherLabel)
+		otherLabel.numberOfLines = 0
+		otherLabel.text = "Other"
+		otherLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		otherLabel.textAlignment = NSTextAlignment.Center
+		otherLabel.textColor = blackNelpyColor
+		
+		otherLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(otherButton.snp_bottom).offset(6)
+			make.centerX.equalTo(otherButton.snp_centerX)
 		}
 
 	}
@@ -273,6 +301,11 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	
 	func cleaningButtonTapped(sender:UIButton){
 		self.task.category = "housecleaning"
+		self.moveToNextView()
+	}
+	
+	func otherButtonTapped(sender:UIButton){
+		self.task.category = "other"
 		self.moveToNextView()
 	}
 

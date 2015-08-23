@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import SnapKit
 
-class FullProfileViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource{
+class FullProfileViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource, skillsTableViewCellDelegate{
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var backGroundView: UIView!
@@ -39,9 +39,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.automaticallyAdjustsScrollViewInsets = false
-		loadData()
 		createView()
-		setInformations()
+		loadData()
+		refreshTableView()
 		getFacebookInfos()
 		// looks for tap (keyboard dismiss)
 		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
@@ -51,7 +51,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-        self.addScrollContent()
+		drawTableViewsSize()
 	}
 	
 	//View Creation
@@ -86,7 +86,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(self.contentView.snp_top)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
-			make.height.equalTo(150)
+			make.height.equalTo(115)
 		}
 		
 		//Profile Picture
@@ -106,14 +106,14 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		self.profilePicture.layer.cornerRadius = 84 / 2
-		self.profilePicture.layer.borderColor = grayDetails.CGColor
-		self.profilePicture.layer.borderWidth = 2
+//		self.profilePicture.layer.borderColor = grayDetails.CGColor
+//		self.profilePicture.layer.borderWidth = 2
 		
 		//Name
 		var name = UILabel()
 		profileView.addSubview(name)
 		name.numberOfLines = 0
-		name.textColor = navBarColor
+		name.textColor = blackNelpyColor
 		name.text = PFUser.currentUser()?.objectForKey("name") as? String
 		name.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
 		
@@ -183,7 +183,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		var numberOfTasksLabel = UILabel()
 		profileView.addSubview(numberOfTasksLabel)
 		numberOfTasksLabel.text = "12 tasks completed"
-		numberOfTasksLabel.textColor = navBarColor
+		numberOfTasksLabel.textColor = blackNelpyColor
 		numberOfTasksLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
 		numberOfTasksLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(name.snp_left)
@@ -358,7 +358,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		view.endEditing(true)
 		if(self.aboutTextView.editable == true){
 			self.aboutTextView.editable = false
-		}
+			PFUser.currentUser()!["about"] = self.aboutTextView.text
+			}
 	}
 	
 	//TableView Delegate Method
@@ -380,8 +381,10 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 				let skillCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
 				
 				let skill = self.arrayOfSkills[indexPath.item]
-				
+				skillCell.delegate = self
+				skillCell.sendCellType("skills")
 				skillCell.sendSkillName(skill)
+				skillCell.setIndex(indexPath.item)
 				
 				return skillCell
 			}
@@ -390,15 +393,20 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 				let educationCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
 				
 				let education = self.arrayOfEducation[indexPath.item]
-				
+				educationCell.delegate = self
+				educationCell.sendCellType("education")
 				educationCell.sendSkillName(education)
+				educationCell.setIndex(indexPath.item)
 				
 				return educationCell
 			}
 		}else if tableView == experienceTableView{
 			let experienceCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
 			let experience = self.arrayOfExperience[indexPath.item]
+			experienceCell.delegate = self
+			experienceCell.sendCellType("experience")
 			experienceCell.sendSkillName(experience)
+			experienceCell.setIndex(indexPath.item)
 			return experienceCell
 		}
 		var cell: UITableViewCell!
@@ -436,23 +444,18 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	func loadData() {
 		//get user skills etc...
-		
-		var testSkill = "English"
-		var testArrayOfSkills = [testSkill]
-		self.arrayOfSkills = testArrayOfSkills
-		
-		var testEducation = "Computer Science, UQAM"
-		var testEducationArray = [testEducation]
-		self.arrayOfEducation = testEducationArray
-		
-		var testExperience = "Worked at the Apple Store"
-		var testExperienceArray = [testExperience]
-		self.arrayOfExperience = testExperienceArray
-		
-	}
-	
-	func setInformations() {
-		
+		if PFUser.currentUser()?.objectForKey("about") != nil{
+		self.aboutTextView.text = PFUser.currentUser()!["about"] as! String
+		}
+		if PFUser.currentUser()?.objectForKey("experience") != nil{
+		self.arrayOfExperience = PFUser.currentUser()!["experience"] as! [String]
+		}
+		if PFUser.currentUser()?.objectForKey("skills") != nil{
+			self.arrayOfSkills = PFUser.currentUser()!["skills"] as! [String]
+		}
+		if PFUser.currentUser()?.objectForKey("education") != nil{
+		self.arrayOfEducation = PFUser.currentUser()!["education"] as! [String]
+		} 
 		
 	}
 	
@@ -535,11 +538,38 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		presentViewController(popup, animated: true, completion: nil)
 	}
 	
+	//On first create view, sets the right size
+	
+	func drawTableViewsSize(){
+		self.experienceTableView.snp_updateConstraints { (make) -> Void in
+			make.height.equalTo(self.arrayOfExperience.count * 60)
+		}
+		
+		self.educationTableView.snp_updateConstraints { (make) -> Void in
+			make.height.equalTo(self.arrayOfEducation.count * 60)
+		}
+		
+		self.skillsTableView.snp_updateConstraints { (make) -> Void in
+			make.height.equalTo(self.arrayOfSkills.count * 60)
+		}
+		var numbersToMultiplyBy = self.arrayOfExperience.count + self.arrayOfEducation.count + self.arrayOfSkills.count
+		var numbersToAdd:CGFloat = CGFloat(numbersToMultiplyBy * 60)
+		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + numbersToAdd)
+		self.contentView.snp_updateConstraints { (make) -> Void in
+			make.height.equalTo(self.scrollView.contentSize.height)
+		}	}
+	
 	//Refresh table view and re-draw frame
     func refreshTableView(){
 		self.skillsTableView.reloadData()
 		self.educationTableView.reloadData()
 		self.experienceTableView.reloadData()
+			
+			
+		PFUser.currentUser()!["experience"] = self.arrayOfExperience
+		PFUser.currentUser()!["skills"] = self.arrayOfSkills
+		PFUser.currentUser()!["education"] = self.arrayOfEducation
+		PFUser.currentUser()!.saveInBackground()
 	}
     
 	
@@ -548,6 +578,39 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
         self.contentView.snp_updateConstraints { (make) -> Void in
             make.height.equalTo(self.scrollView.contentSize.height)
         }
-        println("\(self.scrollView.contentSize.height)")
 			}
+	
+	func removeScrollContent(){
+		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height - 60)
+		self.contentView.snp_updateConstraints { (make) -> Void in
+			make.height.equalTo(self.scrollView.contentSize.height)
+		}
+	}
+	
+	//cells Delegate methods
+	
+	func didTapDeleteButton(index: Int, type:String) {
+		if type == "skills"{
+			self.arrayOfSkills.removeAtIndex(index)
+			self.removeScrollContent()
+			self.skillsTableView.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(self.arrayOfSkills.count * 60)
+			}
+			self.refreshTableView()
+		}else if type == "education" {
+			self.arrayOfEducation.removeAtIndex(index)
+			self.removeScrollContent()
+			self.educationTableView.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(self.arrayOfEducation.count * 60)
+			}
+			self.refreshTableView()
+		}else if type == "experience"{
+			self.arrayOfExperience.removeAtIndex(index)
+			self.removeScrollContent()
+			self.experienceTableView.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(self.arrayOfExperience.count * 60)
+			}
+			self.refreshTableView()
+		}
+	}
 }
