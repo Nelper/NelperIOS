@@ -113,7 +113,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		var name = UILabel()
 		profileView.addSubview(name)
 		name.numberOfLines = 0
-		name.textColor = blackNelpyColor
+		name.textColor = whiteNelpyColor
 		name.text = PFUser.currentUser()?.objectForKey("name") as? String
 		name.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
 		
@@ -183,7 +183,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		var numberOfTasksLabel = UILabel()
 		profileView.addSubview(numberOfTasksLabel)
 		numberOfTasksLabel.text = "12 tasks completed"
-		numberOfTasksLabel.textColor = blackNelpyColor
+		numberOfTasksLabel.textColor = whiteNelpyColor
 		numberOfTasksLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
 		numberOfTasksLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(name.snp_left)

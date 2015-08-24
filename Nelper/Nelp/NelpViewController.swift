@@ -57,6 +57,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.initializeMapview()
 		self.createTaskTableView()
 		self.loadData()
+		self.extendedLayoutIncludesOpaqueBars = true
+
 		
 	}
 	
@@ -116,7 +118,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	//UI
 	
 	func adjustUI(){
-		
 		self.entireContainer.backgroundColor = blueGrayColor
 		self.container.backgroundColor = blueGrayColor
 		

@@ -23,7 +23,7 @@ class TabBarCustom: UITabBarController {
 	}
 	
 	func createView(){
-		
+		self.tabBar.translucent = false		
 		var browseVC = NelpViewController()
 		var browseVCItem = UITabBarItem(title: "Browse tasks", image: UIImage(named: "browse_default"), selectedImage: UIImage(named: "browse_default"))
 		browseVCItem.setTitlePositionAdjustment(UIOffsetMake(0, -2))

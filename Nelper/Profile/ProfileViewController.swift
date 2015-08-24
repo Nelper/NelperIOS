@@ -96,7 +96,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		var name = UILabel()
 		profileView.addSubview(name)
 		name.numberOfLines = 0
-		name.textColor = blackNelpyColor
+		name.textColor = whiteNelpyColor
 		name.text = PFUser.currentUser()?.objectForKey("name") as? String
 		name.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
 		
@@ -116,7 +116,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 			make.left.equalTo(name.snp_left)
 			make.top.equalTo(name.snp_bottom).offset(13)
 		}
-		profileIcon.image = UIImage(named:"profile_dark.png")
+		profileIcon.image = UIImage(named:"profile_white.png")
 		
 		//Profile Button
 		var profileButton = UIButton()
@@ -124,10 +124,10 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		profileButton.addTarget(self, action: "profileButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		profileButton.setTitle("MY PROFILE", forState: UIControlState.Normal)
 		profileButton.titleLabel!.font = UIFont(name: "ABeeZee-Regular", size: kProfileButtonSize)
-		profileButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
+		profileButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
 		profileButton.backgroundColor = blueGrayColor
 		profileButton.layer.borderWidth = 2
-		profileButton.layer.borderColor = blackNelpyColor.CGColor
+		profileButton.layer.borderColor = whiteNelpyColor.CGColor
 		profileButton.layer.cornerRadius = 3
 		
 		profileButton.snp_makeConstraints { (make) -> Void in
@@ -243,7 +243,8 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	//	UI
 	
 	func adjustUI() {
-		self.tabBarView.backgroundColor = tabBarColor
+		self.extendedLayoutIncludesOpaqueBars = true
+
 	}
 	
 	//	DATA

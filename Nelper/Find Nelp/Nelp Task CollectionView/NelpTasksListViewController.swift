@@ -40,7 +40,8 @@ UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate
 		self.adjustUI()
 		createTasksTableView()
 		loadData()
-		
+		self.extendedLayoutIncludesOpaqueBars = true
+
 	}
 	
 	
