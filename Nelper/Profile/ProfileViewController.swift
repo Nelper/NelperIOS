@@ -128,7 +128,6 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		profileButton.backgroundColor = blueGrayColor
 		profileButton.layer.borderWidth = 2
 		profileButton.layer.borderColor = whiteNelpyColor.CGColor
-		profileButton.layer.cornerRadius = 3
 		
 		profileButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(profileIcon.snp_centerY)
@@ -162,19 +161,26 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 			make.top.equalTo(profileView.snp_bottom)
 			make.left.equalTo(containerView.snp_left)
 			make.right.equalTo(containerView.snp_right)
-			make.height.equalTo(profileView.snp_height).dividedBy(2.75)
+			make.height.equalTo(profileView.snp_height).dividedBy(2.25)
 		}
 		
 		var segmentControl = UISegmentedControl()
 		self.segmentControl = segmentControl
+		self.segmentControl.layer.cornerRadius = 0
 		self.segmentControl.addTarget(self, action: "segmentTouched:", forControlEvents: UIControlEvents.ValueChanged)
 		segmentContainer.addSubview(segmentControl)
+		var attributes = NSDictionary(object: UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)!, forKey: NSFontAttributeName)
+		segmentControl.setTitleTextAttributes(attributes as [NSObject : AnyObject], forState: UIControlState.Normal)
 		segmentControl.insertSegmentWithTitle("My Tasks", atIndex: 0, animated: false)
 		segmentControl.insertSegmentWithTitle("My Applications", atIndex: 1, animated: false)
-		segmentControl.tintColor = orangeTextColor
+		
+		segmentControl.tintColor = blueGrayColor
 		segmentControl.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(segmentContainer.snp_top).offset(10)
 			make.center.equalTo(segmentContainer.snp_center)
-			make.width.equalTo(segmentContainer.snp_width).offset(-20)
+			make.left.equalTo(segmentContainer.snp_left).offset(12)
+			make.right.equalTo(segmentContainer.snp_right).offset(-12)
+
 		}
 		
 		//Tasks container
@@ -224,6 +230,9 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		tableViewApplications.dataSource = self
 		tableViewApplications.registerClass(NelpApplicationsTableViewCell.classForCoder(), forCellReuseIdentifier: NelpApplicationsTableViewCell.reuseIdentifier)
 		tableViewApplications.backgroundColor = whiteNelpyColor
+		tableViewApplications.contentInset = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
+
+		
 		
 		let refreshViewApplication = UIRefreshControl()
 		refreshViewApplication.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
@@ -331,6 +340,16 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		if(tableView == myTasksTableView) {
+			var task = nelpTasks[indexPath.row]
+			var nextVC = MyTaskDetailsViewController(findNelpTask: task)
+			self.presentViewController(nextVC, animated: true, completion: nil)
+			
+		}else if (tableView == myApplicationsTableView) {
+			
+			
+		}
+
 	}
 	
 	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {

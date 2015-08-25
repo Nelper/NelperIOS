@@ -276,7 +276,7 @@
 				193F04101B485F75003CBDA6 /* Login */,
 				193F041D1B4878E3003CBDA6 /* Nelp */,
 				193F040E1B485F75003CBDA6 /* Find Nelp */,
-				F762CFF61B49E72800812235 /* Profile */,
+				F762CFF61B49E72800812235 /* Nelp Center */,
 				F762CFFD1B4B591D00812235 /* Model */,
 				F72F28501B53608E00CD3B0B /* Helpers */,
 				199EF1F31B37A0A500B25B07 /* AppDelegate.swift */,
@@ -361,20 +361,44 @@
 			path = ViewControllers/Offer;
 			sourceTree = "<group>";
 		};
-		F762CFF61B49E72800812235 /* Profile */ = {
+		F755600D1B8BD66F005A3B27 /* Full Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F775C0D01B82D1FB00F7525B /* FullProfileViewController.swift */,
+				F775C0D21B82D22200F7525B /* FullProfileViewController.xib */,
+				F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */,
+			);
+			name = "Full Profile";
+			sourceTree = "<group>";
+		};
+		F755600E1B8BD684005A3B27 /* Nelp Center */ = {
 			isa = PBXGroup;
 			children = (
 				F762D0121B4B680300812235 /* ProfileViewController.swift */,
 				195FD9B11B4B6B760040AD20 /* ProfileViewController.xib */,
 				F775C0C81B81150300F7525B /* NelpTasksTableViewCell.swift */,
 				F775C0CA1B81160400F7525B /* NelpApplicationsTableViewCell.swift */,
-				F775C0D01B82D1FB00F7525B /* FullProfileViewController.swift */,
-				F775C0D21B82D22200F7525B /* FullProfileViewController.xib */,
-				F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */,
+			);
+			name = "Nelp Center";
+			sourceTree = "<group>";
+		};
+		F755600F1B8BD697005A3B27 /* My Tasks Details View */ = {
+			isa = PBXGroup;
+			children = (
 				F775C0CC1B82CC9B00F7525B /* MyTaskDetailsViewController.swift */,
 				F775C0CE1B82CEAF00F7525B /* MyTaskDetailsViewController.xib */,
 			);
-			name = Profile;
+			name = "My Tasks Details View";
+			sourceTree = "<group>";
+		};
+		F762CFF61B49E72800812235 /* Nelp Center */ = {
+			isa = PBXGroup;
+			children = (
+				F755600E1B8BD684005A3B27 /* Nelp Center */,
+				F755600D1B8BD66F005A3B27 /* Full Profile */,
+				F755600F1B8BD697005A3B27 /* My Tasks Details View */,
+			);
+			name = "Nelp Center";
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};

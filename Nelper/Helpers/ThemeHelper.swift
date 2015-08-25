@@ -22,10 +22,11 @@ let blueGrayColor = hexStringToUIColor("1E87D1")
 let whiteGrayColor = hexStringToUIColor("f7f7f7")
 let orangeTextColor = hexStringToUIColor("f32a18")
 let grayDetails = hexStringToUIColor("cfcfcf")
+let darkGrayDetails = hexStringToUIColor("979797")
 
 
 let facebookBlueColor = hexStringToUIColor ("3b5998")
-let greenPriceButton = hexStringToUIColor ("7fae79")
+let greenPriceButton = hexStringToUIColor ("80bf62")
 
 
 let yellowTechnology = hexStringToUIColor ("f7cc39")

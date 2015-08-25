@@ -326,7 +326,6 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		createTaskButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
 		createTaskButton.backgroundColor = greenPriceButton
 		createTaskButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kFormButtonFontSize)
-		createTaskButton.layer.cornerRadius = 3
 		createTaskButton.addTarget(self, action: "postButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		
 		createTaskButton.snp_makeConstraints { (make) -> Void in

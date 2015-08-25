@@ -104,7 +104,6 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.applyButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kButtonFontSize)
 		self.applyButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
 		self.applyButton.backgroundColor = greenPriceButton
-		self.applyButton.layer.cornerRadius = 6
 		
 	}
 	

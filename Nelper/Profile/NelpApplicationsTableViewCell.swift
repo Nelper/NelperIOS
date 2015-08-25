@@ -39,9 +39,9 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		let cellView = UIView();
 		cellView.backgroundColor = navBarColor
 		backView.addSubview(cellView)
-		cellView.layer.cornerRadius = 6
+//		cellView.layer.cornerRadius = 6
 		cellView.layer.borderWidth = 1
-		cellView.layer.borderColor = blackNelpyColor.CGColor
+		cellView.layer.borderColor = darkGrayDetails.CGColor
 		cellView.layer.masksToBounds = true
 		cellView.clipsToBounds = true
 		cellView.snp_makeConstraints { (make) -> Void in
