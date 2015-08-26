@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 import iCarousel
 
-class MyTaskDetailsViewController: UIViewController{
+class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var container: UIView!
@@ -21,11 +21,18 @@ class MyTaskDetailsViewController: UIViewController{
 	var categoryIcon:UIImageView!
 	var task: FindNelpTask!
 	var applicantsTableView: UITableView!
-	var arrayOfApplicants = [User]()
+	var arrayOfApplicants:[User]!
+	var activeApplicantsContainer:UIView!
 	
 	override func viewDidLoad() {
+		super.viewDidLoad()
+		self.automaticallyAdjustsScrollViewInsets = false
 		self.createView()
 		self.adjustUI()
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		self.drawTableViewsSize()
 	}
 	
 	//Initialization
@@ -33,6 +40,12 @@ class MyTaskDetailsViewController: UIViewController{
 	convenience init(findNelpTask:FindNelpTask) {
 		self.init(nibName: "MyTaskDetailsViewController", bundle: nil)
 		self.task = findNelpTask
+		var arrayOfApplications = findNelpTask.applications
+		var arrayOfApplicants = [User]()
+		for application in arrayOfApplications{
+			arrayOfApplicants.append(application.user)
+		}
+		self.arrayOfApplicants = arrayOfApplicants
 	}
 	
 	func createView(){
@@ -103,15 +116,59 @@ class MyTaskDetailsViewController: UIViewController{
 			make.width.equalTo(140)
 			make.height.equalTo(35)
 		}
-
 		
+	//Pending Applicants Container
+		
+		var activeApplicantsContainer = UIView()
+		self.activeApplicantsContainer = activeApplicantsContainer
+		self.contentView.addSubview(activeApplicantsContainer)
+		activeApplicantsContainer.backgroundColor = navBarColor
+		activeApplicantsContainer.layer.borderWidth = 1
+		activeApplicantsContainer.layer.borderColor = darkGrayDetails.CGColor
+		activeApplicantsContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(taskSectionContainer.snp_bottom).offset(10)
+			make.left.equalTo(self.contentView.snp_left)
+			make.right.equalTo(self.contentView.snp_right)
+			make.height.equalTo((self.arrayOfApplicants.count*120)+50)
+		}
+		
+		var pendingApplicantIcon = UIImageView()
+		activeApplicantsContainer.addSubview(pendingApplicantIcon)
+		pendingApplicantIcon.image = UIImage(named: "pending.png")
+		pendingApplicantIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		pendingApplicantIcon.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(activeApplicantsContainer.snp_top).offset(20)
+			make.left.equalTo(activeApplicantsContainer.snp_left).offset(10)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
+		}
+		
+		var applicantsLabel = UILabel()
+		activeApplicantsContainer.addSubview(applicantsLabel)
+		applicantsLabel.textAlignment = NSTextAlignment.Left
+		applicantsLabel.text = "Applicants"
+		applicantsLabel.textColor = blackNelpyColor
+		applicantsLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		applicantsLabel.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(pendingApplicantIcon.snp_centerY)
+			make.left.equalTo(pendingApplicantIcon.snp_right).offset(6)
+		}
 
 		//Applicants Table View
-//		var applicantsTableView = UITableView()
-//		self.applicantsTableView = applicantsTableView
-//		self.applicantsTableView.dataSource = self
-//		self.applicantsTableView.delegate = self
-//		contentView.addSubview(applicantsTableView)
+		
+		var applicantsTableView = UITableView()
+		self.applicantsTableView = applicantsTableView
+		applicantsTableView.registerClass(ApplicantCell.classForCoder(), forCellReuseIdentifier: ApplicantCell.reuseIdentifier)
+
+		self.applicantsTableView.dataSource = self
+		self.applicantsTableView.delegate = self
+		activeApplicantsContainer.addSubview(applicantsTableView)
+		applicantsTableView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(applicantsLabel.snp_bottom).offset(20)
+			make.left.equalTo(activeApplicantsContainer.snp_left)
+			make.right.equalTo(activeApplicantsContainer.snp_right)
+			make.bottom.equalTo(activeApplicantsContainer.snp_bottom)
+			}
 		}
 	
 	
@@ -130,22 +187,48 @@ class MyTaskDetailsViewController: UIViewController{
 		self.categoryIcon.image = UIImage(named: nelpTask.category!)
 	}
 	
+	func drawTableViewsSize(){
+		self.activeApplicantsContainer.snp_updateConstraints { (make) -> Void in
+			make.height.equalTo((self.arrayOfApplicants.count * 120)+50)
+		}
+		var numbersToMultiplyBy = self.arrayOfApplicants.count
+		var numbersToAdd:CGFloat = CGFloat(numbersToMultiplyBy * 120)
+		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + numbersToAdd)
+		self.contentView.snp_updateConstraints { (make) -> Void in
+			make.height.equalTo(self.scrollView.contentSize.height)
+		}
+		println("\(self.scrollView.contentSize)drawTable")
+		println("\(self.scrollView.frame) drawTable")
+	}
+	
 	//Table View Delegate Methods
-//	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//		return self.arrayOfApplicants.count
-//	}
-//	
-//	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//	
-//	}
-//	
-//	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//		
-//	}
-//	
-//	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//		return 100
-//	}
+	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return self.arrayOfApplicants.count
+	}
+	
+	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		
+		let pendingApplicantCell = tableView.dequeueReusableCellWithIdentifier(ApplicantCell.reuseIdentifier, forIndexPath: indexPath) as! ApplicantCell
+		let applicant = self.arrayOfApplicants[indexPath.row]
+		pendingApplicantCell.setApplicant(applicant)
+		return pendingApplicantCell
+	}
+	
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		
+	}
+	
+	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+		return 120
+	}
+	
+	//View Delegate Methods
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		self.scrollView.contentSize = self.contentView.frame.size
+		println("\(self.scrollView.contentSize)")
+	}
 	
 	//Actions
 	
