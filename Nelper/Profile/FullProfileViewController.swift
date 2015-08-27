@@ -30,6 +30,12 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	var experienceTableView:UITableView!
 	var arrayOfExperience = [String]()
 	var tap: UITapGestureRecognizer?
+	var firstStar:UIImageView!
+	var secondStar:UIImageView!
+	var thirdStar:UIImageView!
+	var fourthStar:UIImageView!
+	var fifthStar:UIImageView!
+
 
 	//	INITIALIZER
 	convenience init() {
@@ -124,6 +130,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		//FeedBack Stars
 		
 		var firstStar = UIImageView()
+		self.firstStar = firstStar
 		profileView.addSubview(firstStar)
 		firstStar.contentMode = UIViewContentMode.ScaleAspectFill
 		firstStar.image = UIImage(named: "empty_star")
@@ -135,6 +142,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		var secondStar = UIImageView()
+		self.secondStar = secondStar
 		profileView.addSubview(secondStar)
 		secondStar.contentMode = UIViewContentMode.ScaleAspectFill
 		secondStar.image = UIImage(named: "empty_star")
@@ -146,6 +154,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		var thirdStar = UIImageView()
+		self.thirdStar = thirdStar
 		profileView.addSubview(thirdStar)
 		thirdStar.contentMode = UIViewContentMode.ScaleAspectFill
 		thirdStar.image = UIImage(named: "empty_star")
@@ -157,6 +166,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		var fourthStar = UIImageView()
+		self.fourthStar = fourthStar
 		profileView.addSubview(fourthStar)
 		fourthStar.contentMode = UIViewContentMode.ScaleAspectFill
 		fourthStar.image = UIImage(named: "empty_star")
@@ -168,6 +178,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		var fifthStar = UIImageView()
+		self.fifthStar = fifthStar
 		profileView.addSubview(fifthStar)
 		fifthStar.contentMode = UIViewContentMode.ScaleAspectFill
 		fifthStar.image = UIImage(named: "empty_star")

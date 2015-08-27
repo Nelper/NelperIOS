@@ -23,6 +23,9 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var applicantsTableView: UITableView!
 	var arrayOfApplicants:[User]!
 	var activeApplicantsContainer:UIView!
+	var deniedApplicantsContainer:UIView!
+	var arrayOfDeniedApplicants:[User]!
+	var deniedApplicantsTableView: UITableView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -32,7 +35,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-		self.drawTableViewsSize()
+//		self.drawTableViewsSize()
 	}
 	
 	//Initialization
@@ -46,6 +49,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			arrayOfApplicants.append(application.user)
 		}
 		self.arrayOfApplicants = arrayOfApplicants
+		self.arrayOfDeniedApplicants = [User]()
 	}
 	
 	func createView(){
@@ -68,7 +72,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		var taskSectionContainer = UIView()
 		self.contentView.addSubview(taskSectionContainer)
 		taskSectionContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(navBar.snp_bottom)
+			make.top.equalTo(self.contentView.snp_top)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo(110)
@@ -129,7 +133,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.top.equalTo(taskSectionContainer.snp_bottom).offset(10)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
-			make.height.equalTo((self.arrayOfApplicants.count*120)+50)
+			make.height.equalTo((self.arrayOfApplicants.count*120)+70)
 		}
 		
 		var pendingApplicantIcon = UIImageView()
@@ -159,7 +163,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		var applicantsTableView = UITableView()
 		self.applicantsTableView = applicantsTableView
 		applicantsTableView.registerClass(ApplicantCell.classForCoder(), forCellReuseIdentifier: ApplicantCell.reuseIdentifier)
-
+		self.applicantsTableView.scrollEnabled = false
 		self.applicantsTableView.dataSource = self
 		self.applicantsTableView.delegate = self
 		activeApplicantsContainer.addSubview(applicantsTableView)
@@ -169,7 +173,69 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.right.equalTo(activeApplicantsContainer.snp_right)
 			make.bottom.equalTo(activeApplicantsContainer.snp_bottom)
 			}
+		
+		//Denied Applicants
+		
+		var deniedApplicantsContainer = UIView()
+		self.deniedApplicantsContainer = deniedApplicantsContainer
+		self.contentView.addSubview(deniedApplicantsContainer)
+		deniedApplicantsContainer.backgroundColor = navBarColor
+		deniedApplicantsContainer.layer.borderWidth = 1
+		deniedApplicantsContainer.layer.borderColor = darkGrayDetails.CGColor
+		deniedApplicantsContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(activeApplicantsContainer.snp_bottom).offset(10)
+			make.left.equalTo(self.contentView.snp_left)
+			make.right.equalTo(self.contentView.snp_right)
+			make.height.equalTo((self.arrayOfDeniedApplicants.count*120)+70)
 		}
+		
+		var deniedApplicantIcon = UIImageView()
+		deniedApplicantsContainer.addSubview(deniedApplicantIcon)
+		deniedApplicantIcon.image = UIImage(named: "denied.png")
+		deniedApplicantIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		deniedApplicantIcon.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(deniedApplicantsContainer.snp_top).offset(20)
+			make.left.equalTo(deniedApplicantsContainer.snp_left).offset(10)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
+		}
+		
+		var deniedApplicantsLabel = UILabel()
+		deniedApplicantsContainer.addSubview(deniedApplicantsLabel)
+		deniedApplicantsLabel.textAlignment = NSTextAlignment.Left
+		deniedApplicantsLabel.text = "Denied Applicants"
+		deniedApplicantsLabel.textColor = blackNelpyColor
+		deniedApplicantsLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		deniedApplicantsLabel.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(deniedApplicantIcon.snp_centerY)
+			make.left.equalTo(deniedApplicantIcon.snp_right).offset(6)
+		}
+		
+		//Applicants Table View
+		
+		var deniedApplicantsTableView = UITableView()
+		self.deniedApplicantsTableView = deniedApplicantsTableView
+		deniedApplicantsTableView.registerClass(ApplicantCell.classForCoder(), forCellReuseIdentifier: ApplicantCell.reuseIdentifier)
+		self.deniedApplicantsTableView.scrollEnabled = false
+		self.deniedApplicantsTableView.dataSource = self
+		self.deniedApplicantsTableView.delegate = self
+		deniedApplicantsContainer.addSubview(deniedApplicantsTableView)
+		deniedApplicantsTableView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(deniedApplicantsLabel.snp_bottom).offset(20)
+			make.left.equalTo(deniedApplicantsContainer.snp_left)
+			make.right.equalTo(deniedApplicantsContainer.snp_right)
+			make.bottom.equalTo(deniedApplicantsContainer.snp_bottom)
+		}
+		
+		//MockView for Scoll
+		var mockView = UIView(frame: CGRectMake(0, 0, 1, 1))
+		self.contentView.addSubview(mockView)
+		mockView.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(contentView.snp_bottom)
+			make.centerX.equalTo(contentView.snp_centerX)
+		}
+
+	}
 	
 	
 	//UI
@@ -189,16 +255,18 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	func drawTableViewsSize(){
 		self.activeApplicantsContainer.snp_updateConstraints { (make) -> Void in
-			make.height.equalTo((self.arrayOfApplicants.count * 120)+50)
+			make.height.equalTo((self.arrayOfApplicants.count * 120)+70)
 		}
-		var numbersToMultiplyBy = self.arrayOfApplicants.count
+		self.deniedApplicantsContainer.snp_updateConstraints { (make) -> Void in
+			make.height.equalTo((self.arrayOfDeniedApplicants.count * 120)+70)
+		}
+		
+		var numbersToMultiplyBy = self.arrayOfApplicants.count + self.arrayOfDeniedApplicants.count
 		var numbersToAdd:CGFloat = CGFloat(numbersToMultiplyBy * 120)
 		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + numbersToAdd)
 		self.contentView.snp_updateConstraints { (make) -> Void in
 			make.height.equalTo(self.scrollView.contentSize.height)
 		}
-		println("\(self.scrollView.contentSize)drawTable")
-		println("\(self.scrollView.frame) drawTable")
 	}
 	
 	//Table View Delegate Methods

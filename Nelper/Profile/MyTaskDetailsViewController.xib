@@ -6,9 +6,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyTaskDetailsViewController" customModule="Nelper" customModuleProvider="target">
             <connections>
-                <outlet property="container" destination="BSY-nS-Rse" id="e8v-jS-tIJ"/>
+                <outlet property="container" destination="3Ie-1H-EJN" id="dGk-ho-6lG"/>
                 <outlet property="navBar" destination="dhj-u4-yRQ" id="gBx-nC-LoY"/>
-                <outlet property="scrollView" destination="KqE-sR-03U" id="6PD-qQ-EKS"/>
+                <outlet property="scrollView" destination="1sy-9p-8hE" id="Z3v-Qw-pOv"/>
                 <outlet property="view" destination="iN0-l3-epB" id="cxR-Bh-Hhd"/>
             </connections>
         </placeholder>
@@ -17,19 +17,19 @@
             <rect key="frame" x="0.0" y="0.0" width="350" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BSY-nS-Rse" userLabel="Container">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ie-1H-EJN" userLabel="Background">
                     <rect key="frame" x="0.0" y="64" width="350" height="536"/>
                     <subviews>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KqE-sR-03U">
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sy-9p-8hE">
                             <rect key="frame" x="0.0" y="0.0" width="350" height="536"/>
                         </scrollView>
                     </subviews>
                     <color key="backgroundColor" red="0.90196084980000002" green="0.16078431900000001" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
                     <constraints>
-                        <constraint firstItem="KqE-sR-03U" firstAttribute="leading" secondItem="BSY-nS-Rse" secondAttribute="leading" id="1tB-PO-qq6"/>
-                        <constraint firstItem="KqE-sR-03U" firstAttribute="top" secondItem="BSY-nS-Rse" secondAttribute="top" id="I9a-6j-QaB"/>
-                        <constraint firstAttribute="bottom" secondItem="KqE-sR-03U" secondAttribute="bottom" id="SZj-E6-6LQ"/>
-                        <constraint firstAttribute="trailing" secondItem="KqE-sR-03U" secondAttribute="trailing" id="ZEf-ba-I0i"/>
+                        <constraint firstItem="1sy-9p-8hE" firstAttribute="leading" secondItem="3Ie-1H-EJN" secondAttribute="leading" id="EeF-Tf-ocg"/>
+                        <constraint firstItem="1sy-9p-8hE" firstAttribute="top" secondItem="3Ie-1H-EJN" secondAttribute="top" id="H6K-Sc-dE6"/>
+                        <constraint firstAttribute="bottom" secondItem="1sy-9p-8hE" secondAttribute="bottom" id="aa5-Wz-Yua"/>
+                        <constraint firstAttribute="trailing" secondItem="1sy-9p-8hE" secondAttribute="trailing" id="zVE-Rk-ZrO"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dhj-u4-yRQ" customClass="NavBar" customModule="Nelper" customModuleProvider="target">
@@ -42,21 +42,15 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="3Ie-1H-EJN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="2Bx-YD-Vwc"/>
+                <constraint firstAttribute="bottom" secondItem="3Ie-1H-EJN" secondAttribute="bottom" id="2K5-LJ-LVa"/>
                 <constraint firstAttribute="trailing" secondItem="dhj-u4-yRQ" secondAttribute="trailing" id="7bn-Lo-xSl"/>
                 <constraint firstItem="dhj-u4-yRQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7gd-r2-4zB"/>
-                <constraint firstItem="BSY-nS-Rse" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9It-Vt-Yxq"/>
-                <constraint firstItem="KqE-sR-03U" firstAttribute="top" secondItem="dhj-u4-yRQ" secondAttribute="bottom" id="C6a-1F-osW"/>
-                <constraint firstAttribute="trailing" secondItem="BSY-nS-Rse" secondAttribute="trailing" id="KRM-yw-DFM"/>
-                <constraint firstAttribute="bottom" secondItem="BSY-nS-Rse" secondAttribute="bottom" id="eKN-Px-Mak"/>
+                <constraint firstAttribute="trailing" secondItem="3Ie-1H-EJN" secondAttribute="trailing" id="Abr-dO-WVa"/>
+                <constraint firstItem="3Ie-1H-EJN" firstAttribute="top" secondItem="dhj-u4-yRQ" secondAttribute="bottom" id="dMe-Zd-TFn"/>
                 <constraint firstItem="dhj-u4-yRQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hOd-9e-CFt"/>
-                <constraint firstItem="BSY-nS-Rse" firstAttribute="top" secondItem="dhj-u4-yRQ" secondAttribute="bottom" id="wd4-GJ-Eba"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="C6a-1F-osW"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="633" y="420"/>
         </view>
     </objects>
