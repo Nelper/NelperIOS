@@ -35,6 +35,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	var thirdStar:UIImageView!
 	var fourthStar:UIImageView!
 	var fifthStar:UIImageView!
+	var whiteContainer:UIView!
 
 
 	//	INITIALIZER
@@ -92,7 +93,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(self.contentView.snp_top)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
-			make.height.equalTo(115)
+			make.height.equalTo(125)
 		}
 		
 		//Profile Picture
@@ -121,11 +122,11 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		name.numberOfLines = 0
 		name.textColor = whiteNelpyColor
 		name.text = PFUser.currentUser()?.objectForKey("name") as? String
-		name.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		name.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		
 		name.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(profilePicture.snp_right).offset(15)
-			make.top.equalTo(profilePicture.snp_top).offset(6)
+			make.top.equalTo(profilePicture.snp_top)
 		}
 		//FeedBack Stars
 		
@@ -195,32 +196,49 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		profileView.addSubview(numberOfTasksLabel)
 		numberOfTasksLabel.text = "12 tasks completed"
 		numberOfTasksLabel.textColor = whiteNelpyColor
-		numberOfTasksLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		numberOfTasksLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		numberOfTasksLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(name.snp_left)
 			make.top.equalTo(firstStar.snp_bottom).offset(8)
 			make.right.equalTo(self.contentView.snp_right).offset(-4)
 		}
 		
+		
+		//White Container
+		
+		var whiteContainer = UIView()
+		self.contentView.addSubview(whiteContainer)
+		self.whiteContainer = whiteContainer
+		whiteContainer.layer.borderColor = darkGrayDetails.CGColor
+		whiteContainer.layer.borderWidth = 1
+		whiteContainer.backgroundColor = navBarColor
+		whiteContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(profileView.snp_bottom).offset(20)
+			make.left.equalTo(contentView.snp_left)
+			make.right.equalTo(contentView.snp_right)
+			make.bottom.equalTo(contentView.snp_bottom).offset(-10)
+		}
+		
+		
 		//About
 		
 		var aboutLabel = UILabel()
-		self.contentView.addSubview(aboutLabel)
+		self.whiteContainer.addSubview(aboutLabel)
 		aboutLabel.textColor = blackNelpyColor
 		aboutLabel.text = "About"
-		aboutLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		aboutLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		aboutLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(profilePicture.snp_left)
-			make.top.equalTo(profileView.snp_bottom).offset(20)
+			make.top.equalTo(whiteContainer.snp_top).offset(4)
 		}
 		
 		var aboutTextView = UITextView()
-		self.contentView.addSubview(aboutTextView)
+		self.whiteContainer.addSubview(aboutTextView)
 		self.aboutTextView = aboutTextView
 		aboutTextView.textColor = blackNelpyColor
-		aboutTextView.backgroundColor = whiteNelpyColor
+		aboutTextView.backgroundColor = navBarColor
 		aboutTextView.editable = false
-		aboutTextView.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		aboutTextView.font = UIFont(name: "HelveticaNeue", size: kAboutTextFontSize)
 		aboutTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left).offset(4)
@@ -229,7 +247,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		var editAboutIcon = UIButton()
-		self.contentView.addSubview(editAboutIcon)
+		self.whiteContainer.addSubview(editAboutIcon)
 		editAboutIcon.setBackgroundImage(UIImage(named: "pen.png"), forState: UIControlState.Normal)
 		editAboutIcon.addTarget(self, action: "editAbout:", forControlEvents: UIControlEvents.TouchUpInside)
 		editAboutIcon.contentMode = UIViewContentMode.ScaleAspectFill
@@ -244,10 +262,10 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		var skillsLabel = UILabel()
 		self.skillsLabel = skillsLabel
-		self.contentView.addSubview(skillsLabel)
+		self.whiteContainer.addSubview(skillsLabel)
 		skillsLabel.textColor = blackNelpyColor
 		skillsLabel.text = "Skills"
-		skillsLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		skillsLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		skillsLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutTextView.snp_bottom).offset(10)
 			make.left.equalTo(aboutLabel)
@@ -256,7 +274,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		var skillsTableView = UITableView()
 		skillsTableView.scrollEnabled = false
 		self.skillsTableView = skillsTableView
-		self.contentView.addSubview(skillsTableView)
+		self.whiteContainer.addSubview(skillsTableView)
 		skillsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		skillsTableView.delegate = self
 		skillsTableView.dataSource = self
@@ -270,24 +288,24 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		var addSkillButton = UIButton()
-		self.contentView.addSubview(addSkillButton)
+		self.whiteContainer.addSubview(addSkillButton)
 		addSkillButton.addTarget(self, action: "addSkillButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		addSkillButton.setBackgroundImage(UIImage(named: "plus_orange"), forState: UIControlState.Normal)
+		addSkillButton.setBackgroundImage(UIImage(named: "plus_green"), forState: UIControlState.Normal)
 		addSkillButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(skillsLabel.snp_centerY)
-            make.right.equalTo(contentView.snp_right).offset(-20)
-						make.height.equalTo(30)
-						make.width.equalTo(30)
+            make.right.equalTo(contentView.snp_right).offset(-25)
+						make.height.equalTo(20)
+						make.width.equalTo(20)
 		}
 		
 		//Education
 		
 		var educationLabel = UILabel()
 		self.educationLabel = educationLabel
-		self.contentView.addSubview(educationLabel)
+		self.whiteContainer.addSubview(educationLabel)
 		educationLabel.textColor = blackNelpyColor
 		educationLabel.text = "Education"
-		educationLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		educationLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		educationLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsTableView.snp_bottom).offset(10)
 			make.left.equalTo(aboutLabel)
@@ -296,7 +314,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		var educationTableView = UITableView()
 		educationTableView.scrollEnabled = false
 		self.educationTableView = educationTableView
-		self.contentView.addSubview(educationTableView)
+		self.whiteContainer.addSubview(educationTableView)
 		educationTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		educationTableView.delegate = self
 		educationTableView.dataSource = self
@@ -311,24 +329,24 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		var addEducationButton = UIButton()
-		self.contentView.addSubview(addEducationButton)
+		self.whiteContainer.addSubview(addEducationButton)
 		addEducationButton.addTarget(self, action: "addEducationButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		addEducationButton.setBackgroundImage(UIImage(named:"plus_orange"), forState: UIControlState.Normal)
+		addEducationButton.setBackgroundImage(UIImage(named:"plus_green"), forState: UIControlState.Normal)
 		addEducationButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(educationLabel.snp_centerY)
-			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.width.equalTo(30)
-			make.height.equalTo(30)
+			make.right.equalTo(contentView.snp_right).offset(-25)
+			make.width.equalTo(20)
+			make.height.equalTo(20)
 		}
 		
 		//Work Experience
 		
 		var experienceLabel = UILabel()
 		self.experienceLabel = experienceLabel
-		self.contentView.addSubview(experienceLabel)
+		self.whiteContainer.addSubview(experienceLabel)
 		experienceLabel.textColor = blackNelpyColor
 		experienceLabel.text = "Work experience"
-		experienceLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		experienceLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		experienceLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationTableView.snp_bottom).offset(10)
 			make.left.equalTo(aboutLabel)
@@ -337,7 +355,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		var experienceTableView = UITableView()
 		experienceTableView.scrollEnabled = false
 		self.experienceTableView = experienceTableView
-		self.contentView.addSubview(experienceTableView)
+		self.whiteContainer.addSubview(experienceTableView)
 		experienceTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		experienceTableView.delegate = self
 		experienceTableView.dataSource = self
@@ -352,14 +370,14 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		var addExperienceButton = UIButton()
-		self.contentView.addSubview(addExperienceButton)
+		self.whiteContainer.addSubview(addExperienceButton)
 		addExperienceButton.addTarget(self, action: "addExperienceButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		addExperienceButton.setBackgroundImage(UIImage(named:"plus_orange"), forState: UIControlState.Normal)
+		addExperienceButton.setBackgroundImage(UIImage(named:"plus_green"), forState: UIControlState.Normal)
 		addExperienceButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(experienceLabel.snp_centerY)
-			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.width.equalTo(30)
-			make.height.equalTo(30)
+			make.right.equalTo(contentView.snp_right).offset(-25)
+			make.width.equalTo(20)
+			make.height.equalTo(20)
 		}
 		
 	}

@@ -31,7 +31,7 @@ class AutocompleteCell: UITableViewCell {
 		let suggestedAddress = UILabel()
 		suggestedAddress.numberOfLines = 0
 		suggestedAddress.textColor = blackNelpyColor
-		suggestedAddress.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		suggestedAddress.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		self.suggestedAddress = suggestedAddress
 		self.suggestedAddress.backgroundColor = whiteNelpyColor.colorWithAlphaComponent(0.2)
 		cellView.addSubview(suggestedAddress)

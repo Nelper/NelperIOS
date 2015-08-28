@@ -63,6 +63,8 @@
 		F782A6261B6411DD00C78470 /* SecondFormScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F782A6241B6411DD00C78470 /* SecondFormScreen.xib */; };
 		F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6251B6411DD00C78470 /* SecondFormViewController.swift */; };
 		F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ApiHelper.swift */; };
+		F78438231B8FF7D200BEA25F /* ApplicantProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78438221B8FF7D200BEA25F /* ApplicantProfileViewController.swift */; };
+		F78438251B8FF7F000BEA25F /* ApplicantProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F78438241B8FF7F000BEA25F /* ApplicantProfileViewController.xib */; };
 		F7AB48A21B75AE5C00B602C4 /* iCarousel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB48A11B75AE5C00B602C4 /* iCarousel.framework */; };
 		F7D94CB41B5AC41000380157 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CB31B5AC41000380157 /* MapKit.framework */; };
 		F7DEC2111B69CB6C00B03747 /* NelpViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */; };
@@ -167,6 +169,8 @@
 		F782A6241B6411DD00C78470 /* SecondFormScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SecondFormScreen.xib; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormScreen.xib"; sourceTree = SOURCE_ROOT; };
 		F782A6251B6411DD00C78470 /* SecondFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondFormViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormViewController.swift"; sourceTree = SOURCE_ROOT; };
 		F782A6281B6567E100C78470 /* ApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHelper.swift; path = Nelper/Helpers/ApiHelper.swift; sourceTree = SOURCE_ROOT; };
+		F78438221B8FF7D200BEA25F /* ApplicantProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApplicantProfileViewController.swift; path = Nelper/Profile/ApplicantProfileViewController.swift; sourceTree = SOURCE_ROOT; };
+		F78438241B8FF7F000BEA25F /* ApplicantProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ApplicantProfileViewController.xib; path = Nelper/Profile/ApplicantProfileViewController.xib; sourceTree = SOURCE_ROOT; };
 		F7AB48A11B75AE5C00B602C4 /* iCarousel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iCarousel.framework; path = "Pods/../build/Debug-iphoneos/iCarousel.framework"; sourceTree = "<group>"; };
 		F7D94CB31B5AC41000380157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpViewCell.swift; sourceTree = "<group>"; };
@@ -390,6 +394,8 @@
 				F775C0CC1B82CC9B00F7525B /* MyTaskDetailsViewController.swift */,
 				F775C0CE1B82CEAF00F7525B /* MyTaskDetailsViewController.xib */,
 				F75560121B8D28C0005A3B27 /* ApplicantCell.swift */,
+				F78438221B8FF7D200BEA25F /* ApplicantProfileViewController.swift */,
+				F78438241B8FF7F000BEA25F /* ApplicantProfileViewController.xib */,
 			);
 			name = "My Tasks Details View";
 			sourceTree = "<group>";
@@ -543,6 +549,7 @@
 				195FD9B21B4B6B760040AD20 /* ProfileViewController.xib in Resources */,
 				F775C0D31B82D22200F7525B /* FullProfileViewController.xib in Resources */,
 				F775C0CF1B82CEAF00F7525B /* MyTaskDetailsViewController.xib in Resources */,
+				F78438251B8FF7F000BEA25F /* ApplicantProfileViewController.xib in Resources */,
 				F762D0071B4B66B000812235 /* LoginViewController.xib in Resources */,
 				199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */,
 				F72F27D41B5302DE00CD3B0B /* NelpTaskCreateViewController.xib in Resources */,
@@ -622,6 +629,7 @@
 				19761A191B6877FB001600E1 /* FindNelpTask.swift in Sources */,
 				F762D0061B4B66B000812235 /* LoginViewController.swift in Sources */,
 				F775C0C91B81150300F7525B /* NelpTasksTableViewCell.swift in Sources */,
+				F78438231B8FF7D200BEA25F /* ApplicantProfileViewController.swift in Sources */,
 				F72F27D31B5302DE00CD3B0B /* NelpTaskCreateViewController.swift in Sources */,
 				199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */,
 				19761A131B684F41001600E1 /* User.swift in Sources */,

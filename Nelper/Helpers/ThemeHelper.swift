@@ -18,7 +18,7 @@ let orangeSecondaryGradientColor = hexStringToUIColor("d95330")
 
 let whiteNelpyColor = hexStringToUIColor ("eaeaea")
 let blackNelpyColor = hexStringToUIColor ("2c2c2c")
-let blueGrayColor = hexStringToUIColor("1E87D1")
+let blueGrayColor = hexStringToUIColor("ee4c4f")
 let whiteGrayColor = hexStringToUIColor("f7f7f7")
 let orangeTextColor = hexStringToUIColor("f32a18")
 let grayDetails = hexStringToUIColor("cfcfcf")

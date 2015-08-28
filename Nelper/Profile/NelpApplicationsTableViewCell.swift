@@ -95,7 +95,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		var titleLabel = UILabel()
 		self.titleLabel = titleLabel
 		titleLabel.textColor = blackNelpyColor
-		titleLabel.font = UIFont(name: "ABeeZee-Regular", size: kCellTitleFontSize)
+		titleLabel.font = UIFont(name: "HelveticaNeue", size: kCellTitleFontSize)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_bottom).offset(4)
@@ -118,7 +118,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		var applicationLabel = UILabel()
 		self.applicationStateLabel = applicationLabel
 		cellView.addSubview(applicationLabel)
-		applicationLabel.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		applicationLabel.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
 		applicationLabel.textColor = blackNelpyColor
 		
 		applicationLabel.snp_makeConstraints { (make) -> Void in
@@ -137,7 +137,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			make.height.equalTo(30)
 		}
 		self.price.backgroundColor = greenPriceButton
-		self.price.font = UIFont(name: "ABeeZee-Regular", size: kCellPriceFontSize)
+		self.price.font = UIFont(name: "HelveticaNeue", size: kCellPriceFontSize)
 		self.price.textColor = whiteNelpyColor
 		self.price.layer.cornerRadius = 6
 		self.price.clipsToBounds = true
@@ -158,7 +158,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		var postedDate = UILabel()
 		self.appliedDate = postedDate
 		cellView.addSubview(postedDate)
-		postedDate.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		postedDate.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
 		postedDate.textColor = blackNelpyColor
 		
 		postedDate.snp_makeConstraints { (make) -> Void in
@@ -182,7 +182,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		self.cityLabel = cityLabel
 		cellView.addSubview(cityLabel)
 		cityLabel.textColor = blackNelpyColor
-		cityLabel.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		cityLabel.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
 		cityLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(pinImageView.snp_right).offset(4)
 			make.centerY.equalTo(pinImageView.snp_centerY).offset(-10)
@@ -192,7 +192,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		self.distanceLabel = distanceLabel
 		cellView.addSubview(distanceLabel)
 		distanceLabel.textColor = blackNelpyColor
-		distanceLabel.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		distanceLabel.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
 		distanceLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(pinImageView.snp_right).offset(4)
 			make.centerY.equalTo(pinImageView.snp_centerY).offset(10)

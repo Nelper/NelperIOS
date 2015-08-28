@@ -110,7 +110,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		var titleLabel = UILabel()
 		self.titleLabel = titleLabel
 		titleLabel.textColor = blackNelpyColor
-		titleLabel.font = UIFont(name: "ABeeZee-Regular", size: kCellTitleFontSize)
+		titleLabel.font = UIFont(name: "HelveticaNeue", size: kCellTitleFontSize)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_bottom).offset(4)
@@ -131,7 +131,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		var numberOfApplicants = UILabel()
 		self.numberOfApplicants = numberOfApplicants
-		self.numberOfApplicants.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		self.numberOfApplicants.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
 		self.numberOfApplicants.textColor = blackNelpyColor
 		cellView.addSubview(numberOfApplicants)
 		numberOfApplicants.snp_makeConstraints { (make) -> Void in
@@ -150,7 +150,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.height.equalTo(30)
 		}
 		self.price.backgroundColor = greenPriceButton
-		self.price.font = UIFont(name: "ABeeZee-Regular", size: kCellPriceFontSize)
+		self.price.font = UIFont(name: "HelveticaNeue", size: kCellPriceFontSize)
 		self.price.textColor = whiteNelpyColor
 		self.price.layer.cornerRadius = 6
 		self.price.clipsToBounds = true
@@ -171,7 +171,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 		var postedDate = UILabel()
 		self.postedDate = postedDate
 		cellView.addSubview(postedDate)
-		postedDate.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		postedDate.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
+		postedDate.textColor = blackNelpyColor
 		
 		postedDate.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(calendarImage.snp_right).offset(6)

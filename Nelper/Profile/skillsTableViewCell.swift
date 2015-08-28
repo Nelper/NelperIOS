@@ -29,7 +29,7 @@ class skillsTableViewCell: UITableViewCell {
 		
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
-		backView.backgroundColor = whiteNelpyColor
+		backView.backgroundColor = navBarColor
 		backView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
 		
 		//Check image
@@ -63,7 +63,7 @@ class skillsTableViewCell: UITableViewCell {
 		self.skillName = skillName
 		backView.addSubview(skillName)
 		skillName.textColor = blackNelpyColor
-		skillName.font = UIFont(name: "ABeeZee-Regular", size: kCellSubtitleFontSize)
+		skillName.font = UIFont(name: "HelveticaNeue", size: kCellSubtitleFontSize)
 		skillName.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(checkImage.snp_right).offset(4)
 			make.centerY.equalTo(backView.snp_centerY)

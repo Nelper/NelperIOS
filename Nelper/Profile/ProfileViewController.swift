@@ -37,6 +37,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		loadData()
 		createView()
 		createMyTasksTableView()
+		createMyApplicationsTableView()
 		self.segmentControl.selectedSegmentIndex = 0
 		getFacebookInfos()
 		adjustUI()
@@ -98,7 +99,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		name.numberOfLines = 0
 		name.textColor = whiteNelpyColor
 		name.text = PFUser.currentUser()?.objectForKey("name") as? String
-		name.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		name.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		
 		name.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(profilePicture.snp_right).offset(15)
@@ -123,7 +124,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		profileView.addSubview(profileButton)
 		profileButton.addTarget(self, action: "profileButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		profileButton.setTitle("MY PROFILE", forState: UIControlState.Normal)
-		profileButton.titleLabel!.font = UIFont(name: "ABeeZee-Regular", size: kProfileButtonSize)
+		profileButton.titleLabel!.font = UIFont(name: "HelveticaNeue", size: kProfileButtonSize)
 		profileButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
 		profileButton.backgroundColor = blueGrayColor
 		profileButton.layer.borderWidth = 2
@@ -140,7 +141,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		var logoutButton = UIButton()
 		profileView.addSubview(logoutButton)
 		logoutButton.setTitle("Logout", forState: UIControlState.Normal)
-		logoutButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kLogoutButtonSize)
+		logoutButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kLogoutButtonSize)
 		logoutButton.titleLabel?.textColor = blackNelpyColor
 		logoutButton.backgroundColor = blueGrayColor
 		
@@ -169,7 +170,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		self.segmentControl.layer.cornerRadius = 0
 		self.segmentControl.addTarget(self, action: "segmentTouched:", forControlEvents: UIControlEvents.ValueChanged)
 		segmentContainer.addSubview(segmentControl)
-		var attributes = NSDictionary(object: UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)!, forKey: NSFontAttributeName)
+		var attributes = NSDictionary(object: UIFont(name: "HelveticaNeue", size: kCellTextFontSize)!, forKey: NSFontAttributeName)
 		segmentControl.setTitleTextAttributes(attributes as [NSObject : AnyObject], forState: UIControlState.Normal)
 		segmentControl.insertSegmentWithTitle("My Tasks", atIndex: 0, animated: false)
 		segmentControl.insertSegmentWithTitle("My Applications", atIndex: 1, animated: false)
@@ -221,9 +222,9 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		self.myTasksTableView = tableView
 		self.refreshView = refreshView
 		self.myTasksTableView.separatorStyle = UITableViewCellSeparatorStyle.None
-		
-		//My Applications
-		
+	}
+	
+	func createMyApplicationsTableView(){
 		let tableViewApplications = UITableView()
 		tableViewApplications.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
 		tableViewApplications.delegate = self
@@ -231,7 +232,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		tableViewApplications.registerClass(NelpApplicationsTableViewCell.classForCoder(), forCellReuseIdentifier: NelpApplicationsTableViewCell.reuseIdentifier)
 		tableViewApplications.backgroundColor = whiteNelpyColor
 		tableViewApplications.contentInset = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
-
+		
 		
 		
 		let refreshViewApplication = UIRefreshControl()
@@ -246,7 +247,6 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		self.refreshViewApplication = refreshViewApplication
 		self.myApplicationsTableView.hidden = true
 		self.myApplicationsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
-	
 	}
 	
 	//	UI
@@ -343,8 +343,10 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		if(tableView == myTasksTableView) {
 			var task = nelpTasks[indexPath.row]
 			var nextVC = MyTaskDetailsViewController(findNelpTask: task)
-			self.presentViewController(nextVC, animated: true, completion: nil)
 			
+			dispatch_async(dispatch_get_main_queue()){
+			self.presentViewController(nextVC, animated: true, completion: nil)
+			}
 		}else if (tableView == myApplicationsTableView) {
 			
 			

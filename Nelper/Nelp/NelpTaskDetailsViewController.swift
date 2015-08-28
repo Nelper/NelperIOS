@@ -63,25 +63,25 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		
 		self.titleLabel.text = self.task.title
 		self.titleLabel.textColor = blackNelpyColor
-		self.titleLabel.font = UIFont(name: "ABeeZee-Regular", size: kDetailsViewTitleFontSize)
+		self.titleLabel.font = UIFont(name: "HelveticaNeue", size: kDetailsViewTitleFontSize)
 		
 		self.authorLabel.text = "By \(self.task.user.name)"
 		self.authorLabel.textColor = blackNelpyColor
-		self.authorLabel.font = UIFont(name: "ABeeZee-Regular", size: kDetailsViewTextFontSize)
+		self.authorLabel.font = UIFont(name: "HelveticaNeue", size: kDetailsViewTextFontSize)
 		
 		if(self.task.createdAt != nil){
 			self.creationDateLabel.text = "Created \(timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
 			self.creationDateLabel.textColor = blackNelpyColor
-			self.creationDateLabel.font = UIFont(name: "ABeeZee", size: kDetailsViewTextFontSize)
+			self.creationDateLabel.font = UIFont(name: "HelveticaNeue", size: kDetailsViewTextFontSize)
 		}else{
 			self.creationDateLabel.text = "Unknown creation date"
 			self.creationDateLabel.textColor = blackNelpyColor
-			self.creationDateLabel.font = UIFont(name: "ABeeZee", size: kDetailsViewTextFontSize)
+			self.creationDateLabel.font = UIFont(name: "HelveticaNeue", size: kDetailsViewTextFontSize)
 		}
 		
 		self.priceLabel.backgroundColor = greenPriceButton
 		self.priceLabel.layer.cornerRadius = 6
-		self.priceLabel.font = UIFont(name: "ABeeZee-Regular", size: kCellPriceFontSize)
+		self.priceLabel.font = UIFont(name: "HelveticaNeue", size: kCellPriceFontSize)
 		self.priceLabel.textColor = whiteNelpyColor
 		self.priceLabel.clipsToBounds = true
 		self.priceLabel.textAlignment = NSTextAlignment.Center
@@ -94,14 +94,14 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		
 		self.descriptionTextView.backgroundColor = whiteNelpyColor
 		self.descriptionTextView.text = self.task.desc
-		self.descriptionTextView.font = UIFont(name: "ABeeZee-Regular", size: kDetailsViewTextFontSize)
+		self.descriptionTextView.font = UIFont(name: "HelveticaNeue", size: kDetailsViewTextFontSize)
 		self.descriptionTextView.textColor = blackNelpyColor
 		self.descriptionTextView.editable = false
 		
 		self.carousel.backgroundColor = whiteNelpyColor
 		
 		self.applyButton.setTitle("Apply", forState: UIControlState.Normal)
-		self.applyButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kButtonFontSize)
+		self.applyButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
 		self.applyButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
 		self.applyButton.backgroundColor = greenPriceButton
 		

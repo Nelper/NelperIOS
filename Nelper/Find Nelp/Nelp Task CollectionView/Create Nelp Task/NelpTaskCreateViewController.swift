@@ -63,7 +63,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.formView.addSubview(selectCategoryLabel);
 		selectCategoryLabel.text = "Select your task category"
 		selectCategoryLabel.textColor = blackNelpyColor
-		selectCategoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kFormViewLabelFontSize)
+		selectCategoryLabel.font = UIFont(name: "HelveticaNeue", size: kFormViewLabelFontSize)
 		
 		selectCategoryLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.navBar.snp_bottom).offset(10)
@@ -89,7 +89,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.formView.addSubview(technologyLabel)
 		technologyLabel.numberOfLines = 0
 		technologyLabel.text = "Technology & IT\n Support"
-		technologyLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		technologyLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		technologyLabel.textAlignment = NSTextAlignment.Center
 		technologyLabel.textColor = blackNelpyColor
 		
@@ -117,7 +117,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.formView.addSubview(multimediaLabel)
 		multimediaLabel.numberOfLines = 0
 		multimediaLabel.text = "Multimedia &\nDesign"
-		multimediaLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		multimediaLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		multimediaLabel.textAlignment = NSTextAlignment.Center
 		multimediaLabel.textColor = blackNelpyColor
 		
@@ -144,7 +144,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.formView.addSubview(handyworkLabel)
 		handyworkLabel.numberOfLines = 0
 		handyworkLabel.text = "Handywork"
-		handyworkLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		handyworkLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		handyworkLabel.textAlignment = NSTextAlignment.Center
 		handyworkLabel.textColor = blackNelpyColor
 		
@@ -171,7 +171,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.formView.addSubview(gardeningLabel)
 		gardeningLabel.numberOfLines = 0
 		gardeningLabel.text = "Gardening"
-		gardeningLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		gardeningLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		gardeningLabel.textAlignment = NSTextAlignment.Center
 		gardeningLabel.textColor = blackNelpyColor
 		
@@ -198,7 +198,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.formView.addSubview(businessLabel)
 		businessLabel.numberOfLines = 0
 		businessLabel.text = "Business &\nAdmin"
-		businessLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		businessLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		businessLabel.textAlignment = NSTextAlignment.Center
 		businessLabel.textColor = blackNelpyColor
 		
@@ -225,7 +225,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.formView.addSubview(cleaningLabel)
 		cleaningLabel.numberOfLines = 0
 		cleaningLabel.text = "Cleaning"
-		cleaningLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		cleaningLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		cleaningLabel.textAlignment = NSTextAlignment.Center
 		cleaningLabel.textColor = blackNelpyColor
 		
@@ -252,7 +252,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.formView.addSubview(otherLabel)
 		otherLabel.numberOfLines = 0
 		otherLabel.text = "Other"
-		otherLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		otherLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		otherLabel.textAlignment = NSTextAlignment.Center
 		otherLabel.textColor = blackNelpyColor
 		

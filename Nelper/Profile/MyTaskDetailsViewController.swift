@@ -98,7 +98,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		taskSectionContainer.addSubview(title)
 		title.text = self.task.title
 		title.textColor = navBarColor
-		title.font = UIFont(name: "ABeeZee-Regular", size: kTitleFontSize)
+		title.font = UIFont(name: "HelveticaNeue", size: kTitleFontSize)
 		title.textAlignment = NSTextAlignment.Center
 		title.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskSectionContainer.snp_top).offset(8)
@@ -109,7 +109,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		taskSectionContainer.addSubview(editButton)
 		editButton.addTarget(self, action: "editButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		editButton.setTitle("Edit Task", forState: UIControlState.Normal)
-		editButton.titleLabel!.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		editButton.titleLabel!.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		editButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
 		editButton.backgroundColor = blueGrayColor
 		editButton.layer.borderWidth = 2
@@ -152,7 +152,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		applicantsLabel.textAlignment = NSTextAlignment.Left
 		applicantsLabel.text = "Applicants"
 		applicantsLabel.textColor = blackNelpyColor
-		applicantsLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		applicantsLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		applicantsLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(pendingApplicantIcon.snp_centerY)
 			make.left.equalTo(pendingApplicantIcon.snp_right).offset(6)
@@ -205,7 +205,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		deniedApplicantsLabel.textAlignment = NSTextAlignment.Left
 		deniedApplicantsLabel.text = "Denied Applicants"
 		deniedApplicantsLabel.textColor = blackNelpyColor
-		deniedApplicantsLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
+		deniedApplicantsLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		deniedApplicantsLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(deniedApplicantIcon.snp_centerY)
 			make.left.equalTo(deniedApplicantIcon.snp_right).offset(6)
@@ -283,7 +283,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		
+		var applicant = arrayOfApplicants[indexPath.row]
+		var nextVC = ApplicantProfileViewController(applicant: applicant)
+		dispatch_async(dispatch_get_main_queue()){
+			self.presentViewController(nextVC, animated: true, completion: nil)
+		}
 	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

@@ -131,18 +131,18 @@ class NelpViewCell: UITableViewCell {
 	func setNelpTask(nelpTask:NelpTask) {
 		self.task = nelpTask
 		self.title.text = nelpTask.title
-		self.title.font = UIFont(name: "ABeeZee-Regular", size: kCellTitleFontSize)
+		self.title.font = UIFont(name: "HelveticaNeue", size: kCellTitleFontSize)
 		self.title.textColor = blackNelpyColor
 		
 		self.author.text = "By \(nelpTask.user.name)"
-		self.author.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		self.author.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
 		self.author.textColor = blackNelpyColor
 		
 		var price = String(format: "%.0f", nelpTask.priceOffered!)
 		
 		self.price.text = "$"+price
 		
-		self.price.font = UIFont(name: "ABeeZee-Regular", size: kCellPriceFontSize)
+		self.price.font = UIFont(name: "HelveticaNeue", size: kCellPriceFontSize)
 		self.price.textColor = whiteNelpyColor
 		self.price.layer.cornerRadius = 6
 		self.price.clipsToBounds = true
@@ -171,7 +171,7 @@ class NelpViewCell: UITableViewCell {
 		var distance: String = self.calculateDistanceBetweenTwoLocations(userLocation, destination: taskLocation)
 		
 		self.distance!.text = distance
-		self.distance!.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		self.distance!.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
 		self.distance!.textColor = blackNelpyColor
 		
 	}

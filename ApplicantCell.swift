@@ -49,7 +49,7 @@ class ApplicantCell: UITableViewCell{
 		cellView.addSubview(name)
 		name.textColor = blackNelpyColor
 		name.textAlignment = NSTextAlignment.Left
-		name.font = UIFont(name: "ABeeZee-Regular", size: kCellTitleFontSize)
+		name.font = UIFont(name: "HelveticaNeue", size: kCellTitleFontSize)
 		name.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cellView.snp_top).offset(2)
 			make.left.equalTo(picture.snp_left).offset(16)
@@ -131,7 +131,7 @@ class ApplicantCell: UITableViewCell{
 		cellView.addSubview(taskCompleted)
 		self.taskCompletedLabel = taskCompleted
 		taskCompleted.textColor = blackNelpyColor
-		taskCompleted.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		taskCompleted.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
 		taskCompleted.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(firstStar.snp_left)
 			make.top.equalTo(firstStar.snp_bottom).offset(4)
@@ -159,7 +159,7 @@ class ApplicantCell: UITableViewCell{
 		self.askingForLabel = askingFor
 		cellView.addSubview(askingFor)
 		askingFor.textColor = blackNelpyColor
-		askingFor.font = UIFont(name: "ABeeZee-Regular", size: kCellTextFontSize)
+		askingFor.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
 		askingFor.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(moneyIcon)
 			make.left.equalTo(moneyIcon.snp_right).offset(4)
