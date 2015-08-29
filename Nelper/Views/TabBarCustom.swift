@@ -35,7 +35,7 @@ class TabBarCustom: UITabBarController {
 		nelpCenterVC.tabBarItem = nelpCenterVCItem
 		
 		var postVC = NelpTaskCreateViewController()
-		var postVCItem = UITabBarItem(title: "Post a task", image: UIImage(named: "post_default"), selectedImage: UIImage(named: "post_default"))
+		var postVCItem = UITabBarItem(title: "Post a task", image: UIImage(named: "post_task"), selectedImage: UIImage(named: "post_task"))
 		postVCItem.setTitlePositionAdjustment(UIOffsetMake(0, -2))
 		postVC.tabBarItem = postVCItem
 		

@@ -20,15 +20,15 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	var profilePicture:UIImageView!
 	var aboutTextView: UITextView!
 	var skillsTableView:UITableView!
-	var arrayOfSkills = [String]()
+	var arrayOfSkills = [Dictionary<String,String>]()
 	var skillsLabel:UILabel!
 	var educationLabel:UILabel!
-	var arrayOfEducation = [String]()
+	var arrayOfEducation = [Dictionary<String,String>]()
 	var educationTableView:UITableView!
 	var contentView: UIView!
 	var experienceLabel:UILabel!
 	var experienceTableView:UITableView!
-	var arrayOfExperience = [String]()
+	var arrayOfExperience = [Dictionary<String,String>]()
 	var tap: UITapGestureRecognizer?
 	var firstStar:UIImageView!
 	var secondStar:UIImageView!
@@ -113,8 +113,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		self.profilePicture.layer.cornerRadius = 84 / 2
-//		self.profilePicture.layer.borderColor = grayDetails.CGColor
-//		self.profilePicture.layer.borderWidth = 2
+		self.profilePicture.layer.borderColor = darkGrayDetails.CGColor
+		self.profilePicture.layer.borderWidth = 2
 		
 		//Name
 		var name = UILabel()
@@ -412,7 +412,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 				let skill = self.arrayOfSkills[indexPath.item]
 				skillCell.delegate = self
 				skillCell.sendCellType("skills")
-				skillCell.sendSkillName(skill)
+				skillCell.sendSkillName(skill["title"]!)
 				skillCell.setIndex(indexPath.item)
 				
 				return skillCell
@@ -424,7 +424,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 				let education = self.arrayOfEducation[indexPath.item]
 				educationCell.delegate = self
 				educationCell.sendCellType("education")
-				educationCell.sendSkillName(education)
+				educationCell.sendSkillName(education["title"]!)
 				educationCell.setIndex(indexPath.item)
 				
 				return educationCell
@@ -434,7 +434,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			let experience = self.arrayOfExperience[indexPath.item]
 			experienceCell.delegate = self
 			experienceCell.sendCellType("experience")
-			experienceCell.sendSkillName(experience)
+			experienceCell.sendSkillName(experience["title"]!)
 			experienceCell.setIndex(indexPath.item)
 			return experienceCell
 		}
@@ -477,13 +477,13 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.aboutTextView.text = PFUser.currentUser()!["about"] as! String
 		}
 		if PFUser.currentUser()?.objectForKey("experience") != nil{
-		self.arrayOfExperience = PFUser.currentUser()!["experience"] as! [String]
+		self.arrayOfExperience = PFUser.currentUser()!["experience"] as! [Dictionary<String,String>]
 		}
 		if PFUser.currentUser()?.objectForKey("skills") != nil{
-			self.arrayOfSkills = PFUser.currentUser()!["skills"] as! [String]
+			self.arrayOfSkills = PFUser.currentUser()!["skills"] as! [Dictionary<String,String>]
 		}
 		if PFUser.currentUser()?.objectForKey("education") != nil{
-		self.arrayOfEducation = PFUser.currentUser()!["education"] as! [String]
+		self.arrayOfEducation = PFUser.currentUser()!["education"] as! [Dictionary<String,String>]
 		} 
 		
 	}
@@ -508,7 +508,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
 			var skillTitle: String = (popup.textFields?.first as! UITextField).text
-			self.arrayOfSkills.append(skillTitle)
+			self.arrayOfSkills.append(["title":skillTitle])
             self.skillsTableView.snp_updateConstraints { (make) -> Void in
                 make.height.equalTo(self.arrayOfSkills.count * 60)
             }
@@ -531,7 +531,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
 			var educationTitle: String = (popup.textFields?.first as! UITextField).text
-			self.arrayOfEducation.append(educationTitle)
+			self.arrayOfEducation.append(["title":educationTitle])
             self.educationTableView.snp_updateConstraints { (make) -> Void in
                 make.height.equalTo(self.arrayOfEducation.count * 60)
             }
@@ -553,7 +553,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
 			var experienceTitle: String = (popup.textFields?.first as! UITextField).text
-			self.arrayOfExperience.append(experienceTitle)
+			self.arrayOfExperience.append(["title":experienceTitle])
 			self.experienceTableView.snp_updateConstraints { (make) -> Void in
 				make.height.equalTo(self.arrayOfExperience.count * 60)
 			}
@@ -594,10 +594,31 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.educationTableView.reloadData()
 		self.experienceTableView.reloadData()
 			
+		var arrayExperience = [Dictionary<String,String>]()
+			for experience in self.arrayOfExperience{
+				var dictionary = [String:String]()
+				dictionary["title"] = experience["title"]
+				arrayExperience.append(dictionary)
+			}
 			
-		PFUser.currentUser()!["experience"] = self.arrayOfExperience
-		PFUser.currentUser()!["skills"] = self.arrayOfSkills
-		PFUser.currentUser()!["education"] = self.arrayOfEducation
+			var arraySkills = [Dictionary<String,String>]()
+			for skill in self.arrayOfSkills{
+				var dictionary = [String:String]()
+				dictionary["title"] = skill["title"]
+				arraySkills.append(dictionary)
+			}
+			
+			var arrayEducation = [Dictionary<String,String>]()
+			for education in self.arrayOfEducation{
+				var dictionary = [String:String]()
+				dictionary["title"] = education["title"]
+				arrayEducation.append(dictionary)
+			}
+			
+			
+		PFUser.currentUser()!["experience"] = arrayExperience
+		PFUser.currentUser()!["skills"] = arraySkills
+		PFUser.currentUser()!["education"] = arrayEducation
 		PFUser.currentUser()!.saveInBackground()
 	}
     

@@ -90,8 +90,8 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		}
 		
 		self.profilePicture.layer.cornerRadius = 84 / 2
-//		self.profilePicture.layer.borderColor = grayDetails.CGColor
-//		self.profilePicture.layer.borderWidth = 2
+		self.profilePicture.layer.borderColor = darkGrayDetails.CGColor
+		self.profilePicture.layer.borderWidth = 2
 		
 		//Name
 		var name = UILabel()

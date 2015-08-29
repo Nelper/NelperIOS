@@ -208,7 +208,6 @@ class ApplicantCell: UITableViewCell{
 		self.thirdStar.image = UIImage(named: "star.png")
 		self.fourthStar.image = UIImage(named: "star.png")
 
-		
 	}
 	
 	func setApplicant(applicant:User){
@@ -230,6 +229,5 @@ class ApplicantCell: UITableViewCell{
 				self.picture.image = image
 			}
 		}
-	
 	}
 }

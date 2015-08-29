@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7706"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ApplicantProfileViewController" customModule="Nelper" customModuleProvider="target">
             <connections>
                 <outlet property="acceptDenyBar" destination="hcZ-Pp-oOl" id="wgD-rN-9tW"/>
-                <outlet property="background" destination="CwA-PH-Cq1" id="Or8-Dt-z32"/>
+                <outlet property="containerView" destination="Ecy-9n-gFN" id="9js-ge-UpL"/>
                 <outlet property="navBar" destination="xc6-QP-arJ" id="qBi-Kn-1EP"/>
-                <outlet property="scrollView" destination="UZj-wr-2KJ" id="yRH-db-DiD"/>
                 <outlet property="view" destination="iN0-l3-epB" id="lIX-Kp-op8"/>
             </connections>
         </placeholder>
@@ -18,21 +17,6 @@
             <rect key="frame" x="0.0" y="0.0" width="370" height="615"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CwA-PH-Cq1" userLabel="Background">
-                    <rect key="frame" x="0.0" y="64" width="370" height="481"/>
-                    <subviews>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZj-wr-2KJ">
-                            <rect key="frame" x="0.0" y="0.0" width="370" height="481"/>
-                        </scrollView>
-                    </subviews>
-                    <color key="backgroundColor" red="1" green="0.0" blue="0.1107546368" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstItem="UZj-wr-2KJ" firstAttribute="top" secondItem="CwA-PH-Cq1" secondAttribute="top" id="9Pj-vI-wXP"/>
-                        <constraint firstItem="UZj-wr-2KJ" firstAttribute="leading" secondItem="CwA-PH-Cq1" secondAttribute="leading" id="TX9-6t-ffQ"/>
-                        <constraint firstAttribute="trailing" secondItem="UZj-wr-2KJ" secondAttribute="trailing" id="fX5-iM-jBF"/>
-                        <constraint firstAttribute="bottom" secondItem="UZj-wr-2KJ" secondAttribute="bottom" id="nr6-zI-1rT"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xc6-QP-arJ" customClass="NavBar" customModule="Nelper" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="370" height="64"/>
                     <color key="backgroundColor" red="0.30674146070000002" green="1" blue="0.80934466250000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -47,29 +31,25 @@
                         <constraint firstAttribute="height" constant="70" id="XPQ-0E-B20"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ecy-9n-gFN">
+                    <rect key="frame" x="0.0" y="64" width="370" height="481"/>
+                    <color key="backgroundColor" red="0.90196084980000002" green="0.16078431900000001" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="xc6-QP-arJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="0He-Je-uSp"/>
-                <constraint firstItem="CwA-PH-Cq1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1FE-Vw-X1M"/>
-                <constraint firstItem="CwA-PH-Cq1" firstAttribute="top" secondItem="xc6-QP-arJ" secondAttribute="bottom" id="8Jo-Vt-ehy"/>
+                <constraint firstAttribute="trailing" secondItem="Ecy-9n-gFN" secondAttribute="trailing" id="3Cn-2M-kqd"/>
                 <constraint firstAttribute="trailing" secondItem="xc6-QP-arJ" secondAttribute="trailing" id="9Lj-Fi-jNR"/>
-                <constraint firstItem="hcZ-Pp-oOl" firstAttribute="top" secondItem="CwA-PH-Cq1" secondAttribute="bottom" id="Gac-nD-HKw"/>
-                <constraint firstAttribute="bottom" secondItem="CwA-PH-Cq1" secondAttribute="bottom" constant="81" id="a9Y-rb-U11"/>
-                <constraint firstItem="CwA-PH-Cq1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="e8Z-kY-RHR"/>
-                <constraint firstAttribute="trailing" secondItem="CwA-PH-Cq1" secondAttribute="trailing" id="f2k-rM-x6M"/>
+                <constraint firstItem="hcZ-Pp-oOl" firstAttribute="top" secondItem="Ecy-9n-gFN" secondAttribute="bottom" id="cbC-Pc-njJ"/>
                 <constraint firstAttribute="trailing" secondItem="hcZ-Pp-oOl" secondAttribute="trailing" id="qR0-oA-qPe"/>
+                <constraint firstItem="Ecy-9n-gFN" firstAttribute="top" secondItem="xc6-QP-arJ" secondAttribute="bottom" id="qxJ-ps-WNO"/>
                 <constraint firstItem="hcZ-Pp-oOl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="uMs-xi-IMQ"/>
+                <constraint firstItem="Ecy-9n-gFN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="vIh-5W-0QO"/>
                 <constraint firstAttribute="bottom" secondItem="hcZ-Pp-oOl" secondAttribute="bottom" id="yqc-LS-JAv"/>
                 <constraint firstItem="xc6-QP-arJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="z1z-Ut-zw6"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="1FE-Vw-X1M"/>
-                    <exclude reference="a9Y-rb-U11"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="627" y="479.5"/>
         </view>
     </objects>
