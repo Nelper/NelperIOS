@@ -213,7 +213,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		whiteContainer.layer.borderWidth = 1
 		whiteContainer.backgroundColor = navBarColor
 		whiteContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileView.snp_bottom).offset(20)
+			make.top.equalTo(profileView.snp_bottom).offset(10)
 			make.left.equalTo(contentView.snp_left)
 			make.right.equalTo(contentView.snp_right)
 			make.bottom.equalTo(contentView.snp_bottom).offset(-10)
@@ -229,7 +229,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		aboutLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		aboutLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(profilePicture.snp_left)
-			make.top.equalTo(whiteContainer.snp_top).offset(4)
+			make.top.equalTo(whiteContainer.snp_top).offset(10)
 		}
 		
 		var aboutTextView = UITextView()

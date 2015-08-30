@@ -24,6 +24,10 @@ class ApplicantProfileViewController: UIViewController{
 	var fifthStar:UIImageView!
 	
 	var contentView:UIView!
+	var profileSegmentButton:UIButton!
+	var reviewSegmentButton:UIButton!
+	var bottomFeedbackBorder:UIView!
+	var bottomProfileBorder:UIView!
 	
 	//Init
 	convenience init(applicant:User){
@@ -34,6 +38,7 @@ class ApplicantProfileViewController: UIViewController{
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.createView()
+		self.profileSegmentButton.selected = true
 	}
 	
 	//UI
@@ -207,10 +212,12 @@ class ApplicantProfileViewController: UIViewController{
 		}
 		
 		var profileSegmentButton = UIButton()
+		self.profileSegmentButton = profileSegmentButton
+		profileSegmentButton.addTarget(self, action: "profileSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		firstHalf.addSubview(profileSegmentButton)
 		profileSegmentButton.setTitle("Profile", forState: UIControlState.Normal)
 		profileSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
-		profileSegmentButton.setTitleColor(blueGrayColor, forState: UIControlState.Normal)
+		profileSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
 		profileSegmentButton.setTitleColor(blueGrayColor, forState: UIControlState.Selected)
 		profileSegmentButton.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(firstHalf.snp_centerX)
@@ -220,6 +227,7 @@ class ApplicantProfileViewController: UIViewController{
 		}
 		
 		let bottomProfileBorder = UIView()
+		self.bottomProfileBorder = bottomProfileBorder
 		bottomProfileBorder.backgroundColor = blueGrayColor
 		firstHalf.addSubview(bottomProfileBorder)
 		bottomProfileBorder.snp_makeConstraints { (make) -> Void in
@@ -229,8 +237,6 @@ class ApplicantProfileViewController: UIViewController{
 			make.height.equalTo(2)
 		}
 
-
-		
 		var secondHalf = UIView()
 		segmentControlContainer.addSubview(secondHalf)
 		secondHalf.snp_makeConstraints { (make) -> Void in
@@ -241,6 +247,9 @@ class ApplicantProfileViewController: UIViewController{
 		}
 		
 		var reviewSegmentButton = UIButton()
+		self.reviewSegmentButton = reviewSegmentButton
+		reviewSegmentButton.addTarget(self, action: "reviewSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+
 		secondHalf.addSubview(reviewSegmentButton)
 		reviewSegmentButton.setTitle("Feedback", forState: UIControlState.Normal)
 		reviewSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
@@ -253,6 +262,18 @@ class ApplicantProfileViewController: UIViewController{
 			make.bottom.equalTo(secondHalf.snp_bottom).offset(-2)
 		}
 		
+		let bottomFeedbackBorder = UIView()
+		self.bottomFeedbackBorder = bottomFeedbackBorder
+		bottomFeedbackBorder.backgroundColor = blueGrayColor
+		secondHalf.addSubview(bottomFeedbackBorder)
+		bottomFeedbackBorder.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(secondHalf.snp_bottom)
+			make.width.equalTo(secondHalf.snp_width).dividedBy(1.2)
+			make.centerX.equalTo(secondHalf.snp_centerX)
+			make.height.equalTo(2)
+		}
+		
+		bottomFeedbackBorder.hidden = true
 		//Background View + ScrollView
 		
 		var background = UIView()
@@ -336,4 +357,18 @@ class ApplicantProfileViewController: UIViewController{
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
+	func reviewSegmentButtonTapped(sender:UIButton){
+		self.profileSegmentButton.selected = false
+		self.bottomProfileBorder.hidden = true
+		self.reviewSegmentButton.selected = true
+		self.bottomFeedbackBorder.hidden = false
+	}
+	
+	func profileSegmentButtonTapped(sender:UIButton){
+		self.profileSegmentButton.selected = true
+		self.bottomProfileBorder.hidden = false
+		self.reviewSegmentButton.selected = false
+		self.bottomFeedbackBorder.hidden = true
+		
+	}
 }
