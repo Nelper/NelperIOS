@@ -12,10 +12,11 @@ import Alamofire
 class BaseTask: BaseModel {
   
   enum State: Int {
-    case Active = 0
+    case Pending = 0
+		case Cancelled
     case Accepted
-    case Deleted
-  }
+    case Denied
+	}
   
   var title: String!
   var desc: String!
@@ -25,7 +26,7 @@ class BaseTask: BaseModel {
   var priceOffered: Double?
 	var category: String?
   var pictures: Array<PFFile>?
-  var state: State = .Active
+  var state: State = .Pending
 	var createdAt: NSDate!
   
   override init() {

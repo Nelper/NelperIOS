@@ -26,6 +26,10 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	var refreshViewApplication: UIRefreshControl!
 	var locationManager = CLLocationManager()
 	var currentLocation: CLLocation?
+	var myTasksSegmentButton:UIButton!
+	var myApplicationsSegmentButton:UIButton!
+	var myTasksBottomBorder:UIView!
+	var myApplicationsBottomBorder:UIView!
 	
 	//	INITIALIZER
 	convenience init() {
@@ -38,7 +42,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		createView()
 		createMyTasksTableView()
 		createMyApplicationsTableView()
-		self.segmentControl.selectedSegmentIndex = 0
+		myTasksSegmentButton.selected = true
 		getFacebookInfos()
 		adjustUI()
 
@@ -164,25 +168,79 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 			make.right.equalTo(containerView.snp_right)
 			make.height.equalTo(profileView.snp_height).dividedBy(2.25)
 		}
-		
-		var segmentControl = UISegmentedControl()
-		self.segmentControl = segmentControl
-		self.segmentControl.layer.cornerRadius = 0
-		self.segmentControl.addTarget(self, action: "segmentTouched:", forControlEvents: UIControlEvents.ValueChanged)
-		segmentContainer.addSubview(segmentControl)
-		var attributes = NSDictionary(object: UIFont(name: "HelveticaNeue", size: kCellTextFontSize)!, forKey: NSFontAttributeName)
-		segmentControl.setTitleTextAttributes(attributes as [NSObject : AnyObject], forState: UIControlState.Normal)
-		segmentControl.insertSegmentWithTitle("My Tasks", atIndex: 0, animated: false)
-		segmentControl.insertSegmentWithTitle("My Applications", atIndex: 1, animated: false)
-		
-		segmentControl.tintColor = blueGrayColor
-		segmentControl.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(segmentContainer.snp_top).offset(10)
-			make.center.equalTo(segmentContainer.snp_center)
-			make.left.equalTo(segmentContainer.snp_left).offset(12)
-			make.right.equalTo(segmentContainer.snp_right).offset(-12)
 
+		var firstHalf = UIView()
+		segmentContainer.addSubview(firstHalf)
+		firstHalf.snp_makeConstraints { (make) -> Void in
+			make.width.equalTo(segmentContainer.snp_width).dividedBy(2)
+			make.left.equalTo(segmentContainer.snp_left)
+			make.top.equalTo(segmentContainer.snp_top).offset(1)
+			make.bottom.equalTo(segmentContainer.snp_bottom).offset(-1)
 		}
+		
+		var myTasksSegmentButton = UIButton()
+		self.myTasksSegmentButton = myTasksSegmentButton
+		myTasksSegmentButton.addTarget(self, action: "myTasksSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		firstHalf.addSubview(myTasksSegmentButton)
+		myTasksSegmentButton.setTitle("My Tasks", forState: UIControlState.Normal)
+		myTasksSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
+		myTasksSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
+		myTasksSegmentButton.setTitleColor(blueGrayColor, forState: UIControlState.Selected)
+		myTasksSegmentButton.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(firstHalf.snp_centerX)
+			make.top.equalTo(firstHalf.snp_top)
+			make.width.equalTo(firstHalf.snp_width)
+			make.bottom.equalTo(firstHalf.snp_bottom).offset(-2)
+		}
+		
+		let myTasksBottomBorder = UIView()
+		self.myTasksBottomBorder = myTasksBottomBorder
+		myTasksBottomBorder.backgroundColor = blueGrayColor
+		firstHalf.addSubview(myTasksBottomBorder)
+		myTasksBottomBorder.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(firstHalf.snp_bottom)
+			make.width.equalTo(firstHalf.snp_width).dividedBy(1.2)
+			make.centerX.equalTo(firstHalf.snp_centerX)
+			make.height.equalTo(2)
+		}
+		
+		var secondHalf = UIView()
+		segmentContainer.addSubview(secondHalf)
+		secondHalf.snp_makeConstraints { (make) -> Void in
+			make.width.equalTo(segmentContainer.snp_width).dividedBy(2)
+			make.right.equalTo(segmentContainer.snp_right)
+			make.top.equalTo(segmentContainer.snp_top).offset(1)
+			make.bottom.equalTo(segmentContainer.snp_bottom).offset(-1)
+		}
+		
+		var myApplicationsSegmentButton = UIButton()
+		self.myApplicationsSegmentButton = myApplicationsSegmentButton
+		myApplicationsSegmentButton.addTarget(self, action: "myApplicationsSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		
+		secondHalf.addSubview(myApplicationsSegmentButton)
+		myApplicationsSegmentButton.setTitle("My Applications", forState: UIControlState.Normal)
+		myApplicationsSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
+		myApplicationsSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
+		myApplicationsSegmentButton.setTitleColor(blueGrayColor, forState: UIControlState.Selected)
+		myApplicationsSegmentButton.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(secondHalf.snp_centerX)
+			make.width.equalTo(secondHalf.snp_width)
+			make.top.equalTo(secondHalf.snp_top)
+			make.bottom.equalTo(secondHalf.snp_bottom).offset(-2)
+		}
+		
+		let myApplicationsBottomBorder = UIView()
+		self.myApplicationsBottomBorder = myApplicationsBottomBorder
+		myApplicationsBottomBorder.backgroundColor = blueGrayColor
+		secondHalf.addSubview(myApplicationsBottomBorder)
+		myApplicationsBottomBorder.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(secondHalf.snp_bottom)
+			make.width.equalTo(secondHalf.snp_width).dividedBy(1.2)
+			make.centerX.equalTo(secondHalf.snp_centerX)
+			make.height.equalTo(2)
+		}
+		
+		myApplicationsBottomBorder.hidden = true
 		
 		//Tasks container
 		var tasksContainer = UIView()
@@ -195,7 +253,8 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 			make.bottom.equalTo(self.tabBarView.snp_top)
 		}
 	}
-	
+
+
 	
 	func createMyTasksTableView(){
 		
@@ -381,15 +440,22 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
-	func segmentTouched(sender:UISegmentedControl) {
-		if sender.selectedSegmentIndex == 0 {
-			self.myApplicationsTableView.hidden = true
-			self.myTasksTableView.hidden = false
-		}else if sender.selectedSegmentIndex == 1 {
-			self.myTasksTableView.hidden = true
-			self.myApplicationsTableView.hidden = false
-			
-		}
+	func myTasksSegmentButtonTapped(sender:UIButton){
+		self.myTasksSegmentButton.selected = true
+		self.myTasksBottomBorder.hidden = false
+		self.myApplicationsSegmentButton.selected = false
+		self.myApplicationsBottomBorder.hidden = true
+		self.myApplicationsTableView.hidden = true
+		self.myTasksTableView.hidden = false
+	}
+	
+	func myApplicationsSegmentButtonTapped(sender:UIButton){
+		self.myTasksSegmentButton.selected = false
+		self.myTasksBottomBorder.hidden = true
+		self.myApplicationsSegmentButton.selected = true
+		self.myApplicationsBottomBorder.hidden = false
+		self.myTasksTableView.hidden = true
+		self.myApplicationsTableView.hidden = false
 		
 	}
 	

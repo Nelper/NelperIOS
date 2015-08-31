@@ -235,6 +235,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		var aboutTextView = UITextView()
 		self.whiteContainer.addSubview(aboutTextView)
 		self.aboutTextView = aboutTextView
+		aboutTextView.scrollEnabled = false
 		aboutTextView.textColor = blackNelpyColor
 		aboutTextView.backgroundColor = navBarColor
 		aboutTextView.editable = false
@@ -243,8 +244,14 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(aboutLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left).offset(4)
 			make.width.equalTo(contentView.snp_width).dividedBy(1.2)
-			make.height.equalTo(90)
 		}
+		
+		let fixedWidth = aboutTextView.frame.size.width
+		aboutTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+		let newSize = aboutTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+		var newFrame = aboutTextView.frame
+		newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+		aboutTextView.frame = newFrame;
 		
 		var editAboutIcon = UIButton()
 		self.whiteContainer.addSubview(editAboutIcon)

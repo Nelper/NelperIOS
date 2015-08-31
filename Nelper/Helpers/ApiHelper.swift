@@ -101,7 +101,7 @@ class ApiHelper {
 	static func listNelpTasksWithBlock(block: ([NelpTask]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		taskQuery.includeKey("user")
-		taskQuery.whereKey("state", equalTo: NelpTask.State.Active.rawValue)
+		taskQuery.whereKey("state", equalTo: NelpTask.State.Pending.rawValue)
 		taskQuery.orderByDescending("createdAt")
 		taskQuery.limit = 20
 		taskQuery.findObjectsInBackgroundWithBlock { (pfTasks, error) -> Void in
@@ -142,7 +142,7 @@ class ApiHelper {
 	static func listMyNelpTasksWithBlock(block: ([FindNelpTask]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		taskQuery.whereKey("user", equalTo: PFUser.currentUser()!)
-		taskQuery.whereKey("state", containedIn: [NelpTask.State.Active.rawValue, NelpTask.State.Accepted.rawValue ])
+		taskQuery.whereKey("state", containedIn: [NelpTask.State.Pending.rawValue, NelpTask.State.Accepted.rawValue ])
 		taskQuery.orderByDescending("createdAt")
 		taskQuery.limit = 20
 		taskQuery.findObjectsInBackgroundWithBlock { (pfTasks, error) -> Void in
@@ -247,7 +247,7 @@ class ApiHelper {
 	static func deleteTask(task: FindNelpTask) {
 		let parseTask = PFObject(className: kParseTask)
 		parseTask.objectId = task.objectId
-		parseTask["state"] = FindNelpTask.State.Deleted.rawValue
+		parseTask["state"] = FindNelpTask.State.Cancelled.rawValue
 		parseTask.saveEventually()
 	}
 	

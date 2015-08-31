@@ -9,6 +9,10 @@
 import Foundation
 import Alamofire
 
+protocol ApplicantCellDelegate{
+	func didTapRevertButton(applicant:User)
+}
+
 class ApplicantCell: UITableViewCell{
 	
 	var applicant:User!
@@ -21,6 +25,12 @@ class ApplicantCell: UITableViewCell{
 	var fifthStar:UIImageView!
 	var taskCompletedLabel:UILabel!
 	var askingForLabel:UILabel!
+	var rightButton:UIButton!
+	var revertButton:UIButton?
+	var delegate: ApplicantCellDelegate?
+	var index:Int!
+	var cellView:UIView!
+
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,6 +38,7 @@ class ApplicantCell: UITableViewCell{
 		self.clipsToBounds = true
 		
 		let cellView = UIView(frame: self.bounds)
+		self.cellView = cellView
 		cellView.backgroundColor = navBarColor
 		cellView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
 		
@@ -168,9 +179,10 @@ class ApplicantCell: UITableViewCell{
 		
 		//Arrow
 		
-		var arrow = UIImageView()
+		var arrow = UIButton()
+		self.rightButton = arrow
 		cellView.addSubview(arrow)
-		arrow.image = UIImage(named: "arrow_applicant_cell.png")
+		arrow.setBackgroundImage(UIImage(named: "arrow_applicant_cell.png"), forState: UIControlState.Normal)
 		arrow.contentMode = UIViewContentMode.ScaleAspectFill
 		arrow.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(cellView.snp_right).offset(-4)
@@ -198,6 +210,17 @@ class ApplicantCell: UITableViewCell{
 	static var reuseIdentifier: String {
 		get {
 			return "ApplicantCell"
+		}
+	}
+	
+	func replaceArrowImage(){
+		self.rightButton.setBackgroundImage(UIImage(named: "revert"), forState: UIControlState.Normal)
+		self.rightButton.addTarget(self, action: "revertButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.rightButton.snp_updateConstraints{ (make) -> Void in
+			make.height.equalTo(50)
+			make.width.equalTo(50)
+			make.centerY.equalTo(self.cellView.snp_centerY)
+			make.right.equalTo(self.cellView.snp_right).offset(-8)
 		}
 	}
 	
@@ -229,5 +252,9 @@ class ApplicantCell: UITableViewCell{
 				self.picture.image = image
 			}
 		}
+	}
+	
+	func revertButtonTapped(sender:UIButton){
+		self.delegate!.didTapRevertButton(self.applicant)
 	}
 }

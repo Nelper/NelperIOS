@@ -98,6 +98,13 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.descriptionTextView.textColor = blackNelpyColor
 		self.descriptionTextView.editable = false
 		
+		let fixedWidth = self.descriptionTextView.frame.size.width
+		self.descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+		let newSize = self.descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+		var newFrame = self.descriptionTextView.frame
+		newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+		self.descriptionTextView.frame = newFrame;
+		
 		self.carousel.backgroundColor = whiteNelpyColor
 		
 		self.applyButton.setTitle("Apply", forState: UIControlState.Normal)

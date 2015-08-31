@@ -100,6 +100,10 @@ class skillsTableViewCell: UITableViewCell {
 			self.skillName.text = skillName
 	}
 	
+	func hideTrashCanIcon(){
+		self.trashImage.hidden = true
+	}
+	
 	func sendCellType(category:String){
 		self.cellType = category
 	}

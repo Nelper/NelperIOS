@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 import iCarousel
 
-class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate{
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var container: UIView!
@@ -26,6 +26,9 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var deniedApplicantsContainer:UIView!
 	var arrayOfDeniedApplicants:[User]!
 	var deniedApplicantsTableView: UITableView!
+	var arrayOfApplications:[NelpTaskApplication]!
+	var arrayOfAllApplicants:[User]!
+	var taskSectionContainer:UIImageView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -44,12 +47,22 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.init(nibName: "MyTaskDetailsViewController", bundle: nil)
 		self.task = findNelpTask
 		var arrayOfApplications = findNelpTask.applications
+		self.arrayOfApplications = arrayOfApplications
 		var arrayOfApplicants = [User]()
+		var arrayOfAllApplicants = [User]()
+		var arrayOfDeniedApplicants = [User]()
 		for application in arrayOfApplications{
+			if application.state == .Pending{
 			arrayOfApplicants.append(application.user)
+			arrayOfAllApplicants.append(application.user)
+			}else if application.state == .Denied{
+				arrayOfDeniedApplicants.append(application.user)
+				arrayOfAllApplicants.append(application.user)
+			}
 		}
 		self.arrayOfApplicants = arrayOfApplicants
-		self.arrayOfDeniedApplicants = [User]()
+		self.arrayOfDeniedApplicants = arrayOfDeniedApplicants
+		self.arrayOfAllApplicants = arrayOfAllApplicants
 	}
 	
 	func createView(){
@@ -69,7 +82,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//Task Section
 		
-		var taskSectionContainer = UIView()
+		var taskSectionContainer = UIImageView()
+		self.taskSectionContainer = taskSectionContainer
 		self.contentView.addSubview(taskSectionContainer)
 		taskSectionContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.contentView.snp_top)
@@ -78,6 +92,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.height.equalTo(110)
 		}
 		taskSectionContainer.backgroundColor = blueGrayColor
+
 //		taskSectionContainer.layer.borderColor = darkGrayDetails.CGColor
 //		taskSectionContainer.layer.borderWidth = 1
 		
@@ -157,6 +172,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.centerY.equalTo(pendingApplicantIcon.snp_centerY)
 			make.left.equalTo(pendingApplicantIcon.snp_right).offset(6)
 		}
+		
 
 		//Applicants Table View
 		
@@ -173,6 +189,16 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.right.equalTo(activeApplicantsContainer.snp_right)
 			make.bottom.equalTo(activeApplicantsContainer.snp_bottom)
 			}
+		
+		var pendingBottomLine = UIView()
+		pendingBottomLine.backgroundColor = darkGrayDetails
+		activeApplicantsContainer.addSubview(pendingBottomLine)
+		pendingBottomLine.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(applicantsTableView.snp_top).offset(-2)
+			make.centerX.equalTo(activeApplicantsContainer.snp_centerX)
+			make.height.equalTo(0.5)
+			make.width.equalTo(activeApplicantsContainer.snp_width).dividedBy(1.2)
+		}
 		
 		//Denied Applicants
 		
@@ -227,6 +253,16 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.bottom.equalTo(deniedApplicantsContainer.snp_bottom)
 		}
 		
+		var deniedBottomLine = UIView()
+		deniedBottomLine.backgroundColor = darkGrayDetails
+		deniedApplicantsContainer.addSubview(deniedBottomLine)
+		deniedBottomLine.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(deniedApplicantsTableView.snp_top).offset(-2)
+			make.centerX.equalTo(deniedApplicantsContainer.snp_centerX)
+			make.height.equalTo(0.5)
+			make.width.equalTo(deniedApplicantsContainer.snp_width).dividedBy(1.2)
+		}
+		
 		//MockView for Scoll
 		var mockView = UIView(frame: CGRectMake(0, 0, 1, 1))
 		self.contentView.addSubview(mockView)
@@ -235,6 +271,26 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.centerX.equalTo(contentView.snp_centerX)
 		}
 
+	}
+	
+	//DATA
+	
+	func refreshTableView(){
+		self.applicantsTableView.reloadData()
+		self.deniedApplicantsTableView.reloadData()
+		self.updateFrames()
+	}
+	
+	func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {
+		var image: UIImage!
+		request(.GET,imageURL).response(){
+			(_, _, data, error) in
+			if(error != nil){
+				println(error)
+			}
+			image = UIImage(data: data as NSData!)
+			block(image)
+		}
 	}
 	
 	
@@ -269,24 +325,69 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 	}
 	
+	func updateFrames(){
+		
+		deniedApplicantsContainer.snp_updateConstraints { (make) -> Void in
+			make.top.equalTo(activeApplicantsContainer.snp_bottom).offset(10)
+			make.left.equalTo(self.contentView.snp_left)
+			make.right.equalTo(self.contentView.snp_right)
+			make.height.equalTo((self.arrayOfDeniedApplicants.count*120)+70)
+		}
+		
+		activeApplicantsContainer.snp_updateConstraints { (make) -> Void in
+			make.top.equalTo(taskSectionContainer.snp_bottom).offset(10)
+			make.left.equalTo(self.contentView.snp_left)
+			make.right.equalTo(self.contentView.snp_right)
+			make.height.equalTo((self.arrayOfApplicants.count*120)+70)
+		}
+	}
+	
+	func setHeaderImage(){
+		if self.task.pictures != nil{
+			if(!self.task.pictures!.isEmpty){
+				getPictures(self.task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
+					self.taskSectionContainer.image = imageReturned
+				})}}
+		self.taskSectionContainer.contentMode = .ScaleAspectFill
+		self.taskSectionContainer.clipsToBounds = true
+	}
 	//Table View Delegate Methods
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		if tableView == self.applicantsTableView{
 		return self.arrayOfApplicants.count
+		}else if tableView == self.deniedApplicantsTableView{
+			return self.arrayOfDeniedApplicants.count
+		}
+		return 0
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		
+		if tableView == applicantsTableView{
 		let pendingApplicantCell = tableView.dequeueReusableCellWithIdentifier(ApplicantCell.reuseIdentifier, forIndexPath: indexPath) as! ApplicantCell
 		let applicant = self.arrayOfApplicants[indexPath.row]
 		pendingApplicantCell.setApplicant(applicant)
 		return pendingApplicantCell
+		}else if tableView == deniedApplicantsTableView{
+			let deniedApplicantCell = tableView.dequeueReusableCellWithIdentifier(ApplicantCell.reuseIdentifier, forIndexPath: indexPath) as! ApplicantCell
+			let deniedApplicant = self.arrayOfDeniedApplicants[indexPath.row]
+			deniedApplicantCell.setApplicant(deniedApplicant)
+			deniedApplicantCell.replaceArrowImage()
+			deniedApplicantCell.delegate = self
+			return deniedApplicantCell
+	
+		}
+		return UITableViewCell()
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		var applicant = arrayOfApplicants[indexPath.row]
-		var nextVC = ApplicantProfileViewController(applicant: applicant)
+		if tableView == self.applicantsTableView{
+		var applicant = self.arrayOfAllApplicants[indexPath.row]
+		let application = self.arrayOfApplications[indexPath.row]
+		var nextVC = ApplicantProfileViewController(applicant: applicant, application: application)
+		nextVC.delegate = self
 		dispatch_async(dispatch_get_main_queue()){
 			self.presentViewController(nextVC, animated: true, completion: nil)
+		}
 		}
 	}
 	
@@ -302,6 +403,60 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		println("\(self.scrollView.contentSize)")
 	}
 	
+	//Cell Delegate Method
+	
+	func didTapRevertButton(applicant:User){
+		var applicationToRevert:NelpTaskApplication!
+		for application in self.arrayOfApplications{
+			println(application.user.objectId)
+			println(applicant.objectId)
+			if application.user.objectId == applicant.objectId{
+				applicationToRevert = application
+				for (var i = 0 ; i < self.arrayOfDeniedApplicants.count ; i++) {
+					var applicantToChange = self.arrayOfDeniedApplicants[i]
+					if applicantToChange.objectId == applicant.objectId{
+						self.arrayOfDeniedApplicants.removeAtIndex(i)
+						self.arrayOfApplicants.append(applicantToChange)
+					}
+				}
+			}
+		}
+		applicationToRevert.state = .Pending
+		var query = PFQuery(className: "NelpTaskApplication")
+		query.getObjectInBackgroundWithId(applicationToRevert.objectId, block: { (application, error) -> Void in
+			if error != nil{
+				println(error)
+			} else if let application = application{
+				application["state"] = applicationToRevert.state.rawValue
+				application.saveInBackground()
+			}
+		})
+		
+		self.refreshTableView()
+	}
+	
+	//Applicant's Profile View Controller Delegate Method
+	
+	func didTapDenyButton(applicant:User){
+		var applicationToDeny:NelpTaskApplication!
+		for application in self.arrayOfApplications{
+			println(application.user.objectId)
+			println(applicant.objectId)
+			if application.user.objectId == applicant.objectId{
+				applicationToDeny = application
+				for (var i = 0 ; i < self.arrayOfApplicants.count ; i++) {
+					var applicantToChange = self.arrayOfApplicants[i]
+					if applicantToChange.objectId == applicant.objectId{
+						self.arrayOfApplicants.removeAtIndex(i)
+						self.arrayOfDeniedApplicants.append(applicantToChange)
+					}
+				}
+			}
+		}
+		self.refreshTableView()
+
+	}
+
 	//Actions
 	
 	func editButtonTapped(sender:UIButton){

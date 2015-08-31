@@ -22,7 +22,7 @@ class NavBar: UINavigationBar {
 				self.backButtonView = value
 				self.backButtonView?.setTitle("Back", forState: UIControlState.Normal)
 				self.backButtonView?.setTitleColor(blueGrayColor, forState: UIControlState.Normal)
-				self.backButtonView?.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: 18)
+				self.backButtonView?.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 18)
 				self.backButtonView?.contentEdgeInsets = UIEdgeInsets(top: 0, left: 26, bottom: 0, right: 0)
 				self.container.addSubview(self.backButtonView!)
 				
@@ -33,8 +33,8 @@ class NavBar: UINavigationBar {
 				backArrow.snp_makeConstraints { (make) -> Void in
 					make.left.equalTo(self.backButtonView!.snp_left).offset(4)
 					make.centerY.equalTo(self.backButtonView!.snp_centerY).offset(0)
-					make.width.equalTo(18)
-					make.height.equalTo(18)
+					make.width.equalTo(24)
+					make.height.equalTo(20)
 				}
 				
 				self.backButtonView?.snp_makeConstraints(closure: { (make) -> Void in

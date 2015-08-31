@@ -239,12 +239,12 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		if nelpApplication.state.rawValue == 0 {
 			self.applicationStateIcon.image = UIImage(named: "pending.png")!
 			self.applicationStateLabel.text = "Pending"
-		}else if nelpApplication.state.rawValue == 2{
-			self.applicationStateIcon.image = UIImage(named:"accepted.png")
+		} else if nelpApplication.state.rawValue == 2{
+			self.applicationStateIcon.image = UIImage(named: "accepted.png")!
 			self.applicationStateLabel.text = "Accepted"
 		} else if nelpApplication.state.rawValue == 3{
-			self.applicationStateIcon.image = UIImage(named: "declined.png")!
-			self.applicationStateLabel.text = "Declined"
+			self.applicationStateIcon.image = UIImage(named: "denied.png")!
+			self.applicationStateLabel.text = "Denied"
 		}
 		
 	}
