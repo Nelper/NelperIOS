@@ -573,6 +573,23 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			make.height.equalTo(50)
 		}
 		
+		//Chat Button
+		
+		var chatButton = UIButton()
+		self.view.addSubview(chatButton)
+		chatButton.backgroundColor = grayBlueColor
+		chatButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
+		chatButton.addTarget(self, action: "chatButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		chatButton.imageView!.frame = CGRectMake(0, 0, 30, 30)
+		chatButton.imageView!.contentMode = UIViewContentMode.Center
+		chatButton.layer.cornerRadius = 3
+		chatButton.clipsToBounds = true
+		chatButton.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(whiteContainer.snp_right).offset(1)
+			make.bottom.equalTo(acceptDenyBar.snp_top).offset(1)
+			make.width.equalTo(110)
+			make.height.equalTo(40)
+		}
 	}
 	
 	//DATA
@@ -747,7 +764,10 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	
+	func chatButtonTapped(sender:UIButton){
+		var chatVC = ATLConversationViewController(layerClient: AppDelegate.layerClient)
+		
+	}
 	
 	
 	func reviewSegmentButtonTapped(sender:UIButton){

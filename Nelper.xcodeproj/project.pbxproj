@@ -48,7 +48,6 @@
 		F73AC3BC1B6E80A30086B0B4 /* AutocompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73AC3BB1B6E80A30086B0B4 /* AutocompleteCell.swift */; };
 		F73AE64A1B6D3CEA00FE672E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73AE6491B6D3CEA00FE672E /* Accounts.framework */; };
 		F73AE64C1B6D3CFF00FE672E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73AE64B1B6D3CFF00FE672E /* Social.framework */; };
-		F75560131B8D28C0005A3B27 /* ApplicantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75560121B8D28C0005A3B27 /* ApplicantCell.swift */; };
 		F762D0061B4B66B000812235 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0041B4B66B000812235 /* LoginViewController.swift */; };
 		F762D0071B4B66B000812235 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F762D0051B4B66B000812235 /* LoginViewController.xib */; };
 		F762D0111B4B67D900812235 /* NelpTasksListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0101B4B67D900812235 /* NelpTasksListViewController.swift */; };
@@ -128,6 +127,9 @@
 		F7E8F9251B94E884007D44D8 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E8F9241B94E884007D44D8 /* MobileCoreServices.framework */; };
 		F7E8F9271B94E89A007D44D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E8F9261B94E89A007D44D8 /* CoreLocation.framework */; };
 		F7E8F9291B94E8A0007D44D8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E8F9281B94E8A0007D44D8 /* AssetsLibrary.framework */; };
+		F7E8F92F1B94ED81007D44D8 /* ApplicantChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F92E1B94ED81007D44D8 /* ApplicantChatViewController.swift */; };
+		F7E8F9311B94ED97007D44D8 /* ApplicantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F9301B94ED97007D44D8 /* ApplicantCell.swift */; };
+		F7E8F9331B94F3A4007D44D8 /* PFUser+ATLParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F9321B94F3A4007D44D8 /* PFUser+ATLParticipant.swift */; };
 		F7EE46B81B6D219C005ECFCA /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = F7EE46B71B6D219C005ECFCA /* Podfile */; };
 		F7EE46D71B6D32D4005ECFCA /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */; };
 		F7F0D23D1B857AA40018FC0B /* skillsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */; };
@@ -214,7 +216,6 @@
 		F73AC3BB1B6E80A30086B0B4 /* AutocompleteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AutocompleteCell.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/AutocompleteCell.swift"; sourceTree = SOURCE_ROOT; };
 		F73AE6491B6D3CEA00FE672E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		F73AE64B1B6D3CFF00FE672E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		F75560121B8D28C0005A3B27 /* ApplicantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicantCell.swift; sourceTree = SOURCE_ROOT; };
 		F762D0041B4B66B000812235 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Nelper/Login/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		F762D0051B4B66B000812235 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Nelper/Login/LoginViewController.xib; sourceTree = SOURCE_ROOT; };
 		F762D0101B4B67D900812235 /* NelpTasksListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTasksListViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/NelpTasksListViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -335,6 +336,9 @@
 		F7E8F9241B94E884007D44D8 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		F7E8F9261B94E89A007D44D8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F7E8F9281B94E8A0007D44D8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		F7E8F92E1B94ED81007D44D8 /* ApplicantChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApplicantChatViewController.swift; path = Nelper/Profile/ApplicantChatViewController.swift; sourceTree = SOURCE_ROOT; };
+		F7E8F9301B94ED97007D44D8 /* ApplicantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApplicantCell.swift; path = Nelper/Profile/ApplicantCell.swift; sourceTree = SOURCE_ROOT; };
+		F7E8F9321B94F3A4007D44D8 /* PFUser+ATLParticipant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PFUser+ATLParticipant.swift"; path = "Nelper/Model/PFUser+ATLParticipant.swift"; sourceTree = SOURCE_ROOT; };
 		F7EE46B71B6D219C005ECFCA /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Pods/GoogleMaps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
 		F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = skillsTableViewCell.swift; path = Nelper/Profile/skillsTableViewCell.swift; sourceTree = SOURCE_ROOT; };
@@ -565,9 +569,10 @@
 			children = (
 				F775C0CC1B82CC9B00F7525B /* MyTaskDetailsViewController.swift */,
 				F775C0CE1B82CEAF00F7525B /* MyTaskDetailsViewController.xib */,
-				F75560121B8D28C0005A3B27 /* ApplicantCell.swift */,
+				F7E8F9301B94ED97007D44D8 /* ApplicantCell.swift */,
 				F78438221B8FF7D200BEA25F /* ApplicantProfileViewController.swift */,
 				F78438241B8FF7F000BEA25F /* ApplicantProfileViewController.xib */,
+				F7E8F92E1B94ED81007D44D8 /* ApplicantChatViewController.swift */,
 			);
 			name = "My Tasks Details View";
 			sourceTree = "<group>";
@@ -594,6 +599,7 @@
 				19761A181B6877FB001600E1 /* FindNelpTask.swift */,
 				19761A1A1B687858001600E1 /* BaseTask.swift */,
 				F73A45BD1B72F4B600FD8C79 /* MKPin.swift */,
+				F7E8F9321B94F3A4007D44D8 /* PFUser+ATLParticipant.swift */,
 			);
 			name = Model;
 			path = ViewControllers/Offer;
@@ -993,6 +999,7 @@
 				F762D0061B4B66B000812235 /* LoginViewController.swift in Sources */,
 				F775C0C91B81150300F7525B /* NelpTasksTableViewCell.swift in Sources */,
 				F78438231B8FF7D200BEA25F /* ApplicantProfileViewController.swift in Sources */,
+				F7E8F92F1B94ED81007D44D8 /* ApplicantChatViewController.swift in Sources */,
 				F72F27D31B5302DE00CD3B0B /* NelpTaskCreateViewController.swift in Sources */,
 				F7E8F8EC1B94E7CF007D44D8 /* ATLConversationCollectionViewMoreMessagesHeader.m in Sources */,
 				199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */,
@@ -1019,6 +1026,7 @@
 				195FD9B51B4CA6A50040AD20 /* NelpViewController.swift in Sources */,
 				F7E8F8E01B94E7CF007D44D8 /* ATLErrors.m in Sources */,
 				19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */,
+				F7E8F9331B94F3A4007D44D8 /* PFUser+ATLParticipant.swift in Sources */,
 				F7067AB41B56001300F19745 /* FontHelper.swift in Sources */,
 				F7E8F8E31B94E7CF007D44D8 /* ATLMessagingUtilities.m in Sources */,
 				F7E8F8D41B94E7CF007D44D8 /* Atlas.m in Sources */,
@@ -1026,7 +1034,6 @@
 				192635451B744D9C005597E3 /* NavBar.swift in Sources */,
 				F7DEC2111B69CB6C00B03747 /* NelpViewCell.swift in Sources */,
 				F7E8F8E81B94E7CF007D44D8 /* ATLAvatarImageView.m in Sources */,
-				F75560131B8D28C0005A3B27 /* ApplicantCell.swift in Sources */,
 				F7E8F8D61B94E7CF007D44D8 /* ATLBaseConversationViewController.m in Sources */,
 				F762D0131B4B680300812235 /* ProfileViewController.swift in Sources */,
 				F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */,
@@ -1038,6 +1045,7 @@
 				F7E8F8DA1B94E7CF007D44D8 /* ATLTypingIndicatorViewController.m in Sources */,
 				F7E8F8DF1B94E7CF007D44D8 /* ATLConstants.m in Sources */,
 				F7E8F8EA1B94E7CF007D44D8 /* ATLConversationCollectionViewFooter.m in Sources */,
+				F7E8F9311B94ED97007D44D8 /* ApplicantCell.swift in Sources */,
 				F7E8F8E41B94E7CF007D44D8 /* ATLUIImageHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

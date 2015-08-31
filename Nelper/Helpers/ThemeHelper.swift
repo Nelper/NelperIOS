@@ -29,7 +29,7 @@ let facebookBlueColor = hexStringToUIColor ("3b5998")
 let greenPriceButton = hexStringToUIColor ("80bf62")
 
 
-let yellowTechnology = hexStringToUIColor ("f7cc39")
+let grayBlueColor = hexStringToUIColor ("5a6a7b")
 
 let navBarColor = whiteGrayColor
 let tabBarColor = whiteGrayColor
