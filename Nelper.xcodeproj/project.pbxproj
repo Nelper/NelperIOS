@@ -68,6 +68,66 @@
 		F7AB48A21B75AE5C00B602C4 /* iCarousel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB48A11B75AE5C00B602C4 /* iCarousel.framework */; };
 		F7D94CB41B5AC41000380157 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CB31B5AC41000380157 /* MapKit.framework */; };
 		F7DEC2111B69CB6C00B03747 /* NelpViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */; };
+		F7E8F8D41B94E7CF007D44D8 /* Atlas.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8831B94E7CF007D44D8 /* Atlas.m */; };
+		F7E8F8D51B94E7CF007D44D8 /* ATLAddressBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8861B94E7CF007D44D8 /* ATLAddressBarViewController.m */; };
+		F7E8F8D61B94E7CF007D44D8 /* ATLBaseConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8881B94E7CF007D44D8 /* ATLBaseConversationViewController.m */; };
+		F7E8F8D71B94E7CF007D44D8 /* ATLConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F88A1B94E7CF007D44D8 /* ATLConversationListViewController.m */; };
+		F7E8F8D81B94E7CF007D44D8 /* ATLConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F88C1B94E7CF007D44D8 /* ATLConversationViewController.m */; };
+		F7E8F8D91B94E7CF007D44D8 /* ATLParticipantTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F88E1B94E7CF007D44D8 /* ATLParticipantTableViewController.m */; };
+		F7E8F8DA1B94E7CF007D44D8 /* ATLTypingIndicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8901B94E7CF007D44D8 /* ATLTypingIndicatorViewController.m */; };
+		F7E8F8DB1B94E7CF007D44D8 /* ATLConversationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8931B94E7CF007D44D8 /* ATLConversationDataSource.m */; };
+		F7E8F8DC1B94E7CF007D44D8 /* ATLDataSourceChange.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8951B94E7CF007D44D8 /* ATLDataSourceChange.m */; };
+		F7E8F8DD1B94E7CF007D44D8 /* ATLMediaAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8971B94E7CF007D44D8 /* ATLMediaAttachment.m */; };
+		F7E8F8DE1B94E7CF007D44D8 /* ATLParticipantTableDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8991B94E7CF007D44D8 /* ATLParticipantTableDataSet.m */; };
+		F7E8F8DF1B94E7CF007D44D8 /* ATLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8A21B94E7CF007D44D8 /* ATLConstants.m */; };
+		F7E8F8E01B94E7CF007D44D8 /* ATLErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8A41B94E7CF007D44D8 /* ATLErrors.m */; };
+		F7E8F8E11B94E7CF007D44D8 /* ATLLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8A61B94E7CF007D44D8 /* ATLLocationManager.m */; };
+		F7E8F8E21B94E7CF007D44D8 /* ATLMediaInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8A81B94E7CF007D44D8 /* ATLMediaInputStream.m */; };
+		F7E8F8E31B94E7CF007D44D8 /* ATLMessagingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8AA1B94E7CF007D44D8 /* ATLMessagingUtilities.m */; };
+		F7E8F8E41B94E7CF007D44D8 /* ATLUIImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8AC1B94E7CF007D44D8 /* ATLUIImageHelper.m */; };
+		F7E8F8E51B94E7CF007D44D8 /* ATLAddressBarContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8AF1B94E7CF007D44D8 /* ATLAddressBarContainerView.m */; };
+		F7E8F8E61B94E7CF007D44D8 /* ATLAddressBarTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8B11B94E7CF007D44D8 /* ATLAddressBarTextView.m */; };
+		F7E8F8E71B94E7CF007D44D8 /* ATLAddressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8B31B94E7CF007D44D8 /* ATLAddressBarView.m */; };
+		F7E8F8E81B94E7CF007D44D8 /* ATLAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8B51B94E7CF007D44D8 /* ATLAvatarImageView.m */; };
+		F7E8F8E91B94E7CF007D44D8 /* ATLConversationCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8B71B94E7CF007D44D8 /* ATLConversationCollectionView.m */; };
+		F7E8F8EA1B94E7CF007D44D8 /* ATLConversationCollectionViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8B91B94E7CF007D44D8 /* ATLConversationCollectionViewFooter.m */; };
+		F7E8F8EB1B94E7CF007D44D8 /* ATLConversationCollectionViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8BB1B94E7CF007D44D8 /* ATLConversationCollectionViewHeader.m */; };
+		F7E8F8EC1B94E7CF007D44D8 /* ATLConversationCollectionViewMoreMessagesHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8BD1B94E7CF007D44D8 /* ATLConversationCollectionViewMoreMessagesHeader.m */; };
+		F7E8F8ED1B94E7CF007D44D8 /* ATLConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8BF1B94E7CF007D44D8 /* ATLConversationTableViewCell.m */; };
+		F7E8F8EE1B94E7CF007D44D8 /* ATLConversationView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8C11B94E7CF007D44D8 /* ATLConversationView.m */; };
+		F7E8F8EF1B94E7CF007D44D8 /* ATLIncomingMessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8C31B94E7CF007D44D8 /* ATLIncomingMessageCollectionViewCell.m */; };
+		F7E8F8F01B94E7CF007D44D8 /* ATLMessageBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8C51B94E7CF007D44D8 /* ATLMessageBubbleView.m */; };
+		F7E8F8F11B94E7CF007D44D8 /* ATLMessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8C71B94E7CF007D44D8 /* ATLMessageCollectionViewCell.m */; };
+		F7E8F8F21B94E7CF007D44D8 /* ATLMessageComposeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8C91B94E7CF007D44D8 /* ATLMessageComposeTextView.m */; };
+		F7E8F8F31B94E7CF007D44D8 /* ATLMessageInputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8CB1B94E7CF007D44D8 /* ATLMessageInputToolbar.m */; };
+		F7E8F8F41B94E7CF007D44D8 /* ATLOutgoingMessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8CD1B94E7CF007D44D8 /* ATLOutgoingMessageCollectionViewCell.m */; };
+		F7E8F8F51B94E7CF007D44D8 /* ATLParticipantSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8CF1B94E7CF007D44D8 /* ATLParticipantSectionHeaderView.m */; };
+		F7E8F8F61B94E7CF007D44D8 /* ATLParticipantTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8D11B94E7CF007D44D8 /* ATLParticipantTableViewCell.m */; };
+		F7E8F8F71B94E7CF007D44D8 /* ATLProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8D31B94E7CF007D44D8 /* ATLProgressView.m */; };
+		F7E8F90C1B94E7DF007D44D8 /* block.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F8F91B94E7DF007D44D8 /* block.png */; };
+		F7E8F90D1B94E7DF007D44D8 /* block@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F8FA1B94E7DF007D44D8 /* block@2x.png */; };
+		F7E8F90E1B94E7DF007D44D8 /* block@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F8FB1B94E7DF007D44D8 /* block@3x.png */; };
+		F7E8F90F1B94E7DF007D44D8 /* camera_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F8FC1B94E7DF007D44D8 /* camera_dark.png */; };
+		F7E8F9101B94E7DF007D44D8 /* camera_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F8FD1B94E7DF007D44D8 /* camera_dark@2x.png */; };
+		F7E8F9111B94E7DF007D44D8 /* camera_dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F8FE1B94E7DF007D44D8 /* camera_dark@3x.png */; };
+		F7E8F9121B94E7DF007D44D8 /* chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F8FF1B94E7DF007D44D8 /* chevron.png */; };
+		F7E8F9131B94E7DF007D44D8 /* chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F9001B94E7DF007D44D8 /* chevron@2x.png */; };
+		F7E8F9141B94E7DF007D44D8 /* chevron@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F9011B94E7DF007D44D8 /* chevron@3x.png */; };
+		F7E8F9151B94E7DF007D44D8 /* layerbell.caf in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F9021B94E7DF007D44D8 /* layerbell.caf */; };
+		F7E8F9161B94E7DF007D44D8 /* layerLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F9031B94E7DF007D44D8 /* layerLogo.png */; };
+		F7E8F9171B94E7DF007D44D8 /* layerLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F9041B94E7DF007D44D8 /* layerLogo@2x.png */; };
+		F7E8F9181B94E7DF007D44D8 /* layerLogo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F9051B94E7DF007D44D8 /* layerLogo@3x.png */; };
+		F7E8F9191B94E7DF007D44D8 /* location_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F9061B94E7DF007D44D8 /* location_dark.png */; };
+		F7E8F91A1B94E7DF007D44D8 /* location_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F9071B94E7DF007D44D8 /* location_dark@2x.png */; };
+		F7E8F91B1B94E7DF007D44D8 /* location_dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F9081B94E7DF007D44D8 /* location_dark@3x.png */; };
+		F7E8F91C1B94E7DF007D44D8 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F9091B94E7DF007D44D8 /* plus.png */; };
+		F7E8F91D1B94E7DF007D44D8 /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F90A1B94E7DF007D44D8 /* plus@2x.png */; };
+		F7E8F91E1B94E7DF007D44D8 /* plus@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F90B1B94E7DF007D44D8 /* plus@3x.png */; };
+		F7E8F9211B94E872007D44D8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E8F9201B94E872007D44D8 /* CFNetwork.framework */; };
+		F7E8F9231B94E87B007D44D8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E8F9221B94E87B007D44D8 /* Security.framework */; };
+		F7E8F9251B94E884007D44D8 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E8F9241B94E884007D44D8 /* MobileCoreServices.framework */; };
+		F7E8F9271B94E89A007D44D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E8F9261B94E89A007D44D8 /* CoreLocation.framework */; };
+		F7E8F9291B94E8A0007D44D8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E8F9281B94E8A0007D44D8 /* AssetsLibrary.framework */; };
 		F7EE46B81B6D219C005ECFCA /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = F7EE46B71B6D219C005ECFCA /* Podfile */; };
 		F7EE46D71B6D32D4005ECFCA /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */; };
 		F7F0D23D1B857AA40018FC0B /* skillsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */; };
@@ -174,6 +234,107 @@
 		F7AB48A11B75AE5C00B602C4 /* iCarousel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iCarousel.framework; path = "Pods/../build/Debug-iphoneos/iCarousel.framework"; sourceTree = "<group>"; };
 		F7D94CB31B5AC41000380157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpViewCell.swift; sourceTree = "<group>"; };
+		F7E8F8821B94E7CF007D44D8 /* Atlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Atlas.h; sourceTree = "<group>"; };
+		F7E8F8831B94E7CF007D44D8 /* Atlas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Atlas.m; sourceTree = "<group>"; };
+		F7E8F8851B94E7CF007D44D8 /* ATLAddressBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLAddressBarViewController.h; sourceTree = "<group>"; };
+		F7E8F8861B94E7CF007D44D8 /* ATLAddressBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLAddressBarViewController.m; sourceTree = "<group>"; };
+		F7E8F8871B94E7CF007D44D8 /* ATLBaseConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLBaseConversationViewController.h; sourceTree = "<group>"; };
+		F7E8F8881B94E7CF007D44D8 /* ATLBaseConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLBaseConversationViewController.m; sourceTree = "<group>"; };
+		F7E8F8891B94E7CF007D44D8 /* ATLConversationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationListViewController.h; sourceTree = "<group>"; };
+		F7E8F88A1B94E7CF007D44D8 /* ATLConversationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationListViewController.m; sourceTree = "<group>"; };
+		F7E8F88B1B94E7CF007D44D8 /* ATLConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationViewController.h; sourceTree = "<group>"; };
+		F7E8F88C1B94E7CF007D44D8 /* ATLConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationViewController.m; sourceTree = "<group>"; };
+		F7E8F88D1B94E7CF007D44D8 /* ATLParticipantTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLParticipantTableViewController.h; sourceTree = "<group>"; };
+		F7E8F88E1B94E7CF007D44D8 /* ATLParticipantTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLParticipantTableViewController.m; sourceTree = "<group>"; };
+		F7E8F88F1B94E7CF007D44D8 /* ATLTypingIndicatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLTypingIndicatorViewController.h; sourceTree = "<group>"; };
+		F7E8F8901B94E7CF007D44D8 /* ATLTypingIndicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLTypingIndicatorViewController.m; sourceTree = "<group>"; };
+		F7E8F8921B94E7CF007D44D8 /* ATLConversationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationDataSource.h; sourceTree = "<group>"; };
+		F7E8F8931B94E7CF007D44D8 /* ATLConversationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationDataSource.m; sourceTree = "<group>"; };
+		F7E8F8941B94E7CF007D44D8 /* ATLDataSourceChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLDataSourceChange.h; sourceTree = "<group>"; };
+		F7E8F8951B94E7CF007D44D8 /* ATLDataSourceChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLDataSourceChange.m; sourceTree = "<group>"; };
+		F7E8F8961B94E7CF007D44D8 /* ATLMediaAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLMediaAttachment.h; sourceTree = "<group>"; };
+		F7E8F8971B94E7CF007D44D8 /* ATLMediaAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLMediaAttachment.m; sourceTree = "<group>"; };
+		F7E8F8981B94E7CF007D44D8 /* ATLParticipantTableDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLParticipantTableDataSet.h; sourceTree = "<group>"; };
+		F7E8F8991B94E7CF007D44D8 /* ATLParticipantTableDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLParticipantTableDataSet.m; sourceTree = "<group>"; };
+		F7E8F89B1B94E7CF007D44D8 /* ATLAvatarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLAvatarItem.h; sourceTree = "<group>"; };
+		F7E8F89C1B94E7CF007D44D8 /* ATLConversationPresenting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationPresenting.h; sourceTree = "<group>"; };
+		F7E8F89D1B94E7CF007D44D8 /* ATLMessagePresenting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLMessagePresenting.h; sourceTree = "<group>"; };
+		F7E8F89E1B94E7CF007D44D8 /* ATLParticipant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLParticipant.h; sourceTree = "<group>"; };
+		F7E8F89F1B94E7CF007D44D8 /* ATLParticipantPresenting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLParticipantPresenting.h; sourceTree = "<group>"; };
+		F7E8F8A11B94E7CF007D44D8 /* ATLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConstants.h; sourceTree = "<group>"; };
+		F7E8F8A21B94E7CF007D44D8 /* ATLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConstants.m; sourceTree = "<group>"; };
+		F7E8F8A31B94E7CF007D44D8 /* ATLErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLErrors.h; sourceTree = "<group>"; };
+		F7E8F8A41B94E7CF007D44D8 /* ATLErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLErrors.m; sourceTree = "<group>"; };
+		F7E8F8A51B94E7CF007D44D8 /* ATLLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLLocationManager.h; sourceTree = "<group>"; };
+		F7E8F8A61B94E7CF007D44D8 /* ATLLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLLocationManager.m; sourceTree = "<group>"; };
+		F7E8F8A71B94E7CF007D44D8 /* ATLMediaInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLMediaInputStream.h; sourceTree = "<group>"; };
+		F7E8F8A81B94E7CF007D44D8 /* ATLMediaInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLMediaInputStream.m; sourceTree = "<group>"; };
+		F7E8F8A91B94E7CF007D44D8 /* ATLMessagingUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLMessagingUtilities.h; sourceTree = "<group>"; };
+		F7E8F8AA1B94E7CF007D44D8 /* ATLMessagingUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLMessagingUtilities.m; sourceTree = "<group>"; };
+		F7E8F8AB1B94E7CF007D44D8 /* ATLUIImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLUIImageHelper.h; sourceTree = "<group>"; };
+		F7E8F8AC1B94E7CF007D44D8 /* ATLUIImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLUIImageHelper.m; sourceTree = "<group>"; };
+		F7E8F8AE1B94E7CF007D44D8 /* ATLAddressBarContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLAddressBarContainerView.h; sourceTree = "<group>"; };
+		F7E8F8AF1B94E7CF007D44D8 /* ATLAddressBarContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLAddressBarContainerView.m; sourceTree = "<group>"; };
+		F7E8F8B01B94E7CF007D44D8 /* ATLAddressBarTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLAddressBarTextView.h; sourceTree = "<group>"; };
+		F7E8F8B11B94E7CF007D44D8 /* ATLAddressBarTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLAddressBarTextView.m; sourceTree = "<group>"; };
+		F7E8F8B21B94E7CF007D44D8 /* ATLAddressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLAddressBarView.h; sourceTree = "<group>"; };
+		F7E8F8B31B94E7CF007D44D8 /* ATLAddressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLAddressBarView.m; sourceTree = "<group>"; };
+		F7E8F8B41B94E7CF007D44D8 /* ATLAvatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLAvatarImageView.h; sourceTree = "<group>"; };
+		F7E8F8B51B94E7CF007D44D8 /* ATLAvatarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLAvatarImageView.m; sourceTree = "<group>"; };
+		F7E8F8B61B94E7CF007D44D8 /* ATLConversationCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationCollectionView.h; sourceTree = "<group>"; };
+		F7E8F8B71B94E7CF007D44D8 /* ATLConversationCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationCollectionView.m; sourceTree = "<group>"; };
+		F7E8F8B81B94E7CF007D44D8 /* ATLConversationCollectionViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationCollectionViewFooter.h; sourceTree = "<group>"; };
+		F7E8F8B91B94E7CF007D44D8 /* ATLConversationCollectionViewFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationCollectionViewFooter.m; sourceTree = "<group>"; };
+		F7E8F8BA1B94E7CF007D44D8 /* ATLConversationCollectionViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationCollectionViewHeader.h; sourceTree = "<group>"; };
+		F7E8F8BB1B94E7CF007D44D8 /* ATLConversationCollectionViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationCollectionViewHeader.m; sourceTree = "<group>"; };
+		F7E8F8BC1B94E7CF007D44D8 /* ATLConversationCollectionViewMoreMessagesHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationCollectionViewMoreMessagesHeader.h; sourceTree = "<group>"; };
+		F7E8F8BD1B94E7CF007D44D8 /* ATLConversationCollectionViewMoreMessagesHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationCollectionViewMoreMessagesHeader.m; sourceTree = "<group>"; };
+		F7E8F8BE1B94E7CF007D44D8 /* ATLConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationTableViewCell.h; sourceTree = "<group>"; };
+		F7E8F8BF1B94E7CF007D44D8 /* ATLConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationTableViewCell.m; sourceTree = "<group>"; };
+		F7E8F8C01B94E7CF007D44D8 /* ATLConversationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLConversationView.h; sourceTree = "<group>"; };
+		F7E8F8C11B94E7CF007D44D8 /* ATLConversationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLConversationView.m; sourceTree = "<group>"; };
+		F7E8F8C21B94E7CF007D44D8 /* ATLIncomingMessageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLIncomingMessageCollectionViewCell.h; sourceTree = "<group>"; };
+		F7E8F8C31B94E7CF007D44D8 /* ATLIncomingMessageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLIncomingMessageCollectionViewCell.m; sourceTree = "<group>"; };
+		F7E8F8C41B94E7CF007D44D8 /* ATLMessageBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLMessageBubbleView.h; sourceTree = "<group>"; };
+		F7E8F8C51B94E7CF007D44D8 /* ATLMessageBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLMessageBubbleView.m; sourceTree = "<group>"; };
+		F7E8F8C61B94E7CF007D44D8 /* ATLMessageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLMessageCollectionViewCell.h; sourceTree = "<group>"; };
+		F7E8F8C71B94E7CF007D44D8 /* ATLMessageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLMessageCollectionViewCell.m; sourceTree = "<group>"; };
+		F7E8F8C81B94E7CF007D44D8 /* ATLMessageComposeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLMessageComposeTextView.h; sourceTree = "<group>"; };
+		F7E8F8C91B94E7CF007D44D8 /* ATLMessageComposeTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLMessageComposeTextView.m; sourceTree = "<group>"; };
+		F7E8F8CA1B94E7CF007D44D8 /* ATLMessageInputToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLMessageInputToolbar.h; sourceTree = "<group>"; };
+		F7E8F8CB1B94E7CF007D44D8 /* ATLMessageInputToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLMessageInputToolbar.m; sourceTree = "<group>"; };
+		F7E8F8CC1B94E7CF007D44D8 /* ATLOutgoingMessageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLOutgoingMessageCollectionViewCell.h; sourceTree = "<group>"; };
+		F7E8F8CD1B94E7CF007D44D8 /* ATLOutgoingMessageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLOutgoingMessageCollectionViewCell.m; sourceTree = "<group>"; };
+		F7E8F8CE1B94E7CF007D44D8 /* ATLParticipantSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLParticipantSectionHeaderView.h; sourceTree = "<group>"; };
+		F7E8F8CF1B94E7CF007D44D8 /* ATLParticipantSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLParticipantSectionHeaderView.m; sourceTree = "<group>"; };
+		F7E8F8D01B94E7CF007D44D8 /* ATLParticipantTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLParticipantTableViewCell.h; sourceTree = "<group>"; };
+		F7E8F8D11B94E7CF007D44D8 /* ATLParticipantTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLParticipantTableViewCell.m; sourceTree = "<group>"; };
+		F7E8F8D21B94E7CF007D44D8 /* ATLProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLProgressView.h; sourceTree = "<group>"; };
+		F7E8F8D31B94E7CF007D44D8 /* ATLProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLProgressView.m; sourceTree = "<group>"; };
+		F7E8F8F91B94E7DF007D44D8 /* block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block.png; sourceTree = "<group>"; };
+		F7E8F8FA1B94E7DF007D44D8 /* block@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "block@2x.png"; sourceTree = "<group>"; };
+		F7E8F8FB1B94E7DF007D44D8 /* block@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "block@3x.png"; sourceTree = "<group>"; };
+		F7E8F8FC1B94E7DF007D44D8 /* camera_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_dark.png; sourceTree = "<group>"; };
+		F7E8F8FD1B94E7DF007D44D8 /* camera_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera_dark@2x.png"; sourceTree = "<group>"; };
+		F7E8F8FE1B94E7DF007D44D8 /* camera_dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera_dark@3x.png"; sourceTree = "<group>"; };
+		F7E8F8FF1B94E7DF007D44D8 /* chevron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chevron.png; sourceTree = "<group>"; };
+		F7E8F9001B94E7DF007D44D8 /* chevron@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron@2x.png"; sourceTree = "<group>"; };
+		F7E8F9011B94E7DF007D44D8 /* chevron@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron@3x.png"; sourceTree = "<group>"; };
+		F7E8F9021B94E7DF007D44D8 /* layerbell.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = layerbell.caf; sourceTree = "<group>"; };
+		F7E8F9031B94E7DF007D44D8 /* layerLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = layerLogo.png; sourceTree = "<group>"; };
+		F7E8F9041B94E7DF007D44D8 /* layerLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "layerLogo@2x.png"; sourceTree = "<group>"; };
+		F7E8F9051B94E7DF007D44D8 /* layerLogo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "layerLogo@3x.png"; sourceTree = "<group>"; };
+		F7E8F9061B94E7DF007D44D8 /* location_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location_dark.png; sourceTree = "<group>"; };
+		F7E8F9071B94E7DF007D44D8 /* location_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location_dark@2x.png"; sourceTree = "<group>"; };
+		F7E8F9081B94E7DF007D44D8 /* location_dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location_dark@3x.png"; sourceTree = "<group>"; };
+		F7E8F9091B94E7DF007D44D8 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
+		F7E8F90A1B94E7DF007D44D8 /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
+		F7E8F90B1B94E7DF007D44D8 /* plus@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@3x.png"; sourceTree = "<group>"; };
+		F7E8F9201B94E872007D44D8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		F7E8F9221B94E87B007D44D8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		F7E8F9241B94E884007D44D8 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		F7E8F9261B94E89A007D44D8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		F7E8F9281B94E8A0007D44D8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		F7EE46B71B6D219C005ECFCA /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Pods/GoogleMaps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
 		F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = skillsTableViewCell.swift; path = Nelper/Profile/skillsTableViewCell.swift; sourceTree = SOURCE_ROOT; };
@@ -185,12 +346,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */,
+				F7E8F9291B94E8A0007D44D8 /* AssetsLibrary.framework in Frameworks */,
+				F7E8F9271B94E89A007D44D8 /* CoreLocation.framework in Frameworks */,
+				190F62491B4F618C0091A1D1 /* SystemConfiguration.framework in Frameworks */,
+				F7E8F9251B94E884007D44D8 /* MobileCoreServices.framework in Frameworks */,
+				F7E8F9231B94E87B007D44D8 /* Security.framework in Frameworks */,
+				F7E8F9211B94E872007D44D8 /* CFNetwork.framework in Frameworks */,
 				F7AB48A21B75AE5C00B602C4 /* iCarousel.framework in Frameworks */,
 				F73AE64C1B6D3CFF00FE672E /* Social.framework in Frameworks */,
 				F73AE64A1B6D3CEA00FE672E /* Accounts.framework in Frameworks */,
 				F7EE46D71B6D32D4005ECFCA /* GoogleMaps.framework in Frameworks */,
-				F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */,
-				190F62491B4F618C0091A1D1 /* SystemConfiguration.framework in Frameworks */,
 				190F62471B4F617D0091A1D1 /* libsqlite3.dylib in Frameworks */,
 				190F62451B4F616A0091A1D1 /* libstdc++.6.dylib in Frameworks */,
 				190F62431B4F614A0091A1D1 /* AudioToolbox.framework in Frameworks */,
@@ -261,6 +427,7 @@
 				199EF1F01B37A0A500B25B07 /* Nelper */,
 				199EF2081B37A0A500B25B07 /* NelperTests */,
 				199EF1EF1B37A0A500B25B07 /* Products */,
+				F7E8F91F1B94E7E3007D44D8 /* Atlas */,
 				E00C0A7D0D690598AC42849C /* Frameworks */,
 				7FF6DFF7DB0C2085ABB3104B /* Pods */,
 			);
@@ -334,6 +501,11 @@
 		E00C0A7D0D690598AC42849C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7E8F9281B94E8A0007D44D8 /* AssetsLibrary.framework */,
+				F7E8F9261B94E89A007D44D8 /* CoreLocation.framework */,
+				F7E8F9241B94E884007D44D8 /* MobileCoreServices.framework */,
+				F7E8F9221B94E87B007D44D8 /* Security.framework */,
+				F7E8F9201B94E872007D44D8 /* CFNetwork.framework */,
 				F7AB48A11B75AE5C00B602C4 /* iCarousel.framework */,
 				F73AE64B1B6D3CFF00FE672E /* Social.framework */,
 				F73AE6491B6D3CEA00FE672E /* Accounts.framework */,
@@ -450,6 +622,167 @@
 			name = "Create Nelp Task";
 			sourceTree = "<group>";
 		};
+		F7E8F8811B94E7CF007D44D8 /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				F7E8F8821B94E7CF007D44D8 /* Atlas.h */,
+				F7E8F8831B94E7CF007D44D8 /* Atlas.m */,
+				F7E8F8841B94E7CF007D44D8 /* Controllers */,
+				F7E8F8911B94E7CF007D44D8 /* Models */,
+				F7E8F89A1B94E7CF007D44D8 /* Protocols */,
+				F7E8F8A01B94E7CF007D44D8 /* Utilities */,
+				F7E8F8AD1B94E7CF007D44D8 /* Views */,
+			);
+			name = Code;
+			path = ../Code;
+			sourceTree = "<group>";
+		};
+		F7E8F8841B94E7CF007D44D8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F7E8F8851B94E7CF007D44D8 /* ATLAddressBarViewController.h */,
+				F7E8F8861B94E7CF007D44D8 /* ATLAddressBarViewController.m */,
+				F7E8F8871B94E7CF007D44D8 /* ATLBaseConversationViewController.h */,
+				F7E8F8881B94E7CF007D44D8 /* ATLBaseConversationViewController.m */,
+				F7E8F8891B94E7CF007D44D8 /* ATLConversationListViewController.h */,
+				F7E8F88A1B94E7CF007D44D8 /* ATLConversationListViewController.m */,
+				F7E8F88B1B94E7CF007D44D8 /* ATLConversationViewController.h */,
+				F7E8F88C1B94E7CF007D44D8 /* ATLConversationViewController.m */,
+				F7E8F88D1B94E7CF007D44D8 /* ATLParticipantTableViewController.h */,
+				F7E8F88E1B94E7CF007D44D8 /* ATLParticipantTableViewController.m */,
+				F7E8F88F1B94E7CF007D44D8 /* ATLTypingIndicatorViewController.h */,
+				F7E8F8901B94E7CF007D44D8 /* ATLTypingIndicatorViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		F7E8F8911B94E7CF007D44D8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F7E8F8921B94E7CF007D44D8 /* ATLConversationDataSource.h */,
+				F7E8F8931B94E7CF007D44D8 /* ATLConversationDataSource.m */,
+				F7E8F8941B94E7CF007D44D8 /* ATLDataSourceChange.h */,
+				F7E8F8951B94E7CF007D44D8 /* ATLDataSourceChange.m */,
+				F7E8F8961B94E7CF007D44D8 /* ATLMediaAttachment.h */,
+				F7E8F8971B94E7CF007D44D8 /* ATLMediaAttachment.m */,
+				F7E8F8981B94E7CF007D44D8 /* ATLParticipantTableDataSet.h */,
+				F7E8F8991B94E7CF007D44D8 /* ATLParticipantTableDataSet.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F7E8F89A1B94E7CF007D44D8 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				F7E8F89B1B94E7CF007D44D8 /* ATLAvatarItem.h */,
+				F7E8F89C1B94E7CF007D44D8 /* ATLConversationPresenting.h */,
+				F7E8F89D1B94E7CF007D44D8 /* ATLMessagePresenting.h */,
+				F7E8F89E1B94E7CF007D44D8 /* ATLParticipant.h */,
+				F7E8F89F1B94E7CF007D44D8 /* ATLParticipantPresenting.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		F7E8F8A01B94E7CF007D44D8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				F7E8F8A11B94E7CF007D44D8 /* ATLConstants.h */,
+				F7E8F8A21B94E7CF007D44D8 /* ATLConstants.m */,
+				F7E8F8A31B94E7CF007D44D8 /* ATLErrors.h */,
+				F7E8F8A41B94E7CF007D44D8 /* ATLErrors.m */,
+				F7E8F8A51B94E7CF007D44D8 /* ATLLocationManager.h */,
+				F7E8F8A61B94E7CF007D44D8 /* ATLLocationManager.m */,
+				F7E8F8A71B94E7CF007D44D8 /* ATLMediaInputStream.h */,
+				F7E8F8A81B94E7CF007D44D8 /* ATLMediaInputStream.m */,
+				F7E8F8A91B94E7CF007D44D8 /* ATLMessagingUtilities.h */,
+				F7E8F8AA1B94E7CF007D44D8 /* ATLMessagingUtilities.m */,
+				F7E8F8AB1B94E7CF007D44D8 /* ATLUIImageHelper.h */,
+				F7E8F8AC1B94E7CF007D44D8 /* ATLUIImageHelper.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		F7E8F8AD1B94E7CF007D44D8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F7E8F8AE1B94E7CF007D44D8 /* ATLAddressBarContainerView.h */,
+				F7E8F8AF1B94E7CF007D44D8 /* ATLAddressBarContainerView.m */,
+				F7E8F8B01B94E7CF007D44D8 /* ATLAddressBarTextView.h */,
+				F7E8F8B11B94E7CF007D44D8 /* ATLAddressBarTextView.m */,
+				F7E8F8B21B94E7CF007D44D8 /* ATLAddressBarView.h */,
+				F7E8F8B31B94E7CF007D44D8 /* ATLAddressBarView.m */,
+				F7E8F8B41B94E7CF007D44D8 /* ATLAvatarImageView.h */,
+				F7E8F8B51B94E7CF007D44D8 /* ATLAvatarImageView.m */,
+				F7E8F8B61B94E7CF007D44D8 /* ATLConversationCollectionView.h */,
+				F7E8F8B71B94E7CF007D44D8 /* ATLConversationCollectionView.m */,
+				F7E8F8B81B94E7CF007D44D8 /* ATLConversationCollectionViewFooter.h */,
+				F7E8F8B91B94E7CF007D44D8 /* ATLConversationCollectionViewFooter.m */,
+				F7E8F8BA1B94E7CF007D44D8 /* ATLConversationCollectionViewHeader.h */,
+				F7E8F8BB1B94E7CF007D44D8 /* ATLConversationCollectionViewHeader.m */,
+				F7E8F8BC1B94E7CF007D44D8 /* ATLConversationCollectionViewMoreMessagesHeader.h */,
+				F7E8F8BD1B94E7CF007D44D8 /* ATLConversationCollectionViewMoreMessagesHeader.m */,
+				F7E8F8BE1B94E7CF007D44D8 /* ATLConversationTableViewCell.h */,
+				F7E8F8BF1B94E7CF007D44D8 /* ATLConversationTableViewCell.m */,
+				F7E8F8C01B94E7CF007D44D8 /* ATLConversationView.h */,
+				F7E8F8C11B94E7CF007D44D8 /* ATLConversationView.m */,
+				F7E8F8C21B94E7CF007D44D8 /* ATLIncomingMessageCollectionViewCell.h */,
+				F7E8F8C31B94E7CF007D44D8 /* ATLIncomingMessageCollectionViewCell.m */,
+				F7E8F8C41B94E7CF007D44D8 /* ATLMessageBubbleView.h */,
+				F7E8F8C51B94E7CF007D44D8 /* ATLMessageBubbleView.m */,
+				F7E8F8C61B94E7CF007D44D8 /* ATLMessageCollectionViewCell.h */,
+				F7E8F8C71B94E7CF007D44D8 /* ATLMessageCollectionViewCell.m */,
+				F7E8F8C81B94E7CF007D44D8 /* ATLMessageComposeTextView.h */,
+				F7E8F8C91B94E7CF007D44D8 /* ATLMessageComposeTextView.m */,
+				F7E8F8CA1B94E7CF007D44D8 /* ATLMessageInputToolbar.h */,
+				F7E8F8CB1B94E7CF007D44D8 /* ATLMessageInputToolbar.m */,
+				F7E8F8CC1B94E7CF007D44D8 /* ATLOutgoingMessageCollectionViewCell.h */,
+				F7E8F8CD1B94E7CF007D44D8 /* ATLOutgoingMessageCollectionViewCell.m */,
+				F7E8F8CE1B94E7CF007D44D8 /* ATLParticipantSectionHeaderView.h */,
+				F7E8F8CF1B94E7CF007D44D8 /* ATLParticipantSectionHeaderView.m */,
+				F7E8F8D01B94E7CF007D44D8 /* ATLParticipantTableViewCell.h */,
+				F7E8F8D11B94E7CF007D44D8 /* ATLParticipantTableViewCell.m */,
+				F7E8F8D21B94E7CF007D44D8 /* ATLProgressView.h */,
+				F7E8F8D31B94E7CF007D44D8 /* ATLProgressView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F7E8F8F81B94E7DF007D44D8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F7E8F8F91B94E7DF007D44D8 /* block.png */,
+				F7E8F8FA1B94E7DF007D44D8 /* block@2x.png */,
+				F7E8F8FB1B94E7DF007D44D8 /* block@3x.png */,
+				F7E8F8FC1B94E7DF007D44D8 /* camera_dark.png */,
+				F7E8F8FD1B94E7DF007D44D8 /* camera_dark@2x.png */,
+				F7E8F8FE1B94E7DF007D44D8 /* camera_dark@3x.png */,
+				F7E8F8FF1B94E7DF007D44D8 /* chevron.png */,
+				F7E8F9001B94E7DF007D44D8 /* chevron@2x.png */,
+				F7E8F9011B94E7DF007D44D8 /* chevron@3x.png */,
+				F7E8F9021B94E7DF007D44D8 /* layerbell.caf */,
+				F7E8F9031B94E7DF007D44D8 /* layerLogo.png */,
+				F7E8F9041B94E7DF007D44D8 /* layerLogo@2x.png */,
+				F7E8F9051B94E7DF007D44D8 /* layerLogo@3x.png */,
+				F7E8F9061B94E7DF007D44D8 /* location_dark.png */,
+				F7E8F9071B94E7DF007D44D8 /* location_dark@2x.png */,
+				F7E8F9081B94E7DF007D44D8 /* location_dark@3x.png */,
+				F7E8F9091B94E7DF007D44D8 /* plus.png */,
+				F7E8F90A1B94E7DF007D44D8 /* plus@2x.png */,
+				F7E8F90B1B94E7DF007D44D8 /* plus@3x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		F7E8F91F1B94E7E3007D44D8 /* Atlas */ = {
+			isa = PBXGroup;
+			children = (
+				F7E8F8811B94E7CF007D44D8 /* Code */,
+				F7E8F8F81B94E7DF007D44D8 /* Resources */,
+			);
+			name = Atlas;
+			path = "Atlas-iOS/Resources";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -541,20 +874,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				F73A45C41B730EBD00FD8C79 /* ABeeZee-Regular.ttf in Resources */,
+				F7E8F90E1B94E7DF007D44D8 /* block@3x.png in Resources */,
+				F7E8F9171B94E7DF007D44D8 /* layerLogo@2x.png in Resources */,
 				F7EE46B81B6D219C005ECFCA /* Podfile in Resources */,
 				F7067AAF1B55F0B300F19745 /* Railway.ttf in Resources */,
+				F7E8F90D1B94E7DF007D44D8 /* block@2x.png in Resources */,
 				F72F27D61B53070D00CD3B0B /* NelpTasksListViewController.xib in Resources */,
 				F73A45C81B741F8F00FD8C79 /* NelpTaskDetailsViewController.xib in Resources */,
+				F7E8F9121B94E7DF007D44D8 /* chevron.png in Resources */,
 				195FD9B61B4CA6A50040AD20 /* NelpViewController.xib in Resources */,
+				F7E8F9151B94E7DF007D44D8 /* layerbell.caf in Resources */,
+				F7E8F91E1B94E7DF007D44D8 /* plus@3x.png in Resources */,
+				F7E8F9131B94E7DF007D44D8 /* chevron@2x.png in Resources */,
 				195FD9B21B4B6B760040AD20 /* ProfileViewController.xib in Resources */,
+				F7E8F91A1B94E7DF007D44D8 /* location_dark@2x.png in Resources */,
+				F7E8F9101B94E7DF007D44D8 /* camera_dark@2x.png in Resources */,
+				F7E8F90C1B94E7DF007D44D8 /* block.png in Resources */,
+				F7E8F90F1B94E7DF007D44D8 /* camera_dark.png in Resources */,
 				F775C0D31B82D22200F7525B /* FullProfileViewController.xib in Resources */,
+				F7E8F9111B94E7DF007D44D8 /* camera_dark@3x.png in Resources */,
 				F775C0CF1B82CEAF00F7525B /* MyTaskDetailsViewController.xib in Resources */,
+				F7E8F91D1B94E7DF007D44D8 /* plus@2x.png in Resources */,
+				F7E8F9191B94E7DF007D44D8 /* location_dark.png in Resources */,
+				F7E8F9141B94E7DF007D44D8 /* chevron@3x.png in Resources */,
+				F7E8F9181B94E7DF007D44D8 /* layerLogo@3x.png in Resources */,
 				F78438251B8FF7F000BEA25F /* ApplicantProfileViewController.xib in Resources */,
 				F762D0071B4B66B000812235 /* LoginViewController.xib in Resources */,
 				199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */,
+				F7E8F9161B94E7DF007D44D8 /* layerLogo.png in Resources */,
 				F72F27D41B5302DE00CD3B0B /* NelpTaskCreateViewController.xib in Resources */,
+				F7E8F91B1B94E7DF007D44D8 /* location_dark@3x.png in Resources */,
 				F782A6261B6411DD00C78470 /* SecondFormScreen.xib in Resources */,
 				199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */,
+				F7E8F91C1B94E7DF007D44D8 /* plus.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,35 +974,71 @@
 			files = (
 				F73A45C61B741F4000FD8C79 /* NelpTaskDetailsViewController.swift in Sources */,
 				19761A1B1B687858001600E1 /* BaseTask.swift in Sources */,
+				F7E8F8EF1B94E7CF007D44D8 /* ATLIncomingMessageCollectionViewCell.m in Sources */,
+				F7E8F8E61B94E7CF007D44D8 /* ATLAddressBarTextView.m in Sources */,
 				F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */,
+				F7E8F8F61B94E7CF007D44D8 /* ATLParticipantTableViewCell.m in Sources */,
 				F7F0D23D1B857AA40018FC0B /* skillsTableViewCell.swift in Sources */,
+				F7E8F8D51B94E7CF007D44D8 /* ATLAddressBarViewController.m in Sources */,
+				F7E8F8E91B94E7CF007D44D8 /* ATLConversationCollectionView.m in Sources */,
+				F7E8F8DB1B94E7CF007D44D8 /* ATLConversationDataSource.m in Sources */,
+				F7E8F8D81B94E7CF007D44D8 /* ATLConversationViewController.m in Sources */,
 				19761A171B6850C4001600E1 /* BaseModel.swift in Sources */,
+				F7E8F8DD1B94E7CF007D44D8 /* ATLMediaAttachment.m in Sources */,
 				F72F27DC1B53224100CD3B0B /* NelpTaskApplication.swift in Sources */,
+				F7E8F8EB1B94E7CF007D44D8 /* ATLConversationCollectionViewHeader.m in Sources */,
 				19761A191B6877FB001600E1 /* FindNelpTask.swift in Sources */,
+				F7E8F8E21B94E7CF007D44D8 /* ATLMediaInputStream.m in Sources */,
+				F7E8F8F21B94E7CF007D44D8 /* ATLMessageComposeTextView.m in Sources */,
 				F762D0061B4B66B000812235 /* LoginViewController.swift in Sources */,
 				F775C0C91B81150300F7525B /* NelpTasksTableViewCell.swift in Sources */,
 				F78438231B8FF7D200BEA25F /* ApplicantProfileViewController.swift in Sources */,
 				F72F27D31B5302DE00CD3B0B /* NelpTaskCreateViewController.swift in Sources */,
+				F7E8F8EC1B94E7CF007D44D8 /* ATLConversationCollectionViewMoreMessagesHeader.m in Sources */,
 				199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */,
+				F7E8F8F01B94E7CF007D44D8 /* ATLMessageBubbleView.m in Sources */,
 				19761A131B684F41001600E1 /* User.swift in Sources */,
+				F7E8F8F11B94E7CF007D44D8 /* ATLMessageCollectionViewCell.m in Sources */,
+				F7E8F8F41B94E7CF007D44D8 /* ATLOutgoingMessageCollectionViewCell.m in Sources */,
 				F72F284F1B53607C00CD3B0B /* ThemeHelper.swift in Sources */,
+				F7E8F8D91B94E7CF007D44D8 /* ATLParticipantTableViewController.m in Sources */,
+				F7E8F8DC1B94E7CF007D44D8 /* ATLDataSourceChange.m in Sources */,
+				F7E8F8EE1B94E7CF007D44D8 /* ATLConversationView.m in Sources */,
 				190F623E1B4F5CAB0091A1D1 /* NelpTask.swift in Sources */,
+				F7E8F8E51B94E7CF007D44D8 /* ATLAddressBarContainerView.m in Sources */,
 				F775C0CB1B81160400F7525B /* NelpApplicationsTableViewCell.swift in Sources */,
+				F7E8F8E11B94E7CF007D44D8 /* ATLLocationManager.m in Sources */,
+				F7E8F8E71B94E7CF007D44D8 /* ATLAddressBarView.m in Sources */,
+				F7E8F8F71B94E7CF007D44D8 /* ATLProgressView.m in Sources */,
 				F73AC3BC1B6E80A30086B0B4 /* AutocompleteCell.swift in Sources */,
+				F7E8F8DE1B94E7CF007D44D8 /* ATLParticipantTableDataSet.m in Sources */,
 				F73A45C01B72FEA400FD8C79 /* LocationHelper.swift in Sources */,
 				F775C0CD1B82CC9B00F7525B /* MyTaskDetailsViewController.swift in Sources */,
+				F7E8F8ED1B94E7CF007D44D8 /* ATLConversationTableViewCell.m in Sources */,
 				F775C0D11B82D1FB00F7525B /* FullProfileViewController.swift in Sources */,
 				195FD9B51B4CA6A50040AD20 /* NelpViewController.swift in Sources */,
+				F7E8F8E01B94E7CF007D44D8 /* ATLErrors.m in Sources */,
 				19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */,
 				F7067AB41B56001300F19745 /* FontHelper.swift in Sources */,
+				F7E8F8E31B94E7CF007D44D8 /* ATLMessagingUtilities.m in Sources */,
+				F7E8F8D41B94E7CF007D44D8 /* Atlas.m in Sources */,
+				F7E8F8D71B94E7CF007D44D8 /* ATLConversationListViewController.m in Sources */,
 				192635451B744D9C005597E3 /* NavBar.swift in Sources */,
 				F7DEC2111B69CB6C00B03747 /* NelpViewCell.swift in Sources */,
+				F7E8F8E81B94E7CF007D44D8 /* ATLAvatarImageView.m in Sources */,
 				F75560131B8D28C0005A3B27 /* ApplicantCell.swift in Sources */,
+				F7E8F8D61B94E7CF007D44D8 /* ATLBaseConversationViewController.m in Sources */,
 				F762D0131B4B680300812235 /* ProfileViewController.swift in Sources */,
 				F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */,
 				F762D0111B4B67D900812235 /* NelpTasksListViewController.swift in Sources */,
+				F7E8F8F31B94E7CF007D44D8 /* ATLMessageInputToolbar.m in Sources */,
+				F7E8F8F51B94E7CF007D44D8 /* ATLParticipantSectionHeaderView.m in Sources */,
 				F73A45BE1B72F4B600FD8C79 /* MKPin.swift in Sources */,
 				F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */,
+				F7E8F8DA1B94E7CF007D44D8 /* ATLTypingIndicatorViewController.m in Sources */,
+				F7E8F8DF1B94E7CF007D44D8 /* ATLConstants.m in Sources */,
+				F7E8F8EA1B94E7CF007D44D8 /* ATLConversationCollectionViewFooter.m in Sources */,
+				F7E8F8E41B94E7CF007D44D8 /* ATLUIImageHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

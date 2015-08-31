@@ -2,6 +2,7 @@ PODS:
   - Alamofire (1.3.0)
   - GoogleMaps (1.10.1)
   - iCarousel (1.8.1)
+  - LayerKit (0.15.0)
   - SnapKit (0.13.0)
   - SwiftyJSON (2.2.1)
 
@@ -9,6 +10,7 @@ DEPENDENCIES:
   - Alamofire
   - GoogleMaps
   - iCarousel
+  - LayerKit
   - SnapKit
   - SwiftyJSON
 
@@ -16,6 +18,7 @@ SPEC CHECKSUMS:
   Alamofire: 220403a8d5840e0b4c946a6fbaf209dbca124282
   GoogleMaps: ebf08677f181d9c2dcdbd1721d206f02beccc9b1
   iCarousel: dace1cb858e3f4dc2614bee3201041247f82feda
+  LayerKit: ac8c5c227a06e2ea5e042303b80e931a8ffe3568
   SnapKit: 69fe274c71511df89a5591c11437a8b826bfa9eb
   SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
 

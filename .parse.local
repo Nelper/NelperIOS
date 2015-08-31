@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "Nelper": {
+      "applicationId": "w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN"
+    },
+    "_default": {
+      "link": "Nelper"
+    }
+  }
+}

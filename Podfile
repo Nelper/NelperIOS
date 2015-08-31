@@ -8,6 +8,8 @@ pod 'Alamofire'
 pod 'SnapKit'
 pod 'SwiftyJSON'
 pod 'iCarousel'
+pod 'LayerKit'
+
 
 use_frameworks!
 

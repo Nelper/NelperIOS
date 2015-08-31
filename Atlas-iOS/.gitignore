@@ -1,0 +1,10 @@
+.DS_Store
+xcuserdata
+*.framework
+*.bundle
+Pods
+Atlas.xcworkspace/xcshareddata/xcschemes/*Tests.xcscheme
+*.xccheckout
+Releases
+xcodebuild.log
+
