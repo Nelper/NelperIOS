@@ -548,11 +548,16 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			make.right.equalTo(contentView.snp_right).offset(-19)
 			if self.applicant.experience != nil{
 			make.height.equalTo(self.applicant.experience.count * Int(kCellHeight))
-			make.bottom.equalTo(whiteContainer.snp_bottom).offset(-10)
 			}
 		}
-
 		
+		var fakeView = UIView()
+		self.whiteContainer.addSubview(fakeView)
+		fakeView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(experienceTableView.snp_bottom)
+			make.bottom.equalTo(whiteContainer.snp_bottom)
+		}
+
 		//Accept Deny Bar
 		
 		self.acceptDenyBar.backgroundColor = blueGrayColor

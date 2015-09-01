@@ -265,10 +265,13 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//MockView for Scoll
 		var mockView = UIView(frame: CGRectMake(0, 0, 1, 1))
+		mockView.backgroundColor = UIColor.clearColor()
 		self.contentView.addSubview(mockView)
 		mockView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(deniedApplicantsContainer.snp_bottom)
 			make.bottom.equalTo(contentView.snp_bottom)
 			make.centerX.equalTo(contentView.snp_centerX)
+			make.height.equalTo(10)
 		}
 		
 	}
