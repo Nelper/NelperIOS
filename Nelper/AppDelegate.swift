@@ -199,19 +199,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	}
 	
 	func didReceiveTypingIndicator(notification:NSNotification){
-		var participantID : AnyObject = notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]!
-		var typingIndicator:LYRTypingIndicator = notification.userInfo![LYRTypingIndicatorValueUserInfoKey]! as! LYRTypingIndicator
-		
-		notification.object!.sendTypingIndicator(typingIndicator)
-		
-		if typingIndicator == LYRTypingIndicator.DidBegin{
-			println("Typing Started")
-		}else{
-			println("Typing Stopped")
-		}
+//		
+//		var participantID : AnyObject = notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]!
+//		
+//		if notification.userInfo![LYRTypingIndicatorValueUserInfoKey] != nil{
+//		var typingIndicator:LYRTypingIndicator = notification.userInfo![LYRTypingIndicatorValueUserInfoKey] as! LYRTypingIndicator
+//		notification.object?.sendTypingIndicator(typingIndicator)
+//		
+//		}
 	}
 
-	
 	func applicationDidBecomeActive(application: UIApplication) {
 		FBSDKAppEvents.activateApp()
 	}
