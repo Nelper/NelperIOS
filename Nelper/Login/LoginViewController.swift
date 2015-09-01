@@ -87,7 +87,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         
         var gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = view.bounds
-        gradient.colors = [orangeSecondaryGradientColor.CGColor, orangeMainGradientColor.CGColor]
+        gradient.colors = [blueGrayColor.CGColor, blueGrayColor.CGColor]
         self.container.layer.insertSublayer(gradient, atIndex: 0)
         
         self.nelperLabel.textColor = whiteNelpyColor

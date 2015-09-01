@@ -161,12 +161,14 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		//Segment Control Container + SegmentControl
 		var segmentContainer = UIView()
 		containerView.addSubview(segmentContainer)
-		segmentContainer.backgroundColor = whiteNelpyColor
+		segmentContainer.backgroundColor = whiteGrayColor
+		segmentContainer.layer.borderWidth = 1
+		segmentContainer.layer.borderColor = darkGrayDetails.CGColor
 		segmentContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileView.snp_bottom)
 			make.left.equalTo(containerView.snp_left)
 			make.right.equalTo(containerView.snp_right)
-			make.height.equalTo(profileView.snp_height).dividedBy(2.25)
+			make.height.equalTo(profileView.snp_height).dividedBy(2.75)
 		}
 
 		var firstHalf = UIView()
@@ -183,7 +185,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		myTasksSegmentButton.addTarget(self, action: "myTasksSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		firstHalf.addSubview(myTasksSegmentButton)
 		myTasksSegmentButton.setTitle("My Tasks", forState: UIControlState.Normal)
-		myTasksSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
+		myTasksSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
 		myTasksSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
 		myTasksSegmentButton.setTitleColor(blueGrayColor, forState: UIControlState.Selected)
 		myTasksSegmentButton.snp_makeConstraints { (make) -> Void in
@@ -201,7 +203,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 			make.bottom.equalTo(firstHalf.snp_bottom)
 			make.width.equalTo(firstHalf.snp_width).dividedBy(1.2)
 			make.centerX.equalTo(firstHalf.snp_centerX)
-			make.height.equalTo(2)
+			make.height.equalTo(3)
 		}
 		
 		var secondHalf = UIView()
@@ -219,7 +221,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		
 		secondHalf.addSubview(myApplicationsSegmentButton)
 		myApplicationsSegmentButton.setTitle("My Applications", forState: UIControlState.Normal)
-		myApplicationsSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
+		myApplicationsSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
 		myApplicationsSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
 		myApplicationsSegmentButton.setTitleColor(blueGrayColor, forState: UIControlState.Selected)
 		myApplicationsSegmentButton.snp_makeConstraints { (make) -> Void in
@@ -237,7 +239,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 			make.bottom.equalTo(secondHalf.snp_bottom)
 			make.width.equalTo(secondHalf.snp_width).dividedBy(1.2)
 			make.centerX.equalTo(secondHalf.snp_centerX)
-			make.height.equalTo(2)
+			make.height.equalTo(3)
 		}
 		
 		myApplicationsBottomBorder.hidden = true
@@ -248,7 +250,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		self.tasksContainer = tasksContainer
 		tasksContainer.backgroundColor = whiteNelpyColor
 		tasksContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(segmentContainer.snp_bottom)
+			make.top.equalTo(segmentContainer.snp_bottom).offset(8)
 			make.width.equalTo(containerView.snp_width)
 			make.bottom.equalTo(self.tabBarView.snp_top)
 		}

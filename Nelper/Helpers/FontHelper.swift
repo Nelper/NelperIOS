@@ -29,6 +29,6 @@ let kButtonFontSize:CGFloat = 18
 let kProfileButtonSize:CGFloat = 14
 let kLogoutButtonSize:CGFloat = 12
 
-let kNavBarTitleFont:CGFloat = 26
+let kNavBarTitleFont:CGFloat = 24
 
 let kAboutTextFontSize:CGFloat = 16

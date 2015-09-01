@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "nelpcenter@1x.png"
+      "filename" : "nelp-center.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "nelpcenter@2x.png"
+      "filename" : "nelp-center@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "nelpcenter@3x.png"
+      "filename" : "nelp-center@3x.png"
     }
   ],
   "info" : {

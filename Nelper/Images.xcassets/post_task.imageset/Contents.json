@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "post-task.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "post-task@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "post_task.png"
+      "filename" : "post-task@3x.png"
     }
   ],
   "info" : {
