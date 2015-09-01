@@ -38,8 +38,8 @@ class NelpViewCell: UITableViewCell {
 		self.picture.layer.cornerRadius = pictureSize / 2;
 		self.picture.layer.masksToBounds = true
 		self.picture.clipsToBounds = true
-		self.picture.layer.borderWidth = 3;
-		self.picture.layer.borderColor = blackNelpyColor.CGColor
+		self.picture.layer.borderWidth = 1;
+		self.picture.layer.borderColor = darkGrayDetails.CGColor
 		self.picture.contentMode = UIViewContentMode.ScaleAspectFill
 		
 		cellView.addSubview(picture)

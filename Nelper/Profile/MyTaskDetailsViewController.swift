@@ -38,7 +38,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-//		self.drawTableViewsSize()
+		//		self.drawTableViewsSize()
 	}
 	
 	//Initialization
@@ -53,8 +53,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		var arrayOfDeniedApplicants = [User]()
 		for application in arrayOfApplications{
 			if application.state == .Pending{
-			arrayOfApplicants.append(application.user)
-			arrayOfAllApplicants.append(application.user)
+				arrayOfApplicants.append(application.user)
+				arrayOfAllApplicants.append(application.user)
 			}else if application.state == .Denied{
 				arrayOfDeniedApplicants.append(application.user)
 				arrayOfAllApplicants.append(application.user)
@@ -92,22 +92,22 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.height.equalTo(110)
 		}
 		taskSectionContainer.backgroundColor = blueGrayColor
-
-//		taskSectionContainer.layer.borderColor = darkGrayDetails.CGColor
-//		taskSectionContainer.layer.borderWidth = 1
 		
-
-//		var categoryIcon = UIImageView()
-//		self.categoryIcon = categoryIcon
-//		contentView.addSubview(categoryIcon)
-//		self.categoryIcon.contentMode = UIViewContentMode.ScaleAspectFill
-//		self.categoryIcon.snp_makeConstraints { (make) -> Void in
-//			make.height.equalTo(60)
-//			make.width.equalTo(60)
-//			make.centerX.equalTo(taskSectionContainer.snp_centerX)
-//			make.centerY.equalTo(taskSectionContainer.snp_top)
-//		}
-//		self.setImages(self.task)
+		//		taskSectionContainer.layer.borderColor = darkGrayDetails.CGColor
+		//		taskSectionContainer.layer.borderWidth = 1
+		
+		
+		//		var categoryIcon = UIImageView()
+		//		self.categoryIcon = categoryIcon
+		//		contentView.addSubview(categoryIcon)
+		//		self.categoryIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		//		self.categoryIcon.snp_makeConstraints { (make) -> Void in
+		//			make.height.equalTo(60)
+		//			make.width.equalTo(60)
+		//			make.centerX.equalTo(taskSectionContainer.snp_centerX)
+		//			make.centerY.equalTo(taskSectionContainer.snp_top)
+		//		}
+		//		self.setImages(self.task)
 		
 		var title = UILabel()
 		taskSectionContainer.addSubview(title)
@@ -116,7 +116,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		title.font = UIFont(name: "HelveticaNeue", size: kTitleFontSize)
 		title.textAlignment = NSTextAlignment.Center
 		title.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskSectionContainer.snp_top).offset(8)
+			make.top.equalTo(taskSectionContainer.snp_top).offset(12)
 			make.centerX.equalTo(taskSectionContainer.snp_centerX)
 		}
 		
@@ -130,13 +130,13 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		editButton.layer.borderWidth = 2
 		editButton.layer.borderColor = navBarColor.CGColor
 		editButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(title.snp_bottom).offset(16)
+			make.top.equalTo(title.snp_bottom).offset(14)
 			make.centerX.equalTo(taskSectionContainer.snp_centerX)
 			make.width.equalTo(140)
 			make.height.equalTo(35)
 		}
 		
-	//Pending Applicants Container
+		//Pending Applicants Container
 		
 		var activeApplicantsContainer = UIView()
 		self.activeApplicantsContainer = activeApplicantsContainer
@@ -173,7 +173,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.left.equalTo(pendingApplicantIcon.snp_right).offset(6)
 		}
 		
-
+		
 		//Applicants Table View
 		
 		var applicantsTableView = UITableView()
@@ -188,7 +188,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.left.equalTo(activeApplicantsContainer.snp_left)
 			make.right.equalTo(activeApplicantsContainer.snp_right)
 			make.bottom.equalTo(activeApplicantsContainer.snp_bottom)
-			}
+		}
 		
 		var pendingBottomLine = UIView()
 		pendingBottomLine.backgroundColor = darkGrayDetails
@@ -270,7 +270,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.bottom.equalTo(contentView.snp_bottom)
 			make.centerX.equalTo(contentView.snp_centerX)
 		}
-
+		
 	}
 	
 	//DATA
@@ -351,43 +351,45 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.taskSectionContainer.contentMode = .ScaleAspectFill
 		self.taskSectionContainer.clipsToBounds = true
 	}
+	
 	//Table View Delegate Methods
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		if tableView == self.applicantsTableView{
-		return self.arrayOfApplicants.count
-		}else if tableView == self.deniedApplicantsTableView{
+		if tableView == self.applicantsTableView {
+			return self.arrayOfApplicants.count
+		} else if tableView == self.deniedApplicantsTableView {
 			return self.arrayOfDeniedApplicants.count
 		}
 		return 0
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		if tableView == applicantsTableView{
-		let pendingApplicantCell = tableView.dequeueReusableCellWithIdentifier(ApplicantCell.reuseIdentifier, forIndexPath: indexPath) as! ApplicantCell
-		let applicant = self.arrayOfApplicants[indexPath.row]
-		pendingApplicantCell.setApplicant(applicant)
-		return pendingApplicantCell
-		}else if tableView == deniedApplicantsTableView{
+		if tableView == applicantsTableView {
+			let pendingApplicantCell = tableView.dequeueReusableCellWithIdentifier(ApplicantCell.reuseIdentifier, forIndexPath: indexPath) as! ApplicantCell
+			let applicant = self.arrayOfApplicants[indexPath.row]
+			pendingApplicantCell.setApplicant(applicant)
+			return pendingApplicantCell
+		} else if tableView == deniedApplicantsTableView{
 			let deniedApplicantCell = tableView.dequeueReusableCellWithIdentifier(ApplicantCell.reuseIdentifier, forIndexPath: indexPath) as! ApplicantCell
 			let deniedApplicant = self.arrayOfDeniedApplicants[indexPath.row]
 			deniedApplicantCell.setApplicant(deniedApplicant)
 			deniedApplicantCell.replaceArrowImage()
 			deniedApplicantCell.delegate = self
 			return deniedApplicantCell
-	
+			
 		}
+		
 		return UITableViewCell()
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if tableView == self.applicantsTableView{
-		var applicant = self.arrayOfAllApplicants[indexPath.row]
-		let application = self.arrayOfApplications[indexPath.row]
-		var nextVC = ApplicantProfileViewController(applicant: applicant, application: application)
-		nextVC.delegate = self
-		dispatch_async(dispatch_get_main_queue()){
-			self.presentViewController(nextVC, animated: true, completion: nil)
-		}
+			var applicant = self.arrayOfAllApplicants[indexPath.row]
+			let application = self.arrayOfApplications[indexPath.row]
+			var nextVC = ApplicantProfileViewController(applicant: applicant, application: application)
+			nextVC.delegate = self
+			dispatch_async(dispatch_get_main_queue()){
+				self.presentViewController(nextVC, animated: true, completion: nil)
+			}
 		}
 	}
 	
@@ -454,9 +456,9 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			}
 		}
 		self.refreshTableView()
-
+		
 	}
-
+	
 	//Actions
 	
 	func editButtonTapped(sender:UIButton){

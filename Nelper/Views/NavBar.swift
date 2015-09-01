@@ -20,21 +20,21 @@ class NavBar: UINavigationBar {
 			if let value = backButton {
 				self.backButtonView?.removeFromSuperview()
 				self.backButtonView = value
-				self.backButtonView?.setTitle("Back", forState: UIControlState.Normal)
+				self.backButtonView?.setTitle("   ", forState: UIControlState.Normal)
 				self.backButtonView?.setTitleColor(blueGrayColor, forState: UIControlState.Normal)
 				self.backButtonView?.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 18)
 				self.backButtonView?.contentEdgeInsets = UIEdgeInsets(top: 0, left: 26, bottom: 0, right: 0)
 				self.container.addSubview(self.backButtonView!)
 				
 				var backArrow = UIImageView()
-				backArrow.image = UIImage(named: "left_arrow_orange")
+				backArrow.image = UIImage(named: "left_arrow_red")
 				backArrow.contentMode = UIViewContentMode.ScaleAspectFit
 				self.backButtonView?.addSubview(backArrow)
 				backArrow.snp_makeConstraints { (make) -> Void in
-					make.left.equalTo(self.backButtonView!.snp_left).offset(4)
+					make.left.equalTo(self.backButtonView!.snp_left).offset(6)
 					make.centerY.equalTo(self.backButtonView!.snp_centerY).offset(0)
-					make.width.equalTo(24)
-					make.height.equalTo(20)
+					make.width.equalTo(30)
+					make.height.equalTo(30)
 				}
 				
 				self.backButtonView?.snp_makeConstraints(closure: { (make) -> Void in
@@ -72,7 +72,7 @@ class NavBar: UINavigationBar {
 			make.edges.equalTo(self)
 		}
 		
-		self.logoView = UIImageView()
+		/*self.logoView = UIImageView()
 		self.logoView.image = UIImage(named: "logo_round_v2")
 		self.logoView.contentMode = UIViewContentMode.ScaleAspectFit
 		self.container.addSubview(self.logoView)
@@ -80,17 +80,17 @@ class NavBar: UINavigationBar {
 			make.size.equalTo(40)
 			make.centerX.equalTo(self.container.snp_centerX).offset(-50)
 			make.centerY.equalTo(self.container.snp_centerY).offset(8)
-		}
+		}*/
 		
 		self.titleView = UILabel()
 		self.titleView.text = "Nelper"
-		self.titleView.font = UIFont(name: "ABeeZee-Regular", size: kNavBarTitleFont)
-		self.titleView.textColor = blackNelpyColor
+		self.titleView.font = UIFont(name: "HelveticaNeue", size: kNavBarTitleFont)
+		self.titleView.textColor = blueGrayColor
 		self.titleView.sizeToFit()
 		
 		self.container.addSubview(self.titleView)
 		self.titleView.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(self.logoView.snp_right).offset(5)
+			make.centerX.equalTo(self.container.snp_centerX).offset(0)
 			make.centerY.equalTo(self.container.snp_centerY).offset(8)
 		}
 	}

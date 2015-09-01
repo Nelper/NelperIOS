@@ -261,8 +261,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		editAboutIcon.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(self.contentView.snp_right).offset(-19)
 			make.top.equalTo(aboutTextView.snp_top)
-			make.width.equalTo(30)
-			make.height.equalTo(30)
+			make.width.equalTo(23)
+			make.height.equalTo(23)
 		}
 		
 		//My skills
