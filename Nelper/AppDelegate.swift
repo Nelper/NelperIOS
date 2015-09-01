@@ -15,7 +15,7 @@ import GoogleMaps
 class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelegate {
 	
 	var window: UIWindow?
-	var layerClient:LYRClient!
+	var layerClient: LYRClient!
 	
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		let ParseClientKeyString: String = "NRdzngSkWnGsHTMdcYumEuoXX1N8tt0ZN0o48fZV"
 		
 		layerClient = LYRClient(appID: LayerAppIDString)
+		LayerManager.sharedInstance.layerClient = layerClient
 		
 		
 		//Google

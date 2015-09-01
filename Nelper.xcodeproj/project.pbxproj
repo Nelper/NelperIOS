@@ -130,6 +130,7 @@
 		F7E8F92F1B94ED81007D44D8 /* ApplicantChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F92E1B94ED81007D44D8 /* ApplicantChatViewController.swift */; };
 		F7E8F9311B94ED97007D44D8 /* ApplicantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F9301B94ED97007D44D8 /* ApplicantCell.swift */; };
 		F7E8F9331B94F3A4007D44D8 /* PFUser+ATLParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F9321B94F3A4007D44D8 /* PFUser+ATLParticipant.swift */; };
+		F7E8F9351B953A57007D44D8 /* LayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F9341B953A57007D44D8 /* LayerManager.swift */; };
 		F7EE46B81B6D219C005ECFCA /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = F7EE46B71B6D219C005ECFCA /* Podfile */; };
 		F7EE46D71B6D32D4005ECFCA /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */; };
 		F7F0D23D1B857AA40018FC0B /* skillsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */; };
@@ -339,6 +340,7 @@
 		F7E8F92E1B94ED81007D44D8 /* ApplicantChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApplicantChatViewController.swift; path = Nelper/Profile/ApplicantChatViewController.swift; sourceTree = SOURCE_ROOT; };
 		F7E8F9301B94ED97007D44D8 /* ApplicantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApplicantCell.swift; path = Nelper/Profile/ApplicantCell.swift; sourceTree = SOURCE_ROOT; };
 		F7E8F9321B94F3A4007D44D8 /* PFUser+ATLParticipant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PFUser+ATLParticipant.swift"; path = "Nelper/Model/PFUser+ATLParticipant.swift"; sourceTree = SOURCE_ROOT; };
+		F7E8F9341B953A57007D44D8 /* LayerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayerManager.swift; path = Nelper/Helpers/LayerManager.swift; sourceTree = SOURCE_ROOT; };
 		F7EE46B71B6D219C005ECFCA /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Pods/GoogleMaps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
 		F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = skillsTableViewCell.swift; path = Nelper/Profile/skillsTableViewCell.swift; sourceTree = SOURCE_ROOT; };
@@ -538,6 +540,7 @@
 				F7067AB31B56001300F19745 /* FontHelper.swift */,
 				F782A6281B6567E100C78470 /* ApiHelper.swift */,
 				F73A45BF1B72FEA400FD8C79 /* LocationHelper.swift */,
+				F7E8F9341B953A57007D44D8 /* LayerManager.swift */,
 			);
 			name = Helpers;
 			path = ViewControllers/Offer;
@@ -1012,6 +1015,7 @@
 				F7E8F8DC1B94E7CF007D44D8 /* ATLDataSourceChange.m in Sources */,
 				F7E8F8EE1B94E7CF007D44D8 /* ATLConversationView.m in Sources */,
 				190F623E1B4F5CAB0091A1D1 /* NelpTask.swift in Sources */,
+				F7E8F9351B953A57007D44D8 /* LayerManager.swift in Sources */,
 				F7E8F8E51B94E7CF007D44D8 /* ATLAddressBarContainerView.m in Sources */,
 				F775C0CB1B81160400F7525B /* NelpApplicationsTableViewCell.swift in Sources */,
 				F7E8F8E11B94E7CF007D44D8 /* ATLLocationManager.m in Sources */,

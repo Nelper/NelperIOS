@@ -54,6 +54,10 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	var educationBottomLine:UIView!
 	var denyButton:UIButton!
 	var acceptButton:UIButton!
+	var profileContainer:UIView!
+	var chatButton:UIButton!
+	var conversationController:UINavigationController?
+	var tempVC:UIViewController!
 
 
 	//Init
@@ -77,6 +81,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		
 		//Profile + Header
 		var profileContainer = UIView()
+		self.profileContainer = profileContainer
 		self.containerView.addSubview(profileContainer)
 		profileContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.navBar.snp_bottom)
@@ -576,18 +581,19 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		//Chat Button
 		
 		var chatButton = UIButton()
+		self.chatButton = chatButton
 		self.view.addSubview(chatButton)
 		chatButton.backgroundColor = grayBlueColor
 		chatButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
+		chatButton.setImage(UIImage(named: "collapse_chat"), forState: UIControlState.Selected)
 		chatButton.addTarget(self, action: "chatButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		chatButton.imageView!.frame = CGRectMake(0, 0, 30, 30)
 		chatButton.imageView!.contentMode = UIViewContentMode.Center
 		chatButton.layer.cornerRadius = 3
 		chatButton.clipsToBounds = true
 		chatButton.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(whiteContainer.snp_right).offset(1)
-			make.bottom.equalTo(acceptDenyBar.snp_top).offset(1)
-			make.width.equalTo(110)
+			make.bottom.equalTo(acceptDenyBar.snp_top).offset(2)
+			make.width.equalTo(100)
 			make.height.equalTo(40)
 		}
 	}
@@ -765,9 +771,69 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	}
 	
 	func chatButtonTapped(sender:UIButton){
-		var chatVC = ATLConversationViewController(layerClient: AppDelegate.layerClient)
 		
+		self.chatButton.selected = !self.chatButton.selected
+		
+		if self.conversationController == nil{
+		var error:NSError?
+		var participants = Set([self.applicant.objectId])
+		println(participants)
+		var conversation = LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.applicant.objectId]), options: nil, error: nil)
+		
+		var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
+		nextVC.conversation = conversation
+		var conversationNavController = UINavigationController(rootViewController: nextVC)
+		self.conversationController = conversationNavController
+		}
+		
+		if self.chatButton.selected{
+		
+		var tempVC = UIViewController()
+		self.tempVC = tempVC
+		self.addChildViewController(tempVC)
+		self.view.addSubview(tempVC.view)
+//		tempVC.view.backgroundColor = UIColor.yellowColor()
+		tempVC.didMoveToParentViewController(self)
+		tempVC.view.backgroundColor = UIColor.clearColor()
+		tempVC.view.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.profileContainer.snp_bottom)
+			make.bottom.equalTo(acceptDenyBar.snp_bottom)
+			make.width.equalTo(self.view.snp_width)
+		}
+		
+		tempVC.addChildViewController(self.conversationController!)
+		var distanceToMove = UIScreen.mainScreen().bounds.height -  (UIScreen.mainScreen().bounds.height - self.profileContainer.frame.height)
+		self.conversationController!.view.frame = CGRectMake(0, tempVC.view.frame.height, tempVC.view.frame.width, tempVC.view.frame.height)
+		tempVC.view.addSubview(self.conversationController!.view)
+		UIView.animateWithDuration(0.5, animations: { () -> Void in
+			self.conversationController!.view.frame = CGRectMake(0, 0, tempVC.view.frame.width, tempVC.view.frame.height)
+			}) { (didFinish) -> Void in
+				self.chatButton.snp_remakeConstraints(closure: { (make) -> Void in
+					make.right.equalTo(self.view.snp_right).offset(1)
+					make.bottom.equalTo(self.conversationController!.view.snp_top).offset(2)
+					make.width.equalTo(100)
+					make.height.equalTo(40)
+				})
+			self.conversationController!.didMoveToParentViewController(tempVC)
+		}
+		}else{
+			
+			UIView.animateWithDuration(0.5, animations: { () -> Void in
+				self.conversationController!.view.frame = CGRectMake(0, self.tempVC.view.frame.height, self.tempVC.view.frame.width, self.tempVC.view.frame.height)
+				}) { (didFinish) -> Void in
+					self.chatButton.snp_remakeConstraints(closure: { (make) -> Void in
+						make.right.equalTo(self.view.snp_right).offset(1)
+						make.bottom.equalTo(self.acceptDenyBar.snp_top).offset(2)
+						make.width.equalTo(100)
+						make.height.equalTo(40)
+					})
+					self.conversationController!.view.removeFromSuperview()
+					self.conversationController!.removeFromParentViewController()
+					self.tempVC.view.removeFromSuperview()
+					self.tempVC.removeFromParentViewController()
+		}
 	}
+}
 	
 	
 	func reviewSegmentButtonTapped(sender:UIButton){
@@ -782,6 +848,5 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.bottomProfileBorder.hidden = false
 		self.reviewSegmentButton.selected = false
 		self.bottomFeedbackBorder.hidden = true
-		
 	}
 }
