@@ -13,8 +13,6 @@ import Alamofire
 
 class NelpViewCell: UITableViewCell {
 	
-	
-	
 	var title: UILabel!
 	var author:UILabel!
 	var price:UILabel!
@@ -152,7 +150,7 @@ class NelpViewCell: UITableViewCell {
 		
 	}
 	
-	func setImages(nelpTask:NelpTask){
+	func setImages(nelpTask:NelpTask) {
 		if(nelpTask.user.profilePictureURL != nil){
 			var fbProfilePicture = nelpTask.user.profilePictureURL
 			request(.GET,fbProfilePicture!).response(){

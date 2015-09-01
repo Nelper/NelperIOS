@@ -50,7 +50,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		createView()
 		loadData()
 		refreshTableView()
-		getFacebookInfos()
+		setProfilePicture()
 		// looks for tap (keyboard dismiss)
 		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
 		self.tap = tap
@@ -469,14 +469,29 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	
 	//	DATA
-	func getFacebookInfos() {
+	func setProfilePicture() {
 		
-		var fbProfilePicture = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
-		request(.GET,fbProfilePicture).response(){
-			(_, _, data, _) in
-			var image = UIImage(data: data as NSData!)
-			self.profilePicture.image = image
+		var image = UIImage(named: "noProfilePicture")
+		
+		if (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile! != nil) {
+			var profilePic = (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile)!
+			request(.GET,profilePic.url!).response() {
+				(_, _, data, _) in
+				var image = UIImage(data: data as NSData!)
+				self.profilePicture.image = image
+			}
+			
+		} else if (PFUser.currentUser()!.objectForKey("pictureURL") as? String! != nil) {
+			var profilePic = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
+			request(.GET,profilePic).response() {
+				(_, _, data, _) in
+				var image = UIImage(data: data as NSData!)
+				self.profilePicture.image = image
+			}
+			
 		}
+		
+		self.profilePicture.image = image
 	}
 	
 	func loadData() {

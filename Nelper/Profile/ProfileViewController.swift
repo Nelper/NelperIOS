@@ -43,7 +43,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		createMyTasksTableView()
 		createMyApplicationsTableView()
 		myTasksSegmentButton.selected = true
-		getFacebookInfos()
+		setProfilePicture()
 		adjustUI()
 
 	}
@@ -95,7 +95,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		
 		self.profilePicture.layer.cornerRadius = 84 / 2
 		self.profilePicture.layer.borderColor = darkGrayDetails.CGColor
-		self.profilePicture.layer.borderWidth = 2
+		self.profilePicture.layer.borderWidth = 1
 		
 		//Name
 		var name = UILabel()
@@ -320,6 +320,31 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	}
 	
 	//	DATA
+	
+	func setProfilePicture() {
+		
+		var image = UIImage(named: "noProfilePicture")
+		
+		if (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile! != nil) {
+			var profilePic = (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile)!
+			request(.GET,profilePic.url!).response() {
+				(_, _, data, _) in
+				var image = UIImage(data: data as NSData!)
+				self.profilePicture.image = image
+			}
+			
+		} else if (PFUser.currentUser()!.objectForKey("pictureURL") as? String! != nil) {
+			var profilePic = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
+			request(.GET,profilePic).response() {
+				(_, _, data, _) in
+				var image = UIImage(data: data as NSData!)
+				self.profilePicture.image = image
+			}
+			
+		}
+		
+		self.profilePicture.image = image
+	}
 	
 	func getFacebookInfos() {
 		
