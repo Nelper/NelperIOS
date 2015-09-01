@@ -23,7 +23,8 @@ class ApplicantChatViewController : ATLConversationViewController, ATLConversati
 	
 	// MARK - UI
 	func configureUI(){
-		
+		ATLOutgoingMessageCollectionViewCell.appearance().bubbleViewColor = blueGrayColor
+//		self.conversation.sendTypingIndicator(LYRTypingIndicator.DidBegin)
 	}
 	
 	// MARK - ATLConversationViewControllerDelegate Methods
@@ -39,6 +40,8 @@ class ApplicantChatViewController : ATLConversationViewController, ATLConversati
 	func conversationViewController(viewController: ATLConversationViewController, didSelectMessage message: LYRMessage) {
 		println("Message selected")
 	}
+
+	
 	
 	// MARK - ATLConversationViewControllerDataSource methods
 	
@@ -50,6 +53,8 @@ class ApplicantChatViewController : ATLConversationViewController, ATLConversati
 		let attributes: NSDictionary = [ NSFontAttributeName : UIFont.systemFontOfSize(14), NSForegroundColorAttributeName : UIColor.grayColor() ]
 		return NSAttributedString(string: self.dateFormatter.stringFromDate(date), attributes: attributes as? [String : AnyObject])
 	}
+	
+	
 	
 	func conversationViewController(conversationViewController: ATLConversationViewController, attributedStringForDisplayOfRecipientStatus recipientStatus: [NSObject:AnyObject]) -> NSAttributedString? {
 		if (recipientStatus.count == 0) {

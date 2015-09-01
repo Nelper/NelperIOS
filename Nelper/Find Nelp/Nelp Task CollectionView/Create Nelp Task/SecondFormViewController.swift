@@ -343,6 +343,8 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.navBar.backButton = backBtn
 		self.formBackground.backgroundColor = whiteNelpyColor
 		self.contentView.backgroundColor = whiteNelpyColor
+		self.navBar.setTitle("Create your task")
+
 		
 	}
 	

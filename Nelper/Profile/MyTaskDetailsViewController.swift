@@ -301,6 +301,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.backButton = backBtn
 		self.scrollView.backgroundColor = whiteNelpyColor
+		self.navBar.setTitle("My Task Details")
+
 	}
 	
 	func setImages(nelpTask:FindNelpTask){

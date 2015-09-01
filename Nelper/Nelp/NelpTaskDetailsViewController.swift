@@ -56,7 +56,8 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	func adjustUI(){
 		self.navBar.backgroundColor = navBarColor
 		self.container.backgroundColor = whiteNelpyColor
-		
+		self.navBar.setTitle("Task Details")
+
 		let backBtn = UIButton()
 		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.backButton = backBtn

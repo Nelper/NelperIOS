@@ -94,4 +94,8 @@ class NavBar: UINavigationBar {
 			make.centerY.equalTo(self.container.snp_centerY).offset(8)
 		}
 	}
+	
+	func setTitle(title:String){
+		self.titleView.text = title
+	}
 }

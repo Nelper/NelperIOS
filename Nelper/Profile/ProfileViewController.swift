@@ -11,7 +11,7 @@ import Alamofire
 
 class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
 	
-	@IBOutlet weak var navBar: UIView!
+	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var containerView: UIView!
 	@IBOutlet weak var tabBarView: UIView!
 	
@@ -314,6 +314,8 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	
 	func adjustUI() {
 		self.extendedLayoutIncludesOpaqueBars = true
+		self.navBar.setTitle("Nelp Center")
+
 
 	}
 	

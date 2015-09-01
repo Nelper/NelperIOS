@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		
 		//Layer
 		
-		let LayerAppIDString: NSURL! = NSURL(string: "layer:///apps/staging/1da6cea8-5006-11e5-8db8-d4eb521b5510")
+		let LayerAppIDString: NSURL! = NSURL(string: "layer:///apps/staging/33a90a5e-5006-11e5-a708-7f0c79166812")
 		let ParseAppIDString: String = "w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN"
 		let ParseClientKeyString: String = "NRdzngSkWnGsHTMdcYumEuoXX1N8tt0ZN0o48fZV"
 		
@@ -63,6 +63,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 			let tabVC = initAppViewController()
 			self.window?.rootViewController = tabVC
 		}
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveTypingIndicator:", name: LYRConversationDidReceiveTypingIndicatorNotification, object: nil)
 		
 		return true
 	}
@@ -193,6 +195,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 					println("Parse Cloud function failed to be called to generate token with error: \(error)")
 				}
 			}
+		}
+	}
+	
+	func didReceiveTypingIndicator(notification:NSNotification){
+		var participantID : AnyObject = notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]!
+		var typingIndicator:LYRTypingIndicator = notification.userInfo![LYRTypingIndicatorValueUserInfoKey]! as! LYRTypingIndicator
+		
+		notification.object!.sendTypingIndicator(typingIndicator)
+		
+		if typingIndicator == LYRTypingIndicator.DidBegin{
+			println("Typing Started")
+		}else{
+			println("Typing Stopped")
 		}
 	}
 

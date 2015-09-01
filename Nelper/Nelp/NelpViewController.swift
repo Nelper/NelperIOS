@@ -13,7 +13,7 @@ import GoogleMaps
 
 class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate{
 	
-	@IBOutlet weak var navBar: UIView!
+	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var logoImage: UIImageView!
 	@IBOutlet weak var nelperTitle: UILabel!
 	
@@ -120,7 +120,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	func adjustUI(){
 		self.entireContainer.backgroundColor = blueGrayColor
 		self.container.backgroundColor = blueGrayColor
-		
+		self.navBar.setTitle("Browse Tasks")
 	}
 	
 	func createPins(){

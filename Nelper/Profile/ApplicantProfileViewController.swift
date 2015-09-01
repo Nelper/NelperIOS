@@ -58,9 +58,11 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	var chatButton:UIButton!
 	var conversationController:UINavigationController?
 	var tempVC:UIViewController!
+	var fakeButton:UIButton!
 
 
 	//Init
+	
 	convenience init(applicant:User, application:NelpTaskApplication){
 		self.init(nibName: "ApplicantProfileViewController", bundle: nil)
 		self.applicant = applicant
@@ -69,6 +71,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		self.navBar.setTitle("Nelper's Info")
 		self.loadData()
 		self.createView()
 		self.profileSegmentButton.selected = true
@@ -591,11 +594,30 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		chatButton.layer.cornerRadius = 3
 		chatButton.clipsToBounds = true
 		chatButton.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(whiteContainer.snp_right).offset(1)
-			make.bottom.equalTo(acceptDenyBar.snp_top).offset(2)
+			make.right.equalTo(whiteContainer.snp_right).offset(2)
+			make.bottom.equalTo(acceptDenyBar.snp_top)
 			make.width.equalTo(100)
 			make.height.equalTo(40)
 		}
+		
+		//Fake button for animation
+		var fakeButton = UIButton()
+		self.fakeButton = fakeButton
+		self.view.addSubview(fakeButton)
+		fakeButton.backgroundColor = grayBlueColor
+		fakeButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
+		fakeButton.setImage(UIImage(named: "collapse_chat"), forState: UIControlState.Selected)
+		fakeButton.imageView!.contentMode = UIViewContentMode.Center
+		fakeButton.layer.cornerRadius = 3
+		fakeButton.clipsToBounds = true
+		fakeButton.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(whiteContainer.snp_right).offset(2)
+			make.bottom.equalTo(acceptDenyBar.snp_top)
+			make.width.equalTo(100)
+			make.height.equalTo(40)
+		}
+		
+		fakeButton.hidden = true
 	}
 	
 	//DATA
@@ -778,10 +800,21 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		var error:NSError?
 		var participants = Set([self.applicant.objectId])
 		println(participants)
-		var conversation = LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.applicant.objectId]), options: nil, error: nil)
 		
-		var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
+		
+		var conversation = LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.applicant.objectId]), options: nil, error: nil)
+			
+//		var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
+			var nextVC = ApplicantChatViewController(layerClient: LayerManager.sharedInstance.layerClient)
+			nextVC.displaysAddressBar = false
+			if conversation != nil{
 		nextVC.conversation = conversation
+			}else{
+				var query:LYRQuery = LYRQuery(queryableClass: LYRConversation.self)
+				query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
+				var result = LayerManager.sharedInstance.layerClient.executeQuery(query, error: nil)
+			  nextVC.conversation = result.firstObject as! LYRConversation
+			}
 		var conversationNavController = UINavigationController(rootViewController: nextVC)
 		self.conversationController = conversationNavController
 		}
@@ -805,12 +838,23 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		var distanceToMove = UIScreen.mainScreen().bounds.height -  (UIScreen.mainScreen().bounds.height - self.profileContainer.frame.height)
 		self.conversationController!.view.frame = CGRectMake(0, tempVC.view.frame.height, tempVC.view.frame.width, tempVC.view.frame.height)
 		tempVC.view.addSubview(self.conversationController!.view)
-		UIView.animateWithDuration(0.5, animations: { () -> Void in
+		
+			self.view.layoutIfNeeded()
+			UIView.animateWithDuration(0.5, animations: { () -> Void in
+				self.fakeButton.hidden = false
+				self.conversationController!.view.addSubview(self.chatButton)
+				self.chatButton.snp_remakeConstraints(closure: { (make) -> Void in
+					make.right.equalTo(self.view.snp_right).offset(2)
+					make.bottom.equalTo(self.conversationController!.view.snp_top)
+					make.width.equalTo(100)
+					make.height.equalTo(40)
+				})
 			self.conversationController!.view.frame = CGRectMake(0, 0, tempVC.view.frame.width, tempVC.view.frame.height)
 			}) { (didFinish) -> Void in
 				self.chatButton.snp_remakeConstraints(closure: { (make) -> Void in
-					make.right.equalTo(self.view.snp_right).offset(1)
-					make.bottom.equalTo(self.conversationController!.view.snp_top).offset(2)
+					self.view.addSubview(self.chatButton)
+					make.right.equalTo(self.view.snp_right).offset(2)
+					make.bottom.equalTo(self.profileContainer.snp_bottom)
 					make.width.equalTo(100)
 					make.height.equalTo(40)
 				})
@@ -818,12 +862,22 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		}
 		}else{
 			
+			
 			UIView.animateWithDuration(0.5, animations: { () -> Void in
+
+				self.conversationController!.view.addSubview(self.chatButton)
+				self.chatButton.snp_remakeConstraints(closure: { (make) -> Void in
+					make.right.equalTo(self.view.snp_right).offset(2)
+					make.bottom.equalTo(self.self.conversationController!.view.snp_top)
+					make.width.equalTo(100)
+					make.height.equalTo(40)
+				})
 				self.conversationController!.view.frame = CGRectMake(0, self.tempVC.view.frame.height, self.tempVC.view.frame.width, self.tempVC.view.frame.height)
 				}) { (didFinish) -> Void in
+					self.view.addSubview(self.chatButton)
 					self.chatButton.snp_remakeConstraints(closure: { (make) -> Void in
-						make.right.equalTo(self.view.snp_right).offset(1)
-						make.bottom.equalTo(self.acceptDenyBar.snp_top).offset(2)
+						make.right.equalTo(self.view.snp_right).offset(2)
+						make.bottom.equalTo(self.acceptDenyBar.snp_top)
 						make.width.equalTo(100)
 						make.height.equalTo(40)
 					})
@@ -831,6 +885,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 					self.conversationController!.removeFromParentViewController()
 					self.tempVC.view.removeFromSuperview()
 					self.tempVC.removeFromParentViewController()
+					self.fakeButton.hidden = true
 		}
 	}
 }

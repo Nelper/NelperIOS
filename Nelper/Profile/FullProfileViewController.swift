@@ -46,6 +46,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.automaticallyAdjustsScrollViewInsets = false
+		self.navBar.setTitle("My Profile")
 		createView()
 		loadData()
 		refreshTableView()

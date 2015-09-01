@@ -53,6 +53,8 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	func adjustUI(){
 			
 		self.formView.backgroundColor = whiteNelpyColor
+		self.navBar.setTitle("Post a task")
+
 }
 	
 	func createView(){
