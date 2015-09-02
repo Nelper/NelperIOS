@@ -274,6 +274,7 @@ class MyApplicationDetailsView: UIViewController{
 		var chatButton = UIButton()
 		self.chatButton = chatButton
 		self.view.addSubview(chatButton)
+		chatButton.layer.cornerRadius = 20
 		chatButton.backgroundColor = grayBlueColor
 		chatButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
 		chatButton.setImage(UIImage(named: "down_arrow"), forState: UIControlState.Selected)
@@ -290,6 +291,7 @@ class MyApplicationDetailsView: UIViewController{
 		//Fake button for animation
 		var fakeButton = UIButton()
 		self.fakeButton = fakeButton
+		fakeButton.layer.cornerRadius = 20
 		self.view.addSubview(fakeButton)
 		fakeButton.backgroundColor = grayBlueColor
 		fakeButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)

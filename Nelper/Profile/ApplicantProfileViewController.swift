@@ -604,6 +604,8 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			make.height.equalTo(40)
 		}
 		
+		
+		
 		//Fake button for animation
 		var fakeButton = UIButton()
 		self.fakeButton = fakeButton
@@ -612,7 +614,6 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		fakeButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
 		fakeButton.setImage(UIImage(named: "collapse_chat"), forState: UIControlState.Selected)
 		fakeButton.imageView!.contentMode = UIViewContentMode.Center
-		fakeButton.layer.cornerRadius = 3
 		fakeButton.clipsToBounds = true
 		fakeButton.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(whiteContainer.snp_right).offset(2)
@@ -767,6 +768,19 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
+		
+		var maskPath = UIBezierPath(roundedRect: chatButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
+		var maskLayer = CAShapeLayer()
+		maskLayer.frame = self.chatButton.bounds
+		maskLayer.path = maskPath.CGPath
+		
+		var maskPathFake = UIBezierPath(roundedRect: self.fakeButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
+		var maskLayerFake = CAShapeLayer()
+		maskLayerFake.frame = self.fakeButton.bounds
+		maskLayerFake.path = maskPath.CGPath
+		
+		self.chatButton.layer.mask = maskLayer
+		self.fakeButton.layer.mask = maskLayerFake
 	}
 	
 	

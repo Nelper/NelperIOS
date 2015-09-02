@@ -79,7 +79,7 @@ class ApplicantChatViewController : ATLConversationViewController, ATLConversati
 			case .Delivered:
 				textColor = UIColor.orangeColor()
 			case .Read:
-				textColor = UIColor.greenColor()
+				textColor = greenPriceButton
 			default:
 				textColor = UIColor.lightGrayColor()
 			}

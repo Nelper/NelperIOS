@@ -64,7 +64,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 			self.window?.rootViewController = tabVC
 		}
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveTypingIndicator:", name: LYRConversationDidReceiveTypingIndicatorNotification, object: nil)
+//		NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveTypingIndicator:", name: LYRConversationDidReceiveTypingIndicatorNotification, object: nil)
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveLayerObjectsDidChangeNotification:", name: LYRClientObjectsDidChangeNotification, object: layerClient)
 		
 		return true
 	}
@@ -198,16 +200,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		}
 	}
 	
-	func didReceiveTypingIndicator(notification:NSNotification){
+	func didReceiveLayerObjectsDidChangeNotification(notification:NSNotification){
+		
+		var changes:Array<AnyObject>
+		if let notif: AnyObject = notification.userInfo?[LYRClientObjectChangesUserInfoKey]{
+		changes = notif as! Array<AnyObject>
+		
+			for change in changes{
+				var changeClass = change.object
+				var updateKey: LYRObjectChangeType = change.type
+				if changeClass is LYRConversation {
+					var conversation = changeClass
+					
+					switch(updateKey){
+					
+					case LYRObjectChangeType.Create:
+						println("a")
+					
+					case LYRObjectChangeType.Update:
+						println("b")
+						
+					case LYRObjectChangeType.Delete:
+						println("c")
+						
+					default:
+						println("d")
+					}
+				}
+				if changeClass is LYRMessage {
+					
+				}
+			}
+		}
+	}
+	
+	
+//	func didReceiveTypingIndicator(notification:NSNotification){
 //		
 //		var participantID : AnyObject = notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]!
+//		notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]! = "Your neighbor" as AnyObject
 //		
 //		if notification.userInfo![LYRTypingIndicatorValueUserInfoKey] != nil{
-//		var typingIndicator:LYRTypingIndicator = notification.userInfo![LYRTypingIndicatorValueUserInfoKey] as! LYRTypingIndicator
-//		notification.object?.sendTypingIndicator(typingIndicator)
-//		
+//			var typingIndicator: UInt = notification.userInfo![LYRTypingIndicatorValueUserInfoKey] as! UInt
+//			if typingIndicator == 0{
+//			notification.object!.sendTypingIndicator(LYRTypingIndicator.DidBegin)
+//			}else if typingIndicator == 1 {
+//				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidFinish)
+//
+//			}else if typingIndicator == 2{
+//				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidPause)
+//			}
 //		}
-	}
+//	}
 
 	func applicationDidBecomeActive(application: UIApplication) {
 		FBSDKAppEvents.activateApp()
