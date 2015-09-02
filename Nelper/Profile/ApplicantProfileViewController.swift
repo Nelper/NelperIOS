@@ -593,10 +593,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.view.addSubview(chatButton)
 		chatButton.backgroundColor = grayBlueColor
 		chatButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
-		chatButton.setImage(UIImage(named: "collapse_chat"), forState: UIControlState.Selected)
+		chatButton.setImage(UIImage(named: "down_arrow"), forState: UIControlState.Selected)
 		chatButton.addTarget(self, action: "chatButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		chatButton.imageView!.contentMode = UIViewContentMode.Center
-		chatButton.layer.cornerRadius = 3
 		chatButton.clipsToBounds = true
 		chatButton.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(whiteContainer.snp_right).offset(2)

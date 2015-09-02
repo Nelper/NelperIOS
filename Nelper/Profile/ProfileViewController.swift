@@ -43,7 +43,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		createMyTasksTableView()
 		createMyApplicationsTableView()
 		myTasksSegmentButton.selected = true
-		setProfilePicture()
+		getFacebookInfos()
 		adjustUI()
 
 	}
@@ -321,30 +321,30 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	
 	//	DATA
 	
-	func setProfilePicture() {
-		
-		var image = UIImage(named: "noProfilePicture")
-		
-		if (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile! != nil) {
-			var profilePic = (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile)!
-			request(.GET,profilePic.url!).response() {
-				(_, _, data, _) in
-				var image = UIImage(data: data as NSData!)
-				self.profilePicture.image = image
-			}
-			
-		} else if (PFUser.currentUser()!.objectForKey("pictureURL") as? String! != nil) {
-			var profilePic = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
-			request(.GET,profilePic).response() {
-				(_, _, data, _) in
-				var image = UIImage(data: data as NSData!)
-				self.profilePicture.image = image
-			}
-			
-		}
-		
-		self.profilePicture.image = image
-	}
+//	func setProfilePicture() {
+//		
+//		var image = UIImage(named: "noProfilePicture")
+//		
+//		if (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile! != nil) {
+//			var profilePic = (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile)!
+//			request(.GET,profilePic.url!).response() {
+//				(_, _, data, _) in
+//				var image = UIImage(data: data as NSData!)
+//				self.profilePicture.image = image
+//			}
+//			
+//		} else if (PFUser.currentUser()!.objectForKey("pictureURL") as? String! != nil) {
+//			var profilePic = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
+//			request(.GET,profilePic).response() {
+//				(_, _, data, _) in
+//				var image = UIImage(data: data as NSData!)
+//				self.profilePicture.image = image
+//			}
+//			
+//		}
+//		
+//		self.profilePicture.image = image
+//	}
 	
 	func getFacebookInfos() {
 		
@@ -436,7 +436,12 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 			self.presentViewController(nextVC, animated: true, completion: nil)
 			}
 		}else if (tableView == myApplicationsTableView) {
+			var application = nelpApplications[indexPath.row]
+			var nextVC = MyApplicationDetailsView(poster: application.task.user, application: application)
 			
+			dispatch_async(dispatch_get_main_queue()){
+				self.presentViewController(nextVC, animated: true, completion: nil)
+			}
 			
 		}
 
