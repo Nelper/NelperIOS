@@ -14,6 +14,7 @@ class NavBar: UINavigationBar {
 	private var logoView: UIImageView!
 	private var titleView: UILabel!
 	private var backButtonView: UIButton?
+	private var backArrow:UIImageView!
 	
 	var backButton: UIButton? {
 		didSet {
@@ -27,6 +28,7 @@ class NavBar: UINavigationBar {
 				self.container.addSubview(self.backButtonView!)
 				
 				var backArrow = UIImageView()
+				self.backArrow = backArrow
 				backArrow.image = UIImage(named: "left_arrow_red")
 				backArrow.contentMode = UIViewContentMode.ScaleAspectFit
 				self.backButtonView?.addSubview(backArrow)
@@ -97,5 +99,9 @@ class NavBar: UINavigationBar {
 	
 	func setTitle(title:String){
 		self.titleView.text = title
+	}
+	
+	func setImage(image:UIImage){
+		self.backArrow.image = image
 	}
 }

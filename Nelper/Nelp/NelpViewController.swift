@@ -94,6 +94,18 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 			make.bottom.equalTo(navBar.snp_bottom)
 			make.right.equalTo(navBar.snp_right)
 		}
+		
+		//Filters
+		
+		var filtersButton = UIButton()
+		self.navBar.addSubview(filtersButton)
+		filtersButton.setTitle("Filters", forState: UIControlState.Normal)
+		filtersButton.setTitleColor(blueGrayColor, forState: UIControlState.Normal)
+		filtersButton.addTarget(self, action: "didTapFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		filtersButton.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(navBar.snp_bottom)
+			make.left.equalTo(navBar.snp_left)
+		}
 	}
 	
 	func initializeMapview(){
@@ -286,7 +298,10 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
-	
+	func didTapFiltersButton(sender:UIButton){
+		var nextVC =  FilterSortViewController()
+		self.presentViewController(nextVC, animated: true, completion: nil)
+	}
 	
 	
 	
