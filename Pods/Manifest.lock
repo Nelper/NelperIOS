@@ -3,7 +3,11 @@ PODS:
   - GoogleMaps (1.10.1)
   - iCarousel (1.8.1)
   - LayerKit (0.15.0)
+  - SCLAlertView (0.4.1)
   - SnapKit (0.13.0)
+  - Stripe (5.1.2):
+    - Stripe/Core (= 5.1.2)
+  - Stripe/Core (5.1.2)
   - SwiftyJSON (2.2.1)
 
 DEPENDENCIES:
@@ -11,7 +15,9 @@ DEPENDENCIES:
   - GoogleMaps
   - iCarousel
   - LayerKit
+  - SCLAlertView
   - SnapKit
+  - Stripe
   - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -19,7 +25,9 @@ SPEC CHECKSUMS:
   GoogleMaps: ebf08677f181d9c2dcdbd1721d206f02beccc9b1
   iCarousel: dace1cb858e3f4dc2614bee3201041247f82feda
   LayerKit: ac8c5c227a06e2ea5e042303b80e931a8ffe3568
+  SCLAlertView: 9e60641edd9efcfc6d58227558eb7b03678dbcf3
   SnapKit: 69fe274c71511df89a5591c11437a8b826bfa9eb
+  Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
   SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
 
 COCOAPODS: 0.38.2

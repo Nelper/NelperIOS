@@ -50,7 +50,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		createView()
 		loadData()
 		refreshTableView()
-		setProfilePicture()
+//		setProfilePicture()
+		getFacebookInfo()
 		// looks for tap (keyboard dismiss)
 		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
 		self.tap = tap
@@ -488,10 +489,20 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 				var image = UIImage(data: data as NSData!)
 				self.profilePicture.image = image
 			}
+		}
+		self.profilePicture.image = image
+	}
+	
+	func getFacebookInfo(){
+		if (PFUser.currentUser()!.objectForKey("pictureURL") as? String! != nil) {
+			var profilePic = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
+			request(.GET,profilePic).response() {
+				(_, _, data, _) in
+				var image = UIImage(data: data as NSData!)
+				self.profilePicture.image = image
+			}
 			
 		}
-		
-		self.profilePicture.image = image
 	}
 	
 	func loadData() {

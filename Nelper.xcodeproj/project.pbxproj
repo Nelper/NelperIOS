@@ -135,6 +135,7 @@
 		F7E8F93A1B968078007D44D8 /* MyApplicationDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F9391B968078007D44D8 /* MyApplicationDetailsView.xib */; };
 		F7EE46B81B6D219C005ECFCA /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = F7EE46B71B6D219C005ECFCA /* Podfile */; };
 		F7EE46D71B6D32D4005ECFCA /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */; };
+		F7F007051B9767D0009766C1 /* STRPPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F007041B9767D0009766C1 /* STRPPaymentViewController.swift */; };
 		F7F0D23D1B857AA40018FC0B /* skillsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -347,6 +348,7 @@
 		F7E8F9391B968078007D44D8 /* MyApplicationDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyApplicationDetailsView.xib; path = Nelper/Profile/MyApplicationDetailsView.xib; sourceTree = SOURCE_ROOT; };
 		F7EE46B71B6D219C005ECFCA /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Pods/GoogleMaps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
+		F7F007041B9767D0009766C1 /* STRPPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STRPPaymentViewController.swift; sourceTree = "<group>"; };
 		F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = skillsTableViewCell.swift; path = Nelper/Profile/skillsTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		F81CFE6A4154D592275ED493 /* Pods-Nelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -460,6 +462,7 @@
 				193F041D1B4878E3003CBDA6 /* Nelp */,
 				193F040E1B485F75003CBDA6 /* Find Nelp */,
 				F762CFF61B49E72800812235 /* Nelp Center */,
+				F7F007031B9767D0009766C1 /* Payments */,
 				F762CFFD1B4B591D00812235 /* Model */,
 				F72F28501B53608E00CD3B0B /* Helpers */,
 				199EF1F31B37A0A500B25B07 /* AppDelegate.swift */,
@@ -806,6 +809,14 @@
 			name = "My Applications Details View";
 			sourceTree = "<group>";
 		};
+		F7F007031B9767D0009766C1 /* Payments */ = {
+			isa = PBXGroup;
+			children = (
+				F7F007041B9767D0009766C1 /* STRPPaymentViewController.swift */,
+			);
+			path = Payments;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1020,6 +1031,7 @@
 				F7E8F92F1B94ED81007D44D8 /* ApplicantChatViewController.swift in Sources */,
 				F72F27D31B5302DE00CD3B0B /* NelpTaskCreateViewController.swift in Sources */,
 				F7E8F8EC1B94E7CF007D44D8 /* ATLConversationCollectionViewMoreMessagesHeader.m in Sources */,
+				F7F007051B9767D0009766C1 /* STRPPaymentViewController.swift in Sources */,
 				199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */,
 				F7E8F8F01B94E7CF007D44D8 /* ATLMessageBubbleView.m in Sources */,
 				19761A131B684F41001600E1 /* User.swift in Sources */,

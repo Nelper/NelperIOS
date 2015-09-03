@@ -274,7 +274,6 @@ class MyApplicationDetailsView: UIViewController{
 		var chatButton = UIButton()
 		self.chatButton = chatButton
 		self.view.addSubview(chatButton)
-		chatButton.layer.cornerRadius = 20
 		chatButton.backgroundColor = grayBlueColor
 		chatButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
 		chatButton.setImage(UIImage(named: "down_arrow"), forState: UIControlState.Selected)
@@ -291,13 +290,11 @@ class MyApplicationDetailsView: UIViewController{
 		//Fake button for animation
 		var fakeButton = UIButton()
 		self.fakeButton = fakeButton
-		fakeButton.layer.cornerRadius = 20
 		self.view.addSubview(fakeButton)
 		fakeButton.backgroundColor = grayBlueColor
 		fakeButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
 		fakeButton.setImage(UIImage(named: "collapse_chat"), forState: UIControlState.Selected)
 		fakeButton.imageView!.contentMode = UIViewContentMode.Center
-		fakeButton.layer.cornerRadius = 3
 		fakeButton.clipsToBounds = true
 		fakeButton.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(whiteContainer.snp_right).offset(2)
@@ -332,6 +329,19 @@ class MyApplicationDetailsView: UIViewController{
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
+		
+		var maskPath = UIBezierPath(roundedRect: chatButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
+		var maskLayer = CAShapeLayer()
+		maskLayer.frame = self.chatButton.bounds
+		maskLayer.path = maskPath.CGPath
+		
+		var maskPathFake = UIBezierPath(roundedRect: self.fakeButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
+		var maskLayerFake = CAShapeLayer()
+		maskLayerFake.frame = self.fakeButton.bounds
+		maskLayerFake.path = maskPath.CGPath
+		
+		self.chatButton.layer.mask = maskLayer
+		self.fakeButton.layer.mask = maskLayerFake
 	}
 	
 	

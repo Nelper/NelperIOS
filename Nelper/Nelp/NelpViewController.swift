@@ -10,8 +10,10 @@ import UIKit
 import MapKit
 import CoreLocation
 import GoogleMaps
+import SCLAlertView
+import Stripe
 
-class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate{
+class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, STRPPaymentViewControllerDelegate{
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var logoImage: UIImageView!
@@ -81,6 +83,17 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 			make.edges.equalTo(self.tableViewContainer.snp_edges)
 		}
 		self.refreshView = refreshView
+		
+		//TEST PURPOSE BUTTON- STRIPE
+		
+		var stripeButton = UIButton()
+		self.navBar.addSubview(stripeButton)
+		stripeButton.setTitle("Stripe", forState: UIControlState.Normal)
+		stripeButton.addTarget(self, action: "stripeButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		stripeButton.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(navBar.snp_bottom)
+			make.right.equalTo(navBar.snp_right)
+		}
 	}
 	
 	func initializeMapview(){
@@ -107,8 +120,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 			self.mapView.setRegion(locationToZoom, animated: true)
 			self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
 		}
-		
-		
 		mapview.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(mapViewContainer.snp_edges)
 		}
@@ -244,8 +255,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 	}
 	
-	
-	
 	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
 		println("Error:" + error.localizedDescription)
 	}
@@ -258,11 +267,23 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 	}
 	
+	//Popup Delegate
+	
+	func didClosePopup(vc:STRPPaymentViewController){
+		
+		
+	}
 	
 	//IBActions
 	
 	@IBAction func centerMapOnUser(sender: AnyObject) {
 		
+	}
+	
+	func stripeButtonTapped(sender:UIButton){
+		var nextVC = STRPPaymentViewController()
+		nextVC.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
+		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
 	

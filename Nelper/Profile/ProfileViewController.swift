@@ -378,7 +378,6 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 				
 			} else {
 				self.nelpApplications = nelpApplications!
-				println(nelpApplications)
 				self.refreshViewApplication?.endRefreshing()
 				self.myApplicationsTableView?.reloadData()
 			}

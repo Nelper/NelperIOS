@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 import GoogleMaps
-
+import Stripe
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelegate {
@@ -20,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
+		
+		//Stripe
+		
+		Stripe.setDefaultPublishableKey("pk_test_gYIk5RNw7X2LCS4501jd4HpE")
 		
 		//Parse
 		
@@ -64,9 +68,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 			self.window?.rootViewController = tabVC
 		}
 		
-//		NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveTypingIndicator:", name: LYRConversationDidReceiveTypingIndicatorNotification, object: nil)
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveLayerObjectsDidChangeNotification:", name: LYRClientObjectsDidChangeNotification, object: layerClient)
+//		NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveLayerObjectsDidChangeNotification:", name: LYRClientObjectsDidChangeNotification, object: layerClient)
 		
 		return true
 	}

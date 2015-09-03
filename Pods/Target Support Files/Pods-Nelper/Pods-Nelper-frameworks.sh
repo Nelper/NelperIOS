@@ -53,13 +53,17 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Pods-Nelper/Alamofire.framework'
+  install_framework 'Pods-Nelper/SCLAlertView.framework'
   install_framework 'Pods-Nelper/SnapKit.framework'
+  install_framework 'Pods-Nelper/Stripe.framework'
   install_framework 'Pods-Nelper/SwiftyJSON.framework'
   install_framework 'Pods-Nelper/iCarousel.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods-Nelper/Alamofire.framework'
+  install_framework 'Pods-Nelper/SCLAlertView.framework'
   install_framework 'Pods-Nelper/SnapKit.framework'
+  install_framework 'Pods-Nelper/Stripe.framework'
   install_framework 'Pods-Nelper/SwiftyJSON.framework'
   install_framework 'Pods-Nelper/iCarousel.framework'
 fi

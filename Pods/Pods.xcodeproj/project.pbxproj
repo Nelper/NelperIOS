@@ -7,199 +7,402 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0358BFDCC6A7061F44E34EDBAF8749A1 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120BDB1426B17BDE2A39DFBB78667B6 /* MultipartFormData.swift */; };
-		0E0F011750543567AC8668B6B46BB72F /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76EA40BEBB4410D0E04B78292E279FA /* Manager.swift */; };
+		015DF5D6AC22C9278B6C3FB019EFC827 /* STPPaymentCardTextFieldViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 370905E66AA3A7D47E540A415993D390 /* STPPaymentCardTextFieldViewModel.m */; };
+		0183DA014B5EA41F740CF2A9801C2953 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13476B36C918B676346063CBCB2EACC0 /* Validation.swift */; };
+		0217BBC55DE15ADE19E39376FEB220AC /* stp_card_placeholder_template@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 331C9D065200C3D368D8BFA11CC7B09D /* stp_card_placeholder_template@2x.png */; };
+		03102DC56DC7FFB978DB079A8205CCD6 /* Stripe+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFB4094F095DF5D1D3BC7CACEF33135 /* Stripe+ApplePay.m */; };
+		038D9ABD44773E03808DAEC321B3F2A4 /* SCLAlertView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 60258AB71BD6D26CA4F95F2A5DF54071 /* SCLAlertView-dummy.m */; };
+		0798F11B956A0AFE674EB612F2A90476 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC04BFB0C53ABD44C6AC91EDF6062DF3 /* ResponseSerialization.swift */; };
+		0F39E21C6D09BF0C47F197B8DC3C1ADD /* STPPaymentCardTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = F95767A52F38E77E5AE754FEDAEFF0EB /* STPPaymentCardTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		10366B025442867FDEB6931AAE070F18 /* STPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE9BD882459A533D0D5FF9FBF02A2F /* STPAPIClient.m */; };
 		10C86995D04A48756AE4797CFFEDD69A /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CA92161FB52387A8A8816D3AF40358 /* iCarousel.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		17289BE73D2403B06C31079AFB85AA5D /* STPToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A23CE54053EB2357CD411C263EB79CA /* STPToken.m */; };
+		1776215E2A33D439F674191D0E9E1716 /* STPCheckoutInternalUIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F07F56B717F815AC36B4914C0196065 /* STPCheckoutInternalUIWebViewController.m */; };
+		18EAE82DE63C7174DA6579FD4523CE43 /* STPCheckoutWebViewAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = D46FA2E4FA020C30181E8F7EC890470D /* STPCheckoutWebViewAdapter.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1A089D36CCCBDD881CCD45446954B371 /* SnapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E13811703F4D15A85A9D2260B00A6A8 /* SnapKit.swift */; };
+		1AB65904A58EB1667C7A9B8151FF24B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5608655374FCD70B714D1912E1730BFE /* Foundation.framework */; };
+		1D341E4EA92CD299280594206567BF73 /* stp_card_visa@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E72C04EB046C413AF22B9C36F86E887 /* stp_card_visa@3x.png */; };
+		1F504E66D54B94D7AEC7C95D749BC4EB /* STPCardValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = A2CE356B2E18C74EA9C9C1FE63F08FA7 /* STPCardValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22146A3B71EE47900269447075267D49 /* ConstraintItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79B446D865CE125AC740FDABBA29405 /* ConstraintItem.swift */; };
+		234787CCD6CEB91F97C16C52DA51CC61 /* Stripe-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 217846F183817FBF3B9FD2B13947B7EF /* Stripe-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		23F5940A08DB5F0B129F9DFF7CCC3452 /* SwiftyJSON-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 85E62DA073C367ACFC8C77B0B6180FD1 /* SwiftyJSON-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		26AC87538004E71FBB8CCF5C24B142DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4598912930522E4AD6D792922D73A2C /* QuartzCore.framework */; };
-		2D4E0B259386281660D51D59CE3E9752 /* Pods-Nelper-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DA5730089C49DBACFA191E6CA1D75FB /* Pods-Nelper-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		280B4870D27F92AB4D24139B4C6FC2BD /* stp_card_diners.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F79D34DDF5CAECEAEC1D030C9A77E8 /* stp_card_diners.png */; };
+		29FBDC9926B6867EE6D3B8BD90678CA8 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2D117CEF156498309AECBB80F20D36 /* ParameterEncoding.swift */; };
+		308B7B8EA5E9ED597E180A2388087C13 /* SCLAlertView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4676B6BB41AD03E091F581C347F24E23 /* SCLAlertView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		322797AF0FE22AB36D5D8058A57A94EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5608655374FCD70B714D1912E1730BFE /* Foundation.framework */; };
+		35496CB29ECD530D78C1A9546B005CEE /* stp_card_diners@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BC6C26A1F99CCC8B77A89AE2A8DA4A /* stp_card_diners@2x.png */; };
 		3769B9433B301E32A9DC200E73038AF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5608655374FCD70B714D1912E1730BFE /* Foundation.framework */; };
+		39697EA47EF13A0E1E27DD11AA2FF88F /* stp_card_amex.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F55CF02A93A7B8BCE8D2A0B67C3A9E9 /* stp_card_amex.png */; };
 		39A8A7DB3537BDC61EF618B1737C1EB5 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F861572AEF58AF8E8738463397C601 /* SwiftyJSON.swift */; };
+		39F84148131A20AB9C9A4BD4CA969C00 /* STPIOSCheckoutWebViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 822D44502E1A3C01E0762E6A446E987B /* STPIOSCheckoutWebViewAdapter.m */; };
+		3A6AC8C6C33D5545B252EE8EE32820C8 /* STPAPIConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F129A74D59CEB454F16047C6DC7FF83 /* STPAPIConnection.m */; };
+		3BEB821EC767C6928D8BD8BC11721821 /* STPFormEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0432D3288DCF5A7B8562BC8FFAC0CDAD /* STPFormEncoder.m */; };
 		3C82DAC4A708FB34E8EA66C82D08EAA2 /* View+SnapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5B605BCB86C161823225245B5EDBB7 /* View+SnapKit.swift */; };
-		4DA66F017666BE22625C4BF279AAC9D9 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E3B4C560C37A3178F90C667824CC0 /* Alamofire.swift */; };
-		598BB1D4CCF994FDD8B5D7CEC8703309 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDC41B3E0DB36A9DFCC242E2D059D74 /* ServerTrustPolicy.swift */; };
+		41E17BC7E73D20AACC6E9246D2C7FAEE /* Pods-Nelper-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E75E1E7C78A9E96E66DFFA3482E5F6F /* Pods-Nelper-dummy.m */; };
+		4AE18D3FF0E2A3D3F18586EB868F7B59 /* stp_card_visa.png in Resources */ = {isa = PBXBuildFile; fileRef = BABA2860ED1C81B3FF1B10BD0BFB9BFB /* stp_card_visa.png */; };
+		5234A5298AC70E11B34B2DA0F8E126F8 /* STPAPIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C2CF54A9C5EF55E32DC29BD78089E8 /* STPAPIClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		53031DBC75B383575891C90F41ABB606 /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 10842BEF647DDDECF33E876B66A8876B /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		551485ADE705C1ED85837CC535D3D14B /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55B11C0063B56C38AB61953F24AAF43 /* SCLAlertView.swift */; };
+		55CC3FE9DDDA6129CBF953A7B16B76D9 /* stp_card_mastercard@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5FF0E074888B0E108EEEDB33500FF91 /* stp_card_mastercard@3x.png */; };
+		57D94DD840B4C10E963E06ADE3D6A768 /* Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = 5D41CBB2B763CEABCFFC9E84AC5E0A0A /* Info.plist */; };
+		5FCE4A88F0554614F0654558BB3BCAC6 /* STPCheckoutViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB5CD304324EF5894EFEADEB064E19F /* STPCheckoutViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		604AC93637F2CBB5D54D0950C2E56CBA /* ConstraintMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11A7B60D7208B393697E6DBAC0309DA /* ConstraintMaker.swift */; };
+		61A817ABA69565E80C3C80FECCD7517C /* STPAPIClient+ApplePay.h in Headers */ = {isa = PBXBuildFile; fileRef = 729D391AB1AB5D2DE73D13A506F83DD2 /* STPAPIClient+ApplePay.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63FB06B8E152D78C2004918013BF4932 /* StripeError.m in Sources */ = {isa = PBXBuildFile; fileRef = DA70A7DA80A8FC985D619FED8BF63734 /* StripeError.m */; };
 		6BFDEC714855D29F024742DA5E9DBFB5 /* SnapKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D367D337E0670CA623B6F343C738D610 /* SnapKit-dummy.m */; };
+		6F1BB2EEF07A7D3A4F4D218FFAD27592 /* STPOSXCheckoutWebViewAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ABA97BAEA0EE2C384E67F0CE8000FF6 /* STPOSXCheckoutWebViewAdapter.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		70399FD7B569BAE9B044968B43C10D01 /* STPStrictURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FFEBC26B13512DABFE4FA24A3D1E143B /* STPStrictURLProtocol.m */; };
 		726CC8949AD9DB523732F497AEF566A0 /* ConstraintRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D7963F02D79E7AF9280CB2426B041D /* ConstraintRelation.swift */; };
+		740E1FD5967879518C202A1EA9AAFABB /* Stripe-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 553E36A83110B5E14EF9EE5F42508597 /* Stripe-dummy.m */; };
+		76C62425DD36BF54ED11B3609CAD4028 /* stp_card_discover@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 127193F51D7E5E7A8C40892AB994205A /* stp_card_discover@3x.png */; };
+		78028305E4BF964E99AD7B1F6E5B26EE /* STPPaymentCardTextFieldViewModel.h in Headers */ = {isa = PBXBuildFile; fileRef = EEFDF886DA30CFD03F6DF20CA759C776 /* STPPaymentCardTextFieldViewModel.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		7C412372F540B41259BE08A9F044802F /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93621BC2AA12AF6BBB05754F9C1A126 /* Upload.swift */; };
+		7E460666618684F20BC08D3BC31D1DB0 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9171CE46968AF20ABD03C7C110DD9E /* ServerTrustPolicy.swift */; };
+		800F8DC15421D5FD28BCD24872E4E374 /* STPCardValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D7CD98467EB87F2F4C2A476D5F1492FF /* STPCardValidator.m */; };
 		804B994DD42A6A3C3A324D5377F1FB97 /* ConstraintAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799F700E0350C1622AF654FBAC56DC3E /* ConstraintAttributes.swift */; };
+		8243BF4F4C4884AB481594CB44328B6B /* STPCheckoutDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 73EA505370A88DBA968E66B676223D83 /* STPCheckoutDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		8333B7E6EC676BE7AE2EC467C7D69FDB /* stp_card_cvc@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B5920509225C8099518F816954FEC1 /* stp_card_cvc@3x.png */; };
+		83990B3470A031EC3C967AA68260EB49 /* stp_card_mastercard.png in Resources */ = {isa = PBXBuildFile; fileRef = 32DB3E3DDE9AA351D785BEB5DB03FE31 /* stp_card_mastercard.png */; };
+		83F8E3492F1B03CA56B66B92266D7D9A /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E0144FE018FBAF236EC448A49D7092 /* Download.swift */; };
 		84ED7FEBE3F346BEA288422986F53438 /* Debugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6701D0395AA53671F30906FDA34B59 /* Debugging.swift */; };
+		85B585D2EF88A0BB768505E12B37E06D /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9E14A4886F026638DAAAA40D3E51F /* Alamofire.swift */; };
 		85E0A62EDF1B29F208623993EB92D9E7 /* SnapKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 413D4C68BCDED964834146EFB422C3B3 /* SnapKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		85E467B7BA526C624CF9772BD0365579 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5608655374FCD70B714D1912E1730BFE /* Foundation.framework */; };
+		863674ECD59DB65CCD267AF88E7F9939 /* stp_card_placeholder_template@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 733BF089F1522AE3DA1E165CE197EADC /* stp_card_placeholder_template@3x.png */; };
 		86D7CDF1DF0E7F8EF6B64A3D2DE329B7 /* LayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44D45A9A34C20A034D0D004999B563 /* LayoutConstraint.swift */; };
+		87FD2D544337BF8B00CEF1A5D7B2AF1C /* STPAPIClient+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = CD490107E9C66ECA3D6AF70043242373 /* STPAPIClient+ApplePay.m */; };
 		88D2980E7DDCE7BECD28FF1E9074D2AE /* iCarousel.h in Headers */ = {isa = PBXBuildFile; fileRef = ADB7341BBA0E68514B73C5BF7193D26A /* iCarousel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8C4D6B3D024E0653FF417F63987E2CBD /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 8ABF86150228BA826F6138CDE1D039B2 /* Images */; };
 		90EF20BB8DC0A183A97CEE5D4BE375EE /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D3575B7F9DE11C652ED4F55D4D976B /* SwiftyJSON-dummy.m */; };
+		958DE5D3945E3FDA14F5A624874A1329 /* stp_card_cvc.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D5A88EE502C677DF9ACD7B56317A314 /* stp_card_cvc.png */; };
+		9880D0B9BD9B93E8725FA5C533CBC4CD /* STPCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA485CA5B418973AA24AECEA39F9C4A7 /* STPCheckoutViewController.m */; };
+		990446AFA8AB9B250C32762218294E9F /* STPBankAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 99C818AB637B8505F865D6DB3A55D0E3 /* STPBankAccount.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99788825437359E460842E4A1B0AE9A9 /* stp_card_diners@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B76F51C2815247BE6D6CC1E975EFAD2 /* stp_card_diners@3x.png */; };
+		99E794DB07FC6A0C494146DA5A7FDC5E /* stp_card_mastercard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703C1D2539705A4127B770FDC99054BC /* stp_card_mastercard@2x.png */; };
+		9AC7EB2FA1A3D3E0235ADE22EF850E87 /* STPBankAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 402F3DBDB46E3F67DE48D90CD8189EC7 /* STPBankAccount.m */; };
+		9B29A8BC30DCC0A8A15BF4E7DDC0F566 /* stp_card_cvc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEFF4DC4CA5AF1B2B4940126BAE4F09A /* stp_card_cvc@2x.png */; };
 		9D7C9A631C0EB1530C0DCFA887618587 /* ConstraintDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC6726B2AA1DAAC6F94E1FF507AE34F /* ConstraintDescription.swift */; };
-		9EE426E17255930DF3CAB650F1E4B28A /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9225A043BFE4631B63D5528708FA0CC2 /* ResponseSerialization.swift */; };
-		A44BBD15727EF374BF1CCD1F4BEFFE75 /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558F3F1F6AE61D70146416F9D0F44E67 /* Upload.swift */; };
+		9D843C9954DCF0A108041EAC08178A6B /* STPStrictURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 16688A34CF907D64E945DF6816734E2C /* STPStrictURLProtocol.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		9E43F6AC37E2F6B2D70F947D3C276799 /* Stripe.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D574AD375A9E4FAA841F52D1C78C2B /* Stripe.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A16245DE2AC5D5B28CD98B57C7F6D20E /* STPCardBrand.h in Headers */ = {isa = PBXBuildFile; fileRef = CEADD503A3D18CEEFCEB73279B656E9A /* STPCardBrand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A31038D44B400B4C5907C630E090D376 /* STPToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CEE68D84FD28EC584605256F6EE7383 /* STPToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A37CFB1D7E99BF34951B854ECF476430 /* stp_card_discover.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEE851B05FD6B9B450760CE7D624759 /* stp_card_discover.png */; };
 		A46E63B43B6AFB344831A9883BB709C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5608655374FCD70B714D1912E1730BFE /* Foundation.framework */; };
+		A5E327289670B2958D32D3E2340E4547 /* stp_card_cvc_amex@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 832A3989617BF9D33D5ED2B0C9AB7BB2 /* stp_card_cvc_amex@3x.png */; };
+		A87CF0F1CE0C6E26EDC6E992B669A671 /* Pods-Nelper-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 95A0C2D88B7B12EED1AE5972EB634FC7 /* Pods-Nelper-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE0CCF29C47B9A103DAEC2AAC491ECC4 /* stp_card_amex@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4B45A2E6716A607845684F2557C4EC /* stp_card_amex@3x.png */; };
+		AF142F2046030FA2C468E36FE0D3246C /* stp_card_placeholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA7A1C201F95E872434453E18A076686 /* stp_card_placeholder@3x.png */; };
+		B0D6DD99B692EAE0BCBEA0E1603FE17B /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56C55D65EC2134BAE6AB39663BBAE7E /* Request.swift */; };
 		B12F19D2BD4393832C2CDEC13930A5E7 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0270ACC0A1AAAC0088467BF0131477 /* Constraint.swift */; };
 		B2B8DA274F8F397158E9D33FFE049FFD /* EdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A76927A838B74013DE81260B84691E9 /* EdgeInsets.swift */; };
-		BB47231E3ED07CBCDDE702EF7EB147E3 /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DB47202649F7BF3BB291DF7B7A8269D /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BE0EF1E5CB747A93C9778B72F09D67E8 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2821F9ED3D75A9E1E442CDCACDBE0030 /* Validation.swift */; };
+		B7FE1E877FE473007E000AE0CF0A02FE /* stp_card_jcb@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0779CCA43D42B23E6CE3586EE3577E /* stp_card_jcb@3x.png */; };
+		B85D38F3E53BCADD91F8F87968A9F40F /* STPCheckoutInternalUIWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E7527A550A7873125577A9F1B63B428D /* STPCheckoutInternalUIWebViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		BA201A562A74A940F0FC7889FD71ECB0 /* STPColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8386707B6537FCAB148E0FDF848B2F1E /* STPColorUtils.m */; };
+		BAAB9FDF27A256EDBD0CBDC477E1B7C1 /* stp_card_discover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C662B2C52EE811DEBFA4B3B8F53749B /* stp_card_discover@2x.png */; };
+		BAD753E4819F75F282936F154D76ABE0 /* stp_card_placeholder_template.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B5276702A017F3BC47BA00ADDDD7C78 /* stp_card_placeholder_template.png */; };
+		C0A4FD9E5AE658FA13E26DB6824F26EA /* STPOSXCheckoutWebViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5CE3E4E1EA9C6C331F16AF825ACD92 /* STPOSXCheckoutWebViewAdapter.m */; };
+		C23CEFAB736B3E9CA813BBCFE07E1460 /* stp_card_cvc_amex.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBB64F937EF538F07330E03C334B2A5 /* stp_card_cvc_amex.png */; };
 		C28337DD2E94B98F7AEE739EF3674F02 /* iCarousel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EFD8699DBC3334490178609CDD078E /* iCarousel-dummy.m */; };
-		C2E2E52C6306205735ABCA5CF682EA60 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5608655374FCD70B714D1912E1730BFE /* Foundation.framework */; };
-		C324C668FB72CC4792F0ADCD1847DCE1 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E39B57A8AA076B5901D27AFBD313EE /* Request.swift */; };
-		C6C44F4C69365631BD85260E733243B6 /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ED725F7C1212EA4F32E4583E9F0B4A12 /* Alamofire-dummy.m */; };
-		CC00D7C67E762F1ACC3804B9AF2CA83F /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF1E038B1E7E223E80EE0B939ED53F8 /* ParameterEncoding.swift */; };
-		D378A7B4337F6DD88492FD4B683D4EA0 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611B76C1C2068AD772D13F692EB6A39A /* Download.swift */; };
-		DF824AC58DC797D7E213405394E67B78 /* Pods-Nelper-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB54066C4BE2E28B3A7CDB68427F0EB /* Pods-Nelper-dummy.m */; };
+		C40FE162DC229B53C7897C032F2937B7 /* stp_card_amex@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F25176D882F876D1AE8547245908D78 /* stp_card_amex@2x.png */; };
+		C713A232916DB447659A451681743064 /* stp_card_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40BD5CE9E25BB2DB814DE030647119B7 /* stp_card_placeholder@2x.png */; };
+		C8893B6F344A19720C65CBCB6855F4BB /* stp_card_jcb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B102BE2971F7F2B7169E3F80F28A327E /* stp_card_jcb@2x.png */; };
+		C9662D08FE2873C8C35ED5A238E9A758 /* STPFormTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = EA3FD2457B73EFB14A339EAB22B0B702 /* STPFormTextField.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		D1CC0C3F1CFA9F531962FC5A2E04707E /* STPCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 30869FF457604F3F083A31265AD1E8E8 /* STPCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D511D3A515660EFA669E13DD13ABC84F /* stp_card_visa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D1A1EBF4CC023A06C7BAF9100C7B69F /* stp_card_visa@2x.png */; };
+		D592AAB45737396A99D62C7AD5240873 /* STPColorUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 10E596FFDD601CA69C21CAAE3687BE02 /* STPColorUtils.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		D616DFC8B4F09C3BC1AC8BDE90044487 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AFC8D542B405CB3051D5B604FD95AE /* Manager.swift */; };
+		D8D177F978FF26267544E15BC46C56E9 /* STPCard.m in Sources */ = {isa = PBXBuildFile; fileRef = D007C12D51F2C42DC65DA8797FC9C7E8 /* STPCard.m */; };
+		D8DAEEFE8E74046F9B1F5210EADB3225 /* STPPaymentCardTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E97F7B4FF639566C893BA2AB1C0DC68 /* STPPaymentCardTextField.m */; };
+		DA9E4BC7377008A031B160A30F07861A /* STPAPIConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 52CB08BC95F5CE1574E2877C0B3F8526 /* STPAPIConnection.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		DB5CFC31E37E4DF1883997DA5CD98671 /* stp_card_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = B65ECCFA1C03B5266A4CE44C2099D0FC /* stp_card_placeholder.png */; };
+		DC57B3BE1C6AC30836330E430583B0C9 /* StripeError.h in Headers */ = {isa = PBXBuildFile; fileRef = C2BB781E11E7AB939BFFCEEBA1EAC811 /* StripeError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E0504ADCE04A69EAB1A245B788144BB0 /* STPCheckoutOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EE74A58D423FFFC29DB662E3CC3D63 /* STPCheckoutOptions.m */; };
+		E0858FBAA6A82CDAFDAEB7B9E027FEFD /* STPCardValidationState.h in Headers */ = {isa = PBXBuildFile; fileRef = A33E3019A84500BE394538782D863C8F /* STPCardValidationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E1594211658CCE277D8AD178B6676F82 /* stp_card_jcb.png in Resources */ = {isa = PBXBuildFile; fileRef = 3221A844BE5FE6A7C1A54F8B8E9306F4 /* stp_card_jcb.png */; };
+		E1961ADDC437E30DC0E73494D2D5D70B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5608655374FCD70B714D1912E1730BFE /* Foundation.framework */; };
+		E4693974492A84814E8306380E523DDC /* STPFormTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BC213E80AFCE9452134CA3F41FD4E062 /* STPFormTextField.m */; };
+		E8D7F1A5F5104D614F7590765FB461CC /* Stripe+ApplePay.h in Headers */ = {isa = PBXBuildFile; fileRef = D4EC028BBE04905F37D7948400C65C3C /* Stripe+ApplePay.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E9DBCB5FFCB1C5110322F29339959673 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4FF032E36CC5529E910433ACD6FC44 /* MultipartFormData.swift */; };
+		EA36C463FD7CA2CD29E4CD0DD3AB9017 /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 800C6C5CC28F14FEC202645FB2C83296 /* Alamofire-dummy.m */; };
+		EB1DB5402A0F7D063E7C7D133EDAFDD4 /* STPFormEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 3777DC40974A9FED548C25729620CC88 /* STPFormEncoder.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		EB936C17670027BB15E18F176D65C1A7 /* stp_card_cvc_amex@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BDF1BCE0C5A38779E6C9D8F2027D2E /* stp_card_cvc_amex@2x.png */; };
 		EDD147D64BC86E5198D4E99B05028490 /* ViewController+SnapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00F6A7822756001C1AC412B0A1751A8 /* ViewController+SnapKit.swift */; };
-		F07869F581E0D6A8E6BC3DB1326DD854 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5608655374FCD70B714D1912E1730BFE /* Foundation.framework */; };
 		F0A4075E8EC62F3C9C05E6CB951D5AF9 /* iCarousel-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 29975185420AEF3B5CA64762DC067680 /* iCarousel-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F3E62F64279AFD68450C5AA4CEA11730 /* STPIOSCheckoutWebViewAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = F618B74F3D97DFDEB7D8F0E939461455 /* STPIOSCheckoutWebViewAdapter.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F7DDAE900EED9ABD4430EAB819BBED9C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5608655374FCD70B714D1912E1730BFE /* Foundation.framework */; };
+		FA3935537269F83218A208E5143BD157 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 532757E6AB85A0D7663CF88B953A910B /* Security.framework */; };
+		FF7D3C6B70B7E094AF40A17ABA6CBDAD /* STPCheckoutOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7EFD8DC3D5D6C401578E8AB7F4DAF05D /* STPCheckoutOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		42D15A406267A87E0CB86CCF97F92511 /* PBXContainerItemProxy */ = {
+		4F4B04AB669BE623E7DD0CFD71DBC8B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E7434C2BD40D11129415DA431C27C970;
-			remoteInfo = Alamofire;
+			remoteGlobalIDString = AF6821D9C60648A222A9ADD3A043CFEF;
+			remoteInfo = SCLAlertView;
 		};
-		6B6DBE6CE1C4F552AE9CEB2AA31F808F /* PBXContainerItemProxy */ = {
+		84846F3FB184B441E8539A8B6A5262A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 572C6226748BC6DD7EAD51BD05FA315F;
+			remoteInfo = Stripe;
+		};
+		8929E78BD670ED6D99B761EF3906D579 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B9A04D3C9B208813656510FDA8ADAE02;
 			remoteInfo = SwiftyJSON;
 		};
-		6D4268C108C068D702BECBD4F5E90BE7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3634ABA74A6F41DB3C7516A583373EE8;
-			remoteInfo = iCarousel;
-		};
-		B99FB027AB0CF9993831D5071098AA60 /* PBXContainerItemProxy */ = {
+		9E19E3527AA541FC92FDB36EAD72F8A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 4EDA452517A913B556C7860F490D5FD3;
 			remoteInfo = SnapKit;
 		};
+		B5E1206F8DD226B6A47F7CD117683469 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3634ABA74A6F41DB3C7516A583373EE8;
+			remoteInfo = iCarousel;
+		};
+		BF2080372D6C8F72D81CF23715E26252 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5611AAB1DBA9FD28FFA41AAE7ED22F6;
+			remoteInfo = Alamofire;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		006A96DC34E35EB88B170EEE0DD5E9B1 /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
-		02CD7257ABCCC3FCD41FFA634A18315E /* 20140709095453868_drop_track_sending_of_messages.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140709095453868_drop_track_sending_of_messages.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140709095453868_drop_track_sending_of_messages.sql"; sourceTree = "<group>"; };
+		0432D3288DCF5A7B8562BC8FFAC0CDAD /* STPFormEncoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPFormEncoder.m; path = Stripe/STPFormEncoder.m; sourceTree = "<group>"; };
+		06953EEA4E4C3799B7DC08EBAF25E13C /* 20140715104949748_drop_message_index_table_add_message_index_column.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140715104949748_drop_message_index_table_add_message_index_column.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140715104949748_drop_message_index_table_add_message_index_column.sql"; sourceTree = "<group>"; };
+		08533A7FE9904C35417F347720BC3CF5 /* Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.xcconfig; sourceTree = "<group>"; };
 		089518FB261CDCBCD2539079AC3AC837 /* Pods-Nelper.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Nelper.modulemap"; sourceTree = "<group>"; };
+		08F79D34DDF5CAECEAEC1D030C9A77E8 /* stp_card_diners.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = stp_card_diners.png; path = Stripe/Resources/Images/stp_card_diners.png; sourceTree = "<group>"; };
 		0A76927A838B74013DE81260B84691E9 /* EdgeInsets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EdgeInsets.swift; path = Source/EdgeInsets.swift; sourceTree = "<group>"; };
-		0ACB7B3E7C899DC1BDF96190DF27A4EB /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0CEB5A4BD800FACC14B6638465A82DDE /* SwiftyJSON.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyJSON.xcconfig; sourceTree = "<group>"; };
-		0D093B69636CCF837DA40A27B65FB1E9 /* 20140628114921198_remove_creator_id_from_tombstone_wipe_for_ordering.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140628114921198_remove_creator_id_from_tombstone_wipe_for_ordering.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140628114921198_remove_creator_id_from_tombstone_wipe_for_ordering.sql"; sourceTree = "<group>"; };
-		0DA5730089C49DBACFA191E6CA1D75FB /* Pods-Nelper-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Nelper-umbrella.h"; sourceTree = "<group>"; };
-		0DB47202649F7BF3BB291DF7B7A8269D /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
-		0F704C4A648EC982C6429073CEFE9600 /* 20140708154438053_change_insert_trigger_on_messages.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140708154438053_change_insert_trigger_on_messages.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140708154438053_change_insert_trigger_on_messages.sql"; sourceTree = "<group>"; };
-		0FBDAE87E600CA2C89B2D6F6A532C5DD /* 20141006140917614_add-client_id.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20141006140917614_add-client_id.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141006140917614_add-client_id.sql"; sourceTree = "<group>"; };
-		120483A6696EA533A6B22A2C41B227D7 /* 20141009125010758_indices.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141009125010758_indices.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141009125010758_indices.sql"; sourceTree = "<group>"; };
-		121624BD90305630A8601F8DAC632674 /* 20140701144934637_adjust_constraints_of_receipts_table.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140701144934637_adjust_constraints_of_receipts_table.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140701144934637_adjust_constraints_of_receipts_table.sql"; sourceTree = "<group>"; };
-		1CA72BEDA19438B0BB88D2BE0E76C5A3 /* Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.xcconfig; sourceTree = "<group>"; };
-		1D47F802CBB57FE78F1B2C17B3ED2FB3 /* 20150210133608257_adding_version_to_message_parts.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150210133608257_adding_version_to_message_parts.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150210133608257_adding_version_to_message_parts.sql"; sourceTree = "<group>"; };
-		2821F9ED3D75A9E1E442CDCACDBE0030 /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Source/Validation.swift; sourceTree = "<group>"; };
+		0BC2FA00718CB3D67E7E17A09FAF04A1 /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
+		0BCA395C9F15B3E6674760B4A233BD70 /* GoogleMaps.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
+		0D1A1EBF4CC023A06C7BAF9100C7B69F /* stp_card_visa@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_visa@2x.png"; path = "Stripe/Resources/Images/stp_card_visa@2x.png"; sourceTree = "<group>"; };
+		0E75E1E7C78A9E96E66DFFA3482E5F6F /* Pods-Nelper-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Nelper-dummy.m"; sourceTree = "<group>"; };
+		10842BEF647DDDECF33E876B66A8876B /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
+		10E596FFDD601CA69C21CAAE3687BE02 /* STPColorUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPColorUtils.h; path = Stripe/Checkout/STPColorUtils.h; sourceTree = "<group>"; };
+		127193F51D7E5E7A8C40892AB994205A /* stp_card_discover@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_discover@3x.png"; path = "Stripe/Resources/Images/stp_card_discover@3x.png"; sourceTree = "<group>"; };
+		13476B36C918B676346063CBCB2EACC0 /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Source/Validation.swift; sourceTree = "<group>"; };
+		13A139EDC958B858E422583895304C51 /* 20150202170209118_flatten_transfer_flags_into_single_transfer_status_integer.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150202170209118_flatten_transfer_flags_into_single_transfer_status_integer.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150202170209118_flatten_transfer_flags_into_single_transfer_status_integer.sql"; sourceTree = "<group>"; };
+		14AFC8D542B405CB3051D5B604FD95AE /* Manager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Manager.swift; path = Source/Manager.swift; sourceTree = "<group>"; };
+		16688A34CF907D64E945DF6816734E2C /* STPStrictURLProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPStrictURLProtocol.h; path = Stripe/Checkout/STPStrictURLProtocol.h; sourceTree = "<group>"; };
+		1A5CE3E4E1EA9C6C331F16AF825ACD92 /* STPOSXCheckoutWebViewAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPOSXCheckoutWebViewAdapter.m; path = Stripe/Checkout/STPOSXCheckoutWebViewAdapter.m; sourceTree = "<group>"; };
+		1B76F51C2815247BE6D6CC1E975EFAD2 /* stp_card_diners@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_diners@3x.png"; path = "Stripe/Resources/Images/stp_card_diners@3x.png"; sourceTree = "<group>"; };
+		1E7143FD9120397619D6739706CFC8E4 /* 20141002175255465_making_version_a_required_field.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141002175255465_making_version_a_required_field.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141002175255465_making_version_a_required_field.sql"; sourceTree = "<group>"; };
+		1E72C04EB046C413AF22B9C36F86E887 /* stp_card_visa@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_visa@3x.png"; path = "Stripe/Resources/Images/stp_card_visa@3x.png"; sourceTree = "<group>"; };
+		217846F183817FBF3B9FD2B13947B7EF /* Stripe-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Stripe-umbrella.h"; sourceTree = "<group>"; };
+		22ED7A71E7A9D4022B1B5F08B1843DF5 /* 20140707175635814_add_is_draft_to_messages.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140707175635814_add_is_draft_to_messages.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140707175635814_add_is_draft_to_messages.sql"; sourceTree = "<group>"; };
+		23A1554FAC30491F0C13EADD0F4886E1 /* 20140701114842931_add_timestamps_back_to_messages.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140701114842931_add_timestamps_back_to_messages.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140701114842931_add_timestamps_back_to_messages.sql"; sourceTree = "<group>"; };
+		2637B29C6F2A0987425036DFE238223B /* SCLAlertView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SCLAlertView.modulemap; sourceTree = "<group>"; };
+		27C73165F3FC7645C1094D301B31C5C8 /* 20150330135300206_add_name_to_events_and_messages_tables.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150330135300206_add_name_to_events_and_messages_tables.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150330135300206_add_name_to_events_and_messages_tables.sql"; sourceTree = "<group>"; };
+		294AF1A2631FE705DBE9E0FC0536438D /* 20141027152445461_fix_invalid_identifier_types.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141027152445461_fix_invalid_identifier_types.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141027152445461_fix_invalid_identifier_types.sql"; sourceTree = "<group>"; };
 		29975185420AEF3B5CA64762DC067680 /* iCarousel-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "iCarousel-umbrella.h"; sourceTree = "<group>"; };
-		29BB519223EBD742B692ED3A6A9638F8 /* SnapKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SnapKit.modulemap; sourceTree = "<group>"; };
 		2A5B605BCB86C161823225245B5EDBB7 /* View+SnapKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "View+SnapKit.swift"; path = "Source/View+SnapKit.swift"; sourceTree = "<group>"; };
 		2B0270ACC0A1AAAC0088467BF0131477 /* Constraint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constraint.swift; path = Source/Constraint.swift; sourceTree = "<group>"; };
-		2DB54066C4BE2E28B3A7CDB68427F0EB /* Pods-Nelper-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Nelper-dummy.m"; sourceTree = "<group>"; };
-		2E7ABC75A6C4C1861C7FCBD09472605C /* Alamofire-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Alamofire-Private.xcconfig"; sourceTree = "<group>"; };
+		2B78D19F900E5160E2C976DFD0B367E8 /* 20141009125004707_min-max-synced-seq.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20141009125004707_min-max-synced-seq.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141009125004707_min-max-synced-seq.sql"; sourceTree = "<group>"; };
+		2CC1CF98BC8CCA2EDBA9BCE16B6940C7 /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Alamofire.modulemap; sourceTree = "<group>"; };
+		2CEE68D84FD28EC584605256F6EE7383 /* STPToken.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPToken.h; path = Stripe/PublicHeaders/STPToken.h; sourceTree = "<group>"; };
+		2F129A74D59CEB454F16047C6DC7FF83 /* STPAPIConnection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPAPIConnection.m; path = Stripe/STPAPIConnection.m; sourceTree = "<group>"; };
+		30869FF457604F3F083A31265AD1E8E8 /* STPCard.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCard.h; path = Stripe/PublicHeaders/STPCard.h; sourceTree = "<group>"; };
 		31F861572AEF58AF8E8738463397C601 /* SwiftyJSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Source/SwiftyJSON.swift; sourceTree = "<group>"; };
-		37A9D5560C25653B0323BFBC5E2ACD14 /* 20141002175255465_making_version_a_required_field.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141002175255465_making_version_a_required_field.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141002175255465_making_version_a_required_field.sql"; sourceTree = "<group>"; };
-		3846AF634F4CBF1C6C71CAF585817E02 /* LayerKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LayerKit.framework; path = LayerKit.embeddedframework/LayerKit.framework; sourceTree = "<group>"; };
+		3221A844BE5FE6A7C1A54F8B8E9306F4 /* stp_card_jcb.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = stp_card_jcb.png; path = Stripe/Resources/Images/stp_card_jcb.png; sourceTree = "<group>"; };
+		32DB3E3DDE9AA351D785BEB5DB03FE31 /* stp_card_mastercard.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = stp_card_mastercard.png; path = Stripe/Resources/Images/stp_card_mastercard.png; sourceTree = "<group>"; };
+		331C9D065200C3D368D8BFA11CC7B09D /* stp_card_placeholder_template@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_placeholder_template@2x.png"; path = "Stripe/Resources/Images/stp_card_placeholder_template@2x.png"; sourceTree = "<group>"; };
+		3410FFE382AAAC9A5584750695E9871F /* iCarousel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "iCarousel-prefix.pch"; sourceTree = "<group>"; };
+		370905E66AA3A7D47E540A415993D390 /* STPPaymentCardTextFieldViewModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPPaymentCardTextFieldViewModel.m; path = Stripe/UI/STPPaymentCardTextFieldViewModel.m; sourceTree = "<group>"; };
+		371A70C18C604830AF01AC2264F76DD8 /* 20140628105322170_drop_and_clean_case_indent_dates_uniques.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140628105322170_drop_and_clean_case_indent_dates_uniques.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140628105322170_drop_and_clean_case_indent_dates_uniques.sql"; sourceTree = "<group>"; };
+		3777DC40974A9FED548C25729620CC88 /* STPFormEncoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPFormEncoder.h; path = Stripe/STPFormEncoder.h; sourceTree = "<group>"; };
 		395DE5ABA5C53C9733716E57F1F670DF /* iCarousel-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "iCarousel-Private.xcconfig"; sourceTree = "<group>"; };
-		39A8B811269ECB86AA6E0236EE290AA6 /* iCarousel.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = iCarousel.modulemap; sourceTree = "<group>"; };
+		3982AC5E9F945A066E671B90B7BFEDAE /* 20150131122302694_add_indexes_for_unread.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150131122302694_add_indexes_for_unread.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150131122302694_add_indexes_for_unread.sql"; sourceTree = "<group>"; };
+		398471557705FD1B342D1C93ED1F0D40 /* iCarousel.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = iCarousel.modulemap; sourceTree = "<group>"; };
+		39B1140139E5070379C9DBC2A97FC71A /* 20141006202908488_add_tombstone_duplicate_events_by_client_id.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141006202908488_add_tombstone_duplicate_events_by_client_id.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141006202908488_add_tombstone_duplicate_events_by_client_id.sql"; sourceTree = "<group>"; };
+		3A23CE54053EB2357CD411C263EB79CA /* STPToken.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPToken.m; path = Stripe/STPToken.m; sourceTree = "<group>"; };
+		3A4A0D3DBF2B98D2EA1213CC456EA9AF /* layer-client-messaging-schema.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "layer-client-messaging-schema.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/layer-client-messaging-schema.sql"; sourceTree = "<group>"; };
+		3B5276702A017F3BC47BA00ADDDD7C78 /* stp_card_placeholder_template.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = stp_card_placeholder_template.png; path = Stripe/Resources/Images/stp_card_placeholder_template.png; sourceTree = "<group>"; };
+		3B893A91BE91CA6EB56BA633EA9534B2 /* 20150316180034638_add-distinct-unqiue-flag-to-streams.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20150316180034638_add-distinct-unqiue-flag-to-streams.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150316180034638_add-distinct-unqiue-flag-to-streams.sql"; sourceTree = "<group>"; };
+		3CC74ECB84DD4D1E00C39D46EBF21720 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3CEE851B05FD6B9B450760CE7D624759 /* stp_card_discover.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = stp_card_discover.png; path = Stripe/Resources/Images/stp_card_discover.png; sourceTree = "<group>"; };
 		3DBD3F68F708AA6E6115CA4B4FCA0258 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		402F3DBDB46E3F67DE48D90CD8189EC7 /* STPBankAccount.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPBankAccount.m; path = Stripe/STPBankAccount.m; sourceTree = "<group>"; };
+		40BD5CE9E25BB2DB814DE030647119B7 /* stp_card_placeholder@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_placeholder@2x.png"; path = "Stripe/Resources/Images/stp_card_placeholder@2x.png"; sourceTree = "<group>"; };
 		413D4C68BCDED964834146EFB422C3B3 /* SnapKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnapKit-umbrella.h"; sourceTree = "<group>"; };
-		417FC3F5E7E8872191B21676C9446B25 /* 20141007110138268_client-id-indices.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20141007110138268_client-id-indices.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141007110138268_client-id-indices.sql"; sourceTree = "<group>"; };
-		42DB67A15865A85B0492F718BD1D3FCF /* 20150615160151227_add-distinct-triggers.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20150615160151227_add-distinct-triggers.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150615160151227_add-distinct-triggers.sql"; sourceTree = "<group>"; };
-		44DC20BF04206C95BC0147A4342EC8AC /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Alamofire.modulemap; sourceTree = "<group>"; };
-		4EF38B488FC1FFC5ACA1487AA0984299 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
-		506394C4AE7096054C581CC884E41B40 /* 20141105082802353_add_unread_fields_to_models.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141105082802353_add_unread_fields_to_models.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141105082802353_add_unread_fields_to_models.sql"; sourceTree = "<group>"; };
+		46178DAE2FBE54A66725DD5228BF43ED /* SwiftyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-prefix.pch"; sourceTree = "<group>"; };
+		4676B6BB41AD03E091F581C347F24E23 /* SCLAlertView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SCLAlertView-umbrella.h"; sourceTree = "<group>"; };
+		4BFD8C268576F0AA0E0F3E8C35943E81 /* 20140709095453868_drop_track_sending_of_messages.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140709095453868_drop_track_sending_of_messages.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140709095453868_drop_track_sending_of_messages.sql"; sourceTree = "<group>"; };
+		4E0779CCA43D42B23E6CE3586EE3577E /* stp_card_jcb@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_jcb@3x.png"; path = "Stripe/Resources/Images/stp_card_jcb@3x.png"; sourceTree = "<group>"; };
+		4EBB64F937EF538F07330E03C334B2A5 /* stp_card_cvc_amex.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = stp_card_cvc_amex.png; path = Stripe/Resources/Images/stp_card_cvc_amex.png; sourceTree = "<group>"; };
 		509A7350D6DD56AB72219F4A89F91986 /* iCarousel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iCarousel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		558F3F1F6AE61D70146416F9D0F44E67 /* Upload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Upload.swift; path = Source/Upload.swift; sourceTree = "<group>"; };
-		55BF5D1ABC9B279903A6DFA160C4FF75 /* 20141002091849299_correct-track_inserts_of_events_delete.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20141002091849299_correct-track_inserts_of_events_delete.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141002091849299_correct-track_inserts_of_events_delete.sql"; sourceTree = "<group>"; };
+		52CB08BC95F5CE1574E2877C0B3F8526 /* STPAPIConnection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPAPIConnection.h; path = Stripe/STPAPIConnection.h; sourceTree = "<group>"; };
+		532757E6AB85A0D7663CF88B953A910B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		553E36A83110B5E14EF9EE5F42508597 /* Stripe-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Stripe-dummy.m"; sourceTree = "<group>"; };
+		5543530789672B34F20129C471EDD83D /* Stripe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Stripe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		55C9E14A4886F026638DAAAA40D3E51F /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
 		5608655374FCD70B714D1912E1730BFE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		570694BAEBAD5B174CA7E4CF2ECCC601 /* 20150504150912979_add_transfer_status_to_event_content_parts.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150504150912979_add_transfer_status_to_event_content_parts.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150504150912979_add_transfer_status_to_event_content_parts.sql"; sourceTree = "<group>"; };
-		5724CBD0FF65886862B527827C7813CC /* 20140708092626927_adjust_triggers_for_drafting.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140708092626927_adjust_triggers_for_drafting.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140708092626927_adjust_triggers_for_drafting.sql"; sourceTree = "<group>"; };
-		5872A50CAED5A335FAE1064C6006635C /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
-		5BF1E038B1E7E223E80EE0B939ED53F8 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
-		5F33A2FD53A9BDE48557382AB67DE0F9 /* 20141009125004707_min-max-synced-seq.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20141009125004707_min-max-synced-seq.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141009125004707_min-max-synced-seq.sql"; sourceTree = "<group>"; };
-		600CB63AA9747139FF575479A781C746 /* Pods-Nelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Nelper.debug.xcconfig"; sourceTree = "<group>"; };
-		611B76C1C2068AD772D13F692EB6A39A /* Download.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Download.swift; path = Source/Download.swift; sourceTree = "<group>"; };
-		62DED21DCD872792C9442A5F012F6D7F /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5629A36DB258E9D20B544311367F5B9E /* 20141006140917614_add-client_id.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20141006140917614_add-client_id.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141006140917614_add-client_id.sql"; sourceTree = "<group>"; };
+		5A4FF032E36CC5529E910433ACD6FC44 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
+		5BF40B30DC94852BB3E3E915C3622336 /* Stripe-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Stripe-prefix.pch"; sourceTree = "<group>"; };
+		5C9171CE46968AF20ABD03C7C110DD9E /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustPolicy.swift; path = Source/ServerTrustPolicy.swift; sourceTree = "<group>"; };
+		5D41CBB2B763CEABCFFC9E84AC5E0A0A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = SCLAlertView/Info.plist; sourceTree = "<group>"; };
+		5F25176D882F876D1AE8547245908D78 /* stp_card_amex@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_amex@2x.png"; path = "Stripe/Resources/Images/stp_card_amex@2x.png"; sourceTree = "<group>"; };
+		60258AB71BD6D26CA4F95F2A5DF54071 /* SCLAlertView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SCLAlertView-dummy.m"; sourceTree = "<group>"; };
+		60BDF1BCE0C5A38779E6C9D8F2027D2E /* stp_card_cvc_amex@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_cvc_amex@2x.png"; path = "Stripe/Resources/Images/stp_card_cvc_amex@2x.png"; sourceTree = "<group>"; };
 		62EFD8699DBC3334490178609CDD078E /* iCarousel-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "iCarousel-dummy.m"; sourceTree = "<group>"; };
-		6747C5C2A11CDD3656EB1F437EE93AE0 /* GoogleMaps.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
-		698C83F6B50B53CF899541D22C784BE3 /* SnapKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnapKit-prefix.pch"; sourceTree = "<group>"; };
+		635887F7DB722B536B4966472271743F /* 20150207191203003_create_block_list.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150207191203003_create_block_list.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150207191203003_create_block_list.sql"; sourceTree = "<group>"; };
+		649CE150030BAABBCF88C1507849309C /* Stripe.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Stripe.modulemap; sourceTree = "<group>"; };
+		6ABA97BAEA0EE2C384E67F0CE8000FF6 /* STPOSXCheckoutWebViewAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPOSXCheckoutWebViewAdapter.h; path = Stripe/Checkout/STPOSXCheckoutWebViewAdapter.h; sourceTree = "<group>"; };
+		6C69F883F4AF11325AEEB68228E75BD4 /* 20150319131356212_add-trigger-for-event-stream-id-update.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20150319131356212_add-trigger-for-event-stream-id-update.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150319131356212_add-trigger-for-event-stream-id-update.sql"; sourceTree = "<group>"; };
 		6CE158507FA0A546A71CB996BCE29BFB /* Pods-Nelper-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Nelper-resources.sh"; sourceTree = "<group>"; };
 		6E13811703F4D15A85A9D2260B00A6A8 /* SnapKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SnapKit.swift; path = Source/SnapKit.swift; sourceTree = "<group>"; };
-		73A7AE447F41F570F5CC187829BD7DA0 /* iCarousel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "iCarousel-prefix.pch"; sourceTree = "<group>"; };
+		6E97F7B4FF639566C893BA2AB1C0DC68 /* STPPaymentCardTextField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPPaymentCardTextField.m; path = Stripe/UI/STPPaymentCardTextField.m; sourceTree = "<group>"; };
+		6ED9DF64E48AB4432D56225EB23391F4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		703C1D2539705A4127B770FDC99054BC /* stp_card_mastercard@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_mastercard@2x.png"; path = "Stripe/Resources/Images/stp_card_mastercard@2x.png"; sourceTree = "<group>"; };
+		7280BA42D5E2A0F693CAC996490523A4 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		729D391AB1AB5D2DE73D13A506F83DD2 /* STPAPIClient+ApplePay.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "STPAPIClient+ApplePay.h"; path = "Stripe/PublicHeaders/ApplePay/STPAPIClient+ApplePay.h"; sourceTree = "<group>"; };
+		733BF089F1522AE3DA1E165CE197EADC /* stp_card_placeholder_template@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_placeholder_template@3x.png"; path = "Stripe/Resources/Images/stp_card_placeholder_template@3x.png"; sourceTree = "<group>"; };
+		73EA505370A88DBA968E66B676223D83 /* STPCheckoutDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCheckoutDelegate.h; path = Stripe/Checkout/STPCheckoutDelegate.h; sourceTree = "<group>"; };
+		746C98486B6226A5B9967EA4CE6238AA /* 20150529142429027_add_type_to_streams_table.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150529142429027_add_type_to_streams_table.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150529142429027_add_type_to_streams_table.sql"; sourceTree = "<group>"; };
+		786C8D4E662EB0E1DE1DE6FF038B35AB /* 20141105082802353_add_unread_fields_to_models.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141105082802353_add_unread_fields_to_models.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141105082802353_add_unread_fields_to_models.sql"; sourceTree = "<group>"; };
 		799F700E0350C1622AF654FBAC56DC3E /* ConstraintAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintAttributes.swift; path = Source/ConstraintAttributes.swift; sourceTree = "<group>"; };
+		79CE7378268C7200C1563C086D86B62A /* layer-client-messaging-schema.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = "layer-client-messaging-schema.bundle"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle"; sourceTree = "<group>"; };
 		79D7963F02D79E7AF9280CB2426B041D /* ConstraintRelation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintRelation.swift; path = Source/ConstraintRelation.swift; sourceTree = "<group>"; };
 		7A1ACA79CB69D0EB5D4B6AFE28B45714 /* Pods-Nelper-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Nelper-acknowledgements.markdown"; sourceTree = "<group>"; };
-		7E9D933DC2109F48A9B1901D694CB045 /* 20150207191203003_create_block_list.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150207191203003_create_block_list.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150207191203003_create_block_list.sql"; sourceTree = "<group>"; };
-		8120BDB1426B17BDE2A39DFBB78667B6 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
-		81BBFC27AC321D063EE30715A8C440A5 /* 20140715104949748_drop_message_index_table_add_message_index_column.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140715104949748_drop_message_index_table_add_message_index_column.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140715104949748_drop_message_index_table_add_message_index_column.sql"; sourceTree = "<group>"; };
-		82BE00BD4BE3C8E5E6D67F20F4D07446 /* layer-client-messaging-schema.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "layer-client-messaging-schema.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/layer-client-messaging-schema.sql"; sourceTree = "<group>"; };
-		837511D4187D08609C6B6737BC0AA5A4 /* SwiftyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-prefix.pch"; sourceTree = "<group>"; };
-		83CAF7D0E548A3E21DB887CCEB55AD2E /* 20140919115201707_create_synced_changes_table_and_decouple_models.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140919115201707_create_synced_changes_table_and_decouple_models.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140919115201707_create_synced_changes_table_and_decouple_models.sql"; sourceTree = "<group>"; };
-		8437D5AD7E273918DEECCBEA326DAC12 /* iCarousel.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = iCarousel.xcconfig; sourceTree = "<group>"; };
+		7C662B2C52EE811DEBFA4B3B8F53749B /* stp_card_discover@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_discover@2x.png"; path = "Stripe/Resources/Images/stp_card_discover@2x.png"; sourceTree = "<group>"; };
+		7EFD8DC3D5D6C401578E8AB7F4DAF05D /* STPCheckoutOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCheckoutOptions.h; path = Stripe/PublicHeaders/Checkout/STPCheckoutOptions.h; sourceTree = "<group>"; };
+		7F07F56B717F815AC36B4914C0196065 /* STPCheckoutInternalUIWebViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPCheckoutInternalUIWebViewController.m; path = Stripe/Checkout/STPCheckoutInternalUIWebViewController.m; sourceTree = "<group>"; };
+		800C6C5CC28F14FEC202645FB2C83296 /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
+		822D44502E1A3C01E0762E6A446E987B /* STPIOSCheckoutWebViewAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPIOSCheckoutWebViewAdapter.m; path = Stripe/Checkout/STPIOSCheckoutWebViewAdapter.m; sourceTree = "<group>"; };
+		832A3989617BF9D33D5ED2B0C9AB7BB2 /* stp_card_cvc_amex@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_cvc_amex@3x.png"; path = "Stripe/Resources/Images/stp_card_cvc_amex@3x.png"; sourceTree = "<group>"; };
+		8386707B6537FCAB148E0FDF848B2F1E /* STPColorUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPColorUtils.m; path = Stripe/Checkout/STPColorUtils.m; sourceTree = "<group>"; };
 		85E62DA073C367ACFC8C77B0B6180FD1 /* SwiftyJSON-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-umbrella.h"; sourceTree = "<group>"; };
-		86EDF06FFEAF48C021319165C3242D05 /* 20141124205020533_external_content.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141124205020533_external_content.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141124205020533_external_content.sql"; sourceTree = "<group>"; };
-		87AE399CAF1763C69A6A3B8D2A920F43 /* 20140717013309255_drop_is_draft_from_messages.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140717013309255_drop_is_draft_from_messages.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140717013309255_drop_is_draft_from_messages.sql"; sourceTree = "<group>"; };
+		86FFA4A9198E1CB0EBFB7410CCDA8D52 /* 20140701144934637_adjust_constraints_of_receipts_table.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140701144934637_adjust_constraints_of_receipts_table.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140701144934637_adjust_constraints_of_receipts_table.sql"; sourceTree = "<group>"; };
+		898DAA91630E95609F2B1DDE764620CF /* SCLAlertView-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "SCLAlertView-Private.xcconfig"; sourceTree = "<group>"; };
+		89C2CF54A9C5EF55E32DC29BD78089E8 /* STPAPIClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPAPIClient.h; path = Stripe/PublicHeaders/STPAPIClient.h; sourceTree = "<group>"; };
+		8A020870C802F161418C449B8893D52E /* 20140708092626927_adjust_triggers_for_drafting.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140708092626927_adjust_triggers_for_drafting.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140708092626927_adjust_triggers_for_drafting.sql"; sourceTree = "<group>"; };
+		8ABF86150228BA826F6138CDE1D039B2 /* Images */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Images; path = Stripe/Resources/Images; sourceTree = "<group>"; };
 		8CC1E28C62628870828207EC1BC5FF39 /* Pods-Nelper-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Nelper-frameworks.sh"; sourceTree = "<group>"; };
-		8E09EB54E17DB984DAFCBB3224D95034 /* 20140701095427050_add_trigger_for_messaging_receipts.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140701095427050_add_trigger_for_messaging_receipts.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140701095427050_add_trigger_for_messaging_receipts.sql"; sourceTree = "<group>"; };
-		9173B1467B26D60B61296E29D32138B1 /* 20141006202908488_add_tombstone_duplicate_events_by_client_id.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141006202908488_add_tombstone_duplicate_events_by_client_id.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141006202908488_add_tombstone_duplicate_events_by_client_id.sql"; sourceTree = "<group>"; };
-		9225A043BFE4631B63D5528708FA0CC2 /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
-		9980F65F197856B28336F8D6A4BA5C2F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D1D09904B0DEC9A825284CF6FB7A149 /* 20150210133608257_adding_version_to_message_parts.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150210133608257_adding_version_to_message_parts.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150210133608257_adding_version_to_message_parts.sql"; sourceTree = "<group>"; };
+		8E653A0D73222039D5906A362FD541E1 /* 20140708154438053_change_insert_trigger_on_messages.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140708154438053_change_insert_trigger_on_messages.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140708154438053_change_insert_trigger_on_messages.sql"; sourceTree = "<group>"; };
+		8E8DC104B9E736D431E342B218E0F741 /* 20141007110138268_client-id-indices.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20141007110138268_client-id-indices.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141007110138268_client-id-indices.sql"; sourceTree = "<group>"; };
+		8ECE9BD882459A533D0D5FF9FBF02A2F /* STPAPIClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPAPIClient.m; path = Stripe/STPAPIClient.m; sourceTree = "<group>"; };
+		8F55CF02A93A7B8BCE8D2A0B67C3A9E9 /* stp_card_amex.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = stp_card_amex.png; path = Stripe/Resources/Images/stp_card_amex.png; sourceTree = "<group>"; };
+		8FB5CD304324EF5894EFEADEB064E19F /* STPCheckoutViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCheckoutViewController.h; path = Stripe/PublicHeaders/Checkout/STPCheckoutViewController.h; sourceTree = "<group>"; };
+		91ECEB5EBC320CF427F4F7DF1555D5C9 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
+		95A0C2D88B7B12EED1AE5972EB634FC7 /* Pods-Nelper-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Nelper-umbrella.h"; sourceTree = "<group>"; };
+		968B781C50F726E26764B15D5264DEC7 /* SCLAlertView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SCLAlertView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		989D12D7CB946FCBFC3A024374C74F28 /* SCLAlertView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SCLAlertView-prefix.pch"; sourceTree = "<group>"; };
+		99C818AB637B8505F865D6DB3A55D0E3 /* STPBankAccount.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPBankAccount.h; path = Stripe/PublicHeaders/STPBankAccount.h; sourceTree = "<group>"; };
 		9B61CFF3904343EBD97B90495D0ACF82 /* SnapKit-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "SnapKit-Private.xcconfig"; sourceTree = "<group>"; };
+		9D5A88EE502C677DF9ACD7B56317A314 /* stp_card_cvc.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = stp_card_cvc.png; path = Stripe/Resources/Images/stp_card_cvc.png; sourceTree = "<group>"; };
+		9F4B45A2E6716A607845684F2557C4EC /* stp_card_amex@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_amex@3x.png"; path = "Stripe/Resources/Images/stp_card_amex@3x.png"; sourceTree = "<group>"; };
+		9F82862442B8AF3B95128735B645CF84 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A00F6A7822756001C1AC412B0A1751A8 /* ViewController+SnapKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ViewController+SnapKit.swift"; path = "Source/ViewController+SnapKit.swift"; sourceTree = "<group>"; };
+		A05757EC74EC439BB2D856277F380A59 /* LayerKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LayerKit.framework; path = LayerKit.embeddedframework/LayerKit.framework; sourceTree = "<group>"; };
 		A0D3575B7F9DE11C652ED4F55D4D976B /* SwiftyJSON-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyJSON-dummy.m"; sourceTree = "<group>"; };
-		A205229EBC3B460FCB6F4C463806FFAA /* 20141027152445461_fix_invalid_identifier_types.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141027152445461_fix_invalid_identifier_types.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141027152445461_fix_invalid_identifier_types.sql"; sourceTree = "<group>"; };
-		A28CCB683EC43EC6AC28B556D6C98584 /* 20150131122302694_add_indexes_for_unread.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150131122302694_add_indexes_for_unread.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150131122302694_add_indexes_for_unread.sql"; sourceTree = "<group>"; };
-		A63470D2749A335E03842C2DADCA3FB0 /* layer-client-messaging-schema.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = "layer-client-messaging-schema.bundle"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle"; sourceTree = "<group>"; };
+		A2CE356B2E18C74EA9C9C1FE63F08FA7 /* STPCardValidator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCardValidator.h; path = Stripe/PublicHeaders/STPCardValidator.h; sourceTree = "<group>"; };
+		A33E3019A84500BE394538782D863C8F /* STPCardValidationState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCardValidationState.h; path = Stripe/PublicHeaders/STPCardValidationState.h; sourceTree = "<group>"; };
+		A3B5920509225C8099518F816954FEC1 /* stp_card_cvc@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_cvc@3x.png"; path = "Stripe/Resources/Images/stp_card_cvc@3x.png"; sourceTree = "<group>"; };
+		A5EF0B8D494FCD52A1A6F9779452943F /* Pods-Nelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Nelper.debug.xcconfig"; sourceTree = "<group>"; };
+		A75C9BE7BD336EC3694A1D560B8C2E90 /* 20140806143305965_add_created_at_to_conversations.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140806143305965_add_created_at_to_conversations.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140806143305965_add_created_at_to_conversations.sql"; sourceTree = "<group>"; };
+		A840E5C25C04ACE88F21A9D18B297A20 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A8C531C1273E1B0B7D13E2BEA46F9B65 /* 20140820112730372_add_unique_constraint_to_message_recipient_status.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140820112730372_add_unique_constraint_to_message_recipient_status.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140820112730372_add_unique_constraint_to_message_recipient_status.sql"; sourceTree = "<group>"; };
+		AA2DB9604663D6E2361A20083F854CC2 /* 20150504150912979_add_transfer_status_to_event_content_parts.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150504150912979_add_transfer_status_to_event_content_parts.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150504150912979_add_transfer_status_to_event_content_parts.sql"; sourceTree = "<group>"; };
+		AA485CA5B418973AA24AECEA39F9C4A7 /* STPCheckoutViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPCheckoutViewController.m; path = Stripe/Checkout/STPCheckoutViewController.m; sourceTree = "<group>"; };
 		ADB7341BBA0E68514B73C5BF7193D26A /* iCarousel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = iCarousel.h; path = iCarousel/iCarousel.h; sourceTree = "<group>"; };
-		B4491EDE0D767561392BE6540A9D8D34 /* 20150319131356212_add-trigger-for-event-stream-id-update.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20150319131356212_add-trigger-for-event-stream-id-update.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150319131356212_add-trigger-for-event-stream-id-update.sql"; sourceTree = "<group>"; };
-		B51FEE4DFA31F12DF42F66BE7DDD0E53 /* 20141002175510495_track_streams_and_stream_members_with_deleted_at_column.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141002175510495_track_streams_and_stream_members_with_deleted_at_column.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141002175510495_track_streams_and_stream_members_with_deleted_at_column.sql"; sourceTree = "<group>"; };
+		B0C776B0842B3B0D5580FBD99084449B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B102BE2971F7F2B7169E3F80F28A327E /* stp_card_jcb@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_jcb@2x.png"; path = "Stripe/Resources/Images/stp_card_jcb@2x.png"; sourceTree = "<group>"; };
+		B2BC6C26A1F99CCC8B77A89AE2A8DA4A /* stp_card_diners@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_diners@2x.png"; path = "Stripe/Resources/Images/stp_card_diners@2x.png"; sourceTree = "<group>"; };
+		B2E0144FE018FBAF236EC448A49D7092 /* Download.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Download.swift; path = Source/Download.swift; sourceTree = "<group>"; };
+		B35BEB6AFF5349CE3DDAEE5EA0DD9B0B /* 20141110114425514_remote_keyed_values.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141110114425514_remote_keyed_values.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141110114425514_remote_keyed_values.sql"; sourceTree = "<group>"; };
+		B5FF0E074888B0E108EEEDB33500FF91 /* stp_card_mastercard@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_mastercard@3x.png"; path = "Stripe/Resources/Images/stp_card_mastercard@3x.png"; sourceTree = "<group>"; };
+		B65ECCFA1C03B5266A4CE44C2099D0FC /* stp_card_placeholder.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = stp_card_placeholder.png; path = Stripe/Resources/Images/stp_card_placeholder.png; sourceTree = "<group>"; };
+		BA15BD1D4F65A425F6F04F11F324F2EA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA2CF1D298A14F154EDD1258808020F7 /* 20140701095427050_add_trigger_for_messaging_receipts.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140701095427050_add_trigger_for_messaging_receipts.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140701095427050_add_trigger_for_messaging_receipts.sql"; sourceTree = "<group>"; };
+		BA5186C46813CF4F719BA9F4B468C79D /* 20140706185141044_add_object_identifiers.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140706185141044_add_object_identifiers.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140706185141044_add_object_identifiers.sql"; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		BB94609A1ED1872695F5E2BE826CB494 /* 20150316180034638_add-distinct-unqiue-flag-to-streams.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20150316180034638_add-distinct-unqiue-flag-to-streams.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150316180034638_add-distinct-unqiue-flag-to-streams.sql"; sourceTree = "<group>"; };
-		BC1E3B4C560C37A3178F90C667824CC0 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
+		BABA2860ED1C81B3FF1B10BD0BFB9BFB /* stp_card_visa.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = stp_card_visa.png; path = Stripe/Resources/Images/stp_card_visa.png; sourceTree = "<group>"; };
+		BC04BFB0C53ABD44C6AC91EDF6062DF3 /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
+		BC213E80AFCE9452134CA3F41FD4E062 /* STPFormTextField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPFormTextField.m; path = Stripe/UI/STPFormTextField.m; sourceTree = "<group>"; };
+		C2AEEC2BF89898EDC1B82AB5EB77391A /* SwiftyJSON.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyJSON.xcconfig; sourceTree = "<group>"; };
+		C2BB781E11E7AB939BFFCEEBA1EAC811 /* StripeError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StripeError.h; path = Stripe/PublicHeaders/StripeError.h; sourceTree = "<group>"; };
 		C2D2E84495E4CE9A0D0AD07121678F09 /* SwiftyJSON-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "SwiftyJSON-Private.xcconfig"; sourceTree = "<group>"; };
+		C4D626A6360C023576CF1E37A7ECB500 /* iCarousel.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = iCarousel.xcconfig; sourceTree = "<group>"; };
+		C8F0BAF9BC8E39ADED2C053D0B4756FD /* Stripe-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Stripe-Private.xcconfig"; sourceTree = "<group>"; };
 		C9CA92161FB52387A8A8816D3AF40358 /* iCarousel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = iCarousel.m; path = iCarousel/iCarousel.m; sourceTree = "<group>"; };
 		CA6701D0395AA53671F30906FDA34B59 /* Debugging.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Debugging.swift; path = Source/Debugging.swift; sourceTree = "<group>"; };
-		CB350810B1441B4DA8702F0E7FA1BF3C /* 20140707082435390_drop_tombstone_trigger.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140707082435390_drop_tombstone_trigger.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140707082435390_drop_tombstone_trigger.sql"; sourceTree = "<group>"; };
-		CC3FF7DA2C9F51E11055C3A7CB51A98F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CCDC41B3E0DB36A9DFCC242E2D059D74 /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustPolicy.swift; path = Source/ServerTrustPolicy.swift; sourceTree = "<group>"; };
+		CA7A1C201F95E872434453E18A076686 /* stp_card_placeholder@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_placeholder@3x.png"; path = "Stripe/Resources/Images/stp_card_placeholder@3x.png"; sourceTree = "<group>"; };
+		CAFFB381BBB7D4BAEEF770F04F0B4C5E /* 20140919115201707_create_synced_changes_table_and_decouple_models.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140919115201707_create_synced_changes_table_and_decouple_models.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140919115201707_create_synced_changes_table_and_decouple_models.sql"; sourceTree = "<group>"; };
+		CD490107E9C66ECA3D6AF70043242373 /* STPAPIClient+ApplePay.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "STPAPIClient+ApplePay.m"; path = "Stripe/ApplePay/STPAPIClient+ApplePay.m"; sourceTree = "<group>"; };
+		CEADD503A3D18CEEFCEB73279B656E9A /* STPCardBrand.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCardBrand.h; path = Stripe/PublicHeaders/STPCardBrand.h; sourceTree = "<group>"; };
+		CFABC8898381E07B683B29F98E652C40 /* SnapKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnapKit-prefix.pch"; sourceTree = "<group>"; };
+		D007C12D51F2C42DC65DA8797FC9C7E8 /* STPCard.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPCard.m; path = Stripe/STPCard.m; sourceTree = "<group>"; };
+		D1F36CAA903478147C90826FDE6C6F63 /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
+		D249E9F11297541927E361DEC78C2FE2 /* Alamofire-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Alamofire-Private.xcconfig"; sourceTree = "<group>"; };
 		D367D337E0670CA623B6F343C738D610 /* SnapKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SnapKit-dummy.m"; sourceTree = "<group>"; };
-		D44D8B3067DF12BD915676379C3DCD6C /* SnapKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SnapKit.xcconfig; sourceTree = "<group>"; };
+		D413740B0C9B6E38B1D24624BA558108 /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
 		D4598912930522E4AD6D792922D73A2C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		D76EA40BEBB4410D0E04B78292E279FA /* Manager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Manager.swift; path = Source/Manager.swift; sourceTree = "<group>"; };
+		D46FA2E4FA020C30181E8F7EC890470D /* STPCheckoutWebViewAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCheckoutWebViewAdapter.h; path = Stripe/Checkout/STPCheckoutWebViewAdapter.h; sourceTree = "<group>"; };
+		D4EC028BBE04905F37D7948400C65C3C /* Stripe+ApplePay.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Stripe+ApplePay.h"; path = "Stripe/PublicHeaders/ApplePay/Stripe+ApplePay.h"; sourceTree = "<group>"; };
+		D56C55D65EC2134BAE6AB39663BBAE7E /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
+		D7CD98467EB87F2F4C2A476D5F1492FF /* STPCardValidator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPCardValidator.m; path = Stripe/STPCardValidator.m; sourceTree = "<group>"; };
+		D9D574AD375A9E4FAA841F52D1C78C2B /* Stripe.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Stripe.h; path = Stripe/PublicHeaders/Stripe.h; sourceTree = "<group>"; };
+		DA70A7DA80A8FC985D619FED8BF63734 /* StripeError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StripeError.m; path = Stripe/StripeError.m; sourceTree = "<group>"; };
 		DB1421DE2D07AA2C28BA8246771B015D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB44D45A9A34C20A034D0D004999B563 /* LayoutConstraint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutConstraint.swift; path = Source/LayoutConstraint.swift; sourceTree = "<group>"; };
-		E0CE39EA62C3390EB8C0B705EF7D6379 /* 20140706185141044_add_object_identifiers.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140706185141044_add_object_identifiers.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140706185141044_add_object_identifiers.sql"; sourceTree = "<group>"; };
+		DEFB4094F095DF5D1D3BC7CACEF33135 /* Stripe+ApplePay.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Stripe+ApplePay.m"; path = "Stripe/ApplePay/Stripe+ApplePay.m"; sourceTree = "<group>"; };
+		DEFF4DC4CA5AF1B2B4940126BAE4F09A /* stp_card_cvc@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "stp_card_cvc@2x.png"; path = "Stripe/Resources/Images/stp_card_cvc@2x.png"; sourceTree = "<group>"; };
+		DF78152B463645808C4E1440F29B33AB /* SnapKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SnapKit.xcconfig; sourceTree = "<group>"; };
+		E11A4C297796E3B1E2C5494AC6AEC013 /* SnapKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SnapKit.modulemap; sourceTree = "<group>"; };
 		E11A7B60D7208B393697E6DBAC0309DA /* ConstraintMaker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMaker.swift; path = Source/ConstraintMaker.swift; sourceTree = "<group>"; };
-		E195E57FB1FF7EB05732F3DDF4753C07 /* 20140820112730372_add_unique_constraint_to_message_recipient_status.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140820112730372_add_unique_constraint_to_message_recipient_status.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140820112730372_add_unique_constraint_to_message_recipient_status.sql"; sourceTree = "<group>"; };
+		E1C811511A79FD4E835704D817E40E9E /* 20140717021208447_restore-lost-triggers.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20140717021208447_restore-lost-triggers.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140717021208447_restore-lost-triggers.sql"; sourceTree = "<group>"; };
+		E20136285EFF925BA80E649B2F1641A8 /* 20140707082435390_drop_tombstone_trigger.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140707082435390_drop_tombstone_trigger.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140707082435390_drop_tombstone_trigger.sql"; sourceTree = "<group>"; };
+		E287C34E5F40165F064BC7A3AD48E35D /* 20140628114921198_remove_creator_id_from_tombstone_wipe_for_ordering.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140628114921198_remove_creator_id_from_tombstone_wipe_for_ordering.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140628114921198_remove_creator_id_from_tombstone_wipe_for_ordering.sql"; sourceTree = "<group>"; };
+		E4E31BAF51E931A43FE1BA24C75F450B /* SCLAlertView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SCLAlertView.xcconfig; sourceTree = "<group>"; };
 		E52EB5AEC729B0193482C0C29054A9D5 /* Pods-Nelper-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Nelper-acknowledgements.plist"; sourceTree = "<group>"; };
-		E8CFF63DE7AB57E1A78015BD218C2056 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E93AA1AFF015E1E695932074914E2D61 /* 20140806143305965_add_created_at_to_conversations.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140806143305965_add_created_at_to_conversations.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140806143305965_add_created_at_to_conversations.sql"; sourceTree = "<group>"; };
+		E6EE94009324CDF74BEF06E122BD288A /* 20141002175510495_track_streams_and_stream_members_with_deleted_at_column.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141002175510495_track_streams_and_stream_members_with_deleted_at_column.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141002175510495_track_streams_and_stream_members_with_deleted_at_column.sql"; sourceTree = "<group>"; };
+		E7527A550A7873125577A9F1B63B428D /* STPCheckoutInternalUIWebViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCheckoutInternalUIWebViewController.h; path = Stripe/Checkout/STPCheckoutInternalUIWebViewController.h; sourceTree = "<group>"; };
+		E9B27C24DA6F077900CB358C627B5EA6 /* 20150615160151227_add-distinct-triggers.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20150615160151227_add-distinct-triggers.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150615160151227_add-distinct-triggers.sql"; sourceTree = "<group>"; };
+		EA3FD2457B73EFB14A339EAB22B0B702 /* STPFormTextField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPFormTextField.h; path = Stripe/UI/STPFormTextField.h; sourceTree = "<group>"; };
 		EB4CB50B42FA0112BD3CB968CB68AC93 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EBC130933031628FF103F703D168E75C /* 20141110114425514_remote_keyed_values.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141110114425514_remote_keyed_values.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141110114425514_remote_keyed_values.sql"; sourceTree = "<group>"; };
-		EC05E998C670EFBB7332CF82D4F574B8 /* 20140701114842931_add_timestamps_back_to_messages.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140701114842931_add_timestamps_back_to_messages.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140701114842931_add_timestamps_back_to_messages.sql"; sourceTree = "<group>"; };
-		ED725F7C1212EA4F32E4583E9F0B4A12 /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
 		EDC6726B2AA1DAAC6F94E1FF507AE34F /* ConstraintDescription.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintDescription.swift; path = Source/ConstraintDescription.swift; sourceTree = "<group>"; };
-		F1F9FB566935FF3DFDFCA4ABB2492D1A /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
-		F36390EC8C083D318069951BD1CD6A87 /* 20140717021208447_restore-lost-triggers.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20140717021208447_restore-lost-triggers.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140717021208447_restore-lost-triggers.sql"; sourceTree = "<group>"; };
-		F3C714C1F9C13EA5D97F6640FB96F3F4 /* 20140707175635814_add_is_draft_to_messages.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140707175635814_add_is_draft_to_messages.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140707175635814_add_is_draft_to_messages.sql"; sourceTree = "<group>"; };
-		F643C0F9C7B1853E9EC9DE80495CF54D /* 20140628105322170_drop_and_clean_case_indent_dates_uniques.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140628105322170_drop_and_clean_case_indent_dates_uniques.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140628105322170_drop_and_clean_case_indent_dates_uniques.sql"; sourceTree = "<group>"; };
-		F6E39B57A8AA076B5901D27AFBD313EE /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
+		EEFDF886DA30CFD03F6DF20CA759C776 /* STPPaymentCardTextFieldViewModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPPaymentCardTextFieldViewModel.h; path = Stripe/UI/STPPaymentCardTextFieldViewModel.h; sourceTree = "<group>"; };
+		EF2D117CEF156498309AECBB80F20D36 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
+		F2EE74A58D423FFFC29DB662E3CC3D63 /* STPCheckoutOptions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPCheckoutOptions.m; path = Stripe/Checkout/STPCheckoutOptions.m; sourceTree = "<group>"; };
+		F55B11C0063B56C38AB61953F24AAF43 /* SCLAlertView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SCLAlertView.swift; path = SCLAlertView/SCLAlertView.swift; sourceTree = "<group>"; };
+		F618B74F3D97DFDEB7D8F0E939461455 /* STPIOSCheckoutWebViewAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPIOSCheckoutWebViewAdapter.h; path = Stripe/Checkout/STPIOSCheckoutWebViewAdapter.h; sourceTree = "<group>"; };
+		F62244CC000830FA9CB9CC94B5C1B9EC /* 20140717013309255_drop_is_draft_from_messages.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20140717013309255_drop_is_draft_from_messages.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20140717013309255_drop_is_draft_from_messages.sql"; sourceTree = "<group>"; };
 		F79B446D865CE125AC740FDABBA29405 /* ConstraintItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintItem.swift; path = Source/ConstraintItem.swift; sourceTree = "<group>"; };
-		F923FA5606FDA2A6B25FDF5382A02E34 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FA49A9BE2AB1F3108D3AFE3A1EEFDE36 /* 20150529142429027_add_type_to_streams_table.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150529142429027_add_type_to_streams_table.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150529142429027_add_type_to_streams_table.sql"; sourceTree = "<group>"; };
-		FB54F2BEDEE3801D07DA9117AB598813 /* 20150330135300206_add_name_to_events_and_messages_tables.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150330135300206_add_name_to_events_and_messages_tables.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150330135300206_add_name_to_events_and_messages_tables.sql"; sourceTree = "<group>"; };
-		FCEEA1A5C2D3E25D33CF425B83B2DA21 /* 20150202170209118_flatten_transfer_flags_into_single_transfer_status_integer.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20150202170209118_flatten_transfer_flags_into_single_transfer_status_integer.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20150202170209118_flatten_transfer_flags_into_single_transfer_status_integer.sql"; sourceTree = "<group>"; };
+		F8F4A715E15BCA49E3B3021504AC17DF /* 20141124205020533_external_content.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141124205020533_external_content.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141124205020533_external_content.sql"; sourceTree = "<group>"; };
+		F93621BC2AA12AF6BBB05754F9C1A126 /* Upload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Upload.swift; path = Source/Upload.swift; sourceTree = "<group>"; };
+		F94408666C817C881D5944CA040C2637 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F95767A52F38E77E5AE754FEDAEFF0EB /* STPPaymentCardTextField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPPaymentCardTextField.h; path = Stripe/PublicHeaders/UI/STPPaymentCardTextField.h; sourceTree = "<group>"; };
+		FA83D0CE5C62B8E7E95B42306E9E07F4 /* Stripe.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Stripe.xcconfig; sourceTree = "<group>"; };
+		FBFE0D8935F8D86CFB9FFBF475DB36EF /* 20141002091849299_correct-track_inserts_of_events_delete.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "20141002091849299_correct-track_inserts_of_events_delete.sql"; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141002091849299_correct-track_inserts_of_events_delete.sql"; sourceTree = "<group>"; };
+		FDA26939F8E33DBC6848262D41629284 /* 20141009125010758_indices.sql */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = 20141009125010758_indices.sql; path = "LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/layer-client-messaging-schema.bundle/20141009125010758_indices.sql"; sourceTree = "<group>"; };
+		FFEBC26B13512DABFE4FA24A3D1E143B /* STPStrictURLProtocol.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPStrictURLProtocol.m; path = Stripe/Checkout/STPStrictURLProtocol.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		23BECD14741031215FC933E6A97F061E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1AB65904A58EB1667C7A9B8151FF24B0 /* Foundation.framework in Frameworks */,
+				FA3935537269F83218A208E5143BD157 /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		50CF6B736D50128C4E5CFE912E79B7A1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -208,11 +411,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BBAA706F3C37E88856E7AA5D42258B42 /* Frameworks */ = {
+		5200B47A14F6095094D90A2698F6038A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F07869F581E0D6A8E6BC3DB1326DD854 /* Foundation.framework in Frameworks */,
+				322797AF0FE22AB36D5D8058A57A94EB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		72208E17618DE1EA714A5F1D04D3120F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85E467B7BA526C624CF9772BD0365579 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,14 +436,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C8DED5C25D4BF885695128051707197A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C2E2E52C6306205735ABCA5CF682EA60 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CBEEDA6A29AD33FB9CFD183DA7A8F5B4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -241,88 +444,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E7A059D77BB6FD5370C511774202075B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1961ADDC437E30DC0E73494D2D5D70B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00FC04B06EEF8A155D545C321FDCC389 /* iOS */ = {
+		122DA2E5084A4393C29BE363C764795C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5608655374FCD70B714D1912E1730BFE /* Foundation.framework */,
-				D4598912930522E4AD6D792922D73A2C /* QuartzCore.framework */,
+				8C66E9F28419850C4CFC0824C09990C4 /* iOS */,
 			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		02C109407A345A3CD3E00FD0D98DB0A3 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				F643C0F9C7B1853E9EC9DE80495CF54D /* 20140628105322170_drop_and_clean_case_indent_dates_uniques.sql */,
-				0D093B69636CCF837DA40A27B65FB1E9 /* 20140628114921198_remove_creator_id_from_tombstone_wipe_for_ordering.sql */,
-				8E09EB54E17DB984DAFCBB3224D95034 /* 20140701095427050_add_trigger_for_messaging_receipts.sql */,
-				EC05E998C670EFBB7332CF82D4F574B8 /* 20140701114842931_add_timestamps_back_to_messages.sql */,
-				121624BD90305630A8601F8DAC632674 /* 20140701144934637_adjust_constraints_of_receipts_table.sql */,
-				E0CE39EA62C3390EB8C0B705EF7D6379 /* 20140706185141044_add_object_identifiers.sql */,
-				CB350810B1441B4DA8702F0E7FA1BF3C /* 20140707082435390_drop_tombstone_trigger.sql */,
-				F3C714C1F9C13EA5D97F6640FB96F3F4 /* 20140707175635814_add_is_draft_to_messages.sql */,
-				5724CBD0FF65886862B527827C7813CC /* 20140708092626927_adjust_triggers_for_drafting.sql */,
-				0F704C4A648EC982C6429073CEFE9600 /* 20140708154438053_change_insert_trigger_on_messages.sql */,
-				02CD7257ABCCC3FCD41FFA634A18315E /* 20140709095453868_drop_track_sending_of_messages.sql */,
-				81BBFC27AC321D063EE30715A8C440A5 /* 20140715104949748_drop_message_index_table_add_message_index_column.sql */,
-				87AE399CAF1763C69A6A3B8D2A920F43 /* 20140717013309255_drop_is_draft_from_messages.sql */,
-				F36390EC8C083D318069951BD1CD6A87 /* 20140717021208447_restore-lost-triggers.sql */,
-				E93AA1AFF015E1E695932074914E2D61 /* 20140806143305965_add_created_at_to_conversations.sql */,
-				E195E57FB1FF7EB05732F3DDF4753C07 /* 20140820112730372_add_unique_constraint_to_message_recipient_status.sql */,
-				83CAF7D0E548A3E21DB887CCEB55AD2E /* 20140919115201707_create_synced_changes_table_and_decouple_models.sql */,
-				55BF5D1ABC9B279903A6DFA160C4FF75 /* 20141002091849299_correct-track_inserts_of_events_delete.sql */,
-				37A9D5560C25653B0323BFBC5E2ACD14 /* 20141002175255465_making_version_a_required_field.sql */,
-				B51FEE4DFA31F12DF42F66BE7DDD0E53 /* 20141002175510495_track_streams_and_stream_members_with_deleted_at_column.sql */,
-				0FBDAE87E600CA2C89B2D6F6A532C5DD /* 20141006140917614_add-client_id.sql */,
-				9173B1467B26D60B61296E29D32138B1 /* 20141006202908488_add_tombstone_duplicate_events_by_client_id.sql */,
-				417FC3F5E7E8872191B21676C9446B25 /* 20141007110138268_client-id-indices.sql */,
-				5F33A2FD53A9BDE48557382AB67DE0F9 /* 20141009125004707_min-max-synced-seq.sql */,
-				120483A6696EA533A6B22A2C41B227D7 /* 20141009125010758_indices.sql */,
-				A205229EBC3B460FCB6F4C463806FFAA /* 20141027152445461_fix_invalid_identifier_types.sql */,
-				506394C4AE7096054C581CC884E41B40 /* 20141105082802353_add_unread_fields_to_models.sql */,
-				EBC130933031628FF103F703D168E75C /* 20141110114425514_remote_keyed_values.sql */,
-				86EDF06FFEAF48C021319165C3242D05 /* 20141124205020533_external_content.sql */,
-				A28CCB683EC43EC6AC28B556D6C98584 /* 20150131122302694_add_indexes_for_unread.sql */,
-				FCEEA1A5C2D3E25D33CF425B83B2DA21 /* 20150202170209118_flatten_transfer_flags_into_single_transfer_status_integer.sql */,
-				7E9D933DC2109F48A9B1901D694CB045 /* 20150207191203003_create_block_list.sql */,
-				1D47F802CBB57FE78F1B2C17B3ED2FB3 /* 20150210133608257_adding_version_to_message_parts.sql */,
-				BB94609A1ED1872695F5E2BE826CB494 /* 20150316180034638_add-distinct-unqiue-flag-to-streams.sql */,
-				B4491EDE0D767561392BE6540A9D8D34 /* 20150319131356212_add-trigger-for-event-stream-id-update.sql */,
-				FB54F2BEDEE3801D07DA9117AB598813 /* 20150330135300206_add_name_to_events_and_messages_tables.sql */,
-				570694BAEBAD5B174CA7E4CF2ECCC601 /* 20150504150912979_add_transfer_status_to_event_content_parts.sql */,
-				FA49A9BE2AB1F3108D3AFE3A1EEFDE36 /* 20150529142429027_add_type_to_streams_table.sql */,
-				42DB67A15865A85B0492F718BD1D3FCF /* 20150615160151227_add-distinct-triggers.sql */,
-				A63470D2749A335E03842C2DADCA3FB0 /* layer-client-messaging-schema.bundle */,
-				82BE00BD4BE3C8E5E6D67F20F4D07446 /* layer-client-messaging-schema.sql */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		0AEE3299094F871645703C502F3FA15E /* SwiftyJSON */ = {
-			isa = PBXGroup;
-			children = (
-				31F861572AEF58AF8E8738463397C601 /* SwiftyJSON.swift */,
-				5619104F4BE470A848BB2F00395012C9 /* Support Files */,
-			);
-			path = SwiftyJSON;
-			sourceTree = "<group>";
-		};
-		10C8A017A8FD9D44B80E7ABACC1859E5 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				9980F65F197856B28336F8D6A4BA5C2F /* Info.plist */,
-				39A8B811269ECB86AA6E0236EE290AA6 /* iCarousel.modulemap */,
-				8437D5AD7E273918DEECCBEA326DAC12 /* iCarousel.xcconfig */,
-				395DE5ABA5C53C9733716E57F1F670DF /* iCarousel-Private.xcconfig */,
-				62EFD8699DBC3334490178609CDD078E /* iCarousel-dummy.m */,
-				73A7AE447F41F570F5CC187829BD7DA0 /* iCarousel-prefix.pch */,
-				29975185420AEF3B5CA64762DC067680 /* iCarousel-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/iCarousel";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		1E0BA7D4BCFD8DE8A5A170BB9212A40C /* Pods-Nelper */ = {
@@ -332,75 +470,149 @@
 				089518FB261CDCBCD2539079AC3AC837 /* Pods-Nelper.modulemap */,
 				7A1ACA79CB69D0EB5D4B6AFE28B45714 /* Pods-Nelper-acknowledgements.markdown */,
 				E52EB5AEC729B0193482C0C29054A9D5 /* Pods-Nelper-acknowledgements.plist */,
-				2DB54066C4BE2E28B3A7CDB68427F0EB /* Pods-Nelper-dummy.m */,
+				0E75E1E7C78A9E96E66DFFA3482E5F6F /* Pods-Nelper-dummy.m */,
 				8CC1E28C62628870828207EC1BC5FF39 /* Pods-Nelper-frameworks.sh */,
 				6CE158507FA0A546A71CB996BCE29BFB /* Pods-Nelper-resources.sh */,
-				0DA5730089C49DBACFA191E6CA1D75FB /* Pods-Nelper-umbrella.h */,
-				600CB63AA9747139FF575479A781C746 /* Pods-Nelper.debug.xcconfig */,
-				F1F9FB566935FF3DFDFCA4ABB2492D1A /* Pods-Nelper.release.xcconfig */,
+				95A0C2D88B7B12EED1AE5972EB634FC7 /* Pods-Nelper-umbrella.h */,
+				A5EF0B8D494FCD52A1A6F9779452943F /* Pods-Nelper.debug.xcconfig */,
+				0BC2FA00718CB3D67E7E17A09FAF04A1 /* Pods-Nelper.release.xcconfig */,
 			);
 			name = "Pods-Nelper";
 			path = "Target Support Files/Pods-Nelper";
 			sourceTree = "<group>";
 		};
-		3A52F5D3840B1F50DA7D10C787F4995A /* Pods */ = {
+		25E3AE6316798834C4FD207D4DE4B8D2 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				C9AAA9001E5115A2FAABA37A226A28F3 /* Alamofire */,
-				61A4C9BA95D1656718A868D252ED8AF1 /* GoogleMaps */,
-				8879B3635216998B91C38DC781FB7DD9 /* LayerKit */,
-				F9CC42F958A8FFCFB60DC4930AD6A86E /* SnapKit */,
-				0AEE3299094F871645703C502F3FA15E /* SwiftyJSON */,
-				70D90EEC32D7F9CF8D7B3BF5AC24F191 /* iCarousel */,
+				2CC1CF98BC8CCA2EDBA9BCE16B6940C7 /* Alamofire.modulemap */,
+				08533A7FE9904C35417F347720BC3CF5 /* Alamofire.xcconfig */,
+				D249E9F11297541927E361DEC78C2FE2 /* Alamofire-Private.xcconfig */,
+				800C6C5CC28F14FEC202645FB2C83296 /* Alamofire-dummy.m */,
+				D1F36CAA903478147C90826FDE6C6F63 /* Alamofire-prefix.pch */,
+				10842BEF647DDDECF33E876B66A8876B /* Alamofire-umbrella.h */,
+				A840E5C25C04ACE88F21A9D18B297A20 /* Info.plist */,
 			);
-			name = Pods;
+			name = "Support Files";
+			path = "../Target Support Files/Alamofire";
 			sourceTree = "<group>";
 		};
-		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+		3E5C90D66D5E3302D31B4241B73AB89F /* GoogleMaps */ = {
 			isa = PBXGroup;
 			children = (
-				00FC04B06EEF8A155D545C321FDCC389 /* iOS */,
+				A96FEA7E2798C22400542A23C7C963FB /* Frameworks */,
+				BF466CD0EA7352C0CC989C602F803ED8 /* Resources */,
 			);
-			name = Frameworks;
+			path = GoogleMaps;
 			sourceTree = "<group>";
 		};
-		5619104F4BE470A848BB2F00395012C9 /* Support Files */ = {
+		45A41B499A2F2259881FB3999F85C449 /* SwiftyJSON */ = {
 			isa = PBXGroup;
 			children = (
-				E8CFF63DE7AB57E1A78015BD218C2056 /* Info.plist */,
-				5872A50CAED5A335FAE1064C6006635C /* SwiftyJSON.modulemap */,
-				0CEB5A4BD800FACC14B6638465A82DDE /* SwiftyJSON.xcconfig */,
+				31F861572AEF58AF8E8738463397C601 /* SwiftyJSON.swift */,
+				5CB1E455BE15509CBC5994BF2222BA44 /* Support Files */,
+			);
+			path = SwiftyJSON;
+			sourceTree = "<group>";
+		};
+		4DCB248C58D7AC0809CD4EC223A43CA6 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				BA15BD1D4F65A425F6F04F11F324F2EA /* Info.plist */,
+				2637B29C6F2A0987425036DFE238223B /* SCLAlertView.modulemap */,
+				E4E31BAF51E931A43FE1BA24C75F450B /* SCLAlertView.xcconfig */,
+				898DAA91630E95609F2B1DDE764620CF /* SCLAlertView-Private.xcconfig */,
+				60258AB71BD6D26CA4F95F2A5DF54071 /* SCLAlertView-dummy.m */,
+				989D12D7CB946FCBFC3A024374C74F28 /* SCLAlertView-prefix.pch */,
+				4676B6BB41AD03E091F581C347F24E23 /* SCLAlertView-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SCLAlertView";
+			sourceTree = "<group>";
+		};
+		537B71E40EBCFC2ECC87031EEA7EBE45 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6ED9DF64E48AB4432D56225EB23391F4 /* Info.plist */,
+				649CE150030BAABBCF88C1507849309C /* Stripe.modulemap */,
+				FA83D0CE5C62B8E7E95B42306E9E07F4 /* Stripe.xcconfig */,
+				C8F0BAF9BC8E39ADED2C053D0B4756FD /* Stripe-Private.xcconfig */,
+				553E36A83110B5E14EF9EE5F42508597 /* Stripe-dummy.m */,
+				5BF40B30DC94852BB3E3E915C3622336 /* Stripe-prefix.pch */,
+				217846F183817FBF3B9FD2B13947B7EF /* Stripe-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Stripe";
+			sourceTree = "<group>";
+		};
+		5BE3B9807C0294E694045D3E9E37AEF8 /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				55C9E14A4886F026638DAAAA40D3E51F /* Alamofire.swift */,
+				B2E0144FE018FBAF236EC448A49D7092 /* Download.swift */,
+				14AFC8D542B405CB3051D5B604FD95AE /* Manager.swift */,
+				5A4FF032E36CC5529E910433ACD6FC44 /* MultipartFormData.swift */,
+				EF2D117CEF156498309AECBB80F20D36 /* ParameterEncoding.swift */,
+				D56C55D65EC2134BAE6AB39663BBAE7E /* Request.swift */,
+				BC04BFB0C53ABD44C6AC91EDF6062DF3 /* ResponseSerialization.swift */,
+				5C9171CE46968AF20ABD03C7C110DD9E /* ServerTrustPolicy.swift */,
+				F93621BC2AA12AF6BBB05754F9C1A126 /* Upload.swift */,
+				13476B36C918B676346063CBCB2EACC0 /* Validation.swift */,
+				25E3AE6316798834C4FD207D4DE4B8D2 /* Support Files */,
+			);
+			path = Alamofire;
+			sourceTree = "<group>";
+		};
+		5CB1E455BE15509CBC5994BF2222BA44 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				3CC74ECB84DD4D1E00C39D46EBF21720 /* Info.plist */,
+				D413740B0C9B6E38B1D24624BA558108 /* SwiftyJSON.modulemap */,
+				C2AEEC2BF89898EDC1B82AB5EB77391A /* SwiftyJSON.xcconfig */,
 				C2D2E84495E4CE9A0D0AD07121678F09 /* SwiftyJSON-Private.xcconfig */,
 				A0D3575B7F9DE11C652ED4F55D4D976B /* SwiftyJSON-dummy.m */,
-				837511D4187D08609C6B6737BC0AA5A4 /* SwiftyJSON-prefix.pch */,
+				46178DAE2FBE54A66725DD5228BF43ED /* SwiftyJSON-prefix.pch */,
 				85E62DA073C367ACFC8C77B0B6180FD1 /* SwiftyJSON-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/SwiftyJSON";
 			sourceTree = "<group>";
 		};
-		57605BBA945472B11D1A9A4CA4759598 /* Support Files */ = {
+		5F94EF29FC954E77419B044136DB91C7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				44DC20BF04206C95BC0147A4342EC8AC /* Alamofire.modulemap */,
-				1CA72BEDA19438B0BB88D2BE0E76C5A3 /* Alamofire.xcconfig */,
-				2E7ABC75A6C4C1861C7FCBD09472605C /* Alamofire-Private.xcconfig */,
-				ED725F7C1212EA4F32E4583E9F0B4A12 /* Alamofire-dummy.m */,
-				006A96DC34E35EB88B170EEE0DD5E9B1 /* Alamofire-prefix.pch */,
-				0DB47202649F7BF3BB291DF7B7A8269D /* Alamofire-umbrella.h */,
-				CC3FF7DA2C9F51E11055C3A7CB51A98F /* Info.plist */,
+				8ABF86150228BA826F6138CDE1D039B2 /* Images */,
+				8F55CF02A93A7B8BCE8D2A0B67C3A9E9 /* stp_card_amex.png */,
+				5F25176D882F876D1AE8547245908D78 /* stp_card_amex@2x.png */,
+				9F4B45A2E6716A607845684F2557C4EC /* stp_card_amex@3x.png */,
+				9D5A88EE502C677DF9ACD7B56317A314 /* stp_card_cvc.png */,
+				DEFF4DC4CA5AF1B2B4940126BAE4F09A /* stp_card_cvc@2x.png */,
+				A3B5920509225C8099518F816954FEC1 /* stp_card_cvc@3x.png */,
+				4EBB64F937EF538F07330E03C334B2A5 /* stp_card_cvc_amex.png */,
+				60BDF1BCE0C5A38779E6C9D8F2027D2E /* stp_card_cvc_amex@2x.png */,
+				832A3989617BF9D33D5ED2B0C9AB7BB2 /* stp_card_cvc_amex@3x.png */,
+				08F79D34DDF5CAECEAEC1D030C9A77E8 /* stp_card_diners.png */,
+				B2BC6C26A1F99CCC8B77A89AE2A8DA4A /* stp_card_diners@2x.png */,
+				1B76F51C2815247BE6D6CC1E975EFAD2 /* stp_card_diners@3x.png */,
+				3CEE851B05FD6B9B450760CE7D624759 /* stp_card_discover.png */,
+				7C662B2C52EE811DEBFA4B3B8F53749B /* stp_card_discover@2x.png */,
+				127193F51D7E5E7A8C40892AB994205A /* stp_card_discover@3x.png */,
+				3221A844BE5FE6A7C1A54F8B8E9306F4 /* stp_card_jcb.png */,
+				B102BE2971F7F2B7169E3F80F28A327E /* stp_card_jcb@2x.png */,
+				4E0779CCA43D42B23E6CE3586EE3577E /* stp_card_jcb@3x.png */,
+				32DB3E3DDE9AA351D785BEB5DB03FE31 /* stp_card_mastercard.png */,
+				703C1D2539705A4127B770FDC99054BC /* stp_card_mastercard@2x.png */,
+				B5FF0E074888B0E108EEEDB33500FF91 /* stp_card_mastercard@3x.png */,
+				B65ECCFA1C03B5266A4CE44C2099D0FC /* stp_card_placeholder.png */,
+				40BD5CE9E25BB2DB814DE030647119B7 /* stp_card_placeholder@2x.png */,
+				CA7A1C201F95E872434453E18A076686 /* stp_card_placeholder@3x.png */,
+				3B5276702A017F3BC47BA00ADDDD7C78 /* stp_card_placeholder_template.png */,
+				331C9D065200C3D368D8BFA11CC7B09D /* stp_card_placeholder_template@2x.png */,
+				733BF089F1522AE3DA1E165CE197EADC /* stp_card_placeholder_template@3x.png */,
+				BABA2860ED1C81B3FF1B10BD0BFB9BFB /* stp_card_visa.png */,
+				0D1A1EBF4CC023A06C7BAF9100C7B69F /* stp_card_visa@2x.png */,
+				1E72C04EB046C413AF22B9C36F86E887 /* stp_card_visa@3x.png */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/Alamofire";
-			sourceTree = "<group>";
-		};
-		61A4C9BA95D1656718A868D252ED8AF1 /* GoogleMaps */ = {
-			isa = PBXGroup;
-			children = (
-				FE3D79B45BE062D49CB24D17D6C7D63A /* Frameworks */,
-				CF037B9C6169FC4DCBCEE82B1B2A4D68 /* Resources */,
-			);
-			path = GoogleMaps;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		640BE8AA8D42AD564463785E2B9F14FF /* Targets Support Files */ = {
@@ -411,98 +623,120 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		70D90EEC32D7F9CF8D7B3BF5AC24F191 /* iCarousel */ = {
+		7665B967D0C190BBA84E5533F7D80106 /* LayerKit */ = {
 			isa = PBXGroup;
 			children = (
-				ADB7341BBA0E68514B73C5BF7193D26A /* iCarousel.h */,
-				C9CA92161FB52387A8A8816D3AF40358 /* iCarousel.m */,
-				10C8A017A8FD9D44B80E7ABACC1859E5 /* Support Files */,
+				A32CE850493F3A25915B07B0189A6C6F /* Frameworks */,
+				7996524F7F65098479ECFD523D0614A7 /* Resources */,
 			);
-			path = iCarousel;
+			path = LayerKit;
+			sourceTree = "<group>";
+		};
+		7996524F7F65098479ECFD523D0614A7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				371A70C18C604830AF01AC2264F76DD8 /* 20140628105322170_drop_and_clean_case_indent_dates_uniques.sql */,
+				E287C34E5F40165F064BC7A3AD48E35D /* 20140628114921198_remove_creator_id_from_tombstone_wipe_for_ordering.sql */,
+				BA2CF1D298A14F154EDD1258808020F7 /* 20140701095427050_add_trigger_for_messaging_receipts.sql */,
+				23A1554FAC30491F0C13EADD0F4886E1 /* 20140701114842931_add_timestamps_back_to_messages.sql */,
+				86FFA4A9198E1CB0EBFB7410CCDA8D52 /* 20140701144934637_adjust_constraints_of_receipts_table.sql */,
+				BA5186C46813CF4F719BA9F4B468C79D /* 20140706185141044_add_object_identifiers.sql */,
+				E20136285EFF925BA80E649B2F1641A8 /* 20140707082435390_drop_tombstone_trigger.sql */,
+				22ED7A71E7A9D4022B1B5F08B1843DF5 /* 20140707175635814_add_is_draft_to_messages.sql */,
+				8A020870C802F161418C449B8893D52E /* 20140708092626927_adjust_triggers_for_drafting.sql */,
+				8E653A0D73222039D5906A362FD541E1 /* 20140708154438053_change_insert_trigger_on_messages.sql */,
+				4BFD8C268576F0AA0E0F3E8C35943E81 /* 20140709095453868_drop_track_sending_of_messages.sql */,
+				06953EEA4E4C3799B7DC08EBAF25E13C /* 20140715104949748_drop_message_index_table_add_message_index_column.sql */,
+				F62244CC000830FA9CB9CC94B5C1B9EC /* 20140717013309255_drop_is_draft_from_messages.sql */,
+				E1C811511A79FD4E835704D817E40E9E /* 20140717021208447_restore-lost-triggers.sql */,
+				A75C9BE7BD336EC3694A1D560B8C2E90 /* 20140806143305965_add_created_at_to_conversations.sql */,
+				A8C531C1273E1B0B7D13E2BEA46F9B65 /* 20140820112730372_add_unique_constraint_to_message_recipient_status.sql */,
+				CAFFB381BBB7D4BAEEF770F04F0B4C5E /* 20140919115201707_create_synced_changes_table_and_decouple_models.sql */,
+				FBFE0D8935F8D86CFB9FFBF475DB36EF /* 20141002091849299_correct-track_inserts_of_events_delete.sql */,
+				1E7143FD9120397619D6739706CFC8E4 /* 20141002175255465_making_version_a_required_field.sql */,
+				E6EE94009324CDF74BEF06E122BD288A /* 20141002175510495_track_streams_and_stream_members_with_deleted_at_column.sql */,
+				5629A36DB258E9D20B544311367F5B9E /* 20141006140917614_add-client_id.sql */,
+				39B1140139E5070379C9DBC2A97FC71A /* 20141006202908488_add_tombstone_duplicate_events_by_client_id.sql */,
+				8E8DC104B9E736D431E342B218E0F741 /* 20141007110138268_client-id-indices.sql */,
+				2B78D19F900E5160E2C976DFD0B367E8 /* 20141009125004707_min-max-synced-seq.sql */,
+				FDA26939F8E33DBC6848262D41629284 /* 20141009125010758_indices.sql */,
+				294AF1A2631FE705DBE9E0FC0536438D /* 20141027152445461_fix_invalid_identifier_types.sql */,
+				786C8D4E662EB0E1DE1DE6FF038B35AB /* 20141105082802353_add_unread_fields_to_models.sql */,
+				B35BEB6AFF5349CE3DDAEE5EA0DD9B0B /* 20141110114425514_remote_keyed_values.sql */,
+				F8F4A715E15BCA49E3B3021504AC17DF /* 20141124205020533_external_content.sql */,
+				3982AC5E9F945A066E671B90B7BFEDAE /* 20150131122302694_add_indexes_for_unread.sql */,
+				13A139EDC958B858E422583895304C51 /* 20150202170209118_flatten_transfer_flags_into_single_transfer_status_integer.sql */,
+				635887F7DB722B536B4966472271743F /* 20150207191203003_create_block_list.sql */,
+				8D1D09904B0DEC9A825284CF6FB7A149 /* 20150210133608257_adding_version_to_message_parts.sql */,
+				3B893A91BE91CA6EB56BA633EA9534B2 /* 20150316180034638_add-distinct-unqiue-flag-to-streams.sql */,
+				6C69F883F4AF11325AEEB68228E75BD4 /* 20150319131356212_add-trigger-for-event-stream-id-update.sql */,
+				27C73165F3FC7645C1094D301B31C5C8 /* 20150330135300206_add_name_to_events_and_messages_tables.sql */,
+				AA2DB9604663D6E2361A20083F854CC2 /* 20150504150912979_add_transfer_status_to_event_content_parts.sql */,
+				746C98486B6226A5B9967EA4CE6238AA /* 20150529142429027_add_type_to_streams_table.sql */,
+				E9B27C24DA6F077900CB358C627B5EA6 /* 20150615160151227_add-distinct-triggers.sql */,
+				79CE7378268C7200C1563C086D86B62A /* layer-client-messaging-schema.bundle */,
+				3A4A0D3DBF2B98D2EA1213CC456EA9AF /* layer-client-messaging-schema.sql */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
-				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
-				3A52F5D3840B1F50DA7D10C787F4995A /* Pods */,
+				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
+				81709982462AA588E6300C92A857B3DA /* Pods */,
 				CCA510CFBEA2D207524CDA0D73C3B561 /* Products */,
 				640BE8AA8D42AD564463785E2B9F14FF /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		8879B3635216998B91C38DC781FB7DD9 /* LayerKit */ = {
+		81709982462AA588E6300C92A857B3DA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D9A0DCC10C075BA991ACDF2F3DE08FCA /* Frameworks */,
-				02C109407A345A3CD3E00FD0D98DB0A3 /* Resources */,
+				5BE3B9807C0294E694045D3E9E37AEF8 /* Alamofire */,
+				3E5C90D66D5E3302D31B4241B73AB89F /* GoogleMaps */,
+				7665B967D0C190BBA84E5533F7D80106 /* LayerKit */,
+				92655A3A3B2EA10E3B71FE760AAA18A0 /* SCLAlertView */,
+				9F1ADF2F8E8C03EB7FD55D845BDBCBAD /* SnapKit */,
+				EA1CDB6325622B64BCE2C0F92A93DDEF /* Stripe */,
+				45A41B499A2F2259881FB3999F85C449 /* SwiftyJSON */,
+				8629773437E1663DCDF9C2ECEDEDC6E7 /* iCarousel */,
 			);
-			path = LayerKit;
+			name = Pods;
 			sourceTree = "<group>";
 		};
-		C9AAA9001E5115A2FAABA37A226A28F3 /* Alamofire */ = {
+		8629773437E1663DCDF9C2ECEDEDC6E7 /* iCarousel */ = {
 			isa = PBXGroup;
 			children = (
-				BC1E3B4C560C37A3178F90C667824CC0 /* Alamofire.swift */,
-				611B76C1C2068AD772D13F692EB6A39A /* Download.swift */,
-				D76EA40BEBB4410D0E04B78292E279FA /* Manager.swift */,
-				8120BDB1426B17BDE2A39DFBB78667B6 /* MultipartFormData.swift */,
-				5BF1E038B1E7E223E80EE0B939ED53F8 /* ParameterEncoding.swift */,
-				F6E39B57A8AA076B5901D27AFBD313EE /* Request.swift */,
-				9225A043BFE4631B63D5528708FA0CC2 /* ResponseSerialization.swift */,
-				CCDC41B3E0DB36A9DFCC242E2D059D74 /* ServerTrustPolicy.swift */,
-				558F3F1F6AE61D70146416F9D0F44E67 /* Upload.swift */,
-				2821F9ED3D75A9E1E442CDCACDBE0030 /* Validation.swift */,
-				57605BBA945472B11D1A9A4CA4759598 /* Support Files */,
+				ADB7341BBA0E68514B73C5BF7193D26A /* iCarousel.h */,
+				C9CA92161FB52387A8A8816D3AF40358 /* iCarousel.m */,
+				F2BC35F7E0295EF9DD8C11743C4279A3 /* Support Files */,
 			);
-			path = Alamofire;
+			path = iCarousel;
 			sourceTree = "<group>";
 		};
-		CCA510CFBEA2D207524CDA0D73C3B561 /* Products */ = {
+		8C66E9F28419850C4CFC0824C09990C4 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				0ACB7B3E7C899DC1BDF96190DF27A4EB /* Alamofire.framework */,
-				62DED21DCD872792C9442A5F012F6D7F /* Pods_Nelper.framework */,
-				3DBD3F68F708AA6E6115CA4B4FCA0258 /* SnapKit.framework */,
-				EB4CB50B42FA0112BD3CB968CB68AC93 /* SwiftyJSON.framework */,
-				509A7350D6DD56AB72219F4A89F91986 /* iCarousel.framework */,
+				5608655374FCD70B714D1912E1730BFE /* Foundation.framework */,
+				D4598912930522E4AD6D792922D73A2C /* QuartzCore.framework */,
+				532757E6AB85A0D7663CF88B953A910B /* Security.framework */,
 			);
-			name = Products;
+			name = iOS;
 			sourceTree = "<group>";
 		};
-		CF037B9C6169FC4DCBCEE82B1B2A4D68 /* Resources */ = {
+		92655A3A3B2EA10E3B71FE760AAA18A0 /* SCLAlertView */ = {
 			isa = PBXGroup;
 			children = (
-				6747C5C2A11CDD3656EB1F437EE93AE0 /* GoogleMaps.bundle */,
+				5D41CBB2B763CEABCFFC9E84AC5E0A0A /* Info.plist */,
+				F55B11C0063B56C38AB61953F24AAF43 /* SCLAlertView.swift */,
+				4DCB248C58D7AC0809CD4EC223A43CA6 /* Support Files */,
 			);
-			name = Resources;
+			path = SCLAlertView;
 			sourceTree = "<group>";
 		};
-		D889EDFF5536F8A37101BF1F1F359E9C /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				F923FA5606FDA2A6B25FDF5382A02E34 /* Info.plist */,
-				29BB519223EBD742B692ED3A6A9638F8 /* SnapKit.modulemap */,
-				D44D8B3067DF12BD915676379C3DCD6C /* SnapKit.xcconfig */,
-				9B61CFF3904343EBD97B90495D0ACF82 /* SnapKit-Private.xcconfig */,
-				D367D337E0670CA623B6F343C738D610 /* SnapKit-dummy.m */,
-				698C83F6B50B53CF899541D22C784BE3 /* SnapKit-prefix.pch */,
-				413D4C68BCDED964834146EFB422C3B3 /* SnapKit-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/SnapKit";
-			sourceTree = "<group>";
-		};
-		D9A0DCC10C075BA991ACDF2F3DE08FCA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3846AF634F4CBF1C6C71CAF585817E02 /* LayerKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F9CC42F958A8FFCFB60DC4930AD6A86E /* SnapKit */ = {
+		9F1ADF2F8E8C03EB7FD55D845BDBCBAD /* SnapKit */ = {
 			isa = PBXGroup;
 			children = (
 				2B0270ACC0A1AAAC0088467BF0131477 /* Constraint.swift */,
@@ -517,17 +751,139 @@
 				6E13811703F4D15A85A9D2260B00A6A8 /* SnapKit.swift */,
 				2A5B605BCB86C161823225245B5EDBB7 /* View+SnapKit.swift */,
 				A00F6A7822756001C1AC412B0A1751A8 /* ViewController+SnapKit.swift */,
-				D889EDFF5536F8A37101BF1F1F359E9C /* Support Files */,
+				D322012D6EED94463AD1D77C71297964 /* Support Files */,
 			);
 			path = SnapKit;
 			sourceTree = "<group>";
 		};
-		FE3D79B45BE062D49CB24D17D6C7D63A /* Frameworks */ = {
+		A256E4BD6207139F9A9C33F65757D034 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				4EF38B488FC1FFC5ACA1487AA0984299 /* GoogleMaps.framework */,
+				89C2CF54A9C5EF55E32DC29BD78089E8 /* STPAPIClient.h */,
+				8ECE9BD882459A533D0D5FF9FBF02A2F /* STPAPIClient.m */,
+				729D391AB1AB5D2DE73D13A506F83DD2 /* STPAPIClient+ApplePay.h */,
+				CD490107E9C66ECA3D6AF70043242373 /* STPAPIClient+ApplePay.m */,
+				52CB08BC95F5CE1574E2877C0B3F8526 /* STPAPIConnection.h */,
+				2F129A74D59CEB454F16047C6DC7FF83 /* STPAPIConnection.m */,
+				99C818AB637B8505F865D6DB3A55D0E3 /* STPBankAccount.h */,
+				402F3DBDB46E3F67DE48D90CD8189EC7 /* STPBankAccount.m */,
+				30869FF457604F3F083A31265AD1E8E8 /* STPCard.h */,
+				D007C12D51F2C42DC65DA8797FC9C7E8 /* STPCard.m */,
+				CEADD503A3D18CEEFCEB73279B656E9A /* STPCardBrand.h */,
+				A33E3019A84500BE394538782D863C8F /* STPCardValidationState.h */,
+				A2CE356B2E18C74EA9C9C1FE63F08FA7 /* STPCardValidator.h */,
+				D7CD98467EB87F2F4C2A476D5F1492FF /* STPCardValidator.m */,
+				73EA505370A88DBA968E66B676223D83 /* STPCheckoutDelegate.h */,
+				E7527A550A7873125577A9F1B63B428D /* STPCheckoutInternalUIWebViewController.h */,
+				7F07F56B717F815AC36B4914C0196065 /* STPCheckoutInternalUIWebViewController.m */,
+				7EFD8DC3D5D6C401578E8AB7F4DAF05D /* STPCheckoutOptions.h */,
+				F2EE74A58D423FFFC29DB662E3CC3D63 /* STPCheckoutOptions.m */,
+				8FB5CD304324EF5894EFEADEB064E19F /* STPCheckoutViewController.h */,
+				AA485CA5B418973AA24AECEA39F9C4A7 /* STPCheckoutViewController.m */,
+				D46FA2E4FA020C30181E8F7EC890470D /* STPCheckoutWebViewAdapter.h */,
+				10E596FFDD601CA69C21CAAE3687BE02 /* STPColorUtils.h */,
+				8386707B6537FCAB148E0FDF848B2F1E /* STPColorUtils.m */,
+				3777DC40974A9FED548C25729620CC88 /* STPFormEncoder.h */,
+				0432D3288DCF5A7B8562BC8FFAC0CDAD /* STPFormEncoder.m */,
+				EA3FD2457B73EFB14A339EAB22B0B702 /* STPFormTextField.h */,
+				BC213E80AFCE9452134CA3F41FD4E062 /* STPFormTextField.m */,
+				F618B74F3D97DFDEB7D8F0E939461455 /* STPIOSCheckoutWebViewAdapter.h */,
+				822D44502E1A3C01E0762E6A446E987B /* STPIOSCheckoutWebViewAdapter.m */,
+				6ABA97BAEA0EE2C384E67F0CE8000FF6 /* STPOSXCheckoutWebViewAdapter.h */,
+				1A5CE3E4E1EA9C6C331F16AF825ACD92 /* STPOSXCheckoutWebViewAdapter.m */,
+				F95767A52F38E77E5AE754FEDAEFF0EB /* STPPaymentCardTextField.h */,
+				6E97F7B4FF639566C893BA2AB1C0DC68 /* STPPaymentCardTextField.m */,
+				EEFDF886DA30CFD03F6DF20CA759C776 /* STPPaymentCardTextFieldViewModel.h */,
+				370905E66AA3A7D47E540A415993D390 /* STPPaymentCardTextFieldViewModel.m */,
+				16688A34CF907D64E945DF6816734E2C /* STPStrictURLProtocol.h */,
+				FFEBC26B13512DABFE4FA24A3D1E143B /* STPStrictURLProtocol.m */,
+				2CEE68D84FD28EC584605256F6EE7383 /* STPToken.h */,
+				3A23CE54053EB2357CD411C263EB79CA /* STPToken.m */,
+				D9D574AD375A9E4FAA841F52D1C78C2B /* Stripe.h */,
+				D4EC028BBE04905F37D7948400C65C3C /* Stripe+ApplePay.h */,
+				DEFB4094F095DF5D1D3BC7CACEF33135 /* Stripe+ApplePay.m */,
+				C2BB781E11E7AB939BFFCEEBA1EAC811 /* StripeError.h */,
+				DA70A7DA80A8FC985D619FED8BF63734 /* StripeError.m */,
+				5F94EF29FC954E77419B044136DB91C7 /* Resources */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		A32CE850493F3A25915B07B0189A6C6F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A05757EC74EC439BB2D856277F380A59 /* LayerKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A96FEA7E2798C22400542A23C7C963FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				91ECEB5EBC320CF427F4F7DF1555D5C9 /* GoogleMaps.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF466CD0EA7352C0CC989C602F803ED8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0BCA395C9F15B3E6674760B4A233BD70 /* GoogleMaps.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		CCA510CFBEA2D207524CDA0D73C3B561 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7280BA42D5E2A0F693CAC996490523A4 /* Alamofire.framework */,
+				F94408666C817C881D5944CA040C2637 /* Pods_Nelper.framework */,
+				968B781C50F726E26764B15D5264DEC7 /* SCLAlertView.framework */,
+				3DBD3F68F708AA6E6115CA4B4FCA0258 /* SnapKit.framework */,
+				5543530789672B34F20129C471EDD83D /* Stripe.framework */,
+				EB4CB50B42FA0112BD3CB968CB68AC93 /* SwiftyJSON.framework */,
+				509A7350D6DD56AB72219F4A89F91986 /* iCarousel.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D322012D6EED94463AD1D77C71297964 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B0C776B0842B3B0D5580FBD99084449B /* Info.plist */,
+				E11A4C297796E3B1E2C5494AC6AEC013 /* SnapKit.modulemap */,
+				DF78152B463645808C4E1440F29B33AB /* SnapKit.xcconfig */,
+				9B61CFF3904343EBD97B90495D0ACF82 /* SnapKit-Private.xcconfig */,
+				D367D337E0670CA623B6F343C738D610 /* SnapKit-dummy.m */,
+				CFABC8898381E07B683B29F98E652C40 /* SnapKit-prefix.pch */,
+				413D4C68BCDED964834146EFB422C3B3 /* SnapKit-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SnapKit";
+			sourceTree = "<group>";
+		};
+		EA1CDB6325622B64BCE2C0F92A93DDEF /* Stripe */ = {
+			isa = PBXGroup;
+			children = (
+				A256E4BD6207139F9A9C33F65757D034 /* Core */,
+				537B71E40EBCFC2ECC87031EEA7EBE45 /* Support Files */,
+			);
+			path = Stripe;
+			sourceTree = "<group>";
+		};
+		F2BC35F7E0295EF9DD8C11743C4279A3 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				9F82862442B8AF3B95128735B645CF84 /* Info.plist */,
+				398471557705FD1B342D1C93ED1F0D40 /* iCarousel.modulemap */,
+				C4D626A6360C023576CF1E37A7ECB500 /* iCarousel.xcconfig */,
+				395DE5ABA5C53C9733716E57F1F670DF /* iCarousel-Private.xcconfig */,
+				62EFD8699DBC3334490178609CDD078E /* iCarousel-dummy.m */,
+				3410FFE382AAAC9A5584750695E9871F /* iCarousel-prefix.pch */,
+				29975185420AEF3B5CA64762DC067680 /* iCarousel-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/iCarousel";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -550,6 +906,55 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		75BD0BFB249092728B6472273A032817 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53031DBC75B383575891C90F41ABB606 /* Alamofire-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FAF5347BE2DADDD4F56B84D74F17A25 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61A817ABA69565E80C3C80FECCD7517C /* STPAPIClient+ApplePay.h in Headers */,
+				5234A5298AC70E11B34B2DA0F8E126F8 /* STPAPIClient.h in Headers */,
+				DA9E4BC7377008A031B160A30F07861A /* STPAPIConnection.h in Headers */,
+				990446AFA8AB9B250C32762218294E9F /* STPBankAccount.h in Headers */,
+				D1CC0C3F1CFA9F531962FC5A2E04707E /* STPCard.h in Headers */,
+				A16245DE2AC5D5B28CD98B57C7F6D20E /* STPCardBrand.h in Headers */,
+				E0858FBAA6A82CDAFDAEB7B9E027FEFD /* STPCardValidationState.h in Headers */,
+				1F504E66D54B94D7AEC7C95D749BC4EB /* STPCardValidator.h in Headers */,
+				8243BF4F4C4884AB481594CB44328B6B /* STPCheckoutDelegate.h in Headers */,
+				B85D38F3E53BCADD91F8F87968A9F40F /* STPCheckoutInternalUIWebViewController.h in Headers */,
+				FF7D3C6B70B7E094AF40A17ABA6CBDAD /* STPCheckoutOptions.h in Headers */,
+				5FCE4A88F0554614F0654558BB3BCAC6 /* STPCheckoutViewController.h in Headers */,
+				18EAE82DE63C7174DA6579FD4523CE43 /* STPCheckoutWebViewAdapter.h in Headers */,
+				D592AAB45737396A99D62C7AD5240873 /* STPColorUtils.h in Headers */,
+				EB1DB5402A0F7D063E7C7D133EDAFDD4 /* STPFormEncoder.h in Headers */,
+				C9662D08FE2873C8C35ED5A238E9A758 /* STPFormTextField.h in Headers */,
+				F3E62F64279AFD68450C5AA4CEA11730 /* STPIOSCheckoutWebViewAdapter.h in Headers */,
+				6F1BB2EEF07A7D3A4F4D218FFAD27592 /* STPOSXCheckoutWebViewAdapter.h in Headers */,
+				0F39E21C6D09BF0C47F197B8DC3C1ADD /* STPPaymentCardTextField.h in Headers */,
+				78028305E4BF964E99AD7B1F6E5B26EE /* STPPaymentCardTextFieldViewModel.h in Headers */,
+				9D843C9954DCF0A108041EAC08178A6B /* STPStrictURLProtocol.h in Headers */,
+				A31038D44B400B4C5907C630E090D376 /* STPToken.h in Headers */,
+				E8D7F1A5F5104D614F7590765FB461CC /* Stripe+ApplePay.h in Headers */,
+				234787CCD6CEB91F97C16C52DA51CC61 /* Stripe-umbrella.h in Headers */,
+				9E43F6AC37E2F6B2D70F947D3C276799 /* Stripe.h in Headers */,
+				DC57B3BE1C6AC30836330E430583B0C9 /* StripeError.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AFE19A17330601AA28CC5CCF06945F19 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				308B7B8EA5E9ED597E180A2388087C13 /* SCLAlertView-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE8F609FD9A244777DB6C3B5C55E822E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -558,46 +963,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F6F0167732FC167E811E41E95EA5A5FB /* Headers */ = {
+		E1B6EF71E6D932B0EA6B30DC2EF3EEA3 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB47231E3ED07CBCDDE702EF7EB147E3 /* Alamofire-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FACC8C9B44DC48522DF2BA79E5689424 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2D4E0B259386281660D51D59CE3E9752 /* Pods-Nelper-umbrella.h in Headers */,
+				A87CF0F1CE0C6E26EDC6E992B669A671 /* Pods-Nelper-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		2A521E8EF60E1F5B29C437D9768E9FE8 /* Pods-Nelper */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 94D92DD9911469C12CF8926F3E372503 /* Build configuration list for PBXNativeTarget "Pods-Nelper" */;
-			buildPhases = (
-				6B15951FB3FAEC69DFC19CFFFE9E1DAF /* Sources */,
-				C8DED5C25D4BF885695128051707197A /* Frameworks */,
-				FACC8C9B44DC48522DF2BA79E5689424 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FF5A82374CA43255FD7532E0BFCC9722 /* PBXTargetDependency */,
-				2BE3D8A92C15A9ED25249F6128DB2A52 /* PBXTargetDependency */,
-				B0DE8D81EC507F7A156094FEEABE040C /* PBXTargetDependency */,
-				016539CF1B8FD1BE3B67DE8F6045A985 /* PBXTargetDependency */,
-			);
-			name = "Pods-Nelper";
-			productName = "Pods-Nelper";
-			productReference = 62DED21DCD872792C9442A5F012F6D7F /* Pods_Nelper.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		3634ABA74A6F41DB3C7516A583373EE8 /* iCarousel */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5FD84838098E65920773FE786596F03E /* Build configuration list for PBXNativeTarget "iCarousel" */;
@@ -632,6 +1008,58 @@
 			productReference = 3DBD3F68F708AA6E6115CA4B4FCA0258 /* SnapKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		572C6226748BC6DD7EAD51BD05FA315F /* Stripe */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4459F7CAE18C39C70F69B7C96200A22B /* Build configuration list for PBXNativeTarget "Stripe" */;
+			buildPhases = (
+				63E59C25B2610D8AB693D49EA29D0034 /* Sources */,
+				23BECD14741031215FC933E6A97F061E /* Frameworks */,
+				7FAF5347BE2DADDD4F56B84D74F17A25 /* Headers */,
+				D5199AFBAC9178857C95889758A4BDC8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Stripe;
+			productName = Stripe;
+			productReference = 5543530789672B34F20129C471EDD83D /* Stripe.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A5611AAB1DBA9FD28FFA41AAE7ED22F6 /* Alamofire */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C6C433D15CCAA6DDDE2AB9DD9AD23013 /* Build configuration list for PBXNativeTarget "Alamofire" */;
+			buildPhases = (
+				BD69F6F165B4D50628812E86D1299496 /* Sources */,
+				E7A059D77BB6FD5370C511774202075B /* Frameworks */,
+				75BD0BFB249092728B6472273A032817 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Alamofire;
+			productName = Alamofire;
+			productReference = 7280BA42D5E2A0F693CAC996490523A4 /* Alamofire.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AF6821D9C60648A222A9ADD3A043CFEF /* SCLAlertView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4C637D4E91DD680B609AF25BBFBF08F /* Build configuration list for PBXNativeTarget "SCLAlertView" */;
+			buildPhases = (
+				97EFDFDDF370BC0CDE23A7F71D87405D /* Sources */,
+				72208E17618DE1EA714A5F1D04D3120F /* Frameworks */,
+				AFE19A17330601AA28CC5CCF06945F19 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SCLAlertView;
+			productName = SCLAlertView;
+			productReference = 968B781C50F726E26764B15D5264DEC7 /* SCLAlertView.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		B9A04D3C9B208813656510FDA8ADAE02 /* SwiftyJSON */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6AF45366202C75BFCB13738AB00EC1DF /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
@@ -649,21 +1077,27 @@
 			productReference = EB4CB50B42FA0112BD3CB968CB68AC93 /* SwiftyJSON.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		E7434C2BD40D11129415DA431C27C970 /* Alamofire */ = {
+		EDFD59591C4E0C67B7DB5C5902D66585 /* Pods-Nelper */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D69F90C8FCF8C637AC758E15745DF041 /* Build configuration list for PBXNativeTarget "Alamofire" */;
+			buildConfigurationList = 122A7C279BCB8892EFEC1A8C4FFA5FFE /* Build configuration list for PBXNativeTarget "Pods-Nelper" */;
 			buildPhases = (
-				C670943F936F8875CC59F5028D48EF29 /* Sources */,
-				BBAA706F3C37E88856E7AA5D42258B42 /* Frameworks */,
-				F6F0167732FC167E811E41E95EA5A5FB /* Headers */,
+				8EE71B40D3B2EACF38937C43692D3D54 /* Sources */,
+				5200B47A14F6095094D90A2698F6038A /* Frameworks */,
+				E1B6EF71E6D932B0EA6B30DC2EF3EEA3 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A1A5098250B2940A0C6979C2077275F2 /* PBXTargetDependency */,
+				612B47A9BB5EFCE6B70F9EF4D64B42CF /* PBXTargetDependency */,
+				D8CED337C036E32CC220BE27A8DE9B49 /* PBXTargetDependency */,
+				2710CC2C496DAADCA5446677DD7E1F77 /* PBXTargetDependency */,
+				83B07046B5AEB8F437BDC1C91C9D5946 /* PBXTargetDependency */,
+				96CD83A3B619CB0C06783E02D0E7391D /* PBXTargetDependency */,
 			);
-			name = Alamofire;
-			productName = Alamofire;
-			productReference = 0ACB7B3E7C899DC1BDF96190DF27A4EB /* Alamofire.framework */;
+			name = "Pods-Nelper";
+			productName = "Pods-Nelper";
+			productReference = F94408666C817C881D5944CA040C2637 /* Pods_Nelper.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -687,21 +1121,84 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E7434C2BD40D11129415DA431C27C970 /* Alamofire */,
-				2A521E8EF60E1F5B29C437D9768E9FE8 /* Pods-Nelper */,
+				A5611AAB1DBA9FD28FFA41AAE7ED22F6 /* Alamofire */,
+				EDFD59591C4E0C67B7DB5C5902D66585 /* Pods-Nelper */,
+				AF6821D9C60648A222A9ADD3A043CFEF /* SCLAlertView */,
 				4EDA452517A913B556C7860F490D5FD3 /* SnapKit */,
+				572C6226748BC6DD7EAD51BD05FA315F /* Stripe */,
 				B9A04D3C9B208813656510FDA8ADAE02 /* SwiftyJSON */,
 				3634ABA74A6F41DB3C7516A583373EE8 /* iCarousel */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		D5199AFBAC9178857C95889758A4BDC8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C4D6B3D024E0653FF417F63987E2CBD /* Images in Resources */,
+				39697EA47EF13A0E1E27DD11AA2FF88F /* stp_card_amex.png in Resources */,
+				C40FE162DC229B53C7897C032F2937B7 /* stp_card_amex@2x.png in Resources */,
+				AE0CCF29C47B9A103DAEC2AAC491ECC4 /* stp_card_amex@3x.png in Resources */,
+				958DE5D3945E3FDA14F5A624874A1329 /* stp_card_cvc.png in Resources */,
+				9B29A8BC30DCC0A8A15BF4E7DDC0F566 /* stp_card_cvc@2x.png in Resources */,
+				8333B7E6EC676BE7AE2EC467C7D69FDB /* stp_card_cvc@3x.png in Resources */,
+				C23CEFAB736B3E9CA813BBCFE07E1460 /* stp_card_cvc_amex.png in Resources */,
+				EB936C17670027BB15E18F176D65C1A7 /* stp_card_cvc_amex@2x.png in Resources */,
+				A5E327289670B2958D32D3E2340E4547 /* stp_card_cvc_amex@3x.png in Resources */,
+				280B4870D27F92AB4D24139B4C6FC2BD /* stp_card_diners.png in Resources */,
+				35496CB29ECD530D78C1A9546B005CEE /* stp_card_diners@2x.png in Resources */,
+				99788825437359E460842E4A1B0AE9A9 /* stp_card_diners@3x.png in Resources */,
+				A37CFB1D7E99BF34951B854ECF476430 /* stp_card_discover.png in Resources */,
+				BAAB9FDF27A256EDBD0CBDC477E1B7C1 /* stp_card_discover@2x.png in Resources */,
+				76C62425DD36BF54ED11B3609CAD4028 /* stp_card_discover@3x.png in Resources */,
+				E1594211658CCE277D8AD178B6676F82 /* stp_card_jcb.png in Resources */,
+				C8893B6F344A19720C65CBCB6855F4BB /* stp_card_jcb@2x.png in Resources */,
+				B7FE1E877FE473007E000AE0CF0A02FE /* stp_card_jcb@3x.png in Resources */,
+				83990B3470A031EC3C967AA68260EB49 /* stp_card_mastercard.png in Resources */,
+				99E794DB07FC6A0C494146DA5A7FDC5E /* stp_card_mastercard@2x.png in Resources */,
+				55CC3FE9DDDA6129CBF953A7B16B76D9 /* stp_card_mastercard@3x.png in Resources */,
+				DB5CFC31E37E4DF1883997DA5CD98671 /* stp_card_placeholder.png in Resources */,
+				C713A232916DB447659A451681743064 /* stp_card_placeholder@2x.png in Resources */,
+				AF142F2046030FA2C468E36FE0D3246C /* stp_card_placeholder@3x.png in Resources */,
+				BAD753E4819F75F282936F154D76ABE0 /* stp_card_placeholder_template.png in Resources */,
+				0217BBC55DE15ADE19E39376FEB220AC /* stp_card_placeholder_template@2x.png in Resources */,
+				863674ECD59DB65CCD267AF88E7F9939 /* stp_card_placeholder_template@3x.png in Resources */,
+				4AE18D3FF0E2A3D3F18586EB868F7B59 /* stp_card_visa.png in Resources */,
+				D511D3A515660EFA669E13DD13ABC84F /* stp_card_visa@2x.png in Resources */,
+				1D341E4EA92CD299280594206567BF73 /* stp_card_visa@3x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		6B15951FB3FAEC69DFC19CFFFE9E1DAF /* Sources */ = {
+		63E59C25B2610D8AB693D49EA29D0034 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF824AC58DC797D7E213405394E67B78 /* Pods-Nelper-dummy.m in Sources */,
+				87FD2D544337BF8B00CEF1A5D7B2AF1C /* STPAPIClient+ApplePay.m in Sources */,
+				10366B025442867FDEB6931AAE070F18 /* STPAPIClient.m in Sources */,
+				3A6AC8C6C33D5545B252EE8EE32820C8 /* STPAPIConnection.m in Sources */,
+				9AC7EB2FA1A3D3E0235ADE22EF850E87 /* STPBankAccount.m in Sources */,
+				D8D177F978FF26267544E15BC46C56E9 /* STPCard.m in Sources */,
+				800F8DC15421D5FD28BCD24872E4E374 /* STPCardValidator.m in Sources */,
+				1776215E2A33D439F674191D0E9E1716 /* STPCheckoutInternalUIWebViewController.m in Sources */,
+				E0504ADCE04A69EAB1A245B788144BB0 /* STPCheckoutOptions.m in Sources */,
+				9880D0B9BD9B93E8725FA5C533CBC4CD /* STPCheckoutViewController.m in Sources */,
+				BA201A562A74A940F0FC7889FD71ECB0 /* STPColorUtils.m in Sources */,
+				3BEB821EC767C6928D8BD8BC11721821 /* STPFormEncoder.m in Sources */,
+				E4693974492A84814E8306380E523DDC /* STPFormTextField.m in Sources */,
+				39F84148131A20AB9C9A4BD4CA969C00 /* STPIOSCheckoutWebViewAdapter.m in Sources */,
+				C0A4FD9E5AE658FA13E26DB6824F26EA /* STPOSXCheckoutWebViewAdapter.m in Sources */,
+				D8DAEEFE8E74046F9B1F5210EADB3225 /* STPPaymentCardTextField.m in Sources */,
+				015DF5D6AC22C9278B6C3FB019EFC827 /* STPPaymentCardTextFieldViewModel.m in Sources */,
+				70399FD7B569BAE9B044968B43C10D01 /* STPStrictURLProtocol.m in Sources */,
+				17289BE73D2403B06C31079AFB85AA5D /* STPToken.m in Sources */,
+				03102DC56DC7FFB978DB079A8205CCD6 /* Stripe+ApplePay.m in Sources */,
+				740E1FD5967879518C202A1EA9AAFABB /* Stripe-dummy.m in Sources */,
+				63FB06B8E152D78C2004918013BF4932 /* StripeError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,12 +1211,48 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8EE71B40D3B2EACF38937C43692D3D54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41E17BC7E73D20AACC6E9246D2C7FAEE /* Pods-Nelper-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		97EFDFDDF370BC0CDE23A7F71D87405D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57D94DD840B4C10E963E06ADE3D6A768 /* Info.plist in Sources */,
+				038D9ABD44773E03808DAEC321B3F2A4 /* SCLAlertView-dummy.m in Sources */,
+				551485ADE705C1ED85837CC535D3D14B /* SCLAlertView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B5A1DBA438165C92401162C362D91E3E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C28337DD2E94B98F7AEE739EF3674F02 /* iCarousel-dummy.m in Sources */,
 				10C86995D04A48756AE4797CFFEDD69A /* iCarousel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD69F6F165B4D50628812E86D1299496 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA36C463FD7CA2CD29E4CD0DD3AB9017 /* Alamofire-dummy.m in Sources */,
+				85B585D2EF88A0BB768505E12B37E06D /* Alamofire.swift in Sources */,
+				83F8E3492F1B03CA56B66B92266D7D9A /* Download.swift in Sources */,
+				D616DFC8B4F09C3BC1AC8BDE90044487 /* Manager.swift in Sources */,
+				E9DBCB5FFCB1C5110322F29339959673 /* MultipartFormData.swift in Sources */,
+				29FBDC9926B6867EE6D3B8BD90678CA8 /* ParameterEncoding.swift in Sources */,
+				B0D6DD99B692EAE0BCBEA0E1603FE17B /* Request.swift in Sources */,
+				0798F11B956A0AFE674EB612F2A90476 /* ResponseSerialization.swift in Sources */,
+				7E460666618684F20BC08D3BC31D1DB0 /* ServerTrustPolicy.swift in Sources */,
+				7C412372F540B41259BE08A9F044802F /* Upload.swift in Sources */,
+				0183DA014B5EA41F740CF2A9801C2953 /* Validation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,54 +1276,76 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C670943F936F8875CC59F5028D48EF29 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C6C44F4C69365631BD85260E733243B6 /* Alamofire-dummy.m in Sources */,
-				4DA66F017666BE22625C4BF279AAC9D9 /* Alamofire.swift in Sources */,
-				D378A7B4337F6DD88492FD4B683D4EA0 /* Download.swift in Sources */,
-				0E0F011750543567AC8668B6B46BB72F /* Manager.swift in Sources */,
-				0358BFDCC6A7061F44E34EDBAF8749A1 /* MultipartFormData.swift in Sources */,
-				CC00D7C67E762F1ACC3804B9AF2CA83F /* ParameterEncoding.swift in Sources */,
-				C324C668FB72CC4792F0ADCD1847DCE1 /* Request.swift in Sources */,
-				9EE426E17255930DF3CAB650F1E4B28A /* ResponseSerialization.swift in Sources */,
-				598BB1D4CCF994FDD8B5D7CEC8703309 /* ServerTrustPolicy.swift in Sources */,
-				A44BBD15727EF374BF1CCD1F4BEFFE75 /* Upload.swift in Sources */,
-				BE0EF1E5CB747A93C9778B72F09D67E8 /* Validation.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		016539CF1B8FD1BE3B67DE8F6045A985 /* PBXTargetDependency */ = {
+		2710CC2C496DAADCA5446677DD7E1F77 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = iCarousel;
-			target = 3634ABA74A6F41DB3C7516A583373EE8 /* iCarousel */;
-			targetProxy = 6D4268C108C068D702BECBD4F5E90BE7 /* PBXContainerItemProxy */;
+			name = Stripe;
+			target = 572C6226748BC6DD7EAD51BD05FA315F /* Stripe */;
+			targetProxy = 84846F3FB184B441E8539A8B6A5262A8 /* PBXContainerItemProxy */;
 		};
-		2BE3D8A92C15A9ED25249F6128DB2A52 /* PBXTargetDependency */ = {
+		612B47A9BB5EFCE6B70F9EF4D64B42CF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = SnapKit;
-			target = 4EDA452517A913B556C7860F490D5FD3 /* SnapKit */;
-			targetProxy = B99FB027AB0CF9993831D5071098AA60 /* PBXContainerItemProxy */;
+			name = SCLAlertView;
+			target = AF6821D9C60648A222A9ADD3A043CFEF /* SCLAlertView */;
+			targetProxy = 4F4B04AB669BE623E7DD0CFD71DBC8B0 /* PBXContainerItemProxy */;
 		};
-		B0DE8D81EC507F7A156094FEEABE040C /* PBXTargetDependency */ = {
+		83B07046B5AEB8F437BDC1C91C9D5946 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SwiftyJSON;
 			target = B9A04D3C9B208813656510FDA8ADAE02 /* SwiftyJSON */;
-			targetProxy = 6B6DBE6CE1C4F552AE9CEB2AA31F808F /* PBXContainerItemProxy */;
+			targetProxy = 8929E78BD670ED6D99B761EF3906D579 /* PBXContainerItemProxy */;
 		};
-		FF5A82374CA43255FD7532E0BFCC9722 /* PBXTargetDependency */ = {
+		96CD83A3B619CB0C06783E02D0E7391D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = iCarousel;
+			target = 3634ABA74A6F41DB3C7516A583373EE8 /* iCarousel */;
+			targetProxy = B5E1206F8DD226B6A47F7CD117683469 /* PBXContainerItemProxy */;
+		};
+		A1A5098250B2940A0C6979C2077275F2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Alamofire;
-			target = E7434C2BD40D11129415DA431C27C970 /* Alamofire */;
-			targetProxy = 42D15A406267A87E0CB86CCF97F92511 /* PBXContainerItemProxy */;
+			target = A5611AAB1DBA9FD28FFA41AAE7ED22F6 /* Alamofire */;
+			targetProxy = BF2080372D6C8F72D81CF23715E26252 /* PBXContainerItemProxy */;
+		};
+		D8CED337C036E32CC220BE27A8DE9B49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SnapKit;
+			target = 4EDA452517A913B556C7860F490D5FD3 /* SnapKit */;
+			targetProxy = 9E19E3527AA541FC92FDB36EAD72F8A4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		0D21441F6C321843A13E9F87EBFC68F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 898DAA91630E95609F2B1DDE764620CF /* SCLAlertView-Private.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 0.4.1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 0.4.1;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SCLAlertView/SCLAlertView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SCLAlertView/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SCLAlertView/SCLAlertView.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SCLAlertView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		27B2EFB16A70D9777262BA9EF7DA2FE4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C2D2E84495E4CE9A0D0AD07121678F09 /* SwiftyJSON-Private.xcconfig */;
@@ -819,37 +1374,9 @@
 			};
 			name = Release;
 		};
-		5303453A472A5ABB3AAA415C89FE3477 /* Release */ = {
+		4A142F34D4D43581932D0D6DE98F4333 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2E7ABC75A6C4C1861C7FCBD09472605C /* Alamofire-Private.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1.3.0;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Alamofire;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		53877C0D5731B88A444B115FA3C4CB8C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2E7ABC75A6C4C1861C7FCBD09472605C /* Alamofire-Private.xcconfig */;
+			baseConfigurationReference = D249E9F11297541927E361DEC78C2FE2 /* Alamofire-Private.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -875,6 +1402,92 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		6F60B2D923EFB0DDA3D04F66D02C94CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0BC2FA00718CB3D67E7E17A09FAF04A1 /* Pods-Nelper.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Nelper/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-Nelper/Pods-Nelper.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_Nelper;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		974477B0B3CDABF306FD9E0080114F77 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8F0BAF9BC8E39ADED2C053D0B4756FD /* Stripe-Private.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 5.1.2;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 5;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Stripe/Stripe-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Stripe/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Stripe/Stripe.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Stripe;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		A12DC2E2A1E2EEFDE58B33DCD939C2B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D249E9F11297541927E361DEC78C2FE2 /* Alamofire-Private.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1.3.0;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -914,67 +1527,6 @@
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
-		};
-		BE110E7E75B059ADBD3A8E1D65447728 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 600CB63AA9747139FF575479A781C746 /* Pods-Nelper.debug.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Nelper/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Pods-Nelper/Pods-Nelper.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_Nelper;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		C03A10B442B08899655BD6860F059D8A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F1F9FB566935FF3DFDFCA4ABB2492D1A /* Pods-Nelper.release.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Nelper/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Pods-Nelper/Pods-Nelper.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_Nelper;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		C06F2BB2FCF0D8D701F8BF8742C2EDCC /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1032,6 +1584,66 @@
 			};
 			name = Debug;
 		};
+		D831B047970328EA68A94CF91CDD0E3A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 898DAA91630E95609F2B1DDE764620CF /* SCLAlertView-Private.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 0.4.1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 0.4.1;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SCLAlertView/SCLAlertView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SCLAlertView/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SCLAlertView/SCLAlertView.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = SCLAlertView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DBF2B2D43FAF3A14D8F8E61BED0AC36F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5EF0B8D494FCD52A1A6F9779452943F /* Pods-Nelper.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Nelper/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-Nelper/Pods-Nelper.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_Nelper;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		E081D3E63C8947F32BFFE74055933A3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C2D2E84495E4CE9A0D0AD07121678F09 /* SwiftyJSON-Private.xcconfig */;
@@ -1055,6 +1667,34 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E523A3965DB0D165CCE1612BEA011F3D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8F0BAF9BC8E39ADED2C053D0B4756FD /* Stripe-Private.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 5.1.2;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 5;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Stripe/Stripe-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Stripe/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Stripe/Stripe.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Stripe;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1165,11 +1805,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		122A7C279BCB8892EFEC1A8C4FFA5FFE /* Build configuration list for PBXNativeTarget "Pods-Nelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBF2B2D43FAF3A14D8F8E61BED0AC36F /* Debug */,
+				6F60B2D923EFB0DDA3D04F66D02C94CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */,
 				FB45FFD90572718D82AB9092B750F0CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4459F7CAE18C39C70F69B7C96200A22B /* Build configuration list for PBXNativeTarget "Stripe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E523A3965DB0D165CCE1612BEA011F3D /* Debug */,
+				974477B0B3CDABF306FD9E0080114F77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1192,20 +1850,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94D92DD9911469C12CF8926F3E372503 /* Build configuration list for PBXNativeTarget "Pods-Nelper" */ = {
+		C6C433D15CCAA6DDDE2AB9DD9AD23013 /* Build configuration list for PBXNativeTarget "Alamofire" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BE110E7E75B059ADBD3A8E1D65447728 /* Debug */,
-				C03A10B442B08899655BD6860F059D8A /* Release */,
+				4A142F34D4D43581932D0D6DE98F4333 /* Debug */,
+				A12DC2E2A1E2EEFDE58B33DCD939C2B6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D69F90C8FCF8C637AC758E15745DF041 /* Build configuration list for PBXNativeTarget "Alamofire" */ = {
+		F4C637D4E91DD680B609AF25BBFBF08F /* Build configuration list for PBXNativeTarget "SCLAlertView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				53877C0D5731B88A444B115FA3C4CB8C /* Debug */,
-				5303453A472A5ABB3AAA415C89FE3477 /* Release */,
+				D831B047970328EA68A94CF91CDD0E3A /* Debug */,
+				0D21441F6C321843A13E9F87EBFC68F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

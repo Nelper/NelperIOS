@@ -151,6 +151,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.height.equalTo((self.arrayOfApplicants.count*120)+70)
 		}
 		
+		
 		var pendingApplicantIcon = UIImageView()
 		activeApplicantsContainer.addSubview(pendingApplicantIcon)
 		pendingApplicantIcon.image = UIImage(named: "pending.png")

@@ -11,3 +11,4 @@
 #import "iCarousel.h"
 #import <LayerKit/LayerKit.h>
 #import <Atlas.h>
+#import <Stripe/Stripe.h>

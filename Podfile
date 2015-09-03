@@ -9,7 +9,8 @@ pod 'SnapKit'
 pod 'SwiftyJSON'
 pod 'iCarousel'
 pod 'LayerKit'
-
+pod 'Stripe'
+pod 'SCLAlertView'
 
 use_frameworks!
 
