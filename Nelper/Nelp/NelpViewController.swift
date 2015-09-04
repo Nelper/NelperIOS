@@ -114,7 +114,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.requestWhenInUseAuthorization()
 		self.locationManager.startUpdatingLocation()
-		self.locationManager.distanceFilter = 20
+		self.locationManager.distanceFilter = 40
 		
 		var mapview = MKMapView()
 		
@@ -250,6 +250,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 				println("Error:" + error.localizedDescription)
 				return
 				//fuck
+			}else {
+				println("worked")
 			}
 			
 		})
@@ -257,13 +259,13 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
 		
-		var userLocation: CLLocation = self.locationManager.location
-		self.currentLocation = userLocation
-		var userLocationForCenter = userLocation.coordinate
-		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
-		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
-		self.mapView.setRegion(locationToZoom, animated: true)
-		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
+//		var userLocation: CLLocation = self.locationManager.location
+//		self.currentLocation = userLocation
+//		var userLocationForCenter = userLocation.coordinate
+//		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+//		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
+//		self.mapView.setRegion(locationToZoom, animated: true)
+//		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
 		
 	}
 	

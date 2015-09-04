@@ -12,6 +12,17 @@ class FilterSortViewController: UIViewController{
 	
 	private var kFilterCategorySize = 65
 	private var kFilterCategorySpacing = 12
+	var technologyButton: UIButton!
+	var businessButton: UIButton!
+	var cleaningButton: UIButton!
+	var gardeningButton: UIButton!
+	var otherButton: UIButton!
+	var handyworkButton: UIButton!
+	var multimediaButton: UIButton!
+	var distanceCheckBox: UIButton!
+	var priceCheckBox: UIButton!
+	var distanceStepper: UIStepper!
+	var priceStepper: UIStepper!
 	
 		//Initialization
 	
@@ -140,7 +151,10 @@ class FilterSortViewController: UIViewController{
 		}
 		
 		var technologyButton = UIButton()
+		technologyButton.addTarget(self, action: "didTapTechnology:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.technologyButton = technologyButton
 		firstRowOfCategories.addSubview(technologyButton)
+		technologyButton.alpha = 0.3
 		technologyButton.setBackgroundImage(UIImage(named: "technology"), forState: UIControlState.Normal)
 		technologyButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(firstRowOfCategories.snp_centerY)
@@ -148,9 +162,15 @@ class FilterSortViewController: UIViewController{
 			make.height.equalTo(kFilterCategorySize)
 			make.width.equalTo(kFilterCategorySize)
 		}
+		technologyButton.layer.cornerRadius = CGFloat(kFilterCategorySize / 2)
+		technologyButton.layer.borderColor = darkGrayDetails.CGColor
+		technologyButton.layer.borderWidth = 0
 		
 		var multimediaButton = UIButton()
+		multimediaButton.addTarget(self, action: "didTapMultimedia:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.multimediaButton = multimediaButton
 		firstRowOfCategories.addSubview(multimediaButton)
+		multimediaButton.alpha = 0.3
 		multimediaButton.setBackgroundImage(UIImage(named: "multimedia"), forState: UIControlState.Normal)
 		multimediaButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(firstRowOfCategories.snp_centerY)
@@ -159,8 +179,15 @@ class FilterSortViewController: UIViewController{
 			make.width.equalTo(kFilterCategorySize)
 		}
 		
+		multimediaButton.layer.cornerRadius = CGFloat(kFilterCategorySize / 2)
+		multimediaButton.layer.borderColor = darkGrayDetails.CGColor
+		multimediaButton.layer.borderWidth = 0
+		
 		var handyWorkButton = UIButton()
+		handyWorkButton.addTarget(self, action: "didTapHandywork:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.handyworkButton = handyWorkButton
 		firstRowOfCategories.addSubview(handyWorkButton)
+		handyworkButton.alpha = 0.3
 		handyWorkButton.setBackgroundImage(UIImage(named: "handywork"), forState: UIControlState.Normal)
 		handyWorkButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(firstRowOfCategories.snp_centerY)
@@ -169,8 +196,15 @@ class FilterSortViewController: UIViewController{
 			make.width.equalTo(kFilterCategorySize)
 		}
 		
+		handyWorkButton.layer.cornerRadius = CGFloat(kFilterCategorySize / 2)
+		handyWorkButton.layer.borderColor = darkGrayDetails.CGColor
+		handyWorkButton.layer.borderWidth = 0
+		
 		var gardeningButton = UIButton()
+		gardeningButton.addTarget(self, action: "didTapGardening:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.gardeningButton = gardeningButton
 		firstRowOfCategories.addSubview(gardeningButton)
+		gardeningButton.alpha = 0.3
 		gardeningButton.setBackgroundImage(UIImage(named: "gardening"), forState: UIControlState.Normal)
 		gardeningButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(firstRowOfCategories.snp_centerY)
@@ -178,6 +212,10 @@ class FilterSortViewController: UIViewController{
 			make.height.equalTo(kFilterCategorySize)
 			make.width.equalTo(kFilterCategorySize)
 		}
+		
+		gardeningButton.layer.cornerRadius = CGFloat(kFilterCategorySize / 2)
+		gardeningButton.layer.borderColor = darkGrayDetails.CGColor
+		gardeningButton.layer.borderWidth = 0
 		
 		var secondRowOfCategories = UIView()
 		filtersContainer.addSubview(secondRowOfCategories)
@@ -190,7 +228,10 @@ class FilterSortViewController: UIViewController{
 		}
 		
 		var businessButton = UIButton()
+		businessButton.addTarget(self, action: "didTapBusiness:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.businessButton = businessButton
 		secondRowOfCategories.addSubview(businessButton)
+		businessButton.alpha = 0.3
 		businessButton.setBackgroundImage(UIImage(named: "business"), forState: UIControlState.Normal)
 		businessButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(secondRowOfCategories.snp_centerY)
@@ -199,8 +240,15 @@ class FilterSortViewController: UIViewController{
 			make.width.equalTo(kFilterCategorySize)
 		}
 		
+		businessButton.layer.cornerRadius = CGFloat(kFilterCategorySize / 2)
+		businessButton.layer.borderColor = darkGrayDetails.CGColor
+		businessButton.layer.borderWidth = 0
+		
 		var cleaningButton = UIButton()
+		cleaningButton.addTarget(self, action: "didTapCleaning:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.cleaningButton = cleaningButton
 		secondRowOfCategories.addSubview(cleaningButton)
+		cleaningButton.alpha = 0.3
 		cleaningButton.setBackgroundImage(UIImage(named: "housecleaning"), forState: UIControlState.Normal)
 		cleaningButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(secondRowOfCategories.snp_centerY)
@@ -209,8 +257,15 @@ class FilterSortViewController: UIViewController{
 			make.width.equalTo(kFilterCategorySize)
 		}
 		
+		cleaningButton.layer.cornerRadius = CGFloat(kFilterCategorySize / 2)
+		cleaningButton.layer.borderColor = darkGrayDetails.CGColor
+		cleaningButton.layer.borderWidth = 0
+		
 		var otherButton = UIButton()
+		otherButton.addTarget(self, action: "didTapOther:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.otherButton = otherButton
 		secondRowOfCategories.addSubview(otherButton)
+		otherButton.alpha = 0.3
 		otherButton.setBackgroundImage(UIImage(named: "other"), forState: UIControlState.Normal)
 		otherButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(secondRowOfCategories.snp_centerY)
@@ -219,9 +274,15 @@ class FilterSortViewController: UIViewController{
 			make.width.equalTo(kFilterCategorySize)
 		}
 		
+		otherButton.layer.cornerRadius = CGFloat(kFilterCategorySize / 2)
+		otherButton.layer.borderColor = darkGrayDetails.CGColor
+		otherButton.layer.borderWidth = 0
+		
 		
 		//Distance Filter
 		var distanceCheckBox = UIButton()
+		distanceCheckBox.addTarget(self, action: "didTapDistanceCheckBox:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.distanceCheckBox = distanceCheckBox
 		filtersContainer.addSubview(distanceCheckBox)
 		distanceCheckBox.setBackgroundImage(UIImage(named: "checkbox_unchecked"), forState: UIControlState.Normal)
 		distanceCheckBox.setBackgroundImage(UIImage(named: "checkbox_checked"), forState: UIControlState.Selected)
@@ -235,7 +296,7 @@ class FilterSortViewController: UIViewController{
 		var distanceLabel = UILabel()
 		filtersContainer.addSubview(distanceLabel)
 		distanceLabel.text = "Distance within:"
-		distanceLabel.textColor = blueGrayColor
+		distanceLabel.textColor = blackNelpyColor
 		distanceLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		distanceLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(distanceCheckBox.snp_right).offset(4)
@@ -243,6 +304,9 @@ class FilterSortViewController: UIViewController{
 		}
 		
 		var distanceStepper = UIStepper()
+		self.distanceStepper = distanceStepper
+		distanceStepper.enabled = false
+		distanceStepper.alpha = 0.3
 		filtersContainer.addSubview(distanceStepper)
 		distanceStepper.tintColor = blueGrayColor
 		distanceStepper.snp_makeConstraints { (make) -> Void in
@@ -254,7 +318,6 @@ class FilterSortViewController: UIViewController{
 		
 		var distanceValueLabel = UILabel()
 		filtersContainer.addSubview(distanceValueLabel)
-		distanceValueLabel.text = "5km"
 		distanceValueLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		distanceValueLabel.textColor = blackNelpyColor
 		distanceValueLabel.snp_makeConstraints { (make) -> Void in
@@ -265,11 +328,13 @@ class FilterSortViewController: UIViewController{
 		//Price Filter
 		
 		var priceCheckBox = UIButton()
+		priceCheckBox.addTarget(self, action: "didTapPriceCheckBox:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.priceCheckBox = priceCheckBox
 		filtersContainer.addSubview(priceCheckBox)
 		priceCheckBox.setBackgroundImage(UIImage(named: "checkbox_unchecked"), forState: UIControlState.Normal)
 		priceCheckBox.setBackgroundImage(UIImage(named: "checkbox_checked"), forState: UIControlState.Selected)
 		priceCheckBox.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(distanceCheckBox.snp_bottom).offset(20)
+			make.top.equalTo(distanceCheckBox.snp_bottom).offset(30)
 			make.left.equalTo(filtersLabel.snp_left)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
@@ -278,7 +343,7 @@ class FilterSortViewController: UIViewController{
 		var priceLabel = UILabel()
 		filtersContainer.addSubview(priceLabel)
 		priceLabel.text = "Minimum Price:"
-		priceLabel.textColor = blueGrayColor
+		priceLabel.textColor = blackNelpyColor
 		priceLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		priceLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(priceCheckBox.snp_right).offset(4)
@@ -286,6 +351,9 @@ class FilterSortViewController: UIViewController{
 		}
 		
 		var priceStepper = UIStepper()
+		self.priceStepper = priceStepper
+		priceStepper.alpha = 0.3
+		priceStepper.enabled = false
 		filtersContainer.addSubview(priceStepper)
 		priceStepper.tintColor = blueGrayColor
 		priceStepper.snp_makeConstraints { (make) -> Void in
@@ -297,7 +365,6 @@ class FilterSortViewController: UIViewController{
 		
 		var priceValueLabel = UILabel()
 		filtersContainer.addSubview(priceValueLabel)
-		priceValueLabel.text = "20$"
 		priceValueLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		priceValueLabel.textColor = blackNelpyColor
 		priceValueLabel.snp_makeConstraints { (make) -> Void in
@@ -313,4 +380,116 @@ class FilterSortViewController: UIViewController{
 	func backButtonTapped(sender:UIButton){
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
+	
+	func didTapDistanceCheckBox(sender:UIButton!){
+		self.distanceCheckBox.selected = !self.distanceCheckBox.selected
+		if self.distanceCheckBox.selected {
+				self.distanceStepper.enabled = true
+			self.distanceStepper.alpha = 1
+		}else{
+			self.distanceStepper.enabled = false
+			self.distanceStepper.alpha = 0.3
+		}
+	}
+	
+	func didTapPriceCheckBox(sender:UIButton!){
+		self.priceCheckBox.selected = !self.priceCheckBox.selected
+		if self.priceCheckBox.selected{
+			self.priceStepper.enabled = true
+			self.priceStepper.alpha = 1
+		}else {
+			self.priceStepper.enabled = false
+			self.priceStepper.alpha = 0.3
+		}
+	}
+	
+	func didTapTechnology(sender:UIButton!){
+		self.technologyButton.selected = !self.technologyButton.selected
+		if self.technologyButton.selected == true{
+//		self.technologyButton.layer.borderWidth = 3
+			self.technologyButton.alpha = 1
+
+		}else{
+//			self.technologyButton.layer.borderWidth = 0
+			self.technologyButton.alpha = 0.3
+
+		}
+	}
+	
+	func didTapBusiness(sender:UIButton!){
+		self.businessButton.selected = !self.businessButton.selected
+		if self.businessButton.selected == true{
+//			self.businessButton.layer.borderWidth = 3
+			self.businessButton.alpha = 1
+
+		}else{
+//			self.businessButton.layer.borderWidth = 0
+			self.businessButton.alpha = 0.3
+
+		}
+	}
+	
+	func didTapGardening(sender:UIButton!){
+		self.gardeningButton.selected = !self.gardeningButton.selected
+		if self.gardeningButton.selected == true{
+//			self.gardeningButton.layer.borderWidth = 3
+			self.gardeningButton.alpha = 1
+
+		}else{
+//			self.gardeningButton.layer.borderWidth = 0
+			self.gardeningButton.alpha = 0.3
+
+		}
+	}
+	
+	func didTapCleaning(sender:UIButton!){
+		self.cleaningButton.selected = !self.cleaningButton.selected
+		if self.cleaningButton.selected == true{
+//			self.cleaningButton.layer.borderWidth = 3
+			self.cleaningButton.alpha = 1
+
+		}else{
+//			self.cleaningButton.layer.borderWidth = 0
+			self.cleaningButton.alpha = 0.3
+
+		}
+	}
+	
+	func didTapOther(sender:UIButton!){
+		self.otherButton.selected = !self.otherButton.selected
+		if self.otherButton.selected == true{
+//			self.otherButton.layer.borderWidth = 3
+			self.otherButton.alpha = 1
+
+		}else{
+//			self.otherButton.layer.borderWidth = 0
+			self.otherButton.alpha = 0.3
+
+		}
+	}
+	
+	func didTapMultimedia(sender:UIButton!){
+		self.multimediaButton.selected = !self.multimediaButton.selected
+		if self.multimediaButton.selected == true{
+				self.multimediaButton.alpha = 1
+//			self.multimediaButton.layer.borderWidth = 3
+		}else{
+//			self.multimediaButton.layer.borderWidth = 0
+			self.multimediaButton.alpha = 0.3
+
+		}
+	}
+	
+	func didTapHandywork(sender:UIButton!){
+		self.handyworkButton.selected = !self.handyworkButton.selected
+		if self.handyworkButton.selected == true{
+			self.handyworkButton.alpha = 1
+//			self.handyworkButton.layer.borderWidth = 3
+		}else{
+			self.handyworkButton.alpha = 0.3
+
+//			self.handyworkButton.layer.borderWidth = 0
+		}
+	}
+
 }
