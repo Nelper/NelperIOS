@@ -28,7 +28,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var deniedApplicantsTableView: UITableView!
 	var arrayOfApplications:[NelpTaskApplication]!
 	var arrayOfAllApplicants:[User]!
-	var taskSectionContainer:UIImageView!
+	var taskSectionContainer:UIView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -82,7 +82,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//Task Section
 		
-		var taskSectionContainer = UIImageView()
+		var taskSectionContainer = UIView()
 		self.taskSectionContainer = taskSectionContainer
 		self.contentView.addSubview(taskSectionContainer)
 		taskSectionContainer.snp_makeConstraints { (make) -> Void in
@@ -269,7 +269,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		mockView.backgroundColor = UIColor.clearColor()
 		self.contentView.addSubview(mockView)
 		mockView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(deniedApplicantsContainer.snp_bottom)
 			make.bottom.equalTo(contentView.snp_bottom)
 			make.centerX.equalTo(contentView.snp_centerX)
 			make.height.equalTo(10)
@@ -348,15 +347,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 	}
 	
-	func setHeaderImage(){
-		if self.task.pictures != nil{
-			if(!self.task.pictures!.isEmpty){
-				getPictures(self.task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
-					self.taskSectionContainer.image = imageReturned
-				})}}
-		self.taskSectionContainer.contentMode = .ScaleAspectFill
-		self.taskSectionContainer.clipsToBounds = true
-	}
+
 	
 	//Table View Delegate Methods
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

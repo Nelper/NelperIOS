@@ -49,7 +49,8 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-		
+		self.loadData()
+
 	}
 	
 	//View Creation

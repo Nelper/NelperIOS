@@ -65,8 +65,11 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.createTaskTableView()
 		self.loadData()
 		self.extendedLayoutIncludesOpaqueBars = true
+	}
 
-		
+	override func viewDidAppear(animated: Bool) {
+		self.loadData()
+
 	}
 	
 	func createTaskTableView(){
@@ -315,7 +318,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.sortBy = sort
 		print(filters!)
 		self.sortBy = sort
-		self.loadDataWithFilters(filters, sort: sort, minPrice:Double?, maxDistance:Double?)
+		self.loadDataWithFilters(filters, sort: sort, minPrice: minPrice, maxDistance: maxDistance)
 	}
 	
 	//IBActions
