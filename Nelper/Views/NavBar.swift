@@ -21,7 +21,7 @@ class NavBar: UINavigationBar {
 			if let value = backButton {
 				self.backButtonView?.removeFromSuperview()
 				self.backButtonView = value
-				self.backButtonView?.setTitle("   ", forState: UIControlState.Normal)
+				self.backButtonView?.setTitle("    ", forState: UIControlState.Normal)
 				self.backButtonView?.setTitleColor(blueGrayColor, forState: UIControlState.Normal)
 				self.backButtonView?.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 18)
 				self.backButtonView?.contentEdgeInsets = UIEdgeInsets(top: 0, left: 26, bottom: 0, right: 0)

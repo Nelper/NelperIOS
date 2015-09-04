@@ -37,7 +37,6 @@ class NelpTasksTableViewCell: UITableViewCell {
 		let cellView = UIView()
 		cellView.backgroundColor = whiteGrayColor
 		backView.addSubview(cellView)
-//		cellView.layer.cornerRadius = 6
 		cellView.layer.borderWidth = 1
 		cellView.layer.borderColor = darkGrayDetails.CGColor
 		cellView.layer.masksToBounds = true

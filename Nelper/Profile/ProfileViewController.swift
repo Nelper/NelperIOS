@@ -43,13 +43,13 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		createMyTasksTableView()
 		createMyApplicationsTableView()
 		myTasksSegmentButton.selected = true
-		getFacebookInfos()
+		setProfilePicture()
 		adjustUI()
-
+		
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-		loadData()
+		
 	}
 	
 	//View Creation
@@ -170,7 +170,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 			make.right.equalTo(containerView.snp_right)
 			make.height.equalTo(profileView.snp_height).dividedBy(2.75)
 		}
-
+		
 		var firstHalf = UIView()
 		segmentContainer.addSubview(firstHalf)
 		firstHalf.snp_makeConstraints { (make) -> Void in
@@ -255,8 +255,8 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 			make.bottom.equalTo(self.tabBarView.snp_top)
 		}
 	}
-
-
+	
+	
 	
 	func createMyTasksTableView(){
 		
@@ -265,8 +265,8 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		let tableView = UITableView()
 		tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
 		tableView.contentInset = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
-
-
+		
+		
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.registerClass(NelpTasksTableViewCell.classForCoder(), forCellReuseIdentifier: NelpTasksTableViewCell.reuseIdentifier)
@@ -315,47 +315,34 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	func adjustUI() {
 		self.extendedLayoutIncludesOpaqueBars = true
 		self.navBar.setTitle("Nelp Center")
-
-
+		
 	}
 	
 	//	DATA
 	
-//	func setProfilePicture() {
-//		
-//		var image = UIImage(named: "noProfilePicture")
-//		
-//		if (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile! != nil) {
-//			var profilePic = (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile)!
-//			request(.GET,profilePic.url!).response() {
-//				(_, _, data, _) in
-//				var image = UIImage(data: data as NSData!)
-//				self.profilePicture.image = image
-//			}
-//			
-//		} else if (PFUser.currentUser()!.objectForKey("pictureURL") as? String! != nil) {
-//			var profilePic = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
-//			request(.GET,profilePic).response() {
-//				(_, _, data, _) in
-//				var image = UIImage(data: data as NSData!)
-//				self.profilePicture.image = image
-//			}
-//			
-//		}
-//		
-//		self.profilePicture.image = image
-//	}
-	
-	func getFacebookInfos() {
+	func setProfilePicture() {
 		
-		var fbProfilePicture = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
-		request(.GET,fbProfilePicture).response(){
-			(_, _, data, _) in
-			var image = UIImage(data: data as NSData!)
-			self.profilePicture.image = image
+		var image = UIImage(named: "noProfilePicture")
+		
+		if PFUser.currentUser()!.objectForKey("customPicture") != nil {
+			var profilePic = (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile)!
+			request(.GET,profilePic.url!).response() {
+				(_, _, data, _) in
+				var image = UIImage(data: data as NSData!)
+				self.profilePicture.image = image
+			}
+			
+		} else if PFUser.currentUser()!.objectForKey("pictureURL") != nil {
+			var profilePic = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
+			request(.GET,profilePic).response() {
+				(_, _, data, _) in
+				var image = UIImage(data: data as NSData!)
+				self.profilePicture.image = image
+			}
 		}
+		
+		self.profilePicture.image = image
 	}
-	
 	
 	func onPullToRefresh() {
 		loadData()
@@ -374,7 +361,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		}
 		
 		ApiHelper.listMyNelpApplicationsWithBlock { (nelpApplications: [NelpTaskApplication]?, error: NSError?) -> Void in
-			if error != nil{
+			if error != nil {
 				
 			} else {
 				self.nelpApplications = nelpApplications!
@@ -387,9 +374,9 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	//DELEGATE METHODS
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		if(tableView == self.myTasksTableView){
+		if(tableView == self.myTasksTableView) {
 			return nelpTasks.count
-		}else if (tableView == self.myApplicationsTableView){
+		} else if (tableView == self.myApplicationsTableView) {
 			return nelpApplications.count
 		}
 		return 0
@@ -408,12 +395,12 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 				
 				return cellTask
 			}
-		}else if (tableView == myApplicationsTableView) {
+		} else if (tableView == myApplicationsTableView) {
 			if(!self.nelpApplications.isEmpty) {
 				let cellApplication = tableView.dequeueReusableCellWithIdentifier(NelpApplicationsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpApplicationsTableViewCell
 				
 				let nelpApplication = self.nelpApplications[indexPath.item]
-				if self.currentLocation != nil{
+				if self.currentLocation != nil {
 					cellApplication.setLocation(self.currentLocation!, nelpApplication: nelpApplication)
 				}
 				cellApplication.setNelpApplication(nelpApplication)
@@ -431,19 +418,19 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 			var task = nelpTasks[indexPath.row]
 			var nextVC = MyTaskDetailsViewController(findNelpTask: task)
 			
-			dispatch_async(dispatch_get_main_queue()){
-			self.presentViewController(nextVC, animated: true, completion: nil)
+			dispatch_async(dispatch_get_main_queue()) {
+				self.presentViewController(nextVC, animated: true, completion: nil)
 			}
-		}else if (tableView == myApplicationsTableView) {
+		} else if (tableView == myApplicationsTableView) {
 			var application = nelpApplications[indexPath.row]
 			var nextVC = MyApplicationDetailsView(poster: application.task.user, application: application)
 			
-			dispatch_async(dispatch_get_main_queue()){
+			dispatch_async(dispatch_get_main_queue()) {
 				self.presentViewController(nextVC, animated: true, completion: nil)
 			}
 			
 		}
-
+		
 	}
 	
 	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -458,9 +445,9 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		if (tableView == myTasksTableView){
+		if (tableView == myTasksTableView) {
 			return 230
-		}else if (tableView == myApplicationsTableView) {
+		} else if (tableView == myApplicationsTableView) {
 			return 295
 		}
 		return 0
@@ -468,12 +455,12 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	
 	//ACTIONS
 	
-	func profileButtonTapped(sender:UIButton){
+	func profileButtonTapped(sender:UIButton) {
 		var nextVC = FullProfileViewController()
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
-	func myTasksSegmentButtonTapped(sender:UIButton){
+	func myTasksSegmentButtonTapped(sender:UIButton) {
 		self.myTasksSegmentButton.selected = true
 		self.myTasksBottomBorder.hidden = false
 		self.myApplicationsSegmentButton.selected = false
@@ -482,14 +469,13 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		self.myTasksTableView.hidden = false
 	}
 	
-	func myApplicationsSegmentButtonTapped(sender:UIButton){
+	func myApplicationsSegmentButtonTapped(sender:UIButton) {
 		self.myTasksSegmentButton.selected = false
 		self.myTasksBottomBorder.hidden = true
 		self.myApplicationsSegmentButton.selected = true
 		self.myApplicationsBottomBorder.hidden = false
 		self.myTasksTableView.hidden = true
 		self.myApplicationsTableView.hidden = false
-		
 	}
 	
 	func logoutButtonTapped(sender: AnyObject) {
