@@ -98,11 +98,27 @@ class ApiHelper {
 	}
 	
 	//List all the Nelp Tasks
-	static func listNelpTasksWithBlock(block: ([NelpTask]?, NSError?) -> Void) {
+	static func listNelpTasksWithBlock(arrayOfFilters:Array<String>?, sortBy: String?,minPrice: Double?, maxDistance: Double?,block: ([NelpTask]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
+		if let arrayOfFilters = arrayOfFilters{
+			print(arrayOfFilters.count)
+			for filter in arrayOfFilters{
+				taskQuery.whereKey("category", equalTo:filter)
+				print(filter)
+			}
+		}
+		
+		if let sortBy = sortBy{
+			if sortBy == "location"{
+			taskQuery.orderByAscending(sortBy)
+			}else{
+			taskQuery.orderByDescending(sortBy)
+			}
+		}else{
+			taskQuery.orderByDescending("createdAt")
+		}
 		taskQuery.includeKey("user")
 		taskQuery.whereKey("state", equalTo: NelpTask.State.Pending.rawValue)
-		taskQuery.orderByDescending("createdAt")
 		taskQuery.limit = 20
 		taskQuery.findObjectsInBackgroundWithBlock { (pfTasks, error) -> Void in
 			if error != nil {

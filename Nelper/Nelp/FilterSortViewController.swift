@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol FilterSortViewControllerDelegate{
+	func didTapAddFilters(filters:Array<String>?, sort:String?, minPrice:Double?, maxDistance:Double?)
+}
+
 class FilterSortViewController: UIViewController{
 	
 	private var kFilterCategorySize = 65
@@ -23,14 +27,26 @@ class FilterSortViewController: UIViewController{
 	var priceCheckBox: UIButton!
 	var distanceStepper: UIStepper!
 	var priceStepper: UIStepper!
-	
-		//Initialization
+	var priceValueLabel: UILabel!
+	var distanceValueLabel: UILabel!
+	var delegate: FilterSortViewControllerDelegate!
+	var sortBy: String?
+	var arrayOfFilters = Array<String>()
+	var minPrice:Double?
+	var maxDistance:Double?
+	var arrayOfFiltersFromPrevious = Array<String>()
+	var previousSortBy:String?
+	var sortingSegmentControl: UISegmentedControl!
+	var previousMinPrice:Double?
+	var previousMaxDistance:Double?
+	//Initialization
 	
 	override func viewDidLoad() {
 			super.viewDidLoad()
 			self.createView()
+			self.checkFilters()
+			self.checkSort()
 	}
-
 	
 	//Create View
 	
@@ -88,7 +104,9 @@ class FilterSortViewController: UIViewController{
 		}
 		
 		var sortingSegmentControl = UISegmentedControl()
+		self.sortingSegmentControl = sortingSegmentControl
 		sortingContainer.addSubview(sortingSegmentControl)
+		sortingSegmentControl.addTarget(self, action: "segmentControlTouched:", forControlEvents: UIControlEvents.ValueChanged)
 		sortingSegmentControl.insertSegmentWithTitle("Price", atIndex: 0, animated: false)
 		sortingSegmentControl.insertSegmentWithTitle("Distance", atIndex: 1, animated: false)
 		sortingSegmentControl.insertSegmentWithTitle("Creation Date", atIndex: 2, animated: false)
@@ -103,6 +121,7 @@ class FilterSortViewController: UIViewController{
 		
 		var addFiltersButton = UIButton()
 		contentView.addSubview(addFiltersButton)
+		addFiltersButton.addTarget(self, action: "didTapAddFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		addFiltersButton.backgroundColor = grayBlueColor
 		addFiltersButton.setTitle("Add Filters", forState: UIControlState.Normal)
 		addFiltersButton.setTitleColor(navBarColor, forState: UIControlState.Normal)
@@ -305,6 +324,11 @@ class FilterSortViewController: UIViewController{
 		
 		var distanceStepper = UIStepper()
 		self.distanceStepper = distanceStepper
+		self.distanceStepper.minimumValue = 1
+		self.distanceStepper.maximumValue = 999
+		self.distanceStepper.stepValue = 1
+		distanceStepper.continuous = true
+		distanceStepper.addTarget(self, action: "didTapDistanceStepper:", forControlEvents: UIControlEvents.ValueChanged)
 		distanceStepper.enabled = false
 		distanceStepper.alpha = 0.3
 		filtersContainer.addSubview(distanceStepper)
@@ -317,7 +341,10 @@ class FilterSortViewController: UIViewController{
 		}
 		
 		var distanceValueLabel = UILabel()
+		self.distanceValueLabel = distanceValueLabel
+		distanceValueLabel.alpha = 0.3
 		filtersContainer.addSubview(distanceValueLabel)
+		distanceValueLabel.text = "\(Int(self.distanceStepper.value))km"
 		distanceValueLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		distanceValueLabel.textColor = blackNelpyColor
 		distanceValueLabel.snp_makeConstraints { (make) -> Void in
@@ -352,6 +379,11 @@ class FilterSortViewController: UIViewController{
 		
 		var priceStepper = UIStepper()
 		self.priceStepper = priceStepper
+		priceStepper.minimumValue = 10
+		priceStepper.maximumValue = 2000
+		priceStepper.addTarget(self, action: "didTapPriceStepper:", forControlEvents: UIControlEvents.ValueChanged)
+		priceStepper.continuous = true
+		priceStepper.stepValue = 5
 		priceStepper.alpha = 0.3
 		priceStepper.enabled = false
 		filtersContainer.addSubview(priceStepper)
@@ -364,15 +396,52 @@ class FilterSortViewController: UIViewController{
 		}
 		
 		var priceValueLabel = UILabel()
+		self.priceValueLabel = priceValueLabel
+		priceValueLabel.alpha = 0.3
 		filtersContainer.addSubview(priceValueLabel)
+		priceValueLabel.text = "\(Int(self.priceStepper.value))$"
 		priceValueLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		priceValueLabel.textColor = blackNelpyColor
 		priceValueLabel.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(priceStepper.snp_left).offset(-4)
 			make.centerY.equalTo(priceStepper.snp_centerY)
 		}
-		
-		
+	}
+	
+	//UI
+	
+	func checkFilters(){
+		for filter in self.arrayOfFiltersFromPrevious {
+			if filter == "technology"{
+				self.didTapTechnology(nil)
+			}else if filter == "business"{
+				self.didTapBusiness(nil)
+			}else if filter == "gardening"{
+				self.didTapGardening(nil)
+			}else if filter == "housecleaning"{
+				self.didTapCleaning(nil)
+			}else if filter == "multimedia"{
+				self.didTapMultimedia(nil)
+			}else if filter == "other"{
+				self.didTapOther(nil)
+			}else if filter == "handywork"{
+				self.didTapHandywork(nil)
+			}
+		}
+	}
+	
+	func checkSort(){
+		if self.previousSortBy != nil{
+			if previousSortBy == "createdAt"{
+				self.sortingSegmentControl.selectedSegmentIndex = 2
+			}else if previousSortBy == "distance"{
+				self.sortingSegmentControl.selectedSegmentIndex = 1
+			}else if previousSortBy == "priceOffered"{
+				self.sortingSegmentControl.selectedSegmentIndex = 0
+			}
+		}else{
+			self.sortingSegmentControl.selectedSegmentIndex = 2
+		}
 	}
 	
 	//Actions
@@ -381,14 +450,21 @@ class FilterSortViewController: UIViewController{
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	func didTapDistanceCheckBox(sender:UIButton!){
+	func didTapAddFiltersButton(sender:UIButton){
+		self.delegate.didTapAddFilters(self.arrayOfFilters, sort: self.sortBy, minPrice: self.minPrice, maxDistance: self.maxDistance)
+		self.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	func didTapDistanceCheckBox(sender:UIButton){
 		self.distanceCheckBox.selected = !self.distanceCheckBox.selected
 		if self.distanceCheckBox.selected {
 				self.distanceStepper.enabled = true
 			self.distanceStepper.alpha = 1
+			self.distanceValueLabel.alpha = 1
 		}else{
 			self.distanceStepper.enabled = false
 			self.distanceStepper.alpha = 0.3
+			self.distanceValueLabel.alpha = 0.3
 		}
 	}
 	
@@ -397,98 +473,145 @@ class FilterSortViewController: UIViewController{
 		if self.priceCheckBox.selected{
 			self.priceStepper.enabled = true
 			self.priceStepper.alpha = 1
+			self.priceValueLabel.alpha = 1
 		}else {
 			self.priceStepper.enabled = false
 			self.priceStepper.alpha = 0.3
+			self.priceValueLabel.alpha = 0.3
 		}
 	}
 	
-	func didTapTechnology(sender:UIButton!){
+	func didTapDistanceStepper(sender:UIStepper){
+		self.distanceValueLabel.text = "\(Int(sender.value))km"
+	}
+	
+	func didTapPriceStepper(sender:UIStepper){
+		self.priceValueLabel.text = "\(Int(sender.value))$"
+	}
+	
+	func segmentControlTouched(sender:UISegmentedControl){
+		if sender.selectedSegmentIndex == 0 {
+			self.sortBy = "priceOffered"
+		}else if sender.selectedSegmentIndex == 1{
+			self.sortBy = "distance"
+		}else if sender.selectedSegmentIndex == 2{
+			self.sortBy = "createdAt"
+		}
+	}
+	
+	func didTapTechnology(sender:UIButton?){
 		self.technologyButton.selected = !self.technologyButton.selected
 		if self.technologyButton.selected == true{
-//		self.technologyButton.layer.borderWidth = 3
 			self.technologyButton.alpha = 1
-
+			self.arrayOfFilters.append("technology")
 		}else{
-//			self.technologyButton.layer.borderWidth = 0
 			self.technologyButton.alpha = 0.3
-
+			for (var i = 0 ; i < self.arrayOfFilters.count ; i++) {
+				var filter = self.arrayOfFilters[i]
+				if filter == "technology"{
+					self.arrayOfFilters.removeAtIndex(i)
+				}
+			}
 		}
 	}
 	
-	func didTapBusiness(sender:UIButton!){
+	func didTapBusiness(sender:UIButton?){
 		self.businessButton.selected = !self.businessButton.selected
 		if self.businessButton.selected == true{
-//			self.businessButton.layer.borderWidth = 3
+			self.arrayOfFilters.append("business")
 			self.businessButton.alpha = 1
 
 		}else{
-//			self.businessButton.layer.borderWidth = 0
 			self.businessButton.alpha = 0.3
-
+			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
+				var filter = self.arrayOfFilters[i]
+				if filter == "business"{
+					self.arrayOfFilters.removeAtIndex(i)
+				}
+			}
 		}
 	}
 	
-	func didTapGardening(sender:UIButton!){
+	func didTapGardening(sender:UIButton?){
 		self.gardeningButton.selected = !self.gardeningButton.selected
 		if self.gardeningButton.selected == true{
-//			self.gardeningButton.layer.borderWidth = 3
+			self.arrayOfFilters.append("gardening")
 			self.gardeningButton.alpha = 1
 
 		}else{
-//			self.gardeningButton.layer.borderWidth = 0
 			self.gardeningButton.alpha = 0.3
-
+			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
+				var filter = self.arrayOfFilters[i]
+				if filter == "gardening"{
+					self.arrayOfFilters.removeAtIndex(i)
+				}
+			}
 		}
 	}
 	
-	func didTapCleaning(sender:UIButton!){
+	func didTapCleaning(sender:UIButton?){
 		self.cleaningButton.selected = !self.cleaningButton.selected
 		if self.cleaningButton.selected == true{
-//			self.cleaningButton.layer.borderWidth = 3
+			self.arrayOfFilters.append("housecleaning")
 			self.cleaningButton.alpha = 1
 
 		}else{
-//			self.cleaningButton.layer.borderWidth = 0
 			self.cleaningButton.alpha = 0.3
-
+			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
+				var filter = self.arrayOfFilters[i]
+				if filter == "housecleaning"{
+					self.arrayOfFilters.removeAtIndex(i)
+				}
+			}
 		}
 	}
 	
-	func didTapOther(sender:UIButton!){
+	func didTapOther(sender:UIButton?){
 		self.otherButton.selected = !self.otherButton.selected
 		if self.otherButton.selected == true{
-//			self.otherButton.layer.borderWidth = 3
+			self.arrayOfFilters.append("other")
 			self.otherButton.alpha = 1
 
 		}else{
-//			self.otherButton.layer.borderWidth = 0
 			self.otherButton.alpha = 0.3
-
+			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
+				var filter = self.arrayOfFilters[i]
+				if filter == "other"{
+					self.arrayOfFilters.removeAtIndex(i)
+				}
+			}
 		}
 	}
 	
-	func didTapMultimedia(sender:UIButton!){
+	func didTapMultimedia(sender:UIButton?){
 		self.multimediaButton.selected = !self.multimediaButton.selected
 		if self.multimediaButton.selected == true{
 				self.multimediaButton.alpha = 1
-//			self.multimediaButton.layer.borderWidth = 3
+			self.arrayOfFilters.append("multimedia")
 		}else{
-//			self.multimediaButton.layer.borderWidth = 0
 			self.multimediaButton.alpha = 0.3
-
+			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
+				var filter = self.arrayOfFilters[i]
+				if filter == "multimedia"{
+					self.arrayOfFilters.removeAtIndex(i)
+				}
+			}
 		}
 	}
 	
-	func didTapHandywork(sender:UIButton!){
+	func didTapHandywork(sender:UIButton?){
 		self.handyworkButton.selected = !self.handyworkButton.selected
 		if self.handyworkButton.selected == true{
 			self.handyworkButton.alpha = 1
-//			self.handyworkButton.layer.borderWidth = 3
+			self.arrayOfFilters.append("handywork")
 		}else{
 			self.handyworkButton.alpha = 0.3
-
-//			self.handyworkButton.layer.borderWidth = 0
+			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
+				var filter = self.arrayOfFilters[i]
+				if filter == "handywork"{
+					self.arrayOfFilters.removeAtIndex(i)
+				}
+			}
 		}
 	}
 

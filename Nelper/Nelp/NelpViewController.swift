@@ -13,7 +13,7 @@ import GoogleMaps
 import SCLAlertView
 import Stripe
 
-class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, STRPPaymentViewControllerDelegate{
+class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, STRPPaymentViewControllerDelegate, FilterSortViewControllerDelegate{
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var logoImage: UIImageView!
@@ -44,6 +44,11 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	var placesClient: GMSPlacesClient?
 	let locationManager = CLLocationManager()
 	var target: CLLocationCoordinate2D?
+	
+	var arrayOfFilters = Array<String>()
+	var sortBy: String?
+	var minPrice: Double?
+	var maxDistance: Double?
 	
 	//Initialization
 	
@@ -189,11 +194,15 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	//DATAFetching
 	
 	func onPullToRefresh() {
-		loadData()
+		if self.arrayOfFilters.count > 0{
+			loadDataWithFilters(self.arrayOfFilters, sort: self.sortBy, minPrice: self.minPrice, maxDistance: self.maxDistance)
+		}else{
+			loadData()
+		}
 	}
 	
 	func loadData() {
-		ApiHelper.listNelpTasksWithBlock { (nelpTasks: [NelpTask]?, error: NSError?) -> Void in
+		ApiHelper.listNelpTasksWithBlock(nil, sortBy: nil, minPrice: nil, maxDistance: nil, block: {(nelpTasks: [NelpTask]?, error: NSError?) -> Void in
 			if error != nil {
 				
 			} else {
@@ -202,7 +211,20 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 				self.refreshView?.endRefreshing()
 				self.tableView?.reloadData()
 			}
-		}
+		})
+	}
+	
+	func loadDataWithFilters(filters:Array<String>?, sort:String?, minPrice:Double?, maxDistance:Double?){
+		ApiHelper.listNelpTasksWithBlock(filters, sortBy: sort,minPrice:minPrice, maxDistance:maxDistance, block: {(nelpTasks: [NelpTask]?, error: NSError?) -> Void in
+			if error != nil {
+				
+			} else {
+				self.nelpTasks = nelpTasks!
+				self.createPins()
+				self.refreshView?.endRefreshing()
+				self.tableView?.reloadData()
+			}
+		})
 		
 	}
 	
@@ -285,7 +307,15 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	func didClosePopup(vc:STRPPaymentViewController){
 		
-		
+	}
+	
+	// Filters Delegate
+	func didTapAddFilters(filters: Array<String>?, sort: String?, minPrice:Double?, maxDistance:Double?){
+		self.arrayOfFilters = filters!
+		self.sortBy = sort
+		print(filters!)
+		self.sortBy = sort
+		self.loadDataWithFilters(filters, sort: sort, minPrice:Double?, maxDistance:Double?)
 	}
 	
 	//IBActions
@@ -302,6 +332,9 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	func didTapFiltersButton(sender:UIButton){
 		var nextVC =  FilterSortViewController()
+		nextVC.arrayOfFiltersFromPrevious = self.arrayOfFilters
+		nextVC.previousSortBy = self.sortBy
+		nextVC.delegate = self
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
