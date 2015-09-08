@@ -82,13 +82,15 @@ class MyTaskDetailsAcceptedViewController: UIViewController {
 		taskLabel.text = self.task.title
 		taskLabelContainer.addSubview(taskLabel)
 		taskLabel.textColor = darkGrayDetails
-		taskLabel.font = UIFont(name: "HelveticaNeue", size: kTitleFontSize)
+		taskLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		taskLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskLabelContainer.snp_top).offset(4)
 			make.bottom.equalTo(taskLabelContainer.snp_bottom).offset(-4)
 			make.left.equalTo(taskLabelContainer.snp_left).offset(8)
 			make.right.equalTo(taskLabelContainer.snp_right).offset(-4)
 		}
+		
+		//Progress + Payment Container
 		
 		var progressContainer = UIView()
 		contentView.addSubview(progressContainer)
@@ -269,6 +271,81 @@ class MyTaskDetailsAcceptedViewController: UIViewController {
 			make.right.equalTo(leaveFeedbackImageView.snp_left)
 			make.height.equalTo(2)
 		}
+		
+		//Payment Button
+		
+		var paymentButton = UIButton()
+		progressContainer.addSubview(paymentButton)
+		paymentButton.setTitle("Proceed to Payment", forState: UIControlState.Normal)
+		paymentButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
+		paymentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
+		paymentButton.backgroundColor = nelperRedColor
+		paymentButton.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(progressContainer.snp_bottom).offset(-30)
+			make.centerX.equalTo(progressContainer.snp_centerX)
+			make.width.equalTo(progressContainer.snp_width).dividedBy(1.5)
+			make.height.equalTo(35)
+		}
+		
+		//About Nelper Pay
+		
+		var aboutNelperPayLabel = UILabel()
+		progressContainer.addSubview(aboutNelperPayLabel)
+		aboutNelperPayLabel.text = "About NelperPay"
+		aboutNelperPayLabel.textColor = blackNelpyColor
+		aboutNelperPayLabel.backgroundColor = navBarColor
+		aboutNelperPayLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		aboutNelperPayLabel.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(progressContainer.snp_bottom).offset(-6)
+			make.centerX.equalTo(progressContainer.snp_centerX).offset(10)
+		}
+		
+		var aboutNelperPayButton = UIButton()
+		progressContainer.addSubview(aboutNelperPayButton)
+		aboutNelperPayButton.setBackgroundImage(UIImage(named: "interrogation"), forState: UIControlState.Normal)
+		aboutNelperPayButton.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(aboutNelperPayLabel.snp_centerY)
+			make.right.equalTo(aboutNelperPayLabel.snp_left).offset(-2)
+			make.height.equalTo(20)
+			make.width.equalTo(20)
+		}
+		
+		//NelperPayLogo
+		
+		var nelperPayLine = UIView()
+		progressContainer.addSubview(nelperPayLine)
+		nelperPayLine.backgroundColor = darkGrayDetails
+		nelperPayLine.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(paymentButton.snp_top).offset(-25)
+			make.centerX.equalTo(progressContainer.snp_centerX)
+			make.width.equalTo(progressContainer.snp_width).dividedBy(1.4)
+			make.height.equalTo(1)
+		}
+		
+		var nelperPayLogo = UIImageView()
+		progressContainer.addSubview(nelperPayLogo)
+		nelperPayLogo.image = UIImage(named: "nelperpay")
+		nelperPayLogo.contentMode = UIViewContentMode.ScaleAspectFill
+		nelperPayLogo.snp_makeConstraints { (make) -> Void in
+			make.center.equalTo(nelperPayLine.snp_center)
+			make.width.equalTo(40)
+			make.height.equalTo(40)
+		}
+		
+		// Accepted Nelper Container
+		
+		var applicantContainer = UIView()
+		contentView.addSubview(applicantContainer)
+		applicantContainer.backgroundColor = navBarColor
+		applicantContainer.layer.borderColor = darkGrayDetails.CGColor
+		applicantContainer.layer.borderWidth = 1
+		applicantContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(progressContainer.snp_bottom).offset(10)
+			make.width.equalTo(contentView.snp_width)
+			make.height.equalTo(backgroundView.snp_height).dividedBy(2)
+			make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
+		}
+		
 	}
 	
 // MARK: View Delegate
