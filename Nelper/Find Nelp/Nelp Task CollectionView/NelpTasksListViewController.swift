@@ -78,7 +78,7 @@ UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate
 	//UI
 	func adjustUI(){
 		
-		self.askForNelpContainer.backgroundColor = blueGrayColor
+		self.askForNelpContainer.backgroundColor = nelperRedColor
 		
 		self.askForNelpButton.layer.borderColor = navBarColor.CGColor
 		self.askForNelpButton.layer.borderWidth = 2
@@ -96,11 +96,11 @@ UITableViewDelegate, UITableViewDataSource, NelpTaskCreateViewControllerDelegate
 		self.myNelpRequestsContainer.backgroundColor = navBarColor
 		self.myNelpRequestsLabel.text = "My Nelp Requests"
 		self.myNelpRequestsLabel.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
-		self.myNelpRequestsLabel!.textColor = blueGrayColor
+		self.myNelpRequestsLabel!.textColor = nelperRedColor
 		
 		self.taskListContainer.backgroundColor = navBarColor
 		self.noTasksMessage.font = UIFont(name: "ABeeZee-Regular", size: kSubtitleFontSize)
-		self.noTasksMessage.textColor = blueGrayColor
+		self.noTasksMessage.textColor = nelperRedColor
 		self.noTasksMessage.text = "You have no active requests!"
 		
 		self.tabBarView.backgroundColor = tabBarColor

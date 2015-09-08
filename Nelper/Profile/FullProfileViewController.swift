@@ -89,7 +89,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		//Profile Header
 		var profileView = UIView()
 		self.contentView.addSubview(profileView)
-		profileView.backgroundColor = blueGrayColor
+		profileView.backgroundColor = nelperRedColor
 		
 		profileView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.contentView.snp_top)

@@ -43,3 +43,6 @@ let kAboutTextFontSize:CGFloat = 16
 let kPopupTitleFontSize:CGFloat = 20
 let kPopupSubtitleFontSize:CGFloat = 16
 
+//Progress Bar
+
+let kProgressBarTextFontSize:CGFloat = 14

@@ -65,7 +65,7 @@ class MyApplicationDetailsView: UIViewController{
 			make.right.equalTo(self.containerView.snp_right)
 			make.height.equalTo(125)
 		}
-		profileContainer.backgroundColor = blueGrayColor
+		profileContainer.backgroundColor = nelperRedColor
 		
 		//Profile Picture
 		let pictureSize: CGFloat = 85

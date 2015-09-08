@@ -188,7 +188,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	func updateButton(){
 		if self.applyButton.selected {
 			self.applyButton.setTitle("Applied", forState: UIControlState.Selected)
-			self.applyButton.backgroundColor = blueGrayColor
+			self.applyButton.backgroundColor = nelperRedColor
 		} else {
 			self.applyButton.setTitle("Apply", forState: UIControlState.Normal)
 			self.applyButton.backgroundColor = greenPriceButton

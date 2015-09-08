@@ -10,20 +10,15 @@ import Foundation
 
 //COLORS
 
-let orangeMainColor = hexStringToUIColor("de1f1f")
-let orangeSecondaryColor = hexStringToUIColor("d98b30")
-
-let orangeMainGradientColor = hexStringToUIColor("de1f1f")
-let orangeSecondaryGradientColor = hexStringToUIColor("d95330")
-
 let whiteNelpyColor = hexStringToUIColor ("eaeaea")
 let blackNelpyColor = hexStringToUIColor ("2c2c2c")
-let blueGrayColor = hexStringToUIColor("ed4b4e")
+let nelperRedColor = hexStringToUIColor("ed4b4e")
 let whiteGrayColor = hexStringToUIColor("f7f7f7")
 let orangeTextColor = hexStringToUIColor("f32a18")
 let grayDetails = hexStringToUIColor("cfcfcf")
 let darkGrayDetails = hexStringToUIColor("979797")
 
+let progressGreen = hexStringToUIColor("29B473")
 
 let facebookBlueColor = hexStringToUIColor ("3b5998")
 let greenPriceButton = hexStringToUIColor ("80bf62")

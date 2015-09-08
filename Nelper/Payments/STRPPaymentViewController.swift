@@ -55,7 +55,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		var popupContainer = UIView()
 		self.popupContainer = popupContainer
 		popupContainer.layer.cornerRadius = 2
-		popupContainer.layer.borderColor = blueGrayColor.CGColor
+		popupContainer.layer.borderColor = nelperRedColor.CGColor
 		popupContainer.layer.borderWidth = 3
 		popupContainer.backgroundColor = whiteNelpyColor
 		blurContainer.addSubview(popupContainer)
@@ -89,7 +89,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		popupContainer.addSubview(saveButton)
 		self.saveButton.addTarget(self, action: "didTapSaveButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.saveButton.setTitle("Save", forState: UIControlState.Normal)
-		self.saveButton.backgroundColor = blueGrayColor.colorWithAlphaComponent(0.5)
+		self.saveButton.backgroundColor = nelperRedColor.colorWithAlphaComponent(0.5)
 		self.saveButton.enabled = false
 		saveButton.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(popupContainer.snp_bottom)
@@ -108,10 +108,10 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		
 		if textField.valid {
 			self.saveButton.enabled = true
-			self.saveButton.backgroundColor = blueGrayColor.colorWithAlphaComponent(1.0)
+			self.saveButton.backgroundColor = nelperRedColor.colorWithAlphaComponent(1.0)
 		}else{
 			self.saveButton.enabled = false
-			self.saveButton.backgroundColor = blueGrayColor.colorWithAlphaComponent(0.5)
+			self.saveButton.backgroundColor = nelperRedColor.colorWithAlphaComponent(0.5)
 		}
 	}
 	

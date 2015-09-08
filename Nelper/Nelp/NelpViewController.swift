@@ -68,8 +68,9 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 
 	override func viewDidAppear(animated: Bool) {
-		self.loadData()
-
+		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
+				self.loadData()
+		}
 	}
 	
 	func createTaskTableView(){
@@ -108,7 +109,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		var filtersButton = UIButton()
 		self.navBar.addSubview(filtersButton)
 		filtersButton.setTitle("Filters", forState: UIControlState.Normal)
-		filtersButton.setTitleColor(blueGrayColor, forState: UIControlState.Normal)
+		filtersButton.setTitleColor(nelperRedColor, forState: UIControlState.Normal)
 		filtersButton.addTarget(self, action: "didTapFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		filtersButton.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(navBar.snp_bottom)
@@ -134,6 +135,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		if((self.locationManager.location) != nil){
 			var userLocation: CLLocation = self.locationManager.location
 			self.currentLocation = userLocation
+			LocationHelper.sharedInstance.currentLocation = PFGeoPoint(latitude:userLocation.coordinate.latitude, longitude:userLocation.coordinate.longitude)
 			var userLocationForCenter = userLocation.coordinate
 			var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
 			var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
@@ -149,8 +151,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	//UI
 	
 	func adjustUI(){
-		self.entireContainer.backgroundColor = blueGrayColor
-		self.container.backgroundColor = blueGrayColor
+		self.entireContainer.backgroundColor = nelperRedColor
+		self.container.backgroundColor = nelperRedColor
 		self.navBar.setTitle("Browse Tasks")
 	}
 	
@@ -197,10 +199,10 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	//DATAFetching
 	
 	func onPullToRefresh() {
-		if self.arrayOfFilters.count > 0{
-			loadDataWithFilters(self.arrayOfFilters, sort: self.sortBy, minPrice: self.minPrice, maxDistance: self.maxDistance)
-		}else{
-			loadData()
+		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
+			self.loadData()
+		} else{
+			self.loadDataWithFilters(self.arrayOfFilters, sort: self.sortBy, minPrice: self.minPrice, maxDistance: self.maxDistance)
 		}
 	}
 	
@@ -292,6 +294,9 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 //		self.mapView.setRegion(locationToZoom, animated: true)
 //		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
 		
+		LocationHelper.sharedInstance.currentLocation = PFGeoPoint(latitude:self.currentLocation!.coordinate.latitude, longitude:self.currentLocation!.coordinate.longitude)
+
+		
 	}
 	
 	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
@@ -317,7 +322,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.arrayOfFilters = filters!
 		self.sortBy = sort
 		print(filters!)
-		self.sortBy = sort
+		self.minPrice = minPrice
+		self.maxDistance = maxDistance
 		self.loadDataWithFilters(filters, sort: sort, minPrice: minPrice, maxDistance: maxDistance)
 	}
 	
@@ -338,6 +344,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		nextVC.arrayOfFiltersFromPrevious = self.arrayOfFilters
 		nextVC.previousSortBy = self.sortBy
 		nextVC.delegate = self
+		nextVC.previousMinPrice = self.minPrice
+		nextVC.previousMaxDistance = self.maxDistance
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	

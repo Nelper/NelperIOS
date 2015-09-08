@@ -91,7 +91,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo(110)
 		}
-		taskSectionContainer.backgroundColor = blueGrayColor
+		taskSectionContainer.backgroundColor = nelperRedColor
 		
 		//		taskSectionContainer.layer.borderColor = darkGrayDetails.CGColor
 		//		taskSectionContainer.layer.borderWidth = 1
@@ -126,7 +126,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		editButton.setTitle("Edit Task", forState: UIControlState.Normal)
 		editButton.titleLabel!.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		editButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
-		editButton.backgroundColor = blueGrayColor
+		editButton.backgroundColor = nelperRedColor
 		editButton.layer.borderWidth = 2
 		editButton.layer.borderColor = navBarColor.CGColor
 		editButton.snp_makeConstraints { (make) -> Void in
@@ -275,6 +275,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 	}
+	
 	
 	//DATA
 	

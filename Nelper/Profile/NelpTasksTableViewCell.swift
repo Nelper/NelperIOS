@@ -20,6 +20,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 	var topContainer:UIImageView!
 	var notificationIcon: UIImageView!
 	var postedDate: UILabel!
+	var numberOfApplicantsIcon:UIImageView!
+	var numberOfApplicantsLabel:UILabel!
 	
 	var nelpTask:FindNelpTask!
 	
@@ -61,7 +63,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.left.equalTo(cellView.snp_left)
 			make.height.equalTo(85)
 		}
-		topContainer.backgroundColor = blueGrayColor		//Category Icon + label
+		topContainer.backgroundColor = nelperRedColor		//Category Icon + label
 		
 
 		
@@ -119,6 +121,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		//Number of applicants
 		var numberOfApplicantsIcon = UIImageView()
+		self.numberOfApplicantsIcon = numberOfApplicantsIcon
 		numberOfApplicantsIcon.image = UIImage(named: "applicants.png")
 		cellView.addSubview(numberOfApplicantsIcon)
 		numberOfApplicantsIcon.snp_makeConstraints { (make) -> Void in
@@ -129,6 +132,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		}
 		
 		var numberOfApplicants = UILabel()
+		self.numberOfApplicantsLabel = numberOfApplicants
 		self.numberOfApplicants = numberOfApplicants
 		self.numberOfApplicants.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
 		self.numberOfApplicants.textColor = blackNelpyColor
@@ -215,6 +219,11 @@ class NelpTasksTableViewCell: UITableViewCell {
 		})}}
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true
+		
+		if nelpTask.state == .Accepted {
+			self.numberOfApplicantsIcon.image = UIImage(named: "accepted")
+			self.numberOfApplicantsLabel.text = "Accepted"
+		}
 	}
 	
 	func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {

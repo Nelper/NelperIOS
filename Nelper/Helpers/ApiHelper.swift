@@ -108,10 +108,21 @@ class ApiHelper {
 			}
 		}
 		
+		if let minPrice = minPrice {
+		 taskQuery.whereKey("priceOffered", greaterThanOrEqualTo: minPrice)
+		}
+		
+		if let maxDistance = maxDistance {
+			print(LocationHelper.sharedInstance.currentLocation!)
+			print(maxDistance)
+			var distance:Double = maxDistance
+			taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation!, withinKilometers: distance)
+		}
+		
 		if let sortBy = sortBy{
-			if sortBy == "location"{
-			taskQuery.orderByAscending(sortBy)
-			}else{
+			if sortBy == "location" && maxDistance == nil{
+					taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation)
+			}else if sortBy == "priceOffered"{
 			taskQuery.orderByDescending(sortBy)
 			}
 		}else{
@@ -263,7 +274,7 @@ class ApiHelper {
 	static func deleteTask(task: FindNelpTask) {
 		let parseTask = PFObject(className: kParseTask)
 		parseTask.objectId = task.objectId
-		parseTask["state"] = FindNelpTask.State.Cancelled.rawValue
+		parseTask["state"] = FindNelpTask.State.Deleted.rawValue
 		parseTask.saveEventually()
 	}
 	

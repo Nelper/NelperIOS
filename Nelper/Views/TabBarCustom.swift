@@ -42,7 +42,7 @@ class TabBarCustom: UITabBarController {
 		var controllersArray = [browseVC, nelpCenterVC, postVC]
 		
 		self.viewControllers = controllersArray
-		self.tabBar.tintColor = blueGrayColor
+		self.tabBar.tintColor = nelperRedColor
 		
 	}
 }

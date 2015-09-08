@@ -134,6 +134,7 @@
 		F7E8F9351B953A57007D44D8 /* LayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F9341B953A57007D44D8 /* LayerManager.swift */; };
 		F7E8F9381B968014007D44D8 /* MyApplicationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F9371B968014007D44D8 /* MyApplicationDetailsView.swift */; };
 		F7E8F93A1B968078007D44D8 /* MyApplicationDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E8F9391B968078007D44D8 /* MyApplicationDetailsView.xib */; };
+		F7EBF0701B9E519900EDD221 /* MyTaskDetailsAcceptedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EBF06F1B9E519900EDD221 /* MyTaskDetailsAcceptedViewController.swift */; };
 		F7EE46B81B6D219C005ECFCA /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = F7EE46B71B6D219C005ECFCA /* Podfile */; };
 		F7EE46D71B6D32D4005ECFCA /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */; };
 		F7F007051B9767D0009766C1 /* STRPPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F007041B9767D0009766C1 /* STRPPaymentViewController.swift */; };
@@ -348,6 +349,7 @@
 		F7E8F9341B953A57007D44D8 /* LayerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayerManager.swift; path = Nelper/Helpers/LayerManager.swift; sourceTree = SOURCE_ROOT; };
 		F7E8F9371B968014007D44D8 /* MyApplicationDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyApplicationDetailsView.swift; path = Nelper/Profile/MyApplicationDetailsView.swift; sourceTree = SOURCE_ROOT; };
 		F7E8F9391B968078007D44D8 /* MyApplicationDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyApplicationDetailsView.xib; path = Nelper/Profile/MyApplicationDetailsView.xib; sourceTree = SOURCE_ROOT; };
+		F7EBF06F1B9E519900EDD221 /* MyTaskDetailsAcceptedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyTaskDetailsAcceptedViewController.swift; path = Nelper/Profile/MyTaskDetailsAcceptedViewController.swift; sourceTree = SOURCE_ROOT; };
 		F7EE46B71B6D219C005ECFCA /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Pods/GoogleMaps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
 		F7F007041B9767D0009766C1 /* STRPPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STRPPaymentViewController.swift; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 				F78438221B8FF7D200BEA25F /* ApplicantProfileViewController.swift */,
 				F78438241B8FF7F000BEA25F /* ApplicantProfileViewController.xib */,
 				F7E8F92E1B94ED81007D44D8 /* ApplicantChatViewController.swift */,
+				F7EBF06F1B9E519900EDD221 /* MyTaskDetailsAcceptedViewController.swift */,
 			);
 			name = "My Tasks Details View";
 			sourceTree = "<group>";
@@ -1015,6 +1018,7 @@
 				F7E8F8EF1B94E7CF007D44D8 /* ATLIncomingMessageCollectionViewCell.m in Sources */,
 				F7E8F8E61B94E7CF007D44D8 /* ATLAddressBarTextView.m in Sources */,
 				F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */,
+				F7EBF0701B9E519900EDD221 /* MyTaskDetailsAcceptedViewController.swift in Sources */,
 				F7E8F8F61B94E7CF007D44D8 /* ATLParticipantTableViewCell.m in Sources */,
 				F7F0D23D1B857AA40018FC0B /* skillsTableViewCell.swift in Sources */,
 				F7E8F8D51B94E7CF007D44D8 /* ATLAddressBarViewController.m in Sources */,

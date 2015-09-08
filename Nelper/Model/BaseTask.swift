@@ -13,9 +13,9 @@ class BaseTask: BaseModel {
   
   enum State: Int {
     case Pending = 0
-		case Cancelled
-    case Accepted
-    case Denied
+		case Accepted
+    case Deleted
+    case Completed
 	}
   
   var title: String!

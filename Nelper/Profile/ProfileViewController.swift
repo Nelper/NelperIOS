@@ -69,7 +69,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		//Profile Header
 		var profileView = UIView()
 		self.containerView.addSubview(profileView)
-		profileView.backgroundColor = blueGrayColor
+		profileView.backgroundColor = nelperRedColor
 		
 		profileView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.navBar.snp_bottom)
@@ -131,7 +131,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		profileButton.setTitle("MY PROFILE", forState: UIControlState.Normal)
 		profileButton.titleLabel!.font = UIFont(name: "HelveticaNeue", size: kProfileButtonSize)
 		profileButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
-		profileButton.backgroundColor = blueGrayColor
+		profileButton.backgroundColor = nelperRedColor
 		profileButton.layer.borderWidth = 2
 		profileButton.layer.borderColor = whiteNelpyColor.CGColor
 		
@@ -148,7 +148,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		logoutButton.setTitle("Logout", forState: UIControlState.Normal)
 		logoutButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kLogoutButtonSize)
 		logoutButton.titleLabel?.textColor = blackNelpyColor
-		logoutButton.backgroundColor = blueGrayColor
+		logoutButton.backgroundColor = nelperRedColor
 		
 		logoutButton.addTarget(self, action: "logoutButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		
@@ -188,7 +188,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		myTasksSegmentButton.setTitle("My Tasks", forState: UIControlState.Normal)
 		myTasksSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
 		myTasksSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
-		myTasksSegmentButton.setTitleColor(blueGrayColor, forState: UIControlState.Selected)
+		myTasksSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
 		myTasksSegmentButton.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(firstHalf.snp_centerX)
 			make.top.equalTo(firstHalf.snp_top)
@@ -198,7 +198,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		
 		let myTasksBottomBorder = UIView()
 		self.myTasksBottomBorder = myTasksBottomBorder
-		myTasksBottomBorder.backgroundColor = blueGrayColor
+		myTasksBottomBorder.backgroundColor = nelperRedColor
 		firstHalf.addSubview(myTasksBottomBorder)
 		myTasksBottomBorder.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(firstHalf.snp_bottom)
@@ -224,7 +224,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		myApplicationsSegmentButton.setTitle("My Applications", forState: UIControlState.Normal)
 		myApplicationsSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
 		myApplicationsSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
-		myApplicationsSegmentButton.setTitleColor(blueGrayColor, forState: UIControlState.Selected)
+		myApplicationsSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
 		myApplicationsSegmentButton.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(secondHalf.snp_centerX)
 			make.width.equalTo(secondHalf.snp_width)
@@ -234,7 +234,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		
 		let myApplicationsBottomBorder = UIView()
 		self.myApplicationsBottomBorder = myApplicationsBottomBorder
-		myApplicationsBottomBorder.backgroundColor = blueGrayColor
+		myApplicationsBottomBorder.backgroundColor = nelperRedColor
 		secondHalf.addSubview(myApplicationsBottomBorder)
 		myApplicationsBottomBorder.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(secondHalf.snp_bottom)
@@ -356,6 +356,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 				
 			} else {
 				self.nelpTasks = nelpTasks!
+				print(self.nelpTasks)
 				self.refreshView?.endRefreshing()
 				self.myTasksTableView?.reloadData()
 			}
@@ -417,10 +418,18 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if(tableView == myTasksTableView) {
 			var task = nelpTasks[indexPath.row]
-			var nextVC = MyTaskDetailsViewController(findNelpTask: task)
 			
+			if task.state == .Accepted {
+				var nextVC = MyTaskDetailsAcceptedViewController()
+				nextVC.task = task
+				dispatch_async(dispatch_get_main_queue()) {
+					self.presentViewController(nextVC, animated: true, completion: nil)
+				}
+			}else{
+			var nextVC = MyTaskDetailsViewController(findNelpTask: task)
 			dispatch_async(dispatch_get_main_queue()) {
 				self.presentViewController(nextVC, animated: true, completion: nil)
+			}
 			}
 		} else if (tableView == myApplicationsTableView) {
 			var application = nelpApplications[indexPath.row]

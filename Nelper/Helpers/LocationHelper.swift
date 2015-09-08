@@ -9,5 +9,6 @@
 import Foundation
 
 class LocationHelper{
-	
+	static let sharedInstance = LocationHelper()
+	var currentLocation:PFGeoPoint!
 }

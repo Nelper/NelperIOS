@@ -61,6 +61,7 @@ class FilterSortViewController: UIViewController{
 			make.height.equalTo(64)
 		}
 		
+		navBar.setTitle("Filters")
 		let backBtn = UIButton()
 		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		navBar.backButton = backBtn
@@ -94,7 +95,7 @@ class FilterSortViewController: UIViewController{
 		var sortingLabel = UILabel()
 		sortingContainer.addSubview(sortingLabel)
 		sortingLabel.text = "Sort by:"
-		sortingLabel.textColor = blueGrayColor
+		sortingLabel.textColor = nelperRedColor
 		sortingLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		sortingLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(sortingContainer.snp_left).offset(8)
@@ -110,7 +111,7 @@ class FilterSortViewController: UIViewController{
 		sortingSegmentControl.insertSegmentWithTitle("Price", atIndex: 0, animated: false)
 		sortingSegmentControl.insertSegmentWithTitle("Distance", atIndex: 1, animated: false)
 		sortingSegmentControl.insertSegmentWithTitle("Creation Date", atIndex: 2, animated: false)
-		sortingSegmentControl.tintColor = blueGrayColor
+		sortingSegmentControl.tintColor = nelperRedColor
 		sortingSegmentControl.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(sortingContainer.snp_bottom).offset(-12)
 			make.centerX.equalTo(sortingContainer.snp_centerX)
@@ -150,7 +151,7 @@ class FilterSortViewController: UIViewController{
 		var filtersLabel = UILabel()
 		filtersContainer.addSubview(filtersLabel)
 		filtersLabel.text = "Filters:"
-		filtersLabel.textColor = blueGrayColor
+		filtersLabel.textColor = nelperRedColor
 		filtersLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		filtersLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(filtersContainer.snp_left).offset(8)
@@ -332,7 +333,7 @@ class FilterSortViewController: UIViewController{
 		distanceStepper.enabled = false
 		distanceStepper.alpha = 0.3
 		filtersContainer.addSubview(distanceStepper)
-		distanceStepper.tintColor = blueGrayColor
+		distanceStepper.tintColor = nelperRedColor
 		distanceStepper.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(30)
 			make.width.equalTo(60)
@@ -387,7 +388,7 @@ class FilterSortViewController: UIViewController{
 		priceStepper.alpha = 0.3
 		priceStepper.enabled = false
 		filtersContainer.addSubview(priceStepper)
-		priceStepper.tintColor = blueGrayColor
+		priceStepper.tintColor = nelperRedColor
 		priceStepper.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(30)
 			make.width.equalTo(60)
@@ -428,19 +429,38 @@ class FilterSortViewController: UIViewController{
 				self.didTapHandywork(nil)
 			}
 		}
+		
+		if self.previousMinPrice != nil {
+			self.priceCheckBox.selected = true
+			self.priceStepper.value = previousMinPrice!
+			self.minPrice = previousMinPrice!
+			self.priceStepper.alpha = 1
+			self.priceStepper.enabled = true
+			self.priceValueLabel.alpha = 1
+			self.priceValueLabel.text = "\(Int(self.priceStepper.value))$"
+		}
+		
+		if self.previousMaxDistance != nil{
+			self.distanceCheckBox.selected = true
+			self.distanceStepper.value = previousMaxDistance!
+			self.maxDistance = previousMaxDistance!
+			self.distanceStepper.enabled = true
+			self.distanceStepper.alpha = 1
+			self.distanceValueLabel.alpha = 1
+			self.distanceValueLabel.text = "\(Int(self.distanceStepper.value))km"
+
+		}
 	}
 	
 	func checkSort(){
 		if self.previousSortBy != nil{
 			if previousSortBy == "createdAt"{
 				self.sortingSegmentControl.selectedSegmentIndex = 2
-			}else if previousSortBy == "distance"{
+			}else if previousSortBy == "location"{
 				self.sortingSegmentControl.selectedSegmentIndex = 1
 			}else if previousSortBy == "priceOffered"{
 				self.sortingSegmentControl.selectedSegmentIndex = 0
 			}
-		}else{
-			self.sortingSegmentControl.selectedSegmentIndex = 2
 		}
 	}
 	
@@ -451,6 +471,7 @@ class FilterSortViewController: UIViewController{
 	}
 	
 	func didTapAddFiltersButton(sender:UIButton){
+		print(self.minPrice)
 		self.delegate.didTapAddFilters(self.arrayOfFilters, sort: self.sortBy, minPrice: self.minPrice, maxDistance: self.maxDistance)
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
@@ -459,10 +480,12 @@ class FilterSortViewController: UIViewController{
 		self.distanceCheckBox.selected = !self.distanceCheckBox.selected
 		if self.distanceCheckBox.selected {
 				self.distanceStepper.enabled = true
+			self.maxDistance = distanceStepper.value
 			self.distanceStepper.alpha = 1
 			self.distanceValueLabel.alpha = 1
 		}else{
 			self.distanceStepper.enabled = false
+			self.maxDistance = nil
 			self.distanceStepper.alpha = 0.3
 			self.distanceValueLabel.alpha = 0.3
 		}
@@ -473,20 +496,25 @@ class FilterSortViewController: UIViewController{
 		if self.priceCheckBox.selected{
 			self.priceStepper.enabled = true
 			self.priceStepper.alpha = 1
+			self.minPrice = priceStepper.value
 			self.priceValueLabel.alpha = 1
 		}else {
 			self.priceStepper.enabled = false
 			self.priceStepper.alpha = 0.3
+			self.minPrice = nil
 			self.priceValueLabel.alpha = 0.3
 		}
 	}
 	
 	func didTapDistanceStepper(sender:UIStepper){
 		self.distanceValueLabel.text = "\(Int(sender.value))km"
+		self.maxDistance = distanceStepper.value
 	}
 	
 	func didTapPriceStepper(sender:UIStepper){
 		self.priceValueLabel.text = "\(Int(sender.value))$"
+		self.minPrice = priceStepper.value
+
 	}
 	
 	func segmentControlTouched(sender:UISegmentedControl){

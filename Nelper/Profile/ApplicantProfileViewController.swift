@@ -92,7 +92,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			make.right.equalTo(self.containerView.snp_right)
 			make.height.equalTo(125)
 		}
-		profileContainer.backgroundColor = blueGrayColor
+		profileContainer.backgroundColor = nelperRedColor
 		
 		//Profile Picture
 		let pictureSize: CGFloat = 85
@@ -262,7 +262,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		profileSegmentButton.setTitle("Profile", forState: UIControlState.Normal)
 		profileSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		profileSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
-		profileSegmentButton.setTitleColor(blueGrayColor, forState: UIControlState.Selected)
+		profileSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
 		profileSegmentButton.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(firstHalf.snp_centerX)
 			make.top.equalTo(firstHalf.snp_top)
@@ -272,7 +272,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		
 		let bottomProfileBorder = UIView()
 		self.bottomProfileBorder = bottomProfileBorder
-		bottomProfileBorder.backgroundColor = blueGrayColor
+		bottomProfileBorder.backgroundColor = nelperRedColor
 		firstHalf.addSubview(bottomProfileBorder)
 		bottomProfileBorder.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(firstHalf.snp_bottom)
@@ -298,7 +298,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		reviewSegmentButton.setTitle("Feedback", forState: UIControlState.Normal)
 		reviewSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		reviewSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
-		reviewSegmentButton.setTitleColor(blueGrayColor, forState: UIControlState.Selected)
+		reviewSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
 		reviewSegmentButton.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(secondHalf.snp_centerX)
 			make.width.equalTo(secondHalf.snp_width)
@@ -308,7 +308,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		
 		let bottomFeedbackBorder = UIView()
 		self.bottomFeedbackBorder = bottomFeedbackBorder
-		bottomFeedbackBorder.backgroundColor = blueGrayColor
+		bottomFeedbackBorder.backgroundColor = nelperRedColor
 		secondHalf.addSubview(bottomFeedbackBorder)
 		bottomFeedbackBorder.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(secondHalf.snp_bottom)
@@ -351,7 +351,6 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			make.top.equalTo(scrollView.snp_top)
 			make.left.equalTo(scrollView.snp_left)
 			make.right.equalTo(scrollView.snp_right)
-			//            make.bottom.equalTo(self.scrollView.snp_bottom)
 			make.height.greaterThanOrEqualTo(background.snp_height)
 			make.width.equalTo(background.snp_width)
 		}
@@ -560,7 +559,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 
 		//Accept Deny Bar
 		
-		self.acceptDenyBar.backgroundColor = blueGrayColor
+		self.acceptDenyBar.backgroundColor = nelperRedColor
 		
 		var acceptButton = UIButton()
 		self.acceptButton = acceptButton

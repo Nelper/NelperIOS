@@ -22,7 +22,7 @@ class NavBar: UINavigationBar {
 				self.backButtonView?.removeFromSuperview()
 				self.backButtonView = value
 				self.backButtonView?.setTitle("    ", forState: UIControlState.Normal)
-				self.backButtonView?.setTitleColor(blueGrayColor, forState: UIControlState.Normal)
+				self.backButtonView?.setTitleColor(nelperRedColor, forState: UIControlState.Normal)
 				self.backButtonView?.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 18)
 				self.backButtonView?.contentEdgeInsets = UIEdgeInsets(top: 0, left: 26, bottom: 0, right: 0)
 				self.container.addSubview(self.backButtonView!)
@@ -87,7 +87,7 @@ class NavBar: UINavigationBar {
 		self.titleView = UILabel()
 		self.titleView.text = "Nelper"
 		self.titleView.font = UIFont(name: "HelveticaNeue", size: kNavBarTitleFont)
-		self.titleView.textColor = blueGrayColor
+		self.titleView.textColor = nelperRedColor
 		self.titleView.sizeToFit()
 		
 		self.container.addSubview(self.titleView)

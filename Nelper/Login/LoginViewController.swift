@@ -85,7 +85,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.logoImage.image = UIImage(named: "logo_beige_nobackground_v2")
         self.logoImage.contentMode = UIViewContentMode.ScaleAspectFill
         
-        self.container.backgroundColor = blueGrayColor
+        self.container.backgroundColor = nelperRedColor
         
         self.nelperLabel.textColor = whiteNelpyColor
 				self.nelperLabel.text = "Nelper"
