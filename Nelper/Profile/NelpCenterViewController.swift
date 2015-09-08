@@ -1,5 +1,5 @@
 //
-//  ProfileViewController.swift
+//  NelpCenterViewController.swift
 //  Nelper
 //
 //  Created by Janic Duplessis on 2015-07-06.
@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var containerView: UIView!
@@ -34,7 +34,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	//MARK: Initialization
 
 	convenience init() {
-		self.init(nibName: "ProfileViewController", bundle: nil)
+		self.init(nibName: "NelpCenterViewController", bundle: nil)
 	}
 	
 	override func viewDidLoad() {
@@ -494,16 +494,6 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		appDelegate.showLogin(true)
-	}
-	
-	@IBAction func nelpTabBarButtonTapped(sender: AnyObject) {
-		var nextVC = NelpViewController()
-		self.presentViewController(nextVC, animated: false, completion: nil)
-	}
-	
-	@IBAction func findNelpTabBarButtonTapped(sender: AnyObject) {
-		var nextVC = NelpTasksListViewController()
-		self.presentViewController(nextVC, animated: false, completion: nil)
 	}
 	
 }

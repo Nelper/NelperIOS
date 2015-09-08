@@ -33,7 +33,7 @@ class TabBarCustom: UITabBarController {
 		browseVCItem.setTitlePositionAdjustment(UIOffsetMake(0, -2))
 		browseVC.tabBarItem = browseVCItem
 		
-		var nelpCenterVC = ProfileViewController()
+		var nelpCenterVC = NelpCenterViewController()
 		var nelpCenterVCItem = UITabBarItem(title: "Nelp Center", image: UIImage(named: "nelpcenter_default"), selectedImage: UIImage(named: "nelpcenter_default"))
 		nelpCenterVCItem.setTitlePositionAdjustment(UIOffsetMake(0, -2))
 		nelpCenterVC.tabBarItem = nelpCenterVCItem
