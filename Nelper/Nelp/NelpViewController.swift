@@ -294,8 +294,9 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 //		self.mapView.setRegion(locationToZoom, animated: true)
 //		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
 		
+		if self.currentLocation != nil{
 		LocationHelper.sharedInstance.currentLocation = PFGeoPoint(latitude:self.currentLocation!.coordinate.latitude, longitude:self.currentLocation!.coordinate.longitude)
-
+		}
 		
 	}
 	

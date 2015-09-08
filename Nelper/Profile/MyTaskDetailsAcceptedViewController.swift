@@ -252,7 +252,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController {
 		
 		var lineBetweenPaymentAndApprove = UIView()
 		progressContainer.addSubview(lineBetweenPaymentAndApprove)
-		lineBetweenPaymentAndApprove.backgroundColor = blackNelpyColor
+		lineBetweenPaymentAndApprove.backgroundColor = pendingYellow
 		lineBetweenPaymentAndApprove.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(paymentImageView.snp_centerY)
 			make.left.equalTo(paymentImageView.snp_right)
@@ -269,7 +269,6 @@ class MyTaskDetailsAcceptedViewController: UIViewController {
 			make.right.equalTo(leaveFeedbackImageView.snp_left)
 			make.height.equalTo(2)
 		}
-		
 	}
 	
 // MARK: View Delegate
