@@ -39,7 +39,8 @@ class FilterSortViewController: UIViewController{
 	var sortingSegmentControl: UISegmentedControl!
 	var previousMinPrice:Double?
 	var previousMaxDistance:Double?
-	//Initialization
+
+	//MARK: Initialization
 	
 	override func viewDidLoad() {
 			super.viewDidLoad()
@@ -48,7 +49,7 @@ class FilterSortViewController: UIViewController{
 			self.checkSort()
 	}
 	
-	//Create View
+	//MARK: View Creation
 	
 	func createView(){
 		
@@ -409,7 +410,7 @@ class FilterSortViewController: UIViewController{
 		}
 	}
 	
-	//UI
+	//MARK: UI
 	
 	func checkFilters(){
 		for filter in self.arrayOfFiltersFromPrevious {
@@ -464,7 +465,7 @@ class FilterSortViewController: UIViewController{
 		}
 	}
 	
-	//Actions
+	//MARK: Actions
 	
 	func backButtonTapped(sender:UIButton){
 		self.dismissViewControllerAnimated(true, completion: nil)

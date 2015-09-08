@@ -28,7 +28,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	@IBOutlet weak var formView: UIView!
 	
 
-//INITIALIZATION
+	//MARK: Initialization
 	
 	convenience init() {
     self.init(nibName: "NelpTaskCreateViewController", bundle: nil)
@@ -48,7 +48,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	}
 	
 	
-//UI
+	//MARK: UI
 	
 	func adjustUI(){
 			
@@ -57,6 +57,8 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 
 }
 	
+	//MARK: View Creation
+
 	func createView(){
 		
 		//Select your category label
@@ -265,8 +267,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 
 	}
 	
-//Category Buttons Actions
-	
+	//MARK: Category Buttons
 	func deselectAllButton(){
 		self.multimediaButton.selected = false
 		self.handyworkButton.selected = false
@@ -318,7 +319,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	}
 	
 	
-//NELPTASK DELEGATE METHODS
+	//MARK: NelpTask Delegate Methods
 	
 	func nelpTaskAdded(nelpTask: FindNelpTask) {
 		delegate?.nelpTaskAdded(nelpTask)
@@ -329,8 +330,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	}
 	
 
-//IBACTIONS
-	
+	//MARK: Actions	
 	
 	@IBAction func nextButtonTapped(sender: AnyObject) {
 		let nextScreenVC = SecondFormViewController(task: self.task)

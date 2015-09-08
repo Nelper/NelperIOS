@@ -16,6 +16,7 @@ class AutocompleteCell: UITableViewCell {
 	var prediction: GMSAutocompletePrediction!
 	var suggestedAddress: UILabel!
 	
+	//MARK: Initialization
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)

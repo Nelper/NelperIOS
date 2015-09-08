@@ -12,6 +12,8 @@ import SnapKit
 
 class TabBarCustom: UITabBarController {
 	
+	//MARK: Initialization
+	
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		self.createView()
@@ -21,6 +23,8 @@ class TabBarCustom: UITabBarController {
 		super.init(coder: aDecoder)
 		self.createView()
 	}
+	
+	//MARK: View Creation
 	
 	func createView(){
 		self.tabBar.translucent = false		

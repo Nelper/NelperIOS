@@ -47,6 +47,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	@IBOutlet weak var postButton: UIButton!
 	
+	//MARK: Initialization
 	
 	convenience init(task: FindNelpTask){
 		self.init(nibName: "SecondFormScreen", bundle: nil)
@@ -83,6 +84,8 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	override func viewDidAppear(animated: Bool) {
 		
 	}
+	
+	//MARK: View Creation
 	
 	func createView(){
 		
@@ -357,7 +360,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		}
 	}
 	
-	//Image Picker delegate methods
+	//MARK: Image Picker Delegate
 	
 	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
 		if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
@@ -380,7 +383,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	}
 	
 	
-	//TableView delegate methods
+	//MARK: TableView Delegate and Datasource
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return autocompleteArray.count
@@ -422,7 +425,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		return 80
 	}
 	
-	//TextField Delegate methods
+	//MARK: TextField delegate method
 	
 	func textFieldDidBeginEditing(textField: UITextField) {
 		if (textField == self.locationTextField){
@@ -452,13 +455,13 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		return true
 	}
 	
-	//TextView delegate
+	//MARK: TextView Delegate method
 	
 	func textViewDidBeginEditing(textView: UITextView) {
 		self.tap!.enabled = true
 	}
 	
-	//Google Places auto complete
+	//MARK: Google Places Autocomplete
 	
 	func placeAutocomplete(text:String) {
 		let filter = GMSAutocompleteFilter()
@@ -495,7 +498,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	}
 	
 	
-	//ACTIONS
+	//MARK: Actions
 	
 	func attachPicturesButtonTapped(sender: UIButton){
 		imagePicker.allowsEditing = false

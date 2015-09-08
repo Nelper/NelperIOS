@@ -38,7 +38,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	var whiteContainer:UIView!
 
 
-	//	INITIALIZER
+	//MARK: Initialization
+	
 	convenience init() {
 		self.init(nibName: "FullProfileViewController", bundle: nil)
 	}
@@ -63,7 +64,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		drawTableViewsSize()
 	}
 	
-	//View Creation
+	//MARK: View Creation
 	func createView(){
 		
 		self.scrollView.backgroundColor = whiteNelpyColor
@@ -400,7 +401,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			}
 	}
 	
-	//TableView Delegate Method
+	//MARK: Table View Delegate and Datasource
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if(tableView == skillsTableView){
@@ -460,14 +461,15 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		return 60
 	}
 	
-	//View Delegate
+	//MARK: View Delegate Methods
 	
 	override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.scrollView.contentSize = self.contentView.frame.size
     }
 	
-	//	DATA
+	//MARK: Data
+	
 	func setProfilePicture() {
 		
 		var image = UIImage(named: "noProfilePicture")
@@ -509,7 +511,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 	}
 	
-	//Actions
+	//MARK: Actions
 	
 	func backButtonTapped(sender:UIButton){
 		self.dismissViewControllerAnimated(true, completion: nil)

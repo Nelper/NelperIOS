@@ -25,6 +25,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 	
 	var nelpTask:FindNelpTask!
 	
+	//MARK: Initialization
+	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		
@@ -204,6 +206,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 		}
 	}
 	
+	//MARK: Setters
+
 	func setImages(nelpTask:FindNelpTask){
 		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2;
 		self.categoryIcon.clipsToBounds = true
@@ -269,7 +273,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 
 	}
 	
-//UTILITIES
+	//MARK: Utilities
 	
 	func timeAgoSinceDate(date:NSDate, numericDates:Bool) -> String {
 		let calendar = NSCalendar.currentCalendar()

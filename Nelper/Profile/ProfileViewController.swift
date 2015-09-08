@@ -31,7 +31,8 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 	var myTasksBottomBorder:UIView!
 	var myApplicationsBottomBorder:UIView!
 	
-	//	INITIALIZER
+	//MARK: Initialization
+
 	convenience init() {
 		self.init(nibName: "ProfileViewController", bundle: nil)
 	}
@@ -53,7 +54,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 
 	}
 	
-	//View Creation
+	//MARK: View Creation
 	
 	func createView(){
 		
@@ -311,7 +312,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		self.myApplicationsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 	}
 	
-	//	UI
+	//MARK: UI
 	
 	func adjustUI() {
 		self.extendedLayoutIncludesOpaqueBars = true
@@ -319,7 +320,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		
 	}
 	
-	//	DATA
+	//MARK: DATA
 	
 	func setProfilePicture() {
 		
@@ -373,7 +374,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		}
 	}
 	
-	//DELEGATE METHODS
+	//MARK: Tableview Delegate and Datasource
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if(tableView == self.myTasksTableView) {
@@ -463,7 +464,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 		return 0
 	}
 	
-	//ACTIONS
+	//MARK: Actions
 	
 	func profileButtonTapped(sender:UIButton) {
 		var nextVC = FullProfileViewController()

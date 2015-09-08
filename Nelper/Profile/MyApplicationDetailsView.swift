@@ -35,7 +35,7 @@ class MyApplicationDetailsView: UIViewController{
 	var fakeButton:UIButton!
 	
 	
-	//Init
+	//MARK: Initialization
 	
 	convenience init(poster:User, application:NelpTaskApplication){
 		self.init(nibName: "MyApplicationDetailsView", bundle: nil)
@@ -50,7 +50,7 @@ class MyApplicationDetailsView: UIViewController{
 		self.createView()
 	}
 	
-	//UI
+	//MARK: View Creation
 	
 	func createView(){
 		self.setImages(self.poster)
@@ -307,7 +307,7 @@ class MyApplicationDetailsView: UIViewController{
 	}
 
 	
-	//DATA
+	//MARK: DATA
 	
 	func setImages(applicant:User){
 		if(applicant.profilePictureURL != nil){
@@ -324,7 +324,7 @@ class MyApplicationDetailsView: UIViewController{
 	}
 	
 	
-	//View Delegate Methods
+	//MARK: View Delegate Methods
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
@@ -345,7 +345,7 @@ class MyApplicationDetailsView: UIViewController{
 	}
 	
 	
-	//Actions
+	//MARK: Actions
 	
 	func backButtonTapped(sender:UIButton){
 		self.dismissViewControllerAnimated(true, completion: nil)

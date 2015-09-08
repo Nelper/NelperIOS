@@ -21,6 +21,8 @@ class NelpViewCell: UITableViewCell {
 	var distance:UILabel?
 	var task: NelpTask!
 	
+	//MARK: Initialization
+	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		
@@ -126,6 +128,8 @@ class NelpViewCell: UITableViewCell {
 		}
 	}
 	
+	//MARK: Setters
+	
 	func setNelpTask(nelpTask:NelpTask) {
 		self.task = nelpTask
 		self.title.text = nelpTask.title
@@ -173,6 +177,8 @@ class NelpViewCell: UITableViewCell {
 		self.distance!.textColor = blackNelpyColor
 		
 	}
+	
+	//MARK: Utilities
 	
 	func calculateDistanceBetweenTwoLocations(source:CLLocation,destination:CLLocation) -> String{
 		

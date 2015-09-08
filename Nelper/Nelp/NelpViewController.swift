@@ -50,7 +50,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	var minPrice: Double?
 	var maxDistance: Double?
 	
-	//Initialization
+	//MARK: Initialization
 	
 	convenience init() {
 		self.init(nibName: "NelpViewController", bundle: nil)
@@ -72,6 +72,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 				self.loadData()
 		}
 	}
+	
+	//MARK: Creating the View
 	
 	func createTaskTableView(){
 		let tableView = UITableView()
@@ -148,7 +150,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 	}
 	
-	//UI
+	//MARK: UI
 	
 	func adjustUI(){
 		self.entireContainer.backgroundColor = nelperRedColor
@@ -196,7 +198,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	*/
 	
 	
-	//DATAFetching
+	//MARK: DATA
 	
 	func onPullToRefresh() {
 		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
@@ -233,7 +235,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 	}
 	
-	//TableView Delegate/Datasource methods
+	//MARK: Table View Data Source and Delegate
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.nelpTasks.count
@@ -269,7 +271,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	
 	
-	//Location delegate methods
+	//MARK: Location Delegate
 	
 	func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
 		CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
@@ -312,13 +314,14 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 	}
 	
-	//Popup Delegate
+	//MARK: Popup Delegate
 	
 	func didClosePopup(vc:STRPPaymentViewController){
 		
 	}
 	
-	// Filters Delegate
+	//MARK: Filters Delegate
+	
 	func didTapAddFilters(filters: Array<String>?, sort: String?, minPrice:Double?, maxDistance:Double?){
 		self.arrayOfFilters = filters!
 		self.sortBy = sort
@@ -328,7 +331,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.loadDataWithFilters(filters, sort: sort, minPrice: minPrice, maxDistance: maxDistance)
 	}
 	
-	//IBActions
+	//MARK: Actions
 	
 	@IBAction func centerMapOnUser(sender: AnyObject) {
 		

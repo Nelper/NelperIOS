@@ -24,7 +24,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 	var blurContainer:UIVisualEffectView!
 	
 	
-	//Initialization
+	//MARK: Initialization
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -35,7 +35,8 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		
 	}
 	
-	
+	//MARK: View Creation
+
 	func createView(){
 		
 		var blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
@@ -99,12 +100,9 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		}
 	}
 	
-	//UI
+	//MARK: Stripe Delegate Methods
 	
-	
-	
-	// Stripe Delegate Methods
-	func paymentCardTextFieldDidChange(textField: STPPaymentCardTextField) {
+		func paymentCardTextFieldDidChange(textField: STPPaymentCardTextField) {
 		
 		if textField.valid {
 			self.saveButton.enabled = true
@@ -115,7 +113,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		}
 	}
 	
-	//View delegate method
+	//MARK: View delegate methods
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 				self.cardTextField.snp_makeConstraints { (make) -> Void in
@@ -128,7 +126,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 				}
 	}
 	
-	//Gesture Recognizer Delegate Methods
+	//MARK: Gesture recognizer delegate methods
 	
 	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
 		if touch.view.isDescendantOfView(self.popupContainer){
@@ -141,7 +139,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	//Actions
+	//MARK: Actionss
 	
 	func didTapSaveButton(sender:UIButton){
 		var card = STPCard()

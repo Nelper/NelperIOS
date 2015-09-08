@@ -31,6 +31,7 @@ class ApplicantCell: UITableViewCell{
 	var index:Int!
 	var cellView:UIView!
 
+	//MARK: Initialization
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -212,6 +213,8 @@ class ApplicantCell: UITableViewCell{
 			return "ApplicantCell"
 		}
 	}
+	
+	//MARK: Setters
 	
 	func replaceArrowImage(){
 		self.rightButton.setBackgroundImage(UIImage(named: "revert"), forState: UIControlState.Normal)

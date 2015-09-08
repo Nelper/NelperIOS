@@ -30,6 +30,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var arrayOfAllApplicants:[User]!
 	var taskSectionContainer:UIView!
 	
+	//MARK: Initialization
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.automaticallyAdjustsScrollViewInsets = false
@@ -40,8 +42,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	override func viewDidAppear(animated: Bool) {
 		//		self.drawTableViewsSize()
 	}
-	
-	//Initialization
 	
 	convenience init(findNelpTask:FindNelpTask) {
 		self.init(nibName: "MyTaskDetailsViewController", bundle: nil)
@@ -64,6 +64,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.arrayOfDeniedApplicants = arrayOfDeniedApplicants
 		self.arrayOfAllApplicants = arrayOfAllApplicants
 	}
+	
+	//MARK: View Creation
 	
 	func createView(){
 		
@@ -277,8 +279,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	
-	//DATA
-	
+	//MARK: Refresh Tableview
 	func refreshTableView(){
 		self.applicantsTableView.reloadData()
 		self.deniedApplicantsTableView.reloadData()
@@ -297,8 +298,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 	}
 	
-	
-	//UI
+	//MARK: UI
+
 	func adjustUI(){
 		self.container.backgroundColor = whiteNelpyColor
 		let backBtn = UIButton()
@@ -350,7 +351,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 
 	
-	//Table View Delegate Methods
+	//MARK: Tableview Delegate and Datasource
+	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if tableView == self.applicantsTableView {
 			return self.arrayOfApplicants.count
@@ -395,7 +397,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		return 120
 	}
 	
-	//View Delegate Methods
+	//MARK: View delegate Methods
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
@@ -403,7 +405,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		println("\(self.scrollView.contentSize)")
 	}
 	
-	//Cell Delegate Method
+	//MARK: Cell delegate methods
 	
 	func didTapRevertButton(applicant:User){
 		var applicationToRevert:NelpTaskApplication!
@@ -457,7 +459,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 	}
 	
-	//Actions
+	//MARK: Actions
 	
 	func editButtonTapped(sender:UIButton){
 		

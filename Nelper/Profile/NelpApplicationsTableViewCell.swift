@@ -25,6 +25,8 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	var cityLabel: UILabel!
 	var nelpApplication: NelpTaskApplication!
 	
+	//MARK: Initialization
+
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		
@@ -218,6 +220,8 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		}
 	}
 	
+	//MARK: Setters
+	
 	func setImages(nelpApplication:NelpTaskApplication){
 		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2;
 		self.categoryIcon.clipsToBounds = true
@@ -274,7 +278,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		}
 	}
 	
-	//UTILITIES
+	//MARK: Utilities
 	
 	func setLocation(userLocation:CLLocation, nelpApplication:NelpTaskApplication){
 		

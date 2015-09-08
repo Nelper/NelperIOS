@@ -22,6 +22,8 @@ class skillsTableViewCell: UITableViewCell {
 	var delegate: skillsTableViewCellDelegate?
 	var cellType: String!
 	
+	//MARK: Initialization
+	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		
@@ -94,7 +96,7 @@ class skillsTableViewCell: UITableViewCell {
 		self.delegate!.didTapDeleteButton(self.index, type: self.cellType)
 	}
 	
-	//Sets the property
+	//MARK: Setters
 	
 	func sendSkillName(skillName: String){
 			self.skillName.text = skillName

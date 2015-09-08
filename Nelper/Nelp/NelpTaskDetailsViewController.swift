@@ -34,7 +34,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	
 	
-	//Initialization
+	//MARK: Initialization
 	
 	convenience init(nelpTask:NelpTask) {
 		self.init(nibName: "NelpTaskDetailsViewController", bundle: nil)
@@ -51,7 +51,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.startButtonConfig()
 	}
 	
-	//UI
+	//MARK: UI
 	
 	func adjustUI(){
 		self.navBar.backgroundColor = navBarColor
@@ -124,7 +124,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	}
 	
 	
-	//iCarousel Delegate
+	//MARK: iCarousel Delegate
 	
 	func numberOfItemsInCarousel(carousel: iCarousel!) -> Int {
 		
@@ -151,7 +151,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		return picture
 	}
 	
-	//IBActions
+	//MARK: Actions
 	
 	@IBAction func applyButtonTapped(sender: AnyObject) {
 		if(!self.applyButton.selected){
@@ -166,14 +166,12 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		}
 	}
 	
-	//Actions
-	
 	func backButtonTapped(sender: UIButton) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 		view.endEditing(true) // dissmiss keyboard without delay
 	}
 	
-	//Utilities
+	//MARK: Utilities
 	
 	func startButtonConfig(){
 		if self.task.application != nil && self.task.application!.state != .Canceled {

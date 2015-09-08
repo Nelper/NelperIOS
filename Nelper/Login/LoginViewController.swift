@@ -40,8 +40,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 	
 	var tap: UITapGestureRecognizer?
     
-    //Initialization
-    
+	//MARK: Initialization
+	
     convenience init() {
         self.init(nibName: "LoginViewController", bundle: nil)
     }
@@ -78,8 +78,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		view.endEditing(true)
 	}
 	
-    //UI
-    
+	//MARK: UI
+	
     func adjustUI(){
 		
 		self.logoImage.image = UIImage(named: "logo_beige_nobackground_v2")
@@ -173,7 +173,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		
 	}
 	
-    //IBActions
+	//MARK: Actions
 	
     @IBAction func facebookLogin(sender: UIButton) {
         PFFacebookUtils.logInInBackgroundWithReadPermissions(self.permissions) { (user: PFUser?, error: NSError?) -> Void in

@@ -61,7 +61,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	var fakeButton:UIButton!
 
 
-	//Init
+	//MARK: Initialization
 	
 	convenience init(applicant:User, application:NelpTaskApplication){
 		self.init(nibName: "ApplicantProfileViewController", bundle: nil)
@@ -77,7 +77,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.profileSegmentButton.selected = true
 	}
 	
-	//UI
+	//MARK: UI
 	
 	func createView(){
 		self.setImages(self.applicant)
@@ -624,7 +624,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		fakeButton.hidden = true
 	}
 	
-	//DATA
+	//MARK: DATA
 	
 	func setImages(applicant:User){
 		if(applicant.profilePictureURL != nil){
@@ -640,7 +640,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	func loadData() {
 	}
 	
-	//TableView Delegate Methods
+	//MARK: Tableview delegate and datasource
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if(tableView == skillsTableView){
@@ -762,7 +762,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		return kCellHeight
 	}
 
-	//View Delegate Methods
+	//MARK: View delegate methods
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
@@ -783,7 +783,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	}
 	
 	
-	//Actions
+	//MARK: Actions
 	
 	func backButtonTapped(sender:UIButton){
 		self.dismissViewControllerAnimated(true, completion: nil)
