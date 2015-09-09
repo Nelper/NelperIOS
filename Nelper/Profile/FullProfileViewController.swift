@@ -71,7 +71,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		let backBtn = UIButton()
 		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.backButton = backBtn
-        
+		navBar.setImage(UIImage(named: "close_red" )!)
+
+		
         var contentView = UIView()
         self.contentView = contentView
         self.scrollView.addSubview(contentView)
@@ -137,7 +139,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.firstStar = firstStar
 		profileView.addSubview(firstStar)
 		firstStar.contentMode = UIViewContentMode.ScaleAspectFill
-		firstStar.image = UIImage(named: "empty_star")
+		firstStar.image = UIImage(named: "empty_star_white")
 		firstStar.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(name.snp_left)
 			make.top.equalTo(name.snp_bottom).offset(8)
@@ -149,7 +151,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.secondStar = secondStar
 		profileView.addSubview(secondStar)
 		secondStar.contentMode = UIViewContentMode.ScaleAspectFill
-		secondStar.image = UIImage(named: "empty_star")
+		secondStar.image = UIImage(named: "empty_star_white")
 		secondStar.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(firstStar.snp_bottom)
 			make.left.equalTo(firstStar.snp_right).offset(4)
@@ -161,7 +163,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.thirdStar = thirdStar
 		profileView.addSubview(thirdStar)
 		thirdStar.contentMode = UIViewContentMode.ScaleAspectFill
-		thirdStar.image = UIImage(named: "empty_star")
+		thirdStar.image = UIImage(named: "empty_star_white")
 		thirdStar.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(secondStar.snp_bottom)
 			make.left.equalTo(secondStar.snp_right).offset(4)
@@ -173,7 +175,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.fourthStar = fourthStar
 		profileView.addSubview(fourthStar)
 		fourthStar.contentMode = UIViewContentMode.ScaleAspectFill
-		fourthStar.image = UIImage(named: "empty_star")
+		fourthStar.image = UIImage(named: "empty_star_white")
 		fourthStar.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(thirdStar.snp_bottom)
 			make.left.equalTo(thirdStar.snp_right).offset(4)
@@ -185,7 +187,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.fifthStar = fifthStar
 		profileView.addSubview(fifthStar)
 		fifthStar.contentMode = UIViewContentMode.ScaleAspectFill
-		fifthStar.image = UIImage(named: "empty_star")
+		fifthStar.image = UIImage(named: "empty_star_white")
 		fifthStar.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(fourthStar.snp_bottom)
 			make.left.equalTo(fourthStar.snp_right).offset(4)

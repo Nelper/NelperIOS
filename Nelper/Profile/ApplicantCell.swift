@@ -228,11 +228,6 @@ class ApplicantCell: UITableViewCell{
 	}
 	
 	func setFeedback(applicant:User){
-		
-		self.firstStar.image = UIImage(named: "star.png")
-		self.secondStar.image = UIImage(named: "star.png")
-		self.thirdStar.image = UIImage(named: "star.png")
-		self.fourthStar.image = UIImage(named: "star.png")
 
 	}
 	

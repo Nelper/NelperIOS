@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Alamofire
 
-class MyTaskDetailsAcceptedViewController: UIViewController {
+class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileViewControllerDelegate {
 
 	var contentView:UIView!
 	var scrollView:UIScrollView!
@@ -551,6 +551,9 @@ class MyTaskDetailsAcceptedViewController: UIViewController {
 			make.height.equalTo(1)
 		}
 		
+		var profileTapAction = UITapGestureRecognizer(target: self, action: "didTapProfile:")
+		profileContainer.addGestureRecognizer(profileTapAction)
+		
 		var informationContainer = UIView()
 		applicantContainer.addSubview(informationContainer)
 		informationContainer.backgroundColor = navBarColor
@@ -685,6 +688,12 @@ class MyTaskDetailsAcceptedViewController: UIViewController {
 		self.fakeButton.layer.mask = maskLayerFake
 	}
 	
+//MARK:Applicant's profile delegate methods
+	
+	func didTapDenyButton(applicant: User) {
+		
+	}
+	
 //MARK:Actions
 	
 	func backButtonTapped(sender:UIButton){
@@ -694,6 +703,20 @@ class MyTaskDetailsAcceptedViewController: UIViewController {
 	func didTapPaymentButton(sender:UIButton){
 		var nextVC = STRPPaymentViewController()
 		nextVC.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
+		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+		self.presentViewController(nextVC, animated: true, completion: nil)
+	}
+	
+	func didTapProfile(gesture:UITapGestureRecognizer){
+		var acceptedApplication: NelpTaskApplication!
+		for application in self.task.applications {
+			if application.state == .Accepted{
+				acceptedApplication = application
+			}
+		}
+		var nextVC = ApplicantProfileViewController(applicant: self.acceptedApplicant, application: acceptedApplication )
+		nextVC.isAccepted = true
+		nextVC.delegate = self
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}

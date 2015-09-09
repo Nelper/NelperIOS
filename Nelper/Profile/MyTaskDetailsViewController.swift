@@ -307,7 +307,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.navBar.backButton = backBtn
 		self.scrollView.backgroundColor = whiteNelpyColor
 		self.navBar.setTitle("My Task Details")
-
+		navBar.setImage(UIImage(named: "close_red" )!)
 	}
 	
 	func setImages(nelpTask:FindNelpTask){

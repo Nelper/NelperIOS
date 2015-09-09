@@ -35,6 +35,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	var aboutLabel:UILabel!
 	var educationLabel:UILabel!
 	var experienceLabel:UILabel!
+	var isAccepted:Bool?
 	
 	var contentView:UIView!
 	var profileSegmentButton:UIButton!
@@ -74,12 +75,16 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.navBar.setTitle("Nelper's Info")
 		self.loadData()
 		self.createView()
+		if self.isAccepted == true {
+			self.setAsAccepted()
+		}
 		self.profileSegmentButton.selected = true
 	}
 	
 	//MARK: UI
 	
 	func createView(){
+		
 		self.setImages(self.applicant)
 		
 		//Profile + Header
@@ -132,7 +137,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.firstStar = firstStar
 		profileContainer.addSubview(firstStar)
 		firstStar.contentMode = UIViewContentMode.ScaleAspectFill
-		firstStar.image = UIImage(named: "empty_star")
+		firstStar.image = UIImage(named: "empty_star_white")
 		firstStar.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(name.snp_left)
 			make.top.equalTo(name.snp_bottom).offset(8)
@@ -144,7 +149,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.secondStar = secondStar
 		profileContainer.addSubview(secondStar)
 		secondStar.contentMode = UIViewContentMode.ScaleAspectFill
-		secondStar.image = UIImage(named: "empty_star")
+		secondStar.image = UIImage(named: "empty_star_white")
 		secondStar.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(firstStar.snp_bottom)
 			make.left.equalTo(firstStar.snp_right).offset(4)
@@ -156,7 +161,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.thirdStar = thirdStar
 		profileContainer.addSubview(thirdStar)
 		thirdStar.contentMode = UIViewContentMode.ScaleAspectFill
-		thirdStar.image = UIImage(named: "empty_star")
+		thirdStar.image = UIImage(named: "empty_star_white")
 		thirdStar.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(secondStar.snp_bottom)
 			make.left.equalTo(secondStar.snp_right).offset(4)
@@ -168,7 +173,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.fourthStar = fourthStar
 		profileContainer.addSubview(fourthStar)
 		fourthStar.contentMode = UIViewContentMode.ScaleAspectFill
-		fourthStar.image = UIImage(named: "empty_star")
+		fourthStar.image = UIImage(named: "empty_star_white")
 		fourthStar.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(thirdStar.snp_bottom)
 			make.left.equalTo(thirdStar.snp_right).offset(4)
@@ -180,7 +185,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.fifthStar = fifthStar
 		profileContainer.addSubview(fifthStar)
 		fifthStar.contentMode = UIViewContentMode.ScaleAspectFill
-		fifthStar.image = UIImage(named: "empty_star")
+		fifthStar.image = UIImage(named: "empty_star_white")
 		fifthStar.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(fourthStar.snp_bottom)
 			make.left.equalTo(fourthStar.snp_right).offset(4)
@@ -343,6 +348,8 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		let backBtn = UIButton()
 		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.backButton = backBtn
+		navBar.setImage(UIImage(named: "close_red" )!)
+
 		
 		var contentView = UIView()
 		self.contentView = contentView
@@ -782,6 +789,18 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.fakeButton.layer.mask = maskLayerFake
 	}
 	
+	//MARK: Setters
+	
+	func setAsAccepted(){
+		self.denyButton.removeFromSuperview()
+		self.acceptButton.snp_remakeConstraints { (make) -> Void in
+			make.centerY.equalTo(self.acceptDenyBar.snp_centerY)
+			make.centerX.equalTo(self.acceptDenyBar.snp_centerX)
+			make.height.equalTo(50)
+			make.width.equalTo(50)
+		}
+		self.acceptButton.userInteractionEnabled = false
+	}
 	
 	//MARK: Actions
 	
