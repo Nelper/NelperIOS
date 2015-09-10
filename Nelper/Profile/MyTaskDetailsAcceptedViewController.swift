@@ -11,11 +11,12 @@ import UIKit
 import Alamofire
 
 class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileViewControllerDelegate {
-
+	
 	var contentView:UIView!
 	var scrollView:UIScrollView!
 	var task:FindNelpTask!
 	var acceptedApplicant:User!
+	var acceptedApplication:NelpTaskApplication!
 	var picture:UIImageView!
 	var firstStar:UIImageView!
 	var secondStar:UIImageView!
@@ -28,63 +29,63 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	var fakeButton:UIButton!
 	var navBar:NavBar!
 	
-//MARK: Initialization
+	//MARK: Initialization
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.setUser()
+		self.setApplicant()
 		self.setImages(acceptedApplicant)
 		self.createView()
 		self.setFeedback(acceptedApplicant)
 	}
-
-//MARK:Creating the View
+	
+	//MARK:Creating the View
 	
 	func createView(){
-	
-	var navBar = NavBar()
-	self.navBar = navBar
-	self.view.addSubview(navBar)
-	navBar.snp_makeConstraints { (make) -> Void in
-		make.top.equalTo(self.view.snp_top)
-		make.right.equalTo(self.view.snp_right)
-		make.left.equalTo(self.view.snp_left)
-		make.height.equalTo(64)
-	}
-	
-	let backBtn = UIButton()
-	backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-	navBar.backButton = backBtn
-	navBar.setImage(UIImage(named: "close_red" )!)
-	navBar.setTitle("My Task")
-	
-	var backgroundView = UIView()
-	self.view.addSubview(backgroundView)
-	backgroundView.snp_makeConstraints { (make) -> Void in
-		make.top.equalTo(navBar.snp_bottom)
-		make.width.equalTo(self.view.snp_width)
-		make.bottom.equalTo(self.view.snp_bottom)
-	}
-	backgroundView.backgroundColor = whiteNelpyColor
-	
-	var scrollView = UIScrollView()
-	self.scrollView = scrollView
-	backgroundView.addSubview(scrollView)
-	scrollView.snp_makeConstraints { (make) -> Void in
-		make.edges.equalTo(backgroundView)
-	}
 		
-	var contentView = UIView()
-	self.contentView = contentView
-	scrollView.addSubview(contentView)
-	contentView.snp_makeConstraints { (make) -> Void in
-		make.top.equalTo(scrollView.snp_top)
-		make.left.equalTo(scrollView.snp_left)
-		make.right.equalTo(scrollView.snp_right)
-		make.height.greaterThanOrEqualTo(backgroundView.snp_height)
-		make.width.equalTo(backgroundView.snp_width)
+		var navBar = NavBar()
+		self.navBar = navBar
+		self.view.addSubview(navBar)
+		navBar.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.view.snp_top)
+			make.right.equalTo(self.view.snp_right)
+			make.left.equalTo(self.view.snp_left)
+			make.height.equalTo(64)
 		}
-	contentView.backgroundColor = whiteNelpyColor
+		
+		let backBtn = UIButton()
+		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		navBar.backButton = backBtn
+		navBar.setImage(UIImage(named: "close_red" )!)
+		navBar.setTitle("My Task")
+		
+		var backgroundView = UIView()
+		self.view.addSubview(backgroundView)
+		backgroundView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(navBar.snp_bottom)
+			make.width.equalTo(self.view.snp_width)
+			make.bottom.equalTo(self.view.snp_bottom)
+		}
+		backgroundView.backgroundColor = whiteNelpyColor
+		
+		var scrollView = UIScrollView()
+		self.scrollView = scrollView
+		backgroundView.addSubview(scrollView)
+		scrollView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(backgroundView)
+		}
+		
+		var contentView = UIView()
+		self.contentView = contentView
+		scrollView.addSubview(contentView)
+		contentView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(scrollView.snp_top)
+			make.left.equalTo(scrollView.snp_left)
+			make.right.equalTo(scrollView.snp_right)
+			make.height.greaterThanOrEqualTo(backgroundView.snp_height)
+			make.width.equalTo(backgroundView.snp_width)
+		}
+		contentView.backgroundColor = whiteNelpyColor
 		
 		var taskLabelContainer = UIView()
 		self.contentView.addSubview(taskLabelContainer)
@@ -112,7 +113,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		
 		var progressContainer = UIView()
 		contentView.addSubview(progressContainer)
-		progressContainer.layer.borderColor = darkGrayDetails.CGColor
+		progressContainer.layer.borderColor = grayDetails.CGColor
 		progressContainer.layer.borderWidth = 1
 		progressContainer.backgroundColor = navBarColor
 		progressContainer.snp_makeConstraints { (make) -> Void in
@@ -124,7 +125,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		
 		//Progress Bar
 		
-			//Nelper Accepted
+		//Nelper Accepted
 		var nelperAcceptedLabel = UILabel()
 		progressContainer.addSubview(nelperAcceptedLabel)
 		nelperAcceptedLabel.numberOfLines = 0
@@ -133,7 +134,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		nelperAcceptedLabel.textColor = blackNelpyColor
 		nelperAcceptedLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
 		nelperAcceptedLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(progressContainer.snp_top).offset(8)
+			make.top.equalTo(progressContainer.snp_top).offset(20)
 			make.left.equalTo(progressContainer.snp_left).offset(12)
 		}
 		
@@ -167,8 +168,8 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		leaveFeedbackImageView.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(nelperAcceptedImageView.snp_centerY)
 			make.right.equalTo(progressContainer.snp_right).offset(-30)
-			make.width.equalTo(30)
-			make.height.equalTo(30)
+			make.width.equalTo(40)
+			make.height.equalTo(40)
 		}
 		
 		var leaveFeedbackLabel = UILabel()
@@ -179,15 +180,15 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		leaveFeedbackLabel.textColor = blackNelpyColor
 		leaveFeedbackLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
 		leaveFeedbackLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(leaveFeedbackImageView.snp_bottom).offset(20)
-			make.right.equalTo(progressContainer.snp_right).offset(-12)
+			make.top.equalTo(leaveFeedbackImageView.snp_bottom).offset(10)
+			make.right.equalTo(progressContainer.snp_right).offset(-18)
 		}
 		
 		var leaveFeedbackLine = UIView()
 		progressContainer.addSubview(leaveFeedbackLine)
 		leaveFeedbackLine.backgroundColor = blackNelpyColor
 		leaveFeedbackLine.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(leaveFeedbackImageView.snp_bottom)
+			make.top.equalTo(leaveFeedbackImageView.snp_bottom).offset(-2)
 			make.bottom.equalTo(leaveFeedbackLabel.snp_top)
 			make.width.equalTo(1)
 			make.centerX.equalTo(leaveFeedbackImageView.snp_centerX)
@@ -241,7 +242,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		progressContainer.addSubview(approvedTaskLabel)
 		approvedTaskLabel.numberOfLines = 0
 		approvedTaskLabel.textAlignment = NSTextAlignment.Center
-		approvedTaskLabel.text = "Approve task completion"
+		approvedTaskLabel.text = "Approved task completion"
 		approvedTaskLabel.textColor = blackNelpyColor
 		approvedTaskLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
 		approvedTaskLabel.snp_makeConstraints { (make) -> Void in
@@ -279,14 +280,14 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 			make.right.equalTo(approvedTaskImageView.snp_left)
 			make.height.equalTo(2)
 		}
-
+		
 		var lineBetweenApproveAndRating = UIView()
 		progressContainer.addSubview(lineBetweenApproveAndRating)
 		lineBetweenApproveAndRating.backgroundColor = blackNelpyColor
 		lineBetweenApproveAndRating.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(paymentImageView.snp_centerY)
 			make.left.equalTo(approvedTaskImageView.snp_right)
-			make.right.equalTo(leaveFeedbackImageView.snp_left)
+			make.right.equalTo(leaveFeedbackImageView.snp_left).offset(5)
 			make.height.equalTo(2)
 		}
 		
@@ -296,11 +297,11 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		progressContainer.addSubview(paymentButton)
 		paymentButton.setTitle("Proceed to Payment", forState: UIControlState.Normal)
 		paymentButton.addTarget(self, action: "didTapPaymentButton:", forControlEvents: UIControlEvents.TouchUpInside)
-		paymentButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
+		paymentButton.setTitleColor(whiteGrayColor, forState: UIControlState.Normal)
 		paymentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
 		paymentButton.backgroundColor = nelperRedColor
 		paymentButton.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(progressContainer.snp_bottom).offset(-40)
+			make.bottom.equalTo(progressContainer.snp_bottom).offset(-60)
 			make.centerX.equalTo(progressContainer.snp_centerX)
 			make.width.equalTo(progressContainer.snp_width).dividedBy(1.6)
 			make.height.equalTo(40)
@@ -315,7 +316,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		aboutNelperPayLabel.backgroundColor = navBarColor
 		aboutNelperPayLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
 		aboutNelperPayLabel.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(progressContainer.snp_bottom).offset(-10)
+			make.bottom.equalTo(progressContainer.snp_bottom).offset(-20)
 			make.centerX.equalTo(progressContainer.snp_centerX).offset(10)
 		}
 		
@@ -333,11 +334,11 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		
 		var nelperPayLine = UIView()
 		progressContainer.addSubview(nelperPayLine)
-		nelperPayLine.backgroundColor = darkGrayDetails
+		nelperPayLine.backgroundColor = grayDetails
 		nelperPayLine.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(paymentButton.snp_top).offset(-40)
+			make.bottom.equalTo(paymentButton.snp_top).offset(-55)
 			make.centerX.equalTo(progressContainer.snp_centerX)
-			make.width.equalTo(progressContainer.snp_width).dividedBy(1.4)
+			make.width.equalTo(progressContainer.snp_width).dividedBy(1.3)
 			make.height.equalTo(1)
 		}
 		
@@ -347,8 +348,8 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		nelperPayLogo.contentMode = UIViewContentMode.ScaleAspectFill
 		nelperPayLogo.snp_makeConstraints { (make) -> Void in
 			make.center.equalTo(nelperPayLine.snp_center)
-			make.width.equalTo(50)
-			make.height.equalTo(50)
+			make.width.equalTo(60)
+			make.height.equalTo(60)
 		}
 		
 		// Accepted Nelper Container
@@ -356,13 +357,13 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		var applicantContainer = UIView()
 		contentView.addSubview(applicantContainer)
 		applicantContainer.backgroundColor = navBarColor
-		applicantContainer.layer.borderColor = darkGrayDetails.CGColor
+		applicantContainer.layer.borderColor = grayDetails.CGColor
 		applicantContainer.layer.borderWidth = 1
 		applicantContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(progressContainer.snp_bottom).offset(10)
+			make.top.equalTo(progressContainer.snp_bottom).offset(30)
 			make.width.equalTo(contentView.snp_width)
-			make.height.equalTo(backgroundView.snp_height).dividedBy(1.6)
-			make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
+			make.height.equalTo(backgroundView.snp_height).dividedBy(1.5)
+			make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
 		}
 		
 		//Header
@@ -371,7 +372,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		applicantContainer.addSubview(headerContainer)
 		headerContainer.backgroundColor = navBarColor
 		headerContainer.layer.borderWidth = 1
-		headerContainer.layer.borderColor = darkGrayDetails.CGColor
+		headerContainer.layer.borderColor = grayDetails.CGColor
 		headerContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(applicantContainer.snp_top)
 			make.width.equalTo(applicantContainer.snp_width)
@@ -396,7 +397,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		acceptedApplicantLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		acceptedApplicantLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(acceptedIcon.snp_centerY)
-			make.left.equalTo(acceptedIcon.snp_right).offset(4)
+			make.left.equalTo(acceptedIcon.snp_right).offset(12)
 		}
 		
 		//Applicant
@@ -404,12 +405,23 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		var profileContainer = UIView()
 		applicantContainer.addSubview(profileContainer)
 		applicantContainer.backgroundColor = navBarColor
-		applicantContainer.layer.borderColor = darkGrayDetails.CGColor
+		applicantContainer.layer.borderColor = grayDetails.CGColor
 		applicantContainer.layer.borderWidth = 1
 		profileContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(headerContainer.snp_bottom)
 			make.width.equalTo(applicantContainer.snp_width)
-			make.height.equalTo(applicantContainer.snp_height).dividedBy(2)
+			make.height.equalTo(applicantContainer.snp_height).dividedBy(2.1)
+		}
+		
+		var applicantName = UILabel()
+		profileContainer.addSubview(applicantName)
+		applicantName.text = self.acceptedApplicant.name
+		applicantName.textColor = blackNelpyColor
+		applicantName.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		applicantName.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(profileContainer.snp_top).offset(18)
+			make.left.equalTo(profileContainer.snp_left).offset(20)
+			make.right.equalTo(profileContainer.snp_right).offset(-10)
 		}
 		
 		var profilePicture = UIImageView()
@@ -420,21 +432,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		profilePicture.clipsToBounds = true
 		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
 		profilePicture.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(profileContainer.snp_left).offset(20)
-			make.centerY.equalTo(profileContainer.snp_centerY)
+			make.left.equalTo(applicantName.snp_left)
+			make.top.equalTo(applicantName.snp_bottom).offset(20)
 			make.height.equalTo(pictureSize)
 			make.width.equalTo(pictureSize)
-		}
-		
-		var applicantName = UILabel()
-		profileContainer.addSubview(applicantName)
-		applicantName.text = self.acceptedApplicant.name
-		applicantName.textColor = blackNelpyColor
-		applicantName.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
-		applicantName.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileContainer.snp_top).offset(10)
-			make.left.equalTo(profilePicture.snp_left)
-			make.right.equalTo(profileContainer.snp_right).offset(-10)
 		}
 		
 		//FeedBack Stars
@@ -445,8 +446,8 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		firstStar.contentMode = UIViewContentMode.ScaleAspectFill
 		firstStar.image = UIImage(named: "empty_star")
 		firstStar.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(picture.snp_right).offset(40)
-			make.top.equalTo(picture.snp_top).offset(4)
+			make.left.equalTo(picture.snp_right).offset(30)
+			make.top.equalTo(picture.snp_top).offset(10)
 			make.height.equalTo(20)
 			make.width.equalTo(20)
 		}
@@ -513,8 +514,9 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		profileContainer.addSubview(arrow)
 		arrow.setBackgroundImage(UIImage(named: "arrow_applicant_cell.png"), forState: UIControlState.Normal)
 		arrow.contentMode = UIViewContentMode.ScaleAspectFill
+		arrow.alpha = 0.5
 		arrow.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(profileContainer.snp_right).offset(-4)
+			make.right.equalTo(profileContainer.snp_right).offset(-20)
 			make.centerY.equalTo(profileContainer.snp_centerY)
 			make.height.equalTo(35)
 			make.width.equalTo(20)
@@ -526,7 +528,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		moneyTag.image = UIImage(named: "moneytag")
 		moneyTag.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(thirdStar.snp_centerX)
-			make.bottom.equalTo(profilePicture.snp_bottom)
+			make.bottom.equalTo(profilePicture.snp_bottom).offset(-10)
 			make.width.equalTo(70)
 			make.height.equalTo(30)
 		}
@@ -534,16 +536,17 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		var priceToPay = UILabel()
 		priceToPay.textAlignment = NSTextAlignment.Center
 		profileContainer.addSubview(priceToPay)
-		priceToPay.text = "$350"
+		priceToPay.text = "$\(self.acceptedApplication.price!)"
 		priceToPay.textColor = whiteNelpyColor
 		priceToPay.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
 		priceToPay.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(moneyTag.snp_edges)
+			make.centerX.equalTo(moneyTag.snp_centerX).offset(2)
+			make.centerY.equalTo(moneyTag.snp_centerY)
 		}
 		
 		var profileUnderline = UIView()
 		applicantContainer.addSubview(profileUnderline)
-		profileUnderline.backgroundColor = darkGrayDetails
+		profileUnderline.backgroundColor = grayDetails
 		profileUnderline.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileContainer.snp_bottom)
 			make.width.equalTo(applicantContainer.snp_width)
@@ -563,44 +566,44 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 			make.width.equalTo(applicantContainer.snp_width)
 		}
 		
+		var emailLabel = UILabel()
+		informationContainer.addSubview(emailLabel)
+		emailLabel.text = "cvinette@nelper.ca"
+		emailLabel.textColor = blackNelpyColor
+		emailLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		emailLabel.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
+			make.centerY.equalTo(informationContainer.snp_centerY).offset(-30)
+		}
+	
 		var emailIcon = UIImageView()
 		informationContainer.addSubview(emailIcon)
 		emailIcon.image = UIImage(named: "at")
 		emailIcon.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(informationContainer.snp_centerX).offset(-80)
-			make.centerY.equalTo(informationContainer.snp_centerY).offset(-30)
-			make.height.equalTo(30)
-			make.width.equalTo(30)
-		}
-		
-		var emailLabel = UILabel()
-		informationContainer.addSubview(emailLabel)
-		emailLabel.text = "cvinette@Nelper.com"
-		emailLabel.textColor = blackNelpyColor
-		emailLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
-		emailLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(emailIcon.snp_right).offset(10)
-			make.centerY.equalTo(emailIcon.snp_centerY)
-		}
-		
-		var phoneIcon = UIImageView()
-		informationContainer.addSubview(phoneIcon)
-		phoneIcon.image = UIImage(named: "phone")
-		phoneIcon.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(informationContainer.snp_centerX).offset(-80)
-			make.centerY.equalTo(informationContainer.snp_centerY).offset(30)
+			make.right.equalTo(emailLabel.snp_left).offset(-15)
+			make.centerY.equalTo(emailLabel.snp_centerY)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
 		}
 		
 		var phoneLabel = UILabel()
 		informationContainer.addSubview(phoneLabel)
-		phoneLabel.text = "123-456-7890"
+		phoneLabel.text = "000-000-000"
 		phoneLabel.textColor = blackNelpyColor
 		phoneLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		phoneLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(emailLabel.snp_left)
-			make.centerY.equalTo(phoneIcon.snp_centerY)
+			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
+			make.top.equalTo(emailLabel.snp_bottom).offset(30)
+		}
+		
+		var phoneIcon = UIImageView()
+		informationContainer.addSubview(phoneIcon)
+		phoneIcon.image = UIImage(named: "phone")
+		phoneIcon.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(phoneLabel.snp_left).offset(-15)
+			make.centerY.equalTo(phoneLabel.snp_centerY)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
 		}
 		
 		//Chat Button
@@ -641,8 +644,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		
 	}
 	
-// MARK: DATA
-	
+	// MARK: DATA
 	func setImages(applicant:User){
 		if(applicant.profilePictureURL != nil){
 			var fbProfilePicture = applicant.profilePictureURL
@@ -654,11 +656,12 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		}
 	}
 	
-// MARK: Setters
-	func setUser(){
+	// MARK: Setters
+	func setApplicant(){
 		for application in self.task.applications{
 			if application.state == .Accepted{
 				self.acceptedApplicant = application.user!
+				self.acceptedApplication = application
 			}
 		}
 	}
@@ -669,7 +672,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		
 	}
 	
-// MARK: View Delegate
+	// MARK: View Delegate
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
@@ -688,13 +691,13 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		self.fakeButton.layer.mask = maskLayerFake
 	}
 	
-//MARK:Applicant's profile delegate methods
+	//MARK:Applicant's profile delegate methods
 	
 	func didTapDenyButton(applicant: User) {
 		
 	}
 	
-//MARK:Actions
+	//MARK:Actions
 	
 	func backButtonTapped(sender:UIButton){
 		self.dismissViewControllerAnimated(true, completion: nil)
@@ -818,5 +821,5 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 			}
 		}
 	}
-
+	
 }

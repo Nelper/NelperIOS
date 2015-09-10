@@ -15,7 +15,7 @@ let blackNelpyColor = hexStringToUIColor ("2c2c2c")
 let nelperRedColor = hexStringToUIColor("ed4b4e")
 let whiteGrayColor = hexStringToUIColor("f7f7f7")
 let orangeTextColor = hexStringToUIColor("f32a18")
-let grayDetails = hexStringToUIColor("cfcfcf")
+let grayDetails = hexStringToUIColor("e1e1e1")
 let darkGrayDetails = hexStringToUIColor("979797")
 
 let progressGreen = hexStringToUIColor("29B473")
