@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class MyApplicationDetailsView: UIViewController{
+class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate{
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var containerView: UIView!
@@ -18,6 +18,7 @@ class MyApplicationDetailsView: UIViewController{
 	
 	var poster: User!
 	var application: NelpTaskApplication!
+	let locationManager = CLLocationManager()
 	var picture:UIImageView!
 	var firstStar:UIImageView!
 	var secondStar:UIImageView!
@@ -408,6 +409,29 @@ class MyApplicationDetailsView: UIViewController{
 			make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
 		}
 		
+		var mapView = MKMapView()
+		mapView.delegate = self
+		mapContainer.addSubview(mapView)
+		mapView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(mapContainer.snp_edges)
+		}
+		
+		self.locationManager.delegate = self;
+		self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+		self.locationManager.requestWhenInUseAuthorization()
+		self.locationManager.startUpdatingLocation()
+		self.locationManager.distanceFilter = 40
+		
+		var mapview = MKMapView()
+		
+		var taskLocation = CLLocationCoordinate2DMake(self.application.task.location!.latitude, self.application.task.location!.longitude)
+		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(taskLocation, span)
+		mapView.setRegion(locationToZoom, animated: true)
+		mapView.setCenterCoordinate(taskLocation, animated: true)
+		
+		var circle = MKCircle(centerCoordinate: taskLocation, radius: 400)
+		mapView.addOverlay(circle)
 	
 		//Chat Button
 		
@@ -458,6 +482,30 @@ class MyApplicationDetailsView: UIViewController{
 				self.picture.image = image
 			}
 		}
+	}
+	
+	//MARK: MKMapView Delegate Methods
+	
+	func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+		if overlay is MKCircle {
+			var circle = MKCircleRenderer(overlay: overlay)
+			circle.strokeColor = UIColor.redColor()
+			circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
+			circle.lineWidth = 1
+			return circle
+		} else {
+			return nil
+		}
+	}
+	
+	//MARK: CLLocation Delegate Methods
+	
+	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+		
+	}
+	
+	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+		
 	}
 	
 	//MARK: View Delegate Methods

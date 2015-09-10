@@ -61,6 +61,8 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		let backBtn = UIButton()
 		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.backButton = backBtn
+		self.navBar.setImage(UIImage(named: "close_red")!)
+
 		
 		self.titleLabel.text = self.task.title
 		self.titleLabel.textColor = blackNelpyColor

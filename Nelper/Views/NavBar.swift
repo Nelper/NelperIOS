@@ -35,8 +35,8 @@ class NavBar: UINavigationBar {
 				backArrow.snp_makeConstraints { (make) -> Void in
 					make.left.equalTo(self.backButtonView!.snp_left).offset(6)
 					make.centerY.equalTo(self.backButtonView!.snp_centerY).offset(0)
-					make.width.equalTo(30)
-					make.height.equalTo(30)
+					make.width.equalTo(40)
+					make.height.equalTo(40)
 				}
 				
 				self.backButtonView?.snp_makeConstraints(closure: { (make) -> Void in
@@ -87,7 +87,7 @@ class NavBar: UINavigationBar {
 		self.titleView = UILabel()
 		self.titleView.text = "Nelper"
 		self.titleView.font = UIFont(name: "HelveticaNeue", size: kNavBarTitleFont)
-		self.titleView.textColor = nelperRedColor
+		self.titleView.textColor = blackNelpyColor
 		self.titleView.sizeToFit()
 		
 		self.container.addSubview(self.titleView)
