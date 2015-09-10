@@ -280,13 +280,14 @@ class ApiHelper {
 	
 	//Apply for a task
 	
-	static func applyForTask(task: NelpTask) {
+	static func applyForTask(task: NelpTask, price:Int) {
 		let parseTask = PFObject(withoutDataWithClassName: kParseTask, objectId: task.objectId)
 		let parseApplication = PFObject(className: kParseTaskApplication)
 		parseApplication["state"] = NelpTaskApplication.State.Pending.rawValue
 		parseApplication["user"] = PFUser.currentUser()!
 		parseApplication["task"] = parseTask
 		parseApplication["isNew"] = true
+		parseApplication["price"] = price
 		task.application = NelpTaskApplication(parseApplication: parseApplication)
 		parseApplication.saveInBackgroundWithBlock { (ok, error) -> Void in
 			task.application?.objectId = parseApplication.objectId

@@ -58,6 +58,7 @@
 		F775C0CF1B82CEAF00F7525B /* MyTaskDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F775C0CE1B82CEAF00F7525B /* MyTaskDetailsViewController.xib */; };
 		F775C0D11B82D1FB00F7525B /* FullProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775C0D01B82D1FB00F7525B /* FullProfileViewController.swift */; };
 		F775C0D31B82D22200F7525B /* FullProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F775C0D21B82D22200F7525B /* FullProfileViewController.xib */; };
+		F777FBAD1BA1245B00328709 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F777FBAC1BA1245B00328709 /* DateHelper.swift */; };
 		F782A6261B6411DD00C78470 /* SecondFormScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F782A6241B6411DD00C78470 /* SecondFormScreen.xib */; };
 		F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6251B6411DD00C78470 /* SecondFormViewController.swift */; };
 		F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ApiHelper.swift */; };
@@ -230,6 +231,7 @@
 		F775C0CE1B82CEAF00F7525B /* MyTaskDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyTaskDetailsViewController.xib; path = Nelper/Profile/MyTaskDetailsViewController.xib; sourceTree = SOURCE_ROOT; };
 		F775C0D01B82D1FB00F7525B /* FullProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FullProfileViewController.swift; path = Nelper/Profile/FullProfileViewController.swift; sourceTree = SOURCE_ROOT; };
 		F775C0D21B82D22200F7525B /* FullProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FullProfileViewController.xib; path = Nelper/Profile/FullProfileViewController.xib; sourceTree = SOURCE_ROOT; };
+		F777FBAC1BA1245B00328709 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateHelper.swift; path = Nelper/Helpers/DateHelper.swift; sourceTree = SOURCE_ROOT; };
 		F782A6241B6411DD00C78470 /* SecondFormScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SecondFormScreen.xib; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormScreen.xib"; sourceTree = SOURCE_ROOT; };
 		F782A6251B6411DD00C78470 /* SecondFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondFormViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormViewController.swift"; sourceTree = SOURCE_ROOT; };
 		F782A6281B6567E100C78470 /* ApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHelper.swift; path = Nelper/Helpers/ApiHelper.swift; sourceTree = SOURCE_ROOT; };
@@ -549,6 +551,7 @@
 				F782A6281B6567E100C78470 /* ApiHelper.swift */,
 				F73A45BF1B72FEA400FD8C79 /* LocationHelper.swift */,
 				F7E8F9341B953A57007D44D8 /* LayerManager.swift */,
+				F777FBAC1BA1245B00328709 /* DateHelper.swift */,
 			);
 			name = Helpers;
 			path = ViewControllers/Offer;
@@ -999,6 +1002,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F73A45C61B741F4000FD8C79 /* NelpTaskDetailsViewController.swift in Sources */,
+				F777FBAD1BA1245B00328709 /* DateHelper.swift in Sources */,
 				19761A1B1B687858001600E1 /* BaseTask.swift in Sources */,
 				F7E8F8EF1B94E7CF007D44D8 /* ATLIncomingMessageCollectionViewCell.m in Sources */,
 				F7E8F8E61B94E7CF007D44D8 /* ATLAddressBarTextView.m in Sources */,

@@ -21,8 +21,8 @@ class NelpTaskApplication: BaseModel {
   var isNew: Bool = true
   var user: User!
   var task: NelpTask!
-	var price: Double?
-  
+	var price: Int?
+	
   init(parseApplication: PFObject) {
     super.init()
 		objectId = parseApplication.objectId
@@ -31,7 +31,7 @@ class NelpTaskApplication: BaseModel {
 			createdAt = parseApplication.createdAt!
 		}
 		if parseApplication["price"] != nil {
-			price = parseApplication["price"] as? Double
+			price = parseApplication["price"] as? Int
 		}
     isNew = parseApplication["isNew"] as! Bool
     user = User(parseUser: parseApplication["user"] as! PFUser)
