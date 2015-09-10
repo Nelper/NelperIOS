@@ -287,7 +287,7 @@ class ApiHelper {
 		parseApplication["user"] = PFUser.currentUser()!
 		parseApplication["task"] = parseTask
 		parseApplication["isNew"] = true
-		parseApplication["price"] = price
+		parseApplication["price"] = task.priceOffered
 		task.application = NelpTaskApplication(parseApplication: parseApplication)
 		parseApplication.saveInBackgroundWithBlock { (ok, error) -> Void in
 			task.application?.objectId = parseApplication.objectId
@@ -302,6 +302,13 @@ class ApiHelper {
 		parseApplication.saveEventually()
 	}
 	
+	static func cancelApplyForTaskWithApplication(application: NelpTaskApplication) {
+		print(application.objectId)
+		let parseApplication = PFObject(withoutDataWithClassName:kParseTaskApplication, objectId:application.objectId)
+		parseApplication["state"] = NelpTaskApplication.State.Canceled.rawValue
+		parseApplication.saveEventually()
+	}
+		
 	//Accept applicant
 	
 	static func acceptApplication(application: NelpTaskApplication) {

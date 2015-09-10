@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MyApplicationDetailsViewDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var containerView: UIView!
@@ -354,7 +354,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	func loadData() {
 		ApiHelper.listMyNelpTasksWithBlock{ (nelpTasks: [FindNelpTask]?, error: NSError?) -> Void in
 			if error != nil {
-				
+				print(error)
 			} else {
 				self.nelpTasks = nelpTasks!
 				print(self.nelpTasks)
@@ -365,7 +365,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		
 		ApiHelper.listMyNelpApplicationsWithBlock { (nelpApplications: [NelpTaskApplication]?, error: NSError?) -> Void in
 			if error != nil {
-				
+				print(error)
 			} else {
 				self.nelpApplications = nelpApplications!
 				self.refreshViewApplication?.endRefreshing()
@@ -374,6 +374,12 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		}
 	}
 	
+	
+	//MARK: My Applications Details VC Delegate
+	
+	func didCancelApplication(application:NelpTaskApplication){
+		self.myApplicationsTableView.reloadData()
+	}
 	//MARK: Tableview Delegate and Datasource
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -435,6 +441,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		} else if (tableView == myApplicationsTableView) {
 			var application = nelpApplications[indexPath.row]
 			var nextVC = MyApplicationDetailsView(poster: application.task.user, application: application)
+			nextVC.delegate = self
 			
 			dispatch_async(dispatch_get_main_queue()) {
 				self.presentViewController(nextVC, animated: true, completion: nil)

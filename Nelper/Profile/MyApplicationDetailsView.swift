@@ -9,6 +9,10 @@
 import Foundation
 import Alamofire
 
+protocol MyApplicationDetailsViewDelegate{
+	func didCancelApplication(application:NelpTaskApplication)
+}
+
 class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate{
 	
 	@IBOutlet weak var navBar: NavBar!
@@ -26,6 +30,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	var fourthStar:UIImageView!
 	var fifthStar:UIImageView!
 	var scrollView:UIScrollView!
+	var delegate: MyApplicationDetailsViewDelegate!
 	
 	var contentView:UIView!
 	var whiteContainer:UIView!
@@ -36,6 +41,9 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	var fakeButton:UIButton!
 	var cityLabel:UILabel!
 	var postDateLabel:UILabel!
+	var applicationStatusIcon:UIImageView!
+	var statusLabel:UILabel!
+	var cancelButton:UIButton!
 	
 	
 	//MARK: Initialization
@@ -94,7 +102,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		var moneyLabel = UILabel()
 		moneyTag.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.text = "$350"
+		moneyLabel.text = "$\(self.application.price!)"
 		moneyLabel.textColor = whiteNelpyColor
 		moneyLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
@@ -113,7 +121,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		
 		var applicationStatusIcon = UIImageView()
 		statusContainer.addSubview(applicationStatusIcon)
-		applicationStatusIcon.image = UIImage(named: "pending")
+		self.applicationStatusIcon = applicationStatusIcon
 		applicationStatusIcon.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(moneyTag.snp_centerY)
 			make.left.equalTo(applicationStatusLabel.snp_left)
@@ -122,8 +130,9 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		}
 		
 		var statusLabel = UILabel()
+		self.statusLabel = statusLabel
+		statusLabel.text = self.fetchStatusText()
 		statusContainer.addSubview(statusLabel)
-		statusLabel.text = "Pending"
 		statusLabel.textColor = blackNelpyColor
 		statusLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
 		statusLabel.snp_makeConstraints { (make) -> Void in
@@ -143,7 +152,8 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		
 		var appliedXDaysAgoLabel = UILabel()
 		statusContainer.addSubview(appliedXDaysAgoLabel)
-		appliedXDaysAgoLabel.text = "3 days ago"
+		var dateHelpah = DateHelper()
+		appliedXDaysAgoLabel.text = "\(dateHelpah.timeAgoSinceDate(self.application.createdAt!, numericDates: true))"
 		appliedXDaysAgoLabel.textAlignment = NSTextAlignment.Right
 		appliedXDaysAgoLabel.textColor = blackNelpyColor
 		appliedXDaysAgoLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
@@ -384,6 +394,37 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			make.left.equalTo(pinIcon.snp_right).offset(4)
 		}
 		
+		var taskPosterOffer = UILabel()
+		taskContainer.addSubview(taskPosterOffer)
+		taskPosterOffer.text = "Task poster is offering"
+		taskPosterOffer.textColor = darkGrayDetails
+		taskPosterOffer.font = UIFont(name: "HelveticaNeue", size: kCellSubtitleFontSize)
+		taskPosterOffer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(pinIcon.snp_bottom).offset(15)
+			make.left.equalTo(pinIcon.snp_left).offset(-20)
+		}
+		
+		var moneyTagPoster = UIImageView()
+		taskContainer.addSubview(moneyTagPoster)
+		moneyTagPoster.image = UIImage(named: "moneytag")
+		moneyTagPoster.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(taskPosterOffer.snp_centerY)
+			make.left.equalTo(taskPosterOffer.snp_right).offset(4)
+			make.width.equalTo(60)
+			make.height.equalTo(25)
+		}
+		
+		var moneyLabelPoster = UILabel()
+		moneyTagPoster.addSubview(moneyLabelPoster)
+		moneyLabelPoster.textAlignment = NSTextAlignment.Center
+		moneyLabelPoster.text = "$\(Int(self.application.task.priceOffered!))"
+		moneyLabelPoster.textColor = whiteNelpyColor
+		moneyLabelPoster.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		moneyLabelPoster.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(moneyTagPoster.snp_edges)
+		}
+		
+		
 		var locationNoticeLabel = UILabel()
 		taskContainer.addSubview(locationNoticeLabel)
 		locationNoticeLabel.text = "Task location within 400m"
@@ -406,7 +447,6 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
 			make.right.equalTo(self.contentView.snp_right).offset(1)
 			make.height.equalTo(250)
-			make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
 		}
 		
 		var mapView = MKMapView()
@@ -433,6 +473,36 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		var circle = MKCircle(centerCoordinate: taskLocation, radius: 400)
 		mapView.addOverlay(circle)
 	
+		
+		var cancelContainer = UIView()
+		contentView.addSubview(cancelContainer)
+		cancelContainer.backgroundColor = whiteNelpyColor
+		cancelContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(mapView.snp_bottom)
+			make.width.equalTo(self.contentView.snp_width)
+			make.height.equalTo(120)
+			make.bottom.equalTo(self.contentView.snp_bottom)
+		}
+		
+		var cancelButton = UIButton()
+		cancelContainer.addSubview(cancelButton)
+		self.cancelButton = cancelButton
+		cancelButton.setTitle("Cancel Application", forState: UIControlState.Normal)
+		cancelButton.setTitle("Sure?", forState: UIControlState.Selected)
+		cancelButton.setTitleColor(nelperRedColor, forState: UIControlState.Normal)
+		cancelButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
+		self.cancelButton.addTarget(self, action: "didTapCancelButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		cancelButton.layer.borderWidth = 0.5
+		cancelButton.layer.borderColor = darkGrayDetails.CGColor
+		cancelButton.backgroundColor = navBarColor
+		cancelButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(mapView.snp_bottom).offset(20)
+			make.centerX.equalTo(cancelContainer.snp_centerX)
+			make.height.equalTo(45)
+			make.width.equalTo(200)
+		}
+		
+		
 		//Chat Button
 		
 		var chatButton = UIButton()
@@ -482,6 +552,9 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 				self.picture.image = image
 			}
 		}
+		
+		self.applicationStatusIcon.image = self.fetchStatusIcon()
+		
 	}
 	
 	//MARK: MKMapView Delegate Methods
@@ -528,11 +601,51 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		self.fakeButton.layer.mask = maskLayerFake
 	}
 	
+	//MARK: Utilities
+	
+	func fetchStatusIcon() -> UIImage{
+		
+		switch self.application.state{
+		case .Accepted:
+			return UIImage(named: "accepted")!
+		case .Pending:
+			return UIImage(named: "pending")!
+		case .Denied:
+			return UIImage(named: "denied")!
+		default:
+			return UIImage()
+		}
+	}
+	
+	func fetchStatusText() -> String{
+		switch self.application.state{
+		case .Accepted:
+			return "Accepted"
+		case .Pending:
+			return "Pending"
+		case .Denied:
+			return "Denied"
+		default:
+			return "Something went wrong :-/"
+		}
+	}
 	
 	//MARK: Actions
 	
 	func backButtonTapped(sender:UIButton){
 		self.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	func didTapCancelButton(sender:UIButton){
+		if sender.selected == false {
+			sender.selected = true
+			
+		}else if sender.selected == true{
+			ApiHelper.cancelApplyForTaskWithApplication(self.application)
+			self.application.state = .Canceled
+			self.delegate.didCancelApplication(self.application)
+			self.dismissViewControllerAnimated(true, completion: nil)
+		}
 	}
 	
 	func chatButtonTapped(sender:UIButton){
