@@ -1,30 +1,20 @@
 //
-//  ApplicantProfileViewController.swift
+//  PosterProfileViewController.swift
 //  Nelper
 //
-//  Created by Charles Vinette on 2015-08-27.
+//  Created by Charles Vinette on 2015-09-10.
 //  Copyright (c) 2015 Nelper. All rights reserved.
 //
 
 import Foundation
 import Alamofire
 
-protocol ApplicantProfileViewControllerDelegate{
-	func didTapDenyButton(applicant:User)
-	func dismissVC()
-}
-
-class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
-	
-	@IBOutlet weak var navBar: NavBar!
-	@IBOutlet weak var acceptDenyBar: UIView!
-	@IBOutlet weak var containerView: UIView!
+class PosterProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 	
 	let kCellHeight:CGFloat = 45
 	
-	var previousVC:MyTaskDetailsViewController!
-	var applicant: User!
-	var delegate:ApplicantProfileViewControllerDelegate?
+	var navBar:NavBar!
+	var poster: User!
 	var application: NelpTaskApplication!
 	var picture:UIImageView!
 	var firstStar:UIImageView!
@@ -37,9 +27,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	var aboutLabel:UILabel!
 	var educationLabel:UILabel!
 	var experienceLabel:UILabel!
-	var isAccepted:Bool?
 	
 	var contentView:UIView!
+	var containerView:UIView!
 	var profileSegmentButton:UIButton!
 	var reviewSegmentButton:UIButton!
 	var bottomFeedbackBorder:UIView!
@@ -62,25 +52,15 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	var conversationController:UINavigationController?
 	var tempVC:UIViewController!
 	var fakeButton:UIButton!
-
-
-	//MARK: Initialization
 	
-	convenience init(applicant:User, application:NelpTaskApplication){
-		self.init(nibName: "ApplicantProfileViewController", bundle: nil)
-		self.applicant = applicant
-		self.application = application
-	}
+	
+	//MARK: Initialization
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.navBar.setTitle("Nelper's Info")
 		self.loadData()
 		self.createView()
-		if self.isAccepted == true {
-			self.setAsAccepted()
-		}
-
+		
 		self.profileSegmentButton.selected = true
 	}
 	
@@ -88,16 +68,42 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	func createView(){
 		
-		self.setImages(self.applicant)
+		var navBar = NavBar()
+		self.navBar = navBar
+		self.view.addSubview(navBar)
+		navBar.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.view.snp_top)
+			make.right.equalTo(self.view.snp_right)
+			make.left.equalTo(self.view.snp_left)
+			make.height.equalTo(64)
+		}
+		
+		let backBtn = UIButton()
+		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		navBar.backButton = backBtn
+		navBar.setImage(UIImage(named: "close_red" )!)
+		navBar.setTitle("Poster's profile")
+		
+		var contentView = UIView()
+		self.contentView = contentView
+		self.view.addSubview(contentView)
+		contentView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(navBar.snp_bottom)
+			make.width.equalTo(self.view.snp_width)
+			make.bottom.equalTo(self.view.snp_bottom)
+		}
+		contentView.backgroundColor = whiteNelpyColor
+		
+		self.setImages(self.poster)
 		
 		//Profile + Header
 		var profileContainer = UIView()
 		self.profileContainer = profileContainer
-		self.containerView.addSubview(profileContainer)
+		self.contentView.addSubview(profileContainer)
 		profileContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.navBar.snp_bottom)
-			make.left.equalTo(self.containerView.snp_left)
-			make.right.equalTo(self.containerView.snp_right)
+			make.left.equalTo(self.contentView.snp_left)
+			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo(125)
 		}
 		profileContainer.backgroundColor = profileGreenColor
@@ -127,7 +133,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		profileContainer.addSubview(name)
 		name.numberOfLines = 0
 		name.textColor = whiteNelpyColor
-		name.text = self.applicant.name
+		name.text = self.poster.name
 		name.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		
 		name.snp_makeConstraints { (make) -> Void in
@@ -208,51 +214,21 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			make.top.equalTo(firstStar.snp_bottom).offset(8)
 			make.right.equalTo(profileContainer.snp_right).offset(-4)
 		}
-
-		//Asking for Container
-		
-		var askingForPriceContainer = UIView()
-		self.containerView.addSubview(askingForPriceContainer)
-		askingForPriceContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileContainer.snp_bottom)
-			make.left.equalTo(self.containerView.snp_left)
-			make.right.equalTo(self.containerView.snp_right)
-			make.height.equalTo(60)
-		}
-		askingForPriceContainer.backgroundColor = navBarColor
-		
-		var moneyIcon = UIImageView()
-		askingForPriceContainer.addSubview(moneyIcon)
-		moneyIcon.image = UIImage(named: "money_icon")
-		moneyIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		moneyIcon.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(askingForPriceContainer.snp_centerY)
-			make.left.equalTo(askingForPriceContainer.snp_left).offset(30)
-			make.height.equalTo(50)
-			make.width.equalTo(50)
-		}
-		
-		var askingForLabel = UILabel()
-		askingForLabel.textColor = blackNelpyColor
-		askingForLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
-		if self.application.price != nil{
-		askingForLabel.text = "\(self.application.price)$"
-		}
 		
 		//Segment Container
 		var segmentControlContainer = UIView()
-		self.containerView.addSubview(segmentControlContainer)
+		self.contentView.addSubview(segmentControlContainer)
 		segmentControlContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(askingForPriceContainer.snp_bottom)
-			make.left.equalTo(self.containerView.snp_left)
-			make.right.equalTo(self.containerView.snp_right)
+			make.top.equalTo(profileContainer.snp_bottom)
+			make.left.equalTo(self.contentView.snp_left)
+			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo(50)
 		}
 		segmentControlContainer.layer.borderWidth = 1
 		segmentControlContainer.layer.borderColor = darkGrayDetails.CGColor
 		segmentControlContainer.backgroundColor = navBarColor
 		
-			//Hack for positioning of custom Segment bar
+		//Hack for positioning of custom Segment bar
 		
 		var firstHalf = UIView()
 		segmentControlContainer.addSubview(firstHalf)
@@ -288,7 +264,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			make.centerX.equalTo(firstHalf.snp_centerX)
 			make.height.equalTo(2)
 		}
-
+		
 		var secondHalf = UIView()
 		segmentControlContainer.addSubview(secondHalf)
 		secondHalf.snp_makeConstraints { (make) -> Void in
@@ -301,7 +277,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		var reviewSegmentButton = UIButton()
 		self.reviewSegmentButton = reviewSegmentButton
 		reviewSegmentButton.addTarget(self, action: "reviewSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-
+		
 		secondHalf.addSubview(reviewSegmentButton)
 		reviewSegmentButton.setTitle("Feedback", forState: UIControlState.Normal)
 		reviewSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
@@ -331,12 +307,12 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		//Background View + ScrollView
 		
 		var background = UIView()
-		self.containerView.addSubview(background)
+		self.contentView.addSubview(background)
 		background.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(segmentControlContainer.snp_bottom)
-			make.left.equalTo(self.containerView.snp_left)
-			make.right.equalTo(self.containerView.snp_right)
-			make.bottom.equalTo(self.acceptDenyBar.snp_top)
+			make.left.equalTo(self.contentView.snp_left)
+			make.right.equalTo(self.contentView.snp_right)
+			make.bottom.equalTo(self.view.snp_bottom)
 		}
 		
 		var scrollView = UIScrollView()
@@ -345,42 +321,35 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		scrollView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(background.snp_edges)
 		}
-		
-		
 		scrollView.backgroundColor = whiteNelpyColor
-		let backBtn = UIButton()
-		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.backButton = backBtn
-		navBar.setImage(UIImage(named: "close_red" )!)
-
 		
-		var contentView = UIView()
-		self.contentView = contentView
-		scrollView.addSubview(contentView)
-		contentView.snp_makeConstraints { (make) -> Void in
+		var containerView = UIView()
+		self.containerView = containerView
+		scrollView.addSubview(containerView)
+		containerView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(scrollView.snp_top)
 			make.left.equalTo(scrollView.snp_left)
 			make.right.equalTo(scrollView.snp_right)
 			make.height.greaterThanOrEqualTo(background.snp_height)
 			make.width.equalTo(background.snp_width)
 		}
-		self.contentView.backgroundColor = whiteNelpyColor
+		self.containerView.backgroundColor = whiteNelpyColor
 		background.backgroundColor = whiteNelpyColor
 		
 		
 		//White Container
 		
 		var whiteContainer = UIView()
-		self.contentView.addSubview(whiteContainer)
+		self.containerView.addSubview(whiteContainer)
 		self.whiteContainer = whiteContainer
 		whiteContainer.layer.borderColor = darkGrayDetails.CGColor
 		whiteContainer.layer.borderWidth = 1
 		whiteContainer.backgroundColor = navBarColor
 		whiteContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(contentView.snp_top).offset(10)
-			make.left.equalTo(contentView.snp_left)
-			make.right.equalTo(contentView.snp_right)
-			make.bottom.equalTo(contentView.snp_bottom).offset(-10)
+			make.top.equalTo(containerView.snp_top).offset(10)
+			make.left.equalTo(containerView.snp_left)
+			make.right.equalTo(containerView.snp_right)
+			make.bottom.equalTo(containerView.snp_bottom).offset(-10)
 		}
 		
 		
@@ -405,7 +374,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		aboutTextView.textColor = blackNelpyColor
 		aboutTextView.backgroundColor = navBarColor
 		aboutTextView.editable = false
-		aboutTextView.text = self.applicant.about
+		aboutTextView.text = self.poster.about
 		aboutTextView.font = UIFont(name: "HelveticaNeue", size: kAboutTextFontSize)
 		aboutTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutLabel.snp_bottom).offset(6)
@@ -430,7 +399,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			make.height.equalTo(0.5)
 		}
 		
-		if self.applicant.about == nil || self.applicant.about.isEmpty{
+		if self.poster.about == nil || self.poster.about.isEmpty{
 			aboutLabel.hidden = true
 			aboutBottomLine.hidden = true
 			aboutLabel.snp_updateConstraints(closure: { (make) -> Void in
@@ -468,9 +437,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		skillsTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
-			make.right.equalTo(contentView.snp_right).offset(-19)
-			if self.applicant.skills != nil{
-			make.height.equalTo(self.applicant.skills.count * Int(kCellHeight))
+			make.right.equalTo(containerView.snp_right).offset(-19)
+			if self.poster.skills != nil{
+				make.height.equalTo(self.poster.skills.count * Int(kCellHeight))
 			}
 		}
 		
@@ -511,9 +480,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		educationTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
-			make.right.equalTo(contentView.snp_right).offset(-19)
-			if self.applicant.education != nil{
-			make.height.equalTo(self.applicant.education.count * Int(kCellHeight))
+			make.right.equalTo(containerView.snp_right).offset(-19)
+			if self.poster.education != nil{
+				make.height.equalTo(self.poster.education.count * Int(kCellHeight))
 			}
 		}
 		
@@ -554,9 +523,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		experienceTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(experienceLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
-			make.right.equalTo(contentView.snp_right).offset(-19)
-			if self.applicant.experience != nil{
-			make.height.equalTo(self.applicant.experience.count * Int(kCellHeight))
+			make.right.equalTo(containerView.snp_right).offset(-19)
+			if self.poster.experience != nil{
+				make.height.equalTo(self.poster.experience.count * Int(kCellHeight))
 			}
 		}
 		
@@ -566,36 +535,8 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			make.top.equalTo(experienceTableView.snp_bottom)
 			make.bottom.equalTo(whiteContainer.snp_bottom)
 		}
-
-		//Accept Deny Bar
 		
-		self.acceptDenyBar.backgroundColor = profileGreenColor
-		
-		var acceptButton = UIButton()
-		self.acceptButton = acceptButton
-		self.acceptDenyBar.addSubview(acceptButton)
-		self.acceptButton.addTarget(self, action: "acceptButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		acceptButton.setBackgroundImage(UIImage(named:"white_accepted.png"), forState: UIControlState.Normal)
-		acceptButton.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(acceptDenyBar.snp_centerX).offset(60)
-			make.centerY.equalTo(acceptDenyBar.snp_centerY)
-			make.width.equalTo(50)
-			make.height.equalTo(50)
-		}
-		
-		var denyButton = UIButton()
-		self.acceptDenyBar.addSubview(denyButton)
-		self.denyButton = denyButton
-		self.denyButton.addTarget(self, action: "denyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		denyButton.setBackgroundImage(UIImage(named:"white_denied.png"), forState: UIControlState.Normal)
-		denyButton.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(acceptDenyBar.snp_centerX).offset(-60)
-			make.centerY.equalTo(acceptDenyBar.snp_centerY)
-			make.width.equalTo(50)
-			make.height.equalTo(50)
-		}
-		
-		//Chat Button
+				//Chat Button
 		
 		var chatButton = UIButton()
 		self.chatButton = chatButton
@@ -608,7 +549,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		chatButton.clipsToBounds = true
 		chatButton.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(whiteContainer.snp_right).offset(2)
-			make.bottom.equalTo(acceptDenyBar.snp_top)
+			make.bottom.equalTo(self.view.snp_bottom)
 			make.width.equalTo(100)
 			make.height.equalTo(40)
 		}
@@ -626,7 +567,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		fakeButton.clipsToBounds = true
 		fakeButton.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(whiteContainer.snp_right).offset(2)
-			make.bottom.equalTo(acceptDenyBar.snp_top)
+			make.bottom.equalTo(self.view.snp_bottom)
 			make.width.equalTo(100)
 			make.height.equalTo(40)
 		}
@@ -636,9 +577,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	//MARK: DATA
 	
-	func setImages(applicant:User){
-		if(applicant.profilePictureURL != nil){
-			var fbProfilePicture = applicant.profilePictureURL
+	func setImages(poster:User){
+		if(poster.profilePictureURL != nil){
+			var fbProfilePicture = poster.profilePictureURL
 			request(.GET,fbProfilePicture!).response(){
 				(_, _, data, _) in
 				var image = UIImage(data: data as NSData!)
@@ -654,31 +595,31 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if(tableView == skillsTableView){
-		if self.applicant.skills != nil {
-			if self.applicant.skills.count == 0{
+			if self.poster.skills != nil {
+				if self.poster.skills.count == 0{
+					self.skillsLabel.hidden = true
+					self.skillsBottomLine.hidden = true
+					self.skillsLabel.snp_updateConstraints(closure: { (make) -> Void in
+						make.height.equalTo(0)
+					})
+					self.skillsTableView.snp_updateConstraints(closure: { (make) -> Void in
+						make.height.equalTo(0)
+					})
+				}
+				return self.poster.skills.count
+			}else{
 				self.skillsLabel.hidden = true
-				self.skillsBottomLine.hidden = true
 				self.skillsLabel.snp_updateConstraints(closure: { (make) -> Void in
 					make.height.equalTo(0)
 				})
 				self.skillsTableView.snp_updateConstraints(closure: { (make) -> Void in
 					make.height.equalTo(0)
 				})
-			}
-			return self.applicant.skills.count
-		}else{
-			self.skillsLabel.hidden = true
-			self.skillsLabel.snp_updateConstraints(closure: { (make) -> Void in
-				make.height.equalTo(0)
-			})
-			self.skillsTableView.snp_updateConstraints(closure: { (make) -> Void in
-				make.height.equalTo(0)
-			})
-			self.skillsBottomLine.hidden = true
+				self.skillsBottomLine.hidden = true
 			}
 		}else if tableView == educationTableView{
-			if self.applicant.education != nil{
-				if self.applicant.education.count == 0{
+			if self.poster.education != nil{
+				if self.poster.education.count == 0{
 					self.educationLabel.hidden = true
 					self.educationBottomLine.hidden = true
 					self.educationLabel.snp_updateConstraints(closure: { (make) -> Void in
@@ -688,7 +629,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 						make.height.equalTo(0)
 					})
 				}
-			return self.applicant.education.count
+				return self.poster.education.count
 			}else{
 				self.educationLabel.hidden = true
 				self.educationLabel.snp_updateConstraints(closure: { (make) -> Void in
@@ -700,8 +641,8 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 				self.educationBottomLine.hidden = true
 			}
 		}else if tableView == experienceTableView{
-			if self.applicant.experience != nil{
-				if self.applicant.experience.count == 0{
+			if self.poster.experience != nil{
+				if self.poster.experience.count == 0{
 					self.experienceLabel.hidden = true
 					self.experienceLabel.snp_updateConstraints(closure: { (make) -> Void in
 						make.height.equalTo(0)
@@ -710,7 +651,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 						make.height.equalTo(0)
 					})
 				}
-			return self.applicant.experience.count
+				return self.poster.experience.count
 			}else{
 				self.experienceLabel.hidden = true
 				self.experienceLabel.snp_updateConstraints(closure: { (make) -> Void in
@@ -719,7 +660,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 				self.experienceTableView.snp_updateConstraints(closure: { (make) -> Void in
 					make.height.equalTo(0)
 				})
-
+				
 			}
 		}
 		return 0
@@ -728,31 +669,31 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		if(tableView == skillsTableView) {
 			
-				let skillCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
-				
-				let skill = self.applicant.skills[indexPath.item]
-				skillCell.sendCellType("skills")
-				skillCell.sendSkillName(skill["title"]!)
-				skillCell.setIndex(indexPath.item)
-				skillCell.hideTrashCanIcon()
-				
-				return skillCell
+			let skillCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
+			
+			let skill = self.poster.skills[indexPath.item]
+			skillCell.sendCellType("skills")
+			skillCell.sendSkillName(skill["title"]!)
+			skillCell.setIndex(indexPath.item)
+			skillCell.hideTrashCanIcon()
+			
+			return skillCell
 			
 		}else if tableView == educationTableView{
-	
-				let educationCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
-				
-				let education = self.applicant.education[indexPath.item]
-				educationCell.sendCellType("education")
-				educationCell.sendSkillName(education["title"]!)
-				educationCell.setIndex(indexPath.item)
-				educationCell.hideTrashCanIcon()
-				
-				return educationCell
+			
+			let educationCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
+			
+			let education = self.poster.education[indexPath.item]
+			educationCell.sendCellType("education")
+			educationCell.sendSkillName(education["title"]!)
+			educationCell.setIndex(indexPath.item)
+			educationCell.hideTrashCanIcon()
+			
+			return educationCell
 			
 		}else if tableView == experienceTableView{
 			let experienceCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
-			let experience = self.applicant.experience[indexPath.item]
+			let experience = self.poster.experience[indexPath.item]
 			experienceCell.sendCellType("experience")
 			experienceCell.sendSkillName(experience["title"]!)
 			experienceCell.setIndex(indexPath.item)
@@ -771,7 +712,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return kCellHeight
 	}
-
+	
 	//MARK: View delegate methods
 	
 	override func viewDidLayoutSubviews() {
@@ -792,112 +733,61 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.fakeButton.layer.mask = maskLayerFake
 	}
 	
-	//MARK: Setters
 	
-	func setAsAccepted(){
-		self.denyButton.removeFromSuperview()
-		self.acceptButton.snp_remakeConstraints { (make) -> Void in
-			make.centerY.equalTo(self.acceptDenyBar.snp_centerY)
-			make.centerX.equalTo(self.acceptDenyBar.snp_centerX)
-			make.height.equalTo(50)
-			make.width.equalTo(50)
-		}
-		self.acceptButton.userInteractionEnabled = false
-	}
-
 	//MARK: Actions
 	
 	func backButtonTapped(sender:UIButton){
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	func acceptButtonTapped(sender:UIButton){
-		self.application.state = .Accepted
-		var query = PFQuery(className: "NelpTaskApplication")
-		query.getObjectInBackgroundWithId(self.application.objectId, block: { (application , error) -> Void in
-			if error != nil{
-				println(error)
-			}else if let application = application{
-				application["state"] = self.application.state.rawValue
-				application.saveInBackground()
-			}
-		})
-		self.application.task.state = .Accepted
-		var queryTask = PFQuery(className: "NelpTask")
-		queryTask.getObjectInBackgroundWithId(self.application.task.objectId, block: { (task , error) -> Void in
-			if error != nil{
-				println(error)
-			}else if let task = task{
-				task["state"] = self.application.task.state.rawValue
-				task.saveInBackground()
-			}
-		})
-		self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
-		self.dismissViewControllerAnimated(true, completion: nil)
-	}
-	
-	func denyButtonTapped(sender:UIButton){
-		self.application.state = .Denied
-		var query = PFQuery(className: "NelpTaskApplication")
-		query.getObjectInBackgroundWithId(self.application.objectId, block: { (application , error) -> Void in
-			if error != nil{
-				println(error)
-			}else if let application = application{
-					application["state"] = self.application.state.rawValue
-					application.saveInBackground()
-				}
-		})
-		self.delegate!.didTapDenyButton(self.applicant)
-		self.dismissViewControllerAnimated(true, completion: nil)
-	}
 	
 	func chatButtonTapped(sender:UIButton){
 		
 		self.chatButton.selected = !self.chatButton.selected
 		
 		if self.conversationController == nil{
-		var error:NSError?
-		var participants = Set([self.applicant.objectId])
-		println(participants)
-		
-		
-		var conversation = LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.applicant.objectId]), options: nil, error: nil)
+			var error:NSError?
+			var participants = Set([self.poster.objectId])
+			println(participants)
 			
-//		var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
+			
+			var conversation = LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.poster.objectId]), options: nil, error: nil)
+			
+			//		var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
 			var nextVC = ApplicantChatViewController(layerClient: LayerManager.sharedInstance.layerClient)
 			nextVC.displaysAddressBar = false
 			if conversation != nil{
-		nextVC.conversation = conversation
+				nextVC.conversation = conversation
 			}else{
 				var query:LYRQuery = LYRQuery(queryableClass: LYRConversation.self)
 				query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
 				var result = LayerManager.sharedInstance.layerClient.executeQuery(query, error: nil)
-			  nextVC.conversation = result.firstObject as! LYRConversation
+				nextVC.conversation = result.firstObject as! LYRConversation
 			}
-		var conversationNavController = UINavigationController(rootViewController: nextVC)
-		self.conversationController = conversationNavController
+			var conversationNavController = UINavigationController(rootViewController: nextVC)
+			self.conversationController = conversationNavController
 		}
 		
 		if self.chatButton.selected{
-		
-		var tempVC = UIViewController()
-		self.tempVC = tempVC
-		self.addChildViewController(tempVC)
-		self.view.addSubview(tempVC.view)
-//		tempVC.view.backgroundColor = UIColor.yellowColor()
-		tempVC.didMoveToParentViewController(self)
-		tempVC.view.backgroundColor = UIColor.clearColor()
-		tempVC.view.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.profileContainer.snp_bottom)
-			make.bottom.equalTo(acceptDenyBar.snp_bottom)
-			make.width.equalTo(self.view.snp_width)
-		}
-		
-		tempVC.addChildViewController(self.conversationController!)
-		var distanceToMove = UIScreen.mainScreen().bounds.height -  (UIScreen.mainScreen().bounds.height - self.profileContainer.frame.height)
-		self.conversationController!.view.frame = CGRectMake(0, tempVC.view.frame.height, tempVC.view.frame.width, tempVC.view.frame.height)
-		tempVC.view.addSubview(self.conversationController!.view)
-		
+			
+			var tempVC = UIViewController()
+			self.tempVC = tempVC
+			self.addChildViewController(tempVC)
+			self.view.addSubview(tempVC.view)
+			//		tempVC.view.backgroundColor = UIColor.yellowColor()
+			tempVC.didMoveToParentViewController(self)
+			tempVC.view.backgroundColor = UIColor.clearColor()
+			tempVC.view.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(self.profileContainer.snp_bottom)
+				make.bottom.equalTo(self.view.snp_bottom)
+				make.width.equalTo(self.view.snp_width)
+			}
+			
+			tempVC.addChildViewController(self.conversationController!)
+			var distanceToMove = UIScreen.mainScreen().bounds.height -  (UIScreen.mainScreen().bounds.height - self.profileContainer.frame.height)
+			self.conversationController!.view.frame = CGRectMake(0, tempVC.view.frame.height, tempVC.view.frame.width, tempVC.view.frame.height)
+			tempVC.view.addSubview(self.conversationController!.view)
+			
 			self.view.layoutIfNeeded()
 			UIView.animateWithDuration(0.5, animations: { () -> Void in
 				self.fakeButton.hidden = false
@@ -908,20 +798,20 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 					make.width.equalTo(100)
 					make.height.equalTo(40)
 				})
-			self.conversationController!.view.frame = CGRectMake(0, 0, tempVC.view.frame.width, tempVC.view.frame.height)
-			}) { (didFinish) -> Void in
-				self.chatButton.snp_remakeConstraints(closure: { (make) -> Void in
-					self.view.addSubview(self.chatButton)
-					make.right.equalTo(self.view.snp_right).offset(2)
-					make.bottom.equalTo(self.profileContainer.snp_bottom)
-					make.width.equalTo(100)
-					make.height.equalTo(40)
-				})
-			self.conversationController!.didMoveToParentViewController(tempVC)
-		}
+				self.conversationController!.view.frame = CGRectMake(0, 0, tempVC.view.frame.width, tempVC.view.frame.height)
+				}) { (didFinish) -> Void in
+					self.chatButton.snp_remakeConstraints(closure: { (make) -> Void in
+						self.view.addSubview(self.chatButton)
+						make.right.equalTo(self.view.snp_right).offset(2)
+						make.bottom.equalTo(self.profileContainer.snp_bottom)
+						make.width.equalTo(100)
+						make.height.equalTo(40)
+					})
+					self.conversationController!.didMoveToParentViewController(tempVC)
+			}
 		}else{
 			UIView.animateWithDuration(0.5, animations: { () -> Void in
-
+				
 				self.conversationController!.view.addSubview(self.chatButton)
 				self.chatButton.snp_remakeConstraints(closure: { (make) -> Void in
 					make.right.equalTo(self.view.snp_right).offset(2)
@@ -934,7 +824,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 					self.view.addSubview(self.chatButton)
 					self.chatButton.snp_remakeConstraints(closure: { (make) -> Void in
 						make.right.equalTo(self.view.snp_right).offset(2)
-						make.bottom.equalTo(self.acceptDenyBar.snp_top)
+						make.bottom.equalTo(self.view.snp_bottom)
 						make.width.equalTo(100)
 						make.height.equalTo(40)
 					})
@@ -943,10 +833,10 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 					self.tempVC.view.removeFromSuperview()
 					self.tempVC.removeFromParentViewController()
 					self.fakeButton.hidden = true
+			}
 		}
 	}
-}
-
+	
 	
 	func reviewSegmentButtonTapped(sender:UIButton){
 		self.profileSegmentButton.selected = false

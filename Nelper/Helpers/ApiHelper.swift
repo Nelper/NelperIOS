@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Alamofire
 private let kParseTask = "NelpTask"
 private let kParseTaskApplication = "NelpTaskApplication"
 
@@ -340,5 +340,19 @@ class ApiHelper {
 			})
 		
 		PFObject.saveAllInBackground(parseApplications)
+	}
+	
+	//Retrieve Task pictures
+	
+	static func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {
+		var image: UIImage!
+		request(.GET,imageURL).response(){
+			(_, _, data, error) in
+			if(error != nil){
+				println(error)
+			}
+			image = UIImage(data: data as NSData!)
+			block(image)
+		}
 	}
 }

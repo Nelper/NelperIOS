@@ -387,6 +387,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			let application = self.arrayOfApplications[indexPath.row]
 			var nextVC = ApplicantProfileViewController(applicant: applicant, application: application)
 			nextVC.delegate = self
+			nextVC.previousVC = self
 			dispatch_async(dispatch_get_main_queue()){
 				self.presentViewController(nextVC, animated: true, completion: nil)
 			}
@@ -456,13 +457,18 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			}
 		}
 		self.refreshTableView()
-		
+	}
+	
+	func dismissVC(){
+		self.dismissViewControllerAnimated(true, completion: {})
 	}
 	
 	//MARK: Actions
 	
 	func editButtonTapped(sender:UIButton){
-		
+		var nextVC = EditTaskViewController()
+		nextVC.task = self.task
+		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
 	func backButtonTapped(sender:UIButton){

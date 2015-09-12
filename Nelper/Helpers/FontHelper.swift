@@ -28,7 +28,7 @@ let kFormButtonFontSize:CGFloat = 18
 //General
 let kTitleFontSize:CGFloat = 26
 let kSubtitleFontSize:CGFloat = 20
-let kTextFontSize:CGFloat = 18
+let kTextFontSize:CGFloat = 16
 let kButtonFontSize:CGFloat = 18
 
 let kProfileButtonSize:CGFloat = 14
@@ -46,3 +46,12 @@ let kPopupSubtitleFontSize:CGFloat = 16
 //Progress Bar
 
 let kProgressBarTextFontSize:CGFloat = 14
+
+//Application Details
+
+let kStatusBarFont:CGFloat = 12
+
+
+//Task Details
+
+let kEditTaskSubtitleFontSize:CGFloat = 18

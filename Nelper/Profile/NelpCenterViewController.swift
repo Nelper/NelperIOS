@@ -394,11 +394,10 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		if(tableView == myTasksTableView) {
 			if (!self.nelpTasks.isEmpty) {
-				let cellTask = tableView.dequeueReusableCellWithIdentifier(NelpTasksTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpTasksTableViewCell
-				
+				let cellTask = NelpTasksTableViewCell()
 				
 				let nelpTask = self.nelpTasks[indexPath.item]
-				
+				print(nelpTask.state.rawValue)
 				cellTask.setNelpTask(nelpTask)
 				cellTask.setImages(nelpTask)
 				
@@ -440,13 +439,23 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			}
 		} else if (tableView == myApplicationsTableView) {
 			var application = nelpApplications[indexPath.row]
+			
+			if application.state == .Accepted{
+				var nextVC = MyApplicationDetailsAcceptedViewController()
+				nextVC.poster = application.task.user
+				nextVC.application = application
+				dispatch_async(dispatch_get_main_queue()) {
+					self.presentViewController(nextVC, animated: true, completion: nil)
+				}
+				
+			}else{
 			var nextVC = MyApplicationDetailsView(poster: application.task.user, application: application)
 			nextVC.delegate = self
 			
 			dispatch_async(dispatch_get_main_queue()) {
 				self.presentViewController(nextVC, animated: true, completion: nil)
 			}
-			
+			}
 		}
 		
 	}

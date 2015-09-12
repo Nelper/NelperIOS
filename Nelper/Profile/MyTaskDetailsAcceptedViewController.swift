@@ -363,7 +363,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 			make.top.equalTo(progressContainer.snp_bottom).offset(30)
 			make.width.equalTo(contentView.snp_width)
 			make.height.equalTo(backgroundView.snp_height).dividedBy(1.5)
-			make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
+			make.bottom.equalTo(self.contentView.snp_bottom)
 		}
 		
 		//Header
@@ -694,6 +694,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	//MARK:Applicant's profile delegate methods
 	
 	func didTapDenyButton(applicant: User) {
+		
+	}
+	
+	func dismissVC(){
 		
 	}
 	

@@ -59,6 +59,9 @@
 		F775C0D11B82D1FB00F7525B /* FullProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775C0D01B82D1FB00F7525B /* FullProfileViewController.swift */; };
 		F775C0D31B82D22200F7525B /* FullProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F775C0D21B82D22200F7525B /* FullProfileViewController.xib */; };
 		F777FBAD1BA1245B00328709 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F777FBAC1BA1245B00328709 /* DateHelper.swift */; };
+		F777FBAF1BA2871100328709 /* PosterProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F777FBAE1BA2871100328709 /* PosterProfileViewController.swift */; };
+		F777FBB11BA3775C00328709 /* MyApplicationDetailsAcceptedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F777FBB01BA3775C00328709 /* MyApplicationDetailsAcceptedViewController.swift */; };
+		F777FBB31BA3D58000328709 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F777FBB21BA3D58000328709 /* EditTaskViewController.swift */; };
 		F782A6261B6411DD00C78470 /* SecondFormScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F782A6241B6411DD00C78470 /* SecondFormScreen.xib */; };
 		F782A6271B6411DD00C78470 /* SecondFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6251B6411DD00C78470 /* SecondFormViewController.swift */; };
 		F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ApiHelper.swift */; };
@@ -232,6 +235,9 @@
 		F775C0D01B82D1FB00F7525B /* FullProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FullProfileViewController.swift; path = Nelper/Profile/FullProfileViewController.swift; sourceTree = SOURCE_ROOT; };
 		F775C0D21B82D22200F7525B /* FullProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FullProfileViewController.xib; path = Nelper/Profile/FullProfileViewController.xib; sourceTree = SOURCE_ROOT; };
 		F777FBAC1BA1245B00328709 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateHelper.swift; path = Nelper/Helpers/DateHelper.swift; sourceTree = SOURCE_ROOT; };
+		F777FBAE1BA2871100328709 /* PosterProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PosterProfileViewController.swift; path = Nelper/Profile/PosterProfileViewController.swift; sourceTree = SOURCE_ROOT; };
+		F777FBB01BA3775C00328709 /* MyApplicationDetailsAcceptedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyApplicationDetailsAcceptedViewController.swift; path = Nelper/Profile/MyApplicationDetailsAcceptedViewController.swift; sourceTree = SOURCE_ROOT; };
+		F777FBB21BA3D58000328709 /* EditTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditTaskViewController.swift; path = Nelper/Profile/EditTaskViewController.swift; sourceTree = SOURCE_ROOT; };
 		F782A6241B6411DD00C78470 /* SecondFormScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SecondFormScreen.xib; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormScreen.xib"; sourceTree = SOURCE_ROOT; };
 		F782A6251B6411DD00C78470 /* SecondFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondFormViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/SecondFormViewController.swift"; sourceTree = SOURCE_ROOT; };
 		F782A6281B6567E100C78470 /* ApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHelper.swift; path = Nelper/Helpers/ApiHelper.swift; sourceTree = SOURCE_ROOT; };
@@ -588,6 +594,7 @@
 				F78438241B8FF7F000BEA25F /* ApplicantProfileViewController.xib */,
 				F7E8F92E1B94ED81007D44D8 /* ApplicantChatViewController.swift */,
 				F7EBF06F1B9E519900EDD221 /* MyTaskDetailsAcceptedViewController.swift */,
+				F777FBB21BA3D58000328709 /* EditTaskViewController.swift */,
 			);
 			name = "My Tasks Details View";
 			sourceTree = "<group>";
@@ -800,6 +807,8 @@
 			children = (
 				F7E8F9371B968014007D44D8 /* MyApplicationDetailsView.swift */,
 				F7E8F9391B968078007D44D8 /* MyApplicationDetailsView.xib */,
+				F777FBAE1BA2871100328709 /* PosterProfileViewController.swift */,
+				F777FBB01BA3775C00328709 /* MyApplicationDetailsAcceptedViewController.swift */,
 			);
 			name = "My Applications Details View";
 			sourceTree = "<group>";
@@ -866,6 +875,7 @@
 				TargetAttributes = {
 					199EF1ED1B37A0A500B25B07 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 25FTD42PZZ;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -1024,6 +1034,7 @@
 				F762D0061B4B66B000812235 /* LoginViewController.swift in Sources */,
 				F775C0C91B81150300F7525B /* NelpTasksTableViewCell.swift in Sources */,
 				F78438231B8FF7D200BEA25F /* ApplicantProfileViewController.swift in Sources */,
+				F777FBB11BA3775C00328709 /* MyApplicationDetailsAcceptedViewController.swift in Sources */,
 				F7E8F92F1B94ED81007D44D8 /* ApplicantChatViewController.swift in Sources */,
 				F75F927B1B98AFB30050B926 /* FilterSortViewController.swift in Sources */,
 				F72F27D31B5302DE00CD3B0B /* NelpTaskCreateViewController.swift in Sources */,
@@ -1033,6 +1044,7 @@
 				F7E8F8F01B94E7CF007D44D8 /* ATLMessageBubbleView.m in Sources */,
 				19761A131B684F41001600E1 /* User.swift in Sources */,
 				F7E8F8F11B94E7CF007D44D8 /* ATLMessageCollectionViewCell.m in Sources */,
+				F777FBB31BA3D58000328709 /* EditTaskViewController.swift in Sources */,
 				F7E8F8F41B94E7CF007D44D8 /* ATLOutgoingMessageCollectionViewCell.m in Sources */,
 				F72F284F1B53607C00CD3B0B /* ThemeHelper.swift in Sources */,
 				F7E8F8D91B94E7CF007D44D8 /* ATLParticipantTableViewController.m in Sources */,
@@ -1053,6 +1065,7 @@
 				F775C0D11B82D1FB00F7525B /* FullProfileViewController.swift in Sources */,
 				195FD9B51B4CA6A50040AD20 /* NelpViewController.swift in Sources */,
 				F7E8F8E01B94E7CF007D44D8 /* ATLErrors.m in Sources */,
+				F777FBAF1BA2871100328709 /* PosterProfileViewController.swift in Sources */,
 				19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */,
 				F7E8F9331B94F3A4007D44D8 /* PFUser+ATLParticipant.swift in Sources */,
 				F7067AB41B56001300F19745 /* FontHelper.swift in Sources */,

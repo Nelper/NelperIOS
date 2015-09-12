@@ -21,6 +21,8 @@ let darkGrayDetails = hexStringToUIColor("979797")
 let progressGreen = hexStringToUIColor("29B473")
 let pendingYellow = hexStringToUIColor("F7CC39")
 
+let profileGreenColor = hexStringToUIColor("29b48f")
+
 let facebookBlueColor = hexStringToUIColor ("3b5998")
 let greenPriceButton = hexStringToUIColor ("80bf62")
 
