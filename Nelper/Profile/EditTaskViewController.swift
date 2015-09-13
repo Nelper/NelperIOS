@@ -10,28 +10,38 @@ import Foundation
 import UIKit
 import iCarousel
 
-class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDelegate {
+protocol EditTaskViewControllerDelegate{
+	func didEditTask(task:FindNelpTask)
+}
+
+class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
 	
+	let imagePicker = UIImagePickerController()
 	var task:FindNelpTask!
 	var titleTextField:UITextField!
+	var delegate: EditTaskViewControllerDelegate?
 	var descriptionTextView:UITextView!
 	var deleteTaskButton:UIButton!
-	var pictures:NSArray?
+	var pictures:Array<PFFile>?
 	var carousel:iCarousel!
 	var taskInformationContainer:UIView!
 	var contentView:UIView!
 	var scrollView: UIScrollView!
+	var images = Array<UIImage>()
+	var tap: UITapGestureRecognizer?
 	
 	//MARK: Initialization
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.pictures = self.task.pictures
 		self.createView()
+		self.getImagesFromParse()
 		self.createPicturesContainer()
 	}
 	
 	func createView(){
 		
+		self.imagePicker.delegate = self
 		var navBar = NavBar()
 		let backBtn = UIButton()
 		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -272,7 +282,6 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.top.equalTo(taskInformationContainer.snp_bottom).offset(10)
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right)
-			make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
 		}
 		
 		var managePicturesLabel = UILabel()
@@ -288,8 +297,11 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		if self.pictures != nil{
 			var carousel = iCarousel()
 			self.carousel = carousel
+			self.carousel.clipsToBounds = true
 			picturesContainer.addSubview(carousel)
-			self.carousel.type = .Rotary
+			self.carousel.type = .Linear
+			self.carousel.bounces = false
+			
 			self.carousel.dataSource = self
 			self.carousel.delegate = self
 			self.carousel.reloadData()
@@ -304,19 +316,42 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		var addImageButton = UIButton()
 		picturesContainer.addSubview(addImageButton)
 		addImageButton.setBackgroundImage(UIImage(named: "plus_green"), forState: UIControlState.Normal)
+		addImageButton.addTarget(self, action: "didTapAddImage:", forControlEvents: UIControlEvents.TouchUpInside)
+		
+		var removeImageButton = UIButton()
+		picturesContainer.addSubview(removeImageButton)
+		removeImageButton.setBackgroundImage(UIImage(named: "minus_red"), forState: UIControlState.Normal)
+		removeImageButton.addTarget(self, action: "didDeletePicture:", forControlEvents: UIControlEvents.TouchUpInside)
 		
 		if self.pictures != nil {
 			addImageButton.snp_makeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.carousel.snp_bottom).offset(12)
-				make.centerX.equalTo(picturesContainer.snp_centerX)
+				make.centerX.equalTo(picturesContainer.snp_centerX).offset(-60)
 				make.height.equalTo(60)
 				make.width.equalTo(60)
 				make.bottom.equalTo(picturesContainer.snp_bottom).offset(-10)
 			})
+			
+			removeImageButton.snp_makeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.carousel.snp_bottom).offset(12)
+				make.centerX.equalTo(picturesContainer.snp_centerX).offset(60)
+				make.height.equalTo(60)
+				make.width.equalTo(60)
+				make.bottom.equalTo(picturesContainer.snp_bottom).offset(-10)
+			})
+			
 		} else{
 			addImageButton.snp_makeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(managePicturesLabel.snp_bottom).offset(12)
-				make.centerX.equalTo(picturesContainer.snp_centerX)
+				make.centerX.equalTo(picturesContainer.snp_centerX).offset(-60)
+				make.height.equalTo(60)
+				make.width.equalTo(60)
+				make.bottom.equalTo(picturesContainer.snp_bottom).offset(-10)
+			})
+			
+			removeImageButton.snp_makeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(managePicturesLabel.snp_bottom).offset(12)
+				make.centerX.equalTo(picturesContainer.snp_centerX).offset(60)
 				make.height.equalTo(60)
 				make.width.equalTo(60)
 				make.bottom.equalTo(picturesContainer.snp_bottom).offset(-10)
@@ -324,18 +359,40 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		}
 		
 		picturesContainer.sizeToFit()
-		self.scrollView.contentSize = self.contentView.frame.size
+		
+		//Save button
+		
+		var saveChangesButton = UIButton()
+		contentView.addSubview(saveChangesButton)
+		saveChangesButton.setTitle("Save", forState: UIControlState.Normal)
+		saveChangesButton.setTitleColor(grayBlueColor, forState: UIControlState.Normal)
+		saveChangesButton.addTarget(self, action: "didTapSaveButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		saveChangesButton.layer.borderWidth = 1
+		saveChangesButton.layer.borderColor = grayBlueColor.CGColor
+		saveChangesButton.backgroundColor = navBarColor
+		saveChangesButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(picturesContainer.snp_bottom).offset(10)
+			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+			make.height.equalTo(45)
+			make.width.equalTo(200)
+			make.bottom.equalTo(contentView.snp_bottom).offset(-10)
+		}
+		
+		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+		self.tap = tap
+		contentView.addGestureRecognizer(tap)
 	}
 	
 	//MARK: iCarousel Delegate
 	
 	func numberOfItemsInCarousel(carousel: iCarousel!) -> Int {
 		
-		if self.task.pictures != nil {
-			if self.task.pictures!.count == 1 {
+		if !self.images.isEmpty {
+			if self.images.count == 1 {
 				self.carousel.scrollEnabled = false
 			}
-			return self.task.pictures!.count
+			print(self.images.count)
+			return self.images.count
 		}
 		return 0
 	}
@@ -344,17 +401,46 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
  func carousel(carousel: iCarousel!, viewForItemAtIndex index: Int, reusingView view: UIView!) -> UIView! {
 	
 		var picture = UIImageView(frame: self.carousel.frame)
-		picture.clipsToBounds = true
-		var imageURL = self.task.pictures![index].url!
-		ApiHelper.getPictures(imageURL, block: { (imageReturned:UIImage) -> Void in
-		picture.image = imageReturned
-		})
+		picture.image = self.images[index]
+	
 		picture.contentMode = .ScaleAspectFit
-	return picture
+		return picture
+	}
+	
+	//MARK: Image Picker Delegate
+	
+	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+		if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
+			self.images.append(pickedImage)
+			self.carousel.insertItemAtIndex(self.images.count - 1, animated: true)
+		}
+		dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+		dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	//MARK: Utilities
+	
+	func getImagesFromParse(){
+		if let pffiles = self.pictures{
+		for picture in pffiles{
+				ApiHelper.getPictures(picture.url!, block: { (image) -> Void in
+					self.images.append(image)
+					self.carousel.insertItemAtIndex(self.images.count - 1, animated: true)
+				})
+			}
+		}
+	}
+	
+	//MARK: UIGesture Recognizer
+	
+	func dismissKeyboard(){
+		view.endEditing(true)
 	}
 
 	//MARK: View Delegate Methods
-
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
@@ -365,6 +451,36 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 	func backButtonTapped(sender:UIButton){
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
+	
+	func didDeletePicture(sender:UIButton){
+		if self.images.count != 0{
+		self.images.removeAtIndex(self.carousel.currentItemIndex)
+		self.carousel.removeItemAtIndex(self.carousel.currentItemIndex, animated: true)
+			if self.images.count <= 1{
+				self.carousel.scrollEnabled = false
+			}
+		}
+//		self.carousel.reloadData()
+	}
+	
+	func didTapAddImage(sender:UIButton){
+		imagePicker.allowsEditing = false
+		imagePicker.sourceType = .PhotoLibrary
+		presentViewController(imagePicker, animated: true, completion: nil)
+	}
+	
+	func didTapSaveButton(sender:UIButton){
+		self.task.title = self.titleTextField.text
+		print(self.task.title)
+		if !self.images.isEmpty{
+		self.task.pictures = ApiHelper.convertImagesToData(self.images)
+			}
+		self.task.desc = self.descriptionTextView.text
+		
+		ApiHelper.editTask(self.task)
+		self.delegate?.didEditTask(self.task)
+		self.dismissViewControllerAnimated(true, completion: nil)
+		}
 	
 	func didTapDeleteButton(sender:UIButton){
 		if sender.selected == false {

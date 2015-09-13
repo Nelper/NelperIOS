@@ -120,7 +120,8 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	func createCarousel(){
 		//		var carousel = iCarousel()
-		self.carousel.type = .Rotary
+		self.carousel.type = .Linear
+		self.carousel.bounces = false
 		self.carousel.dataSource = self
 		self.carousel.delegate = self
 		self.carousel.reloadData()

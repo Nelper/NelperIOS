@@ -6,6 +6,7 @@
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <Parse/Parse.h>
 #import <Bolts/Bolts.h>
+#import <ParseCrashReporting/ParseCrashReporting.h>
 #import <MapKit/MapKit.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import "iCarousel.h"

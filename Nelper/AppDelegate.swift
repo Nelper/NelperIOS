@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import GoogleMaps
 import Stripe
+import ParseCrashReporting
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelegate {
@@ -28,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		//Parse
 		
 		Parse.enableLocalDatastore()
+		ParseCrashReporting.enable()
 		
 		Parse.setApplicationId("w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN", clientKey: "NRdzngSkWnGsHTMdcYumEuoXX1N8tt0ZN0o48fZV")
 		

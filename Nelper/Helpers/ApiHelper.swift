@@ -270,6 +270,31 @@ class ApiHelper {
 		}
 	}
 	
+	//Edit the task
+	
+	static func editTask(task: FindNelpTask) {
+		let parseTask = PFObject(className: kParseTask)
+		
+		var query = PFQuery(className: "NelpTask")
+		query.getObjectInBackgroundWithId(task.objectId, block: { (taskFetched , error) -> Void in
+			if error != nil{
+				println(error)
+			}else if let taskFetched = taskFetched{
+				
+				taskFetched["title"] = task.title
+				taskFetched["description"] = task.desc
+				let location = PFGeoPoint(latitude: task.location!.latitude, longitude: task.location!.longitude)
+				taskFetched["location"] = location
+				if task.pictures == nil {
+					taskFetched["pictures"] = []
+				} else {
+					taskFetched["pictures"] = task.pictures
+				}
+				taskFetched.saveInBackground()
+			}
+		})
+	}
+	
 	//Delete the task
 	static func deleteTask(task: FindNelpTask) {
 		let parseTask = PFObject(className: kParseTask)
@@ -354,5 +379,17 @@ class ApiHelper {
 			image = UIImage(data: data as NSData!)
 			block(image)
 		}
+	}
+	
+	//Convert uploaded pictures to PFFile
+	
+	static func convertImagesToData(images:Array<UIImage>) -> Array<PFFile>{
+		var imagesInData = Array<PFFile>()
+		for image in images{
+			var imageData = UIImageJPEGRepresentation(image as UIImage, 0.50)
+			var imageFile = PFFile(name:"image.png", data:imageData)
+			imagesInData.append(imageFile)
+		}
+		return imagesInData
 	}
 }

@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 import iCarousel
 
-class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate{
+class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, EditTaskViewControllerDelegate{
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var container: UIView!
@@ -438,7 +438,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.refreshTableView()
 	}
 	
-	//Applicant's Profile View Controller Delegate Method
+//MARK: Applications Profile View Controller Delegate
 	
 	func didTapDenyButton(applicant:User){
 		var applicationToDeny:NelpTaskApplication!
@@ -463,12 +463,22 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.dismissViewControllerAnimated(true, completion: {})
 	}
 	
+	//MARK: Edit Task Delegate
+	
+	func didEditTask(task: FindNelpTask) {
+		self.task = task
+		self.createView()
+	}
+	
 	//MARK: Actions
 	
 	func editButtonTapped(sender:UIButton){
 		var nextVC = EditTaskViewController()
 		nextVC.task = self.task
-		self.presentViewController(nextVC, animated: true, completion: nil)
+		nextVC.delegate = self
+		dispatch_async(dispatch_get_main_queue()) {
+			self.presentViewController(nextVC, animated: true, completion: nil)
+		}
 	}
 	
 	func backButtonTapped(sender:UIButton){
