@@ -13,7 +13,7 @@ import GoogleMaps
 import SCLAlertView
 import Stripe
 
-class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, STRPPaymentViewControllerDelegate, FilterSortViewControllerDelegate{
+class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, FilterSortViewControllerDelegate{
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var logoImage: UIImageView!
@@ -75,6 +75,10 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	//MARK: Creating the View
 	
+ /**
+	Creates the view
+	*/
+	
 	func createTaskTableView(){
 		let tableView = UITableView()
 		self.tableView = tableView
@@ -108,6 +112,11 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		}
 	}
 	
+	/**
+	Creates and sets the MapView
+	
+	- returns: void
+	*/
 	func initializeMapview(){
 		
 		self.locationManager.delegate = self;
@@ -160,34 +169,12 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		}
 	}
 	
-	/** Pin image code???
-	
-	func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-	if (annotation is MKUserLocation) {
-	//if annotation is not an MKPointAnnotation (eg. MKUserLocation),
-	//return nil so map draws default view for it (eg. blue dot)...
-	return nil
-	}
-	
-	let reuseId = "test"
-	
-	var anView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
-	if anView == nil {
-	anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-	anView.image = UIImage(named:"logo_round_v2")
-	anView.canShowCallout = true
-	}
-	else {
-	//we are re-using a view, update its annotation reference...
-	anView.annotation = annotation
-	}
-	
-	return anView
-	}
-	*/
-	
 	
 	//MARK: DATA
+	
+ /**
+	Reload Data on pullToRefresh
+	*/
 	
 	func onPullToRefresh() {
 		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
@@ -197,6 +184,9 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		}
 	}
 	
+	/**
+	Fetches the required date from Backend
+	*/
 	func loadData() {
 		ApiHelper.listNelpTasksWithBlock(nil, sortBy: nil, minPrice: nil, maxDistance: nil, block: {(nelpTasks: [NelpTask]?, error: NSError?) -> Void in
 			if error != nil {
@@ -210,6 +200,15 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		})
 	}
 	
+	
+	/**
+	Loads Data matching the applied filters
+	
+	- parameter filters:     The Applied Filters
+	- parameter sort:        The Sorting method
+	- parameter minPrice:    Minimum Price Filter Value
+	- parameter maxDistance: Maximum Distance Filter Value
+	*/
 	func loadDataWithFilters(filters:Array<String>?, sort:String?, minPrice:Double?, maxDistance:Double?){
 		ApiHelper.listNelpTasksWithBlock(filters, sortBy: sort,minPrice:minPrice, maxDistance:maxDistance, block: {(nelpTasks: [NelpTask]?, error: NSError?) -> Void in
 			if error != nil {
@@ -225,6 +224,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 	
 	//MARK: Table View Data Source and Delegate
+	
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.nelpTasks.count
@@ -254,6 +254,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 	}
 	
+
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return 80
 	}
@@ -295,6 +296,12 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		println("Error:" + error.localizedDescription)
 	}
 	
+	
+	/**
+	Zoom on the users location
+	
+	- parameter userLocation: the location (user's) to zoom on
+	*/
 	func zoomToUserLocation (userLocation: CLLocation){
 		var userLocationForCenter = userLocation.coordinate
 		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.01 , 0.01)
@@ -303,14 +310,17 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 	}
 	
-	//MARK: Popup Delegate
-	
-	func didClosePopup(vc:STRPPaymentViewController){
-		
-	}
 	
 	//MARK: Filters Delegate
 	
+	/**
+	Called when Filters are added by users
+	
+	- parameter filters:     Filters to apply
+	- parameter sort:        Sorting to apply
+	- parameter minPrice:    Minimum Price Filter Value
+	- parameter maxDistance: Maximum Distance filter value
+	*/
 	func didTapAddFilters(filters: Array<String>?, sort: String?, minPrice:Double?, maxDistance:Double?){
 		self.arrayOfFilters = filters!
 		self.sortBy = sort

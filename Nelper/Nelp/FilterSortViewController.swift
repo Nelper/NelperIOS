@@ -412,6 +412,9 @@ class FilterSortViewController: UIViewController{
 	
 	//MARK: UI
 	
+	/**
+	Check previously applied filters
+	*/
 	func checkFilters(){
 		for filter in self.arrayOfFiltersFromPrevious {
 			if filter == "technology"{
@@ -453,6 +456,9 @@ class FilterSortViewController: UIViewController{
 		}
 	}
 	
+	/**
+	check previously applied sorting
+	*/
 	func checkSort(){
 		if self.previousSortBy != nil{
 			if previousSortBy == "createdAt"{
@@ -477,6 +483,11 @@ class FilterSortViewController: UIViewController{
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
+	/**
+	Activates and enable the Maximum Distance Filter
+	
+	- parameter sender: Button
+	*/
 	func didTapDistanceCheckBox(sender:UIButton){
 		self.distanceCheckBox.selected = !self.distanceCheckBox.selected
 		if self.distanceCheckBox.selected {
@@ -492,6 +503,11 @@ class FilterSortViewController: UIViewController{
 		}
 	}
 	
+	/**
+	Activates and enable the Minimum Price
+	
+	- parameter sender: Button
+	*/
 	func didTapPriceCheckBox(sender:UIButton!){
 		self.priceCheckBox.selected = !self.priceCheckBox.selected
 		if self.priceCheckBox.selected{
@@ -507,17 +523,32 @@ class FilterSortViewController: UIViewController{
 		}
 	}
 	
+	/**
+	Distance Stepper Control
+	
+	- parameter sender: Distance Stepper
+	*/
 	func didTapDistanceStepper(sender:UIStepper){
 		self.distanceValueLabel.text = "\(Int(sender.value))km"
 		self.maxDistance = distanceStepper.value
 	}
 	
+	/**
+	Price stepper control
+	
+	- parameter sender: Price Stepper
+	*/
 	func didTapPriceStepper(sender:UIStepper){
 		self.priceValueLabel.text = "\(Int(sender.value))$"
 		self.minPrice = priceStepper.value
 
 	}
 	
+	/**
+	Sorting selection
+	
+	- parameter sender: Sorting Segment Control
+	*/
 	func segmentControlTouched(sender:UISegmentedControl){
 		if sender.selectedSegmentIndex == 0 {
 			self.sortBy = "priceOffered"

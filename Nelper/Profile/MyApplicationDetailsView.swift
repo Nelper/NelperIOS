@@ -545,6 +545,11 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	
 	//MARK: DATA
 	
+	/**
+	Sets the Applications images(Category, Task poster profile pic)
+	
+	- parameter applicant: Task Poster
+	*/
 	func setImages(applicant:User){
 		if(applicant.profilePictureURL != nil){
 			var fbProfilePicture = applicant.profilePictureURL
@@ -554,9 +559,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 				self.picture.image = image
 			}
 		}
-		
 		self.applicationStatusIcon.image = self.fetchStatusIcon()
-		
 	}
 	
 	//MARK: MKMapView Delegate Methods
@@ -585,6 +588,9 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	
 	//MARK: View Delegate Methods
 	
+	/**
+	Used to set the Scrollview proper contentsize AND shape the chat button
+	*/
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
@@ -605,6 +611,11 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	
 	//MARK: Utilities
 	
+	/**
+	Small method to set the correct category icon
+	
+	- returns: Proper Category Icon
+	*/
 	func fetchStatusIcon() -> UIImage{
 		
 		switch self.application.state{
@@ -650,6 +661,11 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		}
 	}
 	
+	/**
+	When the task poster view is tapped
+	
+	- parameter sender: Poster Profile View
+	*/
 	func didTapProfile(sender:UIView){
 		var nextVC = PosterProfileViewController()
 		nextVC.poster = self.poster
@@ -657,6 +673,12 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
+	
+	/**
+	Create the conversation between the two correspondants, hack to properly present the chat view (Fat and ugly method, need refactoring)
+	
+	- parameter sender: chat button
+	*/
 	func chatButtonTapped(sender:UIButton){
 		
 		self.chatButton.selected = !self.chatButton.selected

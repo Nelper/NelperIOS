@@ -577,6 +577,11 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	
 	//MARK: DATA
 	
+	/**
+	Set profile image
+	
+	- parameter poster: Task Poster
+	*/
 	func setImages(poster:User){
 		if(poster.profilePictureURL != nil){
 			var fbProfilePicture = poster.profilePictureURL
@@ -586,9 +591,6 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 				self.picture.image = image
 			}
 		}
-	}
-	
-	func loadData() {
 	}
 	
 	//MARK: Tableview delegate and datasource
@@ -741,10 +743,14 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	}
 	
 	
+	/**
+	Create the conversation between the two correspondants, hack to properly present the chat view (Fat and ugly method, need refactoring)
+	
+	- parameter sender: chat button
+	*/
+	
 	func chatButtonTapped(sender:UIButton){
-		
 		self.chatButton.selected = !self.chatButton.selected
-		
 		if self.conversationController == nil{
 			var error:NSError?
 			var participants = Set([self.poster.objectId])
@@ -836,8 +842,11 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			}
 		}
 	}
+	/**
+	Fake segment Control actions
 	
-	
+	- parameter sender: <#sender description#>
+	*/
 	func reviewSegmentButtonTapped(sender:UIButton){
 		self.profileSegmentButton.selected = false
 		self.bottomProfileBorder.hidden = true

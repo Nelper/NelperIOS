@@ -14,7 +14,14 @@ private let kParseTaskApplication = "NelpTaskApplication"
 class ApiHelper {
 	
 	//Login with Email
-
+	
+	/**
+	Allows the user to login with email
+	
+	- parameter email:    Email
+	- parameter password: Password
+	- parameter block:    Block
+	*/
 	static func loginWithEmail(email: String, password: String, block: (User?, NSError?) -> Void) {
 		PFUser.logInWithUsernameInBackground(email, password: password) { (user, error) -> Void in
 			if(error != nil) {
@@ -28,6 +35,14 @@ class ApiHelper {
 	
 	//Register with Email
 	
+	/**
+	Allows the user to register with email
+	
+	- parameter email:    Email
+	- parameter password: Password
+	- parameter name:     Name of the user
+	- parameter block:    Block
+	*/
 	static func registerWithEmail(email: String, password: String, name: String, block: (User?, NSError?) -> Void) {
 		let user = PFUser()
 		user.username = email
@@ -42,7 +57,6 @@ class ApiHelper {
 			if ok {
 				block(User(parseUser: user), nil)
 			} else {
-				//TODO(janic): Handle this case if it can happen.
 			}
 		}
 	}
@@ -50,6 +64,11 @@ class ApiHelper {
 	
 	//Login using Facebook
 	
+	/**
+	Allows the user to login with facebook
+	
+	- parameter block: Block
+	*/
 	static func loginWithFacebook(block: (User?, NSError?) -> Void) {
 		PFFacebookUtils.logInInBackgroundWithReadPermissions(["public_profile"]) { (user: PFUser?, error: NSError?) -> Void in
 			if error != nil {
@@ -79,6 +98,11 @@ class ApiHelper {
 	
 	
 	//Get Facebook Informations
+	/**
+	Get user info from facebook
+	
+	- parameter block: block
+	*/
 	static func getUserInfoFromFacebookWithBlock(block: (AnyObject?, NSError?) -> Void) {
 		let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
 		request.startWithCompletionHandler { (conn:FBSDKGraphRequestConnection!, user:AnyObject!, error:NSError!) -> Void in
@@ -97,7 +121,15 @@ class ApiHelper {
 		user.save()
 	}
 	
-	//List all the Nelp Tasks
+	/**
+	List the task according to the associate filters
+	
+	- parameter arrayOfFilters: Filters applied
+	- parameter sortBy:         Sorting method
+	- parameter minPrice:       Minimum price filter
+	- parameter maxDistance:    maximum distance filter
+	- parameter block:          block
+	*/
 	static func listNelpTasksWithBlock(arrayOfFilters:Array<String>?, sortBy: String?,minPrice: Double?, maxDistance: Double?,block: ([NelpTask]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		if let arrayOfFilters = arrayOfFilters{
@@ -165,7 +197,11 @@ class ApiHelper {
 		}
 	}
 	
-	//List the user's tasks
+	/**
+	Lists the user's task
+	
+	- parameter block: block
+	*/
 	static func listMyNelpTasksWithBlock(block: ([FindNelpTask]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		taskQuery.whereKey("user", equalTo: PFUser.currentUser()!)
@@ -205,7 +241,11 @@ class ApiHelper {
 		
 	}
 	
-	//List the user's application
+	/**
+	List my Nelp Application
+	
+	- parameter block: block
+	*/
 	static func listMyNelpApplicationsWithBlock(block: ([NelpTaskApplication]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTaskApplication)
 		taskQuery.includeKey("task.user")
@@ -227,7 +267,13 @@ class ApiHelper {
 	}
 	
 	
-	//Create a new task
+	/**
+	Create a new task and store it in parse
+	
+	- parameter task:  task
+	- parameter block: block
+	*/
+	
 	static func addTask(task: FindNelpTask, block: (FindNelpTask?, NSError?) -> Void) {
 		let user = PFUser.currentUser()!
 		
@@ -270,7 +316,11 @@ class ApiHelper {
 		}
 	}
 	
-	//Edit the task
+ /**
+	Sends the task modifications to the back end
+	
+	- parameter task: task
+	*/
 	
 	static func editTask(task: FindNelpTask) {
 		let parseTask = PFObject(className: kParseTask)
@@ -354,7 +404,7 @@ class ApiHelper {
 		parseApplication.saveEventually()
 	}
 	
-	//Set task as view
+	//Set task as viewed
 	static func setTaskViewed(task: FindNelpTask) {
 		let parseApplications = task.applications
 			.filter({ $0.isNew })

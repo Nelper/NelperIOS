@@ -36,15 +36,10 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	var delegate: SecondFormViewControllerDelegate?
 	
-	
 	@IBOutlet weak var navBar: NavBar!
-	
 	@IBOutlet weak var contentView: UIView!
-	
 	@IBOutlet weak var formBackground: UIView!
-	
 	@IBOutlet weak var autocompleteTableView: UITableView!
-	
 	@IBOutlet weak var postButton: UIButton!
 	
 	//MARK: Initialization
@@ -56,33 +51,15 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	}
 	
 	override func viewDidLoad() {
-		//		self.autocompleteTableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
-		//		self.autocompleteTableView.delegate = self
-		//		self.autocompleteTableView.dataSource = self
-		//		self.autocompleteTableView.registerClass(AutocompleteCell.classForCoder(), forCellReuseIdentifier: AutocompleteCell.reuseIdentifier)
-		//		self.autocompleteTableView.hidden = true
 		self.imagePicker.delegate = self
 		self.createView()
 		self.adjustUI()
-		
-		// looks for tap (keyboard dismiss)
 		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
 		self.tap = tap
 		contentView.addGestureRecognizer(tap)
-		
-	}
-	
-	//keyboard dismiss on screen touch
-	func DismissKeyboard() {
-
-		view.endEditing(true)
-		if(self.autocompleteTableView.hidden == false){
-			self.autocompleteTableView.hidden = true
 		}
-	}
 	
 	override func viewDidAppear(animated: Bool) {
-		
 	}
 	
 	//MARK: View Creation
@@ -337,7 +314,6 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.top.equalTo(picturesButton.snp_bottom).offset(45)
 			make.centerX.equalTo(self.contentView.snp_centerX)
 		}
-		
 	}
 	
 	func adjustUI(){
@@ -348,10 +324,11 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.contentView.backgroundColor = whiteNelpyColor
 		self.navBar.setTitle("Create your task")
 		self.navBar.setImage(UIImage(named: "close_red")!)
-
-		
 	}
 	
+	/**
+	Converts the attached task pictures to Data in order to save them in parse.
+	*/
 	func convertImagesToData(){
 		self.task.pictures = Array()
 		for image in self.imagesArray{
@@ -363,6 +340,12 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	//MARK: Image Picker Delegate
 	
+	/**
+	Allows the user to pick pictures in his library
+	
+	- parameter picker: ImagePicker instance
+	- parameter info:   .
+	*/
 	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
 		if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
 			self.imagesArray.addObject(pickedImage)
@@ -464,6 +447,11 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	//MARK: Google Places Autocomplete
 	
+	/**
+	Google Autocomplete Method
+	
+	- parameter text: User text (constantly updated)
+	*/
 	func placeAutocomplete(text:String) {
 		let filter = GMSAutocompleteFilter()
 		filter.type = GMSPlacesAutocompleteTypeFilter.Address
@@ -485,7 +473,13 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		})
 	}
 	
+	/**
+	Returns the City in which the task is in a String
 	
+	- parameter addressComponents: Address Component from Google Autocomplete
+	
+	- returns: City as a String
+	*/
 	func getCity(addressComponents: JSON) -> String? {
 		for (_, comp: JSON) in addressComponents {
 			for (_, t: JSON) in comp["types"] {
@@ -494,17 +488,31 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 				}
 			}
 		}
-		
 		return nil
 	}
 	
 	
 	//MARK: Actions
 	
+	/**
+	Allow the user to attach pictures
+	
+	- parameter sender: Add pictures button
+	*/
 	func attachPicturesButtonTapped(sender: UIButton){
 		imagePicker.allowsEditing = false
 		imagePicker.sourceType = .PhotoLibrary
 		presentViewController(imagePicker, animated: true, completion: nil)
+	}
+	
+	/**
+	Dismiss Keyboard
+	*/
+	func DismissKeyboard() {
+		view.endEditing(true)
+		if(self.autocompleteTableView.hidden == false){
+			self.autocompleteTableView.hidden = true
+		}
 	}
 	
 	func backButtonTapped(sender: UIButton) {
@@ -512,6 +520,11 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		view.endEditing(true) // dissmiss keyboard without delay
 	}
 	
+	/**
+	Post a task on Nelper
+	
+	- parameter sender: Post Button
+	*/
 	func postButtonTapped(sender: UIButton) {
 		if(self.imagesArray.count != 0){
 			self.convertImagesToData()

@@ -394,15 +394,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 	}
 	
-	//keyboard dismiss on screen touch
-	func DismissKeyboard() {
-		view.endEditing(true)
-		if(self.aboutTextView.editable == true){
-			self.aboutTextView.editable = false
-			PFUser.currentUser()!["about"] = self.aboutTextView.text
-			}
-	}
-	
 	//MARK: Table View Delegate and Datasource
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -472,6 +463,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	//MARK: Data
 	
+	/**
+	Sets the user profile picture
+	*/
 	func setProfilePicture() {
 		
 		var image = UIImage(named: "noProfilePicture")
@@ -496,6 +490,10 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.profilePicture.image = image
 	}
 	
+	
+	/**
+	Load the current user profile information
+	*/
 	func loadData() {
 		//get user skills etc...
 		if PFUser.currentUser()?.objectForKey("about") != nil{
@@ -519,13 +517,35 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
+	/**
+	Allows the user to edit the about section
+	
+	- parameter sender: Edit About Button
+	*/
 	func editAbout(sender:UIButton){
 		self.aboutTextView.editable = true
 		self.aboutTextView.becomeFirstResponder()
 		
 	}
 	
-	//Add Skill Button
+	
+	/**
+	Dismiss Keyboard when screen is tapped
+	*/
+	func DismissKeyboard() {
+		view.endEditing(true)
+		if(self.aboutTextView.editable == true){
+			self.aboutTextView.editable = false
+			PFUser.currentUser()!["about"] = self.aboutTextView.text
+		}
+	}
+	
+
+	/**
+	Allow the user to add skill to his profile
+	
+	- parameter sender: Skill edit button
+	*/
 	func addSkillButtonTapped(sender:UIButton){
 		var popup = UIAlertController(title: "Add a Skill", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
@@ -592,8 +612,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		presentViewController(popup, animated: true, completion: nil)
 	}
 	
-	//On first create view, sets the right size
-	
+	/**
+	Hack for Content View Size
+	*/
 	func drawTableViewsSize(){
 		self.experienceTableView.snp_updateConstraints { (make) -> Void in
 			make.height.equalTo(self.arrayOfExperience.count * 60)
@@ -613,7 +634,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.height.equalTo(self.scrollView.contentSize.height)
 		}	}
 	
-	//Refresh table view and re-draw frame
+	/**
+	Refresh table view after each edit
+	*/
     func refreshTableView(){
 		self.skillsTableView.reloadData()
 		self.educationTableView.reloadData()
@@ -647,7 +670,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		PFUser.currentUser()!.saveInBackground()
 	}
     
-	
+	/**
+	Hack for table view size (Not elegant at all, need to change this...)
+	*/
 		func addScrollContent(){
         self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + 60)
         self.contentView.snp_updateConstraints { (make) -> Void in
@@ -662,8 +687,12 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 	}
 	
-	//cells Delegate methods
+	/**
+	Triggered when delete button is tapped on a cell
 	
+	- parameter index: Cell Index
+	- parameter type:  Type of cell (education,skill,work..)
+	*/
 	func didTapDeleteButton(index: Int, type:String) {
 		if type == "skills"{
 			self.arrayOfSkills.removeAtIndex(index)

@@ -44,6 +44,13 @@ let tabBarProfileSelected:UIImage = UIImage(named:"profile_orange.png")!
 
 
 
+/**
+Transforms hex number in a UIColor
+
+- parameter hex: Hex Code
+
+- returns: UIColor
+*/
 func hexStringToUIColor (hex:String) -> UIColor {
 	var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet() as NSCharacterSet).uppercaseString
 	

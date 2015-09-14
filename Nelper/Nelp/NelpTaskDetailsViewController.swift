@@ -157,6 +157,11 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	//MARK: Actions
 	
+	/**
+	Apply for a task
+	
+	- parameter sender: UIButton
+	*/
 	@IBAction func applyButtonTapped(sender: AnyObject) {
 		if(!self.applyButton.selected){
 			ApiHelper.applyForTask(self.task, price: Int(self.task.priceOffered!))
@@ -177,6 +182,9 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	//MARK: Utilities
 	
+	/**
+	Little hack to make the Apply Bottom act right :D
+	*/
 	func startButtonConfig(){
 		if self.task.application != nil && self.task.application!.state != .Canceled {
 			self.applyButton.selected = true
@@ -187,6 +195,9 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		}
 	}
 	
+	/**
+	Updates the button appearance
+	*/
 	func updateButton(){
 		if self.applyButton.selected {
 			self.applyButton.setTitle("Applied", forState: UIControlState.Selected)
@@ -198,6 +209,11 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	}
 	
 	
+	/**
+	Sets the Task Poster profile picture
+	
+	- parameter nelpTask: Nelp Task
+	*/
 	func setProfilePicture(nelpTask:NelpTask){
 		if(nelpTask.user.profilePictureURL != nil){
 			var fbProfilePicture = nelpTask.user.profilePictureURL
@@ -230,7 +246,12 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.categoryPicture.image = UIImage(named: nelpTask.category!)
 	}
 	
+	/**
+	Gets the Pictures associated with the task
 	
+	- parameter imageURL: Image URL (Location)
+	- parameter block:    block
+	*/
 	func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {
 		var image: UIImage!
 		request(.GET,imageURL).response(){

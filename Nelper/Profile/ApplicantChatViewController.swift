@@ -55,7 +55,14 @@ class ApplicantChatViewController : ATLConversationViewController, ATLConversati
 	}
 	
 	
+	/**
+	Allow us to change the Chat View Controller Appearance
 	
+	- parameter conversationViewController: The VC to change
+	- parameter recipientStatus:            recipient status
+	
+	- returns: Description
+	*/
 	func conversationViewController(conversationViewController: ATLConversationViewController, attributedStringForDisplayOfRecipientStatus recipientStatus: [NSObject:AnyObject]) -> NSAttributedString? {
 		if (recipientStatus.count == 0) {
 			return nil

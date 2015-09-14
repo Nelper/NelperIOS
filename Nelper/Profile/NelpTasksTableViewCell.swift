@@ -194,12 +194,6 @@ class NelpTasksTableViewCell: UITableViewCell {
 		super.init(coder: aDecoder)
 	}
 	
-	override func setSelected(selected: Bool, animated: Bool) {
-	}
-	
-	override func setHighlighted(highlighted: Bool, animated: Bool) {
-	}
-	
 	static var reuseIdentifier: String {
 		get {
 			return "NelpTasksTableViewCell"
@@ -208,6 +202,11 @@ class NelpTasksTableViewCell: UITableViewCell {
 	
 	//MARK: Setters
 
+	/**
+	Set images for cell (Category,header image)
+	
+	- parameter nelpTask: <#nelpTask description#>
+	*/
 	func setImages(nelpTask:FindNelpTask){
 		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2;
 		self.categoryIcon.clipsToBounds = true
@@ -242,6 +241,12 @@ class NelpTasksTableViewCell: UITableViewCell {
 		}
 	}
 	
+	
+	/**
+	Sets the number of applicants and new application notification icon
+	
+	- parameter nelpTask: <#nelpTask description#>
+	*/
 	func setNotification(nelpTask:FindNelpTask) {
 		
 		if (nelpTask.applications.count == 0) {
@@ -263,78 +268,20 @@ class NelpTasksTableViewCell: UITableViewCell {
 		}
 	}
 	
+	/**
+	Sets the cell task
+	
+	- parameter nelpTask: Nelp Task
+	*/
 	func setNelpTask(nelpTask: FindNelpTask) {
 //		self.categoryLabel.text = nelpTask.category!.uppercaseString
 		self.titleLabel.text = nelpTask.title
 		var price = String(format: "%.0f", nelpTask.priceOffered!)
 		self.price.text = "$"+price
-		self.postedDate.text = "Posted \(timeAgoSinceDate(nelpTask.createdAt!, numericDates: true))"
+		var dateHelper = DateHelper()
+		self.postedDate.text = "Posted \(dateHelper.timeAgoSinceDate(nelpTask.createdAt!, numericDates: true))"
 
 
-	}
-	
-	//MARK: Utilities
-	
-	func timeAgoSinceDate(date:NSDate, numericDates:Bool) -> String {
-		let calendar = NSCalendar.currentCalendar()
-		let unitFlags = NSCalendarUnit.CalendarUnitMinute | NSCalendarUnit.CalendarUnitHour | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitWeekOfYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitSecond
-		let now = NSDate()
-		let earliest = now.earlierDate(date)
-		let latest = (earliest == now) ? date : now
-		let components:NSDateComponents = calendar.components(unitFlags, fromDate: earliest, toDate: latest, options: nil)
-		if (components.year >= 2) {
-			return "\(components.year) years ago"
-		} else if (components.year >= 1){
-			if (numericDates){
-				return "1 year ago"
-			} else {
-				return "Last year"
-			}
-		} else if (components.month >= 2) {
-			return "\(components.month) months ago"
-		} else if (components.month >= 1){
-			if (numericDates){
-				return "1 month ago"
-			} else {
-				return "Last month"
-			}
-		} else if (components.weekOfYear >= 2) {
-			return "\(components.weekOfYear) weeks ago"
-		} else if (components.weekOfYear >= 1){
-			if (numericDates){
-				return "1 week ago"
-			} else {
-				return "Last week"
-			}
-		} else if (components.day >= 2) {
-			return "\(components.day) days ago"
-		} else if(components.day >= 1){
-			if (numericDates){
-				return "1 day ago"
-			} else {
-				return "Yesterday"
-			}
-		} else if (components.hour >= 2) {
-			return "\(components.hour) hours ago"
-		} else if (components.hour >= 1){
-			if (numericDates){
-				return "1 hour ago"
-			} else {
-				return "An hour ago"
-			}
-		} else if (components.minute >= 2) {
-			return "\(components.minute) minutes ago"
-		} else if (components.minute >= 1){
-			if (numericDates){
-				return "1 minute ago"
-			} else {
-				return "A minute ago"
-			}
-		} else if (components.second >= 3) {
-			return "\(components.second) seconds ago"
-		} else {
-			return "Just now"
-		}
 	}
 }
 

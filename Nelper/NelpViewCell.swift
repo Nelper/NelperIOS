@@ -130,6 +130,12 @@ class NelpViewCell: UITableViewCell {
 	
 	//MARK: Setters
 	
+	
+	/**
+	Sets the cell NelpTask
+	
+	- parameter nelpTask: The NelpTask
+	*/
 	func setNelpTask(nelpTask:NelpTask) {
 		self.task = nelpTask
 		self.title.text = nelpTask.title
@@ -154,6 +160,11 @@ class NelpViewCell: UITableViewCell {
 		
 	}
 	
+	/**
+	Set profile image on the cell
+	
+	- parameter nelpTask: NelpTask
+	*/
 	func setImages(nelpTask:NelpTask) {
 		if(nelpTask.user.profilePictureURL != nil){
 			var fbProfilePicture = nelpTask.user.profilePictureURL
@@ -168,6 +179,11 @@ class NelpViewCell: UITableViewCell {
 		self.picture.image = image
 	}
 	
+	/**
+	Sets the location of the task on the cell
+	
+	- parameter userLocation: task location
+	*/
 	func setLocation(userLocation:CLLocation){
 		var taskLocation = CLLocation(latitude: self.task.location!.latitude, longitude: self.task.location!.longitude)
 		var distance: String = self.calculateDistanceBetweenTwoLocations(userLocation, destination: taskLocation)
@@ -180,6 +196,14 @@ class NelpViewCell: UITableViewCell {
 	
 	//MARK: Utilities
 	
+	/**
+	Method to calculate distance between two CLLocations and return the results in a String
+	
+	- parameter source:      User Location
+	- parameter destination: Task Location
+	
+	- returns: String with the distance between the two locations
+	*/
 	func calculateDistanceBetweenTwoLocations(source:CLLocation,destination:CLLocation) -> String{
 		
 		var distanceMeters = source.distanceFromLocation(destination)

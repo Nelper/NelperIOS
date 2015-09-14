@@ -43,6 +43,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		//		self.drawTableViewsSize()
 	}
 	
+	
 	convenience init(findNelpTask:FindNelpTask) {
 		self.init(nibName: "MyTaskDetailsViewController", bundle: nil)
 		self.task = findNelpTask
@@ -216,6 +217,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo((self.arrayOfDeniedApplicants.count*120)+70)
+			make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
 		}
 		
 		var deniedApplicantIcon = UIImageView()
@@ -265,17 +267,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.height.equalTo(0.5)
 			make.width.equalTo(deniedApplicantsContainer.snp_width).dividedBy(1.2)
 		}
-		
-		//MockView for Scoll
-		var mockView = UIView(frame: CGRectMake(0, 0, 1, 1))
-		mockView.backgroundColor = UIColor.clearColor()
-		self.contentView.addSubview(mockView)
-		mockView.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(contentView.snp_bottom)
-			make.centerX.equalTo(contentView.snp_centerX)
-			make.height.equalTo(10)
-		}
-		
 	}
 	
 	
@@ -403,7 +394,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
-		println("\(self.scrollView.contentSize)")
 	}
 	
 	//MARK: Cell delegate methods
@@ -437,6 +427,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		self.refreshTableView()
 	}
+	
+
 	
 //MARK: Applications Profile View Controller Delegate
 	

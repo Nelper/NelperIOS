@@ -770,6 +770,11 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 	
 	//MARK: DATA
 	
+	/**
+	Set the images
+	
+	- parameter applicant: Applicant
+	*/
 	func setImages(applicant:User){
 		if(applicant.profilePictureURL != nil){
 			var fbProfilePicture = applicant.profilePictureURL
@@ -810,6 +815,9 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 	
 	//MARK: View Delegate Methods
 	
+	/**
+	Layout the view once it's "loaded" to properly set scroll view content size
+	*/
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
@@ -830,6 +838,11 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 	
 	//MARK: Utilities
 	
+	/**
+	Fetches the Application Status Icon
+	
+	- returns: Proper Icon
+	*/
 	func fetchStatusIcon() -> UIImage{
 		
 		switch self.application.state{
@@ -885,6 +898,12 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
+	
+	/**
+	Create the conversation between the two correspondants, hack to properly present the chat view (Fat and ugly method, need refactoring)
+	
+	- parameter sender: chat button
+	*/
 	
 	func chatButtonTapped(sender:UIButton){
 		

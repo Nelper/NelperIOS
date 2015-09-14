@@ -46,12 +46,10 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		myTasksSegmentButton.selected = true
 		setProfilePicture()
 		adjustUI()
-		
 	}
 	
 	override func viewDidAppear(animated: Bool) {
 		self.loadData()
-
 	}
 	
 	//MARK: View Creation
@@ -322,6 +320,9 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	//MARK: DATA
 	
+	/**
+	Sets profile picture for profile header
+	*/
 	func setProfilePicture() {
 		
 		var image = UIImage(named: "noProfilePicture")
@@ -351,6 +352,9 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	}
 	
 	
+	/**
+	Load User's Task and Applications
+	*/
 	func loadData() {
 		ApiHelper.listMyNelpTasksWithBlock{ (nelpTasks: [FindNelpTask]?, error: NSError?) -> Void in
 			if error != nil {
@@ -482,6 +486,11 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	//MARK: Actions
 	
+	/**
+	User tapped Profile Button
+	
+	- parameter sender: Profile Button
+	*/
 	func profileButtonTapped(sender:UIButton) {
 		var nextVC = FullProfileViewController()
 		self.presentViewController(nextVC, animated: true, completion: nil)

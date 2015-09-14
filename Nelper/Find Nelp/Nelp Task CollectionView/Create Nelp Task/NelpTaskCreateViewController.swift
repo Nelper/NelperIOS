@@ -39,23 +39,17 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
     self.task = FindNelpTask()
 	  self.createView()
 		self.adjustUI()
-		
-		
 		}
 	
 	override func viewDidAppear(animated: Bool) {
-
 	}
-	
 	
 	//MARK: UI
 	
 	func adjustUI(){
-			
 		self.formView.backgroundColor = whiteNelpyColor
 		self.navBar.setTitle("Post a task")
-
-}
+	}
 	
 	//MARK: View Creation
 
@@ -321,9 +315,15 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	
 	//MARK: NelpTask Delegate Methods
 	
+	/**
+	Adds the task to the Nelp Center "My Task" table view
+	
+	- parameter nelpTask: The newly created task
+	*/
 	func nelpTaskAdded(nelpTask: FindNelpTask) {
 		delegate?.nelpTaskAdded(nelpTask)
 	}
+	
 	
 	func dismiss(){
 		self.dismissViewControllerAnimated(true, completion: nil)
@@ -332,6 +332,12 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 
 	//MARK: Actions	
 	
+	
+	/**
+	Sends the new task category to the next screen in order to finish the task creation
+	
+	- parameter sender: Button
+	*/
 	@IBAction func nextButtonTapped(sender: AnyObject) {
 		let nextScreenVC = SecondFormViewController(task: self.task)
 		nextScreenVC.delegate = self

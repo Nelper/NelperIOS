@@ -636,6 +636,11 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	//MARK: DATA
 	
+	/**
+	Set the Applicant Profile Picture
+	
+	- parameter applicant: The Applicant
+	*/
 	func setImages(applicant:User){
 		if(applicant.profilePictureURL != nil){
 			var fbProfilePicture = applicant.profilePictureURL
@@ -645,9 +650,6 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 				self.picture.image = image
 			}
 		}
-	}
-	
-	func loadData() {
 	}
 	
 	//MARK: Tableview delegate and datasource
@@ -794,6 +796,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	//MARK: Setters
 	
+	/**
+	Sets the Applicant as Accepted in order to make some small UI Changes
+	*/
 	func setAsAccepted(){
 		self.denyButton.removeFromSuperview()
 		self.acceptButton.snp_remakeConstraints { (make) -> Void in
@@ -851,19 +856,23 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
+	
+	/**
+	Create the conversation between the two correspondants, hack to properly present the chat view (Fat and ugly method, need refactoring)
+	
+	- parameter sender: chat button
+	*/
+	
 	func chatButtonTapped(sender:UIButton){
 		
 		self.chatButton.selected = !self.chatButton.selected
-		
 		if self.conversationController == nil{
 		var error:NSError?
 		var participants = Set([self.applicant.objectId])
 		println(participants)
 		
-		
 		var conversation = LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.applicant.objectId]), options: nil, error: nil)
 			
-//		var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
 			var nextVC = ApplicantChatViewController(layerClient: LayerManager.sharedInstance.layerClient)
 			nextVC.displaysAddressBar = false
 			if conversation != nil{

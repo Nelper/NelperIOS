@@ -423,6 +423,9 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 	
 	//MARK: Utilities
 	
+	/**
+	Fetches the task images in order to edit them
+	*/
 	func getImagesFromParse(){
 		if let pffiles = self.pictures{
 		for picture in pffiles{

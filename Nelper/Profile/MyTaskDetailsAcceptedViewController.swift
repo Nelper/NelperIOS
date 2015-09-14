@@ -645,6 +645,13 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	}
 	
 	// MARK: DATA
+	
+	/**
+	Set the Applicant Profile Picture
+	
+	- parameter applicant: The Applicant
+	*/
+	
 	func setImages(applicant:User){
 		if(applicant.profilePictureURL != nil){
 			var fbProfilePicture = applicant.profilePictureURL
@@ -666,10 +673,13 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		}
 	}
 	
+	/**
+	Sets the applicant feedback (Static/Hard coded for now)
+	
+	- parameter applicant: Applicant
+	*/
 	func setFeedback(applicant:User){
-		
 		self.fifthStar.alpha = 0.5
-		
 	}
 	
 	// MARK: View Delegate
@@ -694,11 +704,9 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	//MARK:Applicant's profile delegate methods
 	
 	func didTapDenyButton(applicant: User) {
-		
 	}
 	
 	func dismissVC(){
-		
 	}
 	
 	//MARK:Actions
@@ -727,6 +735,12 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
+	
+	/**
+	Create the conversation between the two correspondants, hack to properly present the chat view (Fat and ugly method, need refactoring)
+	
+	- parameter sender: chat button
+	*/
 	
 	func chatButtonTapped(sender:UIButton){
 		

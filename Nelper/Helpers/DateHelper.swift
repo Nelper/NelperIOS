@@ -10,6 +10,15 @@ import Foundation
 
 class DateHelper {
 	
+	/**
+	Calculate and returns the time that passed between creation of a task and the present time.
+	
+	- parameter date:         Date Of Creation
+	- parameter numericDates: BOOL where true equals formatted for human reading
+	
+	- returns: String with time lapse (Eg: "3 days ago")
+	*/
+	
 	func timeAgoSinceDate(date:NSDate, numericDates:Bool) -> String {
 		let calendar = NSCalendar.currentCalendar()
 		let unitFlags = NSCalendarUnit.CalendarUnitMinute | NSCalendarUnit.CalendarUnitHour | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitWeekOfYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitSecond
