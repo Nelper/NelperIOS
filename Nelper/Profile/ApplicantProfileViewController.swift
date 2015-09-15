@@ -75,7 +75,6 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.navBar.setTitle("Nelper's Info")
-		self.loadData()
 		self.createView()
 		if self.isAccepted == true {
 			self.setAsAccepted()

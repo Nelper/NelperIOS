@@ -58,7 +58,6 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.loadData()
 		self.createView()
 		
 		self.profileSegmentButton.selected = true
