@@ -50,7 +50,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-u6-Vdz">
-                            <rect key="frame" x="0.0" y="329" width="375" height="289"/>
+                            <rect key="frame" x="0.0" y="327" width="375" height="291"/>
                             <color key="backgroundColor" red="1" green="0.80969880760000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                     </subviews>
@@ -62,7 +62,7 @@
                         <constraint firstItem="Vwf-Ak-zmN" firstAttribute="height" secondItem="yLw-jR-XsS" secondAttribute="height" multiplier="2:3" constant="-54.666666666666629" id="IPr-rr-xRk"/>
                         <constraint firstAttribute="trailing" secondItem="PfD-u6-Vdz" secondAttribute="trailing" id="Mna-68-eLH"/>
                         <constraint firstItem="PfD-u6-Vdz" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="ZXG-Bz-IxN"/>
-                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="top" secondItem="Ga4-Ld-Uh8" secondAttribute="bottom" constant="4" id="jZp-9i-rlT"/>
+                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="top" secondItem="Ga4-Ld-Uh8" secondAttribute="bottom" constant="2" id="jZp-9i-rlT"/>
                         <constraint firstItem="Vwf-Ak-zmN" firstAttribute="top" secondItem="yLw-jR-XsS" secondAttribute="top" id="kbn-1E-O6t"/>
                         <constraint firstAttribute="trailing" secondItem="Vwf-Ak-zmN" secondAttribute="trailing" id="lz6-nx-503"/>
                         <constraint firstItem="PfD-u6-Vdz" firstAttribute="top" secondItem="yLw-jR-XsS" secondAttribute="top" constant="398" id="mLG-6x-ugC"/>

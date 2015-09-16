@@ -13,10 +13,11 @@ import Foundation
 let whiteNelpyColor = hexStringToUIColor ("eaeaea")
 let blackNelpyColor = hexStringToUIColor ("2c2c2c")
 let nelperRedColor = hexStringToUIColor("ed4b4e")
+
 let whiteGrayColor = hexStringToUIColor("f7f7f7")
-let orangeTextColor = hexStringToUIColor("f32a18")
 let grayDetails = hexStringToUIColor("e1e1e1")
 let darkGrayDetails = hexStringToUIColor("979797")
+
 
 let progressGreen = hexStringToUIColor("29B473")
 let pendingYellow = hexStringToUIColor("F7CC39")
@@ -42,6 +43,9 @@ let tabBarSearchSelected:UIImage = UIImage(named: "search_orange.png")!
 let tabBarNelpSelected:UIImage = UIImage(named:"help_orange.png")!
 let tabBarProfileSelected:UIImage = UIImage(named:"profile_orange.png")!
 
+//TEXT
+
+let blackTextColor = hexStringToUIColor("3d3d3d")
 
 
 /**
@@ -51,6 +55,7 @@ Transforms hex number in a UIColor
 
 - returns: UIColor
 */
+
 func hexStringToUIColor (hex:String) -> UIColor {
 	var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet() as NSCharacterSet).uppercaseString
 	

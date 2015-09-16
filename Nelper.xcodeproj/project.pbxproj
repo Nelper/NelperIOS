@@ -32,7 +32,6 @@
 		199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */; };
 		199EF20C1B37A0A500B25B07 /* NelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF20B1B37A0A500B25B07 /* NelperTests.swift */; };
 		9FB9076C1CAA3EC7FCDFB9DE /* Pods_Nelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		F7067AAF1B55F0B300F19745 /* Railway.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7067AAE1B55F0B300F19745 /* Railway.ttf */; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
 		F72F27D31B5302DE00CD3B0B /* NelpTaskCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F27D11B5302DE00CD3B0B /* NelpTaskCreateViewController.swift */; };
@@ -41,7 +40,6 @@
 		F72F284F1B53607C00CD3B0B /* ThemeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F284E1B53607C00CD3B0B /* ThemeHelper.swift */; };
 		F73A45BE1B72F4B600FD8C79 /* MKPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A45BD1B72F4B600FD8C79 /* MKPin.swift */; };
 		F73A45C01B72FEA400FD8C79 /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A45BF1B72FEA400FD8C79 /* LocationHelper.swift */; };
-		F73A45C41B730EBD00FD8C79 /* ABeeZee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F73A45C31B730E7200FD8C79 /* ABeeZee-Regular.ttf */; };
 		F73A45C61B741F4000FD8C79 /* NelpTaskDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A45C51B741F4000FD8C79 /* NelpTaskDetailsViewController.swift */; };
 		F73A45C81B741F8F00FD8C79 /* NelpTaskDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F73A45C71B741F8F00FD8C79 /* NelpTaskDetailsViewController.xib */; };
 		F73AC3BC1B6E80A30086B0B4 /* AutocompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73AC3BB1B6E80A30086B0B4 /* AutocompleteCell.swift */; };
@@ -141,6 +139,8 @@
 		F7EE46D71B6D32D4005ECFCA /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */; };
 		F7F007051B9767D0009766C1 /* STRPPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F007041B9767D0009766C1 /* STRPPaymentViewController.swift */; };
 		F7F0D23D1B857AA40018FC0B /* skillsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */; };
+		F7F5209C1BA9CB54005A2A76 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7F5209B1BA9CAC6005A2A76 /* Lato-Regular.ttf */; };
+		F7F5209D1BA9CB54005A2A76 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7F5209A1BA9CABD005A2A76 /* Lato-Light.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,7 +208,6 @@
 		19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nelper-Bridging-Header.h"; sourceTree = "<group>"; };
 		3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
 		81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F7067AAE1B55F0B300F19745 /* Railway.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Railway.ttf; sourceTree = "<group>"; };
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
 		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		F72F27D11B5302DE00CD3B0B /* NelpTaskCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTaskCreateViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/NelpTaskCreateViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -217,7 +216,6 @@
 		F72F284E1B53607C00CD3B0B /* ThemeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeHelper.swift; path = Nelper/Helpers/ThemeHelper.swift; sourceTree = SOURCE_ROOT; };
 		F73A45BD1B72F4B600FD8C79 /* MKPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MKPin.swift; path = Nelper/Model/MKPin.swift; sourceTree = SOURCE_ROOT; };
 		F73A45BF1B72FEA400FD8C79 /* LocationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationHelper.swift; path = Nelper/Helpers/LocationHelper.swift; sourceTree = SOURCE_ROOT; };
-		F73A45C31B730E7200FD8C79 /* ABeeZee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABeeZee-Regular.ttf"; sourceTree = "<group>"; };
 		F73A45C51B741F4000FD8C79 /* NelpTaskDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTaskDetailsViewController.swift; path = Nelp/NelpTaskDetailsViewController.swift; sourceTree = "<group>"; };
 		F73A45C71B741F8F00FD8C79 /* NelpTaskDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NelpTaskDetailsViewController.xib; path = Nelp/NelpTaskDetailsViewController.xib; sourceTree = "<group>"; };
 		F73AC3BB1B6E80A30086B0B4 /* AutocompleteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AutocompleteCell.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/AutocompleteCell.swift"; sourceTree = SOURCE_ROOT; };
@@ -358,6 +356,8 @@
 		F7EE46D61B6D32D4005ECFCA /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Pods/GoogleMaps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
 		F7F007041B9767D0009766C1 /* STRPPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STRPPaymentViewController.swift; sourceTree = "<group>"; };
 		F7F0D23C1B857AA40018FC0B /* skillsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = skillsTableViewCell.swift; path = Nelper/Profile/skillsTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		F7F5209A1BA9CABD005A2A76 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
+		F7F5209B1BA9CAC6005A2A76 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		F81CFE6A4154D592275ED493 /* Pods-Nelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -487,8 +487,8 @@
 				199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */,
 				19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */,
 				199EF1F21B37A0A500B25B07 /* Info.plist */,
-				F7067AAE1B55F0B300F19745 /* Railway.ttf */,
-				F73A45C31B730E7200FD8C79 /* ABeeZee-Regular.ttf */,
+				F7F5209B1BA9CAC6005A2A76 /* Lato-Regular.ttf */,
+				F7F5209A1BA9CABD005A2A76 /* Lato-Light.ttf */,
 				F7EE46B71B6D219C005ECFCA /* Podfile */,
 			);
 			name = "Supporting Files";
@@ -912,11 +912,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F73A45C41B730EBD00FD8C79 /* ABeeZee-Regular.ttf in Resources */,
+				F7F5209C1BA9CB54005A2A76 /* Lato-Regular.ttf in Resources */,
+				F7F5209D1BA9CB54005A2A76 /* Lato-Light.ttf in Resources */,
 				F7E8F90E1B94E7DF007D44D8 /* block@3x.png in Resources */,
 				F7E8F9171B94E7DF007D44D8 /* layerLogo@2x.png in Resources */,
 				F7EE46B81B6D219C005ECFCA /* Podfile in Resources */,
-				F7067AAF1B55F0B300F19745 /* Railway.ttf in Resources */,
 				F7E8F90D1B94E7DF007D44D8 /* block@2x.png in Resources */,
 				F73A45C81B741F8F00FD8C79 /* NelpTaskDetailsViewController.xib in Resources */,
 				F7E8F9121B94E7DF007D44D8 /* chevron.png in Resources */,

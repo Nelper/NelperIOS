@@ -285,6 +285,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.myTasksTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 	}
 	
+	
 	func createMyApplicationsTableView(){
 		let tableViewApplications = UITableView()
 		tableViewApplications.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
@@ -384,6 +385,8 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	func didCancelApplication(application:NelpTaskApplication){
 		self.myApplicationsTableView.reloadData()
 	}
+	
+	
 	//MARK: Tableview Delegate and Datasource
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

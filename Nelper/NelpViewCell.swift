@@ -18,7 +18,7 @@ class NelpViewCell: UITableViewCell {
 	var price:UILabel!
 	var picture:UIImageView!
 	var categoryPicture:UIImageView!
-	var distance:UILabel?
+	var creationDate:UILabel!
 	var task: NelpTask!
 	
 	//MARK: Initialization
@@ -29,10 +29,10 @@ class NelpViewCell: UITableViewCell {
 		self.clipsToBounds = true
 		
 		let cellView = UIView(frame: self.bounds)
-		cellView.backgroundColor = whiteNelpyColor
+		cellView.backgroundColor = navBarColor
 		cellView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
 		
-		let pictureSize: CGFloat = 60
+		let pictureSize: CGFloat = 70
 		let picture = UIImageView()
 		self.picture = picture
 		self.picture.layer.cornerRadius = pictureSize / 2;
@@ -71,7 +71,7 @@ class NelpViewCell: UITableViewCell {
 		cellView.addSubview(title)
 		
 		title.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(cellView.snp_top).offset(10)
+			make.bottom.equalTo(cellView.snp_centerY).offset(-8)
 			make.left.equalTo(picture.snp_right).offset(15)
 		}
 		
@@ -80,32 +80,41 @@ class NelpViewCell: UITableViewCell {
 		cellView.addSubview(author)
 		
 		author.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(title.snp_bottom).offset(2)
-			make.left.equalTo(picture.snp_right).offset(35)
+			make.top.equalTo(cellView.snp_centerY) 
+			make.left.equalTo(title.snp_left)
 		}
 		
-		let distance = UILabel()
-		self.distance = distance
-		cellView.addSubview(distance)
+		let creationDate = UILabel()
+		self.creationDate = creationDate
+		cellView.addSubview(creationDate)
 		
-		distance.snp_makeConstraints { (make) -> Void in
+		self.creationDate.font = UIFont(name: "Lato-Light", size: kCellTextFontSize)
+		self.creationDate.textColor = blackTextColor
+		
+		creationDate.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(author.snp_bottom).offset(3)
 			make.left.equalTo(author.snp_left)
 		}
 		
-		let price = UILabel()
-		self.price = price
-		self.price.backgroundColor = greenPriceButton
-		self.price.layer.cornerRadius = 6
-		cellView.addSubview(price)
-		
-		price.snp_makeConstraints { (make) -> Void in
+		var moneyTag = UIImageView()
+		cellView.addSubview(moneyTag)
+		moneyTag.image = UIImage(named: "moneytag")
+		moneyTag.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(cellView.snp_right).offset(-10)
-			make.bottom.equalTo(distance.snp_bottom).offset(-2)
+			make.bottom.equalTo(creationDate.snp_bottom).offset(-2)
 			make.width.equalTo(70)
-			make.height.equalTo(30)
+			make.height.equalTo(35)
 		}
 		
+		var moneyLabel = UILabel()
+		self.price = moneyLabel
+		moneyTag.addSubview(moneyLabel)
+		moneyLabel.textAlignment = NSTextAlignment.Center
+		moneyLabel.textColor = whiteNelpyColor
+		moneyLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		moneyLabel.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(moneyTag.snp_edges)
+		}
 		self.addSubview(cellView)
 	}
 	
@@ -139,22 +148,25 @@ class NelpViewCell: UITableViewCell {
 	func setNelpTask(nelpTask:NelpTask) {
 		self.task = nelpTask
 		self.title.text = nelpTask.title
-		self.title.font = UIFont(name: "HelveticaNeue", size: kCellTitleFontSize)
-		self.title.textColor = blackNelpyColor
+		self.title.font = UIFont(name: "Lato-Regular", size: kCellTitleFontSize)
+		self.title.textColor = blackTextColor
 		
-		self.author.text = "By \(nelpTask.user.name)"
-		self.author.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
-		self.author.textColor = blackNelpyColor
+		self.author.text = "\(nelpTask.user.name)"
+		self.author.font = UIFont(name: "Lato-Light", size: kCellTextFontSize)
+		self.author.textColor = blackTextColor
 		
 		var price = String(format: "%.0f", nelpTask.priceOffered!)
 		
 		self.price.text = "$"+price
 		
-		self.price.font = UIFont(name: "HelveticaNeue", size: kCellPriceFontSize)
+		self.price.font = UIFont(name: "Lato-Regular", size: kCellPriceFontSize)
 		self.price.textColor = whiteNelpyColor
 		self.price.layer.cornerRadius = 6
 		self.price.clipsToBounds = true
 		self.price.textAlignment = NSTextAlignment.Center
+		
+		var dateHelper = DateHelper()
+		self.creationDate.text = "Created \(dateHelper.timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
 		
 		self.categoryPicture.image = UIImage(named: nelpTask.category!)
 		
@@ -177,42 +189,6 @@ class NelpViewCell: UITableViewCell {
 		
 		var image = UIImage(named: "noProfilePicture")
 		self.picture.image = image
-	}
-	
-	/**
-	Sets the location of the task on the cell
-	
-	- parameter userLocation: task location
-	*/
-	func setLocation(userLocation:CLLocation){
-		var taskLocation = CLLocation(latitude: self.task.location!.latitude, longitude: self.task.location!.longitude)
-		var distance: String = self.calculateDistanceBetweenTwoLocations(userLocation, destination: taskLocation)
-		
-		self.distance!.text = distance
-		self.distance!.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
-		self.distance!.textColor = blackNelpyColor
-		
-	}
-	
-	//MARK: Utilities
-	
-	/**
-	Method to calculate distance between two CLLocations and return the results in a String
-	
-	- parameter source:      User Location
-	- parameter destination: Task Location
-	
-	- returns: String with the distance between the two locations
-	*/
-	func calculateDistanceBetweenTwoLocations(source:CLLocation,destination:CLLocation) -> String{
-		
-		var distanceMeters = source.distanceFromLocation(destination)
-		if(distanceMeters > 1000){
-			var distanceKM = distanceMeters / 1000
-			return "\(round(distanceKM)) km away from you"
-		}else{
-			return String(format:"%.0f m away from you", distanceMeters)
-		}
 	}
 	
 }

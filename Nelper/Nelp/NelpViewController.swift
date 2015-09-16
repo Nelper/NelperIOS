@@ -107,8 +107,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		filtersButton.setTitleColor(nelperRedColor, forState: UIControlState.Normal)
 		filtersButton.addTarget(self, action: "didTapFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		filtersButton.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(navBar.snp_bottom)
-			make.left.equalTo(navBar.snp_left)
+			make.right.equalTo(navBar.snp_right).offset(-4)
+			make.centerY.equalTo(navBar.snp_centerY).offset(4)
 		}
 	}
 	
@@ -151,8 +151,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	//MARK: UI
 	
 	func adjustUI(){
-		self.entireContainer.backgroundColor = nelperRedColor
-		self.container.backgroundColor = nelperRedColor
+		self.entireContainer.backgroundColor = grayDetails
+		self.container.backgroundColor = grayDetails
 		self.navBar.setTitle("Browse Tasks")
 	}
 	
@@ -235,12 +235,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		let cell = self.tableView.dequeueReusableCellWithIdentifier(NelpViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpViewCell
 		
 		let nelpTask = self.nelpTasks[indexPath.item]
-		
-		
 		cell.setNelpTask(nelpTask)
-		if(self.currentLocation != nil){
-			cell.setLocation(self.currentLocation!)
-		}
 		cell.setImages(nelpTask)
 		
 		return cell
@@ -256,7 +251,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		return 80
+		return 100
 	}
 	
 	
