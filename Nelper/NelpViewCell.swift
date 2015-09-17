@@ -92,7 +92,7 @@ class NelpViewCell: UITableViewCell {
 		self.creationDate.textColor = blackTextColor
 		
 		creationDate.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(author.snp_bottom).offset(3)
+			make.top.equalTo(author.snp_bottom)
 			make.left.equalTo(author.snp_left)
 		}
 		

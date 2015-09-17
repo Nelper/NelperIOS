@@ -23,6 +23,7 @@ class FilterSortViewController: UIViewController{
 	var otherButton: UIButton!
 	var handyworkButton: UIButton!
 	var multimediaButton: UIButton!
+	var allButton:UIButton!
 	var distanceCheckBox: UIButton!
 	var priceCheckBox: UIButton!
 	var distanceStepper: UIStepper!
@@ -78,61 +79,12 @@ class FilterSortViewController: UIViewController{
 		}
 		contentView.backgroundColor = whiteNelpyColor
 		
-		
-		//Sorting Container
-		
-		var sortingContainer = UIView()
-		contentView.addSubview(sortingContainer)
-		sortingContainer.backgroundColor = navBarColor
-		sortingContainer.layer.borderColor = darkGrayDetails.CGColor
-		sortingContainer.layer.borderWidth = 1
-		sortingContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(contentView.snp_top).offset(10)
-			make.left.equalTo(contentView.snp_left).offset(10)
-			make.right.equalTo(contentView.snp_right).offset(-10)
-			make.height.equalTo(90)
-		}
-		
-		var sortingLabel = UILabel()
-		sortingContainer.addSubview(sortingLabel)
-		sortingLabel.text = "Sort by:"
-		sortingLabel.textColor = nelperRedColor
-		sortingLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
-		sortingLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(sortingContainer.snp_left).offset(8)
-			make.top.equalTo(sortingContainer.snp_top).offset(8)
-			make.right.equalTo(sortingContainer.snp_right).offset(-8)
-			make.height.equalTo(20)
-		}
-		
-		var sortingSegmentControl = UISegmentedControl()
-		self.sortingSegmentControl = sortingSegmentControl
-		sortingContainer.addSubview(sortingSegmentControl)
-		sortingSegmentControl.addTarget(self, action: "segmentControlTouched:", forControlEvents: UIControlEvents.ValueChanged)
-		sortingSegmentControl.insertSegmentWithTitle("Price", atIndex: 0, animated: false)
-		sortingSegmentControl.insertSegmentWithTitle("Distance", atIndex: 1, animated: false)
-		sortingSegmentControl.insertSegmentWithTitle("Creation Date", atIndex: 2, animated: false)
-		sortingSegmentControl.tintColor = nelperRedColor
-		sortingSegmentControl.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(sortingContainer.snp_bottom).offset(-12)
-			make.centerX.equalTo(sortingContainer.snp_centerX)
-			make.left.equalTo(sortingContainer.snp_left).offset(8)
-			make.right.equalTo(sortingContainer.snp_right).offset(-8)
-			make.height.equalTo(35)
-		}
-		
-		var addFiltersButton = UIButton()
-		contentView.addSubview(addFiltersButton)
-		addFiltersButton.addTarget(self, action: "didTapAddFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
-		addFiltersButton.backgroundColor = grayBlueColor
-		addFiltersButton.setTitle("Add Filters", forState: UIControlState.Normal)
-		addFiltersButton.setTitleColor(navBarColor, forState: UIControlState.Normal)
-		addFiltersButton.layer.cornerRadius = 3
-		addFiltersButton.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(contentView.snp_bottom).offset(-10)
-			make.centerX.equalTo(contentView.snp_centerX)
-			make.height.equalTo(45)
-			make.width.equalTo(120)
+		var addFiltersContainer = UIView()
+		contentView.addSubview(addFiltersContainer)
+		addFiltersContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(contentView.snp_bottom)
+			make.width.equalTo(contentView.snp_width)
+			make.height.equalTo(60)
 		}
 		
 		//Filters Container
@@ -140,24 +92,58 @@ class FilterSortViewController: UIViewController{
 		var filtersContainer = UIView()
 		contentView.addSubview(filtersContainer)
 		filtersContainer.backgroundColor = navBarColor
-		filtersContainer.layer.borderColor = darkGrayDetails.CGColor
-		filtersContainer.layer.borderWidth = 1
 		filtersContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(sortingContainer.snp_bottom).offset(10)
-			make.left.equalTo(contentView.snp_left).offset(8)
-			make.right.equalTo(contentView.snp_right).offset(-8)
-			make.bottom.equalTo(addFiltersButton.snp_top).offset(-10)
+			make.top.equalTo(navBar.snp_bottom)
+			make.left.equalTo(contentView.snp_left)
+			make.right.equalTo(contentView.snp_right)
+			make.bottom.equalTo(addFiltersContainer.snp_top)
+		}
+		
+		var sortingLabel = UILabel()
+		filtersContainer.addSubview(sortingLabel)
+		sortingLabel.text = "Sort by"
+		sortingLabel.textColor = blackTextColor
+		sortingLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
+		sortingLabel.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(filtersContainer.snp_centerX)
+			make.top.equalTo(filtersContainer.snp_top).offset(20)
+			make.height.equalTo(20)
+		}
+		
+		var sortingSegmentControl = UISegmentedControl()
+		self.sortingSegmentControl = sortingSegmentControl
+		filtersContainer.addSubview(sortingSegmentControl)
+		sortingSegmentControl.addTarget(self, action: "segmentControlTouched:", forControlEvents: UIControlEvents.ValueChanged)
+		sortingSegmentControl.insertSegmentWithTitle("Price", atIndex: 0, animated: false)
+		sortingSegmentControl.insertSegmentWithTitle("Distance", atIndex: 1, animated: false)
+		sortingSegmentControl.insertSegmentWithTitle("Creation Date", atIndex: 2, animated: false)
+		sortingSegmentControl.tintColor = nelperRedColor
+		sortingSegmentControl.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(sortingLabel.snp_bottom).offset(20)
+			make.centerX.equalTo(filtersContainer.snp_centerX)
+			make.left.equalTo(filtersContainer.snp_left).offset(8)
+			make.right.equalTo(filtersContainer.snp_right).offset(-8)
+			make.height.equalTo(35)
+		}
+		
+		var sortingUnderline = UIView()
+		filtersContainer.addSubview(sortingUnderline)
+		sortingUnderline.backgroundColor = darkGrayDetails
+		sortingUnderline.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(sortingSegmentControl.snp_bottom).offset(20)
+			make.width.equalTo(filtersContainer.snp_width).dividedBy(1.5)
+			make.centerX.equalTo(filtersContainer.snp_centerX)
+			make.height.equalTo(0.5)
 		}
 		
 		var filtersLabel = UILabel()
 		filtersContainer.addSubview(filtersLabel)
 		filtersLabel.text = "Filters:"
-		filtersLabel.textColor = nelperRedColor
+		filtersLabel.textColor = blackTextColor
 		filtersLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		filtersLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(filtersContainer.snp_left).offset(8)
-			make.top.equalTo(filtersContainer.snp_top).offset(8)
-			make.right.equalTo(filtersContainer.snp_right).offset(-8)
+			make.centerX.equalTo(filtersContainer.snp_centerX)
+			make.top.equalTo(sortingUnderline.snp_bottom).offset(20)
 			make.height.equalTo(20)
 		}
 		
@@ -242,7 +228,7 @@ class FilterSortViewController: UIViewController{
 		filtersContainer.addSubview(secondRowOfCategories)
 		secondRowOfCategories.backgroundColor = navBarColor
 		secondRowOfCategories.snp_makeConstraints { (make) -> Void in
-			make.width.equalTo(kFilterCategorySize * 3 + kFilterCategorySpacing * 2)
+			make.width.equalTo(kFilterCategorySize * 4 + kFilterCategorySpacing * 3)
 			make.height.equalTo(kFilterCategorySize)
 			make.top.equalTo(firstRowOfCategories.snp_bottom).offset(4)
 			make.centerX.equalTo(filtersContainer.snp_centerX)
@@ -299,6 +285,23 @@ class FilterSortViewController: UIViewController{
 		otherButton.layer.borderColor = darkGrayDetails.CGColor
 		otherButton.layer.borderWidth = 0
 		
+		var allButton = UIButton()
+		allButton.addTarget(self, action: "didTapAll:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.allButton = allButton
+		secondRowOfCategories.addSubview(allButton)
+		allButton.alpha = 0.3
+		allButton.setBackgroundImage(UIImage(named: "all"), forState: UIControlState.Normal)
+		allButton.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(secondRowOfCategories.snp_centerY)
+			make.left.equalTo(otherButton.snp_right).offset(kFilterCategorySpacing)
+			make.height.equalTo(kFilterCategorySize)
+			make.width.equalTo(kFilterCategorySize)
+		}
+		
+		allButton.layer.cornerRadius = CGFloat(kFilterCategorySize / 2)
+		allButton.layer.borderColor = darkGrayDetails.CGColor
+		allButton.layer.borderWidth = 0
+		
 		
 		//Distance Filter
 		var distanceCheckBox = UIButton()
@@ -309,7 +312,7 @@ class FilterSortViewController: UIViewController{
 		distanceCheckBox.setBackgroundImage(UIImage(named: "checkbox_checked"), forState: UIControlState.Selected)
 		distanceCheckBox.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(secondRowOfCategories.snp_bottom).offset(40)
-			make.left.equalTo(filtersLabel.snp_left)
+			make.left.equalTo(filtersContainer.snp_left).offset(12)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
 		}
@@ -338,7 +341,7 @@ class FilterSortViewController: UIViewController{
 		distanceStepper.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(30)
 			make.width.equalTo(60)
-			make.centerX.equalTo(otherButton.snp_centerX).offset(30)
+			make.right.equalTo(filtersContainer.snp_right).offset(-50)
 			make.centerY.equalTo(distanceCheckBox.snp_centerY)
 		}
 		
@@ -364,7 +367,7 @@ class FilterSortViewController: UIViewController{
 		priceCheckBox.setBackgroundImage(UIImage(named: "checkbox_checked"), forState: UIControlState.Selected)
 		priceCheckBox.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(distanceCheckBox.snp_bottom).offset(30)
-			make.left.equalTo(filtersLabel.snp_left)
+			make.left.equalTo(distanceCheckBox.snp_left)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
 		}
@@ -589,6 +592,27 @@ class FilterSortViewController: UIViewController{
 					self.arrayOfFilters.removeAtIndex(i)
 				}
 			}
+		}
+	}
+	
+	func didTapAll(sender:UIButton?){
+		self.allButton.selected = !self.allButton.selected
+		if self.allButton.selected == true{
+			self.arrayOfFilters.removeAll(keepCapacity: false)
+			
+			self.arrayOfFilters.append("business")
+			self.arrayOfFilters.append("technology")
+			self.arrayOfFilters.append("gardening")
+			self.arrayOfFilters.append("housecleaning")
+			self.arrayOfFilters.append("other")
+			self.arrayOfFilters.append("multimedia")
+			self.arrayOfFilters.append("handywork")
+			
+			self.allButton.alpha = 1
+			
+		}else{
+			self.allButton.alpha = 0.3
+			self.arrayOfFilters.removeAll(keepCapacity: false)
 		}
 	}
 	
