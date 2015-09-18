@@ -427,6 +427,13 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
 - (NSOrderedSet *)executeQuery:(LYRQuery *)query error:(NSError **)error;
 
 /**
+ @abstract Executes the given query asynchronously and passes the results back in a completion block.
+ @param query The query to execute. Cannot be `nil`.
+ @param completion The block that will be passed once Layer has executed the query.  If successful the `resultSet` will have the results, and if unsuccessful `error` will contain the specific query error.
+ */
+- (void)executeQuery:(LYRQuery *)query completion:(void (^)(NSOrderedSet *resultSet, NSError *error))completion;
+
+/**
  @abstract Executes the given query and returns a count of the number of results.
  @param query The query to execute. Cannot be `nil`.
  @param error A pointer to an error that upon failure is set to an error object describing why execution failed.
@@ -435,11 +442,19 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
 - (NSUInteger)countForQuery:(LYRQuery *)query error:(NSError **)error;
 
 /**
+ @abstract Executes the given query asynchronously and ppasses the result count and error back in a completion block.
+ @param query The query to execute. Cannot be `nil`.
+ @param completion The block that will be passed once Layer has executed the query.  If successful the `count` will have the count requested in the query, and if unsuccessful `error` will contain the specific query error.
+ */
+- (void)countForQuery:(LYRQuery *)query completion:(void (^)(NSUInteger count, NSError *error))completion;
+
+/**
  @abstract Creates and returns a new query controller with the given query.
  @param query The query to create a controller with.
+ @param error A pointer to an error that upon failure is set to a `NSError` object describing why query controller creation failed.
  @return A newly created query controller.
  */
-- (LYRQueryController *)queryControllerWithQuery:(LYRQuery *)query;
+- (LYRQueryController *)queryControllerWithQuery:(LYRQuery *)query error:(NSError **)error;
 
 ///-------------------------------
 /// @name Marking Messages as Read
@@ -663,6 +678,9 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
     return [client countForQuery:query error:&error];
  */
 - (NSUInteger)countOfUnreadMessagesInConversation:(LYRConversation *)conversation __deprecated;
+
+// DEPRECATED: Use `LYRClient`'s `queryControllerWithQuery:error:` instead.
+- (LYRQueryController *)queryControllerWithQuery:(LYRQuery *)query __deprecated;
 
 @end
 

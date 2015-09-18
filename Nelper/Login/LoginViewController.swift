@@ -62,7 +62,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		
 		// checks for tap (keyboard dismiss)
 		
-		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
 		self.tap = tap
 		container.addGestureRecognizer(tap)
     }
@@ -212,8 +212,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
             } else {
                 var results = user as! Dictionary<String, AnyObject>
                 
-                var currentUser = PFUser.currentUser()!
-                var fbID = results["id"] as AnyObject? as! String
+                let currentUser = PFUser.currentUser()!
+                let fbID = results["id"] as AnyObject? as! String
                 let profilePictureURL : String = "https://graph.facebook.com/\(fbID)/picture?type=large&return_ssl_resources=1"
                 
                 currentUser.setValue(profilePictureURL, forKey: "pictureURL")

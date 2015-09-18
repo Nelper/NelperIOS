@@ -54,7 +54,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.imagePicker.delegate = self
 		self.createView()
 		self.adjustUI()
-		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
 		self.tap = tap
 		contentView.addGestureRecognizer(tap)
 		}
@@ -282,7 +282,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		var autocompleteTableView = UITableView()
 		self.contentView.addSubview(autocompleteTableView)
 		self.autocompleteTableView = autocompleteTableView
-		self.autocompleteTableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+		self.autocompleteTableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
 		self.autocompleteTableView.delegate = self
 		self.autocompleteTableView.dataSource = self
 		self.autocompleteTableView.registerClass(AutocompleteCell.classForCoder(), forCellReuseIdentifier: AutocompleteCell.reuseIdentifier)
@@ -333,7 +333,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.task.pictures = Array()
 		for image in self.imagesArray{
 			var imageData = UIImageJPEGRepresentation(image as! UIImage, 0.50)
-			var imageFile = PFFile(name:"image.png", data:imageData)
+			var imageFile = PFFile(name:"image.png", data:imageData!)
 			self.task.pictures!.append(imageFile)
 		}
 	}
@@ -346,7 +346,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	- parameter picker: ImagePicker instance
 	- parameter info:   .
 	*/
-	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
 		if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
 			self.imagesArray.addObject(pickedImage)
 			if(self.imagesArray.count == 1){
@@ -389,7 +389,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 
 		let geocodeURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(prediction.placeID)&key=\(kGoogleAPIKey)"
 		
-		request(.GET, geocodeURL).responseJSON { _, _, response, _ in
+		request(.GET, geocodeURL).responseJSON { _, response, _ in
 			let json = JSON(response!)
 			let res = json["result"]
 			
@@ -431,7 +431,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	
 	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
 		if(textField == locationTextField){
-			var substring = textField.text as NSString
+			var substring = textField.text! as NSString
    substring = substring.stringByReplacingCharactersInRange(range, withString: string)
 			self.placeAutocomplete(substring as String)
 			return true
@@ -457,7 +457,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		filter.type = GMSPlacesAutocompleteTypeFilter.Address
 		self.placesClient?.autocompleteQuery(text, bounds: nil, filter: filter, callback: { (results, error: NSError?) -> Void in
 			if let error = error {
-				println("Autocomplete error \(error)")
+				print("Autocomplete error \(error)")
 			}
 			
 			if(results != nil){
@@ -466,7 +466,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 				self.autocompleteTableView.hidden = false
 				for result in results! {
 					if let result = result as? GMSAutocompletePrediction {
-						println("Result \(result.attributedFullText) with placeID \(result.placeID)")
+						print("Result \(result.attributedFullText) with placeID \(result.placeID)")
 					}
 				}
 			}
@@ -481,13 +481,13 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	- returns: City as a String
 	*/
 	func getCity(addressComponents: JSON) -> String? {
-		for (_, comp: JSON) in addressComponents {
-			for (_, t: JSON) in comp["types"] {
-				if t.stringValue == "locality" {
-					return comp["long_name"].string
-				}
-			}
-		}
+//		for (_, comp: JSON) in addressComponents {
+//			for (_, t: JSON) in comp["types"] {
+//				if t.stringValue == "locality" {
+//					return comp["long_name"].string
+//				}
+//			}
+//		}
 		return nil
 	}
 	
@@ -531,7 +531,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		}
 		self.task.title = self.titleTextField!.text
 		self.task.desc = self.descriptionTextView!.text
-		self.task.priceOffered = (self.priceOffered!.text as NSString).doubleValue
+		self.task.priceOffered = (self.priceOffered!.text as! NSString).doubleValue
 				ApiHelper.addTask(self.task, block: { (task, error) -> Void in
 					self.delegate?.nelpTaskAdded(self.task)
 					self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)

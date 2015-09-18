@@ -13,6 +13,7 @@ import Stripe
 import ParseCrashReporting
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelegate {
 	
 	var window: UIWindow?
@@ -55,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		self.window!.rootViewController = UIViewController()
 		self.window!.makeKeyAndVisible()
 		
-		UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
 		
 		
 		let user = PFUser.currentUser()
@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	func application(application: UIApplication,
 		openURL url: NSURL,
 		sourceApplication: String?,
-		annotation: AnyObject?) -> Bool {
+		annotation: AnyObject) -> Bool {
 			return FBSDKApplicationDelegate.sharedInstance()!.application(application,
 				openURL: url,
 				sourceApplication: sourceApplication,
@@ -118,16 +118,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		// https://developer.layer.com/docs/quick-start/ios#connect
 		self.layerClient.connectWithCompletion { success, error in
 			if (!success) {
-				println("Failed to connect to Layer: \(error)")
+				print("Failed to connect to Layer: \(error)")
 			} else {
 				let userID: String = PFUser.currentUser()!.objectId!
 				// Once connected, authenticate user.
 				// Check Authenticate step for authenticateLayerWithUserID source
 				self.authenticateLayerWithUserID(userID, completion: { success, error in
 					if (!success) {
-						println("Failed Authenticating Layer Client with error:\(error)")
+						print("Failed Authenticating Layer Client with error:\(error)")
 					} else {
-						println("Authenticated with Layers and Parse")
+						print("Authenticated with Layers and Parse")
 					}
 				})
 			}
@@ -139,7 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		if self.layerClient.authenticatedUserID != nil {
 			// If the layerClient is authenticated with the requested userID, complete the authentication process.
 			if self.layerClient.authenticatedUserID == userID {
-				println("Layer Authenticated as User \(self.layerClient.authenticatedUserID)")
+				print("Layer Authenticated as User \(self.layerClient.authenticatedUserID)")
 				if completion != nil {
 					completion(success: true, error: nil)
 				}
@@ -193,13 +193,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 							if (completion != nil) {
 								completion(success: true, error: nil)
 							}
-							println("Layer Authenticated as User: \(authenticatedUserID)")
+							print("Layer Authenticated as User: \(authenticatedUserID)")
 						} else {
 							completion(success: false, error: error)
 						}
 					}
 				} else {
-					println("Parse Cloud function failed to be called to generate token with error: \(error)")
+					print("Parse Cloud function failed to be called to generate token with error: \(error)")
 				}
 			}
 		}
@@ -212,24 +212,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		changes = notif as! Array<AnyObject>
 		
 			for change in changes{
-				var changeClass = change.object
-				var updateKey: LYRObjectChangeType = change.type
+				let changeClass = change.object
+				let updateKey: LYRObjectChangeType = change.type
 				if changeClass is LYRConversation {
 					var conversation = changeClass
 					
 					switch(updateKey){
 					
 					case LYRObjectChangeType.Create:
-						println("a")
+						print("a")
 					
 					case LYRObjectChangeType.Update:
-						println("b")
+						print("b")
 						
 					case LYRObjectChangeType.Delete:
-						println("c")
+						print("c")
 						
 					default:
-						println("d")
+						print("d")
 					}
 				}
 				if changeClass is LYRMessage {

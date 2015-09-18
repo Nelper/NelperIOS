@@ -54,7 +54,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		setProfilePicture()
 		
 		// looks for tap (keyboard dismiss)
-		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
 		self.tap = tap
 		contentView.addGestureRecognizer(tap)
 		
@@ -441,7 +441,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			experienceCell.setIndex(indexPath.item)
 			return experienceCell
 		}
-		var cell: UITableViewCell!
+		let cell: UITableViewCell = UITableViewCell()
 		return cell
 
 	}
@@ -552,7 +552,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
         }
 		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
-			var skillTitle: String = (popup.textFields?.first as! UITextField).text
+			let skillTitle: String = (popup.textFields!.first?.text!)!
 			self.arrayOfSkills.append(["title":skillTitle])
             self.skillsTableView.snp_updateConstraints { (make) -> Void in
                 make.height.equalTo(self.arrayOfSkills.count * 60)
@@ -575,7 +575,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
-			var educationTitle: String = (popup.textFields?.first as! UITextField).text
+			var educationTitle: String = (popup.textFields!.first?.text!)!
 			self.arrayOfEducation.append(["title":educationTitle])
             self.educationTableView.snp_updateConstraints { (make) -> Void in
                 make.height.equalTo(self.arrayOfEducation.count * 60)
@@ -597,7 +597,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
-			var experienceTitle: String = (popup.textFields?.first as! UITextField).text
+			var experienceTitle: String = (popup.textFields!.first?.text!)!
 			self.arrayOfExperience.append(["title":experienceTitle])
 			self.experienceTableView.snp_updateConstraints { (make) -> Void in
 				make.height.equalTo(self.arrayOfExperience.count * 60)

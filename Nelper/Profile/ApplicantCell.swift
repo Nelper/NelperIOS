@@ -41,7 +41,7 @@ class ApplicantCell: UITableViewCell{
 		let cellView = UIView(frame: self.bounds)
 		self.cellView = cellView
 		cellView.backgroundColor = navBarColor
-		cellView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+		cellView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
 		
 		
 		//Profile Picture
@@ -198,7 +198,7 @@ class ApplicantCell: UITableViewCell{
 	
 	
 	
-	required init(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	

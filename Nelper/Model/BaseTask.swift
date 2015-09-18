@@ -55,7 +55,7 @@ class BaseTask: BaseModel {
     priceOffered = parseTask["priceOffered"] as? Double
 		
 		if(parseTask["pictures"] != nil){
-    var picturesPF = parseTask["pictures"] as! [PFFile]
+    let picturesPF = parseTask["pictures"] as! [PFFile]
 			if(!picturesPF.isEmpty){
 		pictures = picturesPF
 			}
@@ -70,7 +70,7 @@ class BaseTask: BaseModel {
 			request(.GET,picture.url!).response(){
 				(_, _, data, error) in
 				if(error != nil){
-					println(error)
+					print(error)
 				}
 				var image = UIImage(data: data as NSData!)
 				arrayOfImages.append(image!)

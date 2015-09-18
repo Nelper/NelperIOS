@@ -47,7 +47,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	convenience init(findNelpTask:FindNelpTask) {
 		self.init(nibName: "MyTaskDetailsViewController", bundle: nil)
 		self.task = findNelpTask
-		var arrayOfApplications = findNelpTask.applications
+		let arrayOfApplications = findNelpTask.applications
 		self.arrayOfApplications = arrayOfApplications
 		var arrayOfApplicants = [User]()
 		var arrayOfAllApplicants = [User]()
@@ -282,7 +282,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		request(.GET,imageURL).response(){
 			(_, _, data, error) in
 			if(error != nil){
-				println(error)
+				print(error)
 			}
 			image = UIImage(data: data as NSData!)
 			block(image)
@@ -374,9 +374,9 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if tableView == self.applicantsTableView{
-			var applicant = self.arrayOfAllApplicants[indexPath.row]
+			let applicant = self.arrayOfAllApplicants[indexPath.row]
 			let application = self.arrayOfApplications[indexPath.row]
-			var nextVC = ApplicantProfileViewController(applicant: applicant, application: application)
+			let nextVC = ApplicantProfileViewController(applicant: applicant, application: application)
 			nextVC.delegate = self
 			nextVC.previousVC = self
 			dispatch_async(dispatch_get_main_queue()){
@@ -401,12 +401,12 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	func didTapRevertButton(applicant:User){
 		var applicationToRevert:NelpTaskApplication!
 		for application in self.arrayOfApplications{
-			println(application.user.objectId)
-			println(applicant.objectId)
+			print(application.user.objectId)
+			print(applicant.objectId)
 			if application.user.objectId == applicant.objectId{
 				applicationToRevert = application
 				for (var i = 0 ; i < self.arrayOfDeniedApplicants.count ; i++) {
-					var applicantToChange = self.arrayOfDeniedApplicants[i]
+					let applicantToChange = self.arrayOfDeniedApplicants[i]
 					if applicantToChange.objectId == applicant.objectId{
 						self.arrayOfDeniedApplicants.removeAtIndex(i)
 						self.arrayOfApplicants.append(applicantToChange)
@@ -415,10 +415,10 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			}
 		}
 		applicationToRevert.state = .Pending
-		var query = PFQuery(className: "NelpTaskApplication")
+		let query = PFQuery(className: "NelpTaskApplication")
 		query.getObjectInBackgroundWithId(applicationToRevert.objectId, block: { (application, error) -> Void in
 			if error != nil{
-				println(error)
+				print(error)
 			} else if let application = application{
 				application["state"] = applicationToRevert.state.rawValue
 				application.saveInBackground()
@@ -435,12 +435,12 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	func didTapDenyButton(applicant:User){
 		var applicationToDeny:NelpTaskApplication!
 		for application in self.arrayOfApplications{
-			println(application.user.objectId)
-			println(applicant.objectId)
+			print(application.user.objectId)
+			print(applicant.objectId)
 			if application.user.objectId == applicant.objectId{
 				applicationToDeny = application
 				for (var i = 0 ; i < self.arrayOfApplicants.count ; i++) {
-					var applicantToChange = self.arrayOfApplicants[i]
+					let applicantToChange = self.arrayOfApplicants[i]
 					if applicantToChange.objectId == applicant.objectId{
 						self.arrayOfApplicants.removeAtIndex(i)
 						self.arrayOfDeniedApplicants.append(applicantToChange)
@@ -465,7 +465,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	//MARK: Actions
 	
 	func editButtonTapped(sender:UIButton){
-		var nextVC = EditTaskViewController()
+		let nextVC = EditTaskViewController()
 		nextVC.task = self.task
 		nextVC.delegate = self
 		dispatch_async(dispatch_get_main_queue()) {

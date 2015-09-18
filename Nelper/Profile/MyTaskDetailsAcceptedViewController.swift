@@ -687,13 +687,13 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
 		
-		var maskPath = UIBezierPath(roundedRect: chatButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
-		var maskLayer = CAShapeLayer()
+		let maskPath = UIBezierPath(roundedRect: chatButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
+		let maskLayer = CAShapeLayer()
 		maskLayer.frame = self.chatButton.bounds
 		maskLayer.path = maskPath.CGPath
 		
 		var maskPathFake = UIBezierPath(roundedRect: self.fakeButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
-		var maskLayerFake = CAShapeLayer()
+		let maskLayerFake = CAShapeLayer()
 		maskLayerFake.frame = self.fakeButton.bounds
 		maskLayerFake.path = maskPath.CGPath
 		
@@ -716,7 +716,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	}
 	
 	func didTapPaymentButton(sender:UIButton){
-		var nextVC = STRPPaymentViewController()
+		let nextVC = STRPPaymentViewController()
 		nextVC.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
 		self.presentViewController(nextVC, animated: true, completion: nil)
@@ -729,7 +729,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 				acceptedApplication = application
 			}
 		}
-		var nextVC = ApplicantProfileViewController(applicant: self.acceptedApplicant, application: acceptedApplication )
+		let nextVC = ApplicantProfileViewController(applicant: self.acceptedApplicant, application: acceptedApplication )
 		nextVC.isAccepted = true
 		nextVC.delegate = self
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
@@ -749,10 +749,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		if self.conversationController == nil{
 			var error:NSError?
 			var participants = Set([self.acceptedApplicant.objectId])
-			println(participants)
+			print(participants)
 			
 			
-			var conversation = LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.acceptedApplicant.objectId]), options: nil, error: nil)
+			var conversation = try? LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.acceptedApplicant.objectId]), options: nil)
 			
 			//		var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
 			var nextVC = ApplicantChatViewController(layerClient: LayerManager.sharedInstance.layerClient)
@@ -762,8 +762,8 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 			}else{
 				var query:LYRQuery = LYRQuery(queryableClass: LYRConversation.self)
 				query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
-				var result = LayerManager.sharedInstance.layerClient.executeQuery(query, error: nil)
-				nextVC.conversation = result.firstObject as! LYRConversation
+				var result = try? LayerManager.sharedInstance.layerClient.executeQuery(query)
+				nextVC.conversation = result!.firstObject as! LYRConversation
 			}
 			var conversationNavController = UINavigationController(rootViewController: nextVC)
 			self.conversationController = conversationNavController

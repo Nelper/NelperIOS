@@ -27,7 +27,7 @@ class AutocompleteCell: UITableViewCell {
 		let cellView = UIView(frame: self.bounds)
 		self.addSubview(cellView)
 		
-		cellView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+		cellView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
 		
 		let suggestedAddress = UILabel()
 		suggestedAddress.numberOfLines = 0
@@ -44,7 +44,7 @@ class AutocompleteCell: UITableViewCell {
 			make.left.equalTo(cellView.snp_left).offset(10)
 		}
 	}
-	required init(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
@@ -62,7 +62,7 @@ class AutocompleteCell: UITableViewCell {
 	
 	func setAddress(prediction:GMSAutocompletePrediction){
 		self.prediction = prediction
-		var predictionText = prediction.attributedFullText
+		let predictionText = prediction.attributedFullText
 		self.suggestedAddress.text = predictionText.string
 	}
 	

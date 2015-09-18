@@ -73,7 +73,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.authorLabel.font = UIFont(name: "HelveticaNeue", size: kDetailsViewTextFontSize)
 		
 		if(self.task.createdAt != nil){
-			var dateHelper = DateHelper()
+			let dateHelper = DateHelper()
 			self.creationDateLabel.text = "Created \(dateHelper.timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
 			self.creationDateLabel.textColor = blackNelpyColor
 			self.creationDateLabel.font = UIFont(name: "HelveticaNeue", size: kDetailsViewTextFontSize)
@@ -89,7 +89,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.priceLabel.textColor = whiteNelpyColor
 		self.priceLabel.clipsToBounds = true
 		self.priceLabel.textAlignment = NSTextAlignment.Center
-		var price = String(format: "%.0f", self.task.priceOffered!)
+		let price = String(format: "%.0f", self.task.priceOffered!)
 		self.priceLabel.text = "$"+price
 
 		
@@ -145,9 +145,9 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	
  func carousel(carousel: iCarousel!, viewForItemAtIndex index: Int, reusingView view: UIView!) -> UIView! {
-		var picture = UIImageView(frame: self.carousel.frame)
+		let picture = UIImageView(frame: self.carousel.frame)
 		picture.clipsToBounds = true
-		var imageURL = self.task.pictures![index].url!
+		let imageURL = self.task.pictures![index].url!
 		getPictures(imageURL, block: { (imageReturned:UIImage) -> Void in
 			picture.image = imageReturned
 		})
@@ -257,7 +257,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		request(.GET,imageURL).response(){
 			(_, _, data, error) in
 			if(error != nil){
-				println(error)
+				print(error)
 			}
 			image = UIImage(data: data as NSData!)
 			block(image)

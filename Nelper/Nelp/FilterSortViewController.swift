@@ -481,7 +481,7 @@ class FilterSortViewController: UIViewController{
 	}
 	
 	func didTapAddFiltersButton(sender:UIButton){
-		print(self.minPrice)
+		print(self.minPrice, terminator: "")
 		self.delegate.didTapAddFilters(self.arrayOfFilters, sort: self.sortBy, minPrice: self.minPrice, maxDistance: self.maxDistance)
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
@@ -570,7 +570,7 @@ class FilterSortViewController: UIViewController{
 		}else{
 			self.technologyButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++) {
-				var filter = self.arrayOfFilters[i]
+				let filter = self.arrayOfFilters[i]
 				if filter == "technology"{
 					self.arrayOfFilters.removeAtIndex(i)
 				}
@@ -587,7 +587,7 @@ class FilterSortViewController: UIViewController{
 		}else{
 			self.businessButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
-				var filter = self.arrayOfFilters[i]
+				let filter = self.arrayOfFilters[i]
 				if filter == "business"{
 					self.arrayOfFilters.removeAtIndex(i)
 				}
@@ -625,7 +625,7 @@ class FilterSortViewController: UIViewController{
 		}else{
 			self.gardeningButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
-				var filter = self.arrayOfFilters[i]
+				let filter = self.arrayOfFilters[i]
 				if filter == "gardening"{
 					self.arrayOfFilters.removeAtIndex(i)
 				}
@@ -642,7 +642,7 @@ class FilterSortViewController: UIViewController{
 		}else{
 			self.cleaningButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
-				var filter = self.arrayOfFilters[i]
+				let filter = self.arrayOfFilters[i]
 				if filter == "housecleaning"{
 					self.arrayOfFilters.removeAtIndex(i)
 				}
@@ -659,7 +659,7 @@ class FilterSortViewController: UIViewController{
 		}else{
 			self.otherButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
-				var filter = self.arrayOfFilters[i]
+				let filter = self.arrayOfFilters[i]
 				if filter == "other"{
 					self.arrayOfFilters.removeAtIndex(i)
 				}
@@ -675,7 +675,7 @@ class FilterSortViewController: UIViewController{
 		}else{
 			self.multimediaButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
-				var filter = self.arrayOfFilters[i]
+				let filter = self.arrayOfFilters[i]
 				if filter == "multimedia"{
 					self.arrayOfFilters.removeAtIndex(i)
 				}
@@ -691,7 +691,7 @@ class FilterSortViewController: UIViewController{
 		}else{
 			self.handyworkButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
-				var filter = self.arrayOfFilters[i]
+				let filter = self.arrayOfFilters[i]
 				if filter == "handywork"{
 					self.arrayOfFilters.removeAtIndex(i)
 				}

@@ -391,7 +391,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			if self.images.count == 1 {
 				self.carousel.scrollEnabled = false
 			}
-			print(self.images.count)
+			print(self.images.count, terminator: "")
 			return self.images.count
 		}
 		return 0
@@ -400,7 +400,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 	
  func carousel(carousel: iCarousel!, viewForItemAtIndex index: Int, reusingView view: UIView!) -> UIView! {
 	
-		var picture = UIImageView(frame: self.carousel.frame)
+		let picture = UIImageView(frame: self.carousel.frame)
 		picture.image = self.images[index]
 	
 		picture.contentMode = .ScaleAspectFit
@@ -409,7 +409,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 	
 	//MARK: Image Picker Delegate
 	
-	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
 		if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
 			self.images.append(pickedImage)
 			self.carousel.insertItemAtIndex(self.images.count - 1, animated: true)
@@ -474,7 +474,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 	
 	func didTapSaveButton(sender:UIButton){
 		self.task.title = self.titleTextField.text
-		print(self.task.title)
+		print(self.task.title, terminator: "")
 		if !self.images.isEmpty{
 		self.task.pictures = ApiHelper.convertImagesToData(self.images)
 			}

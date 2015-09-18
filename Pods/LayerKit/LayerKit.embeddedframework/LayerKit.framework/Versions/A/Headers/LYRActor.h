@@ -20,13 +20,13 @@
  @discussion The `userID` property is queryable via the `LYRPredicateOperatorIsEqualTo` and `LYRPredicateOperatorIsNotEqualTo` predicate operators.
  */
 
-@property (nonatomic, readonly) NSString *userID LYR_QUERYABLE_FROM(LYRMessage);
+@property (nonatomic, readonly) NSString *userID LYR_QUERYABLE_FROM(LYRMessage) LYR_QUERYABLE_FROM(LYRConversation);;
 
 /**
  @abstract The name of the platform that sent the message, not an authenticated user.
  @discussion The `userID` property is queryable via the `LYRPredicateOperatorIsEqualTo` and `LYRPredicateOperatorIsNotEqualTo` predicate operators.
  */
 
-@property (nonatomic, readonly) NSString *name LYR_QUERYABLE_FROM(LYRMessage);
+@property (nonatomic, readonly) NSString *name LYR_QUERYABLE_FROM(LYRMessage) LYR_QUERYABLE_FROM(LYRConversation);;
 
 @end

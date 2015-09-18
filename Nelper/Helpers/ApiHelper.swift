@@ -133,10 +133,10 @@ class ApiHelper {
 	static func listNelpTasksWithBlock(arrayOfFilters:Array<String>?, sortBy: String?,minPrice: Double?, maxDistance: Double?,block: ([NelpTask]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		if let arrayOfFilters = arrayOfFilters{
-			print(arrayOfFilters.count)
+			print(arrayOfFilters.count, terminator: "")
 			for filter in arrayOfFilters{
 				taskQuery.whereKey("category", equalTo:filter)
-				print(filter)
+				print(filter, terminator: "")
 			}
 		}
 		
@@ -145,9 +145,9 @@ class ApiHelper {
 		}
 		
 		if let maxDistance = maxDistance {
-			print(LocationHelper.sharedInstance.currentLocation!)
-			print(maxDistance)
-			var distance:Double = maxDistance
+			print(LocationHelper.sharedInstance.currentLocation!, terminator: "")
+			print(maxDistance, terminator: "")
+			let distance:Double = maxDistance
 			taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation!, withinKilometers: distance)
 		}
 		
@@ -181,7 +181,7 @@ class ApiHelper {
 					
 					let tasks = pfTasks!.map({ (pfTask) -> NelpTask in
 						let task = NelpTask(parseTask: pfTask as! PFObject)
-						let index = find(pfApplications!.map({($0["task"] as! PFObject).objectId!}), task.objectId)
+						let index = pfApplications!.map({($0["task"] as! PFObject).objectId!}).indexOf(task.objectId)
 						if let index = index {
 							task.application = NelpTaskApplication(parseApplication: pfApplications![index] as! PFObject)
 						}
@@ -284,8 +284,8 @@ class ApiHelper {
 		parseTask["state"] = task.state.rawValue
 		parseTask["priceOffered"] = task.priceOffered
 		parseTask["category"] = task.category
-		var lat = task.location?.latitude
-		var lng = task.location?.longitude
+		let lat = task.location?.latitude
+		let lng = task.location?.longitude
 		if lat != nil && lng != nil {
 			let location = PFGeoPoint(latitude: lat!, longitude: lng!)
 			parseTask["location"] = location
@@ -325,10 +325,10 @@ class ApiHelper {
 	static func editTask(task: FindNelpTask) {
 		let parseTask = PFObject(className: kParseTask)
 		
-		var query = PFQuery(className: "NelpTask")
+		let query = PFQuery(className: "NelpTask")
 		query.getObjectInBackgroundWithId(task.objectId, block: { (taskFetched , error) -> Void in
 			if error != nil{
-				println(error)
+				print(error)
 			}else if let taskFetched = taskFetched{
 				
 				taskFetched["title"] = task.title
@@ -378,7 +378,7 @@ class ApiHelper {
 	}
 	
 	static func cancelApplyForTaskWithApplication(application: NelpTaskApplication) {
-		print(application.objectId)
+		print(application.objectId, terminator: "")
 		let parseApplication = PFObject(withoutDataWithClassName:kParseTaskApplication, objectId:application.objectId)
 		parseApplication["state"] = NelpTaskApplication.State.Canceled.rawValue
 		parseApplication.saveEventually()
@@ -424,7 +424,7 @@ class ApiHelper {
 		request(.GET,imageURL).response(){
 			(_, _, data, error) in
 			if(error != nil){
-				println(error)
+				print(error)
 			}
 			image = UIImage(data: data as NSData!)
 			block(image)
@@ -437,7 +437,7 @@ class ApiHelper {
 		var imagesInData = Array<PFFile>()
 		for image in images{
 			var imageData = UIImageJPEGRepresentation(image as UIImage, 0.50)
-			var imageFile = PFFile(name:"image.png", data:imageData)
+			var imageFile = PFFile(name:"image.png", data:imageData!)
 			imagesInData.append(imageFile)
 		}
 		return imagesInData

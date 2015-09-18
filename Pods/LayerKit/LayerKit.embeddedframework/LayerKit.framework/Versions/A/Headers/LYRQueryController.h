@@ -132,6 +132,13 @@
  */
 - (BOOL)execute:(NSError **)error;
 
+/**
+ @abstract Executes the query asynchronously and loads a result and error in a completion block.
+ @param completion A block that passes back a BOOL if the execution of the query was successful, and an associated error object if there
+ was an error during execution.
+ */
+- (void)executeWithCompletion:(void (^)(BOOL success, NSError *error))completion;
+
 @end
 
 /**

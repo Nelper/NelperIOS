@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Stripe, Inc. All rights reserved.
 //
 
-@import Foundation;
-@import UIKit;
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #import "STPCard.h"
 #import "STPCardValidator.h"
@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger, STPCardFieldType) {
 @property(nonatomic, readwrite, copy, nullable)NSString *cvc;
 @property(nonatomic, readonly) STPCardBrand brand;
 
-- (nonnull NSString *)placeholder;
+- (nonnull NSString *)defaultPlaceholder;
 - (nullable NSString *)numberWithoutLastDigits;
 
 - (BOOL)isValid;

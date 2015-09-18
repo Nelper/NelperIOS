@@ -1,18 +1,17 @@
 # Uncomment this line to define a global platform for your project
-# platform :ios, '6.0'
+ platform :ios, '9.0'
 
 target 'Nelper' do
+
+use_frameworks!
 
 pod 'GoogleMaps'
 pod 'Alamofire'
 pod 'SnapKit'
-pod 'SwiftyJSON'
+pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git', :branch => 'xcode7'
 pod 'iCarousel'
 pod 'LayerKit'
 pod 'Stripe'
-pod 'SCLAlertView'
-
-use_frameworks!
 
 end
 

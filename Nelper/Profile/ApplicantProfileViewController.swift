@@ -760,7 +760,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			experienceCell.hideTrashCanIcon()
 			return experienceCell
 		}
-		var cell = UITableViewCell()
+		let cell = UITableViewCell()
 		return cell
 		
 	}
@@ -779,13 +779,13 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
 		
-		var maskPath = UIBezierPath(roundedRect: chatButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
-		var maskLayer = CAShapeLayer()
+		let maskPath = UIBezierPath(roundedRect: chatButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
+		let maskLayer = CAShapeLayer()
 		maskLayer.frame = self.chatButton.bounds
 		maskLayer.path = maskPath.CGPath
 		
 		var maskPathFake = UIBezierPath(roundedRect: self.fakeButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
-		var maskLayerFake = CAShapeLayer()
+		let maskLayerFake = CAShapeLayer()
 		maskLayerFake.frame = self.fakeButton.bounds
 		maskLayerFake.path = maskPath.CGPath
 		
@@ -817,20 +817,20 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	func acceptButtonTapped(sender:UIButton){
 		self.application.state = .Accepted
-		var query = PFQuery(className: "NelpTaskApplication")
+		let query = PFQuery(className: "NelpTaskApplication")
 		query.getObjectInBackgroundWithId(self.application.objectId, block: { (application , error) -> Void in
 			if error != nil{
-				println(error)
+				print(error)
 			}else if let application = application{
 				application["state"] = self.application.state.rawValue
 				application.saveInBackground()
 			}
 		})
 		self.application.task.state = .Accepted
-		var queryTask = PFQuery(className: "NelpTask")
+		let queryTask = PFQuery(className: "NelpTask")
 		queryTask.getObjectInBackgroundWithId(self.application.task.objectId, block: { (task , error) -> Void in
 			if error != nil{
-				println(error)
+				print(error)
 			}else if let task = task{
 				task["state"] = self.application.task.state.rawValue
 				task.saveInBackground()
@@ -842,10 +842,10 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	func denyButtonTapped(sender:UIButton){
 		self.application.state = .Denied
-		var query = PFQuery(className: "NelpTaskApplication")
+		let query = PFQuery(className: "NelpTaskApplication")
 		query.getObjectInBackgroundWithId(self.application.objectId, block: { (application , error) -> Void in
 			if error != nil{
-				println(error)
+				print(error)
 			}else if let application = application{
 					application["state"] = self.application.state.rawValue
 					application.saveInBackground()
@@ -868,9 +868,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		if self.conversationController == nil{
 		var error:NSError?
 		var participants = Set([self.applicant.objectId])
-		println(participants)
+		print(participants)
 		
-		var conversation = LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.applicant.objectId]), options: nil, error: nil)
+		var conversation = try? LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.applicant.objectId]), options: nil)
 			
 			var nextVC = ApplicantChatViewController(layerClient: LayerManager.sharedInstance.layerClient)
 			nextVC.displaysAddressBar = false
@@ -879,8 +879,8 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			}else{
 				var query:LYRQuery = LYRQuery(queryableClass: LYRConversation.self)
 				query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
-				var result = LayerManager.sharedInstance.layerClient.executeQuery(query, error: nil)
-			  nextVC.conversation = result.firstObject as! LYRConversation
+				var result = try? LayerManager.sharedInstance.layerClient.executeQuery(query)
+			  nextVC.conversation = result!.firstObject as! LYRConversation
 			}
 		var conversationNavController = UINavigationController(rootViewController: nextVC)
 		self.conversationController = conversationNavController

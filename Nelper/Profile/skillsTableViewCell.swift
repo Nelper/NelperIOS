@@ -32,7 +32,7 @@ class skillsTableViewCell: UITableViewCell {
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
 		backView.backgroundColor = navBarColor
-		backView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+		backView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
 		
 		//Check image
 		var checkImage = UIImageView()
@@ -76,7 +76,7 @@ class skillsTableViewCell: UITableViewCell {
 		self.addSubview(backView)
 	}
 	
-	required init(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	

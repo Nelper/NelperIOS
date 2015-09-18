@@ -129,7 +129,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 	//MARK: Gesture recognizer delegate methods
 	
 	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-		if touch.view.isDescendantOfView(self.popupContainer){
+		if touch.view!.isDescendantOfView(self.popupContainer){
 			return false
 		}
 		return true
@@ -142,7 +142,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 	//MARK: Actionss
 	
 	func didTapSaveButton(sender:UIButton){
-		var card = STPCard()
+		let card = STPCard()
 		card.number = self.cardTextField.card!.number
 		card.expMonth = self.cardTextField.card!.expMonth
 		card.expYear = self.cardTextField.card!.expYear
@@ -151,7 +151,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		STPAPIClient.sharedClient().createTokenWithCard(card, completion: { (token, error) -> Void in
 			if error == nil {
 				if let token = token{
-					println("getting token properly: \(token)")
+					print("getting token properly: \(token)")
 				}
 			}else{
 				//Fuck

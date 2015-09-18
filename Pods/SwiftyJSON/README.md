@@ -80,7 +80,7 @@ if let userName = json[999999]["wrong_key"]["wrong_name"].string{
 ## Requirements
 
 - iOS 7.0+ / Mac OS X 10.9+
-- Xcode 6.3
+- Xcode 7
 
 ##Integration
 
@@ -91,7 +91,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'MyApp' do
-    pod 'SwiftyJSON', '~> 2.2.1'
+	pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git', :branch => 'xcode7'
 end
 ```
 Note that it needs you to install CocoaPods 36 version, and requires your iOS deploy target >= 8.0:
@@ -99,7 +99,7 @@ Note that it needs you to install CocoaPods 36 version, and requires your iOS de
 ####Carthage (iOS 8+, OS X 10.9+)
 You can use [Carthage](https://github.com/Carthage/Carthage) to install `SwiftyJSON` by adding it to your `Cartfile`:
 ```
-github "SwiftyJSON/SwiftyJSON" >= 2.2.1
+github "SwiftyJSON/SwiftyJSON" "xcode7"
 ```
 
 ####Manually (iOS 7+, OS X 10.9+)
@@ -157,7 +157,7 @@ let name = json[keys].string
 ####Loop
 ```swift
 //If json is .Dictionary
-for (key: String, subJson: JSON) in json {
+for (key,subJson):(String, JSON) in json {
    //Do something you want
 }
 ```
@@ -165,7 +165,7 @@ for (key: String, subJson: JSON) in json {
 ```swift
 //If json is .Array
 //The `index` is 0..<json.count's string value
-for (index: String, subJson: JSON) in json {
+for (key,subJson):(String, JSON) in json {
     //Do something you want
 }
 ```

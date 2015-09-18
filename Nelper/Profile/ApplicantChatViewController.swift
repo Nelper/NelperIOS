@@ -30,15 +30,15 @@ class ApplicantChatViewController : ATLConversationViewController, ATLConversati
 	// MARK - ATLConversationViewControllerDelegate Methods
 	
 	func conversationViewController(viewController: ATLConversationViewController, didSendMessage message: LYRMessage) {
-		println("Message sent!")
+		print("Message sent!")
 	}
 	
 	func conversationViewController(viewController: ATLConversationViewController, didFailSendingMessage message: LYRMessage, error: NSError?) {
-		println("Message failed to sent with error: \(error)")
+		print("Message failed to sent with error: \(error)")
 	}
 	
 	func conversationViewController(viewController: ATLConversationViewController, didSelectMessage message: LYRMessage) {
-		println("Message selected")
+		print("Message selected")
 	}
 
 	

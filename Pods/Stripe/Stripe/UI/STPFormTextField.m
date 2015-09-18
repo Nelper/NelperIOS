@@ -9,7 +9,7 @@
 #import "STPFormTextField.h"
 #import "STPCardValidator.h"
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 #import "TargetConditionals.h"
 
 #define FAUXPAS_IGNORED_IN_METHOD(...)
@@ -58,7 +58,7 @@
         return nil;
     }
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string attributes:attributes];
-    if (self.formatsCardNumbers) {
+    if (self.formatsCardNumbers && [STPCardValidator stringIsNumeric:string]) {
         NSArray *cardSpacing;
         STPCardBrand currentBrand = [STPCardValidator brandForNumber:attributedString.string];
         if (currentBrand == STPCardBrandAmex) {

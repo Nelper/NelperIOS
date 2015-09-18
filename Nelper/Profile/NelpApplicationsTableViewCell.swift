@@ -35,7 +35,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
 		backView.backgroundColor = whiteNelpyColor
-		backView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+		backView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
 		
 		//CellContainer (hackForSpacing)
 		let cellView = UIView();
@@ -204,7 +204,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		
 	}
 	
-	required init(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
@@ -258,7 +258,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		request(.GET,imageURL).response(){
 			(_, _, data, error) in
 			if(error != nil){
-				println(error)
+				print(error)
 			}
 			image = UIImage(data: data as NSData!)
 			block(image)
@@ -270,9 +270,9 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		self.nelpApplication = nelpApplication
 		//		self.categoryLabel.text = nelpTask.category!.uppercaseString
 		self.titleLabel.text = nelpApplication.task.title
-		var price = String(format: "%.0f", nelpApplication.task.priceOffered!)
+		let price = String(format: "%.0f", nelpApplication.task.priceOffered!)
 		self.price.text = "$"+price
-		var dateHelper = DateHelper()
+		let dateHelper = DateHelper()
 		self.appliedDate.text = "Applied \(dateHelper.timeAgoSinceDate(nelpApplication.createdAt!, numericDates: true))"
 		if((nelpApplication.task.city) != nil){
 			self.cityLabel.text = nelpApplication.task.city
@@ -283,16 +283,16 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	
 	func setLocation(userLocation:CLLocation, nelpApplication:NelpTaskApplication){
 		
-		var taskLocation = CLLocation(latitude: nelpApplication.task.location!.latitude, longitude: nelpApplication.task.location!.longitude)
-		var distance: String = self.calculateDistanceBetweenTwoLocations(userLocation, destination: taskLocation)
+		let taskLocation = CLLocation(latitude: nelpApplication.task.location!.latitude, longitude: nelpApplication.task.location!.longitude)
+		let distance: String = self.calculateDistanceBetweenTwoLocations(userLocation, destination: taskLocation)
 		self.distanceLabel.text = distance
 	}
 	
 	func calculateDistanceBetweenTwoLocations(source:CLLocation,destination:CLLocation) -> String{
 		
-		var distanceMeters = source.distanceFromLocation(destination)
+		let distanceMeters = source.distanceFromLocation(destination)
 		if(distanceMeters > 1000){
-			var distanceKM = distanceMeters / 1000
+			let distanceKM = distanceMeters / 1000
 			return "\(round(distanceKM)) km away from you"
 		}else{
 			return String(format:"%.0f m away from you", distanceMeters)

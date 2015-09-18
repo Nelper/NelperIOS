@@ -19,7 +19,7 @@ class TabBarCustom: UITabBarController {
 		self.createView()
 	}
 	
-	required init(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		self.createView()
 	}
@@ -30,17 +30,14 @@ class TabBarCustom: UITabBarController {
 		self.tabBar.translucent = false		
 		var browseVC = NelpViewController()
 		var browseVCItem = UITabBarItem(title: "Browse tasks", image: UIImage(named: "browse_default"), selectedImage: UIImage(named: "browse_default"))
-		browseVCItem.setTitlePositionAdjustment(UIOffsetMake(0, -2))
 		browseVC.tabBarItem = browseVCItem
 		
 		var nelpCenterVC = NelpCenterViewController()
 		var nelpCenterVCItem = UITabBarItem(title: "Nelp Center", image: UIImage(named: "nelpcenter_default"), selectedImage: UIImage(named: "nelpcenter_default"))
-		nelpCenterVCItem.setTitlePositionAdjustment(UIOffsetMake(0, -2))
 		nelpCenterVC.tabBarItem = nelpCenterVCItem
 		
 		var postVC = NelpTaskCreateViewController()
 		var postVCItem = UITabBarItem(title: "Post a task", image: UIImage(named: "post_task"), selectedImage: UIImage(named: "post_task"))
-		postVCItem.setTitlePositionAdjustment(UIOffsetMake(0, -2))
 		postVC.tabBarItem = postVCItem
 		
 		var controllersArray = [browseVC, nelpCenterVC, postVC]

@@ -35,7 +35,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
 		backView.backgroundColor = whiteNelpyColor
-		backView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+		backView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
 		
 		//CellContainer (hackForSpacing)
 		let cellView = UIView()
@@ -190,7 +190,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 	
 	
 	
-	required init(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
@@ -217,7 +217,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 
 		if(nelpTask.pictures != nil){
 		if(!nelpTask.pictures!.isEmpty){
-		getPictures(nelpTask.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
+		ApiHelper.getPictures(nelpTask.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
 			self.topContainer.image = imageReturned
 		})}}
 		self.topContainer.contentMode = .ScaleAspectFill
@@ -226,18 +226,6 @@ class NelpTasksTableViewCell: UITableViewCell {
 		if nelpTask.state == .Accepted {
 			self.numberOfApplicantsIcon.image = UIImage(named: "accepted")
 			self.numberOfApplicantsLabel.text = "Accepted"
-		}
-	}
-	
-	func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {
-		var image: UIImage!
-		request(.GET,imageURL).response(){
-			(_, _, data, error) in
-			if(error != nil){
-				println(error)
-			}
-			image = UIImage(data: data as NSData!)
-			block(image)
 		}
 	}
 	
@@ -276,9 +264,9 @@ class NelpTasksTableViewCell: UITableViewCell {
 	func setNelpTask(nelpTask: FindNelpTask) {
 //		self.categoryLabel.text = nelpTask.category!.uppercaseString
 		self.titleLabel.text = nelpTask.title
-		var price = String(format: "%.0f", nelpTask.priceOffered!)
+		let price = String(format: "%.0f", nelpTask.priceOffered!)
 		self.price.text = "$"+price
-		var dateHelper = DateHelper()
+		let dateHelper = DateHelper()
 		self.postedDate.text = "Posted \(dateHelper.timeAgoSinceDate(nelpTask.createdAt!, numericDates: true))"
 
 

@@ -61,7 +61,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		
 		if self.locationManager.location != nil {
 			self.locationManager.delegate = self;
-			var userLocation: CLLocation = self.locationManager.location
+			var userLocation: CLLocation = self.locationManager.location!
 			self.currentLocation = userLocation
 		}
 		
@@ -263,7 +263,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		//My Tasks
 		
 		let tableView = UITableView()
-		tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+		tableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
 		tableView.contentInset = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
 		
 		
@@ -288,7 +288,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	func createMyApplicationsTableView(){
 		let tableViewApplications = UITableView()
-		tableViewApplications.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+		tableViewApplications.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
 		tableViewApplications.delegate = self
 		tableViewApplications.dataSource = self
 		tableViewApplications.registerClass(NelpApplicationsTableViewCell.classForCoder(), forCellReuseIdentifier: NelpApplicationsTableViewCell.reuseIdentifier)
@@ -359,10 +359,9 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	func loadData() {
 		ApiHelper.listMyNelpTasksWithBlock{ (nelpTasks: [FindNelpTask]?, error: NSError?) -> Void in
 			if error != nil {
-				print(error)
+				print(error, terminator: "")
 			} else {
 				self.nelpTasks = nelpTasks!
-				print(self.nelpTasks)
 				self.refreshView?.endRefreshing()
 				self.myTasksTableView?.reloadData()
 			}
@@ -370,7 +369,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		
 		ApiHelper.listMyNelpApplicationsWithBlock { (nelpApplications: [NelpTaskApplication]?, error: NSError?) -> Void in
 			if error != nil {
-				print(error)
+				print(error, terminator: "")
 			} else {
 				self.nelpApplications = nelpApplications!
 				self.refreshViewApplication?.endRefreshing()
@@ -404,7 +403,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				let cellTask = NelpTasksTableViewCell()
 				
 				let nelpTask = self.nelpTasks[indexPath.item]
-				print(nelpTask.state.rawValue)
 				cellTask.setNelpTask(nelpTask)
 				cellTask.setImages(nelpTask)
 				
@@ -424,31 +422,31 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				return cellApplication
 			}
 		}
-		var cell: UITableViewCell!
+		let cell: UITableViewCell = UITableViewCell()
 		return cell
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if(tableView == myTasksTableView) {
-			var task = nelpTasks[indexPath.row]
+			let task = nelpTasks[indexPath.row]
 			
 			if task.state == .Accepted {
-				var nextVC = MyTaskDetailsAcceptedViewController()
+				let nextVC = MyTaskDetailsAcceptedViewController()
 				nextVC.task = task
 				dispatch_async(dispatch_get_main_queue()) {
 					self.presentViewController(nextVC, animated: true, completion: nil)
 				}
 			}else{
-			var nextVC = MyTaskDetailsViewController(findNelpTask: task)
+			let nextVC = MyTaskDetailsViewController(findNelpTask: task)
 			dispatch_async(dispatch_get_main_queue()) {
 				self.presentViewController(nextVC, animated: true, completion: nil)
 			}
 			}
 		} else if (tableView == myApplicationsTableView) {
-			var application = nelpApplications[indexPath.row]
+			let application = nelpApplications[indexPath.row]
 			
 			if application.state == .Accepted{
-				var nextVC = MyApplicationDetailsAcceptedViewController()
+				let nextVC = MyApplicationDetailsAcceptedViewController()
 				nextVC.poster = application.task.user
 				nextVC.application = application
 				dispatch_async(dispatch_get_main_queue()) {
@@ -456,7 +454,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				}
 				
 			}else{
-			var nextVC = MyApplicationDetailsView(poster: application.task.user, application: application)
+			let nextVC = MyApplicationDetailsView(poster: application.task.user, application: application)
 			nextVC.delegate = self
 			
 			dispatch_async(dispatch_get_main_queue()) {
@@ -467,16 +465,16 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		
 	}
 	
-	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-		if(tableView == myTasksTableView) {
-			if (editingStyle == UITableViewCellEditingStyle.Delete){
-				var nelpTask = nelpTasks[indexPath.row];
-				ApiHelper.deleteTask(nelpTask)
-				self.nelpTasks.removeAtIndex(indexPath.row)
-				self.myTasksTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
-			}
-		}
-	}
+//	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//		if(tableView == myTasksTableView) {
+//			if (editingStyle == UITableViewCellEditingStyle.Delete){
+//				let nelpTask = nelpTasks[indexPath.row];
+//				ApiHelper.deleteTask(nelpTask)
+//				self.nelpTasks.removeAtIndex(indexPath.row)
+//				self.myTasksTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
+//			}
+//		}
+//	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if (tableView == myTasksTableView) {
@@ -495,7 +493,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	- parameter sender: Profile Button
 	*/
 	func profileButtonTapped(sender:UIButton) {
-		var nextVC = FullProfileViewController()
+		let nextVC = FullProfileViewController()
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	

@@ -791,9 +791,9 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 	
 	//MARK: MKMapView Delegate Methods
 	
-	func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
 		if overlay is MKCircle {
-			var circle = MKCircleRenderer(overlay: overlay)
+			let circle = MKCircleRenderer(overlay: overlay)
 			circle.strokeColor = UIColor.redColor()
 			circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
 			circle.lineWidth = 1
@@ -805,11 +805,11 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 	
 	//MARK: CLLocation Delegate Methods
 	
-	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		
 	}
 	
-	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
 		
 	}
 	
@@ -822,13 +822,13 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
 		
-		var maskPath = UIBezierPath(roundedRect: chatButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
-		var maskLayer = CAShapeLayer()
+		let maskPath = UIBezierPath(roundedRect: chatButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
+		let maskLayer = CAShapeLayer()
 		maskLayer.frame = self.chatButton.bounds
 		maskLayer.path = maskPath.CGPath
 		
 		var maskPathFake = UIBezierPath(roundedRect: self.fakeButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
-		var maskLayerFake = CAShapeLayer()
+		let maskLayerFake = CAShapeLayer()
 		maskLayerFake.frame = self.fakeButton.bounds
 		maskLayerFake.path = maskPath.CGPath
 		
@@ -893,7 +893,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 	}
 	
 	func didTapProfile(sender:UIView){
-		var nextVC = PosterProfileViewController()
+		let nextVC = PosterProfileViewController()
 		nextVC.poster = self.poster
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
 		self.presentViewController(nextVC, animated: true, completion: nil)
@@ -912,10 +912,10 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		if self.conversationController == nil{
 			var error:NSError?
 			var participants = Set([self.poster.objectId])
-			println(participants)
+			print(participants)
 			
 			
-			var conversation = LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.poster.objectId]), options: nil, error: nil)
+			var conversation = try? LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.poster.objectId]), options: nil)
 			
 			//		var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
 			var nextVC = ApplicantChatViewController(layerClient: LayerManager.sharedInstance.layerClient)
@@ -925,8 +925,8 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			}else{
 				var query:LYRQuery = LYRQuery(queryableClass: LYRConversation.self)
 				query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
-				var result = LayerManager.sharedInstance.layerClient.executeQuery(query, error: nil)
-				nextVC.conversation = result.firstObject as! LYRConversation
+				var result = try? LayerManager.sharedInstance.layerClient.executeQuery(query)
+				nextVC.conversation = result!.firstObject as! LYRConversation
 			}
 			var conversationNavController = UINavigationController(rootViewController: nextVC)
 			self.conversationController = conversationNavController

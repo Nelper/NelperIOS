@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Stripe, Inc. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 #import "STPCardBrand.h"
 #import "STPCardValidationState.h"
@@ -20,6 +20,11 @@
  *  Returns a copy of the passed string with all non-numeric characters removed.
  */
 + (nonnull NSString *)sanitizedNumericStringForString:(nonnull NSString *)string;
+
+/**
+ *  Whether or not the target string contains only numeric characters.
+ */
++ (BOOL)stringIsNumeric:(nonnull NSString *)string;
 
 /**
  *  Validates a card number, passed as a string. This will return STPCardValidationStateInvalid for numbers that are too short or long, contain invalid characters, do not pass Luhn validation, or (optionally) do not match a number format issued by a major card brand.

@@ -153,8 +153,11 @@ extern NSString *const LYRConversationOptionsDistinctByParticipantsKey;
 /**
  @abstract Returns the metadata associated with the conversation.
  @discussion Metadata is a free form dictionary of string key-value pairs that allows arbitrary developer supplied information to be associated with the conversation and synchronized among the participants.
+
+ The `metadata` property is queryable in 2 forms.  The first is key path form eg:`metadata.first.second`, and is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, 
+ `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators.  The second is querying against `metadata` and passing in a dictionary object value, and is only queryable via the `LYRPredicateOperatorIsEqualTo` operator.
  */
-@property (nonatomic, readonly) NSDictionary *metadata;
+@property (nonatomic, readonly) NSDictionary *metadata LYR_QUERYABLE_PROPERTY;
 
 /**
  @abstract Sets the value for the specified key path in the metadata dictionary.

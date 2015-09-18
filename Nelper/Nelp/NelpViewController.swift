@@ -10,7 +10,6 @@ import UIKit
 import MapKit
 import CoreLocation
 import GoogleMaps
-import SCLAlertView
 import Stripe
 
 class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, FilterSortViewControllerDelegate{
@@ -84,7 +83,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.tableView = tableView
 		self.tableView.delegate = self
 		self.tableView.dataSource = self
-		tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+		tableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
 		tableView.registerClass(NelpViewCell.classForCoder(), forCellReuseIdentifier: NelpViewCell.reuseIdentifier)
 		self.tableView.backgroundColor = whiteNelpyColor
 
@@ -133,7 +132,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.mapView.showsUserLocation = true
 		
 		if((self.locationManager.location) != nil){
-			var userLocation: CLLocation = self.locationManager.location
+			var userLocation: CLLocation = self.locationManager.location!
 			self.currentLocation = userLocation
 			LocationHelper.sharedInstance.currentLocation = PFGeoPoint(latitude:userLocation.coordinate.latitude, longitude:userLocation.coordinate.longitude)
 			var userLocationForCenter = userLocation.coordinate
@@ -159,9 +158,9 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	func createPins(){
 		
 		for task in self.nelpTasks {
-			var taskPin = MKPointAnnotation()
+			let taskPin = MKPointAnnotation()
 			if(task.location != nil) {
-				var location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(task.location!.latitude, task.location!.longitude)
+				let location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(task.location!.latitude, task.location!.longitude)
 				taskPin.coordinate = location
 				self.mapView.addAnnotation(taskPin)
 				
@@ -243,8 +242,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		var selectedTask = self.nelpTasks[indexPath.row]
-		var vc = NelpTasksDetailsViewController(nelpTask: selectedTask)
+		let selectedTask = self.nelpTasks[indexPath.row]
+		let vc = NelpTasksDetailsViewController(nelpTask: selectedTask)
 		self.presentViewController(vc, animated: false, completion: nil)
 		
 	}
@@ -258,20 +257,20 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	//MARK: Location Delegate
 	
-	func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
-		CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
+	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+		CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: { (placemarks, error) -> Void in
 			if error != nil{
-				println("Error:" + error.localizedDescription)
+				print("Error:" + error!.localizedDescription)
 				return
 				//fuck
 			}else {
-				println("worked")
+				print("worked")
 			}
 			
 		})
 	}
 	
-	func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		
 //		var userLocation: CLLocation = self.locationManager.location
 //		self.currentLocation = userLocation
@@ -287,8 +286,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 	}
 	
-	func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-		println("Error:" + error.localizedDescription)
+	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+		print("Error:" + error.localizedDescription)
 	}
 	
 	
@@ -298,10 +297,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	- parameter userLocation: the location (user's) to zoom on
 	*/
 	func zoomToUserLocation (userLocation: CLLocation){
-		var userLocationForCenter = userLocation.coordinate
-		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.01 , 0.01)
-		var locationToZoom: CLLocationCoordinate2D = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
-		var region:MKCoordinateRegion = MKCoordinateRegionMake(locationToZoom, span)
+		let span :MKCoordinateSpan = MKCoordinateSpanMake(0.01 , 0.01)
+		let locationToZoom: CLLocationCoordinate2D = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
 		
 	}
 	
@@ -319,7 +316,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	func didTapAddFilters(filters: Array<String>?, sort: String?, minPrice:Double?, maxDistance:Double?){
 		self.arrayOfFilters = filters!
 		self.sortBy = sort
-		print(filters!)
+		print(filters!, terminator: "")
 		self.minPrice = minPrice
 		self.maxDistance = maxDistance
 		self.loadDataWithFilters(filters, sort: sort, minPrice: minPrice, maxDistance: maxDistance)
@@ -332,7 +329,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	}
 	
 	func didTapFiltersButton(sender:UIButton){
-		var nextVC =  FilterSortViewController()
+		let nextVC =  FilterSortViewController()
 		nextVC.arrayOfFiltersFromPrevious = self.arrayOfFilters
 		nextVC.previousSortBy = self.sortBy
 		nextVC.delegate = self

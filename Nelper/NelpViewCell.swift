@@ -30,7 +30,7 @@ class NelpViewCell: UITableViewCell {
 		
 		let cellView = UIView(frame: self.bounds)
 		cellView.backgroundColor = navBarColor
-		cellView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+		cellView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
 		
 		let pictureSize: CGFloat = 70
 		let picture = UIImageView()
@@ -121,7 +121,7 @@ class NelpViewCell: UITableViewCell {
 	
 	
 	
-	required init(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
@@ -155,7 +155,7 @@ class NelpViewCell: UITableViewCell {
 		self.author.font = UIFont(name: "Lato-Light", size: kCellTextFontSize)
 		self.author.textColor = blackTextColor
 		
-		var price = String(format: "%.0f", nelpTask.priceOffered!)
+		let price = String(format: "%.0f", nelpTask.priceOffered!)
 		
 		self.price.text = "$"+price
 		
@@ -165,7 +165,7 @@ class NelpViewCell: UITableViewCell {
 		self.price.clipsToBounds = true
 		self.price.textAlignment = NSTextAlignment.Center
 		
-		var dateHelper = DateHelper()
+		let dateHelper = DateHelper()
 		self.creationDate.text = "Created \(dateHelper.timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
 		
 		self.categoryPicture.image = UIImage(named: nelpTask.category!)
