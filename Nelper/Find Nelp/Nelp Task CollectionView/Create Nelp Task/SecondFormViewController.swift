@@ -68,13 +68,13 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		
 		//To avoid width calculation for each textField, insets
 		
-		var frameWidth = self.view.frame.size.width
+		let frameWidth = self.view.frame.size.width
 		
 		let contentInset: CGFloat = 12
 		
 		//Task Title Label + TextField
 		
-		var taskTitleLabel = UILabel()
+		let taskTitleLabel = UILabel()
 		self.contentView.addSubview(taskTitleLabel)
 		taskTitleLabel.text = "Enter your Task Title"
 		taskTitleLabel.textColor = blackNelpyColor
@@ -84,7 +84,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.top.equalTo(contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(contentInset)
 		}
-		var taskTitleTextField = UITextField()
+		let taskTitleTextField = UITextField()
 		taskTitleTextField.delegate = self
 		self.titleTextField = taskTitleTextField
 		self.contentView.addSubview(taskTitleTextField)
@@ -96,7 +96,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		taskTitleTextField.layer.cornerRadius = 3
 		taskTitleTextField.layer.borderColor = grayDetails.CGColor
 		taskTitleTextField.layer.borderWidth = 1
-		var paddingViewTitle = UIView(frame: CGRectMake(0, 0, 10, 0))
+		let paddingViewTitle = UIView(frame: CGRectMake(0, 0, 10, 0))
 		taskTitleTextField.leftView = paddingViewTitle
 		taskTitleTextField.leftViewMode = UITextFieldViewMode.Always
 		
@@ -109,7 +109,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		
 		//Price Offered Label + TextField
 		
-		var priceOfferedLabel = UILabel()
+		let priceOfferedLabel = UILabel()
 		self.contentView.addSubview(priceOfferedLabel)
 		priceOfferedLabel.text = "How much are you offering?"
 		priceOfferedLabel.textColor = blackNelpyColor
@@ -119,7 +119,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.top.equalTo(taskTitleTextField.snp_bottom).offset(20)
 			make.left.equalTo(taskTitleTextField.snp_left)
 		}
-		var priceOfferedTextField = UITextField()
+		let priceOfferedTextField = UITextField()
 		priceOfferedTextField.delegate = self
 		self.priceOffered = priceOfferedTextField
 		self.contentView.addSubview(priceOfferedTextField)
@@ -131,7 +131,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		priceOfferedTextField.layer.cornerRadius = 3
 		priceOfferedTextField.layer.borderColor = grayDetails.CGColor
 		priceOfferedTextField.layer.borderWidth = 1
-		var paddingViewPrice = UIView(frame: CGRectMake(0, 0, 10, 0))
+		let paddingViewPrice = UIView(frame: CGRectMake(0, 0, 10, 0))
 		priceOfferedTextField.leftView = paddingViewPrice
 		priceOfferedTextField.leftViewMode = UITextFieldViewMode.Always
 		priceOfferedTextField.keyboardType = UIKeyboardType.NumberPad
@@ -144,7 +144,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		}
 		
 		//Location Label + TextField
-		var locationLabel = UILabel()
+		let locationLabel = UILabel()
 		self.contentView.addSubview(locationLabel)
 		locationLabel.text = "Enter a location for the task"
 		locationLabel.textColor = blackNelpyColor
@@ -154,7 +154,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.top.equalTo(priceOfferedTextField.snp_bottom).offset(20)
 			make.left.equalTo(taskTitleTextField.snp_left)
 		}
-		var locationTextField = UITextField()
+		let locationTextField = UITextField()
 		self.contentView.addSubview(locationTextField)
 		self.locationTextField = locationTextField
 		self.locationTextField!.delegate = self
@@ -166,7 +166,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		locationTextField.layer.cornerRadius = 3
 		locationTextField.layer.borderColor = grayDetails.CGColor
 		locationTextField.layer.borderWidth = 1
-		var paddingViewLocation = UIView(frame: CGRectMake(0, 0, 10, 0))
+		let paddingViewLocation = UIView(frame: CGRectMake(0, 0, 10, 0))
 		locationTextField.leftView = paddingViewLocation
 		locationTextField.leftViewMode = UITextFieldViewMode.Always
 		
@@ -180,7 +180,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		
 		//Description Label + Textfield
 		
-		var descriptionLabel = UILabel()
+		let descriptionLabel = UILabel()
 		self.contentView.addSubview(descriptionLabel)
 		descriptionLabel.text = "Briefly describe the task"
 		descriptionLabel.textColor = blackNelpyColor
@@ -190,7 +190,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.top.equalTo(locationTextField.snp_bottom).offset(20)
 			make.left.equalTo(taskTitleTextField.snp_left)
 		}
-		var descriptionTextView = UITextView()
+		let descriptionTextView = UITextView()
 		self.descriptionTextView = descriptionTextView
 		descriptionTextView.delegate = self
 		self.contentView.addSubview(descriptionTextView)
@@ -213,7 +213,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		
 		//Attach Pictures label + Button
 		
-		var picturesLabel = UILabel()
+		let picturesLabel = UILabel()
 		self.contentView.addSubview(picturesLabel)
 		picturesLabel.text = "Attach pictures (optional)"
 		picturesLabel.textColor = blackNelpyColor
@@ -224,7 +224,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.left.equalTo(descriptionLabel.snp_left)
 		}
 		
-		var picturesButton = UIButton()
+		let picturesButton = UIButton()
 		self.contentView.addSubview(picturesButton)
 		picturesButton.setBackgroundImage(UIImage(named: "plus"), forState: UIControlState.Normal)
 		picturesButton.addTarget(self, action: "attachPicturesButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -237,7 +237,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		}
 		
 		//Image preview for attached images
-		var imageOne = UIImageView()
+		let imageOne = UIImageView()
 		self.imageOne = imageOne
 		self.contentView.addSubview(imageOne)
 		imageOne.snp_makeConstraints { (make) -> Void in
@@ -247,7 +247,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.height.equalTo(50)
 		}
 		
-		var imageTwo = UIImageView()
+		let imageTwo = UIImageView()
 		self.imageTwo = imageTwo
 		self.contentView.addSubview(imageTwo)
 		imageTwo.snp_makeConstraints { (make) -> Void in
@@ -257,7 +257,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.height.equalTo(50)
 		}
 		
-		var imageThree = UIImageView()
+		let imageThree = UIImageView()
 		self.imageThree = imageThree
 		self.contentView.addSubview(imageThree)
 		imageThree.snp_makeConstraints { (make) -> Void in
@@ -267,7 +267,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.height.equalTo(50)
 		}
 		
-		var imageFour = UIImageView()
+		let imageFour = UIImageView()
 		self.imageFour = imageFour
 		self.contentView.addSubview(imageFour)
 		imageFour.snp_makeConstraints { (make) -> Void in
@@ -279,7 +279,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		
 		//Google Autocomplete Table View
 		
-		var autocompleteTableView = UITableView()
+		let autocompleteTableView = UITableView()
 		self.contentView.addSubview(autocompleteTableView)
 		self.autocompleteTableView = autocompleteTableView
 		self.autocompleteTableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
@@ -300,7 +300,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		
 		//Create task button
 		
-		var createTaskButton = UIButton()
+		let createTaskButton = UIButton()
 		self.contentView.addSubview(createTaskButton)
 		createTaskButton.setTitle("Create Task", forState: UIControlState.Normal)
 		createTaskButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
@@ -332,8 +332,8 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	func convertImagesToData(){
 		self.task.pictures = Array()
 		for image in self.imagesArray{
-			var imageData = UIImageJPEGRepresentation(image as! UIImage, 0.50)
-			var imageFile = PFFile(name:"image.png", data:imageData!)
+			let imageData = UIImageJPEGRepresentation(image as! UIImage, 0.50)
+			let imageFile = PFFile(name:"image.png", data:imageData!)
 			self.task.pictures!.append(imageFile)
 		}
 	}
@@ -531,7 +531,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		}
 		self.task.title = self.titleTextField!.text
 		self.task.desc = self.descriptionTextView!.text
-		self.task.priceOffered = (self.priceOffered!.text as! NSString).doubleValue
+		self.task.priceOffered = Double(self.priceOffered!.text!)
 				ApiHelper.addTask(self.task, block: { (task, error) -> Void in
 					self.delegate?.nelpTaskAdded(self.task)
 					self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)

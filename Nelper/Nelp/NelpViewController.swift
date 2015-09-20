@@ -100,7 +100,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 		//Filters
 		
-		var filtersButton = UIButton()
+		let filtersButton = UIButton()
 		self.navBar.addSubview(filtersButton)
 		filtersButton.setTitle("Filters", forState: UIControlState.Normal)
 		filtersButton.setTitleColor(nelperRedColor, forState: UIControlState.Normal)
@@ -124,7 +124,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.locationManager.startUpdatingLocation()
 		self.locationManager.distanceFilter = 40
 		
-		var mapview = MKMapView()
+		let mapview = MKMapView()
 		
 		self.mapView = mapview;
 		
@@ -132,12 +132,12 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.mapView.showsUserLocation = true
 		
 		if((self.locationManager.location) != nil){
-			var userLocation: CLLocation = self.locationManager.location!
+			let userLocation: CLLocation = self.locationManager.location!
 			self.currentLocation = userLocation
 			LocationHelper.sharedInstance.currentLocation = PFGeoPoint(latitude:userLocation.coordinate.latitude, longitude:userLocation.coordinate.longitude)
-			var userLocationForCenter = userLocation.coordinate
-			var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
-			var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
+			let userLocationForCenter = userLocation.coordinate
+			let span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+			let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
 			self.mapView.setRegion(locationToZoom, animated: true)
 			self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
 		}
@@ -288,18 +288,6 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
 		print("Error:" + error.localizedDescription)
-	}
-	
-	
-	/**
-	Zoom on the users location
-	
-	- parameter userLocation: the location (user's) to zoom on
-	*/
-	func zoomToUserLocation (userLocation: CLLocation){
-		let span :MKCoordinateSpan = MKCoordinateSpanMake(0.01 , 0.01)
-		let locationToZoom: CLLocationCoordinate2D = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude)
-		
 	}
 	
 	

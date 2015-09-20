@@ -42,7 +42,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 	func createView(){
 		
 		self.imagePicker.delegate = self
-		var navBar = NavBar()
+		let navBar = NavBar()
 		let backBtn = UIButton()
 		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.view.addSubview(navBar)
@@ -56,7 +56,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.height.equalTo(64)
 		}
 		
-		var background = UIView()
+		let background = UIView()
 		self.view.addSubview(background)
 		background.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(navBar.snp_bottom)
@@ -66,14 +66,14 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		}
 		background.backgroundColor = whiteNelpyColor
 		
-		var scrollView = UIScrollView()
+		let scrollView = UIScrollView()
 		self.scrollView = scrollView
 		background.addSubview(scrollView)
 		scrollView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(background.snp_edges)
 		}
 		
-		var contentView = UIView()
+		let contentView = UIView()
 		self.contentView = contentView
 		scrollView.addSubview(self.contentView)
 		contentView.snp_makeConstraints { (make) -> Void in
@@ -86,7 +86,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		
 		//Task text informations to edit container
 		
-		var taskInformationContainer = UIView()
+		let taskInformationContainer = UIView()
 		self.taskInformationContainer = taskInformationContainer
 		contentView.addSubview(taskInformationContainer)
 		taskInformationContainer.layer.borderColor = darkGrayDetails.CGColor
@@ -98,9 +98,9 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.right.equalTo(contentView.snp_right).offset(1)
 		}
 		
-		var categoryIcon = UIImageView()
+		let categoryIcon = UIImageView()
 		taskInformationContainer.addSubview(categoryIcon)
-		var iconSize:CGFloat = 60
+		let iconSize:CGFloat = 60
 		categoryIcon.layer.cornerRadius = iconSize / 2
 		categoryIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		categoryIcon.image = UIImage(named: self.task.category!)
@@ -111,7 +111,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.height.equalTo(iconSize)
 		}
 		
-		var titleTextField = UITextField()
+		let titleTextField = UITextField()
 		self.titleTextField = titleTextField
 		taskInformationContainer.addSubview(titleTextField)
 		titleTextField.text = self.task.title
@@ -127,7 +127,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.height.equalTo(40)
 		}
 		
-		var titleUnderline = UIView()
+		let titleUnderline = UIView()
 		taskInformationContainer.addSubview(titleUnderline)
 		titleUnderline.backgroundColor = darkGrayDetails
 		titleUnderline.snp_makeConstraints { (make) -> Void in
@@ -138,7 +138,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 
 		}
 		
-		var descriptionTextView = UITextView()
+		let descriptionTextView = UITextView()
 		self.descriptionTextView = descriptionTextView
 		taskInformationContainer.addSubview(descriptionTextView)
 		descriptionTextView.text = self.task.desc
@@ -161,7 +161,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
 		descriptionTextView.frame = newFrame;
 		
-		var descriptionUnderline = UIView()
+		let descriptionUnderline = UIView()
 		taskInformationContainer.addSubview(descriptionUnderline)
 		descriptionUnderline.backgroundColor = darkGrayDetails
 		descriptionUnderline.snp_makeConstraints { (make) -> Void in
@@ -172,7 +172,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 
 		}
 
-		var locationContainer = UIView()
+		let locationContainer = UIView()
 		taskInformationContainer.addSubview(locationContainer)
 		locationContainer.backgroundColor = navBarColor
 		locationContainer.snp_makeConstraints { (make) -> Void in
@@ -181,7 +181,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.width.equalTo(taskInformationContainer.snp_width).dividedBy(2)
 		}
 		
-		var pinIcon = UIImageView()
+		let pinIcon = UIImageView()
 		locationContainer.addSubview(pinIcon)
 		pinIcon.image = UIImage(named: "pin")
 		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
@@ -192,7 +192,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.left.equalTo(locationContainer.snp_left).offset(4)
 		}
 		
-		var locationVerticalLine = UIView()
+		let locationVerticalLine = UIView()
 		locationContainer.addSubview(locationVerticalLine)
 		locationVerticalLine.backgroundColor = darkGrayDetails
 		locationVerticalLine.snp_makeConstraints { (make) -> Void in
@@ -202,7 +202,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.left.equalTo(pinIcon.snp_right).offset(4)
 		}
 		
-		var streetAddressLabel = UITextField()
+		let streetAddressLabel = UITextField()
 		streetAddressLabel.backgroundColor = navBarColor
 		locationContainer.addSubview(streetAddressLabel)
 		streetAddressLabel.text = "175 Forbin Janson"
@@ -214,7 +214,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.top.equalTo(locationContainer.snp_top)
 		}
 		
-		var cityLabel = UITextField()
+		let cityLabel = UITextField()
 		cityLabel.backgroundColor = navBarColor
 		locationContainer.addSubview(cityLabel)
 		cityLabel.text = "Mont Saint-Hilaire"
@@ -226,7 +226,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.top.equalTo(streetAddressLabel.snp_bottom)
 		}
 		
-		var zipcodeLabel = UITextField()
+		let zipcodeLabel = UITextField()
 		zipcodeLabel.backgroundColor = navBarColor
 		locationContainer.addSubview(zipcodeLabel)
 		zipcodeLabel.text = "J3H5E5"
@@ -238,7 +238,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.top.equalTo(cityLabel.snp_bottom)
 		}
 		
-		var locationUnderline = UIView()
+		let locationUnderline = UIView()
 		taskInformationContainer.addSubview(locationUnderline)
 		locationUnderline.backgroundColor = darkGrayDetails
 		locationUnderline.snp_makeConstraints { (make) -> Void in
@@ -248,7 +248,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.centerX.equalTo(taskInformationContainer.snp_centerX)
 		}
 		
-		var deleteTaskButton = UIButton()
+		let deleteTaskButton = UIButton()
 		taskInformationContainer.addSubview(deleteTaskButton)
 		self.deleteTaskButton = deleteTaskButton
 		deleteTaskButton.setTitle("Delete Task", forState: UIControlState.Normal)
@@ -273,7 +273,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 	
 	func createPicturesContainer(){
 		
-		var picturesContainer = UIView()
+		let picturesContainer = UIView()
 		contentView.addSubview(picturesContainer)
 		picturesContainer.backgroundColor = navBarColor
 		picturesContainer.layer.borderColor = darkGrayDetails.CGColor
@@ -284,7 +284,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.right.equalTo(contentView.snp_right)
 		}
 		
-		var managePicturesLabel = UILabel()
+		let managePicturesLabel = UILabel()
 		picturesContainer.addSubview(managePicturesLabel)
 		managePicturesLabel.text = "Manage Pictures"
 		managePicturesLabel.textColor = blackNelpyColor
@@ -295,7 +295,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		}
 		
 		if self.pictures != nil{
-			var carousel = iCarousel()
+			let carousel = iCarousel()
 			self.carousel = carousel
 			self.carousel.clipsToBounds = true
 			picturesContainer.addSubview(carousel)
@@ -313,12 +313,12 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			}
 		}
 		
-		var addImageButton = UIButton()
+		let addImageButton = UIButton()
 		picturesContainer.addSubview(addImageButton)
 		addImageButton.setBackgroundImage(UIImage(named: "plus_green"), forState: UIControlState.Normal)
 		addImageButton.addTarget(self, action: "didTapAddImage:", forControlEvents: UIControlEvents.TouchUpInside)
 		
-		var removeImageButton = UIButton()
+		let removeImageButton = UIButton()
 		picturesContainer.addSubview(removeImageButton)
 		removeImageButton.setBackgroundImage(UIImage(named: "minus_red"), forState: UIControlState.Normal)
 		removeImageButton.addTarget(self, action: "didDeletePicture:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -362,7 +362,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		
 		//Save button
 		
-		var saveChangesButton = UIButton()
+		let saveChangesButton = UIButton()
 		contentView.addSubview(saveChangesButton)
 		saveChangesButton.setTitle("Save", forState: UIControlState.Normal)
 		saveChangesButton.setTitleColor(grayBlueColor, forState: UIControlState.Normal)
@@ -378,14 +378,14 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.bottom.equalTo(contentView.snp_bottom).offset(-10)
 		}
 		
-		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 		self.tap = tap
 		contentView.addGestureRecognizer(tap)
 	}
 	
 	//MARK: iCarousel Delegate
 	
-	func numberOfItemsInCarousel(carousel: iCarousel!) -> Int {
+	func numberOfItemsInCarousel(carousel: iCarousel) -> Int {
 		
 		if !self.images.isEmpty {
 			if self.images.count == 1 {
@@ -398,7 +398,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 	}
 	
 	
- func carousel(carousel: iCarousel!, viewForItemAtIndex index: Int, reusingView view: UIView!) -> UIView! {
+ func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
 	
 		let picture = UIImageView(frame: self.carousel.frame)
 		picture.image = self.images[index]

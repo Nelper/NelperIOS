@@ -67,7 +67,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	
 	func createView(){
 		
-		var navBar = NavBar()
+		let navBar = NavBar()
 		self.navBar = navBar
 		self.view.addSubview(navBar)
 		navBar.snp_makeConstraints { (make) -> Void in
@@ -83,7 +83,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		navBar.setImage(UIImage(named: "close_red" )!)
 		navBar.setTitle("Poster's profile")
 		
-		var contentView = UIView()
+		let contentView = UIView()
 		self.contentView = contentView
 		self.view.addSubview(contentView)
 		contentView.snp_makeConstraints { (make) -> Void in
@@ -96,7 +96,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		self.setImages(self.poster)
 		
 		//Profile + Header
-		var profileContainer = UIView()
+		let profileContainer = UIView()
 		self.profileContainer = profileContainer
 		self.contentView.addSubview(profileContainer)
 		profileContainer.snp_makeConstraints { (make) -> Void in
@@ -128,7 +128,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		
 		//Name
-		var name = UILabel()
+		let name = UILabel()
 		profileContainer.addSubview(name)
 		name.numberOfLines = 0
 		name.textColor = whiteNelpyColor
@@ -141,7 +141,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		}
 		//FeedBack Stars
 		
-		var firstStar = UIImageView()
+		let firstStar = UIImageView()
 		self.firstStar = firstStar
 		profileContainer.addSubview(firstStar)
 		firstStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -153,7 +153,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.width.equalTo(20)
 		}
 		
-		var secondStar = UIImageView()
+		let secondStar = UIImageView()
 		self.secondStar = secondStar
 		profileContainer.addSubview(secondStar)
 		secondStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -165,7 +165,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.height.equalTo(20)
 		}
 		
-		var thirdStar = UIImageView()
+		let thirdStar = UIImageView()
 		self.thirdStar = thirdStar
 		profileContainer.addSubview(thirdStar)
 		thirdStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -177,7 +177,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.height.equalTo(20)
 		}
 		
-		var fourthStar = UIImageView()
+		let fourthStar = UIImageView()
 		self.fourthStar = fourthStar
 		profileContainer.addSubview(fourthStar)
 		fourthStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -189,7 +189,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.height.equalTo(20)
 		}
 		
-		var fifthStar = UIImageView()
+		let fifthStar = UIImageView()
 		self.fifthStar = fifthStar
 		profileContainer.addSubview(fifthStar)
 		fifthStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -203,7 +203,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		//Number of tasks completed
 		
-		var numberOfTasksLabel = UILabel()
+		let numberOfTasksLabel = UILabel()
 		profileContainer.addSubview(numberOfTasksLabel)
 		numberOfTasksLabel.text = "12 tasks completed"
 		numberOfTasksLabel.textColor = whiteNelpyColor
@@ -215,7 +215,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		}
 		
 		//Segment Container
-		var segmentControlContainer = UIView()
+		let segmentControlContainer = UIView()
 		self.contentView.addSubview(segmentControlContainer)
 		segmentControlContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileContainer.snp_bottom)
@@ -229,7 +229,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		//Hack for positioning of custom Segment bar
 		
-		var firstHalf = UIView()
+		let firstHalf = UIView()
 		segmentControlContainer.addSubview(firstHalf)
 		firstHalf.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(segmentControlContainer.snp_width).dividedBy(2)
@@ -238,7 +238,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.bottom.equalTo(segmentControlContainer.snp_bottom).offset(-1)
 		}
 		
-		var profileSegmentButton = UIButton()
+		let profileSegmentButton = UIButton()
 		self.profileSegmentButton = profileSegmentButton
 		profileSegmentButton.addTarget(self, action: "profileSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		firstHalf.addSubview(profileSegmentButton)
@@ -264,7 +264,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.height.equalTo(2)
 		}
 		
-		var secondHalf = UIView()
+		let secondHalf = UIView()
 		segmentControlContainer.addSubview(secondHalf)
 		secondHalf.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(segmentControlContainer.snp_width).dividedBy(2)
@@ -273,7 +273,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.bottom.equalTo(segmentControlContainer.snp_bottom).offset(-1)
 		}
 		
-		var reviewSegmentButton = UIButton()
+		let reviewSegmentButton = UIButton()
 		self.reviewSegmentButton = reviewSegmentButton
 		reviewSegmentButton.addTarget(self, action: "reviewSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		
@@ -305,7 +305,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		//Background View + ScrollView
 		
-		var background = UIView()
+		let background = UIView()
 		self.contentView.addSubview(background)
 		background.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(segmentControlContainer.snp_bottom)
@@ -314,7 +314,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.bottom.equalTo(self.view.snp_bottom)
 		}
 		
-		var scrollView = UIScrollView()
+		let scrollView = UIScrollView()
 		self.scrollView = scrollView
 		self.view.addSubview(scrollView)
 		scrollView.snp_makeConstraints { (make) -> Void in
@@ -322,7 +322,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		}
 		scrollView.backgroundColor = whiteNelpyColor
 		
-		var containerView = UIView()
+		let containerView = UIView()
 		self.containerView = containerView
 		scrollView.addSubview(containerView)
 		containerView.snp_makeConstraints { (make) -> Void in
@@ -338,7 +338,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		//White Container
 		
-		var whiteContainer = UIView()
+		let whiteContainer = UIView()
 		self.containerView.addSubview(whiteContainer)
 		self.whiteContainer = whiteContainer
 		whiteContainer.layer.borderColor = darkGrayDetails.CGColor
@@ -354,7 +354,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		//About
 		
-		var aboutLabel = UILabel()
+		let aboutLabel = UILabel()
 		self.aboutLabel = aboutLabel
 		self.whiteContainer.addSubview(aboutLabel)
 		aboutLabel.textColor = blackNelpyColor
@@ -366,7 +366,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.height.equalTo(30)
 		}
 		
-		var aboutTextView = UITextView()
+		let aboutTextView = UITextView()
 		self.whiteContainer.addSubview(aboutTextView)
 		self.aboutTextView = aboutTextView
 		aboutTextView.scrollEnabled = false
@@ -388,7 +388,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
 		aboutTextView.frame = newFrame;
 		
-		var aboutBottomLine = UIView()
+		let aboutBottomLine = UIView()
 		aboutBottomLine.backgroundColor = darkGrayDetails
 		whiteContainer.addSubview(aboutBottomLine)
 		aboutBottomLine.snp_makeConstraints { (make) -> Void in
@@ -412,7 +412,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		//My skills
 		
-		var skillsLabel = UILabel()
+		let skillsLabel = UILabel()
 		self.skillsLabel = skillsLabel
 		self.whiteContainer.addSubview(skillsLabel)
 		skillsLabel.textColor = blackNelpyColor
@@ -424,7 +424,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.height.equalTo(30)
 		}
 		
-		var skillsTableView = UITableView()
+		let skillsTableView = UITableView()
 		skillsTableView.scrollEnabled = false
 		self.skillsTableView = skillsTableView
 		self.whiteContainer.addSubview(skillsTableView)
@@ -442,7 +442,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			}
 		}
 		
-		var skillsBottomLine = UIView()
+		let skillsBottomLine = UIView()
 		self.skillsBottomLine = skillsBottomLine
 		skillsBottomLine.backgroundColor = darkGrayDetails
 		whiteContainer.addSubview(skillsBottomLine)
@@ -455,7 +455,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		//Education
 		
-		var educationLabel = UILabel()
+		let educationLabel = UILabel()
 		self.educationLabel = educationLabel
 		self.whiteContainer.addSubview(educationLabel)
 		educationLabel.textColor = blackNelpyColor
@@ -467,7 +467,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.height.equalTo(30)
 		}
 		
-		var educationTableView = UITableView()
+		let educationTableView = UITableView()
 		educationTableView.scrollEnabled = false
 		self.educationTableView = educationTableView
 		self.whiteContainer.addSubview(educationTableView)
@@ -485,7 +485,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			}
 		}
 		
-		var educationBottomLine = UIView()
+		let educationBottomLine = UIView()
 		self.educationBottomLine = educationBottomLine
 		educationBottomLine.backgroundColor = darkGrayDetails
 		whiteContainer.addSubview(educationBottomLine)
@@ -498,7 +498,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		//Work Experience
 		
-		var experienceLabel = UILabel()
+		let experienceLabel = UILabel()
 		self.experienceLabel = experienceLabel
 		self.whiteContainer.addSubview(experienceLabel)
 		experienceLabel.textColor = blackNelpyColor
@@ -510,7 +510,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.height.equalTo(30)
 		}
 		
-		var experienceTableView = UITableView()
+		let experienceTableView = UITableView()
 		experienceTableView.scrollEnabled = false
 		self.experienceTableView = experienceTableView
 		self.whiteContainer.addSubview(experienceTableView)
@@ -528,7 +528,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			}
 		}
 		
-		var fakeView = UIView()
+		let fakeView = UIView()
 		self.whiteContainer.addSubview(fakeView)
 		fakeView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(experienceTableView.snp_bottom)
@@ -537,7 +537,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 				//Chat Button
 		
-		var chatButton = UIButton()
+		let chatButton = UIButton()
 		self.chatButton = chatButton
 		self.view.addSubview(chatButton)
 		chatButton.backgroundColor = grayBlueColor
@@ -556,7 +556,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		
 		//Fake button for animation
-		var fakeButton = UIButton()
+		let fakeButton = UIButton()
 		self.fakeButton = fakeButton
 		self.view.addSubview(fakeButton)
 		fakeButton.backgroundColor = grayBlueColor
@@ -583,10 +583,10 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	*/
 	func setImages(poster:User){
 		if(poster.profilePictureURL != nil){
-			var fbProfilePicture = poster.profilePictureURL
+			let fbProfilePicture = poster.profilePictureURL
 			request(.GET,fbProfilePicture!).response(){
 				(_, _, data, _) in
-				var image = UIImage(data: data as NSData!)
+				let image = UIImage(data: data as NSData!)
 				self.picture.image = image
 			}
 		}
@@ -725,7 +725,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		maskLayer.frame = self.chatButton.bounds
 		maskLayer.path = maskPath.CGPath
 		
-		var maskPathFake = UIBezierPath(roundedRect: self.fakeButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
+		let maskPathFake = UIBezierPath(roundedRect: self.fakeButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
 		let maskLayerFake = CAShapeLayer()
 		maskLayerFake.frame = self.fakeButton.bounds
 		maskLayerFake.path = maskPath.CGPath
@@ -751,31 +751,31 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	func chatButtonTapped(sender:UIButton){
 		self.chatButton.selected = !self.chatButton.selected
 		if self.conversationController == nil{
-			var error:NSError?
-			var participants = Set([self.poster.objectId])
+			let error:NSError?
+			let participants = Set([self.poster.objectId])
 			print(participants)
 			
 			
-			var conversation = try? LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.poster.objectId]), options: nil)
+			let conversation = try? LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.poster.objectId]), options: nil)
 			
 			//		var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
-			var nextVC = ApplicantChatViewController(layerClient: LayerManager.sharedInstance.layerClient)
+			let nextVC = ApplicantChatViewController(layerClient: LayerManager.sharedInstance.layerClient)
 			nextVC.displaysAddressBar = false
 			if conversation != nil{
 				nextVC.conversation = conversation
 			}else{
-				var query:LYRQuery = LYRQuery(queryableClass: LYRConversation.self)
+				let query:LYRQuery = LYRQuery(queryableClass: LYRConversation.self)
 				query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
-				var result = try? LayerManager.sharedInstance.layerClient.executeQuery(query)
+				let result = try? LayerManager.sharedInstance.layerClient.executeQuery(query)
 				nextVC.conversation = result!.firstObject as! LYRConversation
 			}
-			var conversationNavController = UINavigationController(rootViewController: nextVC)
+			let conversationNavController = UINavigationController(rootViewController: nextVC)
 			self.conversationController = conversationNavController
 		}
 		
 		if self.chatButton.selected{
 			
-			var tempVC = UIViewController()
+			let tempVC = UIViewController()
 			self.tempVC = tempVC
 			self.addChildViewController(tempVC)
 			self.view.addSubview(tempVC.view)
@@ -789,7 +789,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			}
 			
 			tempVC.addChildViewController(self.conversationController!)
-			var distanceToMove = UIScreen.mainScreen().bounds.height -  (UIScreen.mainScreen().bounds.height - self.profileContainer.frame.height)
+			let distanceToMove = UIScreen.mainScreen().bounds.height -  (UIScreen.mainScreen().bounds.height - self.profileContainer.frame.height)
 			self.conversationController!.view.frame = CGRectMake(0, tempVC.view.frame.height, tempVC.view.frame.width, tempVC.view.frame.height)
 			tempVC.view.addSubview(self.conversationController!.view)
 			

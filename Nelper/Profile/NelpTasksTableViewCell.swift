@@ -53,7 +53,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		}
 		
 		//Top container
-		var topContainer = UIImageView()
+		let topContainer = UIImageView()
 		self.topContainer = topContainer
 		self.topContainer.clipsToBounds = true
 		self.topContainer.layer.masksToBounds = true
@@ -69,15 +69,15 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 
 		
-		var blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
-		var blurView = UIVisualEffectView(effect: blur)
+		let blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
+		let blurView = UIVisualEffectView(effect: blur)
 		topContainer.addSubview(blurView)
 		blurView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(topContainer.snp_edges)
 		}
 		
 		//Category Icon
-		var categoryIcon = UIImageView()
+		let categoryIcon = UIImageView()
 		self.categoryIcon = categoryIcon
 		topContainer.addSubview(categoryIcon)
 		categoryIcon.snp_makeConstraints { (make) -> Void in
@@ -97,7 +97,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 //		}
 		
 		//Notification Icon
-		var notificationIcon = UIImageView()
+		let notificationIcon = UIImageView()
 		self.notificationIcon = notificationIcon
 		topContainer.addSubview(notificationIcon)
 		self.notificationIcon.image = UIImage(named: "exclamation.png")
@@ -110,7 +110,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		}
 		
 		//Title Label
-		var titleLabel = UILabel()
+		let titleLabel = UILabel()
 		self.titleLabel = titleLabel
 		titleLabel.textColor = blackNelpyColor
 		titleLabel.font = UIFont(name: "HelveticaNeue", size: kCellTitleFontSize)
@@ -122,7 +122,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		}
 		
 		//Number of applicants
-		var numberOfApplicantsIcon = UIImageView()
+		let numberOfApplicantsIcon = UIImageView()
 		self.numberOfApplicantsIcon = numberOfApplicantsIcon
 		numberOfApplicantsIcon.image = UIImage(named: "applicants.png")
 		cellView.addSubview(numberOfApplicantsIcon)
@@ -133,7 +133,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.width.equalTo(30)
 		}
 		
-		var numberOfApplicants = UILabel()
+		let numberOfApplicants = UILabel()
 		self.numberOfApplicantsLabel = numberOfApplicants
 		self.numberOfApplicants = numberOfApplicants
 		self.numberOfApplicants.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
@@ -145,7 +145,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		}
 		
 		//Price tag
-		var price = UILabel()
+		let price = UILabel()
 		self.price = price
 		cellView.addSubview(price)
 		price.snp_makeConstraints { (make) -> Void in
@@ -162,7 +162,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.price.textAlignment = NSTextAlignment.Center
 		
 		//Posted date
-		var calendarImage = UIImageView()
+		let calendarImage = UIImageView()
 		cellView.addSubview(calendarImage)
 		calendarImage.image = UIImage(named: "calendar.png")
 		calendarImage.contentMode = UIViewContentMode.ScaleAspectFit
@@ -173,7 +173,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.height.equalTo(30)
 		}
 		
-		var postedDate = UILabel()
+		let postedDate = UILabel()
 		self.postedDate = postedDate
 		cellView.addSubview(postedDate)
 		postedDate.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)

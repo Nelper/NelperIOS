@@ -40,6 +40,8 @@ class FilterSortViewController: UIViewController{
 	var sortingSegmentControl: UISegmentedControl!
 	var previousMinPrice:Double?
 	var previousMaxDistance:Double?
+	var scrollView:UIScrollView!
+	var contentView:UIView!
 
 	//MARK: Initialization
 	
@@ -54,7 +56,7 @@ class FilterSortViewController: UIViewController{
 	
 	func createView(){
 		
-		var navBar = NavBar()
+		let navBar = NavBar()
 		self.view.addSubview(navBar)
 		navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
@@ -69,9 +71,27 @@ class FilterSortViewController: UIViewController{
 		navBar.backButton = backBtn
 		navBar.setImage(UIImage(named: "close_red" )!)
 		navBar.setTitle("Filters and Sorting")
+		
+		let background = UIView()
+		self.view.addSubview(background)
+		background.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(navBar.snp_bottom)
+			make.left.equalTo(self.view.snp_left)
+			make.right.equalTo(self.view.snp_right)
+			make.bottom.equalTo(self.view.snp_bottom)
+		}
+		background.backgroundColor = whiteNelpyColor
+		
+		let scrollView = UIScrollView()
+		self.scrollView = scrollView
+		background.addSubview(scrollView)
+		scrollView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(background.snp_edges)
+		}
 
-		var contentView = UIView()
-		self.view.addSubview(contentView)
+		let contentView = UIView()
+		self.contentView = contentView
+		self.scrollView.addSubview(contentView)
 		contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(navBar.snp_bottom)
 			make.width.equalTo(self.view.snp_width)
@@ -79,7 +99,7 @@ class FilterSortViewController: UIViewController{
 		}
 		contentView.backgroundColor = whiteNelpyColor
 		
-		var addFiltersContainer = UIView()
+		let addFiltersContainer = UIView()
 		contentView.addSubview(addFiltersContainer)
 		addFiltersContainer.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(contentView.snp_bottom)
@@ -89,17 +109,17 @@ class FilterSortViewController: UIViewController{
 		
 		//Filters Container
 		
-		var filtersContainer = UIView()
+		let filtersContainer = UIView()
 		contentView.addSubview(filtersContainer)
 		filtersContainer.backgroundColor = navBarColor
 		filtersContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(navBar.snp_bottom)
+			make.top.equalTo(contentView.snp_top)
 			make.left.equalTo(contentView.snp_left)
 			make.right.equalTo(contentView.snp_right)
 			make.bottom.equalTo(addFiltersContainer.snp_top)
 		}
 		
-		var sortingLabel = UILabel()
+		let sortingLabel = UILabel()
 		filtersContainer.addSubview(sortingLabel)
 		sortingLabel.text = "Sort by"
 		sortingLabel.textColor = blackTextColor
@@ -110,7 +130,7 @@ class FilterSortViewController: UIViewController{
 			make.height.equalTo(20)
 		}
 		
-		var sortingSegmentControl = UISegmentedControl()
+		let sortingSegmentControl = UISegmentedControl()
 		self.sortingSegmentControl = sortingSegmentControl
 		filtersContainer.addSubview(sortingSegmentControl)
 		sortingSegmentControl.addTarget(self, action: "segmentControlTouched:", forControlEvents: UIControlEvents.ValueChanged)
@@ -126,7 +146,7 @@ class FilterSortViewController: UIViewController{
 			make.height.equalTo(35)
 		}
 		
-		var sortingUnderline = UIView()
+		let sortingUnderline = UIView()
 		filtersContainer.addSubview(sortingUnderline)
 		sortingUnderline.backgroundColor = darkGrayDetails
 		sortingUnderline.snp_makeConstraints { (make) -> Void in
@@ -136,7 +156,7 @@ class FilterSortViewController: UIViewController{
 			make.height.equalTo(0.5)
 		}
 		
-		var filtersLabel = UILabel()
+		let filtersLabel = UILabel()
 		filtersContainer.addSubview(filtersLabel)
 		filtersLabel.text = "Filters:"
 		filtersLabel.textColor = blackTextColor
@@ -147,7 +167,7 @@ class FilterSortViewController: UIViewController{
 			make.height.equalTo(20)
 		}
 		
-		var firstRowOfCategories = UIView()
+		let firstRowOfCategories = UIView()
 		filtersContainer.addSubview(firstRowOfCategories)
 		firstRowOfCategories.backgroundColor = navBarColor
 		firstRowOfCategories.snp_makeConstraints { (make) -> Void in
@@ -157,7 +177,7 @@ class FilterSortViewController: UIViewController{
 			make.top.equalTo(filtersLabel.snp_bottom).offset(20)
 		}
 		
-		var technologyButton = UIButton()
+		let technologyButton = UIButton()
 		technologyButton.addTarget(self, action: "didTapTechnology:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.technologyButton = technologyButton
 		firstRowOfCategories.addSubview(technologyButton)
@@ -173,7 +193,7 @@ class FilterSortViewController: UIViewController{
 		technologyButton.layer.borderColor = darkGrayDetails.CGColor
 		technologyButton.layer.borderWidth = 0
 		
-		var multimediaButton = UIButton()
+		let multimediaButton = UIButton()
 		multimediaButton.addTarget(self, action: "didTapMultimedia:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.multimediaButton = multimediaButton
 		firstRowOfCategories.addSubview(multimediaButton)
@@ -190,7 +210,7 @@ class FilterSortViewController: UIViewController{
 		multimediaButton.layer.borderColor = darkGrayDetails.CGColor
 		multimediaButton.layer.borderWidth = 0
 		
-		var handyWorkButton = UIButton()
+		let handyWorkButton = UIButton()
 		handyWorkButton.addTarget(self, action: "didTapHandywork:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.handyworkButton = handyWorkButton
 		firstRowOfCategories.addSubview(handyWorkButton)
@@ -207,7 +227,7 @@ class FilterSortViewController: UIViewController{
 		handyWorkButton.layer.borderColor = darkGrayDetails.CGColor
 		handyWorkButton.layer.borderWidth = 0
 		
-		var gardeningButton = UIButton()
+		let gardeningButton = UIButton()
 		gardeningButton.addTarget(self, action: "didTapGardening:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.gardeningButton = gardeningButton
 		firstRowOfCategories.addSubview(gardeningButton)
@@ -224,7 +244,7 @@ class FilterSortViewController: UIViewController{
 		gardeningButton.layer.borderColor = darkGrayDetails.CGColor
 		gardeningButton.layer.borderWidth = 0
 		
-		var secondRowOfCategories = UIView()
+		let secondRowOfCategories = UIView()
 		filtersContainer.addSubview(secondRowOfCategories)
 		secondRowOfCategories.backgroundColor = navBarColor
 		secondRowOfCategories.snp_makeConstraints { (make) -> Void in
@@ -234,7 +254,7 @@ class FilterSortViewController: UIViewController{
 			make.centerX.equalTo(filtersContainer.snp_centerX)
 		}
 		
-		var businessButton = UIButton()
+		let businessButton = UIButton()
 		businessButton.addTarget(self, action: "didTapBusiness:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.businessButton = businessButton
 		secondRowOfCategories.addSubview(businessButton)
@@ -251,7 +271,7 @@ class FilterSortViewController: UIViewController{
 		businessButton.layer.borderColor = darkGrayDetails.CGColor
 		businessButton.layer.borderWidth = 0
 		
-		var cleaningButton = UIButton()
+		let cleaningButton = UIButton()
 		cleaningButton.addTarget(self, action: "didTapCleaning:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.cleaningButton = cleaningButton
 		secondRowOfCategories.addSubview(cleaningButton)
@@ -268,7 +288,7 @@ class FilterSortViewController: UIViewController{
 		cleaningButton.layer.borderColor = darkGrayDetails.CGColor
 		cleaningButton.layer.borderWidth = 0
 		
-		var otherButton = UIButton()
+		let otherButton = UIButton()
 		otherButton.addTarget(self, action: "didTapOther:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.otherButton = otherButton
 		secondRowOfCategories.addSubview(otherButton)
@@ -285,7 +305,7 @@ class FilterSortViewController: UIViewController{
 		otherButton.layer.borderColor = darkGrayDetails.CGColor
 		otherButton.layer.borderWidth = 0
 		
-		var allButton = UIButton()
+		let allButton = UIButton()
 		allButton.addTarget(self, action: "didTapAll:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.allButton = allButton
 		secondRowOfCategories.addSubview(allButton)
@@ -302,9 +322,18 @@ class FilterSortViewController: UIViewController{
 		allButton.layer.borderColor = darkGrayDetails.CGColor
 		allButton.layer.borderWidth = 0
 		
+		let filtersUnderline = UIView()
+		filtersContainer.addSubview(filtersUnderline)
+		filtersUnderline.backgroundColor = darkGrayDetails
+		filtersUnderline.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(secondRowOfCategories.snp_bottom).offset(20)
+			make.width.equalTo(filtersContainer.snp_width).dividedBy(1.5)
+			make.centerX.equalTo(filtersContainer.snp_centerX)
+			make.height.equalTo(0.5)
+		}
 		
 		//Distance Filter
-		var distanceCheckBox = UIButton()
+		let distanceCheckBox = UIButton()
 		distanceCheckBox.addTarget(self, action: "didTapDistanceCheckBox:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.distanceCheckBox = distanceCheckBox
 		filtersContainer.addSubview(distanceCheckBox)
@@ -317,7 +346,7 @@ class FilterSortViewController: UIViewController{
 			make.width.equalTo(30)
 		}
 		
-		var distanceLabel = UILabel()
+		let distanceLabel = UILabel()
 		filtersContainer.addSubview(distanceLabel)
 		distanceLabel.text = "Distance within:"
 		distanceLabel.textColor = blackNelpyColor
@@ -327,7 +356,7 @@ class FilterSortViewController: UIViewController{
 			make.centerY.equalTo(distanceCheckBox.snp_centerY)
 		}
 		
-		var distanceStepper = UIStepper()
+		let distanceStepper = UIStepper()
 		self.distanceStepper = distanceStepper
 		self.distanceStepper.minimumValue = 1
 		self.distanceStepper.maximumValue = 999
@@ -345,7 +374,7 @@ class FilterSortViewController: UIViewController{
 			make.centerY.equalTo(distanceCheckBox.snp_centerY)
 		}
 		
-		var distanceValueLabel = UILabel()
+		let distanceValueLabel = UILabel()
 		self.distanceValueLabel = distanceValueLabel
 		distanceValueLabel.alpha = 0.3
 		filtersContainer.addSubview(distanceValueLabel)
@@ -359,7 +388,7 @@ class FilterSortViewController: UIViewController{
 		
 		//Price Filter
 		
-		var priceCheckBox = UIButton()
+		let priceCheckBox = UIButton()
 		priceCheckBox.addTarget(self, action: "didTapPriceCheckBox:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.priceCheckBox = priceCheckBox
 		filtersContainer.addSubview(priceCheckBox)
@@ -372,7 +401,7 @@ class FilterSortViewController: UIViewController{
 			make.width.equalTo(30)
 		}
 		
-		var priceLabel = UILabel()
+		let priceLabel = UILabel()
 		filtersContainer.addSubview(priceLabel)
 		priceLabel.text = "Minimum Price:"
 		priceLabel.textColor = blackNelpyColor
@@ -382,7 +411,7 @@ class FilterSortViewController: UIViewController{
 			make.centerY.equalTo(priceCheckBox.snp_centerY)
 		}
 		
-		var priceStepper = UIStepper()
+		let priceStepper = UIStepper()
 		self.priceStepper = priceStepper
 		priceStepper.minimumValue = 10
 		priceStepper.maximumValue = 2000
@@ -400,7 +429,7 @@ class FilterSortViewController: UIViewController{
 			make.centerY.equalTo(priceCheckBox.snp_centerY)
 		}
 		
-		var priceValueLabel = UILabel()
+		let priceValueLabel = UILabel()
 		self.priceValueLabel = priceValueLabel
 		priceValueLabel.alpha = 0.3
 		filtersContainer.addSubview(priceValueLabel)
@@ -472,6 +501,13 @@ class FilterSortViewController: UIViewController{
 				self.sortingSegmentControl.selectedSegmentIndex = 0
 			}
 		}
+	}
+	
+	//MARK: View Delegate Methods
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		self.scrollView.contentSize = self.contentView.frame.size
 	}
 	
 	//MARK: Actions

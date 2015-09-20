@@ -58,14 +58,14 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 	
 	func createView(){
 		
-		var containerView = UIView()
+		let containerView = UIView()
 		self.containerView = containerView
 		self.view.addSubview(containerView)
 		containerView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.view.snp_edges)
 		}
 		
-		var navBar = NavBar()
+		let navBar = NavBar()
 		self.navBar = navBar
 		self.containerView.addSubview(navBar)
 		navBar.snp_makeConstraints { (make) -> Void in
@@ -76,7 +76,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		}
 		
 		//Status Header
-		var statusContainer = UIView()
+		let statusContainer = UIView()
 		self.statusContainer = statusContainer
 		self.statusContainer.layer.borderColor = darkGrayDetails.CGColor
 		self.statusContainer.layer.borderWidth = 0.5
@@ -89,7 +89,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		}
 		statusContainer.backgroundColor = navBarColor
 		
-		var yourOfferLabel = UILabel()
+		let yourOfferLabel = UILabel()
 		statusContainer.addSubview(yourOfferLabel)
 		yourOfferLabel.text = "Your offer"
 		yourOfferLabel.textColor = darkGrayDetails
@@ -99,7 +99,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.centerY.equalTo(statusContainer.snp_centerY).offset(-20)
 		}
 		
-		var moneyTag = UIImageView()
+		let moneyTag = UIImageView()
 		statusContainer.addSubview(moneyTag)
 		moneyTag.image = UIImage(named: "moneytag")
 		moneyTag.snp_makeConstraints { (make) -> Void in
@@ -109,7 +109,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.height.equalTo(25)
 		}
 		
-		var moneyLabel = UILabel()
+		let moneyLabel = UILabel()
 		moneyTag.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
 		moneyLabel.text = "$\(self.application.price!)"
@@ -119,7 +119,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.edges.equalTo(moneyTag.snp_edges)
 		}
 		
-		var applicationStatusLabel = UILabel()
+		let applicationStatusLabel = UILabel()
 		statusContainer.addSubview(applicationStatusLabel)
 		applicationStatusLabel.text = "Application Status"
 		applicationStatusLabel.textColor = darkGrayDetails
@@ -129,7 +129,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.centerY.equalTo(yourOfferLabel.snp_centerY)
 		}
 		
-		var applicationStatusIcon = UIImageView()
+		let applicationStatusIcon = UIImageView()
 		statusContainer.addSubview(applicationStatusIcon)
 		self.applicationStatusIcon = applicationStatusIcon
 		applicationStatusIcon.snp_makeConstraints { (make) -> Void in
@@ -139,7 +139,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.width.equalTo(30)
 		}
 		
-		var statusLabel = UILabel()
+		let statusLabel = UILabel()
 		self.statusLabel = statusLabel
 		statusLabel.text = self.fetchStatusText()
 		statusContainer.addSubview(statusLabel)
@@ -150,7 +150,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.left.equalTo(applicationStatusIcon.snp_right).offset(4)
 		}
 		
-		var calendarIcon = UIImageView()
+		let calendarIcon = UIImageView()
 		statusContainer.addSubview(calendarIcon)
 		calendarIcon.image = UIImage(named: "calendar")
 		calendarIcon.snp_makeConstraints { (make) -> Void in
@@ -160,9 +160,9 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.width.equalTo(30)
 		}
 		
-		var appliedXDaysAgoLabel = UILabel()
+		let appliedXDaysAgoLabel = UILabel()
 		statusContainer.addSubview(appliedXDaysAgoLabel)
-		var dateHelpah = DateHelper()
+		let dateHelpah = DateHelper()
 		appliedXDaysAgoLabel.text = "\(dateHelpah.timeAgoSinceDate(self.application.createdAt!, numericDates: true))"
 		appliedXDaysAgoLabel.textAlignment = NSTextAlignment.Right
 		appliedXDaysAgoLabel.textColor = blackNelpyColor
@@ -172,7 +172,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.centerY.equalTo(calendarIcon.snp_centerY)
 		}
 		
-		var appliedDate = UILabel()
+		let appliedDate = UILabel()
 		statusContainer.addSubview(appliedDate)
 		appliedDate.textAlignment  = NSTextAlignment.Center
 		appliedDate.text = "Applied"
@@ -189,7 +189,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		
 		//Background View + ScrollView
 		
-		var background = UIView()
+		let background = UIView()
 		self.containerView.addSubview(background)
 		background.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(statusContainer.snp_bottom)
@@ -199,7 +199,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		}
 		background.backgroundColor = whiteNelpyColor
 		
-		var scrollView = UIScrollView()
+		let scrollView = UIScrollView()
 		self.scrollView = scrollView
 		self.containerView.addSubview(scrollView)
 		scrollView.snp_makeConstraints { (make) -> Void in
@@ -215,7 +215,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		self.navBar.setImage(UIImage(named: "close_red")!)
 		self.navBar.setTitle("Application Details")
 		
-		var contentView = UIView()
+		let contentView = UIView()
 		self.contentView = contentView
 		scrollView.addSubview(contentView)
 		contentView.snp_makeConstraints { (make) -> Void in
@@ -231,7 +231,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		
 		//Progress + Payment Container
 		
-		var progressContainer = UIView()
+		let progressContainer = UIView()
 		contentView.addSubview(progressContainer)
 		progressContainer.layer.borderColor = grayDetails.CGColor
 		progressContainer.layer.borderWidth = 1
@@ -246,7 +246,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		//Progress Bar
 		
 		//Nelper Accepted
-		var nelperAcceptedLabel = UILabel()
+		let nelperAcceptedLabel = UILabel()
 		progressContainer.addSubview(nelperAcceptedLabel)
 		nelperAcceptedLabel.numberOfLines = 0
 		nelperAcceptedLabel.textAlignment = NSTextAlignment.Center
@@ -258,7 +258,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.left.equalTo(progressContainer.snp_left).offset(12)
 		}
 		
-		var nelperAcceptedImageView = UIImageView()
+		let nelperAcceptedImageView = UIImageView()
 		progressContainer.addSubview(nelperAcceptedImageView)
 		nelperAcceptedImageView.image = UIImage(named: "accepted")
 		nelperAcceptedImageView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -269,7 +269,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.height.equalTo(30)
 		}
 		
-		var nelperAcceptedLine = UIView()
+		let nelperAcceptedLine = UIView()
 		progressContainer.addSubview(nelperAcceptedLine)
 		nelperAcceptedLine.backgroundColor = blackNelpyColor
 		nelperAcceptedLine.snp_makeConstraints { (make) -> Void in
@@ -281,7 +281,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		
 		//Leave Feedback(Last for size)
 		
-		var leaveFeedbackImageView = UIImageView()
+		let leaveFeedbackImageView = UIImageView()
 		progressContainer.addSubview(leaveFeedbackImageView)
 		leaveFeedbackImageView.image = UIImage(named: "black_circle")
 		leaveFeedbackImageView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -292,7 +292,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.height.equalTo(40)
 		}
 		
-		var leaveFeedbackLabel = UILabel()
+		let leaveFeedbackLabel = UILabel()
 		progressContainer.addSubview(leaveFeedbackLabel)
 		leaveFeedbackLabel.numberOfLines = 0
 		leaveFeedbackLabel.textAlignment = NSTextAlignment.Center
@@ -304,7 +304,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.right.equalTo(progressContainer.snp_right).offset(-18)
 		}
 		
-		var leaveFeedbackLine = UIView()
+		let leaveFeedbackLine = UIView()
 		progressContainer.addSubview(leaveFeedbackLine)
 		leaveFeedbackLine.backgroundColor = blackNelpyColor
 		leaveFeedbackLine.snp_makeConstraints { (make) -> Void in
@@ -314,7 +314,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.centerX.equalTo(leaveFeedbackImageView.snp_centerX)
 		}
 		
-		var paymentImageView = UIImageView()
+		let paymentImageView = UIImageView()
 		progressContainer.addSubview(paymentImageView)
 		paymentImageView.image = UIImage(named: "accepted")
 		paymentImageView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -325,7 +325,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.width.equalTo(30)
 		}
 		
-		var paymentLabel = UILabel()
+		let paymentLabel = UILabel()
 		progressContainer.addSubview(paymentLabel)
 		paymentLabel.numberOfLines = 0
 		paymentLabel.textAlignment = NSTextAlignment.Center
@@ -337,7 +337,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.centerX.equalTo(paymentImageView.snp_centerX)
 		}
 		
-		var paymentLine = UIView()
+		let paymentLine = UIView()
 		progressContainer.addSubview(paymentLine)
 		paymentLine.backgroundColor = blackNelpyColor
 		paymentLine.snp_makeConstraints { (make) -> Void in
@@ -347,7 +347,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.centerX.equalTo(paymentImageView.snp_centerX)
 		}
 		
-		var approvedTaskImageView = UIImageView()
+		let approvedTaskImageView = UIImageView()
 		progressContainer.addSubview(approvedTaskImageView)
 		approvedTaskImageView.image = UIImage(named: "pending")
 		approvedTaskImageView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -358,7 +358,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.width.equalTo(30)
 		}
 		
-		var approvedTaskLabel = UILabel()
+		let approvedTaskLabel = UILabel()
 		progressContainer.addSubview(approvedTaskLabel)
 		approvedTaskLabel.numberOfLines = 0
 		approvedTaskLabel.textAlignment = NSTextAlignment.Center
@@ -370,7 +370,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.centerX.equalTo(approvedTaskImageView.snp_centerX)
 		}
 		
-		var approvedTaskLine = UIView()
+		let approvedTaskLine = UIView()
 		progressContainer.addSubview(approvedTaskLine)
 		approvedTaskLine.backgroundColor = blackNelpyColor
 		approvedTaskLine.snp_makeConstraints { (make) -> Void in
@@ -381,7 +381,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		}
 		
 		
-		var lineBetweenAcceptedAndPayment = UIView()
+		let lineBetweenAcceptedAndPayment = UIView()
 		progressContainer.addSubview(lineBetweenAcceptedAndPayment)
 		lineBetweenAcceptedAndPayment.backgroundColor = progressGreen
 		lineBetweenAcceptedAndPayment.snp_makeConstraints { (make) -> Void in
@@ -391,7 +391,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.height.equalTo(2)
 		}
 		
-		var lineBetweenPaymentAndApprove = UIView()
+		let lineBetweenPaymentAndApprove = UIView()
 		progressContainer.addSubview(lineBetweenPaymentAndApprove)
 		lineBetweenPaymentAndApprove.backgroundColor = pendingYellow
 		lineBetweenPaymentAndApprove.snp_makeConstraints { (make) -> Void in
@@ -401,7 +401,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.height.equalTo(2)
 		}
 		
-		var lineBetweenApproveAndRating = UIView()
+		let lineBetweenApproveAndRating = UIView()
 		progressContainer.addSubview(lineBetweenApproveAndRating)
 		lineBetweenApproveAndRating.backgroundColor = blackNelpyColor
 		lineBetweenApproveAndRating.snp_makeConstraints { (make) -> Void in
@@ -413,7 +413,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		
 		//Payment Button
 		
-		var completedTaskButton = UIButton()
+		let completedTaskButton = UIButton()
 		progressContainer.addSubview(completedTaskButton)
 		completedTaskButton.setTitle("I have completed the task!", forState: UIControlState.Normal)
 		completedTaskButton.addTarget(self, action: "didTapTaskCompleted:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -431,8 +431,8 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		
 		//Profile Container
 		
-		var profileContainer = UIView()
-		var profileTapAction = UITapGestureRecognizer(target: self, action: "didTapProfile:")
+		let profileContainer = UIView()
+		let profileTapAction = UITapGestureRecognizer(target: self, action: "didTapProfile:")
 		profileContainer.addGestureRecognizer(profileTapAction)
 		contentView.addSubview(profileContainer)
 		profileContainer.layer.borderColor = darkGrayDetails.CGColor
@@ -445,10 +445,10 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.height.equalTo(130)
 		}
 		
-		var profilePicture = UIImageView()
+		let profilePicture = UIImageView()
 		profileContainer.addSubview(profilePicture)
 		self.picture = profilePicture
-		var pictureSize:CGFloat = 100
+		let pictureSize:CGFloat = 100
 		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
 		profilePicture.layer.cornerRadius = pictureSize / 2
 		profilePicture.clipsToBounds = true
@@ -459,7 +459,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.width.equalTo(pictureSize)
 		}
 		
-		var nameLabel = UILabel()
+		let nameLabel = UILabel()
 		profileContainer.addSubview(nameLabel)
 		nameLabel.text = self.poster.name!
 		nameLabel.textColor = blackNelpyColor
@@ -469,7 +469,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.left.equalTo(profilePicture.snp_right).offset(6)
 		}
 		
-		var arrow = UIButton()
+		let arrow = UIButton()
 		profileContainer.addSubview(arrow)
 		arrow.setBackgroundImage(UIImage(named: "arrow_applicant_cell.png"), forState: UIControlState.Normal)
 		arrow.contentMode = UIViewContentMode.ScaleAspectFill
@@ -482,7 +482,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		
 		//Info Container
 		
-		var infoContainer = UIView()
+		let infoContainer = UIView()
 		contentView.addSubview(infoContainer)
 		infoContainer.backgroundColor = navBarColor
 		infoContainer.layer.borderColor = darkGrayDetails.CGColor
@@ -494,7 +494,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.height.equalTo(130)
 		}
 		
-		var emailLabel = UILabel()
+		let emailLabel = UILabel()
 		infoContainer.addSubview(emailLabel)
 		emailLabel.text = "cvinette@nelper.ca"
 		emailLabel.textColor = blackNelpyColor
@@ -504,7 +504,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.centerY.equalTo(infoContainer.snp_centerY).offset(-30)
 		}
 		
-		var emailIcon = UIImageView()
+		let emailIcon = UIImageView()
 		infoContainer.addSubview(emailIcon)
 		emailIcon.image = UIImage(named: "at")
 		emailIcon.snp_makeConstraints { (make) -> Void in
@@ -514,7 +514,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.width.equalTo(30)
 		}
 		
-		var phoneLabel = UILabel()
+		let phoneLabel = UILabel()
 		infoContainer.addSubview(phoneLabel)
 		phoneLabel.text = "000-000-000"
 		phoneLabel.textColor = blackNelpyColor
@@ -524,7 +524,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.top.equalTo(emailLabel.snp_bottom).offset(30)
 		}
 		
-		var phoneIcon = UIImageView()
+		let phoneIcon = UIImageView()
 		infoContainer.addSubview(phoneIcon)
 		phoneIcon.image = UIImage(named: "phone")
 		phoneIcon.snp_makeConstraints { (make) -> Void in
@@ -536,7 +536,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		
 		//Task Container
 		
-		var taskContainer = UIView()
+		let taskContainer = UIView()
 		self.contentView.addSubview(taskContainer)
 		taskContainer.layer.borderWidth = 0.5
 		taskContainer.layer.borderColor = darkGrayDetails.CGColor
@@ -548,10 +548,10 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.height.equalTo(340)
 		}
 		
-		var categoryIcon = UIImageView()
+		let categoryIcon = UIImageView()
 		taskContainer.addSubview(categoryIcon)
 		categoryIcon.image = UIImage(named:self.application.task.category!)
-		var categoryIconSize:CGFloat = 60
+		let categoryIconSize:CGFloat = 60
 		categoryIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		categoryIcon.layer.cornerRadius = categoryIconSize / 2
 		categoryIcon.snp_makeConstraints { (make) -> Void in
@@ -561,7 +561,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.width.equalTo(categoryIconSize)
 		}
 		
-		var taskNameLabel = UILabel()
+		let taskNameLabel = UILabel()
 		taskContainer.addSubview(taskNameLabel)
 		taskNameLabel.text = self.application.task.title
 		taskNameLabel.textAlignment = NSTextAlignment.Center
@@ -574,7 +574,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.right.equalTo(taskContainer.snp_right)
 		}
 		
-		var taskNameLabelUnderline = UIView()
+		let taskNameLabelUnderline = UIView()
 		taskContainer.addSubview(taskNameLabelUnderline)
 		taskNameLabelUnderline.backgroundColor = darkGrayDetails
 		taskNameLabelUnderline.snp_makeConstraints { (make) -> Void in
@@ -584,7 +584,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.height.equalTo(0.5)
 		}
 		
-		var descriptionTextView = UITextView()
+		let descriptionTextView = UITextView()
 		taskContainer.addSubview(descriptionTextView)
 		descriptionTextView.backgroundColor = navBarColor
 		descriptionTextView.text = self.application.task.desc!
@@ -607,7 +607,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		descriptionTextView.frame = newFrame;
 		
 		
-		var descriptionUnderline = UIView()
+		let descriptionUnderline = UIView()
 		taskContainer.addSubview(descriptionUnderline)
 		descriptionUnderline.backgroundColor = darkGrayDetails
 		descriptionUnderline.snp_makeConstraints { (make) -> Void in
@@ -617,7 +617,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.height.equalTo(0.5)
 		}
 		
-		var locationContainer = UIView()
+		let locationContainer = UIView()
 		taskContainer.addSubview(locationContainer)
 		locationContainer.backgroundColor = navBarColor
 		locationContainer.snp_makeConstraints { (make) -> Void in
@@ -626,7 +626,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.width.equalTo(taskContainer.snp_width).dividedBy(2)
 		}
 		
-		var pinIcon = UIImageView()
+		let pinIcon = UIImageView()
 		locationContainer.addSubview(pinIcon)
 		pinIcon.image = UIImage(named: "pin")
 		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
@@ -637,7 +637,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.left.equalTo(locationContainer.snp_left).offset(4)
 		}
 		
-		var locationVerticalLine = UIView()
+		let locationVerticalLine = UIView()
 		locationContainer.addSubview(locationVerticalLine)
 		locationVerticalLine.backgroundColor = darkGrayDetails
 		locationVerticalLine.snp_makeConstraints { (make) -> Void in
@@ -647,7 +647,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.left.equalTo(pinIcon.snp_right).offset(4)
 		}
 		
-		var streetAddressLabel = UILabel()
+		let streetAddressLabel = UILabel()
 		locationContainer.addSubview(streetAddressLabel)
 		streetAddressLabel.text = "175 Forbin Janson"
 		streetAddressLabel.textColor = blackNelpyColor
@@ -658,7 +658,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.top.equalTo(locationContainer.snp_top)
 		}
 		
-		var cityLabel = UILabel()
+		let cityLabel = UILabel()
 		locationContainer.addSubview(cityLabel)
 		cityLabel.text = "Mont Saint-Hilaire"
 		cityLabel.textColor = blackNelpyColor
@@ -669,7 +669,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.top.equalTo(streetAddressLabel.snp_bottom)
 		}
 
-		var zipcodeLabel = UILabel()
+		let zipcodeLabel = UILabel()
 		locationContainer.addSubview(zipcodeLabel)
 		zipcodeLabel.text = "J3H5E5"
 		zipcodeLabel.textColor = blackNelpyColor
@@ -680,7 +680,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.top.equalTo(cityLabel.snp_bottom)
 		}
 
-		var locationNoticeLabel = UILabel()
+		let locationNoticeLabel = UILabel()
 		taskContainer.addSubview(locationNoticeLabel)
 		locationNoticeLabel.text = "Exact Location Shown"
 		locationNoticeLabel.textColor = darkGrayDetails
@@ -692,7 +692,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		
 		//Map Container
 		
-		var mapContainer = UIView()
+		let mapContainer = UIView()
 		self.contentView.addSubview(mapContainer)
 		mapContainer.layer.borderColor = darkGrayDetails.CGColor
 		mapContainer.layer.borderWidth = 0.5
@@ -705,7 +705,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.bottom.equalTo(self.contentView.snp_bottom)
 		}
 		
-		var mapView = MKMapView()
+		let mapView = MKMapView()
 		mapView.delegate = self
 		mapContainer.addSubview(mapView)
 		mapView.snp_makeConstraints { (make) -> Void in
@@ -718,21 +718,21 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		self.locationManager.startUpdatingLocation()
 		self.locationManager.distanceFilter = 40
 		
-		var mapview = MKMapView()
+		_ = MKMapView()
 		
-		var taskLocation = CLLocationCoordinate2DMake(self.application.task.location!.latitude, self.application.task.location!.longitude)
-		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
-		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(taskLocation, span)
+		let taskLocation = CLLocationCoordinate2DMake(self.application.task.location!.latitude, self.application.task.location!.longitude)
+		let span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+		let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(taskLocation, span)
 		mapView.setRegion(locationToZoom, animated: true)
 		mapView.setCenterCoordinate(taskLocation, animated: true)
-		var taskPin = MKPointAnnotation()
+		let taskPin = MKPointAnnotation()
 		taskPin.coordinate = taskLocation
 		mapView.addAnnotation(taskPin)
 		
 		
 		//Chat Button
 		
-		var chatButton = UIButton()
+		let chatButton = UIButton()
 		self.chatButton = chatButton
 		self.view.addSubview(chatButton)
 		chatButton.backgroundColor = grayBlueColor
@@ -749,7 +749,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		}
 		
 		//Fake button for animation
-		var fakeButton = UIButton()
+		let fakeButton = UIButton()
 		self.fakeButton = fakeButton
 		self.view.addSubview(fakeButton)
 		fakeButton.backgroundColor = grayBlueColor
@@ -777,10 +777,10 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 	*/
 	func setImages(applicant:User){
 		if(applicant.profilePictureURL != nil){
-			var fbProfilePicture = applicant.profilePictureURL
+			let fbProfilePicture = applicant.profilePictureURL
 			request(.GET,fbProfilePicture!).response(){
 				(_, _, data, _) in
-				var image = UIImage(data: data as NSData!)
+				let image = UIImage(data: data as NSData!)
 				self.picture.image = image
 			}
 		}
@@ -791,7 +791,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 	
 	//MARK: MKMapView Delegate Methods
 	
-	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
+	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
 		if overlay is MKCircle {
 			let circle = MKCircleRenderer(overlay: overlay)
 			circle.strokeColor = UIColor.redColor()
@@ -799,7 +799,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			circle.lineWidth = 1
 			return circle
 		} else {
-			return nil
+			return MKCircleRenderer()
 		}
 	}
 	
@@ -827,7 +827,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		maskLayer.frame = self.chatButton.bounds
 		maskLayer.path = maskPath.CGPath
 		
-		var maskPathFake = UIBezierPath(roundedRect: self.fakeButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
+		_ = UIBezierPath(roundedRect: self.fakeButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
 		let maskLayerFake = CAShapeLayer()
 		maskLayerFake.frame = self.fakeButton.bounds
 		maskLayerFake.path = maskPath.CGPath
@@ -910,31 +910,31 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		self.chatButton.selected = !self.chatButton.selected
 		
 		if self.conversationController == nil{
-			var error:NSError?
-			var participants = Set([self.poster.objectId])
+			let _:NSError?
+			let participants = Set([self.poster.objectId])
 			print(participants)
 			
 			
-			var conversation = try? LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.poster.objectId]), options: nil)
+			let conversation = try? LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.poster.objectId]), options: nil)
 			
-			//		var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
-			var nextVC = ApplicantChatViewController(layerClient: LayerManager.sharedInstance.layerClient)
+			//		let nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
+			let nextVC = ApplicantChatViewController(layerClient: LayerManager.sharedInstance.layerClient)
 			nextVC.displaysAddressBar = false
 			if conversation != nil{
 				nextVC.conversation = conversation
 			}else{
-				var query:LYRQuery = LYRQuery(queryableClass: LYRConversation.self)
+				let query:LYRQuery = LYRQuery(queryableClass: LYRConversation.self)
 				query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
-				var result = try? LayerManager.sharedInstance.layerClient.executeQuery(query)
+				let result = try? LayerManager.sharedInstance.layerClient.executeQuery(query)
 				nextVC.conversation = result!.firstObject as! LYRConversation
 			}
-			var conversationNavController = UINavigationController(rootViewController: nextVC)
+			let conversationNavController = UINavigationController(rootViewController: nextVC)
 			self.conversationController = conversationNavController
 		}
 		
 		if self.chatButton.selected{
 			
-			var tempVC = UIViewController()
+			let tempVC = UIViewController()
 			self.tempVC = tempVC
 			self.addChildViewController(tempVC)
 			self.view.addSubview(tempVC.view)
@@ -948,7 +948,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			}
 			
 			tempVC.addChildViewController(self.conversationController!)
-			var distanceToMove = UIScreen.mainScreen().bounds.height -  (UIScreen.mainScreen().bounds.height - self.statusContainer.frame.height)
+			_ = UIScreen.mainScreen().bounds.height -  (UIScreen.mainScreen().bounds.height - self.statusContainer.frame.height)
 			self.conversationController!.view.frame = CGRectMake(0, tempVC.view.frame.height, tempVC.view.frame.width, tempVC.view.frame.height)
 			tempVC.view.addSubview(self.conversationController!.view)
 			

@@ -57,7 +57,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		
 		//Select your category label
 		
-		var selectCategoryLabel = UILabel()
+		let selectCategoryLabel = UILabel()
 		self.formView.addSubview(selectCategoryLabel);
 		selectCategoryLabel.text = "Select your task category"
 		selectCategoryLabel.textColor = blackNelpyColor
@@ -69,7 +69,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		}
 		
 		//Technology Button + Label
-		var technologyButton = UIButton()
+		let technologyButton = UIButton()
 		self.technologyButton = technologyButton
 		self.formView.addSubview(self.technologyButton)
 		self.technologyButton.snp_makeConstraints { (make) -> Void in
@@ -83,7 +83,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 
 		
 		
-		var technologyLabel = UILabel()
+		let technologyLabel = UILabel()
 		self.formView.addSubview(technologyLabel)
 		technologyLabel.numberOfLines = 0
 		technologyLabel.text = "Technology & IT\n Support"
@@ -97,7 +97,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		}
 		
 		//Multimedia & Design
-		var multimediaButton = UIButton()
+		let multimediaButton = UIButton()
 		self.multimediaButton = multimediaButton
 		self.multimediaButton.addTarget(self, action: "multimediaButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.formView.addSubview(multimediaButton)
@@ -111,7 +111,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.height.equalTo(65)
 		}
 		
-		var multimediaLabel = UILabel()
+		let multimediaLabel = UILabel()
 		self.formView.addSubview(multimediaLabel)
 		multimediaLabel.numberOfLines = 0
 		multimediaLabel.text = "Multimedia &\nDesign"
@@ -138,7 +138,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.height.equalTo(65)
 		}
 		
-		var handyworkLabel = UILabel()
+		let handyworkLabel = UILabel()
 		self.formView.addSubview(handyworkLabel)
 		handyworkLabel.numberOfLines = 0
 		handyworkLabel.text = "Handywork"
@@ -152,7 +152,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		}
 		
 		//Gardening
-		var gardeningButton = UIButton()
+		let gardeningButton = UIButton()
 		self.gardeningButton = gardeningButton
 		self.gardeningButton.addTarget(self, action: "gardeningButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.formView.addSubview(gardeningButton)
@@ -165,7 +165,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.height.equalTo(65)
 		}
 		
-		var gardeningLabel = UILabel()
+		let gardeningLabel = UILabel()
 		self.formView.addSubview(gardeningLabel)
 		gardeningLabel.numberOfLines = 0
 		gardeningLabel.text = "Gardening"
@@ -179,7 +179,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		}
 		
 		//Business
-		var businessButton = UIButton()
+		let businessButton = UIButton()
 		self.businessButton = businessButton
 		self.businessButton.addTarget(self, action: "businessButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.formView.addSubview(businessButton)
@@ -192,7 +192,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.height.equalTo(65)
 		}
 		
-		var businessLabel = UILabel()
+		let businessLabel = UILabel()
 		self.formView.addSubview(businessLabel)
 		businessLabel.numberOfLines = 0
 		businessLabel.text = "Business &\nAdmin"
@@ -206,7 +206,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		}
 		
 		//Cleaning
-		var cleaningButton = UIButton()
+		let cleaningButton = UIButton()
 		self.cleaningButton = cleaningButton
 		self.cleaningButton.addTarget(self, action: "cleaningButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.formView.addSubview(cleaningButton)
@@ -219,7 +219,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.height.equalTo(65)
 		}
 		
-		var cleaningLabel = UILabel()
+		let cleaningLabel = UILabel()
 		self.formView.addSubview(cleaningLabel)
 		cleaningLabel.numberOfLines = 0
 		cleaningLabel.text = "Cleaning"
@@ -233,7 +233,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		}
 		
 		//Other
-		var otherButton = UIButton()
+		let otherButton = UIButton()
 		self.otherButton = otherButton
 		self.otherButton.addTarget(self, action: "otherButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.formView.addSubview(otherButton)
@@ -246,7 +246,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.height.equalTo(65)
 		}
 		
-		var otherLabel = UILabel()
+		let otherLabel = UILabel()
 		self.formView.addSubview(otherLabel)
 		otherLabel.numberOfLines = 0
 		otherLabel.text = "Other"

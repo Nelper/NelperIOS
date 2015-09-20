@@ -56,7 +56,7 @@ class ApplicantCell: UITableViewCell{
 		cellView.addSubview(picture)
 		
 		//Name Label
-		var name = UILabel()
+		let name = UILabel()
 		self.name = name
 		cellView.addSubview(name)
 		name.textColor = blackNelpyColor
@@ -77,7 +77,7 @@ class ApplicantCell: UITableViewCell{
 		
 		//FeedBack Stars
 		
-		var firstStar = UIImageView()
+		let firstStar = UIImageView()
 		self.firstStar = firstStar
 		cellView.addSubview(firstStar)
 		firstStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -89,7 +89,7 @@ class ApplicantCell: UITableViewCell{
 			make.width.equalTo(20)
 		}
 		
-		var secondStar = UIImageView()
+		let secondStar = UIImageView()
 		self.secondStar = secondStar
 		cellView.addSubview(secondStar)
 		secondStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -101,7 +101,7 @@ class ApplicantCell: UITableViewCell{
 			make.height.equalTo(20)
 		}
 		
-		var thirdStar = UIImageView()
+		let thirdStar = UIImageView()
 		self.thirdStar = thirdStar
 		cellView.addSubview(thirdStar)
 		thirdStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -113,7 +113,7 @@ class ApplicantCell: UITableViewCell{
 			make.height.equalTo(20)
 		}
 		
-		var fourthStar = UIImageView()
+		let fourthStar = UIImageView()
 		self.fourthStar = fourthStar
 		cellView.addSubview(fourthStar)
 		fourthStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -125,7 +125,7 @@ class ApplicantCell: UITableViewCell{
 			make.height.equalTo(20)
 		}
 		
-		var fifthStar = UIImageView()
+		let fifthStar = UIImageView()
 		self.fifthStar = fifthStar
 		cellView.addSubview(fifthStar)
 		fifthStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -139,7 +139,7 @@ class ApplicantCell: UITableViewCell{
 		
 		//Task Completed field
 		
-		var taskCompleted = UILabel()
+		let taskCompleted = UILabel()
 		cellView.addSubview(taskCompleted)
 		self.taskCompletedLabel = taskCompleted
 		taskCompleted.textColor = blackNelpyColor
@@ -154,7 +154,7 @@ class ApplicantCell: UITableViewCell{
 		
 		//money icon
 		
-		var moneyIcon = UIImageView()
+		let moneyIcon = UIImageView()
 		moneyIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		moneyIcon.image = UIImage(named: "money_icon.png")
 		cellView.addSubview(moneyIcon)
@@ -167,7 +167,7 @@ class ApplicantCell: UITableViewCell{
 		
 		//Asking for label
 		
-		var askingFor = UILabel()
+		let askingFor = UILabel()
 		self.askingForLabel = askingFor
 		cellView.addSubview(askingFor)
 		askingFor.textColor = blackNelpyColor
@@ -180,7 +180,7 @@ class ApplicantCell: UITableViewCell{
 		
 		//Arrow
 		
-		var arrow = UIButton()
+		let arrow = UIButton()
 		self.rightButton = arrow
 		cellView.addSubview(arrow)
 		arrow.setBackgroundImage(UIImage(named: "arrow_applicant_cell.png"), forState: UIControlState.Normal)
@@ -243,10 +243,10 @@ class ApplicantCell: UITableViewCell{
 	
 	func setImages(applicant:User){
 		if(applicant.profilePictureURL != nil){
-			var fbProfilePicture = applicant.profilePictureURL
+			let fbProfilePicture = applicant.profilePictureURL
 			request(.GET,fbProfilePicture!).response(){
 				(_, _, data, _) in
-				var image = UIImage(data: data as NSData!)
+				let image = UIImage(data: data as NSData!)
 				self.picture.image = image
 			}
 		}

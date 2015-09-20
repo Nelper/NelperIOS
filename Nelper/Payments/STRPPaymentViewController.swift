@@ -39,12 +39,12 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 
 	func createView(){
 		
-		var blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
-		var blurContainer = UIVisualEffectView(effect: blurEffect)
+		let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+		let blurContainer = UIVisualEffectView(effect: blurEffect)
 		self.blurContainer = blurContainer
 		blurContainer.frame = self.view.bounds
 		
-		var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissPopup")
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissPopup")
 		self.tap = tap
 		self.tap.delegate = self
 		blurContainer.addGestureRecognizer(tap)
@@ -53,7 +53,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		self.view.backgroundColor = UIColor.clearColor()
 		self.view.addSubview(blurContainer)
 		
-		var popupContainer = UIView()
+		let popupContainer = UIView()
 		self.popupContainer = popupContainer
 		popupContainer.layer.cornerRadius = 2
 		popupContainer.layer.borderColor = nelperRedColor.CGColor
@@ -67,7 +67,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 			make.top.equalTo(blurContainer.snp_top).offset(40)
 		}
 		
-		var titleLabel = UILabel()
+		let titleLabel = UILabel()
 		self.titleLabel = titleLabel
 		popupContainer.addSubview(titleLabel)
 		titleLabel.text = "Pay your Nelper"
@@ -85,7 +85,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		self.cardTextField.delegate = self
 		popupContainer.addSubview(self.cardTextField)
 		
-		var saveButton = UIButton()
+		let saveButton = UIButton()
 		self.saveButton = saveButton
 		popupContainer.addSubview(saveButton)
 		self.saveButton.addTarget(self, action: "didTapSaveButton:", forControlEvents: UIControlEvents.TouchUpInside)

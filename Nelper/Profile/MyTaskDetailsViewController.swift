@@ -72,7 +72,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//ContentView
 		
-		var contentView = UIView()
+		let contentView = UIView()
 		self.contentView = contentView
 		self.scrollView.addSubview(contentView)
 		contentView.snp_makeConstraints { (make) -> Void in
@@ -85,7 +85,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//Task Section
 		
-		var taskSectionContainer = UIView()
+		let taskSectionContainer = UIView()
 		self.taskSectionContainer = taskSectionContainer
 		self.contentView.addSubview(taskSectionContainer)
 		taskSectionContainer.snp_makeConstraints { (make) -> Void in
@@ -112,7 +112,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		//		}
 		//		self.setImages(self.task)
 		
-		var title = UILabel()
+		let title = UILabel()
 		taskSectionContainer.addSubview(title)
 		title.text = self.task.title
 		title.textColor = navBarColor
@@ -123,7 +123,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.centerX.equalTo(taskSectionContainer.snp_centerX)
 		}
 		
-		var editButton = UIButton()
+		let editButton = UIButton()
 		taskSectionContainer.addSubview(editButton)
 		editButton.addTarget(self, action: "editButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		editButton.setTitle("Edit Task", forState: UIControlState.Normal)
@@ -141,7 +141,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//Pending Applicants Container
 		
-		var activeApplicantsContainer = UIView()
+		let activeApplicantsContainer = UIView()
 		self.activeApplicantsContainer = activeApplicantsContainer
 		self.contentView.addSubview(activeApplicantsContainer)
 		activeApplicantsContainer.backgroundColor = navBarColor
@@ -155,7 +155,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 		
-		var pendingApplicantIcon = UIImageView()
+		let pendingApplicantIcon = UIImageView()
 		activeApplicantsContainer.addSubview(pendingApplicantIcon)
 		pendingApplicantIcon.image = UIImage(named: "pending.png")
 		pendingApplicantIcon.contentMode = UIViewContentMode.ScaleAspectFill
@@ -166,7 +166,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.width.equalTo(30)
 		}
 		
-		var applicantsLabel = UILabel()
+		let applicantsLabel = UILabel()
 		activeApplicantsContainer.addSubview(applicantsLabel)
 		applicantsLabel.textAlignment = NSTextAlignment.Left
 		applicantsLabel.text = "Applicants"
@@ -180,7 +180,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//Applicants Table View
 		
-		var applicantsTableView = UITableView()
+		let applicantsTableView = UITableView()
 		self.applicantsTableView = applicantsTableView
 		applicantsTableView.registerClass(ApplicantCell.classForCoder(), forCellReuseIdentifier: ApplicantCell.reuseIdentifier)
 		self.applicantsTableView.scrollEnabled = false
@@ -194,7 +194,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.bottom.equalTo(activeApplicantsContainer.snp_bottom)
 		}
 		
-		var pendingBottomLine = UIView()
+		let pendingBottomLine = UIView()
 		pendingBottomLine.backgroundColor = darkGrayDetails
 		activeApplicantsContainer.addSubview(pendingBottomLine)
 		pendingBottomLine.snp_makeConstraints { (make) -> Void in
@@ -206,7 +206,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//Denied Applicants
 		
-		var deniedApplicantsContainer = UIView()
+		let deniedApplicantsContainer = UIView()
 		self.deniedApplicantsContainer = deniedApplicantsContainer
 		self.contentView.addSubview(deniedApplicantsContainer)
 		deniedApplicantsContainer.backgroundColor = navBarColor
@@ -220,7 +220,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
 		}
 		
-		var deniedApplicantIcon = UIImageView()
+		let deniedApplicantIcon = UIImageView()
 		deniedApplicantsContainer.addSubview(deniedApplicantIcon)
 		deniedApplicantIcon.image = UIImage(named: "denied.png")
 		deniedApplicantIcon.contentMode = UIViewContentMode.ScaleAspectFill
@@ -231,7 +231,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.width.equalTo(30)
 		}
 		
-		var deniedApplicantsLabel = UILabel()
+		let deniedApplicantsLabel = UILabel()
 		deniedApplicantsContainer.addSubview(deniedApplicantsLabel)
 		deniedApplicantsLabel.textAlignment = NSTextAlignment.Left
 		deniedApplicantsLabel.text = "Denied Applicants"
@@ -244,7 +244,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//Applicants Table View
 		
-		var deniedApplicantsTableView = UITableView()
+		let deniedApplicantsTableView = UITableView()
 		self.deniedApplicantsTableView = deniedApplicantsTableView
 		deniedApplicantsTableView.registerClass(ApplicantCell.classForCoder(), forCellReuseIdentifier: ApplicantCell.reuseIdentifier)
 		self.deniedApplicantsTableView.scrollEnabled = false
@@ -258,7 +258,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.bottom.equalTo(deniedApplicantsContainer.snp_bottom)
 		}
 		
-		var deniedBottomLine = UIView()
+		let deniedBottomLine = UIView()
 		deniedBottomLine.backgroundColor = darkGrayDetails
 		deniedApplicantsContainer.addSubview(deniedBottomLine)
 		deniedBottomLine.snp_makeConstraints { (make) -> Void in
@@ -315,8 +315,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.height.equalTo((self.arrayOfDeniedApplicants.count * 120)+70)
 		}
 		
-		var numbersToMultiplyBy = self.arrayOfApplicants.count + self.arrayOfDeniedApplicants.count
-		var numbersToAdd:CGFloat = CGFloat(numbersToMultiplyBy * 120)
+		let numbersToMultiplyBy = self.arrayOfApplicants.count + self.arrayOfDeniedApplicants.count
+		let numbersToAdd:CGFloat = CGFloat(numbersToMultiplyBy * 120)
 		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + numbersToAdd)
 		self.contentView.snp_updateConstraints { (make) -> Void in
 			make.height.equalTo(self.scrollView.contentSize.height)
@@ -433,7 +433,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 //MARK: Applications Profile View Controller Delegate
 	
 	func didTapDenyButton(applicant:User){
-		var applicationToDeny:NelpTaskApplication!
+		var applicationToDeny:NelpTaskApplication?
 		for application in self.arrayOfApplications{
 			print(application.user.objectId)
 			print(applicant.objectId)

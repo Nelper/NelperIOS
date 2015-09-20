@@ -61,12 +61,12 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		
 		if self.locationManager.location != nil {
 			self.locationManager.delegate = self;
-			var userLocation: CLLocation = self.locationManager.location!
+			let userLocation: CLLocation = self.locationManager.location!
 			self.currentLocation = userLocation
 		}
 		
 		//Profile Header
-		var profileView = UIView()
+		let profileView = UIView()
 		self.containerView.addSubview(profileView)
 		profileView.backgroundColor = nelperRedColor
 		
@@ -78,13 +78,13 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		}
 		
 		//Profile Picture
-		var profilePicture = UIImageView()
+		let profilePicture = UIImageView()
 		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
 		self.profilePicture = profilePicture
 		self.profilePicture.clipsToBounds = true
 		profileView.addSubview(profilePicture)
 		
-		var profilePictureSize: CGFloat = 84
+		let profilePictureSize: CGFloat = 84
 		
 		profilePicture.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(profileView.snp_left).offset(15)
@@ -98,7 +98,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.profilePicture.layer.borderWidth = 1
 		
 		//Name
-		var name = UILabel()
+		let name = UILabel()
 		profileView.addSubview(name)
 		name.numberOfLines = 0
 		name.textColor = whiteNelpyColor
@@ -111,7 +111,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		}
 		
 		//Profile Icon
-		var profileIcon = UIImageView()
+		let profileIcon = UIImageView()
 		profileView.addSubview(profileIcon)
 		profileIcon.contentMode = UIViewContentMode.ScaleAspectFit
 		
@@ -124,7 +124,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		profileIcon.image = UIImage(named:"profile_white.png")
 		
 		//Profile Button
-		var profileButton = UIButton()
+		let profileButton = UIButton()
 		profileView.addSubview(profileButton)
 		profileButton.addTarget(self, action: "profileButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		profileButton.setTitle("MY PROFILE", forState: UIControlState.Normal)
@@ -142,7 +142,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		}
 		
 		//Logout Button
-		var logoutButton = UIButton()
+		let logoutButton = UIButton()
 		profileView.addSubview(logoutButton)
 		logoutButton.setTitle("Logout", forState: UIControlState.Normal)
 		logoutButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kLogoutButtonSize)
@@ -159,7 +159,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		}
 		
 		//Segment Control Container + SegmentControl
-		var segmentContainer = UIView()
+		let segmentContainer = UIView()
 		containerView.addSubview(segmentContainer)
 		segmentContainer.backgroundColor = whiteGrayColor
 		segmentContainer.layer.borderWidth = 1
@@ -171,7 +171,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			make.height.equalTo(profileView.snp_height).dividedBy(2.75)
 		}
 		
-		var firstHalf = UIView()
+		let firstHalf = UIView()
 		segmentContainer.addSubview(firstHalf)
 		firstHalf.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(segmentContainer.snp_width).dividedBy(2)
@@ -180,7 +180,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			make.bottom.equalTo(segmentContainer.snp_bottom).offset(-1)
 		}
 		
-		var myTasksSegmentButton = UIButton()
+		let myTasksSegmentButton = UIButton()
 		self.myTasksSegmentButton = myTasksSegmentButton
 		myTasksSegmentButton.addTarget(self, action: "myTasksSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		firstHalf.addSubview(myTasksSegmentButton)
@@ -206,7 +206,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			make.height.equalTo(3)
 		}
 		
-		var secondHalf = UIView()
+		let secondHalf = UIView()
 		segmentContainer.addSubview(secondHalf)
 		secondHalf.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(segmentContainer.snp_width).dividedBy(2)
@@ -215,7 +215,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			make.bottom.equalTo(segmentContainer.snp_bottom).offset(-1)
 		}
 		
-		var myApplicationsSegmentButton = UIButton()
+		let myApplicationsSegmentButton = UIButton()
 		self.myApplicationsSegmentButton = myApplicationsSegmentButton
 		myApplicationsSegmentButton.addTarget(self, action: "myApplicationsSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		
@@ -245,7 +245,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		myApplicationsBottomBorder.hidden = true
 		
 		//Tasks container
-		var tasksContainer = UIView()
+		let tasksContainer = UIView()
 		containerView.addSubview(tasksContainer)
 		self.tasksContainer = tasksContainer
 		tasksContainer.backgroundColor = whiteNelpyColor
@@ -326,21 +326,21 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	*/
 	func setProfilePicture() {
 		
-		var image = UIImage(named: "noProfilePicture")
+		let image = UIImage(named: "noProfilePicture")
 		
 		if PFUser.currentUser()!.objectForKey("customPicture") != nil {
-			var profilePic = (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile)!
+			let profilePic = (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile)!
 			request(.GET,profilePic.url!).response() {
 				(_, _, data, _) in
-				var image = UIImage(data: data as NSData!)
+				let image = UIImage(data: data as NSData!)
 				self.profilePicture.image = image
 			}
 			
 		} else if PFUser.currentUser()!.objectForKey("pictureURL") != nil {
-			var profilePic = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
+			let profilePic = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
 			request(.GET,profilePic).response() {
 				(_, _, data, _) in
-				var image = UIImage(data: data as NSData!)
+				let image = UIImage(data: data as NSData!)
 				self.profilePicture.image = image
 			}
 		}

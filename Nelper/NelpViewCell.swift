@@ -96,7 +96,7 @@ class NelpViewCell: UITableViewCell {
 			make.left.equalTo(author.snp_left)
 		}
 		
-		var moneyTag = UIImageView()
+		let moneyTag = UIImageView()
 		cellView.addSubview(moneyTag)
 		moneyTag.image = UIImage(named: "moneytag")
 		moneyTag.snp_makeConstraints { (make) -> Void in
@@ -106,7 +106,7 @@ class NelpViewCell: UITableViewCell {
 			make.height.equalTo(35)
 		}
 		
-		var moneyLabel = UILabel()
+		let moneyLabel = UILabel()
 		self.price = moneyLabel
 		moneyTag.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
@@ -179,15 +179,15 @@ class NelpViewCell: UITableViewCell {
 	*/
 	func setImages(nelpTask:NelpTask) {
 		if(nelpTask.user.profilePictureURL != nil){
-			var fbProfilePicture = nelpTask.user.profilePictureURL
+			let fbProfilePicture = nelpTask.user.profilePictureURL
 			request(.GET,fbProfilePicture!).response(){
 				(_, _, data, _) in
-				var image = UIImage(data: data as NSData!)
+				let image = UIImage(data: data as NSData!)
 				self.picture.image = image
 			}
 		}
 		
-		var image = UIImage(named: "noProfilePicture")
+		let image = UIImage(named: "noProfilePicture")
 		self.picture.image = image
 	}
 	

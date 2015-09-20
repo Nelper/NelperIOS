@@ -112,7 +112,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         self.facebookLoginButton.layer.borderWidth = 2
         self.facebookLoginButton.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0)
         
-        var facebooklogo = UIImageView()
+        let facebooklogo = UIImageView()
         facebooklogo.image = UIImage(named: "facebook_512_white")
         self.facebookLoginButton.addSubview(facebooklogo)
         facebooklogo.snp_makeConstraints { (make) -> Void in

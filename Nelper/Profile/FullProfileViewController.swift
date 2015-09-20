@@ -74,7 +74,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		navBar.setImage(UIImage(named: "close_red" )!)
 
 		
-        var contentView = UIView()
+        let contentView = UIView()
         self.contentView = contentView
         self.scrollView.addSubview(contentView)
         contentView.snp_makeConstraints { (make) -> Void in
@@ -90,7 +90,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.backGroundView.backgroundColor = whiteNelpyColor
 		
 		//Profile Header
-		var profileView = UIView()
+		let profileView = UIView()
 		self.contentView.addSubview(profileView)
 		profileView.backgroundColor = nelperRedColor
 		
@@ -102,13 +102,13 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		//Profile Picture
-		var profilePicture = UIImageView()
+		let profilePicture = UIImageView()
 		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
 		self.profilePicture = profilePicture
 		self.profilePicture.clipsToBounds = true
 		profileView.addSubview(profilePicture)
 		
-		var profilePictureSize: CGFloat = 84
+		let profilePictureSize: CGFloat = 84
 		
 		profilePicture.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(profileView.snp_left).offset(15)
@@ -122,7 +122,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.profilePicture.layer.borderWidth = 2
 		
 		//Name
-		var name = UILabel()
+		let name = UILabel()
 		profileView.addSubview(name)
 		name.numberOfLines = 0
 		name.textColor = whiteNelpyColor
@@ -135,7 +135,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		//FeedBack Stars
 		
-		var firstStar = UIImageView()
+		let firstStar = UIImageView()
 		self.firstStar = firstStar
 		profileView.addSubview(firstStar)
 		firstStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -147,7 +147,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.width.equalTo(20)
 		}
 		
-		var secondStar = UIImageView()
+		let secondStar = UIImageView()
 		self.secondStar = secondStar
 		profileView.addSubview(secondStar)
 		secondStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -159,7 +159,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.height.equalTo(20)
 		}
 		
-		var thirdStar = UIImageView()
+		let thirdStar = UIImageView()
 		self.thirdStar = thirdStar
 		profileView.addSubview(thirdStar)
 		thirdStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -171,7 +171,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.height.equalTo(20)
 		}
 		
-		var fourthStar = UIImageView()
+		let fourthStar = UIImageView()
 		self.fourthStar = fourthStar
 		profileView.addSubview(fourthStar)
 		fourthStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -183,7 +183,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.height.equalTo(20)
 		}
 		
-		var fifthStar = UIImageView()
+		let fifthStar = UIImageView()
 		self.fifthStar = fifthStar
 		profileView.addSubview(fifthStar)
 		fifthStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -197,7 +197,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		//Number of tasks completed
 		
-		var numberOfTasksLabel = UILabel()
+		let numberOfTasksLabel = UILabel()
 		profileView.addSubview(numberOfTasksLabel)
 		numberOfTasksLabel.text = "12 tasks completed"
 		numberOfTasksLabel.textColor = whiteNelpyColor
@@ -211,7 +211,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		//White Container
 		
-		var whiteContainer = UIView()
+		let whiteContainer = UIView()
 		self.contentView.addSubview(whiteContainer)
 		self.whiteContainer = whiteContainer
 		whiteContainer.layer.borderColor = darkGrayDetails.CGColor
@@ -227,7 +227,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		//About
 		
-		var aboutLabel = UILabel()
+		let aboutLabel = UILabel()
 		self.whiteContainer.addSubview(aboutLabel)
 		aboutLabel.textColor = blackNelpyColor
 		aboutLabel.text = "About"
@@ -237,7 +237,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(whiteContainer.snp_top).offset(10)
 		}
 		
-		var aboutTextView = UITextView()
+		let aboutTextView = UITextView()
 		self.whiteContainer.addSubview(aboutTextView)
 		self.aboutTextView = aboutTextView
 		aboutTextView.scrollEnabled = false
@@ -258,7 +258,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
 		aboutTextView.frame = newFrame;
 		
-		var editAboutIcon = UIButton()
+		let editAboutIcon = UIButton()
 		self.whiteContainer.addSubview(editAboutIcon)
 		editAboutIcon.setBackgroundImage(UIImage(named: "pen.png"), forState: UIControlState.Normal)
 		editAboutIcon.addTarget(self, action: "editAbout:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -272,7 +272,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		//My skills
 		
-		var skillsLabel = UILabel()
+		let skillsLabel = UILabel()
 		self.skillsLabel = skillsLabel
 		self.whiteContainer.addSubview(skillsLabel)
 		skillsLabel.textColor = blackNelpyColor
@@ -283,7 +283,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.left.equalTo(aboutLabel)
 		}
 		
-		var skillsTableView = UITableView()
+		let skillsTableView = UITableView()
 		skillsTableView.scrollEnabled = false
 		self.skillsTableView = skillsTableView
 		self.whiteContainer.addSubview(skillsTableView)
@@ -299,7 +299,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.height.equalTo(self.arrayOfSkills.count * 60)
 		}
 		
-		var addSkillButton = UIButton()
+		let addSkillButton = UIButton()
 		self.whiteContainer.addSubview(addSkillButton)
 		addSkillButton.addTarget(self, action: "addSkillButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		addSkillButton.setBackgroundImage(UIImage(named: "plus_green"), forState: UIControlState.Normal)
@@ -312,7 +312,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		//Education
 		
-		var educationLabel = UILabel()
+		let educationLabel = UILabel()
 		self.educationLabel = educationLabel
 		self.whiteContainer.addSubview(educationLabel)
 		educationLabel.textColor = blackNelpyColor
@@ -323,7 +323,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.left.equalTo(aboutLabel)
 		}
 		
-		var educationTableView = UITableView()
+		let educationTableView = UITableView()
 		educationTableView.scrollEnabled = false
 		self.educationTableView = educationTableView
 		self.whiteContainer.addSubview(educationTableView)
@@ -340,7 +340,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 
 		}
 		
-		var addEducationButton = UIButton()
+		let addEducationButton = UIButton()
 		self.whiteContainer.addSubview(addEducationButton)
 		addEducationButton.addTarget(self, action: "addEducationButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		addEducationButton.setBackgroundImage(UIImage(named:"plus_green"), forState: UIControlState.Normal)
@@ -353,7 +353,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		//Work Experience
 		
-		var experienceLabel = UILabel()
+		let experienceLabel = UILabel()
 		self.experienceLabel = experienceLabel
 		self.whiteContainer.addSubview(experienceLabel)
 		experienceLabel.textColor = blackNelpyColor
@@ -364,7 +364,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.left.equalTo(aboutLabel)
 		}
 		
-		var experienceTableView = UITableView()
+		let experienceTableView = UITableView()
 		experienceTableView.scrollEnabled = false
 		self.experienceTableView = experienceTableView
 		self.whiteContainer.addSubview(experienceTableView)
@@ -381,7 +381,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			
 		}
 		
-		var addExperienceButton = UIButton()
+		let addExperienceButton = UIButton()
 		self.whiteContainer.addSubview(addExperienceButton)
 		addExperienceButton.addTarget(self, action: "addExperienceButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		addExperienceButton.setBackgroundImage(UIImage(named:"plus_green"), forState: UIControlState.Normal)
@@ -468,21 +468,21 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	*/
 	func setProfilePicture() {
 		
-		var image = UIImage(named: "noProfilePicture")
+		let image = UIImage(named: "noProfilePicture")
 		
 		if PFUser.currentUser()!.objectForKey("customPicture") != nil {
-			var profilePic = (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile)!
+			let profilePic = (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile)!
 			request(.GET,profilePic.url!).response() {
 				(_, _, data, _) in
-				var image = UIImage(data: data as NSData!)
+				let image = UIImage(data: data as NSData!)
 				self.profilePicture.image = image
 			}
 			
 		} else if PFUser.currentUser()!.objectForKey("pictureURL") != nil {
-			var profilePic = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
+			let profilePic = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
 			request(.GET,profilePic).response() {
 				(_, _, data, _) in
-				var image = UIImage(data: data as NSData!)
+				let image = UIImage(data: data as NSData!)
 				self.profilePicture.image = image
 			}
 		}
@@ -547,7 +547,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	- parameter sender: Skill edit button
 	*/
 	func addSkillButtonTapped(sender:UIButton){
-		var popup = UIAlertController(title: "Add a Skill", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+		let popup = UIAlertController(title: "Add a Skill", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
         }
 		
@@ -570,12 +570,12 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	//Add Education Button
 	func addEducationButtonTapped(sender:UIButton){
-		var popup = UIAlertController(title: "Add Education", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+		let popup = UIAlertController(title: "Add Education", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
 		}
 		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
-			var educationTitle: String = (popup.textFields!.first?.text!)!
+			let educationTitle: String = (popup.textFields!.first?.text!)!
 			self.arrayOfEducation.append(["title":educationTitle])
             self.educationTableView.snp_updateConstraints { (make) -> Void in
                 make.height.equalTo(self.arrayOfEducation.count * 60)
@@ -592,12 +592,12 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	//Add Experience Button
 	func addExperienceButtonTapped(sender:UIButton){
-		var popup = UIAlertController(title: "Add Experience", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+		let popup = UIAlertController(title: "Add Experience", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
 		}
 		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
-			var experienceTitle: String = (popup.textFields!.first?.text!)!
+			let experienceTitle: String = (popup.textFields!.first?.text!)!
 			self.arrayOfExperience.append(["title":experienceTitle])
 			self.experienceTableView.snp_updateConstraints { (make) -> Void in
 				make.height.equalTo(self.arrayOfExperience.count * 60)
@@ -627,8 +627,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.skillsTableView.snp_updateConstraints { (make) -> Void in
 			make.height.equalTo(self.arrayOfSkills.count * 60)
 		}
-		var numbersToMultiplyBy = self.arrayOfExperience.count + self.arrayOfEducation.count + self.arrayOfSkills.count
-		var numbersToAdd:CGFloat = CGFloat(numbersToMultiplyBy * 60)
+		let numbersToMultiplyBy = self.arrayOfExperience.count + self.arrayOfEducation.count + self.arrayOfSkills.count
+		let numbersToAdd:CGFloat = CGFloat(numbersToMultiplyBy * 60)
 		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + numbersToAdd)
 		self.contentView.snp_updateConstraints { (make) -> Void in
 			make.height.equalTo(self.scrollView.contentSize.height)

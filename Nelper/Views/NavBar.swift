@@ -27,7 +27,7 @@ class NavBar: UINavigationBar {
 				self.backButtonView?.contentEdgeInsets = UIEdgeInsets(top: 0, left: 26, bottom: 0, right: 0)
 				self.container.addSubview(self.backButtonView!)
 				
-				var backArrow = UIImageView()
+				let backArrow = UIImageView()
 				self.backArrow = backArrow
 				backArrow.image = UIImage(named: "left_arrow_red")
 				backArrow.contentMode = UIViewContentMode.ScaleAspectFit

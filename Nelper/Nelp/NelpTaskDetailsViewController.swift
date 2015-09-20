@@ -130,7 +130,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	//MARK: iCarousel Delegate
 	
-	func numberOfItemsInCarousel(carousel: iCarousel!) -> Int {
+	func numberOfItemsInCarousel(carousel: iCarousel) -> Int {
 		
 		if self.task.pictures != nil {
 			if self.task.pictures!.count == 1 {
@@ -144,7 +144,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	}
 	
 	
- func carousel(carousel: iCarousel!, viewForItemAtIndex index: Int, reusingView view: UIView!) -> UIView! {
+ func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
 		let picture = UIImageView(frame: self.carousel.frame)
 		picture.clipsToBounds = true
 		let imageURL = self.task.pictures![index].url!
@@ -216,10 +216,10 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	*/
 	func setProfilePicture(nelpTask:NelpTask){
 		if(nelpTask.user.profilePictureURL != nil){
-			var fbProfilePicture = nelpTask.user.profilePictureURL
+			let fbProfilePicture = nelpTask.user.profilePictureURL
 			request(.GET,fbProfilePicture!).response(){
 				(_, _, data, _) in
-				var image = UIImage(data: data as NSData!)
+				let image = UIImage(data: data as NSData!)
 				self.profilePicture.image = image
 				self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
 				self.profilePicture.clipsToBounds = true;
@@ -232,7 +232,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 				self.categoryPicture.image = UIImage(named: nelpTask.category!)
 			}
 		}
-		var image = UIImage(named: "noProfilePicture")
+		let image = UIImage(named: "noProfilePicture")
 		self.profilePicture.image = image
 		self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
 		self.profilePicture.clipsToBounds = true;

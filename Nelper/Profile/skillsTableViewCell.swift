@@ -35,7 +35,7 @@ class skillsTableViewCell: UITableViewCell {
 		backView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
 		
 		//Check image
-		var checkImage = UIImageView()
+		let checkImage = UIImageView()
 		backView.addSubview(checkImage)
 		checkImage.image = UIImage(named: "check_orange")
 		checkImage.contentMode = UIViewContentMode.ScaleAspectFill
@@ -47,7 +47,7 @@ class skillsTableViewCell: UITableViewCell {
 		}
 		
 		//Trash Can Icon
-		var trashImage = UIButton()
+		let trashImage = UIButton()
 		self.trashImage = trashImage
 		trashImage.setBackgroundImage(UIImage(named: "trashcan"), forState: UIControlState.Normal)
 		backView.addSubview(trashImage)
@@ -61,7 +61,7 @@ class skillsTableViewCell: UITableViewCell {
 		}
 		
 		//Skill name
-		var skillName = UILabel()
+		let skillName = UILabel()
 		self.skillName = skillName
 		backView.addSubview(skillName)
 		skillName.textColor = blackNelpyColor

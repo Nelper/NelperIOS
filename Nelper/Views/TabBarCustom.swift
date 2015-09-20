@@ -28,19 +28,19 @@ class TabBarCustom: UITabBarController {
 	
 	func createView(){
 		self.tabBar.translucent = false		
-		var browseVC = NelpViewController()
-		var browseVCItem = UITabBarItem(title: "Browse tasks", image: UIImage(named: "browse_default"), selectedImage: UIImage(named: "browse_default"))
+		let browseVC = NelpViewController()
+		let browseVCItem = UITabBarItem(title: "Browse tasks", image: UIImage(named: "browse_default"), selectedImage: UIImage(named: "browse_default"))
 		browseVC.tabBarItem = browseVCItem
 		
-		var nelpCenterVC = NelpCenterViewController()
-		var nelpCenterVCItem = UITabBarItem(title: "Nelp Center", image: UIImage(named: "nelpcenter_default"), selectedImage: UIImage(named: "nelpcenter_default"))
+		let nelpCenterVC = NelpCenterViewController()
+		let nelpCenterVCItem = UITabBarItem(title: "Nelp Center", image: UIImage(named: "nelpcenter_default"), selectedImage: UIImage(named: "nelpcenter_default"))
 		nelpCenterVC.tabBarItem = nelpCenterVCItem
 		
-		var postVC = NelpTaskCreateViewController()
-		var postVCItem = UITabBarItem(title: "Post a task", image: UIImage(named: "post_task"), selectedImage: UIImage(named: "post_task"))
+		let postVC = NelpTaskCreateViewController()
+		let postVCItem = UITabBarItem(title: "Post a task", image: UIImage(named: "post_task"), selectedImage: UIImage(named: "post_task"))
 		postVC.tabBarItem = postVCItem
 		
-		var controllersArray = [browseVC, nelpCenterVC, postVC]
+		let controllersArray = [browseVC, nelpCenterVC, postVC]
 		
 		self.viewControllers = controllersArray
 		self.tabBar.tintColor = nelperRedColor

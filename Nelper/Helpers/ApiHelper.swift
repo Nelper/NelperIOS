@@ -168,7 +168,7 @@ class ApiHelper {
 				block(nil, error)
 				return
 			}
-			if let user = PFUser.currentUser() {
+			if (PFUser.currentUser() != nil) {
 				let applicationQuery = PFQuery(className: kParseTaskApplication)
 				applicationQuery.whereKey("user", equalTo: PFUser.currentUser()!)
 				applicationQuery.whereKey("state", equalTo: NelpTaskApplication.State.Pending.rawValue)
@@ -323,7 +323,6 @@ class ApiHelper {
 	*/
 	
 	static func editTask(task: FindNelpTask) {
-		let parseTask = PFObject(className: kParseTask)
 		
 		let query = PFQuery(className: "NelpTask")
 		query.getObjectInBackgroundWithId(task.objectId, block: { (taskFetched , error) -> Void in
@@ -436,8 +435,8 @@ class ApiHelper {
 	static func convertImagesToData(images:Array<UIImage>) -> Array<PFFile>{
 		var imagesInData = Array<PFFile>()
 		for image in images{
-			var imageData = UIImageJPEGRepresentation(image as UIImage, 0.50)
-			var imageFile = PFFile(name:"image.png", data:imageData!)
+			let imageData = UIImageJPEGRepresentation(image as UIImage, 0.50)
+			let imageFile = PFFile(name:"image.png", data:imageData!)
 			imagesInData.append(imageFile)
 		}
 		return imagesInData

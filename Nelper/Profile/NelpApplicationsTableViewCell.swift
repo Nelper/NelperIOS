@@ -54,7 +54,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		}
 		
 		//Top container
-		var topContainer = UIImageView()
+		let topContainer = UIImageView()
 		self.topContainer = topContainer
 		self.topContainer.clipsToBounds = true
 		self.topContainer.layer.masksToBounds = true
@@ -66,15 +66,15 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			make.height.equalTo(85)
 		}
 		topContainer.backgroundColor = nelperRedColor
-		var blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
-		var blurView = UIVisualEffectView(effect: blur)
+		let blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
+		let blurView = UIVisualEffectView(effect: blur)
 		topContainer.addSubview(blurView)
 		blurView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(topContainer.snp_edges)
 		}
 		
 		//Category Icon
-		var categoryIcon = UIImageView()
+		let categoryIcon = UIImageView()
 		self.categoryIcon = categoryIcon
 		topContainer.addSubview(categoryIcon)
 		categoryIcon.snp_makeConstraints { (make) -> Void in
@@ -94,7 +94,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		//		}
 		
 		//Title Label
-		var titleLabel = UILabel()
+		let titleLabel = UILabel()
 		self.titleLabel = titleLabel
 		titleLabel.textColor = blackNelpyColor
 		titleLabel.font = UIFont(name: "HelveticaNeue", size: kCellTitleFontSize)
@@ -106,7 +106,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		}
 		
 		//Application State Icon + Label
-		var applicationStateIcon = UIImageView()
+		let applicationStateIcon = UIImageView()
 		self.applicationStateIcon = applicationStateIcon
 		cellView.addSubview(applicationStateIcon)
 		applicationStateIcon.contentMode = UIViewContentMode.ScaleAspectFill
@@ -117,7 +117,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			make.width.equalTo(30)
 		}
 		
-		var applicationLabel = UILabel()
+		let applicationLabel = UILabel()
 		self.applicationStateLabel = applicationLabel
 		cellView.addSubview(applicationLabel)
 		applicationLabel.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
@@ -129,7 +129,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		}
 		
 		//Price tag
-		var price = UILabel()
+		let price = UILabel()
 		self.price = price
 		cellView.addSubview(price)
 		price.snp_makeConstraints { (make) -> Void in
@@ -146,7 +146,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		self.price.textAlignment = NSTextAlignment.Center
 		
 		//Applied date
-		var calendarImage = UIImageView()
+		let calendarImage = UIImageView()
 		cellView.addSubview(calendarImage)
 		calendarImage.image = UIImage(named: "calendar.png")
 		calendarImage.contentMode = UIViewContentMode.ScaleAspectFit
@@ -157,7 +157,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			make.height.equalTo(30)
 		}
 		
-		var postedDate = UILabel()
+		let postedDate = UILabel()
 		self.appliedDate = postedDate
 		cellView.addSubview(postedDate)
 		postedDate.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
@@ -169,7 +169,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		}
 		
 		//Location Icon + City + Distance
-		var pinImageView = UIImageView()
+		let pinImageView = UIImageView()
 		cellView.addSubview(pinImageView)
 		pinImageView.image = UIImage(named: "pin.png")
 		pinImageView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -180,7 +180,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			make.width.equalTo(30)
 		}
 		
-		var cityLabel = UILabel()
+		let cityLabel = UILabel()
 		self.cityLabel = cityLabel
 		cellView.addSubview(cityLabel)
 		cityLabel.textColor = blackNelpyColor
@@ -190,7 +190,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			make.centerY.equalTo(pinImageView.snp_centerY).offset(-10)
 		}
 		
-		var distanceLabel = UILabel()
+		let distanceLabel = UILabel()
 		self.distanceLabel = distanceLabel
 		cellView.addSubview(distanceLabel)
 		distanceLabel.textColor = blackNelpyColor
