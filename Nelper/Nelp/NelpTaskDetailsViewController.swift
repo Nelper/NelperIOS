@@ -11,257 +11,535 @@ import UIKit
 import Alamofire
 import iCarousel
 
-class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCarouselDelegate{
+class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCarouselDelegate, CLLocationManagerDelegate, MKMapViewDelegate{
 	
-
-	@IBOutlet weak var navBar: NavBar!
-	@IBOutlet weak var container: UIView!
-	
-	@IBOutlet weak var carousel: iCarousel!
-	@IBOutlet weak var titleLabel: UILabel!
-	@IBOutlet weak var profilePicture: UIImageView!
-	@IBOutlet weak var categoryPicture: UIImageView!
-	@IBOutlet weak var authorLabel: UILabel!
-	@IBOutlet weak var creationDateLabel: UILabel!
-	@IBOutlet weak var priceLabel: UILabel!
-	@IBOutlet weak var descriptionTextView: UITextView!
-	@IBOutlet weak var applyButton: UIButton!
 	
 	var task: NelpTask!
-	//	var carousel:iCarousel!
 	var pageViewController: UIPageViewController?
 	var pictures:NSArray?
-	
-	
+	var containerView:UIView!
+	var scrollView:UIScrollView!
+	var contentView:UIView!
+	var postDateLabel:UILabel!
+	var cityLabel:UILabel!
+	var carousel:iCarousel!
+	var locationManager = CLLocationManager()
+	var carouselContainer:UIView!
+	var picture:UIImageView!
+	var taskContainer:UIView!
+	var carouselUnderline:UIView!
 	
 	//MARK: Initialization
 	
-	convenience init(nelpTask:NelpTask) {
-		self.init(nibName: "NelpTaskDetailsViewController", bundle: nil)
-		self.task = nelpTask;
-		self.pictures = self.task.pictures
-	}
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.adjustUI()
-		if(self.task.pictures != nil){
-			self.createCarousel()
-		}
-		self.startButtonConfig()
+		self.pictures = self.task.pictures
+		self.setImages(self.task.user!)
+		self.createView()
+
+//		self.startButtonConfig()
 	}
 	
-	//MARK: UI
+	//MARK: View Creation
 	
-	func adjustUI(){
-		self.navBar.backgroundColor = navBarColor
-		self.container.backgroundColor = whiteNelpyColor
-		self.navBar.setTitle("Task Details")
+	func createView(){
 
+		
+		let containerView = UIView()
+		self.containerView = containerView
+		self.view.addSubview(containerView)
+		containerView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(self.view)
+		}
+		
+		let navBar = NavBar()
 		let backBtn = UIButton()
 		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.backButton = backBtn
-		self.navBar.setImage(UIImage(named: "close_red")!)
-
-		
-		self.titleLabel.text = self.task.title
-		self.titleLabel.textColor = blackNelpyColor
-		self.titleLabel.font = UIFont(name: "HelveticaNeue", size: kDetailsViewTitleFontSize)
-		
-		self.authorLabel.text = "By \(self.task.user.name)"
-		self.authorLabel.textColor = blackNelpyColor
-		self.authorLabel.font = UIFont(name: "HelveticaNeue", size: kDetailsViewTextFontSize)
-		
-		if(self.task.createdAt != nil){
-			let dateHelper = DateHelper()
-			self.creationDateLabel.text = "Created \(dateHelper.timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
-			self.creationDateLabel.textColor = blackNelpyColor
-			self.creationDateLabel.font = UIFont(name: "HelveticaNeue", size: kDetailsViewTextFontSize)
-		}else{
-			self.creationDateLabel.text = "Unknown creation date"
-			self.creationDateLabel.textColor = blackNelpyColor
-			self.creationDateLabel.font = UIFont(name: "HelveticaNeue", size: kDetailsViewTextFontSize)
+		self.containerView.addSubview(navBar)
+		navBar.backButton = backBtn
+		navBar.setImage(UIImage(named: "close_red")!)
+		navBar.setTitle("Task Details")
+		navBar.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.containerView.snp_top)
+			make.left.equalTo(self.containerView.snp_left)
+			make.right.equalTo(self.containerView.snp_right)
+			make.height.equalTo(64)
 		}
 		
-		self.priceLabel.backgroundColor = greenPriceButton
-		self.priceLabel.layer.cornerRadius = 6
-		self.priceLabel.font = UIFont(name: "HelveticaNeue", size: kCellPriceFontSize)
-		self.priceLabel.textColor = whiteNelpyColor
-		self.priceLabel.clipsToBounds = true
-		self.priceLabel.textAlignment = NSTextAlignment.Center
-		let price = String(format: "%.0f", self.task.priceOffered!)
-		self.priceLabel.text = "$"+price
-
+		//Background View + ScrollView
 		
-		self.profilePicture.layer.masksToBounds = true
-		self.setProfilePicture(self.task)
+		let background = UIView()
+		self.containerView.addSubview(background)
+		background.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(navBar.snp_bottom)
+			make.left.equalTo(self.containerView.snp_left)
+			make.right.equalTo(self.containerView.snp_right)
+			make.bottom.equalTo(self.containerView.snp_bottom)
+		}
 		
-		self.descriptionTextView.backgroundColor = whiteNelpyColor
-		self.descriptionTextView.text = self.task.desc
-		self.descriptionTextView.font = UIFont(name: "HelveticaNeue", size: kDetailsViewTextFontSize)
-		self.descriptionTextView.textColor = blackNelpyColor
-		self.descriptionTextView.editable = false
+		let scrollView = UIScrollView()
+		self.scrollView = scrollView
+		self.containerView.addSubview(scrollView)
+		scrollView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(background.snp_edges)
+		}
 		
-		let fixedWidth = self.descriptionTextView.frame.size.width
-		self.descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-		let newSize = self.descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-		var newFrame = self.descriptionTextView.frame
+		scrollView.backgroundColor = whiteNelpyColor
+		
+		let contentView = UIView()
+		self.contentView = contentView
+		scrollView.addSubview(contentView)
+		contentView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(scrollView.snp_top)
+			make.left.equalTo(scrollView.snp_left)
+			make.right.equalTo(scrollView.snp_right)
+			//            make.bottom.equalTo(self.scrollView.snp_bottom)
+			make.height.greaterThanOrEqualTo(background.snp_height)
+			make.width.equalTo(background.snp_width)
+		}
+		self.contentView.backgroundColor = whiteNelpyColor
+		background.backgroundColor = whiteNelpyColor
+		
+		
+		//Profile Container
+		
+		let profileContainer = UIView()
+		let profileTapAction = UITapGestureRecognizer(target: self, action: "didTapProfile:")
+		profileContainer.addGestureRecognizer(profileTapAction)
+		contentView.addSubview(profileContainer)
+		profileContainer.layer.borderColor = darkGrayDetails.CGColor
+		profileContainer.layer.borderWidth = 0.5
+		profileContainer.backgroundColor = navBarColor
+		profileContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.contentView.snp_top).offset(10)
+			make.left.equalTo(contentView.snp_left).offset(-1)
+			make.right.equalTo(contentView.snp_right).offset(1)
+			make.height.equalTo(130)
+		}
+		
+		let profilePicture = UIImageView()
+		self.picture = profilePicture
+		profileContainer.addSubview(profilePicture)
+		let pictureSize:CGFloat = 100
+		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
+		profilePicture.layer.cornerRadius = pictureSize / 2
+		profilePicture.clipsToBounds = true
+		profilePicture.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(profileContainer.snp_centerY)
+			make.left.equalTo(20)
+			make.height.equalTo(pictureSize)
+			make.width.equalTo(pictureSize)
+		}
+		
+		let nameLabel = UILabel()
+		profileContainer.addSubview(nameLabel)
+		nameLabel.text = self.task.user.name
+		nameLabel.textColor = blackNelpyColor
+		nameLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		nameLabel.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(profilePicture.snp_centerY)
+			make.left.equalTo(profilePicture.snp_right).offset(6)
+		}
+		
+		let arrow = UIButton()
+		profileContainer.addSubview(arrow)
+		arrow.setBackgroundImage(UIImage(named: "arrow_applicant_cell.png"), forState: UIControlState.Normal)
+		arrow.contentMode = UIViewContentMode.ScaleAspectFill
+		arrow.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(profileContainer.snp_right).offset(-4)
+			make.centerY.equalTo(profileContainer.snp_centerY)
+			make.height.equalTo(35)
+			make.width.equalTo(20)
+		}
+		
+		//Task Container
+		
+		let taskContainer = UIView()
+		self.taskContainer = taskContainer
+		self.contentView.addSubview(taskContainer)
+		taskContainer.layer.borderWidth = 0.5
+		taskContainer.layer.borderColor = darkGrayDetails.CGColor
+		taskContainer.backgroundColor = navBarColor
+		taskContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(profileContainer.snp_bottom).offset(10)
+			make.left.equalTo(self.contentView.snp_left).offset(-1)
+			make.right.equalTo(self.contentView.snp_right).offset(1)
+		}
+		
+		let categoryIcon = UIImageView()
+		taskContainer.addSubview(categoryIcon)
+		categoryIcon.image = UIImage(named:self.task.category!)
+		let categoryIconSize:CGFloat = 60
+		categoryIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		categoryIcon.layer.cornerRadius = categoryIconSize / 2
+		categoryIcon.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(taskContainer.snp_centerX)
+			make.top.equalTo(taskContainer.snp_top).offset(10)
+			make.height.equalTo(categoryIconSize)
+			make.width.equalTo(categoryIconSize)
+		}
+		
+		let taskNameLabel = UILabel()
+		taskContainer.addSubview(taskNameLabel)
+		taskNameLabel.text = self.task.title!
+		taskNameLabel.textAlignment = NSTextAlignment.Center
+		taskNameLabel.textColor = blackNelpyColor
+		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
+		taskNameLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(categoryIcon.snp_bottom).offset(14)
+			make.centerX.equalTo(taskContainer.snp_centerX)
+			make.left.equalTo(taskContainer.snp_left)
+			make.right.equalTo(taskContainer.snp_right)
+		}
+		
+		let taskNameLabelUnderline = UIView()
+		taskContainer.addSubview(taskNameLabelUnderline)
+		taskNameLabelUnderline.backgroundColor = darkGrayDetails
+		taskNameLabelUnderline.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(taskNameLabel.snp_bottom).offset(10)
+			make.centerX.equalTo(taskContainer.snp_centerX)
+			make.width.equalTo(taskContainer.snp_width).dividedBy(1.4)
+			make.height.equalTo(0.5)
+		}
+		
+		let descriptionTextView = UITextView()
+		taskContainer.addSubview(descriptionTextView)
+		descriptionTextView.backgroundColor = navBarColor
+		descriptionTextView.text = self.task.desc!
+		descriptionTextView.textColor = blackNelpyColor
+		descriptionTextView.scrollEnabled = false
+		descriptionTextView.editable = false
+		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
+		descriptionTextView.textAlignment = NSTextAlignment.Center
+		descriptionTextView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(taskNameLabelUnderline.snp_bottom).offset(10)
+			make.left.equalTo(taskContainer.snp_left).offset(10)
+			make.right.equalTo(taskContainer.snp_right).offset(-10)
+		}
+		
+		let fixedWidth = descriptionTextView.frame.size.width
+		descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+		let newSize = descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+		var newFrame = descriptionTextView.frame
 		newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-		self.descriptionTextView.frame = newFrame;
+		descriptionTextView.frame = newFrame;
 		
-		self.carousel.backgroundColor = whiteNelpyColor
 		
-		self.applyButton.setTitle("Apply", forState: UIControlState.Normal)
-		self.applyButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
-		self.applyButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
-		self.applyButton.backgroundColor = greenPriceButton
+		let descriptionUnderline = UIView()
+		taskContainer.addSubview(descriptionUnderline)
+		descriptionUnderline.backgroundColor = darkGrayDetails
+		descriptionUnderline.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(descriptionTextView.snp_bottom).offset(10)
+			make.centerX.equalTo(taskContainer.snp_centerX)
+			make.width.equalTo(taskContainer.snp_width).dividedBy(1.4)
+			make.height.equalTo(0.5)
+		}
 		
-	}
-	
-	func createCarousel(){
-		//		var carousel = iCarousel()
+		let postedIcon = UIImageView()
+		taskContainer.addSubview(postedIcon)
+		postedIcon.image = UIImage(named:"calendar")
+		postedIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		postedIcon.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(35)
+			make.width.equalTo(35)
+			make.top.equalTo(descriptionUnderline.snp_bottom).offset(16)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(-70)
+		}
+		
+		let postDateLabel = UILabel()
+		taskContainer.addSubview(postDateLabel)
+		self.postDateLabel = postDateLabel
+		let dateHelper = DateHelper()
+		postDateLabel.text = "Posted \(dateHelper.timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
+		postDateLabel.textColor = blackNelpyColor
+		postDateLabel.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
+		postDateLabel.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(postedIcon.snp_centerY)
+			make.left.equalTo(postedIcon.snp_right).offset(4)
+		}
+		
+		let pinIcon = UIImageView()
+		taskContainer.addSubview(pinIcon)
+		pinIcon.image = UIImage(named: "pin")
+		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		pinIcon.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(35)
+			make.width.equalTo(35)
+			make.top.equalTo(postedIcon.snp_bottom).offset(15)
+			make.centerX.equalTo(postedIcon.snp_centerX)
+		}
+		
+		let cityLabel = UILabel()
+		taskContainer.addSubview(cityLabel)
+		self.cityLabel = cityLabel
+		cityLabel.text = self.task.city!
+		cityLabel.textColor = blackNelpyColor
+		cityLabel.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
+		cityLabel.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(pinIcon.snp_centerY)
+			make.left.equalTo(pinIcon.snp_right).offset(4)
+		}
+		
+		
+		if self.task.pictures != nil{
+		if self.pictures!.count > 0{
+		
+		let cityUnderline = UIView()
+		taskContainer.addSubview(cityUnderline)
+		cityUnderline.backgroundColor = darkGrayDetails
+		cityUnderline.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(pinIcon.snp_bottom).offset(10)
+			make.centerX.equalTo(taskContainer.snp_centerX)
+			make.width.equalTo(taskContainer.snp_width).dividedBy(1.4)
+			make.height.equalTo(0.5)
+		}
+			
+		let carousel = iCarousel()
+		self.carousel = carousel
+		self.carousel.delegate = self
+		self.carousel.clipsToBounds = true
 		self.carousel.type = .Linear
 		self.carousel.bounces = false
 		self.carousel.dataSource = self
-		self.carousel.delegate = self
-		self.carousel.reloadData()
+			
+		let carouselContainer = UIView()
+		self.carouselContainer = carouselContainer
+		taskContainer.addSubview(carouselContainer)
+		carouselContainer.backgroundColor = navBarColor
+		carouselContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(cityUnderline.snp_bottom).offset(10)
+			make.centerX.equalTo(taskContainer.snp_centerX)
+			make.height.equalTo(300)
+			make.width.equalTo(300)
+		}
+		self.carouselContainer.addSubview(carousel)
+		self.carousel.snp_makeConstraints(closure: { (make) -> Void in
+			make.edges.equalTo(carouselContainer.snp_edges)
+		})
+		
+		let carouselUnderline = UIView()
+		taskContainer.addSubview(carouselUnderline)
+		self.carouselUnderline = carouselUnderline
+		carouselUnderline.backgroundColor = darkGrayDetails
+		carouselUnderline.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(carouselContainer.snp_bottom).offset(10)
+			make.centerX.equalTo(taskContainer.snp_centerX)
+			make.width.equalTo(taskContainer.snp_width).dividedBy(1.4)
+			make.height.equalTo(0.5)
+			}
+		
+			taskContainer.snp_updateConstraints(closure: { (make) -> Void in
+				make.bottom.equalTo(carouselUnderline.snp_bottom).offset(20)
+			})
+			}}else{
+			taskContainer.snp_updateConstraints { (make) -> Void in
+			make.bottom.equalTo(pinIcon.snp_bottom).offset(20)
+			}
+			}
+		
+		
+		//Map Container
+		
+		let mapContainer = UIView()
+		self.contentView.addSubview(mapContainer)
+		mapContainer.layer.borderColor = darkGrayDetails.CGColor
+		mapContainer.layer.borderWidth = 0.5
+		mapContainer.backgroundColor = navBarColor
+		mapContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(taskContainer.snp_bottom)
+			make.left.equalTo(self.contentView.snp_left).offset(-1)
+			make.right.equalTo(self.contentView.snp_right).offset(1)
+			make.height.equalTo(250)
+		}
+		
+		self.locationManager.delegate = self;
+		self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+		self.locationManager.requestWhenInUseAuthorization()
+		self.locationManager.startUpdatingLocation()
+		self.locationManager.distanceFilter = 40
+		
+		let locationNoticeLabel = UILabel()
+		taskContainer.addSubview(locationNoticeLabel)
+		locationNoticeLabel.text = "Task location within 400m"
+		locationNoticeLabel.textColor = darkGrayDetails
+		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
+		locationNoticeLabel.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(self.view.snp_left).offset(2)
+			make.bottom.equalTo(taskContainer.snp_bottom).offset(-2)
+		}
+		
+		let mapView = MKMapView()
+		mapView.delegate = self
+		mapContainer.addSubview(mapView)
+		mapView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(mapContainer.snp_edges)
+		}
+		
+		let taskLocation = CLLocationCoordinate2DMake(self.task.location!.latitude, self.task.location!.longitude)
+		let span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+		let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(taskLocation, span)
+		mapView.setRegion(locationToZoom, animated: true)
+		mapView.setCenterCoordinate(taskLocation, animated: true)
+		
+		let circle = MKCircle(centerCoordinate: taskLocation, radius: 400)
+		mapView.addOverlay(circle)
+		
+		
+		
+		let offerContainer = UIView()
+		contentView.addSubview(offerContainer)
+		offerContainer.backgroundColor = whiteNelpyColor
+		offerContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(mapView.snp_bottom)
+			make.width.equalTo(self.contentView.snp_width)
+			make.bottom.equalTo(self.contentView.snp_bottom)
+		}
+		
+	}
+
+	//MARK: DATA
+	
+	/**
+	Sets the Applications images(Category, Task poster profile pic)
+	
+	- parameter applicant: Task Poster
+	*/
+	func setImages(poster:User){
+		if(poster.profilePictureURL != nil){
+			let fbProfilePicture = poster.profilePictureURL
+			request(.GET,fbProfilePicture!).response(){
+				(_, _, data, _) in
+				let image = UIImage(data: data as NSData!)
+				self.picture.image = image
+			}
+		}
 	}
 	
+	
+	//MARK: View Delegate Methods
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		self.scrollView.contentSize = self.contentView.frame.size
+	}
+
 	
 	//MARK: iCarousel Delegate
 	
 	func numberOfItemsInCarousel(carousel: iCarousel) -> Int {
-		
 		if self.task.pictures != nil {
-			if self.task.pictures!.count == 1 {
+			if self.pictures?.count == 1 {
 				self.carousel.scrollEnabled = false
 			}
-			
-			return self.task.pictures!.count
+			return self.pictures!.count
 		}
-		
 		return 0
 	}
 	
 	
  func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
-		let picture = UIImageView(frame: self.carousel.frame)
-		picture.clipsToBounds = true
-		let imageURL = self.task.pictures![index].url!
-		getPictures(imageURL, block: { (imageReturned:UIImage) -> Void in
-			picture.image = imageReturned
-		})
-		picture.contentMode = .ScaleAspectFit
-		return picture
+	
+	let picture = UIImageView(frame: self.carousel.frame)
+	picture.clipsToBounds = true
+	let imageURL = self.task.pictures![index].url!
+	
+	ApiHelper.getPictures(imageURL, block: { (imageReturned:UIImage) -> Void in
+		picture.image = imageReturned
+	})
+
+	picture.contentMode = .ScaleAspectFit
+	return picture
+	}
+	
+	//MARK: MKMapView Delegate Methods
+	
+	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+		if overlay is MKCircle {
+			let circle = MKCircleRenderer(overlay: overlay)
+			circle.strokeColor = UIColor.redColor()
+			circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
+			circle.lineWidth = 1
+			return circle
+		} else {
+			return MKCircleRenderer()
+		}
+	}
+	
+	//MARK: CLLocation Delegate Methods
+	
+	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+		
+	}
+	
+	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+		
 	}
 	
 	//MARK: Actions
 	
-	/**
-	Apply for a task
-	
-	- parameter sender: UIButton
-	*/
-	@IBAction func applyButtonTapped(sender: AnyObject) {
-		if(!self.applyButton.selected){
-			ApiHelper.applyForTask(self.task, price: Int(self.task.priceOffered!))
-			self.applyButton.selected = true
-			self.updateButton()
-		}else{
-			ApiHelper.cancelApplyForTask(self.task)
-			self.applyButton.selected = false
-			self.task.application!.state = .Canceled
-			self.updateButton()
-		}
-	}
-	
+//	/**
+//	Apply for a task
+//	
+//	- parameter sender: UIButton
+//	*/
+//	func applyButtonTapped(sender: AnyObject) {
+//		if(!self.applyButton.selected){
+//			ApiHelper.applyForTask(self.task, price: Int(self.task.priceOffered!))
+//			self.applyButton.selected = true
+//			self.updateButton()
+//		}else{
+//			ApiHelper.cancelApplyForTask(self.task)
+//			self.applyButton.selected = false
+//			self.task.application!.state = .Canceled
+//			self.updateButton()
+//		}
+//	}
+//	
 	func backButtonTapped(sender: UIButton) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 		view.endEditing(true) // dissmiss keyboard without delay
 	}
 	
-	//MARK: Utilities
-	
 	/**
-	Little hack to make the Apply Bottom act right :D
+	When the task poster view is tapped
+	
+	- parameter sender: Poster Profile View
 	*/
-	func startButtonConfig(){
-		if self.task.application != nil && self.task.application!.state != .Canceled {
-			self.applyButton.selected = true
-			self.updateButton()
-		} else {
-			self.applyButton.selected = false
-			self.updateButton()
-		}
+	func didTapProfile(sender:UIView){
+		let nextVC = PosterProfileViewController()
+		nextVC.poster = self.task.user
+		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
-	/**
-	Updates the button appearance
-	*/
-	func updateButton(){
-		if self.applyButton.selected {
-			self.applyButton.setTitle("Applied", forState: UIControlState.Selected)
-			self.applyButton.backgroundColor = nelperRedColor
-		} else {
-			self.applyButton.setTitle("Apply", forState: UIControlState.Normal)
-			self.applyButton.backgroundColor = greenPriceButton
-		}
-	}
-	
-	
-	/**
-	Sets the Task Poster profile picture
-	
-	- parameter nelpTask: Nelp Task
-	*/
-	func setProfilePicture(nelpTask:NelpTask){
-		if(nelpTask.user.profilePictureURL != nil){
-			let fbProfilePicture = nelpTask.user.profilePictureURL
-			request(.GET,fbProfilePicture!).response(){
-				(_, _, data, _) in
-				let image = UIImage(data: data as NSData!)
-				self.profilePicture.image = image
-				self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
-				self.profilePicture.clipsToBounds = true;
-				self.profilePicture.layer.borderWidth = 3;
-				self.profilePicture.layer.borderColor = blackNelpyColor.CGColor
-				self.profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
-				
-				self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2;
-				self.categoryPicture.clipsToBounds = true;
-				self.categoryPicture.image = UIImage(named: nelpTask.category!)
-			}
-		}
-		let image = UIImage(named: "noProfilePicture")
-		self.profilePicture.image = image
-		self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
-		self.profilePicture.clipsToBounds = true;
-		self.profilePicture.layer.masksToBounds = true
-		self.profilePicture.layer.borderWidth = 3;
-		self.profilePicture.layer.borderColor = blackNelpyColor.CGColor
-		self.profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
-		
-		self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2;
-		self.categoryPicture.clipsToBounds = true;
-		self.categoryPicture.image = UIImage(named: nelpTask.category!)
-	}
-	
-	/**
-	Gets the Pictures associated with the task
-	
-	- parameter imageURL: Image URL (Location)
-	- parameter block:    block
-	*/
-	func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {
-		var image: UIImage!
-		request(.GET,imageURL).response(){
-			(_, _, data, error) in
-			if(error != nil){
-				print(error)
-			}
-			image = UIImage(data: data as NSData!)
-			block(image)
-		}
-	}
-	
+//
+//	//MARK: Utilities
+//	
+//	/**
+//	Little hack to make the Apply Bottom act right :D
+//	*/
+//	func startButtonConfig(){
+//		if self.task.application != nil && self.task.application!.state != .Canceled {
+//			self.applyButton.selected = true
+//			self.updateButton()
+//		} else {
+//			self.applyButton.selected = false
+//			self.updateButton()
+//		}
+//	}
+//	
+//	/**
+//	Updates the button appearance
+//	*/
+//	func updateButton(){
+//		if self.applyButton.selected {
+//			self.applyButton.setTitle("Applied", forState: UIControlState.Selected)
+//			self.applyButton.backgroundColor = nelperRedColor
+//		} else {
+//			self.applyButton.setTitle("Apply", forState: UIControlState.Normal)
+//			self.applyButton.backgroundColor = greenPriceButton
+//		}
+//	}
+
 }
+	

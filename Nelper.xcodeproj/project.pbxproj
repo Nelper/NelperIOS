@@ -41,7 +41,6 @@
 		F73A45BE1B72F4B600FD8C79 /* MKPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A45BD1B72F4B600FD8C79 /* MKPin.swift */; };
 		F73A45C01B72FEA400FD8C79 /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A45BF1B72FEA400FD8C79 /* LocationHelper.swift */; };
 		F73A45C61B741F4000FD8C79 /* NelpTaskDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A45C51B741F4000FD8C79 /* NelpTaskDetailsViewController.swift */; };
-		F73A45C81B741F8F00FD8C79 /* NelpTaskDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F73A45C71B741F8F00FD8C79 /* NelpTaskDetailsViewController.xib */; };
 		F73AC3BC1B6E80A30086B0B4 /* AutocompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73AC3BB1B6E80A30086B0B4 /* AutocompleteCell.swift */; };
 		F73AE64A1B6D3CEA00FE672E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73AE6491B6D3CEA00FE672E /* Accounts.framework */; };
 		F73AE64C1B6D3CFF00FE672E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73AE64B1B6D3CFF00FE672E /* Social.framework */; };
@@ -217,7 +216,6 @@
 		F73A45BD1B72F4B600FD8C79 /* MKPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MKPin.swift; path = Nelper/Model/MKPin.swift; sourceTree = SOURCE_ROOT; };
 		F73A45BF1B72FEA400FD8C79 /* LocationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationHelper.swift; path = Nelper/Helpers/LocationHelper.swift; sourceTree = SOURCE_ROOT; };
 		F73A45C51B741F4000FD8C79 /* NelpTaskDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTaskDetailsViewController.swift; path = Nelp/NelpTaskDetailsViewController.swift; sourceTree = "<group>"; };
-		F73A45C71B741F8F00FD8C79 /* NelpTaskDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NelpTaskDetailsViewController.xib; path = Nelp/NelpTaskDetailsViewController.xib; sourceTree = "<group>"; };
 		F73AC3BB1B6E80A30086B0B4 /* AutocompleteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AutocompleteCell.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/AutocompleteCell.swift"; sourceTree = SOURCE_ROOT; };
 		F73AE6491B6D3CEA00FE672E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		F73AE64B1B6D3CFF00FE672E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -435,7 +433,6 @@
 				195FD9B31B4CA6A50040AD20 /* NelpViewController.swift */,
 				195FD9B41B4CA6A50040AD20 /* NelpViewController.xib */,
 				F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */,
-				F73A45C71B741F8F00FD8C79 /* NelpTaskDetailsViewController.xib */,
 				F73A45C51B741F4000FD8C79 /* NelpTaskDetailsViewController.swift */,
 				F75F927A1B98AFB30050B926 /* FilterSortViewController.swift */,
 			);
@@ -919,7 +916,6 @@
 				F7E8F9171B94E7DF007D44D8 /* layerLogo@2x.png in Resources */,
 				F7EE46B81B6D219C005ECFCA /* Podfile in Resources */,
 				F7E8F90D1B94E7DF007D44D8 /* block@2x.png in Resources */,
-				F73A45C81B741F8F00FD8C79 /* NelpTaskDetailsViewController.xib in Resources */,
 				F7E8F9121B94E7DF007D44D8 /* chevron.png in Resources */,
 				195FD9B61B4CA6A50040AD20 /* NelpViewController.xib in Resources */,
 				F7E8F9151B94E7DF007D44D8 /* layerbell.caf in Resources */,

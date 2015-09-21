@@ -34,6 +34,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	var tableView: UITableView!
 	var refreshView: UIRefreshControl!
+	var filtersButton:UIButton!
 	
 	var nelpTasks = [NelpTask]()
 	var findNelpTasks = [FindNelpTask]()
@@ -102,12 +103,14 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 		let filtersButton = UIButton()
 		self.navBar.addSubview(filtersButton)
-		filtersButton.setTitle("Filters", forState: UIControlState.Normal)
-		filtersButton.setTitleColor(nelperRedColor, forState: UIControlState.Normal)
+		self.filtersButton = filtersButton
+		filtersButton.setBackgroundImage(UIImage(named: "filters_grey"), forState: UIControlState.Normal)
 		filtersButton.addTarget(self, action: "didTapFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		filtersButton.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(navBar.snp_right).offset(-4)
-			make.centerY.equalTo(navBar.snp_centerY).offset(4)
+			make.right.equalTo(navBar.snp_right).offset(-8)
+			make.bottom.equalTo(navBar.snp_bottom).offset(-8)
+			make.height.equalTo(25)
+			make.width.equalTo(25)
 		}
 	}
 	
@@ -165,6 +168,14 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 				self.mapView.addAnnotation(taskPin)
 				
 			}
+		}
+	}
+	
+	func checkFilters(){
+		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
+			self.filtersButton.setBackgroundImage(UIImage(named: "filters_grey"), forState: UIControlState.Normal)
+		}else {
+			self.filtersButton.setBackgroundImage(UIImage(named: "filters_red"), forState: UIControlState.Normal)
 		}
 	}
 	
@@ -243,7 +254,8 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let selectedTask = self.nelpTasks[indexPath.row]
-		let vc = NelpTasksDetailsViewController(nelpTask: selectedTask)
+		let vc = NelpTasksDetailsViewController()
+		vc.task = selectedTask
 		self.presentViewController(vc, animated: false, completion: nil)
 		
 	}
@@ -308,6 +320,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.minPrice = minPrice
 		self.maxDistance = maxDistance
 		self.loadDataWithFilters(filters, sort: sort, minPrice: minPrice, maxDistance: maxDistance)
+		self.checkFilters()
 	}
 	
 	//MARK: Actions

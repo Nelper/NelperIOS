@@ -40,7 +40,11 @@ class TabBarCustom: UITabBarController {
 		let postVCItem = UITabBarItem(title: "Post a task", image: UIImage(named: "post_task"), selectedImage: UIImage(named: "post_task"))
 		postVC.tabBarItem = postVCItem
 		
-		let controllersArray = [browseVC, nelpCenterVC, postVC]
+		let moreVC = UIViewController()
+		let moreVCItem = UITabBarItem(title: "More", image: UIImage(named: "menu"), selectedImage: UIImage(named: "more"))
+		moreVC.tabBarItem = moreVCItem
+		
+		let controllersArray = [browseVC, nelpCenterVC, postVC, moreVC]
 		
 		self.viewControllers = controllersArray
 		self.tabBar.tintColor = nelperRedColor

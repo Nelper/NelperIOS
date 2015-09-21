@@ -5,7 +5,7 @@ target 'Nelper' do
 
 use_frameworks!
 
-pod 'GoogleMaps'
+pod 'GoogleMaps', '~> 1.10.2'
 pod 'Alamofire'
 pod 'SnapKit'
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git', :branch => 'xcode7'

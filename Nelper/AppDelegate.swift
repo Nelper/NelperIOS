@@ -42,8 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		//Layer
 		
 		let LayerAppIDString: NSURL! = NSURL(string: "layer:///apps/staging/33a90a5e-5006-11e5-a708-7f0c79166812")
-		let ParseAppIDString: String = "w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN"
-		let ParseClientKeyString: String = "NRdzngSkWnGsHTMdcYumEuoXX1N8tt0ZN0o48fZV"
+
 		
 		layerClient = LYRClient(appID: LayerAppIDString)
 		LayerManager.sharedInstance.layerClient = layerClient
@@ -56,9 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		self.window!.rootViewController = UIViewController()
 		self.window!.makeKeyAndVisible()
 		
-		
-		
-		let user = PFUser.currentUser()
 		
 		if(PFUser.currentUser()?.username == nil) {
 			// If the user is not logged show the login page.
