@@ -101,7 +101,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		taskLabel.text = self.task.title
 		taskLabelContainer.addSubview(taskLabel)
 		taskLabel.textColor = darkGrayDetails
-		taskLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
+		taskLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
 		taskLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskLabelContainer.snp_top).offset(4)
 			make.bottom.equalTo(taskLabelContainer.snp_bottom).offset(-4)
@@ -132,7 +132,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		nelperAcceptedLabel.textAlignment = NSTextAlignment.Center
 		nelperAcceptedLabel.text = "Nelper \nAccepted"
 		nelperAcceptedLabel.textColor = blackNelpyColor
-		nelperAcceptedLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		nelperAcceptedLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		nelperAcceptedLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(progressContainer.snp_top).offset(20)
 			make.left.equalTo(progressContainer.snp_left).offset(12)
@@ -178,7 +178,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		leaveFeedbackLabel.textAlignment = NSTextAlignment.Center
 		leaveFeedbackLabel.text = "Rating\n&\nFeedback"
 		leaveFeedbackLabel.textColor = blackNelpyColor
-		leaveFeedbackLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		leaveFeedbackLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		leaveFeedbackLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(leaveFeedbackImageView.snp_bottom).offset(10)
 			make.right.equalTo(progressContainer.snp_right).offset(-18)
@@ -211,7 +211,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		paymentLabel.textAlignment = NSTextAlignment.Center
 		paymentLabel.text = "Payment Sent"
 		paymentLabel.textColor = blackNelpyColor
-		paymentLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		paymentLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		paymentLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(paymentImageView.snp_bottom).offset(20)
 			make.centerX.equalTo(paymentImageView.snp_centerX)
@@ -244,7 +244,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		approvedTaskLabel.textAlignment = NSTextAlignment.Center
 		approvedTaskLabel.text = "Approved task completion"
 		approvedTaskLabel.textColor = blackNelpyColor
-		approvedTaskLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		approvedTaskLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		approvedTaskLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(nelperAcceptedLabel.snp_centerY)
 			make.centerX.equalTo(approvedTaskImageView.snp_centerX)
@@ -298,7 +298,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		paymentButton.setTitle("Proceed to Payment", forState: UIControlState.Normal)
 		paymentButton.addTarget(self, action: "didTapPaymentButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		paymentButton.setTitleColor(whiteGrayColor, forState: UIControlState.Normal)
-		paymentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
+		paymentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kButtonFontSize)
 		paymentButton.backgroundColor = nelperRedColor
 		paymentButton.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(progressContainer.snp_bottom).offset(-60)
@@ -314,7 +314,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		aboutNelperPayLabel.text = "About NelperPay"
 		aboutNelperPayLabel.textColor = blackNelpyColor
 		aboutNelperPayLabel.backgroundColor = navBarColor
-		aboutNelperPayLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		aboutNelperPayLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		aboutNelperPayLabel.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(progressContainer.snp_bottom).offset(-20)
 			make.centerX.equalTo(progressContainer.snp_centerX).offset(10)
@@ -394,7 +394,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		headerContainer.addSubview(acceptedApplicantLabel)
 		acceptedApplicantLabel.text = "Accepted Nelper"
 		acceptedApplicantLabel.textColor = blackNelpyColor
-		acceptedApplicantLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
+		acceptedApplicantLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
 		acceptedApplicantLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(acceptedIcon.snp_centerY)
 			make.left.equalTo(acceptedIcon.snp_right).offset(12)
@@ -417,7 +417,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		profileContainer.addSubview(applicantName)
 		applicantName.text = self.acceptedApplicant.name
 		applicantName.textColor = blackNelpyColor
-		applicantName.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		applicantName.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		applicantName.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileContainer.snp_top).offset(18)
 			make.left.equalTo(profileContainer.snp_left).offset(20)
@@ -504,7 +504,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		profileContainer.addSubview(numberOfTasksCompletedLabel)
 		numberOfTasksCompletedLabel.textColor = blackNelpyColor
 		numberOfTasksCompletedLabel.text = "8 tasks completed"
-		numberOfTasksCompletedLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		numberOfTasksCompletedLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		numberOfTasksCompletedLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(firstStar.snp_bottom).offset(4)
 			make.left.equalTo(firstStar.snp_left)
@@ -538,7 +538,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		profileContainer.addSubview(priceToPay)
 		priceToPay.text = "$\(self.acceptedApplication.price!)"
 		priceToPay.textColor = whiteNelpyColor
-		priceToPay.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
+		priceToPay.font = UIFont(name: "Lato-Regular", size: kButtonFontSize)
 		priceToPay.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(moneyTag.snp_centerX).offset(2)
 			make.centerY.equalTo(moneyTag.snp_centerY)
@@ -570,7 +570,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		informationContainer.addSubview(emailLabel)
 		emailLabel.text = "cvinette@nelper.ca"
 		emailLabel.textColor = blackNelpyColor
-		emailLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		emailLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		emailLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
 			make.centerY.equalTo(informationContainer.snp_centerY).offset(-30)
@@ -590,7 +590,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		informationContainer.addSubview(phoneLabel)
 		phoneLabel.text = "000-000-000"
 		phoneLabel.textColor = blackNelpyColor
-		phoneLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		phoneLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		phoneLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
 			make.top.equalTo(emailLabel.snp_bottom).offset(30)
@@ -765,6 +765,8 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 			}
 			let conversationNavController = UINavigationController(rootViewController: nextVC)
 			self.conversationController = conversationNavController
+			self.conversationController!.setNavigationBarHidden(true, animated: false)
+
 		}
 		
 		if self.chatButton.selected{

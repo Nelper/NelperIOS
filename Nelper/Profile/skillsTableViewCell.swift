@@ -37,13 +37,13 @@ class skillsTableViewCell: UITableViewCell {
 		//Check image
 		let checkImage = UIImageView()
 		backView.addSubview(checkImage)
-		checkImage.image = UIImage(named: "check_orange")
+		checkImage.image = UIImage(named: "check_gray")
 		checkImage.contentMode = UIViewContentMode.ScaleAspectFill
 		checkImage.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(backView.snp_left).offset(4)
 			make.centerY.equalTo(backView.snp_centerY)
-			make.height.equalTo(20)
-			make.width.equalTo(20)
+			make.height.equalTo(16)
+			make.width.equalTo(16)
 		}
 		
 		//Trash Can Icon
@@ -65,9 +65,9 @@ class skillsTableViewCell: UITableViewCell {
 		self.skillName = skillName
 		backView.addSubview(skillName)
 		skillName.textColor = blackNelpyColor
-		skillName.font = UIFont(name: "HelveticaNeue", size: kCellSubtitleFontSize)
+		skillName.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
 		skillName.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(checkImage.snp_right).offset(4)
+			make.left.equalTo(checkImage.snp_right).offset(6)
 			make.centerY.equalTo(backView.snp_centerY)
 			make.right.equalTo(trashImage.snp_right).offset(-4)
 			

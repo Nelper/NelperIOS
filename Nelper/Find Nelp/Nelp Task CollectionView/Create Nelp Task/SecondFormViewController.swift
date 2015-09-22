@@ -78,7 +78,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.contentView.addSubview(taskTitleLabel)
 		taskTitleLabel.text = "Enter your Task Title"
 		taskTitleLabel.textColor = blackNelpyColor
-		taskTitleLabel.font = UIFont(name: "HelveticaNeue", size: kFormViewLabelFontSize)
+		taskTitleLabel.font = UIFont(name: "Lato-Regular", size: kFormViewLabelFontSize)
 		
 		taskTitleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(20)
@@ -90,7 +90,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.contentView.addSubview(taskTitleTextField)
 		taskTitleTextField.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
 		taskTitleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
-		taskTitleTextField.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		taskTitleTextField.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		taskTitleTextField.textColor = blackNelpyColor
 		taskTitleTextField.textAlignment = NSTextAlignment.Left
 		taskTitleTextField.layer.cornerRadius = 3
@@ -113,7 +113,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.contentView.addSubview(priceOfferedLabel)
 		priceOfferedLabel.text = "How much are you offering?"
 		priceOfferedLabel.textColor = blackNelpyColor
-		priceOfferedLabel.font = UIFont(name: "HelveticaNeue", size: kFormViewLabelFontSize)
+		priceOfferedLabel.font = UIFont(name: "Lato-Regular", size: kFormViewLabelFontSize)
 		
 		priceOfferedLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskTitleTextField.snp_bottom).offset(20)
@@ -125,7 +125,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.contentView.addSubview(priceOfferedTextField)
 		priceOfferedTextField.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
 		priceOfferedTextField.attributedPlaceholder = NSAttributedString(string: "$", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
-		priceOfferedTextField.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		priceOfferedTextField.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		priceOfferedTextField.textColor = blackNelpyColor
 		priceOfferedTextField.textAlignment = NSTextAlignment.Left
 		priceOfferedTextField.layer.cornerRadius = 3
@@ -148,7 +148,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.contentView.addSubview(locationLabel)
 		locationLabel.text = "Enter a location for the task"
 		locationLabel.textColor = blackNelpyColor
-		locationLabel.font = UIFont(name: "HelveticaNeue", size: kFormViewLabelFontSize)
+		locationLabel.font = UIFont(name: "Lato-Regular", size: kFormViewLabelFontSize)
 		
 		locationLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(priceOfferedTextField.snp_bottom).offset(20)
@@ -160,7 +160,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.locationTextField!.delegate = self
 		locationTextField.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
 		locationTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
-		locationTextField.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		locationTextField.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		locationTextField.textColor = blackNelpyColor
 		locationTextField.textAlignment = NSTextAlignment.Left
 		locationTextField.layer.cornerRadius = 3
@@ -184,7 +184,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.contentView.addSubview(descriptionLabel)
 		descriptionLabel.text = "Briefly describe the task"
 		descriptionLabel.textColor = blackNelpyColor
-		descriptionLabel.font = UIFont(name: "HelveticaNeue", size: kFormViewLabelFontSize)
+		descriptionLabel.font = UIFont(name: "Lato-Regular", size: kFormViewLabelFontSize)
 		
 		descriptionLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(locationTextField.snp_bottom).offset(20)
@@ -195,7 +195,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		descriptionTextView.delegate = self
 		self.contentView.addSubview(descriptionTextView)
 		descriptionTextView.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
-		descriptionTextView.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		descriptionTextView.textColor = blackNelpyColor
 		descriptionTextView.textAlignment = NSTextAlignment.Left
 		descriptionTextView.layer.cornerRadius = 3
@@ -217,7 +217,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.contentView.addSubview(picturesLabel)
 		picturesLabel.text = "Attach pictures (optional)"
 		picturesLabel.textColor = blackNelpyColor
-		picturesLabel.font = UIFont(name: "HelveticaNeue", size: kFormViewLabelFontSize)
+		picturesLabel.font = UIFont(name: "Lato-Regular", size: kFormViewLabelFontSize)
 		
 		picturesLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(descriptionTextView.snp_bottom).offset(20)
@@ -305,7 +305,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		createTaskButton.setTitle("Create Task", forState: UIControlState.Normal)
 		createTaskButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
 		createTaskButton.backgroundColor = greenPriceButton
-		createTaskButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kFormButtonFontSize)
+		createTaskButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kFormButtonFontSize)
 		createTaskButton.addTarget(self, action: "postButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		
 		createTaskButton.snp_makeConstraints { (make) -> Void in

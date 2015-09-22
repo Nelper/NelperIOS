@@ -437,7 +437,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		moneyLabelPoster.textAlignment = NSTextAlignment.Center
 		moneyLabelPoster.text = "$\(Int(self.task.priceOffered!))"
 		moneyLabelPoster.textColor = whiteNelpyColor
-		moneyLabelPoster.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		moneyLabelPoster.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTagPoster.snp_edges)
 		}

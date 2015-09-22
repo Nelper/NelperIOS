@@ -72,7 +72,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		popupContainer.addSubview(titleLabel)
 		titleLabel.text = "Pay your Nelper"
 		titleLabel.textColor = blackNelpyColor
-		titleLabel.font = UIFont(name: "HelveticaNeue", size: kPopupTitleFontSize)
+		titleLabel.font = UIFont(name: "Lato-Regular", size: kPopupTitleFontSize)
 		titleLabel.textAlignment = NSTextAlignment.Center
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(popupContainer.snp_top).offset(10)

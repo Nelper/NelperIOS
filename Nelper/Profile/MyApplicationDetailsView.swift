@@ -83,7 +83,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		statusContainer.addSubview(yourOfferLabel)
 		yourOfferLabel.text = "Your offer"
 		yourOfferLabel.textColor = darkGrayDetails
-		yourOfferLabel.font = UIFont(name: "HelveticaNeue", size: kStatusBarFont)
+		yourOfferLabel.font = UIFont(name: "Lato-Regular", size: kStatusBarFont)
 		yourOfferLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(statusContainer.snp_centerX)
 			make.centerY.equalTo(statusContainer.snp_centerY).offset(-20)
@@ -104,7 +104,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		moneyLabel.textAlignment = NSTextAlignment.Center
 		moneyLabel.text = "$\(self.application.price!)"
 		moneyLabel.textColor = whiteNelpyColor
-		moneyLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		moneyLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTag.snp_edges)
 		}
@@ -113,7 +113,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		statusContainer.addSubview(applicationStatusLabel)
 		applicationStatusLabel.text = "Application Status"
 		applicationStatusLabel.textColor = darkGrayDetails
-		applicationStatusLabel.font = UIFont(name: "HelveticaNeue", size: kStatusBarFont)
+		applicationStatusLabel.font = UIFont(name: "Lato-Regular", size: kStatusBarFont)
 		applicationStatusLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(statusContainer.snp_left).offset(10)
 			make.centerY.equalTo(yourOfferLabel.snp_centerY)
@@ -134,7 +134,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		statusLabel.text = self.fetchStatusText()
 		statusContainer.addSubview(statusLabel)
 		statusLabel.textColor = blackNelpyColor
-		statusLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		statusLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		statusLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(applicationStatusIcon.snp_centerY)
 			make.left.equalTo(applicationStatusIcon.snp_right).offset(4)
@@ -156,7 +156,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		appliedXDaysAgoLabel.text = "\(dateHelpah.timeAgoSinceDate(self.application.createdAt!, numericDates: true))"
 		appliedXDaysAgoLabel.textAlignment = NSTextAlignment.Right
 		appliedXDaysAgoLabel.textColor = blackNelpyColor
-		appliedXDaysAgoLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		appliedXDaysAgoLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		appliedXDaysAgoLabel.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(calendarIcon.snp_left).offset(-2)
 			make.centerY.equalTo(calendarIcon.snp_centerY)
@@ -167,7 +167,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		appliedDate.textAlignment  = NSTextAlignment.Center
 		appliedDate.text = "Applied"
 		appliedDate.textColor = darkGrayDetails
-		appliedDate.font = UIFont(name: "HelveticaNeue", size: kStatusBarFont)
+		appliedDate.font = UIFont(name: "Lato-Regular", size: kStatusBarFont)
 		appliedDate.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(yourOfferLabel.snp_centerY)
 			make.left.equalTo(appliedXDaysAgoLabel.snp_left)
@@ -251,7 +251,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		profileContainer.addSubview(nameLabel)
 		nameLabel.text = self.poster.name!
 		nameLabel.textColor = blackNelpyColor
-		nameLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		nameLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		nameLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(profilePicture.snp_centerY)
 			make.left.equalTo(profilePicture.snp_right).offset(6)
@@ -300,7 +300,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		taskNameLabel.text = self.application.task.title
 		taskNameLabel.textAlignment = NSTextAlignment.Center
 		taskNameLabel.textColor = blackNelpyColor
-		taskNameLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
+		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
 		taskNameLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(categoryIcon.snp_bottom).offset(14)
 			make.centerX.equalTo(taskContainer.snp_centerX)
@@ -325,7 +325,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		descriptionTextView.textColor = blackNelpyColor
 		descriptionTextView.scrollEnabled = false
 		descriptionTextView.editable = false
-		descriptionTextView.font = UIFont(name: "HelveticaNeue", size: kCellSubtitleFontSize)
+		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
 		descriptionTextView.textAlignment = NSTextAlignment.Center
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskNameLabelUnderline.snp_bottom).offset(10)
@@ -368,7 +368,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		let dateHelper = DateHelper()
 		postDateLabel.text = "Posted \(dateHelper.timeAgoSinceDate(self.application.task.createdAt!, numericDates: true))"
 		postDateLabel.textColor = blackNelpyColor
-		postDateLabel.font = UIFont(name: "HelveticaNeue", size: kCellSubtitleFontSize)
+		postDateLabel.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
 		postDateLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(postedIcon.snp_centerY)
 			make.left.equalTo(postedIcon.snp_right).offset(4)
@@ -390,7 +390,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		self.cityLabel = cityLabel
 		cityLabel.text = self.application.task.city!
 		cityLabel.textColor = blackNelpyColor
-		cityLabel.font = UIFont(name: "HelveticaNeue", size: kCellSubtitleFontSize)
+		cityLabel.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
 		cityLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(pinIcon.snp_centerY)
 			make.left.equalTo(pinIcon.snp_right).offset(4)
@@ -400,7 +400,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		taskContainer.addSubview(taskPosterOffer)
 		taskPosterOffer.text = "Task poster is offering"
 		taskPosterOffer.textColor = darkGrayDetails
-		taskPosterOffer.font = UIFont(name: "HelveticaNeue", size: kCellSubtitleFontSize)
+		taskPosterOffer.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
 		taskPosterOffer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(pinIcon.snp_bottom).offset(15)
 			make.left.equalTo(pinIcon.snp_left).offset(-20)
@@ -421,7 +421,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		moneyLabelPoster.textAlignment = NSTextAlignment.Center
 		moneyLabelPoster.text = "$\(Int(self.application.task.priceOffered!))"
 		moneyLabelPoster.textColor = whiteNelpyColor
-		moneyLabelPoster.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		moneyLabelPoster.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTagPoster.snp_edges)
 		}
@@ -431,7 +431,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		taskContainer.addSubview(locationNoticeLabel)
 		locationNoticeLabel.text = "Task location within 400m"
 		locationNoticeLabel.textColor = darkGrayDetails
-		locationNoticeLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		locationNoticeLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.view.snp_left).offset(2)
 			make.bottom.equalTo(taskContainer.snp_bottom).offset(-2)
@@ -703,6 +703,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			}
 			let conversationNavController = UINavigationController(rootViewController: nextVC)
 			self.conversationController = conversationNavController
+			self.conversationController!.setNavigationBarHidden(true, animated: false)
 		}
 		
 		if self.chatButton.selected{

@@ -32,6 +32,7 @@
 		199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */; };
 		199EF20C1B37A0A500B25B07 /* NelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF20B1B37A0A500B25B07 /* NelperTests.swift */; };
 		9FB9076C1CAA3EC7FCDFB9DE /* Pods_Nelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F700A8F51BB1DAC1002A4777 /* CategoryCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F700A8F41BB1DAC1002A4777 /* CategoryCardViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
 		F72F27D31B5302DE00CD3B0B /* NelpTaskCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F27D11B5302DE00CD3B0B /* NelpTaskCreateViewController.swift */; };
@@ -207,6 +208,7 @@
 		19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nelper-Bridging-Header.h"; sourceTree = "<group>"; };
 		3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
 		81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F700A8F41BB1DAC1002A4777 /* CategoryCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCardViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/CategoryCardViewController.swift"; sourceTree = SOURCE_ROOT; };
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
 		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		F72F27D11B5302DE00CD3B0B /* NelpTaskCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTaskCreateViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/NelpTaskCreateViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -633,6 +635,7 @@
 				F782A6251B6411DD00C78470 /* SecondFormViewController.swift */,
 				F782A6241B6411DD00C78470 /* SecondFormScreen.xib */,
 				F73AC3BB1B6E80A30086B0B4 /* AutocompleteCell.swift */,
+				F700A8F41BB1DAC1002A4777 /* CategoryCardViewController.swift */,
 			);
 			name = "Create Nelp Task";
 			path = Offer;
@@ -1026,6 +1029,7 @@
 				F72F27DC1B53224100CD3B0B /* NelpTaskApplication.swift in Sources */,
 				F7E8F8EB1B94E7CF007D44D8 /* ATLConversationCollectionViewHeader.m in Sources */,
 				19761A191B6877FB001600E1 /* FindNelpTask.swift in Sources */,
+				F700A8F51BB1DAC1002A4777 /* CategoryCardViewController.swift in Sources */,
 				F7E8F8E21B94E7CF007D44D8 /* ATLMediaInputStream.m in Sources */,
 				F7E8F8F21B94E7CF007D44D8 /* ATLMessageComposeTextView.m in Sources */,
 				F762D0061B4B66B000812235 /* LoginViewController.swift in Sources */,

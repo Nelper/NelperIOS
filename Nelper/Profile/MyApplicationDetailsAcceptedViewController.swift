@@ -93,7 +93,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		statusContainer.addSubview(yourOfferLabel)
 		yourOfferLabel.text = "Your offer"
 		yourOfferLabel.textColor = darkGrayDetails
-		yourOfferLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		yourOfferLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		yourOfferLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(statusContainer.snp_centerX)
 			make.centerY.equalTo(statusContainer.snp_centerY).offset(-20)
@@ -114,7 +114,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		moneyLabel.textAlignment = NSTextAlignment.Center
 		moneyLabel.text = "$\(self.application.price!)"
 		moneyLabel.textColor = whiteNelpyColor
-		moneyLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		moneyLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTag.snp_edges)
 		}
@@ -123,7 +123,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		statusContainer.addSubview(applicationStatusLabel)
 		applicationStatusLabel.text = "Application Status"
 		applicationStatusLabel.textColor = darkGrayDetails
-		applicationStatusLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		applicationStatusLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		applicationStatusLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(statusContainer.snp_left).offset(10)
 			make.centerY.equalTo(yourOfferLabel.snp_centerY)
@@ -144,7 +144,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		statusLabel.text = self.fetchStatusText()
 		statusContainer.addSubview(statusLabel)
 		statusLabel.textColor = blackNelpyColor
-		statusLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		statusLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		statusLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(applicationStatusIcon.snp_centerY)
 			make.left.equalTo(applicationStatusIcon.snp_right).offset(4)
@@ -166,7 +166,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		appliedXDaysAgoLabel.text = "\(dateHelpah.timeAgoSinceDate(self.application.createdAt!, numericDates: true))"
 		appliedXDaysAgoLabel.textAlignment = NSTextAlignment.Right
 		appliedXDaysAgoLabel.textColor = blackNelpyColor
-		appliedXDaysAgoLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		appliedXDaysAgoLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		appliedXDaysAgoLabel.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(calendarIcon.snp_left).offset(-2)
 			make.centerY.equalTo(calendarIcon.snp_centerY)
@@ -177,7 +177,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		appliedDate.textAlignment  = NSTextAlignment.Center
 		appliedDate.text = "Applied"
 		appliedDate.textColor = darkGrayDetails
-		appliedDate.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		appliedDate.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		appliedDate.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(yourOfferLabel.snp_centerY)
 			make.left.equalTo(appliedXDaysAgoLabel.snp_left)
@@ -252,7 +252,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		nelperAcceptedLabel.textAlignment = NSTextAlignment.Center
 		nelperAcceptedLabel.text = "Accepted"
 		nelperAcceptedLabel.textColor = blackNelpyColor
-		nelperAcceptedLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		nelperAcceptedLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		nelperAcceptedLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(progressContainer.snp_top).offset(20)
 			make.left.equalTo(progressContainer.snp_left).offset(12)
@@ -298,7 +298,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		leaveFeedbackLabel.textAlignment = NSTextAlignment.Center
 		leaveFeedbackLabel.text = "Rating\n&\nFeedback"
 		leaveFeedbackLabel.textColor = blackNelpyColor
-		leaveFeedbackLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		leaveFeedbackLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		leaveFeedbackLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(leaveFeedbackImageView.snp_bottom).offset(10)
 			make.right.equalTo(progressContainer.snp_right).offset(-18)
@@ -331,7 +331,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		paymentLabel.textAlignment = NSTextAlignment.Center
 		paymentLabel.text = "Payment Sent"
 		paymentLabel.textColor = blackNelpyColor
-		paymentLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		paymentLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		paymentLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(paymentImageView.snp_bottom).offset(20)
 			make.centerX.equalTo(paymentImageView.snp_centerX)
@@ -364,7 +364,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		approvedTaskLabel.textAlignment = NSTextAlignment.Center
 		approvedTaskLabel.text = "Approved task completion"
 		approvedTaskLabel.textColor = blackNelpyColor
-		approvedTaskLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		approvedTaskLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		approvedTaskLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(nelperAcceptedLabel.snp_centerY)
 			make.centerX.equalTo(approvedTaskImageView.snp_centerX)
@@ -418,7 +418,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		completedTaskButton.setTitle("I have completed the task!", forState: UIControlState.Normal)
 		completedTaskButton.addTarget(self, action: "didTapTaskCompleted:", forControlEvents: UIControlEvents.TouchUpInside)
 		completedTaskButton.setTitleColor(whiteGrayColor, forState: UIControlState.Normal)
-		completedTaskButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
+		completedTaskButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kButtonFontSize)
 		completedTaskButton.backgroundColor = nelperRedColor
 		completedTaskButton.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(progressContainer.snp_bottom).offset(-20)
@@ -463,7 +463,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		profileContainer.addSubview(nameLabel)
 		nameLabel.text = self.poster.name!
 		nameLabel.textColor = blackNelpyColor
-		nameLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		nameLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		nameLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(profilePicture.snp_centerY)
 			make.left.equalTo(profilePicture.snp_right).offset(6)
@@ -498,7 +498,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		infoContainer.addSubview(emailLabel)
 		emailLabel.text = "cvinette@nelper.ca"
 		emailLabel.textColor = blackNelpyColor
-		emailLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		emailLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		emailLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(infoContainer.snp_centerX).offset(15)
 			make.centerY.equalTo(infoContainer.snp_centerY).offset(-30)
@@ -518,7 +518,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		infoContainer.addSubview(phoneLabel)
 		phoneLabel.text = "000-000-000"
 		phoneLabel.textColor = blackNelpyColor
-		phoneLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		phoneLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		phoneLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(infoContainer.snp_centerX).offset(15)
 			make.top.equalTo(emailLabel.snp_bottom).offset(30)
@@ -566,7 +566,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		taskNameLabel.text = self.application.task.title
 		taskNameLabel.textAlignment = NSTextAlignment.Center
 		taskNameLabel.textColor = blackNelpyColor
-		taskNameLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
+		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
 		taskNameLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(categoryIcon.snp_bottom).offset(14)
 			make.centerX.equalTo(taskContainer.snp_centerX)
@@ -591,7 +591,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		descriptionTextView.textColor = blackNelpyColor
 		descriptionTextView.scrollEnabled = false
 		descriptionTextView.editable = false
-		descriptionTextView.font = UIFont(name: "HelveticaNeue", size: kCellSubtitleFontSize)
+		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
 		descriptionTextView.textAlignment = NSTextAlignment.Center
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskNameLabelUnderline.snp_bottom).offset(10)
@@ -651,7 +651,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		locationContainer.addSubview(streetAddressLabel)
 		streetAddressLabel.text = "175 Forbin Janson"
 		streetAddressLabel.textColor = blackNelpyColor
-		streetAddressLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		streetAddressLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
 			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
@@ -662,7 +662,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		locationContainer.addSubview(cityLabel)
 		cityLabel.text = "Mont Saint-Hilaire"
 		cityLabel.textColor = blackNelpyColor
-		cityLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		cityLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		cityLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
 			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
@@ -673,7 +673,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		locationContainer.addSubview(zipcodeLabel)
 		zipcodeLabel.text = "J3H5E5"
 		zipcodeLabel.textColor = blackNelpyColor
-		zipcodeLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		zipcodeLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		zipcodeLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
 			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
@@ -684,7 +684,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		taskContainer.addSubview(locationNoticeLabel)
 		locationNoticeLabel.text = "Exact Location Shown"
 		locationNoticeLabel.textColor = darkGrayDetails
-		locationNoticeLabel.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		locationNoticeLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.view.snp_left).offset(2)
 			make.bottom.equalTo(taskContainer.snp_bottom).offset(-2)

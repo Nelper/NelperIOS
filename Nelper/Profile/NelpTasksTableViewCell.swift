@@ -113,7 +113,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		let titleLabel = UILabel()
 		self.titleLabel = titleLabel
 		titleLabel.textColor = blackNelpyColor
-		titleLabel.font = UIFont(name: "HelveticaNeue", size: kCellTitleFontSize)
+		titleLabel.font = UIFont(name: "Lato-Regular", size: kCellTitleFontSize)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_bottom).offset(4)
@@ -136,7 +136,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		let numberOfApplicants = UILabel()
 		self.numberOfApplicantsLabel = numberOfApplicants
 		self.numberOfApplicants = numberOfApplicants
-		self.numberOfApplicants.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
+		self.numberOfApplicants.font = UIFont(name: "Lato-Light", size: kCellTextFontSize)
 		self.numberOfApplicants.textColor = blackNelpyColor
 		cellView.addSubview(numberOfApplicants)
 		numberOfApplicants.snp_makeConstraints { (make) -> Void in
@@ -145,43 +145,25 @@ class NelpTasksTableViewCell: UITableViewCell {
 		}
 		
 		//Price tag
-		let price = UILabel()
-		self.price = price
-		cellView.addSubview(price)
-		price.snp_makeConstraints { (make) -> Void in
+		
+		let moneyTag = UIImageView()
+		cellView.addSubview(moneyTag)
+		moneyTag.image = UIImage(named: "moneytag")
+		moneyTag.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(numberOfApplicants.snp_centerY)
 			make.right.equalTo(cellView.snp_right).offset(-20)
 			make.width.equalTo(70)
-			make.height.equalTo(30)
-		}
-		self.price.backgroundColor = greenPriceButton
-		self.price.font = UIFont(name: "HelveticaNeue", size: kCellPriceFontSize)
-		self.price.textColor = whiteNelpyColor
-		self.price.layer.cornerRadius = 6
-		self.price.clipsToBounds = true
-		self.price.textAlignment = NSTextAlignment.Center
-		
-		//Posted date
-		let calendarImage = UIImageView()
-		cellView.addSubview(calendarImage)
-		calendarImage.image = UIImage(named: "calendar.png")
-		calendarImage.contentMode = UIViewContentMode.ScaleAspectFit
-		calendarImage.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(numberOfApplicantsIcon.snp_bottom).offset(4)
-			make.left.equalTo(numberOfApplicantsIcon.snp_left)
-			make.width.equalTo(30)
-			make.height.equalTo(30)
+			make.height.equalTo(35)
 		}
 		
-		let postedDate = UILabel()
-		self.postedDate = postedDate
-		cellView.addSubview(postedDate)
-		postedDate.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
-		postedDate.textColor = blackNelpyColor
-		
-		postedDate.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(calendarImage.snp_right).offset(6)
-			make.centerY.equalTo(calendarImage.snp_centerY)
+		let moneyLabel = UILabel()
+		self.price = moneyLabel
+		moneyTag.addSubview(moneyLabel)
+		moneyLabel.textAlignment = NSTextAlignment.Center
+		moneyLabel.textColor = whiteNelpyColor
+		moneyLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		moneyLabel.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(moneyTag.snp_edges)
 		}
 		
 		self.addSubview(backView)
@@ -219,13 +201,15 @@ class NelpTasksTableViewCell: UITableViewCell {
 		if(!nelpTask.pictures!.isEmpty){
 		ApiHelper.getPictures(nelpTask.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
 			self.topContainer.image = imageReturned
-		})}}
+		})}}else{
+			self.topContainer.image = UIImage(named: "square_\(nelpTask.category!)")!
+		}
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true
 		
 		if nelpTask.state == .Accepted {
 			self.numberOfApplicantsIcon.image = UIImage(named: "accepted")
-			self.numberOfApplicantsLabel.text = "Accepted"
+			self.numberOfApplicantsLabel.text = "Nelper Accepted"
 		}
 	}
 	
@@ -238,11 +222,11 @@ class NelpTasksTableViewCell: UITableViewCell {
 	func setNotification(nelpTask:FindNelpTask) {
 		
 		if (nelpTask.applications.count == 0) {
-			self.numberOfApplicants.text = "0 applicant"
+			self.numberOfApplicants.text = "0 Nelper"
 		} else if (nelpTask.applications.count == 1) {
-			self.numberOfApplicants.text = "1 applicant"
+			self.numberOfApplicants.text = "1 Nelper"
 		} else {
-			self.numberOfApplicants.text = "\(nelpTask.applications.count) applicants"
+			self.numberOfApplicants.text = "\(nelpTask.applications.count) Nelpers"
 		}
 		
 		for application in nelpTask.applications{
@@ -266,11 +250,9 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.titleLabel.text = nelpTask.title
 		let price = String(format: "%.0f", nelpTask.priceOffered!)
 		self.price.text = "$"+price
-		let dateHelper = DateHelper()
-		self.postedDate.text = "Posted \(dateHelper.timeAgoSinceDate(nelpTask.createdAt!, numericDates: true))"
-
 
 	}
+
 }
 
 

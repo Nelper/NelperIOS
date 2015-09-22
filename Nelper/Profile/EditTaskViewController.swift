@@ -115,7 +115,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		self.titleTextField = titleTextField
 		taskInformationContainer.addSubview(titleTextField)
 		titleTextField.text = self.task.title
-		titleTextField.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		titleTextField.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		titleTextField.textAlignment = NSTextAlignment.Center
 		titleTextField.layer.borderWidth = 1
 		titleTextField.layer.borderColor = darkGrayDetails.CGColor
@@ -142,7 +142,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		self.descriptionTextView = descriptionTextView
 		taskInformationContainer.addSubview(descriptionTextView)
 		descriptionTextView.text = self.task.desc
-		descriptionTextView.font = UIFont(name: "HelveticaNeue", size: kProgressBarTextFontSize)
+		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		descriptionTextView.textAlignment = NSTextAlignment.Center
 		descriptionTextView.layer.borderWidth = 1
 		descriptionTextView.layer.borderColor = darkGrayDetails.CGColor
@@ -207,7 +207,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		locationContainer.addSubview(streetAddressLabel)
 		streetAddressLabel.text = "175 Forbin Janson"
 		streetAddressLabel.textColor = blackNelpyColor
-		streetAddressLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		streetAddressLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
 			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
@@ -219,7 +219,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		locationContainer.addSubview(cityLabel)
 		cityLabel.text = "Mont Saint-Hilaire"
 		cityLabel.textColor = blackNelpyColor
-		cityLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		cityLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		cityLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
 			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
@@ -231,7 +231,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		locationContainer.addSubview(zipcodeLabel)
 		zipcodeLabel.text = "J3H5E5"
 		zipcodeLabel.textColor = blackNelpyColor
-		zipcodeLabel.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		zipcodeLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		zipcodeLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
 			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
@@ -288,7 +288,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		picturesContainer.addSubview(managePicturesLabel)
 		managePicturesLabel.text = "Manage Pictures"
 		managePicturesLabel.textColor = blackNelpyColor
-		managePicturesLabel.font = UIFont(name: "HelveticaNeue", size: kEditTaskSubtitleFontSize)
+		managePicturesLabel.font = UIFont(name: "Lato-Regular", size: kEditTaskSubtitleFontSize)
 		managePicturesLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(picturesContainer.snp_top).offset(10)
 			make.left.equalTo(picturesContainer.snp_left).offset(10)

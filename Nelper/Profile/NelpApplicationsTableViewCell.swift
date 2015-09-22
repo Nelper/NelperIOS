@@ -97,7 +97,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		let titleLabel = UILabel()
 		self.titleLabel = titleLabel
 		titleLabel.textColor = blackNelpyColor
-		titleLabel.font = UIFont(name: "HelveticaNeue", size: kCellTitleFontSize)
+		titleLabel.font = UIFont(name: "Lato-Regular", size: kCellTitleFontSize)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_bottom).offset(4)
@@ -120,7 +120,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		let applicationLabel = UILabel()
 		self.applicationStateLabel = applicationLabel
 		cellView.addSubview(applicationLabel)
-		applicationLabel.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
+		applicationLabel.font = UIFont(name: "Lato-Light", size: kCellTextFontSize)
 		applicationLabel.textColor = blackNelpyColor
 		
 		applicationLabel.snp_makeConstraints { (make) -> Void in
@@ -129,79 +129,27 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		}
 		
 		//Price tag
-		let price = UILabel()
-		self.price = price
-		cellView.addSubview(price)
-		price.snp_makeConstraints { (make) -> Void in
+		
+		let moneyTag = UIImageView()
+		cellView.addSubview(moneyTag)
+		moneyTag.image = UIImage(named: "moneytag")
+		moneyTag.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(applicationLabel.snp_centerY)
 			make.right.equalTo(cellView.snp_right).offset(-20)
 			make.width.equalTo(70)
-			make.height.equalTo(30)
-		}
-		self.price.backgroundColor = greenPriceButton
-		self.price.font = UIFont(name: "HelveticaNeue", size: kCellPriceFontSize)
-		self.price.textColor = whiteNelpyColor
-		self.price.layer.cornerRadius = 6
-		self.price.clipsToBounds = true
-		self.price.textAlignment = NSTextAlignment.Center
-		
-		//Applied date
-		let calendarImage = UIImageView()
-		cellView.addSubview(calendarImage)
-		calendarImage.image = UIImage(named: "calendar.png")
-		calendarImage.contentMode = UIViewContentMode.ScaleAspectFit
-		calendarImage.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(applicationStateIcon.snp_bottom).offset(15)
-			make.left.equalTo(applicationStateIcon.snp_left)
-			make.width.equalTo(30)
-			make.height.equalTo(30)
+			make.height.equalTo(35)
 		}
 		
-		let postedDate = UILabel()
-		self.appliedDate = postedDate
-		cellView.addSubview(postedDate)
-		postedDate.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
-		postedDate.textColor = blackNelpyColor
-		
-		postedDate.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(calendarImage.snp_right).offset(6)
-			make.centerY.equalTo(calendarImage.snp_centerY)
+		let moneyLabel = UILabel()
+		self.price = moneyLabel
+		moneyTag.addSubview(moneyLabel)
+		moneyLabel.textAlignment = NSTextAlignment.Center
+		moneyLabel.textColor = whiteNelpyColor
+		moneyLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		moneyLabel.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(moneyTag.snp_edges)
 		}
-		
-		//Location Icon + City + Distance
-		let pinImageView = UIImageView()
-		cellView.addSubview(pinImageView)
-		pinImageView.image = UIImage(named: "pin.png")
-		pinImageView.contentMode = UIViewContentMode.ScaleAspectFill
-		pinImageView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(calendarImage.snp_bottom).offset(16)
-			make.left.equalTo(calendarImage.snp_left)
-			make.height.equalTo(30)
-			make.width.equalTo(30)
-		}
-		
-		let cityLabel = UILabel()
-		self.cityLabel = cityLabel
-		cellView.addSubview(cityLabel)
-		cityLabel.textColor = blackNelpyColor
-		cityLabel.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
-		cityLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(pinImageView.snp_right).offset(4)
-			make.centerY.equalTo(pinImageView.snp_centerY).offset(-10)
-		}
-		
-		let distanceLabel = UILabel()
-		self.distanceLabel = distanceLabel
-		cellView.addSubview(distanceLabel)
-		distanceLabel.textColor = blackNelpyColor
-		distanceLabel.font = UIFont(name: "HelveticaNeue", size: kCellTextFontSize)
-		distanceLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(pinImageView.snp_right).offset(4)
-			make.centerY.equalTo(pinImageView.snp_centerY).offset(10)
-		}
-		
 		self.addSubview(backView)
-		
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -233,7 +181,9 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			if(!nelpApplication.task.pictures!.isEmpty){
 				getPictures(nelpApplication.task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
 					self.topContainer.image = imageReturned
-				})}}
+				})}}else{
+			self.topContainer.image = UIImage(named: "square_\(nelpApplication.task.category!)")!
+		}
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true
 	}
@@ -272,31 +222,6 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		self.titleLabel.text = nelpApplication.task.title
 		let price = String(format: "%.0f", nelpApplication.task.priceOffered!)
 		self.price.text = "$"+price
-		let dateHelper = DateHelper()
-		self.appliedDate.text = "Applied \(dateHelper.timeAgoSinceDate(nelpApplication.createdAt!, numericDates: true))"
-		if((nelpApplication.task.city) != nil){
-			self.cityLabel.text = nelpApplication.task.city
-		}
-	}
-	
-	//MARK: Utilities
-	
-	func setLocation(userLocation:CLLocation, nelpApplication:NelpTaskApplication){
-		
-		let taskLocation = CLLocation(latitude: nelpApplication.task.location!.latitude, longitude: nelpApplication.task.location!.longitude)
-		let distance: String = self.calculateDistanceBetweenTwoLocations(userLocation, destination: taskLocation)
-		self.distanceLabel.text = distance
-	}
-	
-	func calculateDistanceBetweenTwoLocations(source:CLLocation,destination:CLLocation) -> String{
-		
-		let distanceMeters = source.distanceFromLocation(destination)
-		if(distanceMeters > 1000){
-			let distanceKM = distanceMeters / 1000
-			return "\(round(distanceKM)) km away from you"
-		}else{
-			return String(format:"%.0f m away from you", distanceMeters)
-		}
 	}
 }
 	

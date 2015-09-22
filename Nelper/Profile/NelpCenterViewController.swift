@@ -44,7 +44,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		createMyTasksTableView()
 		createMyApplicationsTableView()
 		myTasksSegmentButton.selected = true
-		setProfilePicture()
 		adjustUI()
 	}
 	
@@ -65,110 +64,16 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			self.currentLocation = userLocation
 		}
 		
-		//Profile Header
-		let profileView = UIView()
-		self.containerView.addSubview(profileView)
-		profileView.backgroundColor = nelperRedColor
-		
-		profileView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.navBar.snp_bottom)
-			make.left.equalTo(self.containerView.snp_left)
-			make.right.equalTo(self.containerView.snp_right)
-			make.height.equalTo(self.containerView).dividedBy(4.5)
-		}
-		
-		//Profile Picture
-		let profilePicture = UIImageView()
-		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
-		self.profilePicture = profilePicture
-		self.profilePicture.clipsToBounds = true
-		profileView.addSubview(profilePicture)
-		
-		let profilePictureSize: CGFloat = 84
-		
-		profilePicture.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(profileView.snp_left).offset(15)
-			make.centerY.equalTo(profileView.snp_centerY)
-			make.height.equalTo(profilePictureSize)
-			make.width.equalTo(profilePictureSize)
-		}
-		
-		self.profilePicture.layer.cornerRadius = 84 / 2
-		self.profilePicture.layer.borderColor = darkGrayDetails.CGColor
-		self.profilePicture.layer.borderWidth = 1
-		
-		//Name
-		let name = UILabel()
-		profileView.addSubview(name)
-		name.numberOfLines = 0
-		name.textColor = whiteNelpyColor
-		name.text = PFUser.currentUser()?.objectForKey("name") as? String
-		name.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
-		
-		name.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(profilePicture.snp_right).offset(15)
-			make.top.equalTo(profilePicture.snp_top).offset(6)
-		}
-		
-		//Profile Icon
-		let profileIcon = UIImageView()
-		profileView.addSubview(profileIcon)
-		profileIcon.contentMode = UIViewContentMode.ScaleAspectFit
-		
-		profileIcon.snp_makeConstraints { (make) -> Void in
-			make.width.equalTo(30)
-			make.height.equalTo(30)
-			make.left.equalTo(name.snp_left)
-			make.top.equalTo(name.snp_bottom).offset(13)
-		}
-		profileIcon.image = UIImage(named:"profile_white.png")
-		
-		//Profile Button
-		let profileButton = UIButton()
-		profileView.addSubview(profileButton)
-		profileButton.addTarget(self, action: "profileButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		profileButton.setTitle("MY PROFILE", forState: UIControlState.Normal)
-		profileButton.titleLabel!.font = UIFont(name: "HelveticaNeue", size: kProfileButtonSize)
-		profileButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
-		profileButton.backgroundColor = nelperRedColor
-		profileButton.layer.borderWidth = 2
-		profileButton.layer.borderColor = whiteNelpyColor.CGColor
-		
-		profileButton.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(profileIcon.snp_centerY)
-			make.left.equalTo(profileIcon.snp_right).offset(10)
-			make.height.equalTo(30)
-			make.width.equalTo(130)
-		}
-		
-		//Logout Button
-		let logoutButton = UIButton()
-		profileView.addSubview(logoutButton)
-		logoutButton.setTitle("Logout", forState: UIControlState.Normal)
-		logoutButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kLogoutButtonSize)
-		logoutButton.titleLabel?.textColor = blackNelpyColor
-		logoutButton.backgroundColor = nelperRedColor
-		
-		logoutButton.addTarget(self, action: "logoutButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		
-		logoutButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileView.snp_top)
-			make.right.equalTo(profileView.snp_right)
-			make.height.equalTo(20)
-			make.width.equalTo(50)
-		}
 		
 		//Segment Control Container + SegmentControl
 		let segmentContainer = UIView()
 		containerView.addSubview(segmentContainer)
 		segmentContainer.backgroundColor = whiteGrayColor
-		segmentContainer.layer.borderWidth = 1
-		segmentContainer.layer.borderColor = darkGrayDetails.CGColor
 		segmentContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileView.snp_bottom)
+			make.top.equalTo(navBar.snp_bottom)
 			make.left.equalTo(containerView.snp_left)
 			make.right.equalTo(containerView.snp_right)
-			make.height.equalTo(profileView.snp_height).dividedBy(2.75)
+			make.height.equalTo(50)
 		}
 		
 		let firstHalf = UIView()
@@ -185,7 +90,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		myTasksSegmentButton.addTarget(self, action: "myTasksSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		firstHalf.addSubview(myTasksSegmentButton)
 		myTasksSegmentButton.setTitle("My Tasks", forState: UIControlState.Normal)
-		myTasksSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
+		myTasksSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kButtonFontSize)
 		myTasksSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
 		myTasksSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
 		myTasksSegmentButton.snp_makeConstraints { (make) -> Void in
@@ -221,7 +126,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		
 		secondHalf.addSubview(myApplicationsSegmentButton)
 		myApplicationsSegmentButton.setTitle("My Applications", forState: UIControlState.Normal)
-		myApplicationsSegmentButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: kButtonFontSize)
+		myApplicationsSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kButtonFontSize)
 		myApplicationsSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
 		myApplicationsSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
 		myApplicationsSegmentButton.snp_makeConstraints { (make) -> Void in
@@ -321,32 +226,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	//MARK: DATA
 	
-	/**
-	Sets profile picture for profile header
-	*/
-	func setProfilePicture() {
-		
-		let image = UIImage(named: "noProfilePicture")
-		
-		if PFUser.currentUser()!.objectForKey("customPicture") != nil {
-			let profilePic = (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile)!
-			request(.GET,profilePic.url!).response() {
-				(_, _, data, _) in
-				let image = UIImage(data: data as NSData!)
-				self.profilePicture.image = image
-			}
-			
-		} else if PFUser.currentUser()!.objectForKey("pictureURL") != nil {
-			let profilePic = (PFUser.currentUser()!.objectForKey("pictureURL") as? String)!
-			request(.GET,profilePic).response() {
-				(_, _, data, _) in
-				let image = UIImage(data: data as NSData!)
-				self.profilePicture.image = image
-			}
-		}
-		
-		self.profilePicture.image = image
-	}
 	
 	func onPullToRefresh() {
 		loadData()
@@ -413,9 +292,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				let cellApplication = tableView.dequeueReusableCellWithIdentifier(NelpApplicationsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpApplicationsTableViewCell
 				
 				let nelpApplication = self.nelpApplications[indexPath.item]
-				if self.currentLocation != nil {
-					cellApplication.setLocation(self.currentLocation!, nelpApplication: nelpApplication)
-				}
 				cellApplication.setNelpApplication(nelpApplication)
 				cellApplication.setImages(nelpApplication)
 				
@@ -478,9 +354,9 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if (tableView == myTasksTableView) {
-			return 230
+			return 200
 		} else if (tableView == myApplicationsTableView) {
-			return 295
+			return 200
 		}
 		return 0
 	}
