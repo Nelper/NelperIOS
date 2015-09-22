@@ -361,7 +361,7 @@ class ApiHelper {
 		parseApplication["user"] = PFUser.currentUser()!
 		parseApplication["task"] = parseTask
 		parseApplication["isNew"] = true
-		parseApplication["price"] = task.priceOffered
+		parseApplication["price"] = price
 		task.application = NelpTaskApplication(parseApplication: parseApplication)
 		parseApplication.saveInBackgroundWithBlock { (ok, error) -> Void in
 			task.application?.objectId = parseApplication.objectId

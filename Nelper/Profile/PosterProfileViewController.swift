@@ -15,6 +15,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	
 	var navBar:NavBar!
 	var poster: User!
+	var hideChatButton:Bool?
 	var application: NelpTaskApplication!
 	var picture:UIImageView!
 	var firstStar:UIImageView!
@@ -52,6 +53,10 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	var conversationController:UINavigationController?
 	var tempVC:UIViewController!
 	var fakeButton:UIButton!
+	var aboutLogo:UIImageView!
+	var experienceLogo:UIImageView!
+	var educationLogo:UIImageView!
+	var skillsLogo:UIImageView!
 	
 	
 	//MARK: Initialization
@@ -354,6 +359,18 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		//About
 		
+		let aboutLogo = UIImageView()
+		self.aboutLogo = aboutLogo
+		whiteContainer.addSubview(aboutLogo)
+		aboutLogo.image = UIImage(named: "about")
+		aboutLogo.contentMode = UIViewContentMode.ScaleAspectFit
+		aboutLogo.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(whiteContainer.snp_left).offset(20)
+			make.top.equalTo(whiteContainer.snp_top).offset(10)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
+		}
+		
 		let aboutLabel = UILabel()
 		self.aboutLabel = aboutLabel
 		self.whiteContainer.addSubview(aboutLabel)
@@ -361,8 +378,8 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		aboutLabel.text = "About"
 		aboutLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		aboutLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(whiteContainer.snp_left).offset(20)
-			make.top.equalTo(whiteContainer.snp_top).offset(10)
+			make.left.equalTo(aboutLogo.snp_right).offset(4)
+			make.centerY.equalTo(aboutLogo.snp_centerY)
 			make.height.equalTo(30)
 		}
 		
@@ -377,7 +394,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		aboutTextView.font = UIFont(name: "HelveticaNeue", size: kAboutTextFontSize)
 		aboutTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutLabel.snp_bottom).offset(6)
-			make.left.equalTo(aboutLabel.snp_left).offset(4)
+			make.left.equalTo(aboutLogo.snp_left).offset(4)
 			make.width.equalTo(contentView.snp_width).dividedBy(1.02)
 		}
 		
@@ -401,10 +418,14 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		if self.poster.about == nil || self.poster.about.isEmpty{
 			aboutLabel.hidden = true
 			aboutBottomLine.hidden = true
+			aboutLogo.hidden = true
 			aboutLabel.snp_updateConstraints(closure: { (make) -> Void in
 				make.height.equalTo(0)
 			})
 			aboutTextView.snp_updateConstraints(closure: { (make) -> Void in
+				make.height.equalTo(0)
+			})
+			aboutLogo.snp_updateConstraints(closure: { (make) -> Void in
 				make.height.equalTo(0)
 			})
 		}
@@ -420,8 +441,20 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		skillsLabel.font = UIFont(name: "HelveticaNeue", size: kSubtitleFontSize)
 		skillsLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutTextView.snp_bottom).offset(10)
-			make.left.equalTo(aboutLabel)
+			make.left.equalTo(aboutLabel.snp_left)
 			make.height.equalTo(30)
+		}
+		
+		let skillsLogo = UIImageView()
+		whiteContainer.addSubview(skillsLogo)
+		self.skillsLogo = skillsLogo
+		skillsLogo.image = UIImage(named: "skills")
+		skillsLogo.contentMode = UIViewContentMode.ScaleAspectFit
+		skillsLogo.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(skillsLabel.snp_left).offset(-4)
+			make.centerY.equalTo(skillsLabel.snp_centerY)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
 		}
 		
 		let skillsTableView = UITableView()
@@ -435,7 +468,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		skillsTableView.backgroundColor = navBarColor
 		skillsTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
-			make.left.equalTo(aboutTextView.snp_left)
+			make.left.equalTo(aboutLabel.snp_left)
 			make.right.equalTo(containerView.snp_right).offset(-19)
 			if self.poster.skills != nil{
 				make.height.equalTo(self.poster.skills.count * Int(kCellHeight))
@@ -467,6 +500,18 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.height.equalTo(30)
 		}
 		
+		let educationLogo = UIImageView()
+		whiteContainer.addSubview(educationLogo)
+		self.educationLogo = educationLogo
+		educationLogo.image = UIImage(named: "diplome")
+		educationLogo.contentMode = UIViewContentMode.ScaleAspectFit
+		educationLogo.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(educationLabel.snp_left).offset(-4)
+			make.centerY.equalTo(educationLabel.snp_centerY)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
+		}
+		
 		let educationTableView = UITableView()
 		educationTableView.scrollEnabled = false
 		self.educationTableView = educationTableView
@@ -478,7 +523,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		educationTableView.backgroundColor = navBarColor
 		educationTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationLabel.snp_bottom).offset(6)
-			make.left.equalTo(aboutTextView.snp_left)
+			make.left.equalTo(aboutLabel.snp_left)
 			make.right.equalTo(containerView.snp_right).offset(-19)
 			if self.poster.education != nil{
 				make.height.equalTo(self.poster.education.count * Int(kCellHeight))
@@ -510,6 +555,18 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.height.equalTo(30)
 		}
 		
+		let experienceLogo = UIImageView()
+		whiteContainer.addSubview(experienceLogo)
+		self.experienceLogo = experienceLogo
+		experienceLogo.image = UIImage(named: "suitcase")
+		experienceLogo.contentMode = UIViewContentMode.ScaleAspectFit
+		experienceLogo.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(experienceLabel.snp_left).offset(-4)
+			make.centerY.equalTo(experienceLabel.snp_centerY)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
+		}
+		
 		let experienceTableView = UITableView()
 		experienceTableView.scrollEnabled = false
 		self.experienceTableView = experienceTableView
@@ -521,15 +578,17 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		experienceTableView.backgroundColor = navBarColor
 		experienceTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(experienceLabel.snp_bottom).offset(6)
-			make.left.equalTo(aboutTextView.snp_left)
+			make.left.equalTo(aboutLabel.snp_left)
 			make.right.equalTo(containerView.snp_right).offset(-19)
 			if self.poster.experience != nil{
 				make.height.equalTo(self.poster.experience.count * Int(kCellHeight))
 			}
 		}
 		
+		//fake view
+		
 		let fakeView = UIView()
-		self.whiteContainer.addSubview(fakeView)
+		whiteContainer.addSubview(fakeView)
 		fakeView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(experienceTableView.snp_bottom)
 			make.bottom.equalTo(whiteContainer.snp_bottom)
@@ -537,6 +596,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 				//Chat Button
 		
+		if self.hideChatButton != true {
 		let chatButton = UIButton()
 		self.chatButton = chatButton
 		self.view.addSubview(chatButton)
@@ -572,6 +632,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		}
 		
 		fakeButton.hidden = true
+		}
 	}
 	
 	//MARK: DATA
@@ -606,6 +667,9 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 					self.skillsTableView.snp_updateConstraints(closure: { (make) -> Void in
 						make.height.equalTo(0)
 					})
+					self.skillsLogo.snp_updateConstraints(closure: { (make) -> Void in
+						make.height.equalTo(0)
+					})
 				}
 				return self.poster.skills.count
 			}else{
@@ -614,6 +678,9 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 					make.height.equalTo(0)
 				})
 				self.skillsTableView.snp_updateConstraints(closure: { (make) -> Void in
+					make.height.equalTo(0)
+				})
+				self.skillsLogo.snp_updateConstraints(closure: { (make) -> Void in
 					make.height.equalTo(0)
 				})
 				self.skillsBottomLine.hidden = true
@@ -629,6 +696,9 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 					self.educationTableView.snp_updateConstraints(closure: { (make) -> Void in
 						make.height.equalTo(0)
 					})
+					self.educationLogo.snp_updateConstraints(closure: { (make) -> Void in
+						make.height.equalTo(0)
+					})
 				}
 				return self.poster.education.count
 			}else{
@@ -637,6 +707,9 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 					make.height.equalTo(0)
 				})
 				self.educationTableView.snp_updateConstraints(closure: { (make) -> Void in
+					make.height.equalTo(0)
+				})
+				self.educationLogo.snp_updateConstraints(closure: { (make) -> Void in
 					make.height.equalTo(0)
 				})
 				self.educationBottomLine.hidden = true
@@ -651,6 +724,9 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 					self.experienceTableView.snp_updateConstraints(closure: { (make) -> Void in
 						make.height.equalTo(0)
 					})
+					self.experienceLogo.snp_updateConstraints(closure: { (make) -> Void in
+						make.height.equalTo(0)
+					})
 				}
 				return self.poster.experience.count
 			}else{
@@ -659,6 +735,9 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 					make.height.equalTo(0)
 				})
 				self.experienceTableView.snp_updateConstraints(closure: { (make) -> Void in
+					make.height.equalTo(0)
+				})
+				self.experienceLogo.snp_updateConstraints(closure: { (make) -> Void in
 					make.height.equalTo(0)
 				})
 				
@@ -718,20 +797,21 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		self.scrollView.contentSize = self.contentView.frame.size
+		self.scrollView.contentSize = self.containerView.frame.size
 		
+		if self.chatButton != nil {
 		let maskPath = UIBezierPath(roundedRect: chatButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
 		let maskLayer = CAShapeLayer()
 		maskLayer.frame = self.chatButton.bounds
 		maskLayer.path = maskPath.CGPath
 		
-		let maskPathFake = UIBezierPath(roundedRect: self.fakeButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
 		let maskLayerFake = CAShapeLayer()
 		maskLayerFake.frame = self.fakeButton.bounds
 		maskLayerFake.path = maskPath.CGPath
 		
 		self.chatButton.layer.mask = maskLayer
 		self.fakeButton.layer.mask = maskLayerFake
+		}
 	}
 	
 	
@@ -751,7 +831,6 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	func chatButtonTapped(sender:UIButton){
 		self.chatButton.selected = !self.chatButton.selected
 		if self.conversationController == nil{
-			let error:NSError?
 			let participants = Set([self.poster.objectId])
 			print(participants)
 			
@@ -789,7 +868,6 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			}
 			
 			tempVC.addChildViewController(self.conversationController!)
-			let distanceToMove = UIScreen.mainScreen().bounds.height -  (UIScreen.mainScreen().bounds.height - self.profileContainer.frame.height)
 			self.conversationController!.view.frame = CGRectMake(0, tempVC.view.frame.height, tempVC.view.frame.width, tempVC.view.frame.height)
 			tempVC.view.addSubview(self.conversationController!.view)
 			
@@ -858,5 +936,13 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		self.bottomProfileBorder.hidden = false
 		self.reviewSegmentButton.selected = false
 		self.bottomFeedbackBorder.hidden = true
+	}
+	
+ /**
+	*  Remove Chat Button for certain profile view (Such as task details)
+	*/
+	
+	func removeChatButton(){
+		self.hideChatButton = true
 	}
 }

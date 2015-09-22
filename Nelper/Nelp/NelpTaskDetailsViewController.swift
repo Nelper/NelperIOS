@@ -28,6 +28,10 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	var picture:UIImageView!
 	var taskContainer:UIView!
 	var carouselUnderline:UIView!
+	var	myOfferStepper:UIStepper!
+	var myOfferValueLabel:UILabel!
+	var myOffer:Double!
+	var applyButton:UIButton!
 	
 	//MARK: Initialization
 	
@@ -389,12 +393,120 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		let offerContainer = UIView()
 		contentView.addSubview(offerContainer)
 		offerContainer.backgroundColor = whiteNelpyColor
+		offerContainer.layer.borderColor = darkGrayDetails.CGColor
+		offerContainer.layer.borderWidth = 0.5
 		offerContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(mapView.snp_bottom)
-			make.width.equalTo(self.contentView.snp_width)
-			make.bottom.equalTo(self.contentView.snp_bottom)
+			make.top.equalTo(mapView.snp_bottom).offset(10)
+			make.left.equalTo(self.contentView.snp_left).offset(-1)
+			make.right.equalTo(self.contentView.snp_right).offset(1)
+			make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
 		}
 		
+		let offerLabelContainer = UIView()
+		offerContainer.addSubview(offerLabelContainer)
+		offerContainer.backgroundColor = navBarColor
+		offerLabelContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(offerContainer.snp_top).offset(30)
+			make.centerX.equalTo(offerContainer.snp_centerX)
+			make.width.equalTo(180)
+		}
+		offerLabelContainer.sizeToFit()
+		
+		let posterNameOffer = UILabel()
+		offerLabelContainer.addSubview(posterNameOffer)
+		posterNameOffer.textColor = darkGrayDetails
+		posterNameOffer.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
+		posterNameOffer.text = "\(self.task.user.name) is offering"
+		posterNameOffer.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(offerLabelContainer.snp_left)
+			make.centerY.equalTo(offerLabelContainer.snp_centerY)
+		}
+		
+		let moneyTagPoster = UIImageView()
+		offerLabelContainer.addSubview(moneyTagPoster)
+		moneyTagPoster.image = UIImage(named: "moneytag")
+		moneyTagPoster.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(posterNameOffer.snp_centerY)
+			make.left.equalTo(posterNameOffer.snp_right).offset(8)
+			make.width.equalTo(60)
+			make.height.equalTo(25)
+		}
+		
+		let moneyLabelPoster = UILabel()
+		moneyTagPoster.addSubview(moneyLabelPoster)
+		moneyLabelPoster.textAlignment = NSTextAlignment.Center
+		moneyLabelPoster.text = "$\(Int(self.task.priceOffered!))"
+		moneyLabelPoster.textColor = whiteNelpyColor
+		moneyLabelPoster.font = UIFont(name: "HelveticaNeue", size: kTextFontSize)
+		moneyLabelPoster.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(moneyTagPoster.snp_edges)
+		}
+		
+		let taskPosterOfferUnderline = UIView()
+		offerContainer.addSubview(taskPosterOfferUnderline)
+		taskPosterOfferUnderline.backgroundColor = darkGrayDetails
+		taskPosterOfferUnderline.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(posterNameOffer.snp_bottom).offset(26)
+			make.centerX.equalTo(offerContainer.snp_centerX)
+			make.width.equalTo(offerContainer.snp_width).dividedBy(1.4)
+			make.height.equalTo(0.5)
+		}
+		
+		let myOfferLabel = UILabel()
+		offerContainer.addSubview(myOfferLabel)
+		myOfferLabel.textColor = darkGrayDetails
+		myOfferLabel.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
+		myOfferLabel.text = "My Offer"
+		myOfferLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(taskPosterOfferUnderline.snp_bottom).offset(30)
+			make.centerX.equalTo(offerContainer.snp_centerX)
+		}
+		
+		let myOfferValueLabel = UILabel()
+		self.myOfferValueLabel = myOfferValueLabel
+		offerContainer.addSubview(myOfferValueLabel)
+		myOfferValueLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		myOfferValueLabel.textColor = blackNelpyColor
+		myOfferValueLabel.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(offerContainer.snp_centerX)
+			make.top.equalTo(myOfferLabel.snp_bottom).offset(6)
+		}
+		
+		let myOfferStepper = UIStepper()
+		self.myOfferStepper = myOfferStepper
+		self.myOfferStepper.minimumValue = 5
+		self.myOfferStepper.maximumValue = 999
+		self.myOfferStepper.value = self.task.priceOffered!
+		self.myOfferStepper.stepValue = 1
+		myOfferStepper.continuous = true
+		myOfferStepper.addTarget(self, action: "didTapMyOfferStepper:", forControlEvents: UIControlEvents.ValueChanged)
+		offerContainer.addSubview(myOfferStepper)
+		myOfferStepper.tintColor = nelperRedColor
+		myOfferStepper.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(30)
+			make.width.equalTo(60)
+			make.centerX.equalTo(offerContainer.snp_centerX).offset(-14)
+			make.top.equalTo(myOfferValueLabel.snp_bottom).offset(6)
+		}
+		
+		myOfferValueLabel.text = "$\(Int(self.myOfferStepper.value))"
+		
+		
+		let applyButton = UIButton()
+		offerContainer.addSubview(applyButton)
+		self.applyButton = applyButton
+		applyButton.setTitle("Apply!", forState: UIControlState.Normal)
+		applyButton.setTitleColor(navBarColor, forState: UIControlState.Normal)
+		self.applyButton.addTarget(self, action: "applyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		applyButton.backgroundColor = nelperRedColor
+		applyButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(myOfferStepper.snp_bottom).offset(20)
+			make.centerX.equalTo(offerContainer.snp_centerX)
+			make.height.equalTo(40)
+			make.width.equalTo(250)
+			make.bottom.equalTo(offerContainer.snp_bottom).offset(-10)
+		}
+
 	}
 
 	//MARK: DATA
@@ -482,22 +594,31 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 //	
 //	- parameter sender: UIButton
 //	*/
-//	func applyButtonTapped(sender: AnyObject) {
-//		if(!self.applyButton.selected){
-//			ApiHelper.applyForTask(self.task, price: Int(self.task.priceOffered!))
-//			self.applyButton.selected = true
-//			self.updateButton()
-//		}else{
-//			ApiHelper.cancelApplyForTask(self.task)
-//			self.applyButton.selected = false
-//			self.task.application!.state = .Canceled
-//			self.updateButton()
-//		}
-//	}
-//	
+	func applyButtonTapped(sender: AnyObject) {
+		if(!self.applyButton.selected){
+			ApiHelper.applyForTask(self.task, price: Int(self.myOfferStepper.value))
+			self.applyButton.selected = true
+			self.updateButton()
+		}else{
+			ApiHelper.cancelApplyForTask(self.task)
+			self.applyButton.selected = false
+			self.task.application!.state = .Canceled
+			self.updateButton()
+		}
+	}
+	
 	func backButtonTapped(sender: UIButton) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 		view.endEditing(true) // dissmiss keyboard without delay
+	}
+	
+	/**
+		My Offer Value Stepper Control
+	- parameter sender: My Offer Stepper
+	*/
+	func didTapMyOfferStepper(sender:UIStepper){
+		self.myOfferValueLabel.text = "$\(Int(sender.value))"
+		self.myOffer = myOfferStepper.value
 	}
 	
 	/**
@@ -507,39 +628,40 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	*/
 	func didTapProfile(sender:UIView){
 		let nextVC = PosterProfileViewController()
+		nextVC.removeChatButton()
 		nextVC.poster = self.task.user
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
-//
-//	//MARK: Utilities
-//	
-//	/**
-//	Little hack to make the Apply Bottom act right :D
-//	*/
-//	func startButtonConfig(){
-//		if self.task.application != nil && self.task.application!.state != .Canceled {
-//			self.applyButton.selected = true
-//			self.updateButton()
-//		} else {
-//			self.applyButton.selected = false
-//			self.updateButton()
-//		}
-//	}
-//	
-//	/**
-//	Updates the button appearance
-//	*/
-//	func updateButton(){
-//		if self.applyButton.selected {
-//			self.applyButton.setTitle("Applied", forState: UIControlState.Selected)
-//			self.applyButton.backgroundColor = nelperRedColor
-//		} else {
-//			self.applyButton.setTitle("Apply", forState: UIControlState.Normal)
-//			self.applyButton.backgroundColor = greenPriceButton
-//		}
-//	}
+
+	//MARK: Utilities
+	
+	/**
+	Little hack to make the Apply Bottom act right :D
+	*/
+	func startButtonConfig(){
+		if self.task.application != nil && self.task.application!.state != .Canceled {
+			self.applyButton.selected = true
+			self.updateButton()
+		} else {
+			self.applyButton.selected = false
+			self.updateButton()
+		}
+	}
+	
+	/**
+	Updates the button appearance
+	*/
+	func updateButton(){
+		if self.applyButton.selected {
+			self.applyButton.setTitle("Applied", forState: UIControlState.Selected)
+			self.applyButton.backgroundColor = nelperRedColor
+		} else {
+			self.applyButton.setTitle("Apply!", forState: UIControlState.Normal)
+			self.applyButton.backgroundColor = nelperRedColor
+		}
+	}
 
 }
 	
