@@ -3,7 +3,7 @@ PODS:
   - GoogleMaps (1.10.3)
   - iCarousel (1.8.2)
   - LayerKit (0.16.0)
-  - SnapKit (0.14.0)
+  - SnapKit (0.15.0)
   - Stripe (5.1.4):
     - Stripe/Core (= 5.1.4)
   - Stripe/Core (5.1.4)
@@ -33,7 +33,7 @@ SPEC CHECKSUMS:
   GoogleMaps: 945e4ac3b74bcca3ddada51df256eb7beddb474d
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
   LayerKit: 8976a2a4d5f73b808e6328a5c66732605a3c247a
-  SnapKit: f42352ef34953866da0de1e1009c2ff82588a95e
+  SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
   Stripe: 6864be95b09092f05526bc2e0a50804bc556aa0d
   SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
 

@@ -26,45 +26,53 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	var scrollView:UIScrollView!
 	var contentView:UIView!
 	
-	@IBOutlet weak var navBar: NavBar!
-	@IBOutlet weak var formView: UIView!
-	
 	var kCategoryIconSize:CGFloat = 60
 
 	//MARK: Initialization
-	
-	convenience init() {
-    self.init(nibName: "NelpTaskCreateViewController", bundle: nil)
-  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.task = FindNelpTask()
 	  self.createView()
-		self.adjustUI()
 	}
 	
 	override func viewDidAppear(animated: Bool) {
+	self.scrollView.contentSize = self.contentView.frame.size
 	}
 	
 	//MARK: UI
-	
-	func adjustUI(){
-		self.formView.backgroundColor = whiteNelpyColor
-		self.navBar.setTitle("Post a task")
-	}
 	
 	//MARK: View Creation
 
 	func createView(){
 		
+		let navBar = NavBar()
+		self.view.addSubview(navBar)
+		navBar.setTitle("Post a task")
+		navBar.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.view.snp_top)
+			make.right.equalTo(self.view.snp_right)
+			make.left.equalTo(self.view.snp_left)
+			make.height.equalTo(64)
+		}
+		
 		//ScrollView + ContentView
+		
+		let backgroundView = UIView()
+		backgroundView.backgroundColor = whiteNelpyColor
+		self.view.addSubview(backgroundView)
+		backgroundView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(navBar.snp_bottom)
+			make.left.equalTo(self.view.snp_left)
+			make.right.equalTo(self.view.snp_right)
+			make.bottom.equalTo(self.view.snp_bottom)
+		}
 		
 		let scrollView = UIScrollView()
 		self.scrollView = scrollView
-		self.formView.addSubview(scrollView)
+		backgroundView.addSubview(scrollView)
 		scrollView.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(self.formView.snp_edges)
+			make.edges.equalTo(backgroundView.snp_edges)
 		}
 		
 		let contentView = UIView()
@@ -75,8 +83,8 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.top.equalTo(scrollView.snp_top)
 			make.left.equalTo(scrollView.snp_left)
 			make.right.equalTo(scrollView.snp_right)
-			make.width.equalTo(formView.snp_width)
-			make.height.greaterThanOrEqualTo(formView.snp_height)
+			make.width.equalTo(backgroundView.snp_width)
+			make.height.greaterThanOrEqualTo(backgroundView.snp_height)
 		}
 		
 		//Select your category label
@@ -88,7 +96,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		selectCategoryLabel.font = UIFont(name: "Lato-Regular", size: kFormViewLabelFontSize)
 		
 		selectCategoryLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.contentView.snp_top).offset(20)
+			make.top.equalTo(contentView.snp_top).offset(20)
 			make.centerX.equalTo(contentView.snp_centerX)
 		}
 		
@@ -100,10 +108,75 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.top.equalTo(selectCategoryLabel.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
 			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(240)
+			make.height.equalTo(220)
 		}
 		
+		//Business component
 		
+		let businessContainer = CategoryCardViewController(frame: CGRectZero, category: "business")
+		contentView.addSubview(businessContainer)
+		businessContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(technologyContainer.snp_bottom).offset(20)
+			make.left.equalTo(contentView.snp_left).offset(20)
+			make.right.equalTo(contentView.snp_right).offset(-20)
+			make.height.equalTo(220)
+		}
+		
+		//Multimedia component
+		
+		let multimediaContainer = CategoryCardViewController(frame: CGRectZero, category: "multimedia")
+		contentView.addSubview(multimediaContainer)
+		multimediaContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(businessContainer.snp_bottom).offset(20)
+			make.left.equalTo(contentView.snp_left).offset(20)
+			make.right.equalTo(contentView.snp_right).offset(-20)
+			make.height.equalTo(220)
+		}
+		
+		//Gardening component
+		
+		let gardeningContainer = CategoryCardViewController(frame: CGRectZero, category: "gardening")
+		contentView.addSubview(gardeningContainer)
+		gardeningContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(multimediaContainer.snp_bottom).offset(20)
+			make.left.equalTo(contentView.snp_left).offset(20)
+			make.right.equalTo(contentView.snp_right).offset(-20)
+			make.height.equalTo(220)
+		}
+		
+		//Handyman component
+		
+		let handymanContainer = CategoryCardViewController(frame: CGRectZero, category: "handywork")
+		contentView.addSubview(handymanContainer)
+		handymanContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(gardeningContainer.snp_bottom).offset(20)
+			make.left.equalTo(contentView.snp_left).offset(20)
+			make.right.equalTo(contentView.snp_right).offset(-20)
+			make.height.equalTo(220)
+		}
+		
+		//Housecleaning component
+		
+		let housecleaningContainer = CategoryCardViewController(frame: CGRectZero, category: "housecleaning")
+		contentView.addSubview(housecleaningContainer)
+		housecleaningContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(handymanContainer.snp_bottom).offset(20)
+			make.left.equalTo(contentView.snp_left).offset(20)
+			make.right.equalTo(contentView.snp_right).offset(-20)
+			make.height.equalTo(220)
+		}
+		
+		//Other component
+		
+		let otherContainer = CategoryCardViewController(frame: CGRectZero, category: "other")
+		contentView.addSubview(otherContainer)
+		otherContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(housecleaningContainer.snp_bottom).offset(20)
+			make.left.equalTo(contentView.snp_left).offset(20)
+			make.right.equalTo(contentView.snp_right).offset(-20)
+			make.height.equalTo(110)
+			make.bottom.equalTo(contentView.snp_bottom).offset(-20)
+		}
 		
 	}
 	

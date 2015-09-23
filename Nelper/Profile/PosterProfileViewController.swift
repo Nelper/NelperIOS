@@ -68,6 +68,9 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		self.profileSegmentButton.selected = true
 	}
 	
+	override func viewDidAppear(animated: Bool) {
+	}
+	
 	//MARK: UI
 	
 	func createView(){
@@ -633,6 +636,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		fakeButton.hidden = true
 		}
+
 	}
 	
 	//MARK: DATA

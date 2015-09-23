@@ -22,9 +22,8 @@ let kDetailsViewTitleFontSize:CGFloat = 20
 let kDetailsViewTextFontSize:CGFloat = 16
 
 //FormView
-let kFormViewLabelFontSize:CGFloat = 20
-let kFormButtonFontSize:CGFloat = 18
-
+let kFormViewLabelFontSize:CGFloat = 18
+let kFormViewExamplesFontSize:CGFloat = 14
 //General
 let kTitleFontSize:CGFloat = 26
 let kSubtitleFontSize:CGFloat = 20
