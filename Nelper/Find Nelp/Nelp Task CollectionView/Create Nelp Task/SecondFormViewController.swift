@@ -33,21 +33,23 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	var imageThree: UIImageView?
 	var imageFour: UIImageView?
 	var tap: UITapGestureRecognizer?
+	var contentView:UIView!
+	var scrollView:UIScrollView!
+	var navBar:NavBar!
+	var autocompleteTableView:UITableView!
 	
 	var delegate: SecondFormViewControllerDelegate?
 	
-	@IBOutlet weak var navBar: NavBar!
-	@IBOutlet weak var contentView: UIView!
-	@IBOutlet weak var formBackground: UIView!
-	@IBOutlet weak var autocompleteTableView: UITableView!
-	@IBOutlet weak var postButton: UIButton!
-	
 	//MARK: Initialization
 	
-	convenience init(task: FindNelpTask){
-		self.init(nibName: "SecondFormScreen", bundle: nil)
+	init(task: FindNelpTask){
+		super.init(nibName: nil, bundle: nil)
 		self.task = task
 		self.placesClient = GMSPlacesClient()
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 	
 	override func viewDidLoad() {
@@ -72,6 +74,79 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		
 		let contentInset: CGFloat = 12
 		
+		let navBar = NavBar()
+		self.navBar = navBar
+		self.view.addSubview(navBar)
+		navBar.setTitle("Post a task")
+		navBar.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.view.snp_top)
+			make.right.equalTo(self.view.snp_right)
+			make.left.equalTo(self.view.snp_left)
+			make.height.equalTo(64)
+		}
+		
+		//ScrollView + ContentView
+		
+		let backgroundView = UIView()
+		backgroundView.backgroundColor = whiteNelpyColor
+		self.view.addSubview(backgroundView)
+		backgroundView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(navBar.snp_bottom)
+			make.left.equalTo(self.view.snp_left)
+			make.right.equalTo(self.view.snp_right)
+			make.bottom.equalTo(self.view.snp_bottom)
+		}
+		
+		let scrollView = UIScrollView()
+		self.scrollView = scrollView
+		backgroundView.addSubview(scrollView)
+		scrollView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(backgroundView.snp_edges)
+		}
+		
+		let contentView = UIView()
+		self.contentView = contentView
+		scrollView.addSubview(contentView)
+		contentView.backgroundColor = whiteNelpyColor
+		contentView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(scrollView.snp_top)
+			make.left.equalTo(scrollView.snp_left)
+			make.right.equalTo(scrollView.snp_right)
+			make.width.equalTo(backgroundView.snp_width)
+			make.height.greaterThanOrEqualTo(backgroundView.snp_height)
+		}
+		
+		//Header Picture
+		
+		let headerPicture = UIImageView()
+		contentView.addSubview(headerPicture)
+		headerPicture.image = UIImage(named: "square_\(self.task.category!)")
+		headerPicture.contentMode = UIViewContentMode.ScaleAspectFill
+		headerPicture.clipsToBounds = true
+		headerPicture.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(contentView.snp_top)
+			make.left.equalTo(contentView.snp_left)
+			make.right.equalTo(contentView.snp_right)
+			make.height.equalTo(100)
+		}
+		
+		let blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
+		let blurView = UIVisualEffectView(effect: blur)
+		headerPicture.addSubview(blurView)
+		blurView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(headerPicture.snp_edges)
+		}
+		
+		let headerPictureLogo = UIImageView()
+		headerPicture.addSubview(headerPictureLogo)
+		headerPictureLogo.image = UIImage(named: self.task.category!)
+		headerPictureLogo.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(60)
+			make.width.equalTo(60)
+			make.center.equalTo(headerPicture.snp_center)
+		}
+		
+		
 		//Task Title Label + TextField
 		
 		let taskTitleLabel = UILabel()
@@ -81,7 +156,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		taskTitleLabel.font = UIFont(name: "Lato-Regular", size: kFormViewLabelFontSize)
 		
 		taskTitleLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(contentView.snp_top).offset(20)
+			make.top.equalTo(headerPicture.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(contentInset)
 		}
 		let taskTitleTextField = UITextField()
@@ -93,7 +168,6 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		taskTitleTextField.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
 		taskTitleTextField.textColor = blackNelpyColor
 		taskTitleTextField.textAlignment = NSTextAlignment.Left
-		taskTitleTextField.layer.cornerRadius = 3
 		taskTitleTextField.layer.borderColor = grayDetails.CGColor
 		taskTitleTextField.layer.borderWidth = 1
 		let paddingViewTitle = UIView(frame: CGRectMake(0, 0, 10, 0))
@@ -103,9 +177,42 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		taskTitleTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(taskTitleLabel.snp_bottom).offset(10)
-			make.width.equalTo(frameWidth - contentInset * 2)
+			make.right.equalTo(contentView.snp_right).offset(-50)
 			make.height.equalTo(50)
 		}
+		
+		//Description Label + Textfield
+		
+		let descriptionLabel = UILabel()
+		self.contentView.addSubview(descriptionLabel)
+		descriptionLabel.text = "Briefly describe the task"
+		descriptionLabel.textColor = blackNelpyColor
+		descriptionLabel.font = UIFont(name: "Lato-Regular", size: kFormViewLabelFontSize)
+		
+		descriptionLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(taskTitleTextField.snp_bottom).offset(20)
+			make.left.equalTo(taskTitleTextField.snp_left)
+		}
+		let descriptionTextView = UITextView()
+		self.descriptionTextView = descriptionTextView
+		descriptionTextView.delegate = self
+		self.contentView.addSubview(descriptionTextView)
+		descriptionTextView.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
+		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		descriptionTextView.textColor = blackNelpyColor
+		descriptionTextView.textAlignment = NSTextAlignment.Left
+		descriptionTextView.layer.cornerRadius = 3
+		descriptionTextView.layer.borderColor = grayDetails.CGColor
+		descriptionTextView.layer.borderWidth = 1
+		
+		
+		descriptionTextView.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(taskTitleLabel.snp_left)
+			make.top.equalTo(descriptionLabel.snp_bottom).offset(10)
+			make.right.equalTo(contentView.snp_right).offset(-50)
+			make.height.equalTo(150)
+		}
+
 		
 		//Price Offered Label + TextField
 		
@@ -116,7 +223,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		priceOfferedLabel.font = UIFont(name: "Lato-Regular", size: kFormViewLabelFontSize)
 		
 		priceOfferedLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskTitleTextField.snp_bottom).offset(20)
+			make.top.equalTo(descriptionTextView.snp_bottom).offset(20)
 			make.left.equalTo(taskTitleTextField.snp_left)
 		}
 		let priceOfferedTextField = UITextField()
@@ -177,40 +284,6 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.height.equalTo(50)
 		}
 		
-		
-		//Description Label + Textfield
-		
-		let descriptionLabel = UILabel()
-		self.contentView.addSubview(descriptionLabel)
-		descriptionLabel.text = "Briefly describe the task"
-		descriptionLabel.textColor = blackNelpyColor
-		descriptionLabel.font = UIFont(name: "Lato-Regular", size: kFormViewLabelFontSize)
-		
-		descriptionLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(locationTextField.snp_bottom).offset(20)
-			make.left.equalTo(taskTitleTextField.snp_left)
-		}
-		let descriptionTextView = UITextView()
-		self.descriptionTextView = descriptionTextView
-		descriptionTextView.delegate = self
-		self.contentView.addSubview(descriptionTextView)
-		descriptionTextView.backgroundColor = navBarColor.colorWithAlphaComponent(0.75)
-		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
-		descriptionTextView.textColor = blackNelpyColor
-		descriptionTextView.textAlignment = NSTextAlignment.Left
-		descriptionTextView.layer.cornerRadius = 3
-		descriptionTextView.layer.borderColor = grayDetails.CGColor
-		descriptionTextView.layer.borderWidth = 1
-		
-		
-		descriptionTextView.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(taskTitleLabel.snp_left)
-			make.top.equalTo(descriptionLabel.snp_bottom).offset(10)
-			make.width.equalTo(frameWidth - contentInset * 2)
-			make.height.equalTo(150)
-		}
-
-		
 		//Attach Pictures label + Button
 		
 		let picturesLabel = UILabel()
@@ -220,8 +293,8 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		picturesLabel.font = UIFont(name: "Lato-Regular", size: kFormViewLabelFontSize)
 		
 		picturesLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(descriptionTextView.snp_bottom).offset(20)
-			make.left.equalTo(descriptionLabel.snp_left)
+			make.top.equalTo(locationTextField.snp_bottom).offset(20)
+			make.left.equalTo(taskTitleLabel.snp_left)
 		}
 		
 		let picturesButton = UIButton()
@@ -313,6 +386,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.height.equalTo(50)
 			make.top.equalTo(picturesButton.snp_bottom).offset(45)
 			make.centerX.equalTo(self.contentView.snp_centerX)
+			make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
 		}
 	}
 	
@@ -320,7 +394,6 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		let backBtn = UIButton()
 		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.backButton = backBtn
-		self.formBackground.backgroundColor = whiteNelpyColor
 		self.contentView.backgroundColor = whiteNelpyColor
 		self.navBar.setTitle("Create your task")
 		self.navBar.setImage(UIImage(named: "close_red")!)
@@ -445,6 +518,13 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.tap!.enabled = true
 	}
 	
+	//MARK: View Delegate Method
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		self.scrollView.contentSize = self.contentView.frame.size
+	}
+	
 	//MARK: Google Places Autocomplete
 	
 	/**
@@ -455,7 +535,14 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	func placeAutocomplete(text:String) {
 		let filter = GMSAutocompleteFilter()
 		filter.type = GMSPlacesAutocompleteTypeFilter.Address
-		self.placesClient?.autocompleteQuery(text, bounds: nil, filter: filter, callback: { (results, error: NSError?) -> Void in
+		
+		var bounds:GMSCoordinateBounds?
+		
+		if LocationHelper.sharedInstance.currentCLLocation != nil{
+		bounds = GMSCoordinateBounds(coordinate: LocationHelper.sharedInstance.currentCLLocation, coordinate: LocationHelper.sharedInstance.currentCLLocation)
+		}
+		
+		self.placesClient?.autocompleteQuery(text, bounds: bounds, filter: filter, callback: { (results, error: NSError?) -> Void in
 			if let error = error {
 				print("Autocomplete error \(error)")
 			}

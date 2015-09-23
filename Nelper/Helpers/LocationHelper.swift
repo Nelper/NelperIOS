@@ -11,4 +11,5 @@ import Foundation
 class LocationHelper{
 	static let sharedInstance = LocationHelper()
 	var currentLocation:PFGeoPoint!
+	var currentCLLocation:CLLocationCoordinate2D!
 }

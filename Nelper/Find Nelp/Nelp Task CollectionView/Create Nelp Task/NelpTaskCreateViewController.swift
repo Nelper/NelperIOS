@@ -100,10 +100,21 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.centerX.equalTo(contentView.snp_centerX)
 		}
 		
+		//Tap Gesture Recognizer for Categories
+		
+		let technologyTapAction = UITapGestureRecognizer(target: self, action: "didTapTechnology:")
+		let businessTapAction = UITapGestureRecognizer(target: self, action: "didTapBusiness:")
+		let multimediaTapAction = UITapGestureRecognizer(target: self, action: "didTapMultimedia:")
+		let gardeningTapAction = UITapGestureRecognizer(target: self, action: "didTapGardening:")
+		let handymanTapAction = UITapGestureRecognizer(target: self, action: "didTapHandyman:")
+		let housecleaningTapAction = UITapGestureRecognizer(target: self, action: "didTapCleaning:")
+		let otherTapAction = UITapGestureRecognizer(target: self, action: "didTapOther:")
+		
 		//Electronics component
 		
 		let technologyContainer = CategoryCardViewController(frame: CGRectZero, category: "technology")
 		contentView.addSubview(technologyContainer)
+		technologyContainer.addGestureRecognizer(technologyTapAction)
 		technologyContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(selectCategoryLabel.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
@@ -114,6 +125,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		//Business component
 		
 		let businessContainer = CategoryCardViewController(frame: CGRectZero, category: "business")
+		businessContainer.addGestureRecognizer(businessTapAction)
 		contentView.addSubview(businessContainer)
 		businessContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(technologyContainer.snp_bottom).offset(20)
@@ -125,6 +137,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		//Multimedia component
 		
 		let multimediaContainer = CategoryCardViewController(frame: CGRectZero, category: "multimedia")
+		multimediaContainer.addGestureRecognizer(multimediaTapAction)
 		contentView.addSubview(multimediaContainer)
 		multimediaContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(businessContainer.snp_bottom).offset(20)
@@ -136,6 +149,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		//Gardening component
 		
 		let gardeningContainer = CategoryCardViewController(frame: CGRectZero, category: "gardening")
+		gardeningContainer.addGestureRecognizer(gardeningTapAction)
 		contentView.addSubview(gardeningContainer)
 		gardeningContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(multimediaContainer.snp_bottom).offset(20)
@@ -147,6 +161,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		//Handyman component
 		
 		let handymanContainer = CategoryCardViewController(frame: CGRectZero, category: "handywork")
+		handymanContainer.addGestureRecognizer(handymanTapAction)
 		contentView.addSubview(handymanContainer)
 		handymanContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(gardeningContainer.snp_bottom).offset(20)
@@ -158,6 +173,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		//Housecleaning component
 		
 		let housecleaningContainer = CategoryCardViewController(frame: CGRectZero, category: "housecleaning")
+		housecleaningContainer.addGestureRecognizer(housecleaningTapAction)
 		contentView.addSubview(housecleaningContainer)
 		housecleaningContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(handymanContainer.snp_bottom).offset(20)
@@ -169,6 +185,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		//Other component
 		
 		let otherContainer = CategoryCardViewController(frame: CGRectZero, category: "other")
+		otherContainer.addGestureRecognizer(otherTapAction)
 		contentView.addSubview(otherContainer)
 		otherContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(housecleaningContainer.snp_bottom).offset(20)
@@ -193,32 +210,37 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.moveToNextView()
 	}
 	
-	func multimediaButtonTapped(sender:UIButton){
-		self.task.category = "multimedia"
+	func didTapTechnology(sender:UIView){
+		self.task.category = "technology"
 		self.moveToNextView()
 	}
 	
-	func handyworkButtonTapped(sender:UIButton){
-		self.task.category = "handywork"
-		self.moveToNextView()
-	}
-	
-	func gardeningButtonTapped(sender:UIButton){
-		self.task.category = "gardening"
-		self.moveToNextView()
-	}
-	
-	func businessButtonTapped(sender:UIButton){
+	func didTapBusiness(sender:UIView){
 		self.task.category = "business"
 		self.moveToNextView()
 	}
 	
-	func cleaningButtonTapped(sender:UIButton){
+	func didTapMultimedia(sender:UIView){
+		self.task.category = "multimedia"
+		self.moveToNextView()
+	}
+	
+	func didTapGardening(sender:UIView){
+		self.task.category = "gardening"
+		self.moveToNextView()
+	}
+	
+	func didTapHandyman(sender:UIView){
+		self.task.category = "handywork"
+		self.moveToNextView()
+	}
+	
+	func didTapCleaning(sender:UIView){
 		self.task.category = "housecleaning"
 		self.moveToNextView()
 	}
 	
-	func otherButtonTapped(sender:UIButton){
+	func didTapOther(sender:UIView){
 		self.task.category = "other"
 		self.moveToNextView()
 	}

@@ -289,7 +289,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			}
 		} else if (tableView == myApplicationsTableView) {
 			if(!self.nelpApplications.isEmpty) {
-				let cellApplication = tableView.dequeueReusableCellWithIdentifier(NelpApplicationsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpApplicationsTableViewCell
+				let cellApplication = NelpApplicationsTableViewCell()
 				
 				let nelpApplication = self.nelpApplications[indexPath.item]
 				cellApplication.setNelpApplication(nelpApplication)

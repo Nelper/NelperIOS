@@ -294,6 +294,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		
 		if self.currentLocation != nil{
 		LocationHelper.sharedInstance.currentLocation = PFGeoPoint(latitude:self.currentLocation!.coordinate.latitude, longitude:self.currentLocation!.coordinate.longitude)
+		LocationHelper.sharedInstance.currentCLLocation = CLLocationCoordinate2D(latitude: self.currentLocation!.coordinate.latitude, longitude: self.currentLocation!.coordinate.longitude)
 		}
 		
 	}

@@ -57,7 +57,6 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.topContainer = topContainer
 		self.topContainer.clipsToBounds = true
 		self.topContainer.layer.masksToBounds = true
-		self.topContainer.clipsToBounds = true
 		cellView.addSubview(topContainer)
 		topContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cellView.snp_top)

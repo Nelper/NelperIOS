@@ -97,6 +97,11 @@ class CategoryCardViewController:UIView{
 		}
 	}
 	
+	/**
+	Returns the proper examples based on the category
+	
+	- returns: returns the examples string
+	*/
 	func getExamples() ->String {
 		switch self.category!{
 		case "technology":
