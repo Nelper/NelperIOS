@@ -105,15 +105,15 @@ class CategoryCardViewController:UIView{
 	func getExamples() ->String {
 		switch self.category!{
 		case "technology":
-			return "Computer Repair,Internet/Router setup, Printer installation, TV & Sound System Installation, Email setup, Tablets & Phone support and more!"
+			return "Computer Repair, Internet/Router Setup, Printer Installation, TV & Sound System Installation, Email Setup, Tablets & Phones Support, and more!"
 		case "business":
-			return "Accounting,Files Organization, Resume Building, Letters writing & review, Advertisement, Social Media Account Management, Data Entry and more!"
+			return "Accounting, Files Organization, Resume Building, Letters Writing & Review, Advertisement Strategies, Social Media Account Management, Data Entry, and more!"
 		case "multimedia":
-			return "Website & App development, Photo & Video Editing, Graphic Design, Printing, Videography & Photography, Music Production, and more!"
+			return "Website & App Development, Photo & Video Editing, Graphic Design, Printing, Videography & Photography, Music Production, and more!"
 		case "gardening":
-			return "Garden Maintenance, Landscaping, Lawn Mowing, Raking Leaves, Outdoor Pest Control, Arborism, Fruit Tree Pruning, Tree Planting, Bushes Pruning and more!"
+			return "Garden Maintenance, Landscaping, Lawn Mowing, Raking Leaves, Outdoor Pest Control, Arborism, Fruit Tree Pruning, Tree Planting, Bushes Pruning, and more!"
 		case "handywork":
-			return "Furniture Assembling, Carpentry, Electrical Work, Painting, Plumbing, Roofing, Window Services, Appliance Repair, Floor Installation and more!"
+			return "Furniture Assembling, Carpentry, Electrical Work, Painting, Plumbing, Roofing, Window Services, Appliance Repair, Floor Installation, and more!"
 		case "housecleaning":
 			return "House Cleaning, Laundry Services, Waste Removal, Guttering, Pool & Spa Cleaning, Steam Cleaning, Indoor Pest Control, Car Wash, and more!"
 		case "other":

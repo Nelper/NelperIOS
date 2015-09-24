@@ -119,7 +119,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.top.equalTo(selectCategoryLabel.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
 			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(220)
+			make.height.equalTo(240)
 		}
 		
 		//Business component
@@ -131,7 +131,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.top.equalTo(technologyContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
 			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(220)
+			make.height.equalTo(240)
 		}
 		
 		//Multimedia component
@@ -143,7 +143,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.top.equalTo(businessContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
 			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(220)
+			make.height.equalTo(240)
 		}
 		
 		//Gardening component
@@ -155,7 +155,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.top.equalTo(multimediaContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
 			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(220)
+			make.height.equalTo(240)
 		}
 		
 		//Handyman component
@@ -167,7 +167,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.top.equalTo(gardeningContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
 			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(220)
+			make.height.equalTo(240)
 		}
 		
 		//Housecleaning component
@@ -179,7 +179,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 			make.top.equalTo(handymanContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
 			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(220)
+			make.height.equalTo(240)
 		}
 		
 		//Other component
