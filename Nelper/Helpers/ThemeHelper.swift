@@ -30,7 +30,7 @@ let greenPriceButton = hexStringToUIColor ("80bf62")
 
 let grayBlueColor = hexStringToUIColor ("5a6a7b")
 
-let navBarColor = whiteGrayColor
+let navBarColor = nelperRedColor
 let tabBarColor = whiteGrayColor
 
 //IMAGES

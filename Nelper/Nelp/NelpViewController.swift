@@ -87,6 +87,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		tableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
 		tableView.registerClass(NelpViewCell.classForCoder(), forCellReuseIdentifier: NelpViewCell.reuseIdentifier)
 		self.tableView.backgroundColor = whiteNelpyColor
+		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
 
 		let refreshView = UIRefreshControl()
 		refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
@@ -104,13 +105,13 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		let filtersButton = UIButton()
 		self.navBar.addSubview(filtersButton)
 		self.filtersButton = filtersButton
-		filtersButton.setBackgroundImage(UIImage(named: "filters_grey"), forState: UIControlState.Normal)
+		filtersButton.setBackgroundImage(UIImage(named: "filters-inactive"), forState: UIControlState.Normal)
 		filtersButton.addTarget(self, action: "didTapFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		filtersButton.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(navBar.snp_right).offset(-8)
+			make.right.equalTo(navBar.snp_right).offset(-12)
 			make.bottom.equalTo(navBar.snp_bottom).offset(-8)
 			make.height.equalTo(25)
-			make.width.equalTo(25)
+			make.width.equalTo(20)
 		}
 	}
 	
@@ -173,9 +174,9 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	func checkFilters(){
 		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
-			self.filtersButton.setBackgroundImage(UIImage(named: "filters_grey"), forState: UIControlState.Normal)
+			self.filtersButton.setBackgroundImage(UIImage(named: "filters-inactive"), forState: UIControlState.Normal)
 		}else {
-			self.filtersButton.setBackgroundImage(UIImage(named: "filters_red"), forState: UIControlState.Normal)
+			self.filtersButton.setBackgroundImage(UIImage(named: "filters-active"), forState: UIControlState.Normal)
 		}
 	}
 	
@@ -262,7 +263,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		return 100
+		return 85
 	}
 	
 	

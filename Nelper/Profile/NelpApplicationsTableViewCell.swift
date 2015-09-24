@@ -39,7 +39,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		
 		//CellContainer (hackForSpacing)
 		let cellView = UIView();
-		cellView.backgroundColor = navBarColor
+		cellView.backgroundColor = whiteGrayColor
 		backView.addSubview(cellView)
 //		cellView.layer.cornerRadius = 6
 		cellView.layer.borderWidth = 1
@@ -86,7 +86,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		//		var categoryLabel = UILabel()
 		//		self.categoryLabel = categoryLabel
 		//		categoryLabel.textColor = blackNelpyColor
-		//		categoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+		//		categoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kText14)
 		//		topContainer.addSubview(categoryLabel)
 		//		categoryLabel.snp_makeConstraints { (make) -> Void in
 		//			make.left.equalTo(categoryIcon.snp_right).offset(4)
@@ -97,7 +97,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		let titleLabel = UILabel()
 		self.titleLabel = titleLabel
 		titleLabel.textColor = blackNelpyColor
-		titleLabel.font = UIFont(name: "Lato-Regular", size: kCellTitleFontSize)
+		titleLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_bottom).offset(4)
@@ -120,7 +120,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		let applicationLabel = UILabel()
 		self.applicationStateLabel = applicationLabel
 		cellView.addSubview(applicationLabel)
-		applicationLabel.font = UIFont(name: "Lato-Light", size: kCellTextFontSize)
+		applicationLabel.font = UIFont(name: "Lato-Light", size: kText12)
 		applicationLabel.textColor = blackNelpyColor
 		
 		applicationLabel.snp_makeConstraints { (make) -> Void in
@@ -145,7 +145,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		moneyTag.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
 		moneyLabel.textColor = whiteNelpyColor
-		moneyLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		moneyLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTag.snp_edges)
 		}

@@ -100,14 +100,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         self.passwordField.layer.borderColor = blackNelpyColor.CGColor
         
         self.loginButton.setTitle("Login", forState: UIControlState.Normal)
-        self.loginButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kButtonFontSize + 2)
+        self.loginButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kTitle16 + 2)
         
         self.facebookLoginButton.backgroundColor = facebookBlueColor
         self.facebookLoginButton.layer.cornerRadius = 3
         self.facebookLoginButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
         self.facebookLoginButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
         self.facebookLoginButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-        self.facebookLoginButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kButtonFontSize)
+        self.facebookLoginButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kTitle16)
         self.facebookLoginButton.layer.borderColor = blackNelpyColor.CGColor
         self.facebookLoginButton.layer.borderWidth = 2
         self.facebookLoginButton.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0)
@@ -126,7 +126,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         self.skipButton.layer.cornerRadius = 3
         self.skipButton.setTitle("Maybe later", forState: UIControlState.Normal)
         self.skipButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
-        self.skipButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kButtonFontSize)
+        self.skipButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kTitle16)
         self.skipButton.layer.borderColor = UIColor.blackColor().CGColor
         self.skipButton.layer.borderWidth = 2
 		

@@ -254,6 +254,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 //		}
 //	}
 
+	func applicationDidFinishLaunching(application: UIApplication) {
+		UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+	}
+	
 	func applicationDidBecomeActive(application: UIApplication) {
 		FBSDKAppEvents.activateApp()
 	}

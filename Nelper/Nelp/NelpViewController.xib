@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8191"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -24,11 +24,11 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vwf-Ak-zmN">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="390"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ga4-Ld-Uh8">
-                                    <rect key="frame" x="0.0" y="64" width="375" height="261"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <rect key="frame" x="0.0" y="64" width="375" height="253"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSm-h1-kgF" customClass="NavBar" customModule="Nelper" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
@@ -36,6 +36,10 @@
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="5g9-gJ-FRs"/>
                                         <constraint firstAttribute="height" constant="64" id="bhz-ie-U0u"/>
                                     </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-u6-Vdz">
+                                    <rect key="frame" x="0.0" y="319" width="375" height="299"/>
+                                    <color key="backgroundColor" red="1" green="0.80969880760000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" red="0.46661662850000002" green="1" blue="0.7643357355" alpha="1" colorSpace="calibratedRGB"/>
@@ -45,34 +49,18 @@
                                 <constraint firstItem="Ga4-Ld-Uh8" firstAttribute="leading" secondItem="Vwf-Ak-zmN" secondAttribute="leading" id="ST8-X9-nvT"/>
                                 <constraint firstItem="pSm-h1-kgF" firstAttribute="leading" secondItem="Vwf-Ak-zmN" secondAttribute="leading" id="eFg-oa-Pgw"/>
                                 <constraint firstAttribute="trailing" secondItem="Ga4-Ld-Uh8" secondAttribute="trailing" id="pjE-pX-1HH"/>
-                                <constraint firstAttribute="bottom" secondItem="Ga4-Ld-Uh8" secondAttribute="bottom" constant="65" id="tG1-1j-Ip7"/>
+                                <constraint firstAttribute="bottom" secondItem="Ga4-Ld-Uh8" secondAttribute="bottom" constant="350" id="tG1-1j-Ip7"/>
                                 <constraint firstItem="pSm-h1-kgF" firstAttribute="top" secondItem="Vwf-Ak-zmN" secondAttribute="top" id="zEP-uf-CcS"/>
                             </constraints>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-u6-Vdz">
-                            <rect key="frame" x="0.0" y="327" width="375" height="291"/>
-                            <color key="backgroundColor" red="1" green="0.80969880760000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.039511486040000002" green="0.80666035349999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="PfD-u6-Vdz" secondAttribute="bottom" constant="49" id="7p7-T7-vZk"/>
-                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="top" secondItem="Vwf-Ak-zmN" secondAttribute="bottom" constant="8" id="9dM-iX-7az"/>
                         <constraint firstItem="Vwf-Ak-zmN" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="HYe-uY-X7k"/>
-                        <constraint firstItem="Vwf-Ak-zmN" firstAttribute="height" secondItem="yLw-jR-XsS" secondAttribute="height" multiplier="2:3" constant="-54.666666666666629" id="IPr-rr-xRk"/>
-                        <constraint firstAttribute="trailing" secondItem="PfD-u6-Vdz" secondAttribute="trailing" id="Mna-68-eLH"/>
-                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="leading" secondItem="yLw-jR-XsS" secondAttribute="leading" id="ZXG-Bz-IxN"/>
-                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="top" secondItem="Ga4-Ld-Uh8" secondAttribute="bottom" constant="2" id="jZp-9i-rlT"/>
+                        <constraint firstItem="Vwf-Ak-zmN" firstAttribute="height" secondItem="yLw-jR-XsS" secondAttribute="height" multiplier="2:3" constant="222.33333333333337" id="IPr-rr-xRk"/>
                         <constraint firstItem="Vwf-Ak-zmN" firstAttribute="top" secondItem="yLw-jR-XsS" secondAttribute="top" id="kbn-1E-O6t"/>
                         <constraint firstAttribute="trailing" secondItem="Vwf-Ak-zmN" secondAttribute="trailing" id="lz6-nx-503"/>
-                        <constraint firstItem="PfD-u6-Vdz" firstAttribute="top" secondItem="yLw-jR-XsS" secondAttribute="top" constant="398" id="mLG-6x-ugC"/>
                     </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="9dM-iX-7az"/>
-                            <exclude reference="mLG-6x-ugC"/>
-                        </mask>
-                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

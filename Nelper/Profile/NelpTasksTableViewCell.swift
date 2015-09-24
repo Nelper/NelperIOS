@@ -88,7 +88,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 //		var categoryLabel = UILabel()
 //		self.categoryLabel = categoryLabel
 //		categoryLabel.textColor = blackNelpyColor
-//		categoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kTextFontSize)
+//		categoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kText14)
 //		topContainer.addSubview(categoryLabel)
 //		categoryLabel.snp_makeConstraints { (make) -> Void in
 //			make.left.equalTo(categoryIcon.snp_right).offset(4)
@@ -112,7 +112,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		let titleLabel = UILabel()
 		self.titleLabel = titleLabel
 		titleLabel.textColor = blackNelpyColor
-		titleLabel.font = UIFont(name: "Lato-Regular", size: kCellTitleFontSize)
+		titleLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_bottom).offset(4)
@@ -135,7 +135,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		let numberOfApplicants = UILabel()
 		self.numberOfApplicantsLabel = numberOfApplicants
 		self.numberOfApplicants = numberOfApplicants
-		self.numberOfApplicants.font = UIFont(name: "Lato-Light", size: kCellTextFontSize)
+		self.numberOfApplicants.font = UIFont(name: "Lato-Light", size: kText12)
 		self.numberOfApplicants.textColor = blackNelpyColor
 		cellView.addSubview(numberOfApplicants)
 		numberOfApplicants.snp_makeConstraints { (make) -> Void in
@@ -160,7 +160,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		moneyTag.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
 		moneyLabel.textColor = whiteNelpyColor
-		moneyLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		moneyLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTag.snp_edges)
 		}

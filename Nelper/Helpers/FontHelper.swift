@@ -8,49 +8,30 @@
 
 import Foundation
 
-//Login
+// General
+
+let kNavTitle17: CGFloat = 18 // navbar title only
+
+let kTitle16: CGFloat = 17 // segment controller, section title, money, button text, etc.
+
+let kText14: CGFloat = 15 // secondary text, task title in cell, category descriptions, etc.
+let kText13: CGFloat = 14 // information in a list, etc.
+let kText12: CGFloat = 13 // information in a cell, etc.
+let kText11: CGFloat = 12 // sub-information such as dates and times
+
+// Login screen
+
 let kLoginScreenFontSize:CGFloat = 36
 
-//Cell
-let kCellPriceFontSize:CGFloat = 18
-let kCellTitleFontSize:CGFloat = 18
-let kCellTextFontSize:CGFloat = 14
-let kCellSubtitleFontSize:CGFloat = 16
-
-//Details View
-let kDetailsViewTitleFontSize:CGFloat = 20
-let kDetailsViewTextFontSize:CGFloat = 16
-
-//FormView
-let kFormViewLabelFontSize:CGFloat = 18
-let kFormViewExamplesFontSize:CGFloat = 14
-//General
-let kTitleFontSize:CGFloat = 26
-let kSubtitleFontSize:CGFloat = 20
-let kTextFontSize:CGFloat = 16
-let kButtonFontSize:CGFloat = 18
+// Profile + Logout
 
 let kProfileButtonSize:CGFloat = 14
 let kLogoutButtonSize:CGFloat = 12
 
-let kNavBarTitleFont:CGFloat = 20
-
-let kAboutTextFontSize:CGFloat = 16
-
-// Payment Popup
-
-let kPopupTitleFontSize:CGFloat = 20
-let kPopupSubtitleFontSize:CGFloat = 16
-
-//Progress Bar
+// Progress Bar
 
 let kProgressBarTextFontSize:CGFloat = 14
 
-//Application Details
-
-let kStatusBarFont:CGFloat = 12
-
-
-//Task Details
+// Edit Task Details
 
 let kEditTaskSubtitleFontSize:CGFloat = 18

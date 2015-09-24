@@ -42,12 +42,13 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 	func createView(){
 		
 		self.imagePicker.delegate = self
+		
+		//Navbar
 		let navBar = NavBar()
-		let backBtn = UIButton()
-		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.view.addSubview(navBar)
-		navBar.backButton = backBtn
-		navBar.setImage(UIImage(named: "close_red")!)
+		navBar.closeButton = previousBtn
 		navBar.setTitle("Edit Task")
 		navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
@@ -91,7 +92,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		contentView.addSubview(taskInformationContainer)
 		taskInformationContainer.layer.borderColor = darkGrayDetails.CGColor
 		taskInformationContainer.layer.borderWidth = 0.5
-		taskInformationContainer.backgroundColor = navBarColor
+		taskInformationContainer.backgroundColor = whiteGrayColor
 		taskInformationContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top)
 			make.left.equalTo(contentView.snp_left).offset(-1)
@@ -115,7 +116,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		self.titleTextField = titleTextField
 		taskInformationContainer.addSubview(titleTextField)
 		titleTextField.text = self.task.title
-		titleTextField.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		titleTextField.font = UIFont(name: "Lato-Regular", size: kText14)
 		titleTextField.textAlignment = NSTextAlignment.Center
 		titleTextField.layer.borderWidth = 1
 		titleTextField.layer.borderColor = darkGrayDetails.CGColor
@@ -174,7 +175,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 
 		let locationContainer = UIView()
 		taskInformationContainer.addSubview(locationContainer)
-		locationContainer.backgroundColor = navBarColor
+		locationContainer.backgroundColor = whiteGrayColor
 		locationContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(descriptionUnderline.snp_bottom).offset(20)
 			make.left.equalTo(descriptionTextView.snp_left).offset(16)
@@ -203,11 +204,11 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		}
 		
 		let streetAddressLabel = UITextField()
-		streetAddressLabel.backgroundColor = navBarColor
+		streetAddressLabel.backgroundColor = whiteGrayColor
 		locationContainer.addSubview(streetAddressLabel)
 		streetAddressLabel.text = "175 Forbin Janson"
 		streetAddressLabel.textColor = blackNelpyColor
-		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		streetAddressLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
 			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
@@ -215,11 +216,11 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		}
 		
 		let cityLabel = UITextField()
-		cityLabel.backgroundColor = navBarColor
+		cityLabel.backgroundColor = whiteGrayColor
 		locationContainer.addSubview(cityLabel)
 		cityLabel.text = "Mont Saint-Hilaire"
 		cityLabel.textColor = blackNelpyColor
-		cityLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		cityLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		cityLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
 			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
@@ -227,11 +228,11 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		}
 		
 		let zipcodeLabel = UITextField()
-		zipcodeLabel.backgroundColor = navBarColor
+		zipcodeLabel.backgroundColor = whiteGrayColor
 		locationContainer.addSubview(zipcodeLabel)
 		zipcodeLabel.text = "J3H5E5"
 		zipcodeLabel.textColor = blackNelpyColor
-		zipcodeLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		zipcodeLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		zipcodeLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
 			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
@@ -258,7 +259,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		self.deleteTaskButton.addTarget(self, action: "didTapDeleteButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		deleteTaskButton.layer.borderWidth = 1
 		deleteTaskButton.layer.borderColor = nelperRedColor.CGColor
-		deleteTaskButton.backgroundColor = navBarColor
+		deleteTaskButton.backgroundColor = whiteGrayColor
 		deleteTaskButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(locationUnderline.snp_bottom).offset(20)
 			make.centerX.equalTo(taskInformationContainer.snp_centerX)
@@ -275,7 +276,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		
 		let picturesContainer = UIView()
 		contentView.addSubview(picturesContainer)
-		picturesContainer.backgroundColor = navBarColor
+		picturesContainer.backgroundColor = whiteGrayColor
 		picturesContainer.layer.borderColor = darkGrayDetails.CGColor
 		picturesContainer.layer.borderWidth = 0.5
 		picturesContainer.snp_makeConstraints { (make) -> Void in
@@ -369,7 +370,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		saveChangesButton.addTarget(self, action: "didTapSaveButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		saveChangesButton.layer.borderWidth = 1
 		saveChangesButton.layer.borderColor = grayBlueColor.CGColor
-		saveChangesButton.backgroundColor = navBarColor
+		saveChangesButton.backgroundColor = whiteGrayColor
 		saveChangesButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(picturesContainer.snp_bottom).offset(10)
 			make.centerX.equalTo(taskInformationContainer.snp_centerX)

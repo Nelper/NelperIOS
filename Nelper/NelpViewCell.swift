@@ -19,6 +19,7 @@ class NelpViewCell: UITableViewCell {
 	var picture:UIImageView!
 	var categoryPicture:UIImageView!
 	var creationDate:UILabel!
+	var moneyBackground:UIView!
 	var task: NelpTask!
 	
 	//MARK: Initialization
@@ -28,8 +29,10 @@ class NelpViewCell: UITableViewCell {
 		
 		self.clipsToBounds = true
 		
+		
+		
 		let cellView = UIView(frame: self.bounds)
-		cellView.backgroundColor = navBarColor
+		cellView.backgroundColor = whiteGrayColor
 		cellView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
 		
 		let pictureSize: CGFloat = 70
@@ -60,9 +63,9 @@ class NelpViewCell: UITableViewCell {
 		
 		categoryPicture.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(picture.snp_bottom)
-			make.left.equalTo(picture.snp_right).offset(-22)
-			make.width.equalTo(28)
-			make.height.equalTo(28)
+			make.left.equalTo(picture.snp_right).offset(-25)
+			make.width.equalTo(30)
+			make.height.equalTo(30)
 		}
 		
 		let title = UILabel()
@@ -71,8 +74,18 @@ class NelpViewCell: UITableViewCell {
 		cellView.addSubview(title)
 		
 		title.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(cellView.snp_centerY).offset(-8)
-			make.left.equalTo(picture.snp_right).offset(15)
+			make.top.equalTo(picture.snp_top)
+			make.left.equalTo(picture.snp_right).offset(12)
+		}
+		
+		let authorIcon = UIImageView()
+		cellView.addSubview(authorIcon)
+		authorIcon.image = UIImage(named: "profile-red")
+		authorIcon.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(picture.snp_right).offset(22)
+			make.top.equalTo(title.snp_bottom).offset(5)
+			make.width.equalTo(20)
+			make.height.equalTo(20)
 		}
 		
 		let author = UILabel()
@@ -80,41 +93,64 @@ class NelpViewCell: UITableViewCell {
 		cellView.addSubview(author)
 		
 		author.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(cellView.snp_centerY) 
-			make.left.equalTo(title.snp_left)
+			make.centerY.equalTo(authorIcon.snp_centerY).offset(-1)
+			make.left.equalTo(authorIcon.snp_right).offset(7)
 		}
 		
 		let creationDate = UILabel()
 		self.creationDate = creationDate
 		cellView.addSubview(creationDate)
 		
-		self.creationDate.font = UIFont(name: "Lato-Light", size: kCellTextFontSize)
+		self.creationDate.font = UIFont(name: "Lato-Light", size: kText12)
 		self.creationDate.textColor = blackTextColor
 		
 		creationDate.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(author.snp_bottom)
+			make.top.equalTo(author.snp_bottom).offset(10)
 			make.left.equalTo(author.snp_left)
 		}
 		
-		let moneyTag = UIImageView()
-		cellView.addSubview(moneyTag)
-		moneyTag.image = UIImage(named: "moneytag")
-		moneyTag.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(cellView.snp_right).offset(-10)
-			make.bottom.equalTo(creationDate.snp_bottom).offset(-2)
-			make.width.equalTo(70)
+		let moneyContainer = UIView()
+		cellView.addSubview(moneyContainer)
+		moneyContainer.backgroundColor = whiteNelpyColor
+		moneyContainer.layer.cornerRadius = 3
+		moneyContainer.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(cellView.snp_right).offset(-55)
+			make.bottom.equalTo(creationDate.snp_bottom).offset(-4)
+			make.width.equalTo(55)
 			make.height.equalTo(35)
 		}
 		
 		let moneyLabel = UILabel()
 		self.price = moneyLabel
-		moneyTag.addSubview(moneyLabel)
+		moneyContainer.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = whiteNelpyColor
-		moneyLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		moneyLabel.textColor = blackNelpyColor
+		moneyLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(moneyTag.snp_edges)
+			make.edges.equalTo(moneyContainer.snp_edges)
 		}
+		
+		let rightArrow = UIImageView()
+		cellView.addSubview(rightArrow)
+		rightArrow.image = UIImage(named: "arrow_applicant_cell")
+		rightArrow.alpha = 0.2
+		rightArrow.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(moneyContainer.snp_right).offset(18)
+			make.centerY.equalTo(moneyContainer.snp_centerY)
+			make.width.equalTo(15)
+			make.height.equalTo(25)
+		}
+		
+		let separatorLine = UIView()
+		cellView.addSubview(separatorLine)
+		separatorLine.backgroundColor = grayDetails
+		separatorLine.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(cellView.snp_right)
+			make.left.equalTo(cellView.snp_left)
+			make.bottom.equalTo(cellView.snp_bottom)
+			make.height.equalTo(0.5)
+		}
+		
 		self.addSubview(cellView)
 	}
 	
@@ -148,25 +184,19 @@ class NelpViewCell: UITableViewCell {
 	func setNelpTask(nelpTask:NelpTask) {
 		self.task = nelpTask
 		self.title.text = nelpTask.title
-		self.title.font = UIFont(name: "Lato-Regular", size: kCellTitleFontSize)
+		self.title.font = UIFont(name: "Lato-Regular", size: kText14)
 		self.title.textColor = blackTextColor
 		
 		self.author.text = "\(nelpTask.user.name)"
-		self.author.font = UIFont(name: "Lato-Light", size: kCellTextFontSize)
+		self.author.font = UIFont(name: "Lato-Light", size: kText12)
 		self.author.textColor = blackTextColor
 		
 		let price = String(format: "%.0f", nelpTask.priceOffered!)
 		
 		self.price.text = "$"+price
 		
-		self.price.font = UIFont(name: "Lato-Regular", size: kCellPriceFontSize)
-		self.price.textColor = whiteNelpyColor
-		self.price.layer.cornerRadius = 6
-		self.price.clipsToBounds = true
-		self.price.textAlignment = NSTextAlignment.Center
-		
 		let dateHelper = DateHelper()
-		self.creationDate.text = "Created \(dateHelper.timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
+		self.creationDate.text = "Posted \(dateHelper.timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
 		
 		self.categoryPicture.image = UIImage(named: nelpTask.category!)
 		

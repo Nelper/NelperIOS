@@ -90,7 +90,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		myTasksSegmentButton.addTarget(self, action: "myTasksSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		firstHalf.addSubview(myTasksSegmentButton)
 		myTasksSegmentButton.setTitle("My Tasks", forState: UIControlState.Normal)
-		myTasksSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kButtonFontSize)
+		myTasksSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle16)
 		myTasksSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
 		myTasksSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
 		myTasksSegmentButton.snp_makeConstraints { (make) -> Void in
@@ -126,7 +126,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		
 		secondHalf.addSubview(myApplicationsSegmentButton)
 		myApplicationsSegmentButton.setTitle("My Applications", forState: UIControlState.Normal)
-		myApplicationsSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kButtonFontSize)
+		myApplicationsSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle16)
 		myApplicationsSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
 		myApplicationsSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
 		myApplicationsSegmentButton.snp_makeConstraints { (make) -> Void in
