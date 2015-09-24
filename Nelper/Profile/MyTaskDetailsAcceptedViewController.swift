@@ -53,10 +53,9 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 			make.height.equalTo(64)
 		}
 		
-		let backBtn = UIButton()
-		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		navBar.backButton = backBtn
-		navBar.setImage(UIImage(named: "close_red" )!)
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		navBar.closeButton = previousBtn
 		navBar.setTitle("My Task")
 		
 		let backgroundView = UIView()
@@ -101,7 +100,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		taskLabel.text = self.task.title
 		taskLabelContainer.addSubview(taskLabel)
 		taskLabel.textColor = darkGrayDetails
-		taskLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
+		taskLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		taskLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskLabelContainer.snp_top).offset(4)
 			make.bottom.equalTo(taskLabelContainer.snp_bottom).offset(-4)
@@ -115,7 +114,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		contentView.addSubview(progressContainer)
 		progressContainer.layer.borderColor = grayDetails.CGColor
 		progressContainer.layer.borderWidth = 1
-		progressContainer.backgroundColor = navBarColor
+		progressContainer.backgroundColor = whiteGrayColor
 		progressContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskLabelContainer.snp_bottom)
 			make.left.equalTo(contentView.snp_left)
@@ -298,7 +297,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		paymentButton.setTitle("Proceed to Payment", forState: UIControlState.Normal)
 		paymentButton.addTarget(self, action: "didTapPaymentButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		paymentButton.setTitleColor(whiteGrayColor, forState: UIControlState.Normal)
-		paymentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kButtonFontSize)
+		paymentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle16)
 		paymentButton.backgroundColor = nelperRedColor
 		paymentButton.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(progressContainer.snp_bottom).offset(-60)
@@ -313,7 +312,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		progressContainer.addSubview(aboutNelperPayLabel)
 		aboutNelperPayLabel.text = "About NelperPay"
 		aboutNelperPayLabel.textColor = blackNelpyColor
-		aboutNelperPayLabel.backgroundColor = navBarColor
+		aboutNelperPayLabel.backgroundColor = whiteGrayColor
 		aboutNelperPayLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		aboutNelperPayLabel.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(progressContainer.snp_bottom).offset(-20)
@@ -356,7 +355,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		
 		let applicantContainer = UIView()
 		contentView.addSubview(applicantContainer)
-		applicantContainer.backgroundColor = navBarColor
+		applicantContainer.backgroundColor = whiteGrayColor
 		applicantContainer.layer.borderColor = grayDetails.CGColor
 		applicantContainer.layer.borderWidth = 1
 		applicantContainer.snp_makeConstraints { (make) -> Void in
@@ -370,7 +369,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		
 		let headerContainer = UIView()
 		applicantContainer.addSubview(headerContainer)
-		headerContainer.backgroundColor = navBarColor
+		headerContainer.backgroundColor = whiteGrayColor
 		headerContainer.layer.borderWidth = 1
 		headerContainer.layer.borderColor = grayDetails.CGColor
 		headerContainer.snp_makeConstraints { (make) -> Void in
@@ -394,7 +393,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		headerContainer.addSubview(acceptedApplicantLabel)
 		acceptedApplicantLabel.text = "Accepted Nelper"
 		acceptedApplicantLabel.textColor = blackNelpyColor
-		acceptedApplicantLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
+		acceptedApplicantLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		acceptedApplicantLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(acceptedIcon.snp_centerY)
 			make.left.equalTo(acceptedIcon.snp_right).offset(12)
@@ -404,7 +403,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		
 		let profileContainer = UIView()
 		applicantContainer.addSubview(profileContainer)
-		applicantContainer.backgroundColor = navBarColor
+		applicantContainer.backgroundColor = whiteGrayColor
 		applicantContainer.layer.borderColor = grayDetails.CGColor
 		applicantContainer.layer.borderWidth = 1
 		profileContainer.snp_makeConstraints { (make) -> Void in
@@ -417,7 +416,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		profileContainer.addSubview(applicantName)
 		applicantName.text = self.acceptedApplicant.name
 		applicantName.textColor = blackNelpyColor
-		applicantName.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		applicantName.font = UIFont(name: "Lato-Regular", size: kText14)
 		applicantName.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileContainer.snp_top).offset(18)
 			make.left.equalTo(profileContainer.snp_left).offset(20)
@@ -538,7 +537,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		profileContainer.addSubview(priceToPay)
 		priceToPay.text = "$\(self.acceptedApplication.price!)"
 		priceToPay.textColor = whiteNelpyColor
-		priceToPay.font = UIFont(name: "Lato-Regular", size: kButtonFontSize)
+		priceToPay.font = UIFont(name: "Lato-Regular", size: kTitle16)
 		priceToPay.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(moneyTag.snp_centerX).offset(2)
 			make.centerY.equalTo(moneyTag.snp_centerY)
@@ -559,7 +558,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		
 		let informationContainer = UIView()
 		applicantContainer.addSubview(informationContainer)
-		informationContainer.backgroundColor = navBarColor
+		informationContainer.backgroundColor = whiteGrayColor
 		informationContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileUnderline.snp_bottom)
 			make.bottom.equalTo(applicantContainer.snp_bottom)
@@ -570,7 +569,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		informationContainer.addSubview(emailLabel)
 		emailLabel.text = "cvinette@nelper.ca"
 		emailLabel.textColor = blackNelpyColor
-		emailLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		emailLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		emailLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
 			make.centerY.equalTo(informationContainer.snp_centerY).offset(-30)
@@ -590,7 +589,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		informationContainer.addSubview(phoneLabel)
 		phoneLabel.text = "000-000-000"
 		phoneLabel.textColor = blackNelpyColor
-		phoneLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		phoneLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		phoneLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
 			make.top.equalTo(emailLabel.snp_bottom).offset(30)

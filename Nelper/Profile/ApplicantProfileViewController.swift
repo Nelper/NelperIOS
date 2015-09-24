@@ -131,7 +131,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		name.numberOfLines = 0
 		name.textColor = whiteNelpyColor
 		name.text = self.applicant.name
-		name.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
+		name.font = UIFont(name: "Lato-Regular", size: kText14)
 		
 		name.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(picture.snp_right).offset(15)
@@ -205,7 +205,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		profileContainer.addSubview(numberOfTasksLabel)
 		numberOfTasksLabel.text = "12 tasks completed"
 		numberOfTasksLabel.textColor = whiteNelpyColor
-		numberOfTasksLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		numberOfTasksLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		numberOfTasksLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(name.snp_left)
 			make.top.equalTo(firstStar.snp_bottom).offset(8)
@@ -222,7 +222,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 //			make.right.equalTo(self.containerView.snp_right)
 //			make.height.equalTo(60)
 //		}
-//		askingForPriceContainer.backgroundColor = navBarColor
+//		askingForPriceContainer.backgroundColor = whiteGrayColor
 //		
 //		let moneyIcon = UIImageView()
 //		askingForPriceContainer.addSubview(moneyIcon)
@@ -237,7 +237,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 //		
 //		let askingForLabel = UILabel()
 //		askingForLabel.textColor = blackNelpyColor
-//		askingForLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+//		askingForLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 //		if self.application.price != nil{
 //		askingForLabel.text = "\(self.application.price)$"
 //		}
@@ -253,7 +253,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		}
 		segmentControlContainer.layer.borderWidth = 1
 		segmentControlContainer.layer.borderColor = darkGrayDetails.CGColor
-		segmentControlContainer.backgroundColor = navBarColor
+		segmentControlContainer.backgroundColor = whiteGrayColor
 		
 			//Hack for positioning of custom Segment bar
 		
@@ -271,7 +271,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		profileSegmentButton.addTarget(self, action: "profileSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		firstHalf.addSubview(profileSegmentButton)
 		profileSegmentButton.setTitle("Profile", forState: UIControlState.Normal)
-		profileSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
+		profileSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kText14)
 		profileSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
 		profileSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
 		profileSegmentButton.snp_makeConstraints { (make) -> Void in
@@ -307,7 +307,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 
 		secondHalf.addSubview(reviewSegmentButton)
 		reviewSegmentButton.setTitle("Feedback", forState: UIControlState.Normal)
-		reviewSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
+		reviewSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kText14)
 		reviewSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
 		reviewSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
 		reviewSegmentButton.snp_makeConstraints { (make) -> Void in
@@ -351,10 +351,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		
 		
 		scrollView.backgroundColor = whiteNelpyColor
-		let backBtn = UIButton()
-		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.backButton = backBtn
-		navBar.setImage(UIImage(named: "close_red" )!)
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.closeButton = previousBtn
 
 		
 		let contentView = UIView()
@@ -378,7 +377,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.whiteContainer = whiteContainer
 		whiteContainer.layer.borderColor = darkGrayDetails.CGColor
 		whiteContainer.layer.borderWidth = 1
-		whiteContainer.backgroundColor = navBarColor
+		whiteContainer.backgroundColor = whiteGrayColor
 		whiteContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(10)
 			make.left.equalTo(contentView.snp_left)
@@ -406,7 +405,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.whiteContainer.addSubview(aboutLabel)
 		aboutLabel.textColor = blackNelpyColor
 		aboutLabel.text = "About"
-		aboutLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
+		aboutLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		aboutLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(aboutLogo.snp_right).offset(4)
 			make.centerY.equalTo(aboutLogo.snp_centerY)
@@ -418,10 +417,10 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.aboutTextView = aboutTextView
 		aboutTextView.scrollEnabled = false
 		aboutTextView.textColor = blackNelpyColor
-		aboutTextView.backgroundColor = navBarColor
+		aboutTextView.backgroundColor = whiteGrayColor
 		aboutTextView.editable = false
 		aboutTextView.text = self.applicant.about
-		aboutTextView.font = UIFont(name: "Lato-Regular", size: kAboutTextFontSize)
+		aboutTextView.font = UIFont(name: "Lato-Regular", size: kText14)
 		aboutTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLogo.snp_left).offset(4)
@@ -468,7 +467,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.whiteContainer.addSubview(skillsLabel)
 		skillsLabel.textColor = blackNelpyColor
 		skillsLabel.text = "Skills"
-		skillsLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
+		skillsLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		skillsLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutTextView.snp_bottom).offset(10)
 			make.left.equalTo(aboutLabel.snp_left)
@@ -495,7 +494,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		skillsTableView.delegate = self
 		skillsTableView.dataSource = self
 		skillsTableView.registerClass(skillsTableViewCell.classForCoder(), forCellReuseIdentifier: skillsTableViewCell.reuseIdentifier)
-		skillsTableView.backgroundColor = navBarColor
+		skillsTableView.backgroundColor = whiteGrayColor
 		skillsTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left)
@@ -523,7 +522,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.whiteContainer.addSubview(educationLabel)
 		educationLabel.textColor = blackNelpyColor
 		educationLabel.text = "Education"
-		educationLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
+		educationLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		educationLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsTableView.snp_bottom).offset(10)
 			make.left.equalTo(aboutLabel)
@@ -550,7 +549,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		educationTableView.delegate = self
 		educationTableView.dataSource = self
 		educationTableView.registerClass(skillsTableViewCell.classForCoder(), forCellReuseIdentifier: skillsTableViewCell.reuseIdentifier)
-		educationTableView.backgroundColor = navBarColor
+		educationTableView.backgroundColor = whiteGrayColor
 		educationTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left)
@@ -578,7 +577,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.whiteContainer.addSubview(experienceLabel)
 		experienceLabel.textColor = blackNelpyColor
 		experienceLabel.text = "Work experience"
-		experienceLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
+		experienceLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		experienceLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationTableView.snp_bottom).offset(10)
 			make.left.equalTo(aboutLabel)
@@ -605,7 +604,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		experienceTableView.delegate = self
 		experienceTableView.dataSource = self
 		experienceTableView.registerClass(skillsTableViewCell.classForCoder(), forCellReuseIdentifier: skillsTableViewCell.reuseIdentifier)
-		experienceTableView.backgroundColor = navBarColor
+		experienceTableView.backgroundColor = whiteGrayColor
 		experienceTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(experienceLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left)

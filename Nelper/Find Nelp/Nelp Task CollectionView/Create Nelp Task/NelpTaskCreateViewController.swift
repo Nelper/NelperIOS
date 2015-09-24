@@ -93,7 +93,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		contentView.addSubview(selectCategoryLabel);
 		selectCategoryLabel.text = "Select a Category"
 		selectCategoryLabel.textColor = blackNelpyColor
-		selectCategoryLabel.font = UIFont(name: "Lato-Regular", size: kFormViewLabelFontSize)
+		selectCategoryLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
 		
 		selectCategoryLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(20)

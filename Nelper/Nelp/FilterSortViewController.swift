@@ -14,8 +14,8 @@ protocol FilterSortViewControllerDelegate{
 
 class FilterSortViewController: UIViewController{
 	
-	private var kFilterCategorySize = 65
-	private var kFilterCategorySpacing = 12
+	private var kFilterCategorySize = 55
+	private var kFilterCategorySpacing = 18
 	var technologyButton: UIButton!
 	var businessButton: UIButton!
 	var cleaningButton: UIButton!
@@ -42,14 +42,14 @@ class FilterSortViewController: UIViewController{
 	var previousMaxDistance:Double?
 	var scrollView:UIScrollView!
 	var contentView:UIView!
-
+	
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
-			super.viewDidLoad()
-			self.createView()
-			self.checkFilters()
-			self.checkSort()
+		super.viewDidLoad()
+		self.createView()
+		self.checkFilters()
+		self.checkSort()
 	}
 	
 	//MARK: View Creation
@@ -83,7 +83,7 @@ class FilterSortViewController: UIViewController{
 		scrollView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(background.snp_edges)
 		}
-
+		
 		let contentView = UIView()
 		self.contentView = contentView
 		self.scrollView.addSubview(contentView)
@@ -101,7 +101,7 @@ class FilterSortViewController: UIViewController{
 		
 		let filtersContainer = UIView()
 		contentView.addSubview(filtersContainer)
-		filtersContainer.backgroundColor = navBarColor
+		filtersContainer.backgroundColor = whiteGrayColor
 		filtersContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top)
 			make.left.equalTo(contentView.snp_left)
@@ -112,7 +112,7 @@ class FilterSortViewController: UIViewController{
 		filtersContainer.addSubview(sortingLabel)
 		sortingLabel.text = "Sort by"
 		sortingLabel.textColor = blackTextColor
-		sortingLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
+		sortingLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
 		sortingLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(filtersContainer.snp_centerX)
 			make.top.equalTo(filtersContainer.snp_top).offset(20)
@@ -133,7 +133,7 @@ class FilterSortViewController: UIViewController{
 			make.width.equalTo(300)
 			make.height.equalTo(35)
 		}
-		sortingSegmentControl.layer.cornerRadius = 0
+		sortingSegmentControl.layer.cornerRadius = 3
 		sortingSegmentControl.layer.borderColor = nelperRedColor.CGColor
 		sortingSegmentControl.layer.borderWidth = 1.0
 		sortingSegmentControl.layer.masksToBounds = true
@@ -142,7 +142,7 @@ class FilterSortViewController: UIViewController{
 		filtersContainer.addSubview(sortingUnderline)
 		sortingUnderline.backgroundColor = darkGrayDetails
 		sortingUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(sortingSegmentControl.snp_bottom).offset(20)
+			make.top.equalTo(sortingSegmentControl.snp_bottom).offset(30)
 			make.width.equalTo(filtersContainer.snp_width).dividedBy(1.5)
 			make.centerX.equalTo(filtersContainer.snp_centerX)
 			make.height.equalTo(0.5)
@@ -150,18 +150,18 @@ class FilterSortViewController: UIViewController{
 		
 		let filtersLabel = UILabel()
 		filtersContainer.addSubview(filtersLabel)
-		filtersLabel.text = "Filters:"
+		filtersLabel.text = "Filters"
 		filtersLabel.textColor = blackTextColor
-		filtersLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
+		filtersLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
 		filtersLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(filtersContainer.snp_centerX)
-			make.top.equalTo(sortingUnderline.snp_bottom).offset(20)
+			make.top.equalTo(sortingUnderline.snp_bottom).offset(25)
 			make.height.equalTo(20)
 		}
 		
 		let firstRowOfCategories = UIView()
 		filtersContainer.addSubview(firstRowOfCategories)
-		firstRowOfCategories.backgroundColor = navBarColor
+		firstRowOfCategories.backgroundColor = whiteGrayColor
 		firstRowOfCategories.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(kFilterCategorySize * 4 + kFilterCategorySpacing * 3)
 			make.height.equalTo(kFilterCategorySize)
@@ -238,7 +238,7 @@ class FilterSortViewController: UIViewController{
 		
 		let secondRowOfCategories = UIView()
 		filtersContainer.addSubview(secondRowOfCategories)
-		secondRowOfCategories.backgroundColor = navBarColor
+		secondRowOfCategories.backgroundColor = whiteGrayColor
 		secondRowOfCategories.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(kFilterCategorySize * 4 + kFilterCategorySpacing * 3)
 			make.height.equalTo(kFilterCategorySize)
@@ -306,36 +306,16 @@ class FilterSortViewController: UIViewController{
 		allButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(secondRowOfCategories.snp_centerY)
 			make.left.equalTo(otherButton.snp_right).offset(kFilterCategorySpacing)
-			make.height.equalTo(kFilterCategorySize)
-			make.width.equalTo(kFilterCategorySize)
+			make.height.equalTo(kFilterCategorySize + 7)
+			make.width.equalTo(kFilterCategorySize + 7)
 		}
 		
 		allButton.layer.cornerRadius = CGFloat(kFilterCategorySize / 2)
 		allButton.layer.borderColor = darkGrayDetails.CGColor
 		allButton.layer.borderWidth = 0
 		
-		let filtersUnderline = UIView()
-		filtersContainer.addSubview(filtersUnderline)
-		filtersUnderline.backgroundColor = darkGrayDetails
-		filtersUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(secondRowOfCategories.snp_bottom).offset(20)
-			make.width.equalTo(filtersContainer.snp_width).dividedBy(1.5)
-			make.centerX.equalTo(filtersContainer.snp_centerX)
-			make.height.equalTo(0.5)
-		}
 		
 		//Distance Filter
-	
-		
-		let distanceLabel = UILabel()
-		filtersContainer.addSubview(distanceLabel)
-		distanceLabel.text = "Distance within:"
-		distanceLabel.textColor = blackNelpyColor
-		distanceLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
-		distanceLabel.snp_makeConstraints { (make) -> Void in
-				make.centerX.equalTo(filtersContainer.snp_centerX).offset(15)
-			  make.top.equalTo(filtersUnderline.snp_bottom).offset(20)
-		}
 		
 		let distanceCheckBox = UIButton()
 		distanceCheckBox.addTarget(self, action: "didTapDistanceCheckBox:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -344,10 +324,20 @@ class FilterSortViewController: UIViewController{
 		distanceCheckBox.setBackgroundImage(UIImage(named: "empty_check"), forState: UIControlState.Normal)
 		distanceCheckBox.setBackgroundImage(UIImage(named: "checked_box"), forState: UIControlState.Selected)
 		distanceCheckBox.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(distanceLabel.snp_left).offset(-10)
-			make.centerY.equalTo(distanceLabel.snp_centerY)
-			make.height.equalTo(20)
-			make.width.equalTo(20)
+			make.left.equalTo(filtersContainer.snp_left).offset(25)
+			make.top.equalTo(allButton.snp_bottom).offset(45)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
+		}
+		
+		let distanceLabel = UILabel()
+		filtersContainer.addSubview(distanceLabel)
+		distanceLabel.text = "Distance within"
+		distanceLabel.textColor = blackNelpyColor
+		distanceLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		distanceLabel.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(distanceCheckBox.snp_right).offset(15)
+			make.centerY.equalTo(distanceCheckBox.snp_centerY)
 		}
 		
 		let distanceStepper = UIStepper()
@@ -364,8 +354,8 @@ class FilterSortViewController: UIViewController{
 		distanceStepper.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(30)
 			make.width.equalTo(60)
-			make.left.equalTo(filtersContainer.snp_centerX)
-			make.top.equalTo(distanceLabel.snp_bottom).offset(20)
+			make.right.equalTo(filtersContainer.snp_right).offset(-55)
+			make.centerY.equalTo(distanceLabel.snp_centerY)
 		}
 		
 		let distanceValueLabel = UILabel()
@@ -373,7 +363,7 @@ class FilterSortViewController: UIViewController{
 		distanceValueLabel.alpha = 0.3
 		filtersContainer.addSubview(distanceValueLabel)
 		distanceValueLabel.text = "\(Int(self.distanceStepper.value))km"
-		distanceValueLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		distanceValueLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		distanceValueLabel.textColor = blackNelpyColor
 		distanceValueLabel.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(distanceStepper.snp_left).offset(-20)
@@ -382,16 +372,6 @@ class FilterSortViewController: UIViewController{
 		
 		//Price Filter
 		
-		let priceLabel = UILabel()
-		filtersContainer.addSubview(priceLabel)
-		priceLabel.text = "Minimum Price:"
-		priceLabel.textColor = blackNelpyColor
-		priceLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
-		priceLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(filtersContainer.snp_centerX).offset(15)
-			make.top.equalTo(distanceStepper.snp_bottom).offset(20)
-		}
-		
 		let priceCheckBox = UIButton()
 		priceCheckBox.addTarget(self, action: "didTapPriceCheckBox:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.priceCheckBox = priceCheckBox
@@ -399,16 +379,26 @@ class FilterSortViewController: UIViewController{
 		priceCheckBox.setBackgroundImage(UIImage(named: "empty_check"), forState: UIControlState.Normal)
 		priceCheckBox.setBackgroundImage(UIImage(named: "checked_box"), forState: UIControlState.Selected)
 		priceCheckBox.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(priceLabel.snp_left).offset(-10)
-			make.centerY.equalTo(priceLabel.snp_centerY)
-			make.height.equalTo(20)
-			make.width.equalTo(20)
+			make.left.equalTo(filtersContainer.snp_left).offset(25)
+			make.top.equalTo(distanceCheckBox.snp_bottom).offset(20)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
+		}
+		
+		let priceLabel = UILabel()
+		filtersContainer.addSubview(priceLabel)
+		priceLabel.text = "Minimum Price"
+		priceLabel.textColor = blackNelpyColor
+		priceLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		priceLabel.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(priceCheckBox.snp_right).offset(15)
+			make.centerY.equalTo(priceCheckBox.snp_centerY)
 		}
 		
 		let priceStepper = UIStepper()
 		self.priceStepper = priceStepper
 		priceStepper.minimumValue = 10
-		priceStepper.maximumValue = 2000
+		priceStepper.maximumValue = 200
 		priceStepper.addTarget(self, action: "didTapPriceStepper:", forControlEvents: UIControlEvents.ValueChanged)
 		priceStepper.continuous = true
 		priceStepper.stepValue = 5
@@ -419,8 +409,8 @@ class FilterSortViewController: UIViewController{
 		priceStepper.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(30)
 			make.width.equalTo(60)
-			make.left.equalTo(filtersContainer.snp_centerX)
-			make.top.equalTo(priceLabel.snp_bottom).offset(20)
+			make.right.equalTo(filtersContainer.snp_right).offset(-55)
+			make.centerY.equalTo(priceLabel.snp_centerY)
 		}
 		
 		let priceValueLabel = UILabel()
@@ -428,7 +418,7 @@ class FilterSortViewController: UIViewController{
 		priceValueLabel.alpha = 0.3
 		filtersContainer.addSubview(priceValueLabel)
 		priceValueLabel.text = "\(Int(self.priceStepper.value))$"
-		priceValueLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		priceValueLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		priceValueLabel.textColor = blackNelpyColor
 		priceValueLabel.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(priceStepper.snp_left).offset(-20)
@@ -456,7 +446,7 @@ class FilterSortViewController: UIViewController{
 		cancelButton.setTitle("Cancel", forState: UIControlState.Normal)
 		cancelButton.backgroundColor = darkGrayDetails
 		cancelButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
-		cancelButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kButtonFontSize)
+		cancelButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTitle16)
 		cancelButton.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(addFiltersContainer.snp_width).dividedBy(2)
 			make.height.equalTo(addFiltersContainer.snp_height)
@@ -470,7 +460,7 @@ class FilterSortViewController: UIViewController{
 		confirmButton.setTitle("Confirm", forState: UIControlState.Normal)
 		confirmButton.backgroundColor = nelperRedColor
 		confirmButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
-		confirmButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kButtonFontSize)
+		confirmButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTitle16)
 		confirmButton.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(addFiltersContainer.snp_width).dividedBy(2)
 			make.height.equalTo(addFiltersContainer.snp_height)
@@ -521,7 +511,7 @@ class FilterSortViewController: UIViewController{
 			self.distanceStepper.alpha = 1
 			self.distanceValueLabel.alpha = 1
 			self.distanceValueLabel.text = "\(Int(self.distanceStepper.value))km"
-
+			
 		}
 	}
 	
@@ -558,8 +548,8 @@ class FilterSortViewController: UIViewController{
 	
 	func didTapAddFiltersButton(sender:UIButton){
 		if self.arrayOfFilters.isEmpty == false || self.sortBy != nil || minPrice != nil || self.maxDistance != nil{
-		self.delegate.didTapAddFilters(self.arrayOfFilters, sort: self.sortBy, minPrice: self.minPrice, maxDistance: self.maxDistance)
-		self.dismissViewControllerAnimated(true, completion: nil)
+			self.delegate.didTapAddFilters(self.arrayOfFilters, sort: self.sortBy, minPrice: self.minPrice, maxDistance: self.maxDistance)
+			self.dismissViewControllerAnimated(true, completion: nil)
 		}
 	}
 	
@@ -571,7 +561,7 @@ class FilterSortViewController: UIViewController{
 	func didTapDistanceCheckBox(sender:UIButton){
 		self.distanceCheckBox.selected = !self.distanceCheckBox.selected
 		if self.distanceCheckBox.selected {
-				self.distanceStepper.enabled = true
+			self.distanceStepper.enabled = true
 			self.maxDistance = distanceStepper.value
 			self.distanceStepper.alpha = 1
 			self.distanceValueLabel.alpha = 1
@@ -621,7 +611,7 @@ class FilterSortViewController: UIViewController{
 	func didTapPriceStepper(sender:UIStepper){
 		self.priceValueLabel.text = "\(Int(sender.value))$"
 		self.minPrice = priceStepper.value
-
+		
 	}
 	
 	/**
@@ -634,13 +624,13 @@ class FilterSortViewController: UIViewController{
 			self.sortBy?.removeAll()
 			sender.selected = false
 		}else{
-		if sender.selectedSegmentIndex == 0 {
-			self.sortBy = "priceOffered"
-		}else if sender.selectedSegmentIndex == 1{
-			self.sortBy = "distance"
-		}else if sender.selectedSegmentIndex == 2{
-			self.sortBy = "createdAt"
-		}
+			if sender.selectedSegmentIndex == 0 {
+				self.sortBy = "priceOffered"
+			}else if sender.selectedSegmentIndex == 1{
+				self.sortBy = "distance"
+			}else if sender.selectedSegmentIndex == 2{
+				self.sortBy = "createdAt"
+			}
 		}
 	}
 	
@@ -665,7 +655,7 @@ class FilterSortViewController: UIViewController{
 		if self.businessButton.selected == true{
 			self.arrayOfFilters.append("business")
 			self.businessButton.alpha = 1
-
+			
 		}else{
 			self.businessButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
@@ -703,7 +693,7 @@ class FilterSortViewController: UIViewController{
 		if self.gardeningButton.selected == true{
 			self.arrayOfFilters.append("gardening")
 			self.gardeningButton.alpha = 1
-
+			
 		}else{
 			self.gardeningButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
@@ -720,7 +710,7 @@ class FilterSortViewController: UIViewController{
 		if self.cleaningButton.selected == true{
 			self.arrayOfFilters.append("housecleaning")
 			self.cleaningButton.alpha = 1
-
+			
 		}else{
 			self.cleaningButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
@@ -737,7 +727,7 @@ class FilterSortViewController: UIViewController{
 		if self.otherButton.selected == true{
 			self.arrayOfFilters.append("other")
 			self.otherButton.alpha = 1
-
+			
 		}else{
 			self.otherButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
@@ -752,7 +742,7 @@ class FilterSortViewController: UIViewController{
 	func didTapMultimedia(sender:UIButton?){
 		self.multimediaButton.selected = !self.multimediaButton.selected
 		if self.multimediaButton.selected == true{
-				self.multimediaButton.alpha = 1
+			self.multimediaButton.alpha = 1
 			self.arrayOfFilters.append("multimedia")
 		}else{
 			self.multimediaButton.alpha = 0.3
@@ -780,5 +770,5 @@ class FilterSortViewController: UIViewController{
 			}
 		}
 	}
-
+	
 }

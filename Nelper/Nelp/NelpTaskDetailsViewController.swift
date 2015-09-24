@@ -57,11 +57,10 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		}
 		
 		let navBar = NavBar()
-		let backBtn = UIButton()
-		backBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.containerView.addSubview(navBar)
-		navBar.backButton = backBtn
-		navBar.setImage(UIImage(named: "close_red")!)
+		navBar.closeButton = previousBtn
 		navBar.setTitle("Task Details")
 		navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.containerView.snp_top)
@@ -113,7 +112,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		contentView.addSubview(profileContainer)
 		profileContainer.layer.borderColor = darkGrayDetails.CGColor
 		profileContainer.layer.borderWidth = 0.5
-		profileContainer.backgroundColor = navBarColor
+		profileContainer.backgroundColor = whiteGrayColor
 		profileContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.contentView.snp_top).offset(10)
 			make.left.equalTo(contentView.snp_left).offset(-1)
@@ -139,7 +138,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		profileContainer.addSubview(nameLabel)
 		nameLabel.text = self.task.user.name
 		nameLabel.textColor = blackNelpyColor
-		nameLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		nameLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		nameLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(profilePicture.snp_centerY)
 			make.left.equalTo(profilePicture.snp_right).offset(6)
@@ -163,7 +162,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.contentView.addSubview(taskContainer)
 		taskContainer.layer.borderWidth = 0.5
 		taskContainer.layer.borderColor = darkGrayDetails.CGColor
-		taskContainer.backgroundColor = navBarColor
+		taskContainer.backgroundColor = whiteGrayColor
 		taskContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileContainer.snp_bottom).offset(10)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
@@ -188,7 +187,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		taskNameLabel.text = self.task.title!
 		taskNameLabel.textAlignment = NSTextAlignment.Center
 		taskNameLabel.textColor = blackNelpyColor
-		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kSubtitleFontSize)
+		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		taskNameLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(categoryIcon.snp_bottom).offset(14)
 			make.centerX.equalTo(taskContainer.snp_centerX)
@@ -208,12 +207,12 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		
 		let descriptionTextView = UITextView()
 		taskContainer.addSubview(descriptionTextView)
-		descriptionTextView.backgroundColor = navBarColor
+		descriptionTextView.backgroundColor = whiteGrayColor
 		descriptionTextView.text = self.task.desc!
 		descriptionTextView.textColor = blackNelpyColor
 		descriptionTextView.scrollEnabled = false
 		descriptionTextView.editable = false
-		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
+		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText13)
 		descriptionTextView.textAlignment = NSTextAlignment.Center
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskNameLabelUnderline.snp_bottom).offset(10)
@@ -256,7 +255,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		let dateHelper = DateHelper()
 		postDateLabel.text = "Posted \(dateHelper.timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
 		postDateLabel.textColor = blackNelpyColor
-		postDateLabel.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
+		postDateLabel.font = UIFont(name: "Lato-Regular", size: kText13)
 		postDateLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(postedIcon.snp_centerY)
 			make.left.equalTo(postedIcon.snp_right).offset(4)
@@ -278,7 +277,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.cityLabel = cityLabel
 		cityLabel.text = self.task.city!
 		cityLabel.textColor = blackNelpyColor
-		cityLabel.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
+		cityLabel.font = UIFont(name: "Lato-Regular", size: kText13)
 		cityLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(pinIcon.snp_centerY)
 			make.left.equalTo(pinIcon.snp_right).offset(4)
@@ -309,7 +308,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		let carouselContainer = UIView()
 		self.carouselContainer = carouselContainer
 		taskContainer.addSubview(carouselContainer)
-		carouselContainer.backgroundColor = navBarColor
+		carouselContainer.backgroundColor = whiteGrayColor
 		carouselContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cityUnderline.snp_bottom).offset(10)
 			make.centerX.equalTo(taskContainer.snp_centerX)
@@ -348,7 +347,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.contentView.addSubview(mapContainer)
 		mapContainer.layer.borderColor = darkGrayDetails.CGColor
 		mapContainer.layer.borderWidth = 0.5
-		mapContainer.backgroundColor = navBarColor
+		mapContainer.backgroundColor = whiteGrayColor
 		mapContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskContainer.snp_bottom)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
@@ -404,7 +403,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		
 		let offerLabelContainer = UIView()
 		offerContainer.addSubview(offerLabelContainer)
-		offerContainer.backgroundColor = navBarColor
+		offerContainer.backgroundColor = whiteGrayColor
 		offerLabelContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(offerContainer.snp_top).offset(30)
 			make.centerX.equalTo(offerContainer.snp_centerX)
@@ -415,7 +414,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		let posterNameOffer = UILabel()
 		offerLabelContainer.addSubview(posterNameOffer)
 		posterNameOffer.textColor = darkGrayDetails
-		posterNameOffer.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
+		posterNameOffer.font = UIFont(name: "Lato-Regular", size: kText13)
 		posterNameOffer.text = "\(self.task.user.name) is offering"
 		posterNameOffer.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(offerLabelContainer.snp_left)
@@ -437,7 +436,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		moneyLabelPoster.textAlignment = NSTextAlignment.Center
 		moneyLabelPoster.text = "$\(Int(self.task.priceOffered!))"
 		moneyLabelPoster.textColor = whiteNelpyColor
-		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kText14)
 		moneyLabelPoster.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTagPoster.snp_edges)
 		}
@@ -455,7 +454,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		let myOfferLabel = UILabel()
 		offerContainer.addSubview(myOfferLabel)
 		myOfferLabel.textColor = darkGrayDetails
-		myOfferLabel.font = UIFont(name: "Lato-Regular", size: kCellSubtitleFontSize)
+		myOfferLabel.font = UIFont(name: "Lato-Regular", size: kText13)
 		myOfferLabel.text = "My Offer"
 		myOfferLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskPosterOfferUnderline.snp_bottom).offset(30)
@@ -465,7 +464,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		let myOfferValueLabel = UILabel()
 		self.myOfferValueLabel = myOfferValueLabel
 		offerContainer.addSubview(myOfferValueLabel)
-		myOfferValueLabel.font = UIFont(name: "Lato-Regular", size: kTextFontSize)
+		myOfferValueLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		myOfferValueLabel.textColor = blackNelpyColor
 		myOfferValueLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(offerContainer.snp_centerX)
@@ -496,7 +495,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		offerContainer.addSubview(applyButton)
 		self.applyButton = applyButton
 		applyButton.setTitle("Apply!", forState: UIControlState.Normal)
-		applyButton.setTitleColor(navBarColor, forState: UIControlState.Normal)
+		applyButton.setTitleColor(whiteGrayColor, forState: UIControlState.Normal)
 		self.applyButton.addTarget(self, action: "applyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		applyButton.backgroundColor = nelperRedColor
 		applyButton.snp_makeConstraints { (make) -> Void in
