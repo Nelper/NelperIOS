@@ -391,11 +391,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.myApplicationsTableView.hidden = false
 	}
 	
-	func logoutButtonTapped(sender: AnyObject) {
-		ApiHelper.logout()
-		
-		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		appDelegate.showLogin(true)
-	}
+
 	
 }

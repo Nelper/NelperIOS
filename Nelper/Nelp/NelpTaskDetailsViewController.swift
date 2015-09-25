@@ -27,7 +27,6 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	var carouselContainer:UIView!
 	var picture:UIImageView!
 	var taskContainer:UIView!
-	var carouselUnderline:UIView!
 	var	myOfferStepper:UIStepper!
 	var myOfferValueLabel:UILabel!
 	var myOffer:Double!
@@ -40,14 +39,14 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.pictures = self.task.pictures
 		self.setImages(self.task.user!)
 		self.createView()
-
-//		self.startButtonConfig()
+		
+		//		self.startButtonConfig()
 	}
 	
 	//MARK: View Creation
 	
 	func createView(){
-
+		
 		
 		let containerView = UIView()
 		self.containerView = containerView
@@ -110,20 +109,20 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		let profileTapAction = UITapGestureRecognizer(target: self, action: "didTapProfile:")
 		profileContainer.addGestureRecognizer(profileTapAction)
 		contentView.addSubview(profileContainer)
-		profileContainer.layer.borderColor = darkGrayDetails.CGColor
-		profileContainer.layer.borderWidth = 0.5
+		profileContainer.layer.borderColor = grayDetails.CGColor
+		profileContainer.layer.borderWidth = 1
 		profileContainer.backgroundColor = whiteGrayColor
 		profileContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.contentView.snp_top).offset(10)
+			make.top.equalTo(self.contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
-			make.height.equalTo(130)
+			make.height.equalTo(100)
 		}
 		
 		let profilePicture = UIImageView()
 		self.picture = profilePicture
 		profileContainer.addSubview(profilePicture)
-		let pictureSize:CGFloat = 100
+		let pictureSize:CGFloat = 80
 		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
 		profilePicture.layer.cornerRadius = pictureSize / 2
 		profilePicture.clipsToBounds = true
@@ -138,18 +137,18 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		profileContainer.addSubview(nameLabel)
 		nameLabel.text = self.task.user.name
 		nameLabel.textColor = blackNelpyColor
-		nameLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		nameLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
 		nameLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(profilePicture.snp_centerY)
-			make.left.equalTo(profilePicture.snp_right).offset(6)
+			make.left.equalTo(profilePicture.snp_right).offset(15)
 		}
 		
-		let arrow = UIButton()
+		let arrow = UIImageView()
 		profileContainer.addSubview(arrow)
-		arrow.setBackgroundImage(UIImage(named: "arrow_applicant_cell.png"), forState: UIControlState.Normal)
-		arrow.contentMode = UIViewContentMode.ScaleAspectFill
+		arrow.image = UIImage(named: "arrow_applicant_cell")
+		arrow.alpha = 0.3
 		arrow.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(profileContainer.snp_right).offset(-4)
+			make.right.equalTo(profileContainer.snp_right).offset(-20)
 			make.centerY.equalTo(profileContainer.snp_centerY)
 			make.height.equalTo(35)
 			make.width.equalTo(20)
@@ -160,11 +159,11 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		let taskContainer = UIView()
 		self.taskContainer = taskContainer
 		self.contentView.addSubview(taskContainer)
-		taskContainer.layer.borderWidth = 0.5
-		taskContainer.layer.borderColor = darkGrayDetails.CGColor
+		taskContainer.layer.borderWidth = 1
+		taskContainer.layer.borderColor = grayDetails.CGColor
 		taskContainer.backgroundColor = whiteGrayColor
 		taskContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileContainer.snp_bottom).offset(10)
+			make.top.equalTo(profileContainer.snp_bottom).offset(20)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
 			make.right.equalTo(self.contentView.snp_right).offset(1)
 		}
@@ -187,7 +186,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		taskNameLabel.text = self.task.title!
 		taskNameLabel.textAlignment = NSTextAlignment.Center
 		taskNameLabel.textColor = blackNelpyColor
-		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
 		taskNameLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(categoryIcon.snp_bottom).offset(14)
 			make.centerX.equalTo(taskContainer.snp_centerX)
@@ -199,7 +198,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		taskContainer.addSubview(taskNameLabelUnderline)
 		taskNameLabelUnderline.backgroundColor = darkGrayDetails
 		taskNameLabelUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskNameLabel.snp_bottom).offset(10)
+			make.top.equalTo(taskNameLabel.snp_bottom).offset(15)
 			make.centerX.equalTo(taskContainer.snp_centerX)
 			make.width.equalTo(taskContainer.snp_width).dividedBy(1.4)
 			make.height.equalTo(0.5)
@@ -212,7 +211,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		descriptionTextView.textColor = blackNelpyColor
 		descriptionTextView.scrollEnabled = false
 		descriptionTextView.editable = false
-		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText13)
+		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText14)
 		descriptionTextView.textAlignment = NSTextAlignment.Center
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskNameLabelUnderline.snp_bottom).offset(10)
@@ -238,17 +237,6 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 			make.height.equalTo(0.5)
 		}
 		
-		let postedIcon = UIImageView()
-		taskContainer.addSubview(postedIcon)
-		postedIcon.image = UIImage(named:"calendar")
-		postedIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		postedIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(35)
-			make.width.equalTo(35)
-			make.top.equalTo(descriptionUnderline.snp_bottom).offset(16)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(-70)
-		}
-		
 		let postDateLabel = UILabel()
 		taskContainer.addSubview(postDateLabel)
 		self.postDateLabel = postDateLabel
@@ -257,19 +245,19 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		postDateLabel.textColor = blackNelpyColor
 		postDateLabel.font = UIFont(name: "Lato-Regular", size: kText13)
 		postDateLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(postedIcon.snp_centerY)
-			make.left.equalTo(postedIcon.snp_right).offset(4)
+			make.top.equalTo(descriptionUnderline.snp_bottom).offset(25)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(25)
 		}
 		
-		let pinIcon = UIImageView()
-		taskContainer.addSubview(pinIcon)
-		pinIcon.image = UIImage(named: "pin")
-		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		pinIcon.snp_makeConstraints { (make) -> Void in
+		let postedIcon = UIImageView()
+		taskContainer.addSubview(postedIcon)
+		postedIcon.image = UIImage(named:"calendar")
+		postedIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		postedIcon.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(35)
 			make.width.equalTo(35)
-			make.top.equalTo(postedIcon.snp_bottom).offset(15)
-			make.centerX.equalTo(postedIcon.snp_centerX)
+			make.centerY.equalTo(postDateLabel.snp_centerY)
+			make.right.equalTo(postDateLabel.snp_left).offset(-10)
 		}
 		
 		let cityLabel = UILabel()
@@ -279,77 +267,68 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		cityLabel.textColor = blackNelpyColor
 		cityLabel.font = UIFont(name: "Lato-Regular", size: kText13)
 		cityLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(pinIcon.snp_centerY)
-			make.left.equalTo(pinIcon.snp_right).offset(4)
+			make.top.equalTo(postDateLabel.snp_bottom).offset(30)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(23)
 		}
 		
-		
-		if self.task.pictures != nil{
-		if self.pictures!.count > 0{
-		
-		let cityUnderline = UIView()
-		taskContainer.addSubview(cityUnderline)
-		cityUnderline.backgroundColor = darkGrayDetails
-		cityUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(pinIcon.snp_bottom).offset(10)
-			make.centerX.equalTo(taskContainer.snp_centerX)
-			make.width.equalTo(taskContainer.snp_width).dividedBy(1.4)
-			make.height.equalTo(0.5)
+		let pinIcon = UIImageView()
+		taskContainer.addSubview(pinIcon)
+		pinIcon.image = UIImage(named: "pin")
+		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		pinIcon.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(35)
+			make.width.equalTo(35)
+			make.centerY.equalTo(cityLabel.snp_centerY)
+			make.right.equalTo(cityLabel.snp_left).offset(-8)
 		}
+		
+		if self.task.pictures != nil {
+			if self.pictures!.count > 0 {
+				
+				let carousel = iCarousel()
+				self.carousel = carousel
+				self.carousel.delegate = self
+				self.carousel.clipsToBounds = true
+				self.carousel.type = .Linear
+				self.carousel.bounces = false
+				self.carousel.dataSource = self
+				
+				let carouselContainer = UIView()
+				self.carouselContainer = carouselContainer
+				taskContainer.addSubview(carouselContainer)
+				carouselContainer.backgroundColor = whiteGrayColor
+				carouselContainer.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(pinIcon.snp_bottom).offset(30)
+					make.centerX.equalTo(taskContainer.snp_centerX)
+					make.height.equalTo(300)
+					make.width.equalTo(300)
+				}
+				self.carouselContainer.addSubview(carousel)
+				self.carousel.snp_makeConstraints(closure: { (make) -> Void in
+					make.edges.equalTo(carouselContainer.snp_edges)
+				})
+				
+				taskContainer.snp_updateConstraints(closure: { (make) -> Void in
+					make.bottom.equalTo(carouselContainer.snp_bottom).offset(50)
+				})
+				
+			}} else {
 			
-		let carousel = iCarousel()
-		self.carousel = carousel
-		self.carousel.delegate = self
-		self.carousel.clipsToBounds = true
-		self.carousel.type = .Linear
-		self.carousel.bounces = false
-		self.carousel.dataSource = self
-			
-		let carouselContainer = UIView()
-		self.carouselContainer = carouselContainer
-		taskContainer.addSubview(carouselContainer)
-		carouselContainer.backgroundColor = whiteGrayColor
-		carouselContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(cityUnderline.snp_bottom).offset(10)
-			make.centerX.equalTo(taskContainer.snp_centerX)
-			make.height.equalTo(300)
-			make.width.equalTo(300)
-		}
-		self.carouselContainer.addSubview(carousel)
-		self.carousel.snp_makeConstraints(closure: { (make) -> Void in
-			make.edges.equalTo(carouselContainer.snp_edges)
-		})
-		
-		let carouselUnderline = UIView()
-		taskContainer.addSubview(carouselUnderline)
-		self.carouselUnderline = carouselUnderline
-		carouselUnderline.backgroundColor = darkGrayDetails
-		carouselUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(carouselContainer.snp_bottom).offset(10)
-			make.centerX.equalTo(taskContainer.snp_centerX)
-			make.width.equalTo(taskContainer.snp_width).dividedBy(1.4)
-			make.height.equalTo(0.5)
-			}
-		
-			taskContainer.snp_updateConstraints(closure: { (make) -> Void in
-				make.bottom.equalTo(carouselUnderline.snp_bottom).offset(20)
-			})
-			}}else{
 			taskContainer.snp_updateConstraints { (make) -> Void in
-			make.bottom.equalTo(pinIcon.snp_bottom).offset(20)
+				make.bottom.equalTo(pinIcon.snp_bottom).offset(40)
 			}
-			}
+		}
 		
 		
 		//Map Container
 		
 		let mapContainer = UIView()
 		self.contentView.addSubview(mapContainer)
-		mapContainer.layer.borderColor = darkGrayDetails.CGColor
-		mapContainer.layer.borderWidth = 0.5
+		mapContainer.layer.borderColor = grayDetails.CGColor
+		mapContainer.layer.borderWidth = 1
 		mapContainer.backgroundColor = whiteGrayColor
 		mapContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskContainer.snp_bottom)
+			make.top.equalTo(taskContainer.snp_bottom).offset(-1)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
 			make.right.equalTo(self.contentView.snp_right).offset(1)
 			make.height.equalTo(250)
@@ -365,14 +344,16 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		taskContainer.addSubview(locationNoticeLabel)
 		locationNoticeLabel.text = "Task location within 400m"
 		locationNoticeLabel.textColor = darkGrayDetails
-		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
+		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kText12)
 		locationNoticeLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(self.view.snp_left).offset(2)
+			make.left.equalTo(self.view.snp_left).offset(8)
 			make.bottom.equalTo(taskContainer.snp_bottom).offset(-2)
 		}
 		
 		let mapView = MKMapView()
 		mapView.delegate = self
+		mapView.scrollEnabled = false
+		mapView.zoomEnabled = false
 		mapContainer.addSubview(mapView)
 		mapView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(mapContainer.snp_edges)
@@ -392,10 +373,10 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		let offerContainer = UIView()
 		contentView.addSubview(offerContainer)
 		offerContainer.backgroundColor = whiteNelpyColor
-		offerContainer.layer.borderColor = darkGrayDetails.CGColor
-		offerContainer.layer.borderWidth = 0.5
+		offerContainer.layer.borderColor = grayDetails.CGColor
+		offerContainer.layer.borderWidth = 1
 		offerContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(mapView.snp_bottom).offset(10)
+			make.top.equalTo(mapView.snp_bottom).offset(20)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
 			make.right.equalTo(self.contentView.snp_right).offset(1)
 			make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
@@ -405,7 +386,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		offerContainer.addSubview(offerLabelContainer)
 		offerContainer.backgroundColor = whiteGrayColor
 		offerLabelContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(offerContainer.snp_top).offset(30)
+			make.top.equalTo(offerContainer.snp_top)
 			make.centerX.equalTo(offerContainer.snp_centerX)
 			make.width.equalTo(180)
 		}
@@ -418,7 +399,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		posterNameOffer.text = "\(self.task.user.name) is offering"
 		posterNameOffer.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(offerLabelContainer.snp_left)
-			make.centerY.equalTo(offerLabelContainer.snp_centerY)
+			make.top.equalTo(offerContainer.snp_top).offset(28)
 		}
 		
 		let moneyTagPoster = UIImageView()
@@ -426,7 +407,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		moneyTagPoster.image = UIImage(named: "moneytag")
 		moneyTagPoster.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(posterNameOffer.snp_centerY)
-			make.left.equalTo(posterNameOffer.snp_right).offset(8)
+			make.left.equalTo(posterNameOffer.snp_right).offset(12)
 			make.width.equalTo(60)
 			make.height.equalTo(25)
 		}
@@ -435,7 +416,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		moneyTagPoster.addSubview(moneyLabelPoster)
 		moneyLabelPoster.textAlignment = NSTextAlignment.Center
 		moneyLabelPoster.text = "$\(Int(self.task.priceOffered!))"
-		moneyLabelPoster.textColor = whiteNelpyColor
+		moneyLabelPoster.textColor = whiteGrayColor
 		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kText14)
 		moneyLabelPoster.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTagPoster.snp_edges)
@@ -445,7 +426,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		offerContainer.addSubview(taskPosterOfferUnderline)
 		taskPosterOfferUnderline.backgroundColor = darkGrayDetails
 		taskPosterOfferUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(posterNameOffer.snp_bottom).offset(26)
+			make.top.equalTo(posterNameOffer.snp_bottom).offset(30)
 			make.centerX.equalTo(offerContainer.snp_centerX)
 			make.width.equalTo(offerContainer.snp_width).dividedBy(1.4)
 			make.height.equalTo(0.5)
@@ -458,7 +439,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		myOfferLabel.text = "My Offer"
 		myOfferLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskPosterOfferUnderline.snp_bottom).offset(30)
-			make.centerX.equalTo(offerContainer.snp_centerX)
+			make.right.equalTo(offerContainer.snp_centerX).offset(-60)
 		}
 		
 		let myOfferValueLabel = UILabel()
@@ -467,8 +448,8 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		myOfferValueLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		myOfferValueLabel.textColor = blackNelpyColor
 		myOfferValueLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(offerContainer.snp_centerX)
-			make.top.equalTo(myOfferLabel.snp_bottom).offset(6)
+			make.centerY.equalTo(myOfferLabel.snp_centerY)
+			make.left.equalTo(myOfferLabel.snp_right).offset(22)
 		}
 		
 		let myOfferStepper = UIStepper()
@@ -484,8 +465,8 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		myOfferStepper.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(30)
 			make.width.equalTo(60)
-			make.centerX.equalTo(offerContainer.snp_centerX).offset(-14)
-			make.top.equalTo(myOfferValueLabel.snp_bottom).offset(6)
+			make.centerY.equalTo(myOfferValueLabel.snp_centerY)
+			make.left.equalTo(myOfferValueLabel.snp_right).offset(15)
 		}
 		
 		myOfferValueLabel.text = "$\(Int(self.myOfferStepper.value))"
@@ -494,7 +475,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		let applyButton = UIButton()
 		offerContainer.addSubview(applyButton)
 		self.applyButton = applyButton
-		applyButton.setTitle("Apply!", forState: UIControlState.Normal)
+		applyButton.setTitle("Apply for $\(Int(self.task.priceOffered!))!", forState: UIControlState.Normal)
 		applyButton.setTitleColor(whiteGrayColor, forState: UIControlState.Normal)
 		self.applyButton.addTarget(self, action: "applyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		applyButton.backgroundColor = nelperRedColor
@@ -505,9 +486,9 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 			make.width.equalTo(250)
 			make.bottom.equalTo(offerContainer.snp_bottom).offset(-10)
 		}
-
+		
 	}
-
+	
 	//MARK: DATA
 	
 	/**
@@ -533,7 +514,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
 	}
-
+	
 	
 	//MARK: iCarousel Delegate
 	
@@ -557,7 +538,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	ApiHelper.getPictures(imageURL, block: { (imageReturned:UIImage) -> Void in
 		picture.image = imageReturned
 	})
-
+	
 	picture.contentMode = .ScaleAspectFit
 	return picture
 	}
@@ -588,11 +569,11 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	
 	//MARK: Actions
 	
-//	/**
-//	Apply for a task
-//	
-//	- parameter sender: UIButton
-//	*/
+	//	/**
+	//	Apply for a task
+	//
+	//	- parameter sender: UIButton
+	//	*/
 	func applyButtonTapped(sender: AnyObject) {
 		if(!self.applyButton.selected){
 			ApiHelper.applyForTask(self.task, price: Int(self.myOfferStepper.value))
@@ -612,12 +593,14 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	}
 	
 	/**
-		My Offer Value Stepper Control
+	My Offer Value Stepper Control
 	- parameter sender: My Offer Stepper
 	*/
 	func didTapMyOfferStepper(sender:UIStepper){
 		self.myOfferValueLabel.text = "$\(Int(sender.value))"
 		self.myOffer = myOfferStepper.value
+		
+		self.applyButton.setTitle("Apply for $\(Int(sender.value))!", forState: UIControlState.Normal)
 	}
 	
 	/**
@@ -633,7 +616,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
-
+	
 	//MARK: Utilities
 	
 	/**
@@ -654,13 +637,13 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 	*/
 	func updateButton(){
 		if self.applyButton.selected {
-			self.applyButton.setTitle("Applied", forState: UIControlState.Selected)
+			self.applyButton.setTitle("#make popup to confirm", forState: UIControlState.Selected)
 			self.applyButton.backgroundColor = nelperRedColor
 		} else {
-			self.applyButton.setTitle("Apply!", forState: UIControlState.Normal)
+			self.applyButton.setTitle("Apply for $\(Int(self.task.priceOffered!))!", forState: UIControlState.Normal)
 			self.applyButton.backgroundColor = nelperRedColor
 		}
 	}
-
-}
 	
+}
+

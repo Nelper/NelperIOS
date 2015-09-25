@@ -11,6 +11,7 @@ import Foundation
 class NavBar: UINavigationBar {
 	
 	private var container: UIView!
+	private var logoutButton: UIButton!
 	private var logoView: UIImageView!
 	private var titleView: UILabel!
 	private var backButtonView: UIButton?
@@ -23,27 +24,15 @@ class NavBar: UINavigationBar {
 			if let value = backButton {
 				self.backButtonView?.removeFromSuperview()
 				self.backButtonView = value
-				self.backButtonView?.setTitle("       ", forState: UIControlState.Normal)
-				self.backButtonView?.setTitleColor(nelperRedColor, forState: UIControlState.Normal)
-				self.backButtonView?.titleLabel?.font = UIFont(name: "Lato-Regular", size: 18)
-				self.backButtonView?.contentEdgeInsets = UIEdgeInsets(top: 0, left: 26, bottom: 0, right: 0)
+				self.backButtonView?.setImage(UIImage(named: "left-white-arrow"), forState: UIControlState.Normal)
+				self.backButtonView?.imageEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20)
 				self.container.addSubview(self.backButtonView!)
 				
-				let backArrow = UIImageView()
-				self.backArrow = backArrow
-				backArrow.image = UIImage(named: "left_white_arrow")
-				backArrow.contentMode = UIViewContentMode.ScaleAspectFit
-				self.backButtonView?.addSubview(backArrow)
-				backArrow.snp_makeConstraints { (make) -> Void in
-					make.left.equalTo(self.backButtonView!.snp_left).offset(6)
-					make.centerY.equalTo(self.backButtonView!.snp_centerY).offset(-1)
-					make.width.equalTo(30)
-					make.height.equalTo(30)
-				}
-				
 				self.backButtonView?.snp_makeConstraints(closure: { (make) -> Void in
-					make.left.equalTo(self.container.snp_left).offset(4)
+					make.left.equalTo(self.container.snp_left)
 					make.centerY.equalTo(self.container.snp_centerY).offset(8)
+					make.height.equalTo(60)
+					make.width.equalTo(60)
 				})
 			}
 		}
@@ -54,28 +43,15 @@ class NavBar: UINavigationBar {
 			if let value = closeButton {
 				self.closeButtonView?.removeFromSuperview()
 				self.closeButtonView = value
-				self.closeButtonView?.setTitle("       ", forState: UIControlState.Normal)
-				self.closeButtonView?.setTitleColor(nelperRedColor, forState: UIControlState.Normal)
-				self.closeButtonView?.titleLabel?.font = UIFont(name: "Lato-Regular", size: 18)
-				self.closeButtonView?.contentEdgeInsets = UIEdgeInsets(top: 0, left: 26, bottom: 0, right: 0)
+				self.closeButtonView?.setImage(UIImage(named: "white-x"), forState: UIControlState.Normal)
+				self.closeButtonView?.imageEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20)
 				self.container.addSubview(self.closeButtonView!)
 				
-				let closeX = UIImageView()
-				self.closeX = closeX
-				closeX.image = UIImage(named: "white-x")
-				closeX.contentMode = UIViewContentMode.ScaleAspectFit
-				self.closeButtonView?.addSubview(closeX)
-				
-				closeX.snp_makeConstraints { (make) -> Void in
-					make.left.equalTo(self.closeButtonView!.snp_left).offset(6)
-					make.centerY.equalTo(self.closeButtonView!.snp_centerY).offset(-1)
-					make.width.equalTo(20)
-					make.height.equalTo(20)
-				}
-				
 				self.closeButtonView?.snp_makeConstraints(closure: { (make) -> Void in
-					make.left.equalTo(self.container.snp_left).offset(4)
+					make.left.equalTo(self.container.snp_left)
 					make.centerY.equalTo(self.container.snp_centerY).offset(8)
+					make.height.equalTo(60)
+					make.width.equalTo(60)
 				})
 			}
 		}
@@ -118,13 +94,33 @@ class NavBar: UINavigationBar {
 			make.centerX.equalTo(self.container.snp_centerX).offset(0)
 			make.centerY.equalTo(self.container.snp_centerY).offset(8)
 		}
+		
+		//Logout Button (temporary)
+		self.logoutButton = UIButton()
+		self.logoutButton.setTitle("logout", forState: UIControlState.Normal)
+		self.logoutButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 12)
+		self.logoutButton.titleLabel?.textColor = whiteGrayColor
+		self.logoutButton.alpha = 0.3
+		self.addSubview(logoutButton)
+		
+		self.logoutButton.addTarget(self, action: "logoutButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		
+		logoutButton.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(container.snp_bottom)
+			make.centerX.equalTo(container.snp_centerX)
+			make.height.equalTo(20)
+			make.width.equalTo(50)
+		}
 	}
 	
 	func setTitle(title:String){
 		self.titleView.text = title
 	}
 	
-	/*func setImage(image:UIImage){
-		self.backArrow.image = image
-	}*/
+	func logoutButtonTapped(sender: AnyObject) {
+		ApiHelper.logout()
+		
+		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		appDelegate.showLogin(true)
+	}
 }

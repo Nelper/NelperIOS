@@ -41,8 +41,6 @@ class NelpViewCell: UITableViewCell {
 		self.picture.layer.cornerRadius = pictureSize / 2;
 		self.picture.layer.masksToBounds = true
 		self.picture.clipsToBounds = true
-		self.picture.layer.borderWidth = 1;
-		self.picture.layer.borderColor = darkGrayDetails.CGColor
 		self.picture.contentMode = UIViewContentMode.ScaleAspectFill
 		
 		cellView.addSubview(picture)
@@ -74,11 +72,11 @@ class NelpViewCell: UITableViewCell {
 		cellView.addSubview(title)
 		
 		title.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(picture.snp_top)
+			make.top.equalTo(picture.snp_top).offset(2)
 			make.left.equalTo(picture.snp_right).offset(12)
 		}
 		
-		let authorIcon = UIImageView()
+		/*let authorIcon = UIImageView()
 		cellView.addSubview(authorIcon)
 		authorIcon.image = UIImage(named: "profile-red")
 		authorIcon.snp_makeConstraints { (make) -> Void in
@@ -86,15 +84,15 @@ class NelpViewCell: UITableViewCell {
 			make.top.equalTo(title.snp_bottom).offset(5)
 			make.width.equalTo(20)
 			make.height.equalTo(20)
-		}
+		}*/
 		
 		let author = UILabel()
 		self.author = author
 		cellView.addSubview(author)
 		
 		author.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(authorIcon.snp_centerY).offset(-1)
-			make.left.equalTo(authorIcon.snp_right).offset(7)
+			make.top.equalTo(title.snp_bottom).offset(8)
+			make.left.equalTo(picture.snp_right).offset(22)
 		}
 		
 		let creationDate = UILabel()
@@ -105,7 +103,7 @@ class NelpViewCell: UITableViewCell {
 		self.creationDate.textColor = blackTextColor
 		
 		creationDate.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(author.snp_bottom).offset(10)
+			make.top.equalTo(author.snp_bottom).offset(7)
 			make.left.equalTo(author.snp_left)
 		}
 		
@@ -135,8 +133,8 @@ class NelpViewCell: UITableViewCell {
 		rightArrow.image = UIImage(named: "arrow_applicant_cell")
 		rightArrow.alpha = 0.2
 		rightArrow.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(moneyContainer.snp_right).offset(18)
-			make.centerY.equalTo(moneyContainer.snp_centerY)
+			make.left.equalTo(moneyContainer.snp_right).offset(24)
+			make.centerY.equalTo(cellView.snp_centerY)
 			make.width.equalTo(15)
 			make.height.equalTo(25)
 		}

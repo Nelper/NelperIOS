@@ -105,13 +105,14 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		let filtersButton = UIButton()
 		self.navBar.addSubview(filtersButton)
 		self.filtersButton = filtersButton
-		filtersButton.setBackgroundImage(UIImage(named: "filters-inactive"), forState: UIControlState.Normal)
+		filtersButton.setImage(UIImage(named: "filters-inactive"), forState: UIControlState.Normal)
+		filtersButton.imageEdgeInsets = UIEdgeInsetsMake(13, 16, 8, 18)
 		filtersButton.addTarget(self, action: "didTapFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		filtersButton.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(navBar.snp_right).offset(-12)
-			make.bottom.equalTo(navBar.snp_bottom).offset(-8)
-			make.height.equalTo(25)
-			make.width.equalTo(20)
+			make.right.equalTo(navBar.snp_right)
+			make.bottom.equalTo(navBar.snp_bottom)
+			make.height.equalTo(50)
+			make.width.equalTo(60)
 		}
 	}
 	

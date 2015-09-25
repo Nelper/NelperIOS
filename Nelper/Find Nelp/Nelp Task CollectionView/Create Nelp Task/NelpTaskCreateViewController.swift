@@ -9,12 +9,12 @@
 import UIKit
 
 protocol NelpTaskCreateViewControllerDelegate {
-  func nelpTaskAdded(nelpTask: FindNelpTask) -> Void
+	func nelpTaskAdded(nelpTask: FindNelpTask) -> Void
 }
 
 class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, SecondFormViewControllerDelegate {
 	
-  var delegate: NelpTaskCreateViewControllerDelegate?
+	var delegate: NelpTaskCreateViewControllerDelegate?
 	var task: FindNelpTask!
 	var technologyButton: UIButton!
 	var multimediaButton: UIButton!
@@ -27,23 +27,23 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	var contentView:UIView!
 	
 	var kCategoryIconSize:CGFloat = 60
-
+	
 	//MARK: Initialization
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    self.task = FindNelpTask()
-	  self.createView()
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		self.task = FindNelpTask()
+		self.createView()
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-	self.scrollView.contentSize = self.contentView.frame.size
+		self.scrollView.contentSize = self.contentView.frame.size
 	}
 	
 	//MARK: UI
 	
 	//MARK: View Creation
-
+	
 	func createView(){
 		
 		let navBar = NavBar()
@@ -244,7 +244,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 		self.task.category = "other"
 		self.moveToNextView()
 	}
-
+	
 	func moveToNextView(){
 		let nextScreenVC = SecondFormViewController(task: self.task)
 		nextScreenVC.delegate = self
