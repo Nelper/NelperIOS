@@ -16,7 +16,7 @@ protocol SecondFormViewControllerDelegate {
 	func dismiss()
 }
 
-class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
+class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate,AddAddressViewControllerDelegate {
 	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	let imagePicker = UIImagePickerController()
@@ -318,6 +318,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		let addLocationButton = UIButton()
 		taskFormContainer.addSubview(addLocationButton)
 		self.addLocationButton = addLocationButton
+		addLocationButton.addTarget(self, action: "didTapAddLocation:", forControlEvents: UIControlEvents.TouchUpInside)
 		addLocationButton.backgroundColor = whiteGrayColor
 		addLocationButton.setTitle("Add", forState: UIControlState.Normal)
 		addLocationButton.setTitleColor(nelperRedColor, forState: UIControlState.Normal)
@@ -627,6 +628,11 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		return nil
 	}
 	
+	//MARK: Add Address Location Delegate
+	
+	func didClosePopup(vc: AddAddressViewController) {
+	}
+	
 	
 	//MARK: Actions
 	
@@ -654,6 +660,18 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	func backButtonTapped(sender: UIButton) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 		view.endEditing(true) // dissmiss keyboard without delay
+	}
+	
+	/**
+	Shows the add address view controller
+	
+	- parameter sender: Add Address Button
+	*/
+	func didTapAddLocation(sender:UIButton){
+		let nextVC = AddAddressViewController()
+		nextVC.delegate = self
+		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
 	/**

@@ -248,7 +248,10 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	func moveToNextView(){
 		let nextScreenVC = SecondFormViewController(task: self.task)
 		nextScreenVC.delegate = self
-		self.presentViewController(nextScreenVC, animated: true, completion: nil)
+		
+		dispatch_async(dispatch_get_main_queue()){
+			self.presentViewController(nextScreenVC, animated: true, completion: nil)
+		}
 	}
 	
 	
