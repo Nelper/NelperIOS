@@ -52,10 +52,10 @@ class SegmentController: UIControl {
 	func adjustUI() {
 		layer.borderColor = grayDetails.CGColor
 		layer.borderWidth = 1
-		backgroundColor = whiteNelpyColor
+		backgroundColor = whiteGrayColor
 		
-		//insertSubview(thumbLine, atIndex: 0)
-		insertSubview(thumbView, atIndex: 0)
+		insertSubview(thumbLine, atIndex: 0)
+		//insertSubview(thumbView, atIndex: 0)
 	}
 	
 	func setLabels() {
@@ -90,12 +90,13 @@ class SegmentController: UIControl {
 		let newWidth = CGRectGetWidth(selectFrame) / CGFloat(items.count)
 		selectFrame.size.width = newWidth
 		
-		//thumbLine.frame = CGRect(x: selectFrame.minX, y: selectFrame.maxY, width: selectFrame.width, height: CGFloat(2))
-		//thumbLine.backgroundColor = nelperRedColor
-		//thumbLine.layer.zPosition = 1
+		thumbLine.frame = CGRect(x: selectFrame.minX, y: selectFrame.maxY - 2, width: selectFrame.width, height: CGFloat(2))
+		thumbLine.backgroundColor = nelperRedColor
+		thumbLine.layer.zPosition = 1
 		
-		thumbView.frame = selectFrame
-		thumbView.backgroundColor = whiteGrayColor
+		//thumbView.frame = selectFrame
+		//thumbView.backgroundColor = whiteGrayColor
+		//thumbView.layer.cornerRadius = thumbView.frame.height / 2
 
 		let labelHeight = self.bounds.height
 		let labelWidth = self.bounds.width / CGFloat(labels.count)
@@ -131,8 +132,8 @@ class SegmentController: UIControl {
 		label.textColor = nelperRedColor
 		
 		UIView.animateWithDuration(0.5, animations: {
-			//self.thumbLine.frame = CGRect(x: label.frame.minX, y: label.frame.maxY, width: label.frame.width, height: CGFloat(2))
-			self.thumbView.frame = label.frame
+			self.thumbLine.frame = CGRect(x: label.frame.minX, y: label.frame.maxY - 2, width: label.frame.width, height: CGFloat(2))
+			//self.thumbView.frame = label.frame
 		})
 
 		self.delegate?.onIndexChange(selectedIndex)
