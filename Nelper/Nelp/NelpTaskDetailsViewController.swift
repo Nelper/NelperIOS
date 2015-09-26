@@ -95,7 +95,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 			make.top.equalTo(scrollView.snp_top)
 			make.left.equalTo(scrollView.snp_left)
 			make.right.equalTo(scrollView.snp_right)
-			//            make.bottom.equalTo(self.scrollView.snp_bottom)
+			//make.bottom.equalTo(self.scrollView.snp_bottom)
 			make.height.greaterThanOrEqualTo(background.snp_height)
 			make.width.equalTo(background.snp_width)
 		}
@@ -176,7 +176,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		categoryIcon.layer.cornerRadius = categoryIconSize / 2
 		categoryIcon.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(taskContainer.snp_centerX)
-			make.top.equalTo(taskContainer.snp_top).offset(10)
+			make.top.equalTo(taskContainer.snp_top).offset(14)
 			make.height.equalTo(categoryIconSize)
 			make.width.equalTo(categoryIconSize)
 		}
@@ -257,7 +257,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 			make.height.equalTo(35)
 			make.width.equalTo(35)
 			make.centerY.equalTo(postDateLabel.snp_centerY)
-			make.right.equalTo(postDateLabel.snp_left).offset(-10)
+			make.right.equalTo(postDateLabel.snp_left).offset(-13)
 		}
 		
 		let cityLabel = UILabel()
@@ -268,7 +268,7 @@ class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCaro
 		cityLabel.font = UIFont(name: "Lato-Regular", size: kText13)
 		cityLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(postDateLabel.snp_bottom).offset(30)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(23)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(20)
 		}
 		
 		let pinIcon = UIImageView()

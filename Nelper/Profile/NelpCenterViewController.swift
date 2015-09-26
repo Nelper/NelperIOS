@@ -9,14 +9,15 @@
 import UIKit
 import Alamofire
 
-class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MyApplicationDetailsViewDelegate {
+class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MyApplicationDetailsViewDelegate, SegmentControllerDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var containerView: UIView!
 	@IBOutlet weak var tabBarView: UIView!
 	
+	var segmentControllerView: SegmentController!
+	
 	var profilePicture:UIImageView!
-	var segmentControl:UISegmentedControl!
 	var tasksContainer:UIView!
 	var nelpTasks = [FindNelpTask]()
 	var nelpApplications = [NelpTaskApplication]()
@@ -26,10 +27,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	var refreshViewApplication: UIRefreshControl!
 	var locationManager = CLLocationManager()
 	var currentLocation: CLLocation?
-	var myTasksSegmentButton:UIButton!
-	var myApplicationsSegmentButton:UIButton!
-	var myTasksBottomBorder:UIView!
-	var myApplicationsBottomBorder:UIView!
 	
 	//MARK: Initialization
 
@@ -43,7 +40,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		createView()
 		createMyTasksTableView()
 		createMyApplicationsTableView()
-		myTasksSegmentButton.selected = true
 		adjustUI()
 	}
 	
@@ -56,98 +52,26 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	func createView(){
 		
 		//Location
-		self.locationManager.delegate = self;
+		self.locationManager.delegate = self
 		
 		if self.locationManager.location != nil {
-			self.locationManager.delegate = self;
+			self.locationManager.delegate = self
 			let userLocation: CLLocation = self.locationManager.location!
 			self.currentLocation = userLocation
 		}
 		
+		//Segment Controller
 		
-		//Segment Control Container + SegmentControl
-		let segmentContainer = UIView()
-		containerView.addSubview(segmentContainer)
-		segmentContainer.backgroundColor = whiteGrayColor
-		segmentContainer.snp_makeConstraints { (make) -> Void in
+		self.segmentControllerView = SegmentController()
+		self.containerView.addSubview(segmentControllerView)
+		self.segmentControllerView.delegate = self
+		self.segmentControllerView.items = ["My Tasks", "My Applications"]
+		self.segmentControllerView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(navBar.snp_bottom)
-			make.left.equalTo(containerView.snp_left)
-			make.right.equalTo(containerView.snp_right)
+			make.centerX.equalTo(self.view.snp_centerX)
+			make.width.equalTo(self.view.snp_width).offset(2)
 			make.height.equalTo(50)
 		}
-		
-		let firstHalf = UIView()
-		segmentContainer.addSubview(firstHalf)
-		firstHalf.snp_makeConstraints { (make) -> Void in
-			make.width.equalTo(segmentContainer.snp_width).dividedBy(2)
-			make.left.equalTo(segmentContainer.snp_left)
-			make.top.equalTo(segmentContainer.snp_top).offset(1)
-			make.bottom.equalTo(segmentContainer.snp_bottom).offset(-1)
-		}
-		
-		let myTasksSegmentButton = UIButton()
-		self.myTasksSegmentButton = myTasksSegmentButton
-		myTasksSegmentButton.addTarget(self, action: "myTasksSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		firstHalf.addSubview(myTasksSegmentButton)
-		myTasksSegmentButton.setTitle("My Tasks", forState: UIControlState.Normal)
-		myTasksSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle16)
-		myTasksSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
-		myTasksSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
-		myTasksSegmentButton.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(firstHalf.snp_centerX)
-			make.top.equalTo(firstHalf.snp_top)
-			make.width.equalTo(firstHalf.snp_width)
-			make.bottom.equalTo(firstHalf.snp_bottom).offset(-2)
-		}
-		
-		let myTasksBottomBorder = UIView()
-		self.myTasksBottomBorder = myTasksBottomBorder
-		myTasksBottomBorder.backgroundColor = nelperRedColor
-		firstHalf.addSubview(myTasksBottomBorder)
-		myTasksBottomBorder.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(firstHalf.snp_bottom)
-			make.width.equalTo(firstHalf.snp_width).dividedBy(1.2)
-			make.centerX.equalTo(firstHalf.snp_centerX)
-			make.height.equalTo(3)
-		}
-		
-		let secondHalf = UIView()
-		segmentContainer.addSubview(secondHalf)
-		secondHalf.snp_makeConstraints { (make) -> Void in
-			make.width.equalTo(segmentContainer.snp_width).dividedBy(2)
-			make.right.equalTo(segmentContainer.snp_right)
-			make.top.equalTo(segmentContainer.snp_top).offset(1)
-			make.bottom.equalTo(segmentContainer.snp_bottom).offset(-1)
-		}
-		
-		let myApplicationsSegmentButton = UIButton()
-		self.myApplicationsSegmentButton = myApplicationsSegmentButton
-		myApplicationsSegmentButton.addTarget(self, action: "myApplicationsSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		
-		secondHalf.addSubview(myApplicationsSegmentButton)
-		myApplicationsSegmentButton.setTitle("My Applications", forState: UIControlState.Normal)
-		myApplicationsSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle16)
-		myApplicationsSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
-		myApplicationsSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
-		myApplicationsSegmentButton.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(secondHalf.snp_centerX)
-			make.width.equalTo(secondHalf.snp_width)
-			make.top.equalTo(secondHalf.snp_top)
-			make.bottom.equalTo(secondHalf.snp_bottom).offset(-2)
-		}
-		
-		let myApplicationsBottomBorder = UIView()
-		self.myApplicationsBottomBorder = myApplicationsBottomBorder
-		myApplicationsBottomBorder.backgroundColor = nelperRedColor
-		secondHalf.addSubview(myApplicationsBottomBorder)
-		myApplicationsBottomBorder.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(secondHalf.snp_bottom)
-			make.width.equalTo(secondHalf.snp_width).dividedBy(1.2)
-			make.centerX.equalTo(secondHalf.snp_centerX)
-			make.height.equalTo(3)
-		}
-		
-		myApplicationsBottomBorder.hidden = true
 		
 		//Tasks container
 		let tasksContainer = UIView()
@@ -155,13 +79,11 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.tasksContainer = tasksContainer
 		tasksContainer.backgroundColor = whiteNelpyColor
 		tasksContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(segmentContainer.snp_bottom).offset(8)
-			make.width.equalTo(containerView.snp_width)
+			make.top.equalTo(segmentControllerView.snp_bottom).offset(8)
+			make.width.equalTo(self.view.snp_width)
 			make.bottom.equalTo(self.tabBarView.snp_top)
 		}
 	}
-	
-	
 	
 	func createMyTasksTableView(){
 		
@@ -189,7 +111,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.refreshView = refreshView
 		self.myTasksTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 	}
-	
 	
 	func createMyApplicationsTableView(){
 		let tableViewApplications = UITableView()
@@ -312,7 +233,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				dispatch_async(dispatch_get_main_queue()) {
 					self.presentViewController(nextVC, animated: true, completion: nil)
 				}
-			}else{
+			} else {
 			let nextVC = MyTaskDetailsViewController(findNelpTask: task)
 			dispatch_async(dispatch_get_main_queue()) {
 				self.presentViewController(nextVC, animated: true, completion: nil)
@@ -329,7 +250,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 					self.presentViewController(nextVC, animated: true, completion: nil)
 				}
 				
-			}else{
+			} else {
 			let nextVC = MyApplicationDetailsView(poster: application.task.user, application: application)
 			nextVC.delegate = self
 			
@@ -373,24 +294,13 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
-	func myTasksSegmentButtonTapped(sender:UIButton) {
-		self.myTasksSegmentButton.selected = true
-		self.myTasksBottomBorder.hidden = false
-		self.myApplicationsSegmentButton.selected = false
-		self.myApplicationsBottomBorder.hidden = true
-		self.myApplicationsTableView.hidden = true
-		self.myTasksTableView.hidden = false
+	func onIndexChange(index: Int) {
+		if index == 0 {
+			self.myApplicationsTableView.hidden = true
+			self.myTasksTableView.hidden = false
+		} else if index == 1 {
+			self.myApplicationsTableView.hidden = false
+			self.myTasksTableView.hidden = true
+		}
 	}
-	
-	func myApplicationsSegmentButtonTapped(sender:UIButton) {
-		self.myTasksSegmentButton.selected = false
-		self.myTasksBottomBorder.hidden = true
-		self.myApplicationsSegmentButton.selected = true
-		self.myApplicationsBottomBorder.hidden = false
-		self.myTasksTableView.hidden = true
-		self.myApplicationsTableView.hidden = false
-	}
-	
-
-	
 }
