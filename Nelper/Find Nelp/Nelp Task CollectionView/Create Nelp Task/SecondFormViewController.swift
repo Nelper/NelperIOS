@@ -16,7 +16,7 @@ protocol SecondFormViewControllerDelegate {
 	func dismiss()
 }
 
-class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate,AddAddressViewControllerDelegate {
+class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate,AddAddressViewControllerDelegate {
 	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	let imagePicker = UIImagePickerController()
