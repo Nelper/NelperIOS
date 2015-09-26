@@ -131,10 +131,10 @@ class SegmentController: UIControl {
 		var label = labels[selectedIndex]
 		label.textColor = nelperRedColor
 		
-		UIView.animateWithDuration(0.5, animations: {
+		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 			self.thumbLine.frame = CGRect(x: label.frame.minX, y: label.frame.maxY - 2, width: label.frame.width, height: CGFloat(2))
 			//self.thumbView.frame = label.frame
-		})
+		}, completion: nil)
 
 		self.delegate?.onIndexChange(selectedIndex)
 		
