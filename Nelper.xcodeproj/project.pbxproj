@@ -31,6 +31,7 @@
 		199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FC1B37A0A500B25B07 /* Images.xcassets */; };
 		199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */; };
 		199EF20C1B37A0A500B25B07 /* NelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF20B1B37A0A500B25B07 /* NelperTests.swift */; };
+		19DB24241BB61B6B00468E91 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24231BB61B6B00468E91 /* Location.swift */; settings = {ASSET_TAGS = (); }; };
 		9FB9076C1CAA3EC7FCDFB9DE /* Pods_Nelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F700A8F51BB1DAC1002A4777 /* CategoryCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F700A8F41BB1DAC1002A4777 /* CategoryCardViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
@@ -205,6 +206,7 @@
 		199EF20A1B37A0A500B25B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		199EF20B1B37A0A500B25B07 /* NelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NelperTests.swift; sourceTree = "<group>"; };
 		19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nelper-Bridging-Header.h"; sourceTree = "<group>"; };
+		19DB24231BB61B6B00468E91 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Location.swift; path = Nelper/Model/Location.swift; sourceTree = SOURCE_ROOT; };
 		3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
 		81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F700A8F41BB1DAC1002A4777 /* CategoryCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCardViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/CategoryCardViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -620,6 +622,7 @@
 				19761A1A1B687858001600E1 /* BaseTask.swift */,
 				F73A45BD1B72F4B600FD8C79 /* MKPin.swift */,
 				F7E8F9321B94F3A4007D44D8 /* PFUser+ATLParticipant.swift */,
+				19DB24231BB61B6B00468E91 /* Location.swift */,
 			);
 			name = Model;
 			path = ViewControllers/Offer;
@@ -1009,6 +1012,7 @@
 			files = (
 				F73A45C61B741F4000FD8C79 /* NelpTaskDetailsViewController.swift in Sources */,
 				F777FBAD1BA1245B00328709 /* DateHelper.swift in Sources */,
+				19DB24241BB61B6B00468E91 /* Location.swift in Sources */,
 				19761A1B1B687858001600E1 /* BaseTask.swift in Sources */,
 				F7E8F8EF1B94E7CF007D44D8 /* ATLIncomingMessageCollectionViewCell.m in Sources */,
 				F7E8F8E61B94E7CF007D44D8 /* ATLAddressBarTextView.m in Sources */,
@@ -1223,6 +1227,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -1261,6 +1266,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;

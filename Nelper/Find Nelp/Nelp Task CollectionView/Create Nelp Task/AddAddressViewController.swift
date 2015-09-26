@@ -1,4 +1,4 @@
- //
+//
 //  AddAddressViewController.swift
 //  Nelper
 //
@@ -16,7 +16,7 @@ protocol AddAddressViewControllerDelegate{
 }
 
 class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate{
-
+	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	var delegate:AddAddressViewControllerDelegate?
 	var popupContainer: UIView!
@@ -29,7 +29,8 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 	var placesClient: GMSPlacesClient?
 	var location: GeoPoint?
 	var addLocationButton:UIButton!
-
+	var address = Location()
+	
 	
 	
 	//MARK: Initialization
@@ -105,7 +106,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 			make.right.equalTo(popupContainer.snp_right).offset(-8)
 			make.height.equalTo(50)
 		}
-
+		
 		
 		let enterAddressLabel = UILabel()
 		popupContainer.addSubview(enterAddressLabel)
@@ -174,7 +175,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 			make.right.equalTo(addressTextField.snp_right)
 			make.bottom.equalTo(popupContainer.snp_bottom)
 		}
-}
+	}
 	
 	//MARK: TableView Delegate and Datasource
 	
@@ -198,18 +199,26 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		
 		let geocodeURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(prediction.placeID)&key=\(kGoogleAPIKey)"
 		
-		request(.GET, geocodeURL).responseJSON { _, response, _ in
-			let json = JSON(response!)
+		request(.GET, geocodeURL).responseJSON { _, _, data in
+			let json = JSON(data.value!)
 			let res = json["result"]
 			
 			let latitude = res["geometry"]["location"]["lat"].doubleValue
 			let longitude = res["geometry"]["location"]["lng"].doubleValue
 			
-//			let city = self.getCity(res["address_components"])
+			let comps = res["address_components"]
+			self.address.streetNumber = self.getAddressComponent(comps, component: "street_number")["long_name"].string
+			self.address.route = self.getAddressComponent(comps, component: "route")["long_name"].string
+			self.address.city = self.getAddressComponent(comps, component: "locality")["long_name"].string
+			self.address.province = self.getAddressComponent(comps, component: "administrative_area_level_1")["short_name"].string
+			self.address.country = self.getAddressComponent(comps, component: "country")["long_name"].string
+			self.address.postalCode = self.getAddressComponent(comps, component: "postal_code")["long_name"].string
+			self.address.formattedAddress = res["formatted_address"].string
 			
 			let point = GeoPoint(latitude:latitude, longitude:longitude)
+			self.address.coords = point
+			
 			self.location = point
-//			self.task.city = city
 		}
 		self.autocompleteTableView.hidden = true
 	}
@@ -281,29 +290,6 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		})
 	}
 	
-	/**
-	Returns the City in which the task is in a String
-	
-	- parameter addressComponents: Address Component from Google Autocomplete
-	
-	- returns: City as a String
-	*/
-//	func getCity(addressComponents: JSON) -> String? {
-//				for (_, comp: JSON) in addressComponents {
-//					if let comp = comp{
-//					for (_, t: JSON) in comp["types"] {
-//						if t.stringValue == "locality" {
-//							return comp["long_name"].string
-//						}
-//						}
-//					}
-//				}
-//		return nil
-//	}
-
-
-	
-
 	//MARK: View delegate methods
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
@@ -317,7 +303,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		}
 		return true
 	}
-
+	
 	
 	func tapDetected(){
 		if self.addressTextField.editing == true || self.nameTextField.editing == true{
@@ -326,11 +312,30 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 				self.autocompleteTableView.hidden == true
 			}
 		}else{
-		self.dismissViewControllerAnimated(true, completion: nil)
+			self.dismissViewControllerAnimated(true, completion: nil)
 		}
 	}
 	
-	//MARK: Actionss
-
+	//MARK: Actions
+	
+	/**
+			Returns the JSON element of a component with the specified type
+	
+		- parameter addressComponents: Address Component from Google Autocomplete
+		- parameter component: The type of component
+	
+		- returns: The JSON part of the component
+	*/
+	func getAddressComponent(addressComponents: JSON, component: String) -> JSON {
+		for (_, comp):(String, JSON) in addressComponents {
+			for (_, t):(String, JSON) in comp["types"] {
+				if t.stringValue == component {
+					return comp
+				}
+			}
+		}
+		return nil
+	}
+	
 }
 
