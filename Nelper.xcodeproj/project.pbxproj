@@ -69,6 +69,7 @@
 		F7D94CB41B5AC41000380157 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CB31B5AC41000380157 /* MapKit.framework */; };
 		F7DEC2111B69CB6C00B03747 /* NelpViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */; };
 		F7E18C161BB4F89F00160771 /* AddAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E18C151BB4F89F00160771 /* AddAddressViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F7E18C181BB6480C00160771 /* UserPrivateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E18C171BB6480C00160771 /* UserPrivateData.swift */; settings = {ASSET_TAGS = (); }; };
 		F7E8F8D41B94E7CF007D44D8 /* Atlas.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8831B94E7CF007D44D8 /* Atlas.m */; };
 		F7E8F8D51B94E7CF007D44D8 /* ATLAddressBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8861B94E7CF007D44D8 /* ATLAddressBarViewController.m */; };
 		F7E8F8D61B94E7CF007D44D8 /* ATLBaseConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8881B94E7CF007D44D8 /* ATLBaseConversationViewController.m */; };
@@ -246,6 +247,7 @@
 		F7D94CB31B5AC41000380157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F7DEC2101B69CB6C00B03747 /* NelpViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpViewCell.swift; sourceTree = "<group>"; };
 		F7E18C151BB4F89F00160771 /* AddAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddAddressViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/AddAddressViewController.swift"; sourceTree = SOURCE_ROOT; };
+		F7E18C171BB6480C00160771 /* UserPrivateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserPrivateData.swift; path = Nelper/Model/UserPrivateData.swift; sourceTree = SOURCE_ROOT; };
 		F7E8F8821B94E7CF007D44D8 /* Atlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Atlas.h; sourceTree = "<group>"; };
 		F7E8F8831B94E7CF007D44D8 /* Atlas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Atlas.m; sourceTree = "<group>"; };
 		F7E8F8851B94E7CF007D44D8 /* ATLAddressBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLAddressBarViewController.h; sourceTree = "<group>"; };
@@ -626,6 +628,7 @@
 				F73A45BD1B72F4B600FD8C79 /* MKPin.swift */,
 				F7E8F9321B94F3A4007D44D8 /* PFUser+ATLParticipant.swift */,
 				19DB24231BB61B6B00468E91 /* Location.swift */,
+				F7E18C171BB6480C00160771 /* UserPrivateData.swift */,
 			);
 			name = Model;
 			path = ViewControllers/Offer;
@@ -1075,6 +1078,7 @@
 				19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */,
 				F7E8F9331B94F3A4007D44D8 /* PFUser+ATLParticipant.swift in Sources */,
 				F7067AB41B56001300F19745 /* FontHelper.swift in Sources */,
+				F7E18C181BB6480C00160771 /* UserPrivateData.swift in Sources */,
 				F7E8F8E31B94E7CF007D44D8 /* ATLMessagingUtilities.m in Sources */,
 				F7E8F8D41B94E7CF007D44D8 /* Atlas.m in Sources */,
 				F7E8F8D71B94E7CF007D44D8 /* ATLConversationListViewController.m in Sources */,
