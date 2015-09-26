@@ -43,7 +43,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		backView.addSubview(cellView)
 //		cellView.layer.cornerRadius = 6
 		cellView.layer.borderWidth = 1
-		cellView.layer.borderColor = darkGrayDetails.CGColor
+		cellView.layer.borderColor = grayDetails.CGColor
 		cellView.layer.masksToBounds = true
 		cellView.clipsToBounds = true
 		cellView.snp_makeConstraints { (make) -> Void in
@@ -68,6 +68,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		topContainer.backgroundColor = whiteGrayColor
 		let blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
 		let blurView = UIVisualEffectView(effect: blur)
+		blurView.alpha = 0.98
 		topContainer.addSubview(blurView)
 		blurView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(topContainer.snp_edges)
@@ -112,7 +113,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		applicationStateIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		applicationStateIcon.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleLabel.snp_bottom).offset(6)
-			make.left.equalTo(cellView.snp_left).offset(20)
+			make.left.equalTo(cellView.snp_left).offset(40)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
 		}
@@ -120,34 +121,45 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		let applicationLabel = UILabel()
 		self.applicationStateLabel = applicationLabel
 		cellView.addSubview(applicationLabel)
-		applicationLabel.font = UIFont(name: "Lato-Light", size: kText12)
+		applicationLabel.font = UIFont(name: "Lato-Light", size: kText13)
 		applicationLabel.textColor = blackNelpyColor
 		
 		applicationLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(applicationStateIcon.snp_right).offset(6)
+			make.left.equalTo(applicationStateIcon.snp_right).offset(10)
 			make.centerY.equalTo(applicationStateIcon.snp_centerY)
 		}
 		
 		//Price tag
 		
-		let moneyTag = UIImageView()
+		/*let moneyTag = UIImageView()
 		cellView.addSubview(moneyTag)
 		moneyTag.image = UIImage(named: "moneytag")
 		moneyTag.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(applicationLabel.snp_centerY)
-			make.right.equalTo(cellView.snp_right).offset(-20)
+			make.right.equalTo(cellView.snp_right).offset(-40)
 			make.width.equalTo(70)
 			make.height.equalTo(35)
+		}*/
+		
+		let moneyContainer = UIView()
+		cellView.addSubview(moneyContainer)
+		moneyContainer.backgroundColor = whiteNelpyColor
+		moneyContainer.layer.cornerRadius = 3
+		moneyContainer.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(applicationLabel.snp_centerY)
+			make.right.equalTo(cellView.snp_right).offset(-40)
+			make.width.equalTo(65)
+			make.height.equalTo(38)
 		}
 		
 		let moneyLabel = UILabel()
 		self.price = moneyLabel
-		moneyTag.addSubview(moneyLabel)
+		moneyContainer.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = whiteNelpyColor
-		moneyLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		moneyLabel.textColor = blackNelpyColor
+		moneyLabel.font = UIFont(name: "Lato-Light", size: kTitle16)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(moneyTag.snp_edges)
+			make.edges.equalTo(moneyContainer.snp_edges)
 		}
 		self.addSubview(backView)
 	}

@@ -34,6 +34,7 @@
 		19DB24241BB61B6B00468E91 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24231BB61B6B00468E91 /* Location.swift */; settings = {ASSET_TAGS = (); }; };
 		9FB9076C1CAA3EC7FCDFB9DE /* Pods_Nelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C0196C981BB5B49300901155 /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0196C971BB5B49300901155 /* SegmentController.swift */; settings = {ASSET_TAGS = (); }; };
+		C0196C9C1BB642CA00901155 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0196C9B1BB642CA00901155 /* MoreViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		F700A8F51BB1DAC1002A4777 /* CategoryCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F700A8F41BB1DAC1002A4777 /* CategoryCardViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
@@ -211,6 +212,7 @@
 		3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
 		81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0196C971BB5B49300901155 /* SegmentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentController.swift; sourceTree = "<group>"; };
+		C0196C9B1BB642CA00901155 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		F700A8F41BB1DAC1002A4777 /* CategoryCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCardViewController.swift; path = "Nelper/Find Nelp/Nelp Task CollectionView/Create Nelp Task/CategoryCardViewController.swift"; sourceTree = SOURCE_ROOT; };
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
 		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -470,6 +472,7 @@
 			children = (
 				192635431B744C57005597E3 /* Views */,
 				193F04101B485F75003CBDA6 /* Login */,
+				C0196C9A1BB6425F00901155 /* More */,
 				193F041D1B4878E3003CBDA6 /* Nelp */,
 				193F040E1B485F75003CBDA6 /* Find Nelp */,
 				F762CFF61B49E72800812235 /* Nelp Center */,
@@ -520,6 +523,14 @@
 				3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C0196C9A1BB6425F00901155 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				C0196C9B1BB642CA00901155 /* MoreViewController.swift */,
+			);
+			name = More;
 			sourceTree = "<group>";
 		};
 		E00C0A7D0D690598AC42849C /* Frameworks */ = {
@@ -1040,6 +1051,7 @@
 				F775C0C91B81150300F7525B /* NelpTasksTableViewCell.swift in Sources */,
 				F78438231B8FF7D200BEA25F /* ApplicantProfileViewController.swift in Sources */,
 				C0196C981BB5B49300901155 /* SegmentController.swift in Sources */,
+				C0196C9C1BB642CA00901155 /* MoreViewController.swift in Sources */,
 				F777FBB11BA3775C00328709 /* MyApplicationDetailsAcceptedViewController.swift in Sources */,
 				F7E8F92F1B94ED81007D44D8 /* ApplicantChatViewController.swift in Sources */,
 				F75F927B1B98AFB30050B926 /* FilterSortViewController.swift in Sources */,

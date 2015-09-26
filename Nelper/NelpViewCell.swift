@@ -123,7 +123,7 @@ class NelpViewCell: UITableViewCell {
 		moneyContainer.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
 		moneyLabel.textColor = blackNelpyColor
-		moneyLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		moneyLabel.font = UIFont(name: "Lato-Light", size: kText14)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyContainer.snp_edges)
 		}

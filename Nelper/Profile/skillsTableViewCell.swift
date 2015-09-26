@@ -40,7 +40,7 @@ class skillsTableViewCell: UITableViewCell {
 		checkImage.image = UIImage(named: "check_gray")
 		checkImage.contentMode = UIViewContentMode.ScaleAspectFill
 		checkImage.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(backView.snp_left).offset(4)
+			make.left.equalTo(backView.snp_left)
 			make.centerY.equalTo(backView.snp_centerY)
 			make.height.equalTo(16)
 			make.width.equalTo(16)
@@ -65,10 +65,10 @@ class skillsTableViewCell: UITableViewCell {
 		self.skillName = skillName
 		backView.addSubview(skillName)
 		skillName.textColor = blackNelpyColor
-		skillName.font = UIFont(name: "Lato-Regular", size: kText13)
+		skillName.font = UIFont(name: "Lato-Light", size: kText14)
 		skillName.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(checkImage.snp_right).offset(6)
-			make.centerY.equalTo(backView.snp_centerY)
+			make.left.equalTo(checkImage.snp_right).offset(10)
+			make.centerY.equalTo(backView.snp_centerY).offset(-1)
 			make.right.equalTo(trashImage.snp_right).offset(-4)
 			
 		}

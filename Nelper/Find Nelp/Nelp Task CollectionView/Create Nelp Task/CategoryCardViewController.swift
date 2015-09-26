@@ -26,8 +26,8 @@ class CategoryCardViewController:UIView{
 	}
 	
 	func createView(){
-		self.layer.borderColor = darkGrayDetails.CGColor
-		self.layer.borderWidth = 0.5
+		self.layer.borderColor = grayDetails.CGColor
+		self.layer.borderWidth = 1
 		self.backgroundColor = whiteGrayColor
 		let categoryIcon = UIImageView()
 		self.addSubview(categoryIcon)

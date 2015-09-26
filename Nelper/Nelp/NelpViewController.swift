@@ -12,7 +12,7 @@ import CoreLocation
 import GoogleMaps
 import Stripe
 
-class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, FilterSortViewControllerDelegate{
+class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, FilterSortViewControllerDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var logoImage: UIImageView!

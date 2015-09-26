@@ -113,7 +113,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo(125)
 		}
-		profileContainer.backgroundColor = profileGreenColor
+		profileContainer.backgroundColor = nelperRedColor
 		
 		//Profile Picture
 		let pictureSize: CGFloat = 85
@@ -123,30 +123,15 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		self.picture.layer.masksToBounds = true
 		self.picture.clipsToBounds = true
 		self.picture.contentMode = UIViewContentMode.ScaleAspectFill
-		self.picture.layer.borderColor = darkGrayDetails.CGColor
-		self.picture.layer.borderWidth = 2
 		profileContainer.addSubview(picture)
 		
 		picture.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(profileContainer.snp_centerY)
-			make.left.equalTo(profileContainer.snp_left).offset(15)
+			make.top.equalTo(profileContainer.snp_top)
+			make.centerX.equalTo(profileContainer.snp_centerX)
 			make.height.equalTo(pictureSize)
 			make.width.equalTo(pictureSize)
 		}
 		
-		
-		//Name
-		let name = UILabel()
-		profileContainer.addSubview(name)
-		name.numberOfLines = 0
-		name.textColor = whiteNelpyColor
-		name.text = self.poster.name
-		name.font = UIFont(name: "Lato-Regular", size: kText14)
-		
-		name.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(picture.snp_right).offset(15)
-			make.top.equalTo(picture.snp_top)
-		}
 		//FeedBack Stars
 		
 		let firstStar = UIImageView()
@@ -155,11 +140,13 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		firstStar.contentMode = UIViewContentMode.ScaleAspectFill
 		firstStar.image = UIImage(named: "empty_star_white")
 		firstStar.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(name.snp_left)
-			make.top.equalTo(name.snp_bottom).offset(8)
+			make.centerX.equalTo(picture.snp_centerX)
+			make.top.equalTo(picture.snp_bottom).offset(10)
 			make.height.equalTo(20)
 			make.width.equalTo(20)
 		}
+		
+		/*
 		
 		let secondStar = UIImageView()
 		self.secondStar = secondStar
@@ -207,25 +194,24 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.left.equalTo(fourthStar.snp_right).offset(4)
 			make.width.equalTo(20)
 			make.height.equalTo(20)
-		}
+		}*/
 		
 		//Number of tasks completed
 		
 		let numberOfTasksLabel = UILabel()
 		profileContainer.addSubview(numberOfTasksLabel)
-		numberOfTasksLabel.text = "12 tasks completed"
+		numberOfTasksLabel.text = "(6)"
 		numberOfTasksLabel.textColor = whiteNelpyColor
-		numberOfTasksLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		numberOfTasksLabel.font = UIFont(name: "Lato-Light", size: kText14)
 		numberOfTasksLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(name.snp_left)
-			make.top.equalTo(firstStar.snp_bottom).offset(8)
-			make.right.equalTo(profileContainer.snp_right).offset(-4)
+			make.left.equalTo(firstStar.snp_right).offset(10)
+			make.centerY.equalTo(firstStar.snp_centerY)
 		}
 		
 		self.segmentControllerView = SegmentController()
 		self.contentView.addSubview(segmentControllerView)
 		self.segmentControllerView.delegate = self
-		self.segmentControllerView.items = ["My Tasks", "My Applications"]
+		self.segmentControllerView.items = ["Profile", "Feedback"]
 		self.segmentControllerView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileContainer.snp_bottom)
 			make.centerX.equalTo(self.view.snp_centerX)
@@ -271,14 +257,14 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		let whiteContainer = UIView()
 		self.containerView.addSubview(whiteContainer)
 		self.whiteContainer = whiteContainer
-		whiteContainer.layer.borderColor = darkGrayDetails.CGColor
+		whiteContainer.layer.borderColor = grayDetails.CGColor
 		whiteContainer.layer.borderWidth = 1
 		whiteContainer.backgroundColor = whiteGrayColor
 		whiteContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(containerView.snp_top).offset(10)
+			make.top.equalTo(containerView.snp_top).offset(20)
 			make.left.equalTo(containerView.snp_left)
 			make.right.equalTo(containerView.snp_right)
-			make.bottom.equalTo(containerView.snp_bottom).offset(-10)
+			make.bottom.equalTo(containerView.snp_bottom).offset(-20)
 		}
 		
 		
@@ -301,9 +287,9 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		self.whiteContainer.addSubview(aboutLabel)
 		aboutLabel.textColor = blackNelpyColor
 		aboutLabel.text = "About"
-		aboutLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		aboutLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
 		aboutLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(aboutLogo.snp_right).offset(4)
+			make.left.equalTo(aboutLogo.snp_right).offset(15)
 			make.centerY.equalTo(aboutLogo.snp_centerY)
 			make.height.equalTo(30)
 		}
@@ -316,7 +302,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		aboutTextView.backgroundColor = whiteGrayColor
 		aboutTextView.editable = false
 		aboutTextView.text = self.poster.about
-		aboutTextView.font = UIFont(name: "Lato-Regular", size: kText14)
+		aboutTextView.font = UIFont(name: "Lato-Light", size: kText14)
 		aboutTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLogo.snp_left).offset(4)
@@ -331,10 +317,10 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		aboutTextView.frame = newFrame;
 		
 		let aboutBottomLine = UIView()
-		aboutBottomLine.backgroundColor = darkGrayDetails
+		aboutBottomLine.backgroundColor = grayDetails
 		whiteContainer.addSubview(aboutBottomLine)
 		aboutBottomLine.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(aboutTextView.snp_bottom).offset(4)
+			make.top.equalTo(aboutTextView.snp_bottom).offset(6)
 			make.width.equalTo(whiteContainer.snp_width).dividedBy(1.4)
 			make.centerX.equalTo(whiteContainer.snp_centerX)
 			make.height.equalTo(0.5)
@@ -358,28 +344,28 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		//My skills
 		
-		let skillsLabel = UILabel()
-		self.skillsLabel = skillsLabel
-		self.whiteContainer.addSubview(skillsLabel)
-		skillsLabel.textColor = blackNelpyColor
-		skillsLabel.text = "Skills"
-		skillsLabel.font = UIFont(name: "Lato-Regular", size: kText14)
-		skillsLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(aboutTextView.snp_bottom).offset(10)
-			make.left.equalTo(aboutLabel.snp_left)
-			make.height.equalTo(30)
-		}
-		
 		let skillsLogo = UIImageView()
 		whiteContainer.addSubview(skillsLogo)
 		self.skillsLogo = skillsLogo
 		skillsLogo.image = UIImage(named: "skills")
 		skillsLogo.contentMode = UIViewContentMode.ScaleAspectFit
 		skillsLogo.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(skillsLabel.snp_left).offset(-4)
-			make.centerY.equalTo(skillsLabel.snp_centerY)
+			make.left.equalTo(aboutLogo.snp_left)
+			make.top.equalTo(aboutBottomLine.snp_bottom).offset(15)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
+		}
+		
+		let skillsLabel = UILabel()
+		self.skillsLabel = skillsLabel
+		self.whiteContainer.addSubview(skillsLabel)
+		skillsLabel.textColor = blackNelpyColor
+		skillsLabel.text = "Skills"
+		skillsLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		skillsLabel.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(skillsLogo.snp_centerY)
+			make.left.equalTo(aboutLabel.snp_left)
+			make.height.equalTo(30)
 		}
 		
 		let skillsTableView = UITableView()
@@ -393,7 +379,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		skillsTableView.backgroundColor = whiteGrayColor
 		skillsTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
-			make.left.equalTo(aboutLabel.snp_left)
+			make.left.equalTo(aboutLabel.snp_left).offset(-26)
 			make.right.equalTo(containerView.snp_right).offset(-19)
 			if self.poster.skills != nil{
 				make.height.equalTo(self.poster.skills.count * Int(kCellHeight))
@@ -402,10 +388,10 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		let skillsBottomLine = UIView()
 		self.skillsBottomLine = skillsBottomLine
-		skillsBottomLine.backgroundColor = darkGrayDetails
+		skillsBottomLine.backgroundColor = grayDetails
 		whiteContainer.addSubview(skillsBottomLine)
 		skillsBottomLine.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(skillsTableView.snp_bottom).offset(4)
+			make.top.equalTo(skillsTableView.snp_bottom).offset(6)
 			make.width.equalTo(whiteContainer.snp_width).dividedBy(1.4)
 			make.centerX.equalTo(whiteContainer.snp_centerX)
 			make.height.equalTo(0.5)
@@ -413,28 +399,28 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		//Education
 		
-		let educationLabel = UILabel()
-		self.educationLabel = educationLabel
-		self.whiteContainer.addSubview(educationLabel)
-		educationLabel.textColor = blackNelpyColor
-		educationLabel.text = "Education"
-		educationLabel.font = UIFont(name: "Lato-Regular", size: kText14)
-		educationLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(skillsTableView.snp_bottom).offset(10)
-			make.left.equalTo(aboutLabel)
-			make.height.equalTo(30)
-		}
-		
 		let educationLogo = UIImageView()
 		whiteContainer.addSubview(educationLogo)
 		self.educationLogo = educationLogo
 		educationLogo.image = UIImage(named: "diplome")
 		educationLogo.contentMode = UIViewContentMode.ScaleAspectFit
 		educationLogo.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(educationLabel.snp_left).offset(-4)
-			make.centerY.equalTo(educationLabel.snp_centerY)
+			make.left.equalTo(aboutLogo.snp_left)
+			make.top.equalTo(skillsBottomLine.snp_bottom).offset(15)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
+		}
+		
+		let educationLabel = UILabel()
+		self.educationLabel = educationLabel
+		self.whiteContainer.addSubview(educationLabel)
+		educationLabel.textColor = blackNelpyColor
+		educationLabel.text = "Education"
+		educationLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		educationLabel.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(educationLogo.snp_centerY)
+			make.left.equalTo(aboutLabel.snp_left)
+			make.height.equalTo(30)
 		}
 		
 		let educationTableView = UITableView()
@@ -448,7 +434,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		educationTableView.backgroundColor = whiteGrayColor
 		educationTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationLabel.snp_bottom).offset(6)
-			make.left.equalTo(aboutLabel.snp_left)
+			make.left.equalTo(aboutLabel.snp_left).offset(-26)
 			make.right.equalTo(containerView.snp_right).offset(-19)
 			if self.poster.education != nil{
 				make.height.equalTo(self.poster.education.count * Int(kCellHeight))
@@ -457,10 +443,10 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		let educationBottomLine = UIView()
 		self.educationBottomLine = educationBottomLine
-		educationBottomLine.backgroundColor = darkGrayDetails
+		educationBottomLine.backgroundColor = grayDetails
 		whiteContainer.addSubview(educationBottomLine)
 		educationBottomLine.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(educationTableView.snp_bottom).offset(4)
+			make.top.equalTo(educationTableView.snp_bottom).offset(6)
 			make.width.equalTo(whiteContainer.snp_width).dividedBy(1.4)
 			make.centerX.equalTo(whiteContainer.snp_centerX)
 			make.height.equalTo(0.5)
@@ -468,28 +454,28 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		//Work Experience
 		
-		let experienceLabel = UILabel()
-		self.experienceLabel = experienceLabel
-		self.whiteContainer.addSubview(experienceLabel)
-		experienceLabel.textColor = blackNelpyColor
-		experienceLabel.text = "Work experience"
-		experienceLabel.font = UIFont(name: "Lato-Regular", size: kText14)
-		experienceLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(educationTableView.snp_bottom).offset(10)
-			make.left.equalTo(aboutLabel)
-			make.height.equalTo(30)
-		}
-		
 		let experienceLogo = UIImageView()
 		whiteContainer.addSubview(experienceLogo)
 		self.experienceLogo = experienceLogo
 		experienceLogo.image = UIImage(named: "suitcase")
 		experienceLogo.contentMode = UIViewContentMode.ScaleAspectFit
 		experienceLogo.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(experienceLabel.snp_left).offset(-4)
-			make.centerY.equalTo(experienceLabel.snp_centerY)
+			make.left.equalTo(aboutLogo.snp_left)
+			make.top.equalTo(educationBottomLine.snp_bottom).offset(15)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
+		}
+		
+		let experienceLabel = UILabel()
+		self.experienceLabel = experienceLabel
+		self.whiteContainer.addSubview(experienceLabel)
+		experienceLabel.textColor = blackNelpyColor
+		experienceLabel.text = "Work experience"
+		experienceLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		experienceLabel.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(aboutLabel.snp_left)
+			make.centerY.equalTo(experienceLogo.snp_centerY)
+			make.height.equalTo(30)
 		}
 		
 		let experienceTableView = UITableView()
@@ -503,7 +489,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		experienceTableView.backgroundColor = whiteGrayColor
 		experienceTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(experienceLabel.snp_bottom).offset(6)
-			make.left.equalTo(aboutLabel.snp_left)
+			make.left.equalTo(aboutLabel.snp_left).offset(-26)
 			make.right.equalTo(containerView.snp_right).offset(-19)
 			if self.poster.experience != nil{
 				make.height.equalTo(self.poster.experience.count * Int(kCellHeight))
@@ -519,7 +505,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.bottom.equalTo(whiteContainer.snp_bottom)
 		}
 		
-				//Chat Button
+		//Chat Button
 		
 		if self.hideChatButton != true {
 		let chatButton = UIButton()

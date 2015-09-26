@@ -79,19 +79,17 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.tasksContainer = tasksContainer
 		tasksContainer.backgroundColor = whiteNelpyColor
 		tasksContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(segmentControllerView.snp_bottom).offset(8)
+			make.top.equalTo(segmentControllerView.snp_bottom)
 			make.width.equalTo(self.view.snp_width)
 			make.bottom.equalTo(self.tabBarView.snp_top)
 		}
 	}
 	
-	func createMyTasksTableView(){
-		
-		//My Tasks
-		
+	func createMyTasksTableView() {
+
 		let tableView = UITableView()
 		tableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
-		tableView.contentInset = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
+		tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 		
 		
 		tableView.delegate = self
@@ -112,16 +110,15 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.myTasksTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 	}
 	
-	func createMyApplicationsTableView(){
+	func createMyApplicationsTableView() {
+		
 		let tableViewApplications = UITableView()
 		tableViewApplications.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
 		tableViewApplications.delegate = self
 		tableViewApplications.dataSource = self
 		tableViewApplications.registerClass(NelpApplicationsTableViewCell.classForCoder(), forCellReuseIdentifier: NelpApplicationsTableViewCell.reuseIdentifier)
 		tableViewApplications.backgroundColor = whiteNelpyColor
-		tableViewApplications.contentInset = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
-		
-		
+		tableViewApplications.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 		
 		let refreshViewApplication = UIRefreshControl()
 		refreshViewApplication.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
@@ -131,6 +128,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tableViewApplications.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.tasksContainer.snp_edges)
 		}
+		
 		self.myApplicationsTableView = tableViewApplications
 		self.refreshViewApplication = refreshViewApplication
 		self.myApplicationsTableView.hidden = true
