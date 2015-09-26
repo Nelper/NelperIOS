@@ -398,28 +398,6 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 			make.height.equalTo(35)
 			make.width.equalTo(200)
 		}
-	
-		
-		//Google Autocomplete Table View
-		
-		let autocompleteTableView = UITableView()
-		self.contentView.addSubview(autocompleteTableView)
-		self.autocompleteTableView = autocompleteTableView
-		self.autocompleteTableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
-		self.autocompleteTableView.delegate = self
-		self.autocompleteTableView.dataSource = self
-		self.autocompleteTableView.registerClass(AutocompleteCell.classForCoder(), forCellReuseIdentifier: AutocompleteCell.reuseIdentifier)
-		self.autocompleteTableView.hidden = true
-		self.autocompleteTableView.layer.borderColor = grayDetails.CGColor
-		self.autocompleteTableView.layer.borderWidth = 1
-		self.autocompleteTableView.backgroundColor = whiteNelpyColor
-		
-		self.autocompleteTableView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(locationTextField.snp_bottom)
-			make.left.equalTo(locationTextField.snp_left)
-			make.width.equalTo(locationTextField.snp_width)
-			make.height.equalTo(self.contentView.snp_height).dividedBy(3)
-		}
 		
 		//Create task button
 		
@@ -489,79 +467,6 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	
-	//MARK: TableView Delegate and Datasource
-	
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return autocompleteArray.count
-	}
-	
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		
-		let cell = tableView.dequeueReusableCellWithIdentifier(AutocompleteCell.reuseIdentifier, forIndexPath: indexPath) as! AutocompleteCell
-		
-		let prediction: GMSAutocompletePrediction = self.autocompleteArray[indexPath.item]
-		
-		cell.setAddress(prediction)
-		return cell
-	}
-	
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let prediction = self.autocompleteArray[indexPath.row]
-		self.locationTextField!.text = prediction.attributedFullText.string
-
-		let geocodeURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(prediction.placeID)&key=\(kGoogleAPIKey)"
-		
-		request(.GET, geocodeURL).responseJSON { _, response, _ in
-			let json = JSON(response!)
-			let res = json["result"]
-			
-			let latitude = res["geometry"]["location"]["lat"].doubleValue
-			let longitude = res["geometry"]["location"]["lng"].doubleValue
-			
-			let city = self.getCity(res["address_components"])
-			
-			let point = GeoPoint(latitude:latitude, longitude:longitude)
-			self.task.location = point
-			self.task.city = city
-		}
-		self.autocompleteTableView.hidden = true
-	}
-	
-	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		return 80
-	}
-	
-	//MARK: TextField delegate method
-	
-	func textFieldDidBeginEditing(textField: UITextField) {
-		if (textField == self.locationTextField){
-			self.autocompleteTableView.hidden = false
-			self.tap!.enabled = false
-		}else{
-		self.tap!.enabled = true
-		}
-	}
-	
-	func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-		if(textField == self.locationTextField){
-			self.tap!.enabled = false
-			return true
-		}
-		self.tap!.enabled = true
-		return true
-	}
-	
-	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-		if(textField == locationTextField){
-			var substring = textField.text! as NSString
-   substring = substring.stringByReplacingCharactersInRange(range, withString: string)
-			self.placeAutocomplete(substring as String)
-			return true
-		}
-		return true
-	}
-	
 	//MARK: TextView Delegate method
 	
 	func textViewDidBeginEditing(textView: UITextView) {
@@ -575,58 +480,6 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		self.scrollView.contentSize = self.contentView.frame.size
 	}
 	
-	//MARK: Google Places Autocomplete
-	
-	/**
-	Google Autocomplete Method
-	
-	- parameter text: User text (constantly updated)
-	*/
-	func placeAutocomplete(text:String) {
-		let filter = GMSAutocompleteFilter()
-		filter.type = GMSPlacesAutocompleteTypeFilter.Address
-		
-		var bounds:GMSCoordinateBounds?
-		
-		if LocationHelper.sharedInstance.currentCLLocation != nil{
-		bounds = GMSCoordinateBounds(coordinate: LocationHelper.sharedInstance.currentCLLocation, coordinate: LocationHelper.sharedInstance.currentCLLocation)
-		}
-		
-		self.placesClient?.autocompleteQuery(text, bounds: bounds, filter: filter, callback: { (results, error: NSError?) -> Void in
-			if let error = error {
-				print("Autocomplete error \(error)")
-			}
-			
-			if(results != nil){
-				self.autocompleteArray = results as! [GMSAutocompletePrediction]
-				self.autocompleteTableView.reloadData()
-				self.autocompleteTableView.hidden = false
-				for result in results! {
-					if let result = result as? GMSAutocompletePrediction {
-						print("Result \(result.attributedFullText) with placeID \(result.placeID)")
-					}
-				}
-			}
-		})
-	}
-	
-	/**
-	Returns the City in which the task is in a String
-	
-	- parameter addressComponents: Address Component from Google Autocomplete
-	
-	- returns: City as a String
-	*/
-	func getCity(addressComponents: JSON) -> String? {
-//		for (_, comp: JSON) in addressComponents {
-//			for (_, t: JSON) in comp["types"] {
-//				if t.stringValue == "locality" {
-//					return comp["long_name"].string
-//				}
-//			}
-//		}
-		return nil
-	}
 	
 	//MARK: Add Address Location Delegate
 	
@@ -671,6 +524,8 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 		let nextVC = AddAddressViewController()
 		nextVC.delegate = self
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+		self.providesPresentationContextTransitionStyle = true
+		nextVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	

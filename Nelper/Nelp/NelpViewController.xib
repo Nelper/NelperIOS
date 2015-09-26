@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8191"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -37,19 +37,23 @@
                                         <constraint firstAttribute="height" constant="64" id="bhz-ie-U0u"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-u6-Vdz">
-                                    <rect key="frame" x="0.0" y="319" width="375" height="299"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-u6-Vdz">
+                                    <rect key="frame" x="0.0" y="319" width="375" height="348"/>
                                     <color key="backgroundColor" red="1" green="0.80969880760000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" red="0.46661662850000002" green="1" blue="0.7643357355" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
+                                <constraint firstAttribute="trailing" secondItem="PfD-u6-Vdz" secondAttribute="trailing" id="38d-Ft-gQ4"/>
                                 <constraint firstItem="Ga4-Ld-Uh8" firstAttribute="top" secondItem="pSm-h1-kgF" secondAttribute="bottom" id="5EC-ow-3wO"/>
                                 <constraint firstAttribute="trailing" secondItem="pSm-h1-kgF" secondAttribute="trailing" id="BDO-Lz-jxm"/>
                                 <constraint firstItem="Ga4-Ld-Uh8" firstAttribute="leading" secondItem="Vwf-Ak-zmN" secondAttribute="leading" id="ST8-X9-nvT"/>
+                                <constraint firstItem="PfD-u6-Vdz" firstAttribute="leading" secondItem="Vwf-Ak-zmN" secondAttribute="leading" id="dxp-6I-o9m"/>
                                 <constraint firstItem="pSm-h1-kgF" firstAttribute="leading" secondItem="Vwf-Ak-zmN" secondAttribute="leading" id="eFg-oa-Pgw"/>
+                                <constraint firstItem="PfD-u6-Vdz" firstAttribute="top" secondItem="Ga4-Ld-Uh8" secondAttribute="bottom" constant="2" id="iRm-Tz-2a8"/>
                                 <constraint firstAttribute="trailing" secondItem="Ga4-Ld-Uh8" secondAttribute="trailing" id="pjE-pX-1HH"/>
                                 <constraint firstAttribute="bottom" secondItem="Ga4-Ld-Uh8" secondAttribute="bottom" constant="350" id="tG1-1j-Ip7"/>
+                                <constraint firstAttribute="bottom" secondItem="PfD-u6-Vdz" secondAttribute="bottom" id="yoU-cM-gFG"/>
                                 <constraint firstItem="pSm-h1-kgF" firstAttribute="top" secondItem="Vwf-Ak-zmN" secondAttribute="top" id="zEP-uf-CcS"/>
                             </constraints>
                         </view>

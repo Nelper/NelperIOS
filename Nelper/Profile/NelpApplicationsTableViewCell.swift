@@ -65,7 +65,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			make.left.equalTo(cellView.snp_left)
 			make.height.equalTo(85)
 		}
-		topContainer.backgroundColor = nelperRedColor
+		topContainer.backgroundColor = whiteGrayColor
 		let blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
 		let blurView = UIVisualEffectView(effect: blur)
 		topContainer.addSubview(blurView)
