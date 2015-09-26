@@ -14,6 +14,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	let kCellHeight:CGFloat = 45
 	
 	var segmentControllerView: SegmentController!
+	var ratingStarsView: RatingStars!
 	
 	var navBar:NavBar!
 	var poster: User!
@@ -132,9 +133,21 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.width.equalTo(pictureSize)
 		}
 		
+
+		ratingStarsView = RatingStars()
+		ratingStarsView.userRating = 5
+		ratingStarsView.userCompletedTasks = 10
+		profileContainer.addSubview(ratingStarsView)
+		ratingStarsView.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(picture.snp_centerX)
+			make.top.equalTo(picture.snp_bottom).offset(8)
+			make.width.equalTo((ratingStarsView.starWidth + ratingStarsView.starPadding) * 6)
+			make.height.equalTo(ratingStarsView.starHeight)
+		}
+		
 		//FeedBack Stars
 		
-		let firstStar = UIImageView()
+		/*let firstStar = UIImageView()
 		self.firstStar = firstStar
 		profileContainer.addSubview(firstStar)
 		firstStar.contentMode = UIViewContentMode.ScaleAspectFill
@@ -145,8 +158,6 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.height.equalTo(20)
 			make.width.equalTo(20)
 		}
-		
-		/*
 		
 		let secondStar = UIImageView()
 		self.secondStar = secondStar
@@ -195,18 +206,6 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.width.equalTo(20)
 			make.height.equalTo(20)
 		}*/
-		
-		//Number of tasks completed
-		
-		let numberOfTasksLabel = UILabel()
-		profileContainer.addSubview(numberOfTasksLabel)
-		numberOfTasksLabel.text = "(6)"
-		numberOfTasksLabel.textColor = whiteNelpyColor
-		numberOfTasksLabel.font = UIFont(name: "Lato-Light", size: kText14)
-		numberOfTasksLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(firstStar.snp_right).offset(10)
-			make.centerY.equalTo(firstStar.snp_centerY)
-		}
 		
 		self.segmentControllerView = SegmentController()
 		self.contentView.addSubview(segmentControllerView)

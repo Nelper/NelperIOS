@@ -61,6 +61,7 @@
 		9FB9076C1CAA3EC7FCDFB9DE /* Pods_Nelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C0196C981BB5B49300901155 /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0196C971BB5B49300901155 /* SegmentController.swift */; settings = {ASSET_TAGS = (); }; };
 		C0196C9C1BB642CA00901155 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0196C9B1BB642CA00901155 /* MoreViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C087D8D91BB7199A00AA205B /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087D8D81BB7199A00AA205B /* Rating.swift */; settings = {ASSET_TAGS = (); }; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
 		F72F27DC1B53224100CD3B0B /* NelpTaskApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F27DB1B53224100CD3B0B /* NelpTaskApplication.swift */; };
@@ -240,6 +241,7 @@
 		81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0196C971BB5B49300901155 /* SegmentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegmentController.swift; path = Views/SegmentController.swift; sourceTree = "<group>"; };
 		C0196C9B1BB642CA00901155 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoreViewController.swift; path = More/MoreViewController.swift; sourceTree = "<group>"; };
+		C087D8D81BB7199A00AA205B /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
 		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		F72F27DB1B53224100CD3B0B /* NelpTaskApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTaskApplication.swift; path = Nelper/Model/NelpTaskApplication.swift; sourceTree = SOURCE_ROOT; };
@@ -410,6 +412,7 @@
 		192635431B744C57005597E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C087D8D81BB7199A00AA205B /* Rating.swift */,
 				192635441B744D9C005597E3 /* NavBar.swift */,
 				C0196C971BB5B49300901155 /* SegmentController.swift */,
 				F775C0C61B803E9600F7525B /* TabBarCustom.swift */,
@@ -451,6 +454,7 @@
 		199EF1F01B37A0A500B25B07 /* Nelper */ = {
 			isa = PBXGroup;
 			children = (
+				192635431B744C57005597E3 /* Views */,
 				19DB245F1BB711B500468E91 /* Profile */,
 				19DB24541BB711AA00468E91 /* Browse */,
 				19DB24491BB7119C00468E91 /* Post */,
@@ -458,7 +462,6 @@
 				C0196C9A1BB6425F00901155 /* More */,
 				F7F007031B9767D0009766C1 /* Payments */,
 				19DB24251BB70E8000468E91 /* NelpCenter */,
-				192635431B744C57005597E3 /* Views */,
 				F762CFFD1B4B591D00812235 /* Model */,
 				F72F28501B53608E00CD3B0B /* Helpers */,
 				199EF1F31B37A0A500B25B07 /* AppDelegate.swift */,
@@ -1064,6 +1067,7 @@
 				F7E8F8DC1B94E7CF007D44D8 /* ATLDataSourceChange.m in Sources */,
 				F7E8F8EE1B94E7CF007D44D8 /* ATLConversationView.m in Sources */,
 				190F623E1B4F5CAB0091A1D1 /* NelpTask.swift in Sources */,
+				C087D8D91BB7199A00AA205B /* Rating.swift in Sources */,
 				F7E8F9351B953A57007D44D8 /* LayerManager.swift in Sources */,
 				F7E8F8E51B94E7CF007D44D8 /* ATLAddressBarContainerView.m in Sources */,
 				F7E8F8E11B94E7CF007D44D8 /* ATLLocationManager.m in Sources */,
