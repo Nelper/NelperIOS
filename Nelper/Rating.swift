@@ -19,10 +19,11 @@ class RatingStars: UIView {
 	
 	var style: String?
 	var styleColor: UIColor!
+	var styleImage: String!
 	
-	var userRating = Int() {
+	var userRating = Double() {
 		didSet {
-			
+			setRatingView()
 		}
 	}
 	var userCompletedTasks: Int?
@@ -40,31 +41,54 @@ class RatingStars: UIView {
 	}
 	
 	func adjustUI() {
-		if self.style == "light" {
-			styleColor = whiteGrayColor
-		} else if self.style == "dark" {
-			styleColor = blackNelpyColor
-		} else {
-			styleColor = whiteGrayColor
-		}
+		
 	}
 	
 	func setRatingView() {
+		for subview in self.subviews {
+			subview.removeFromSuperview()
+		}
+		
+		starImages.removeAll(keepCapacity: true)
+		
+		//Style
+		if self.style == "light" {
+			styleColor = whiteGrayColor
+			styleImage = "empty_star_white"
+		} else if self.style == "dark" {
+			styleColor = blackNelpyColor
+			styleImage = "empty_star"
+		} else {
+			styleColor = whiteGrayColor
+			styleImage = "empty_star_white"
+		}
+		
 		//Stars
 		for index in 0...4 {
 			let starImage = UIImageView(frame: CGRect(x: index * (starWidth + starPadding), y: 0, width: starWidth, height: starWidth))
-			starImage.image = UIImage(named: "empty_star")
+			starImage.image = UIImage(named: styleImage)
 			
 			self.addSubview(starImage)
+			
+			print(userRating)
+			print(Double(index))
+			print(" ")
+			
+			if Double(index) >= round(userRating) {
+				starImage.alpha = 0.2
+			}
 			
 			starImages.append(starImage)
 		}
 		
+		//Star adjust with rating
+		starImages[Int(userRating)].alpha = 1
+		
 		//Number of tasks completed
 		let taskCompletedLabel = UILabel(frame: CGRect(x: starImages[4].frame.maxX + 8, y: 0, width: 30, height: 18))
-		taskCompletedLabel.text = "(\(userCompletedTasks))"
+		taskCompletedLabel.text = "(\(self.userCompletedTasks))"
 		taskCompletedLabel.textColor = styleColor
-		taskCompletedLabel.font = UIFont(name: "Lato-Light", size: kText14)
+		taskCompletedLabel.font = UIFont(name: "Lato-Light", size: kTitle16)
 		self.addSubview(taskCompletedLabel)
 	}
 }

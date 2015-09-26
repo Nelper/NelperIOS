@@ -105,6 +105,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		self.setImages(self.poster)
 		
 		//Profile + Header
+		
 		let profileContainer = UIView()
 		self.profileContainer = profileContainer
 		self.contentView.addSubview(profileContainer)
@@ -117,6 +118,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		profileContainer.backgroundColor = nelperRedColor
 		
 		//Profile Picture
+		
 		let pictureSize: CGFloat = 85
 		let picture = UIImageView()
 		self.picture = picture
@@ -133,9 +135,11 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.width.equalTo(pictureSize)
 		}
 		
-
+		//Rating
+		
 		ratingStarsView = RatingStars()
-		ratingStarsView.userRating = 5
+		ratingStarsView.userRating = self.poster.rating
+		ratingStarsView.style = "light"
 		ratingStarsView.userCompletedTasks = 10
 		profileContainer.addSubview(ratingStarsView)
 		ratingStarsView.snp_makeConstraints { (make) -> Void in
@@ -145,67 +149,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.height.equalTo(ratingStarsView.starHeight)
 		}
 		
-		//FeedBack Stars
-		
-		/*let firstStar = UIImageView()
-		self.firstStar = firstStar
-		profileContainer.addSubview(firstStar)
-		firstStar.contentMode = UIViewContentMode.ScaleAspectFill
-		firstStar.image = UIImage(named: "empty_star_white")
-		firstStar.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(picture.snp_centerX)
-			make.top.equalTo(picture.snp_bottom).offset(10)
-			make.height.equalTo(20)
-			make.width.equalTo(20)
-		}
-		
-		let secondStar = UIImageView()
-		self.secondStar = secondStar
-		profileContainer.addSubview(secondStar)
-		secondStar.contentMode = UIViewContentMode.ScaleAspectFill
-		secondStar.image = UIImage(named: "empty_star_white")
-		secondStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(firstStar.snp_bottom)
-			make.left.equalTo(firstStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
-		
-		let thirdStar = UIImageView()
-		self.thirdStar = thirdStar
-		profileContainer.addSubview(thirdStar)
-		thirdStar.contentMode = UIViewContentMode.ScaleAspectFill
-		thirdStar.image = UIImage(named: "empty_star_white")
-		thirdStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(secondStar.snp_bottom)
-			make.left.equalTo(secondStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
-		
-		let fourthStar = UIImageView()
-		self.fourthStar = fourthStar
-		profileContainer.addSubview(fourthStar)
-		fourthStar.contentMode = UIViewContentMode.ScaleAspectFill
-		fourthStar.image = UIImage(named: "empty_star_white")
-		fourthStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(thirdStar.snp_bottom)
-			make.left.equalTo(thirdStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
-		
-		let fifthStar = UIImageView()
-		self.fifthStar = fifthStar
-		profileContainer.addSubview(fifthStar)
-		fifthStar.contentMode = UIViewContentMode.ScaleAspectFill
-		fifthStar.image = UIImage(named: "empty_star_white")
-		fifthStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(fourthStar.snp_bottom)
-			make.left.equalTo(fourthStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}*/
+		//SegmentControl
 		
 		self.segmentControllerView = SegmentController()
 		self.contentView.addSubview(segmentControllerView)

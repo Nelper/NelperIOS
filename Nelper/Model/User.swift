@@ -12,6 +12,7 @@ class User : BaseModel {
 	
 	var username: String!
 	var email: String?
+	var rating: Double!
 	var name: String!
 	var location: GeoPoint?
 	var createdAt: NSDate!
@@ -28,6 +29,7 @@ class User : BaseModel {
 		
 		username = parseUser.username!
 		email = parseUser.email
+		rating = parseUser["rating"] as! Double!
 		objectId = parseUser.objectId!
 		name = parseUser["name"] as! String
 		location = parseUser["location"] as? GeoPoint
