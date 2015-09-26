@@ -13,7 +13,7 @@ import SwiftyJSON
 
 protocol AddAddressViewControllerDelegate{
 	func didClosePopup(vc:AddAddressViewController)
-	func didTapAddLocation()
+	func didAddLocation(vc:AddAddressViewController)
 }
 
 class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate{

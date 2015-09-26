@@ -486,6 +486,9 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	func didClosePopup(vc: AddAddressViewController) {
 	}
 	
+	func didAddLocation(vc:AddAddressViewController){
+		
+	}
 	
 	//MARK: Actions
 	
