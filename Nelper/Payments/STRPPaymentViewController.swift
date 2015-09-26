@@ -28,11 +28,8 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.createView()
 		self.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
-		self.definesPresentationContext = true
-		self.providesPresentationContextTransitionStyle = true
-		
+		self.createView()
 	}
 	
 	//MARK: View Creation
@@ -42,7 +39,11 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
 		let blurContainer = UIVisualEffectView(effect: blurEffect)
 		self.blurContainer = blurContainer
-		blurContainer.frame = self.view.bounds
+		self.view.addSubview(blurContainer)
+		blurContainer.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(self.view.snp_edges)
+		}
+		
 		
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissPopup")
 		self.tap = tap

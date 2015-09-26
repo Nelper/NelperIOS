@@ -64,7 +64,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.left.equalTo(cellView.snp_left)
 			make.height.equalTo(85)
 		}
-		topContainer.backgroundColor = nelperRedColor		//Category Icon + label
+		topContainer.backgroundColor = whiteGrayColor		//Category Icon + label
 		
 
 		
