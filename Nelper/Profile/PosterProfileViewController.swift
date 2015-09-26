@@ -9,9 +9,11 @@
 import Foundation
 import Alamofire
 
-class PosterProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class PosterProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SegmentControllerDelegate {
 	
 	let kCellHeight:CGFloat = 45
+	
+	var segmentControllerView: SegmentController!
 	
 	var navBar:NavBar!
 	var poster: User!
@@ -64,8 +66,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.createView()
-		
-		self.profileSegmentButton.selected = true
+
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -88,7 +89,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		navBar.closeButton = previousBtn
-		navBar.setTitle("Poster's profile")
+		navBar.setTitle(self.poster.name)
 		
 		let contentView = UIView()
 		self.contentView = contentView
@@ -221,101 +222,23 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.right.equalTo(profileContainer.snp_right).offset(-4)
 		}
 		
-		//Segment Container
-		let segmentControlContainer = UIView()
-		self.contentView.addSubview(segmentControlContainer)
-		segmentControlContainer.snp_makeConstraints { (make) -> Void in
+		self.segmentControllerView = SegmentController()
+		self.contentView.addSubview(segmentControllerView)
+		self.segmentControllerView.delegate = self
+		self.segmentControllerView.items = ["My Tasks", "My Applications"]
+		self.segmentControllerView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileContainer.snp_bottom)
-			make.left.equalTo(self.contentView.snp_left)
-			make.right.equalTo(self.contentView.snp_right)
+			make.centerX.equalTo(self.view.snp_centerX)
+			make.width.equalTo(self.view.snp_width).offset(2)
 			make.height.equalTo(50)
 		}
-		segmentControlContainer.layer.borderWidth = 1
-		segmentControlContainer.layer.borderColor = darkGrayDetails.CGColor
-		segmentControlContainer.backgroundColor = whiteGrayColor
-		
-		//Hack for positioning of custom Segment bar
-		
-		let firstHalf = UIView()
-		segmentControlContainer.addSubview(firstHalf)
-		firstHalf.snp_makeConstraints { (make) -> Void in
-			make.width.equalTo(segmentControlContainer.snp_width).dividedBy(2)
-			make.left.equalTo(segmentControlContainer.snp_left)
-			make.top.equalTo(segmentControlContainer.snp_top).offset(1)
-			make.bottom.equalTo(segmentControlContainer.snp_bottom).offset(-1)
-		}
-		
-		let profileSegmentButton = UIButton()
-		self.profileSegmentButton = profileSegmentButton
-		profileSegmentButton.addTarget(self, action: "profileSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		firstHalf.addSubview(profileSegmentButton)
-		profileSegmentButton.setTitle("Profile", forState: UIControlState.Normal)
-		profileSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kText14)
-		profileSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
-		profileSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
-		profileSegmentButton.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(firstHalf.snp_centerX)
-			make.top.equalTo(firstHalf.snp_top)
-			make.width.equalTo(firstHalf.snp_width)
-			make.bottom.equalTo(firstHalf.snp_bottom).offset(-2)
-		}
-		
-		let bottomProfileBorder = UIView()
-		self.bottomProfileBorder = bottomProfileBorder
-		bottomProfileBorder.backgroundColor = nelperRedColor
-		firstHalf.addSubview(bottomProfileBorder)
-		bottomProfileBorder.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(firstHalf.snp_bottom)
-			make.width.equalTo(firstHalf.snp_width).dividedBy(1.2)
-			make.centerX.equalTo(firstHalf.snp_centerX)
-			make.height.equalTo(2)
-		}
-		
-		let secondHalf = UIView()
-		segmentControlContainer.addSubview(secondHalf)
-		secondHalf.snp_makeConstraints { (make) -> Void in
-			make.width.equalTo(segmentControlContainer.snp_width).dividedBy(2)
-			make.right.equalTo(segmentControlContainer.snp_right)
-			make.top.equalTo(segmentControlContainer.snp_top).offset(1)
-			make.bottom.equalTo(segmentControlContainer.snp_bottom).offset(-1)
-		}
-		
-		let reviewSegmentButton = UIButton()
-		self.reviewSegmentButton = reviewSegmentButton
-		reviewSegmentButton.addTarget(self, action: "reviewSegmentButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		
-		secondHalf.addSubview(reviewSegmentButton)
-		reviewSegmentButton.setTitle("Feedback", forState: UIControlState.Normal)
-		reviewSegmentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kText14)
-		reviewSegmentButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
-		reviewSegmentButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
-		reviewSegmentButton.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(secondHalf.snp_centerX)
-			make.width.equalTo(secondHalf.snp_width)
-			make.top.equalTo(secondHalf.snp_top)
-			make.bottom.equalTo(secondHalf.snp_bottom).offset(-2)
-		}
-		
-		let bottomFeedbackBorder = UIView()
-		self.bottomFeedbackBorder = bottomFeedbackBorder
-		bottomFeedbackBorder.backgroundColor = nelperRedColor
-		secondHalf.addSubview(bottomFeedbackBorder)
-		bottomFeedbackBorder.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(secondHalf.snp_bottom)
-			make.width.equalTo(secondHalf.snp_width).dividedBy(1.2)
-			make.centerX.equalTo(secondHalf.snp_centerX)
-			make.height.equalTo(2)
-		}
-		
-		bottomFeedbackBorder.hidden = true
-		
 		
 		//Background View + ScrollView
 		
 		let background = UIView()
 		self.contentView.addSubview(background)
 		background.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(segmentControlContainer.snp_bottom)
+			make.top.equalTo(segmentControllerView.snp_bottom)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
 			make.bottom.equalTo(self.view.snp_bottom)
@@ -929,18 +852,13 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	
 	- parameter sender: <#sender description#>
 	*/
-	func reviewSegmentButtonTapped(sender:UIButton){
-		self.profileSegmentButton.selected = false
-		self.bottomProfileBorder.hidden = true
-		self.reviewSegmentButton.selected = true
-		self.bottomFeedbackBorder.hidden = false
-	}
-	
-	func profileSegmentButtonTapped(sender:UIButton){
-		self.profileSegmentButton.selected = true
-		self.bottomProfileBorder.hidden = false
-		self.reviewSegmentButton.selected = false
-		self.bottomFeedbackBorder.hidden = true
+
+	func onIndexChange(index: Int) {
+		if index == 0 {
+
+		} else if index == 1 {
+
+		}
 	}
 	
  /**
