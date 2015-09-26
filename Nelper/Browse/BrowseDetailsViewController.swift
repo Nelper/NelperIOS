@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 import iCarousel
 
-class NelpTasksDetailsViewController: UIViewController,iCarouselDataSource,iCarouselDelegate, CLLocationManagerDelegate, MKMapViewDelegate{
+class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouselDelegate, CLLocationManagerDelegate, MKMapViewDelegate{
 	
 	
 	var task: NelpTask!

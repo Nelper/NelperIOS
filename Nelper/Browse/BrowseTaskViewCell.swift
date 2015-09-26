@@ -1,5 +1,5 @@
 //
-//  NelpViewCell.swift
+//  BrowseTaskViewCell.swift
 //  Nelper
 //
 //  Created by Charles Vinette on 2015-07-29.
@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 import Alamofire
 
-class NelpViewCell: UITableViewCell {
+class BrowseTaskViewCell: UITableViewCell {
 	
 	var title: UILabel!
 	var author:UILabel!
@@ -167,7 +167,7 @@ class NelpViewCell: UITableViewCell {
 	
 	static var reuseIdentifier: String {
 		get {
-			return "NelpViewCell"
+			return "BrowseTaskViewCell"
 		}
 	}
 	

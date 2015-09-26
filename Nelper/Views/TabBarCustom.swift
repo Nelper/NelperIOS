@@ -28,7 +28,7 @@ class TabBarCustom: UITabBarController {
 	
 	func createView(){
 		self.tabBar.translucent = false		
-		let browseVC = NelpViewController()
+		let browseVC = BrowseViewController()
 		let browseVCItem = UITabBarItem(title: "Browse tasks", image: UIImage(named: "browse_default"), selectedImage: UIImage(named: "browse_default"))
 		browseVC.tabBarItem = browseVCItem
 		
@@ -36,7 +36,7 @@ class TabBarCustom: UITabBarController {
 		let nelpCenterVCItem = UITabBarItem(title: "Nelp Center", image: UIImage(named: "nelpcenter_default"), selectedImage: UIImage(named: "nelpcenter_default"))
 		nelpCenterVC.tabBarItem = nelpCenterVCItem
 		
-		let postVC = NelpTaskCreateViewController()
+		let postVC = PostTaskCategoriesViewController()
 		let postVCItem = UITabBarItem(title: "Post a task", image: UIImage(named: "post_task"), selectedImage: UIImage(named: "post_task"))
 		postVC.tabBarItem = postVCItem
 		

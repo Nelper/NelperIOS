@@ -1,5 +1,5 @@
 //
-//  SecondFormViewController.swift
+//  PostTaskFormViewController.swift
 //  Nelper
 //
 //  Created by Charles Vinette on 2015-07-25.
@@ -11,12 +11,12 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-protocol SecondFormViewControllerDelegate {
+protocol PostTaskFormViewControllerDelegate {
 	func nelpTaskAdded(nelpTask: FindNelpTask) -> Void
 	func dismiss()
 }
 
-class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate,AddAddressViewControllerDelegate {
+class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate,AddAddressViewControllerDelegate {
 	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	let imagePicker = UIImagePickerController()
@@ -38,7 +38,7 @@ class SecondFormViewController: UIViewController, UITextFieldDelegate, UITextVie
 	var deleteAddressButton:UIButton!
 	var addLocationButton:UIButton!
 	
-	var delegate: SecondFormViewControllerDelegate?
+	var delegate: PostTaskFormViewControllerDelegate?
 	
 	//MARK: Initialization
 	

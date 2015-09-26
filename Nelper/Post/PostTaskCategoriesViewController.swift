@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol NelpTaskCreateViewControllerDelegate {
+protocol PostTaskCategoriesViewControllerDelegate {
 	func nelpTaskAdded(nelpTask: FindNelpTask) -> Void
 }
 
-class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, SecondFormViewControllerDelegate {
+class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, PostTaskFormViewControllerDelegate {
 	
-	var delegate: NelpTaskCreateViewControllerDelegate?
+	var delegate: PostTaskCategoriesViewControllerDelegate?
 	var task: FindNelpTask!
 	var technologyButton: UIButton!
 	var multimediaButton: UIButton!
@@ -246,7 +246,7 @@ class NelpTaskCreateViewController: UIViewController, UITextFieldDelegate, UITex
 	}
 	
 	func moveToNextView(){
-		let nextScreenVC = SecondFormViewController(task: self.task)
+		let nextScreenVC = PostTaskFormViewController(task: self.task)
 		nextScreenVC.delegate = self
 		
 		dispatch_async(dispatch_get_main_queue()){

@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import SnapKit
 
-class FullProfileViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource, skillsTableViewCellDelegate{
+class FullProfileViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource, SkillsTableViewCellDelegate{
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var backGroundView: UIView!
@@ -289,7 +289,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		skillsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		skillsTableView.delegate = self
 		skillsTableView.dataSource = self
-		skillsTableView.registerClass(skillsTableViewCell.classForCoder(), forCellReuseIdentifier: skillsTableViewCell.reuseIdentifier)
+		skillsTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
 		skillsTableView.backgroundColor = whiteNelpyColor
 		skillsTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
@@ -329,7 +329,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		educationTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		educationTableView.delegate = self
 		educationTableView.dataSource = self
-		educationTableView.registerClass(skillsTableViewCell.classForCoder(), forCellReuseIdentifier: skillsTableViewCell.reuseIdentifier)
+		educationTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
 		educationTableView.backgroundColor = whiteNelpyColor
 		educationTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationLabel.snp_bottom).offset(6)
@@ -370,7 +370,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		experienceTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		experienceTableView.delegate = self
 		experienceTableView.dataSource = self
-		experienceTableView.registerClass(skillsTableViewCell.classForCoder(), forCellReuseIdentifier: skillsTableViewCell.reuseIdentifier)
+		experienceTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
 		experienceTableView.backgroundColor = whiteNelpyColor
 		experienceTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(experienceLabel.snp_bottom).offset(6)
@@ -409,7 +409,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		if(tableView == skillsTableView) {
 			if (!self.arrayOfSkills.isEmpty) {
-				let skillCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
+				let skillCell = tableView.dequeueReusableCellWithIdentifier(SkillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! SkillsTableViewCell
 				
 				let skill = self.arrayOfSkills[indexPath.item]
 				skillCell.delegate = self
@@ -421,7 +421,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			}
 		}else if tableView == educationTableView{
 			if (!self.arrayOfEducation.isEmpty) {
-				let educationCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
+				let educationCell = tableView.dequeueReusableCellWithIdentifier(SkillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! SkillsTableViewCell
 				
 				let education = self.arrayOfEducation[indexPath.item]
 				educationCell.delegate = self
@@ -432,7 +432,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 				return educationCell
 			}
 		}else if tableView == experienceTableView{
-			let experienceCell = tableView.dequeueReusableCellWithIdentifier(skillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! skillsTableViewCell
+			let experienceCell = tableView.dequeueReusableCellWithIdentifier(SkillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! SkillsTableViewCell
 			let experience = self.arrayOfExperience[indexPath.item]
 			experienceCell.delegate = self
 			experienceCell.sendCellType("experience")
