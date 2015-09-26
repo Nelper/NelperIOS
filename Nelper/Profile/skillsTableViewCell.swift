@@ -10,16 +10,16 @@ import Foundation
 import UIKit
 import Alamofire
 
-protocol skillsTableViewCellDelegate{
+protocol SkillsTableViewCellDelegate{
 	func didTapDeleteButton(index:Int, type:String)
 }
 
-class skillsTableViewCell: UITableViewCell {
+class SkillsTableViewCell: UITableViewCell {
 	
 	var skillName:UILabel!
 	var trashImage:UIButton!
 	var index:Int!
-	var delegate: skillsTableViewCellDelegate?
+	var delegate: SkillsTableViewCellDelegate?
 	var cellType: String!
 	
 	//MARK: Initialization

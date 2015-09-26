@@ -53,7 +53,6 @@ class SegmentController: UIControl {
 		layer.borderColor = grayDetails.CGColor
 		layer.borderWidth = 1
 		backgroundColor = whiteGrayColor
-		
 		insertSubview(thumbLine, atIndex: 0)
 		//insertSubview(thumbView, atIndex: 0)
 	}

@@ -1,5 +1,5 @@
 //
-//  NelpViewController.swift
+//  BrowseViewController.swift
 //  Nelper
 //
 //  Created by Janic Duplessis on 2015-06-21.
@@ -12,7 +12,7 @@ import CoreLocation
 import GoogleMaps
 import Stripe
 
-class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, FilterSortViewControllerDelegate {
+class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, FilterSortViewControllerDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var logoImage: UIImageView!
@@ -53,7 +53,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	//MARK: Initialization
 	
 	convenience init() {
-		self.init(nibName: "NelpViewController", bundle: nil)
+		self.init(nibName: "BrowseViewController", bundle: nil)
 	}
 	
 	override func viewDidLoad() {
@@ -85,7 +85,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 		self.tableView.delegate = self
 		self.tableView.dataSource = self
 		tableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
-		tableView.registerClass(NelpViewCell.classForCoder(), forCellReuseIdentifier: NelpViewCell.reuseIdentifier)
+		tableView.registerClass(BrowseTaskViewCell.classForCoder(), forCellReuseIdentifier: BrowseTaskViewCell.reuseIdentifier)
 		self.tableView.backgroundColor = whiteNelpyColor
 		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
 
@@ -244,7 +244,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-		let cell = self.tableView.dequeueReusableCellWithIdentifier(NelpViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpViewCell
+		let cell = self.tableView.dequeueReusableCellWithIdentifier(BrowseTaskViewCell.reuseIdentifier, forIndexPath: indexPath) as! BrowseTaskViewCell
 		
 		let nelpTask = self.nelpTasks[indexPath.item]
 		cell.setNelpTask(nelpTask)
@@ -256,7 +256,7 @@ class NelpViewController: UIViewController, CLLocationManagerDelegate, UIGesture
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let selectedTask = self.nelpTasks[indexPath.row]
-		let vc = NelpTasksDetailsViewController()
+		let vc = BrowseDetailsViewController()
 		vc.task = selectedTask
 		self.presentViewController(vc, animated: false, completion: nil)
 		
