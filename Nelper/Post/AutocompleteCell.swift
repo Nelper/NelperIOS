@@ -22,7 +22,7 @@ class AutocompleteCell: UITableViewCell {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		
 		self.clipsToBounds = true
-		self.backgroundColor = whiteGrayColor
+		self.backgroundColor = whitePrimary
 		
 		let cellView = UIView(frame: self.bounds)
 		self.addSubview(cellView)
@@ -31,10 +31,10 @@ class AutocompleteCell: UITableViewCell {
 		
 		let suggestedAddress = UILabel()
 		suggestedAddress.numberOfLines = 0
-		suggestedAddress.textColor = blackNelpyColor
-		suggestedAddress.font = UIFont(name: "Lato-Regular", size: kText14)
+		suggestedAddress.textColor = blackPrimary
+		suggestedAddress.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.suggestedAddress = suggestedAddress
-		self.suggestedAddress.backgroundColor = whiteGrayColor
+		self.suggestedAddress.backgroundColor = whitePrimary
 		cellView.addSubview(suggestedAddress)
 		
 		suggestedAddress.snp_makeConstraints { (make) -> Void in

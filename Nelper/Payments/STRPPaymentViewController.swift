@@ -57,9 +57,9 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		let popupContainer = UIView()
 		self.popupContainer = popupContainer
 		popupContainer.layer.cornerRadius = 2
-		popupContainer.layer.borderColor = nelperRedColor.CGColor
+		popupContainer.layer.borderColor = redPrimary.CGColor
 		popupContainer.layer.borderWidth = 3
-		popupContainer.backgroundColor = whiteNelpyColor
+		popupContainer.backgroundColor = whiteBackground
 		blurContainer.addSubview(popupContainer)
 		popupContainer.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(blurContainer.snp_height).dividedBy(2)
@@ -72,8 +72,8 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		self.titleLabel = titleLabel
 		popupContainer.addSubview(titleLabel)
 		titleLabel.text = "Pay your Nelper"
-		titleLabel.textColor = blackNelpyColor
-		titleLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		titleLabel.textColor = blackPrimary
+		titleLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		titleLabel.textAlignment = NSTextAlignment.Center
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(popupContainer.snp_top).offset(10)
@@ -91,7 +91,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		popupContainer.addSubview(saveButton)
 		self.saveButton.addTarget(self, action: "didTapSaveButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.saveButton.setTitle("Save", forState: UIControlState.Normal)
-		self.saveButton.backgroundColor = nelperRedColor.colorWithAlphaComponent(0.5)
+		self.saveButton.backgroundColor = redPrimary.colorWithAlphaComponent(0.5)
 		self.saveButton.enabled = false
 		saveButton.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(popupContainer.snp_bottom)
@@ -107,10 +107,10 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		
 		if textField.valid {
 			self.saveButton.enabled = true
-			self.saveButton.backgroundColor = nelperRedColor.colorWithAlphaComponent(1.0)
+			self.saveButton.backgroundColor = redPrimary.colorWithAlphaComponent(1.0)
 		}else{
 			self.saveButton.enabled = false
-			self.saveButton.backgroundColor = nelperRedColor.colorWithAlphaComponent(0.5)
+			self.saveButton.backgroundColor = redPrimary.colorWithAlphaComponent(0.5)
 		}
 	}
 	

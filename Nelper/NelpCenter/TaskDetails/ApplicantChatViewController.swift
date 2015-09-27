@@ -23,7 +23,7 @@ class ApplicantChatViewController : ATLConversationViewController, ATLConversati
 	
 	// MARK - UI
 	func configureUI(){
-		ATLOutgoingMessageCollectionViewCell.appearance().bubbleViewColor = nelperRedColor
+		ATLOutgoingMessageCollectionViewCell.appearance().bubbleViewColor = redPrimary
 //		self.conversation.sendTypingIndicator(LYRTypingIndicator.DidBegin)
 	}
 	

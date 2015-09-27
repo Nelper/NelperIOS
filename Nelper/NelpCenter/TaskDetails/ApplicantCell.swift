@@ -40,7 +40,7 @@ class ApplicantCell: UITableViewCell{
 		
 		let cellView = UIView(frame: self.bounds)
 		self.cellView = cellView
-		cellView.backgroundColor = whiteGrayColor
+		cellView.backgroundColor = whitePrimary
 		cellView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
 		
 		
@@ -59,9 +59,9 @@ class ApplicantCell: UITableViewCell{
 		let name = UILabel()
 		self.name = name
 		cellView.addSubview(name)
-		name.textColor = blackNelpyColor
+		name.textColor = blackPrimary
 		name.textAlignment = NSTextAlignment.Left
-		name.font = UIFont(name: "Lato-Regular", size: kText14)
+		name.font = UIFont(name: "Lato-Regular", size: kText15)
 		name.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cellView.snp_top).offset(2)
 			make.left.equalTo(picture.snp_left).offset(16)
@@ -142,8 +142,8 @@ class ApplicantCell: UITableViewCell{
 		let taskCompleted = UILabel()
 		cellView.addSubview(taskCompleted)
 		self.taskCompletedLabel = taskCompleted
-		taskCompleted.textColor = blackNelpyColor
-		taskCompleted.font = UIFont(name: "Lato-Regular", size: kText12)
+		taskCompleted.textColor = blackPrimary
+		taskCompleted.font = UIFont(name: "Lato-Regular", size: kText13)
 		taskCompleted.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(firstStar.snp_left)
 			make.top.equalTo(firstStar.snp_bottom).offset(4)
@@ -170,8 +170,8 @@ class ApplicantCell: UITableViewCell{
 		let askingFor = UILabel()
 		self.askingForLabel = askingFor
 		cellView.addSubview(askingFor)
-		askingFor.textColor = blackNelpyColor
-		askingFor.font = UIFont(name: "Lato-Regular", size: kText12)
+		askingFor.textColor = blackPrimary
+		askingFor.font = UIFont(name: "Lato-Regular", size: kText13)
 		askingFor.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(moneyIcon)
 			make.left.equalTo(moneyIcon.snp_right).offset(4)

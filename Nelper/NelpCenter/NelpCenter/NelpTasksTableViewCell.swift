@@ -34,12 +34,12 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
-		backView.backgroundColor = whiteNelpyColor
+		backView.backgroundColor = whiteBackground
 		backView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
 		
 		//CellContainer (hackForSpacing)
 		let cellView = UIView()
-		cellView.backgroundColor = whiteGrayColor
+		cellView.backgroundColor = whitePrimary
 		backView.addSubview(cellView)
 		cellView.layer.borderWidth = 1
 		cellView.layer.borderColor = grayDetails.CGColor
@@ -64,7 +64,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.left.equalTo(cellView.snp_left)
 			make.height.equalTo(85)
 		}
-		topContainer.backgroundColor = whiteGrayColor		//Category Icon + label
+		topContainer.backgroundColor = whitePrimary		//Category Icon + label
 		
 
 		
@@ -88,8 +88,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 //		var categoryLabel = UILabel()
 //		self.categoryLabel = categoryLabel
-//		categoryLabel.textColor = blackNelpyColor
-//		categoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kText14)
+//		categoryLabel.textColor = blackPrimary
+//		categoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kText15)
 //		topContainer.addSubview(categoryLabel)
 //		categoryLabel.snp_makeConstraints { (make) -> Void in
 //			make.left.equalTo(categoryIcon.snp_right).offset(4)
@@ -112,8 +112,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 		//Title Label
 		let titleLabel = UILabel()
 		self.titleLabel = titleLabel
-		titleLabel.textColor = blackNelpyColor
-		titleLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		titleLabel.textColor = blackPrimary
+		titleLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_bottom).offset(4)
@@ -136,8 +136,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 		let numberOfApplicants = UILabel()
 		self.numberOfApplicantsLabel = numberOfApplicants
 		self.numberOfApplicants = numberOfApplicants
-		self.numberOfApplicants.font = UIFont(name: "Lato-Light", size: kText13)
-		self.numberOfApplicants.textColor = blackNelpyColor
+		self.numberOfApplicants.font = UIFont(name: "Lato-Light", size: kText14)
+		self.numberOfApplicants.textColor = blackPrimary
 		cellView.addSubview(numberOfApplicants)
 		numberOfApplicants.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(numberOfApplicantsIcon.snp_right).offset(10)
@@ -158,7 +158,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		let moneyContainer = UIView()
 		cellView.addSubview(moneyContainer)
-		moneyContainer.backgroundColor = whiteNelpyColor
+		moneyContainer.backgroundColor = whiteBackground
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(numberOfApplicants.snp_centerY)
@@ -171,8 +171,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.price = moneyLabel
 		moneyContainer.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = blackNelpyColor
-		moneyLabel.font = UIFont(name: "Lato-Light", size: kText14)
+		moneyLabel.textColor = blackPrimary
+		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyContainer.snp_edges)
 		}

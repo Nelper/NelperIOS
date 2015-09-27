@@ -86,7 +86,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.edges.equalTo(background.snp_edges)
 		}
 		
-		scrollView.backgroundColor = whiteNelpyColor
+		scrollView.backgroundColor = whiteBackground
 		
 		let contentView = UIView()
 		self.contentView = contentView
@@ -99,8 +99,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.height.greaterThanOrEqualTo(background.snp_height)
 			make.width.equalTo(background.snp_width)
 		}
-		self.contentView.backgroundColor = whiteNelpyColor
-		background.backgroundColor = whiteNelpyColor
+		self.contentView.backgroundColor = whiteBackground
+		background.backgroundColor = whiteBackground
 		
 		
 		//Profile Container
@@ -111,7 +111,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		contentView.addSubview(profileContainer)
 		profileContainer.layer.borderColor = grayDetails.CGColor
 		profileContainer.layer.borderWidth = 1
-		profileContainer.backgroundColor = whiteGrayColor
+		profileContainer.backgroundColor = whitePrimary
 		profileContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(-1)
@@ -136,8 +136,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		let nameLabel = UILabel()
 		profileContainer.addSubview(nameLabel)
 		nameLabel.text = self.task.user.name
-		nameLabel.textColor = blackNelpyColor
-		nameLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		nameLabel.textColor = blackPrimary
+		nameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		nameLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(profilePicture.snp_centerY)
 			make.left.equalTo(profilePicture.snp_right).offset(15)
@@ -161,7 +161,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		self.contentView.addSubview(taskContainer)
 		taskContainer.layer.borderWidth = 1
 		taskContainer.layer.borderColor = grayDetails.CGColor
-		taskContainer.backgroundColor = whiteGrayColor
+		taskContainer.backgroundColor = whitePrimary
 		taskContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileContainer.snp_bottom).offset(20)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
@@ -185,8 +185,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		taskContainer.addSubview(taskNameLabel)
 		taskNameLabel.text = self.task.title!
 		taskNameLabel.textAlignment = NSTextAlignment.Center
-		taskNameLabel.textColor = blackNelpyColor
-		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		taskNameLabel.textColor = blackPrimary
+		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		taskNameLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(categoryIcon.snp_bottom).offset(14)
 			make.centerX.equalTo(taskContainer.snp_centerX)
@@ -206,12 +206,12 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		let descriptionTextView = UITextView()
 		taskContainer.addSubview(descriptionTextView)
-		descriptionTextView.backgroundColor = whiteGrayColor
+		descriptionTextView.backgroundColor = whitePrimary
 		descriptionTextView.text = self.task.desc!
-		descriptionTextView.textColor = blackNelpyColor
+		descriptionTextView.textColor = blackPrimary
 		descriptionTextView.scrollEnabled = false
 		descriptionTextView.editable = false
-		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText14)
+		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText15)
 		descriptionTextView.textAlignment = NSTextAlignment.Center
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskNameLabelUnderline.snp_bottom).offset(10)
@@ -242,8 +242,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		self.postDateLabel = postDateLabel
 		let dateHelper = DateHelper()
 		postDateLabel.text = "Posted \(dateHelper.timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
-		postDateLabel.textColor = blackNelpyColor
-		postDateLabel.font = UIFont(name: "Lato-Regular", size: kText13)
+		postDateLabel.textColor = blackPrimary
+		postDateLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		postDateLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(descriptionUnderline.snp_bottom).offset(25)
 			make.centerX.equalTo(taskContainer.snp_centerX).offset(25)
@@ -264,8 +264,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		taskContainer.addSubview(cityLabel)
 		self.cityLabel = cityLabel
 		cityLabel.text = self.task.city!
-		cityLabel.textColor = blackNelpyColor
-		cityLabel.font = UIFont(name: "Lato-Regular", size: kText13)
+		cityLabel.textColor = blackPrimary
+		cityLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		cityLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(postDateLabel.snp_bottom).offset(30)
 			make.centerX.equalTo(taskContainer.snp_centerX).offset(20)
@@ -296,7 +296,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 				let carouselContainer = UIView()
 				self.carouselContainer = carouselContainer
 				taskContainer.addSubview(carouselContainer)
-				carouselContainer.backgroundColor = whiteGrayColor
+				carouselContainer.backgroundColor = whitePrimary
 				carouselContainer.snp_makeConstraints { (make) -> Void in
 					make.top.equalTo(pinIcon.snp_bottom).offset(30)
 					make.centerX.equalTo(taskContainer.snp_centerX)
@@ -326,7 +326,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		self.contentView.addSubview(mapContainer)
 		mapContainer.layer.borderColor = grayDetails.CGColor
 		mapContainer.layer.borderWidth = 1
-		mapContainer.backgroundColor = whiteGrayColor
+		mapContainer.backgroundColor = whitePrimary
 		mapContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskContainer.snp_bottom).offset(-1)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
@@ -344,7 +344,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		taskContainer.addSubview(locationNoticeLabel)
 		locationNoticeLabel.text = "Task location within 400m"
 		locationNoticeLabel.textColor = darkGrayDetails
-		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kText12)
+		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kText13)
 		locationNoticeLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.view.snp_left).offset(8)
 			make.bottom.equalTo(taskContainer.snp_bottom).offset(-2)
@@ -372,7 +372,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		let offerContainer = UIView()
 		contentView.addSubview(offerContainer)
-		offerContainer.backgroundColor = whiteNelpyColor
+		offerContainer.backgroundColor = whiteBackground
 		offerContainer.layer.borderColor = grayDetails.CGColor
 		offerContainer.layer.borderWidth = 1
 		offerContainer.snp_makeConstraints { (make) -> Void in
@@ -384,7 +384,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		let offerLabelContainer = UIView()
 		offerContainer.addSubview(offerLabelContainer)
-		offerContainer.backgroundColor = whiteGrayColor
+		offerContainer.backgroundColor = whitePrimary
 		offerLabelContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(offerContainer.snp_top)
 			make.centerX.equalTo(offerContainer.snp_centerX)
@@ -395,7 +395,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		let posterNameOffer = UILabel()
 		offerLabelContainer.addSubview(posterNameOffer)
 		posterNameOffer.textColor = darkGrayDetails
-		posterNameOffer.font = UIFont(name: "Lato-Regular", size: kText13)
+		posterNameOffer.font = UIFont(name: "Lato-Regular", size: kText14)
 		posterNameOffer.text = "\(self.task.user.name) is offering"
 		posterNameOffer.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(offerLabelContainer.snp_left)
@@ -416,8 +416,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		moneyTagPoster.addSubview(moneyLabelPoster)
 		moneyLabelPoster.textAlignment = NSTextAlignment.Center
 		moneyLabelPoster.text = "$\(Int(self.task.priceOffered!))"
-		moneyLabelPoster.textColor = whiteGrayColor
-		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kText14)
+		moneyLabelPoster.textColor = whitePrimary
+		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kText15)
 		moneyLabelPoster.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTagPoster.snp_edges)
 		}
@@ -435,7 +435,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		let myOfferLabel = UILabel()
 		offerContainer.addSubview(myOfferLabel)
 		myOfferLabel.textColor = darkGrayDetails
-		myOfferLabel.font = UIFont(name: "Lato-Regular", size: kText13)
+		myOfferLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		myOfferLabel.text = "My Offer"
 		myOfferLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskPosterOfferUnderline.snp_bottom).offset(30)
@@ -445,8 +445,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		let myOfferValueLabel = UILabel()
 		self.myOfferValueLabel = myOfferValueLabel
 		offerContainer.addSubview(myOfferValueLabel)
-		myOfferValueLabel.font = UIFont(name: "Lato-Regular", size: kText14)
-		myOfferValueLabel.textColor = blackNelpyColor
+		myOfferValueLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		myOfferValueLabel.textColor = blackPrimary
 		myOfferValueLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(myOfferLabel.snp_centerY)
 			make.left.equalTo(myOfferLabel.snp_right).offset(22)
@@ -461,7 +461,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		myOfferStepper.continuous = true
 		myOfferStepper.addTarget(self, action: "didTapMyOfferStepper:", forControlEvents: UIControlEvents.ValueChanged)
 		offerContainer.addSubview(myOfferStepper)
-		myOfferStepper.tintColor = nelperRedColor
+		myOfferStepper.tintColor = redPrimary
 		myOfferStepper.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(30)
 			make.width.equalTo(60)
@@ -476,9 +476,9 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		offerContainer.addSubview(applyButton)
 		self.applyButton = applyButton
 		applyButton.setTitle("Apply for $\(Int(self.task.priceOffered!))!", forState: UIControlState.Normal)
-		applyButton.setTitleColor(whiteGrayColor, forState: UIControlState.Normal)
+		applyButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
 		self.applyButton.addTarget(self, action: "applyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		applyButton.backgroundColor = nelperRedColor
+		applyButton.backgroundColor = redPrimary
 		applyButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(myOfferStepper.snp_bottom).offset(20)
 			make.centerX.equalTo(offerContainer.snp_centerX)
@@ -638,10 +638,10 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	func updateButton(){
 		if self.applyButton.selected {
 			self.applyButton.setTitle("#make popup to confirm", forState: UIControlState.Selected)
-			self.applyButton.backgroundColor = nelperRedColor
+			self.applyButton.backgroundColor = redPrimary
 		} else {
 			self.applyButton.setTitle("Apply for $\(Int(self.task.priceOffered!))!", forState: UIControlState.Normal)
-			self.applyButton.backgroundColor = nelperRedColor
+			self.applyButton.backgroundColor = redPrimary
 		}
 	}
 	

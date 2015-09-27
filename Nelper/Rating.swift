@@ -12,6 +12,7 @@ import UIKit
 class RatingStars: UIView {
 	
 	private var starImages = [UIImageView]()
+	private var taskCompletedLabel: UILabel!
 	
 	var starWidth = 18
 	var starHeight = 18
@@ -26,22 +27,20 @@ class RatingStars: UIView {
 			setRatingView()
 		}
 	}
-	var userCompletedTasks: Int?
+	var userCompletedTasks: Int? {
+		didSet {
+			taskCompletedLabel.text = "(10)"
+		}
+	}
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		setRatingView()
-		adjustUI()
 	}
 	
 	required init(coder: NSCoder) {
 		super.init(coder: coder)!
 		setRatingView()
-		adjustUI()
-	}
-	
-	func adjustUI() {
-		
 	}
 	
 	func setRatingView() {
@@ -53,13 +52,13 @@ class RatingStars: UIView {
 		
 		//Style
 		if self.style == "light" {
-			styleColor = whiteGrayColor
+			styleColor = whitePrimary
 			styleImage = "empty_star_white"
 		} else if self.style == "dark" {
-			styleColor = blackNelpyColor
+			styleColor = blackPrimary
 			styleImage = "empty_star"
 		} else {
-			styleColor = whiteGrayColor
+			styleColor = whitePrimary
 			styleImage = "empty_star_white"
 		}
 		
@@ -69,11 +68,7 @@ class RatingStars: UIView {
 			starImage.image = UIImage(named: styleImage)
 			
 			self.addSubview(starImage)
-			
-			print(userRating)
-			print(Double(index))
-			print(" ")
-			
+
 			if Double(index) >= round(userRating) {
 				starImage.alpha = 0.2
 			}
@@ -81,14 +76,10 @@ class RatingStars: UIView {
 			starImages.append(starImage)
 		}
 		
-		//Star adjust with rating
-		starImages[Int(userRating)].alpha = 1
-		
 		//Number of tasks completed
 		let taskCompletedLabel = UILabel(frame: CGRect(x: starImages[4].frame.maxX + 8, y: 0, width: 30, height: 18))
-		taskCompletedLabel.text = "(\(self.userCompletedTasks))"
 		taskCompletedLabel.textColor = styleColor
-		taskCompletedLabel.font = UIFont(name: "Lato-Light", size: kTitle16)
+		taskCompletedLabel.font = UIFont(name: "Lato-Light", size: kTitle17)
 		self.addSubview(taskCompletedLabel)
 	}
 }

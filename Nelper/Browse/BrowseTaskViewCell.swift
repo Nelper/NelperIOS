@@ -32,7 +32,7 @@ class BrowseTaskViewCell: UITableViewCell {
 		
 		
 		let cellView = UIView(frame: self.bounds)
-		cellView.backgroundColor = whiteGrayColor
+		cellView.backgroundColor = whitePrimary
 		cellView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
 		
 		let pictureSize: CGFloat = 70
@@ -99,7 +99,7 @@ class BrowseTaskViewCell: UITableViewCell {
 		self.creationDate = creationDate
 		cellView.addSubview(creationDate)
 		
-		self.creationDate.font = UIFont(name: "Lato-Light", size: kText12)
+		self.creationDate.font = UIFont(name: "Lato-Light", size: kText13)
 		self.creationDate.textColor = blackTextColor
 		
 		creationDate.snp_makeConstraints { (make) -> Void in
@@ -109,7 +109,7 @@ class BrowseTaskViewCell: UITableViewCell {
 		
 		let moneyContainer = UIView()
 		cellView.addSubview(moneyContainer)
-		moneyContainer.backgroundColor = whiteNelpyColor
+		moneyContainer.backgroundColor = whiteBackground
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(cellView.snp_right).offset(-55)
@@ -122,8 +122,8 @@ class BrowseTaskViewCell: UITableViewCell {
 		self.price = moneyLabel
 		moneyContainer.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = blackNelpyColor
-		moneyLabel.font = UIFont(name: "Lato-Light", size: kText14)
+		moneyLabel.textColor = blackPrimary
+		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyContainer.snp_edges)
 		}
@@ -182,11 +182,11 @@ class BrowseTaskViewCell: UITableViewCell {
 	func setNelpTask(nelpTask:NelpTask) {
 		self.task = nelpTask
 		self.title.text = nelpTask.title
-		self.title.font = UIFont(name: "Lato-Regular", size: kText14)
+		self.title.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.title.textColor = blackTextColor
 		
 		self.author.text = "\(nelpTask.user.name)"
-		self.author.font = UIFont(name: "Lato-Light", size: kText12)
+		self.author.font = UIFont(name: "Lato-Light", size: kText13)
 		self.author.textColor = blackTextColor
 		
 		let price = String(format: "%.0f", nelpTask.priceOffered!)

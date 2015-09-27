@@ -86,7 +86,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.tableView.dataSource = self
 		tableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
 		tableView.registerClass(BrowseTaskViewCell.classForCoder(), forCellReuseIdentifier: BrowseTaskViewCell.reuseIdentifier)
-		self.tableView.backgroundColor = whiteNelpyColor
+		self.tableView.backgroundColor = whiteBackground
 		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
 
 		let refreshView = UIRefreshControl()

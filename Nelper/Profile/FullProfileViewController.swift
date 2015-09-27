@@ -68,7 +68,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	func createView(){
 		
 		//navbar
-		self.scrollView.backgroundColor = whiteNelpyColor
+		self.scrollView.backgroundColor = whiteBackground
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.closeButton = previousBtn
@@ -85,13 +85,13 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
             make.width.equalTo(self.backGroundView.snp_width)
         }
 		
-		self.contentView.backgroundColor = whiteNelpyColor
-		self.backGroundView.backgroundColor = whiteNelpyColor
+		self.contentView.backgroundColor = whiteBackground
+		self.backGroundView.backgroundColor = whiteBackground
 		
 		//Profile Header
 		let profileView = UIView()
 		self.contentView.addSubview(profileView)
-		profileView.backgroundColor = nelperRedColor
+		profileView.backgroundColor = redPrimary
 		
 		profileView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.contentView.snp_top)
@@ -124,9 +124,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		let name = UILabel()
 		profileView.addSubview(name)
 		name.numberOfLines = 0
-		name.textColor = whiteNelpyColor
+		name.textColor = whiteBackground
 		name.text = PFUser.currentUser()?.objectForKey("name") as? String
-		name.font = UIFont(name: "Lato-Regular", size: kText14)
+		name.font = UIFont(name: "Lato-Regular", size: kText15)
 		
 		name.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(profilePicture.snp_right).offset(15)
@@ -199,8 +199,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		let numberOfTasksLabel = UILabel()
 		profileView.addSubview(numberOfTasksLabel)
 		numberOfTasksLabel.text = "12 tasks completed"
-		numberOfTasksLabel.textColor = whiteNelpyColor
-		numberOfTasksLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		numberOfTasksLabel.textColor = whiteBackground
+		numberOfTasksLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		numberOfTasksLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(name.snp_left)
 			make.top.equalTo(firstStar.snp_bottom).offset(8)
@@ -215,7 +215,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.whiteContainer = whiteContainer
 		whiteContainer.layer.borderColor = darkGrayDetails.CGColor
 		whiteContainer.layer.borderWidth = 1
-		whiteContainer.backgroundColor = whiteGrayColor
+		whiteContainer.backgroundColor = whitePrimary
 		whiteContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileView.snp_bottom).offset(10)
 			make.left.equalTo(contentView.snp_left)
@@ -228,9 +228,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		let aboutLabel = UILabel()
 		self.whiteContainer.addSubview(aboutLabel)
-		aboutLabel.textColor = blackNelpyColor
+		aboutLabel.textColor = blackPrimary
 		aboutLabel.text = "About"
-		aboutLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		aboutLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		aboutLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(profilePicture.snp_left)
 			make.top.equalTo(whiteContainer.snp_top).offset(10)
@@ -240,10 +240,10 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.whiteContainer.addSubview(aboutTextView)
 		self.aboutTextView = aboutTextView
 		aboutTextView.scrollEnabled = false
-		aboutTextView.textColor = blackNelpyColor
-		aboutTextView.backgroundColor = whiteGrayColor
+		aboutTextView.textColor = blackPrimary
+		aboutTextView.backgroundColor = whitePrimary
 		aboutTextView.editable = false
-		aboutTextView.font = UIFont(name: "Lato-Regular", size: kText14)
+		aboutTextView.font = UIFont(name: "Lato-Regular", size: kText15)
 		aboutTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left).offset(4)
@@ -274,9 +274,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		let skillsLabel = UILabel()
 		self.skillsLabel = skillsLabel
 		self.whiteContainer.addSubview(skillsLabel)
-		skillsLabel.textColor = blackNelpyColor
+		skillsLabel.textColor = blackPrimary
 		skillsLabel.text = "Skills"
-		skillsLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		skillsLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		skillsLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutTextView.snp_bottom).offset(10)
 			make.left.equalTo(aboutLabel)
@@ -290,7 +290,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		skillsTableView.delegate = self
 		skillsTableView.dataSource = self
 		skillsTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
-		skillsTableView.backgroundColor = whiteNelpyColor
+		skillsTableView.backgroundColor = whiteBackground
 		skillsTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
@@ -314,9 +314,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		let educationLabel = UILabel()
 		self.educationLabel = educationLabel
 		self.whiteContainer.addSubview(educationLabel)
-		educationLabel.textColor = blackNelpyColor
+		educationLabel.textColor = blackPrimary
 		educationLabel.text = "Education"
-		educationLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		educationLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		educationLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsTableView.snp_bottom).offset(10)
 			make.left.equalTo(aboutLabel)
@@ -330,7 +330,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		educationTableView.delegate = self
 		educationTableView.dataSource = self
 		educationTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
-		educationTableView.backgroundColor = whiteNelpyColor
+		educationTableView.backgroundColor = whiteBackground
 		educationTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
@@ -355,9 +355,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		let experienceLabel = UILabel()
 		self.experienceLabel = experienceLabel
 		self.whiteContainer.addSubview(experienceLabel)
-		experienceLabel.textColor = blackNelpyColor
+		experienceLabel.textColor = blackPrimary
 		experienceLabel.text = "Work experience"
-		experienceLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		experienceLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		experienceLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationTableView.snp_bottom).offset(10)
 			make.left.equalTo(aboutLabel)
@@ -371,7 +371,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		experienceTableView.delegate = self
 		experienceTableView.dataSource = self
 		experienceTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
-		experienceTableView.backgroundColor = whiteNelpyColor
+		experienceTableView.backgroundColor = whiteBackground
 		experienceTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(experienceLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)

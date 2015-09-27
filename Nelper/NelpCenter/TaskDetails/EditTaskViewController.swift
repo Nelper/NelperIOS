@@ -65,7 +65,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 			make.right.equalTo(self.view.snp_right)
 			make.bottom.equalTo(self.view.snp_bottom)
 		}
-		background.backgroundColor = whiteNelpyColor
+		background.backgroundColor = whiteBackground
 		
 		let scrollView = UIScrollView()
 		self.scrollView = scrollView
@@ -92,7 +92,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		contentView.addSubview(taskInformationContainer)
 		taskInformationContainer.layer.borderColor = darkGrayDetails.CGColor
 		taskInformationContainer.layer.borderWidth = 0.5
-		taskInformationContainer.backgroundColor = whiteGrayColor
+		taskInformationContainer.backgroundColor = whitePrimary
 		taskInformationContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top)
 			make.left.equalTo(contentView.snp_left).offset(-1)
@@ -116,11 +116,11 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		self.titleTextField = titleTextField
 		taskInformationContainer.addSubview(titleTextField)
 		titleTextField.text = self.task.title
-		titleTextField.font = UIFont(name: "Lato-Regular", size: kText14)
+		titleTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		titleTextField.textAlignment = NSTextAlignment.Center
 		titleTextField.layer.borderWidth = 1
 		titleTextField.layer.borderColor = darkGrayDetails.CGColor
-		titleTextField.backgroundColor = whiteNelpyColor
+		titleTextField.backgroundColor = whiteBackground
 		titleTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(categoryIcon.snp_bottom).offset(20)
 			make.left.equalTo(taskInformationContainer.snp_left).offset(12)
@@ -147,7 +147,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		descriptionTextView.textAlignment = NSTextAlignment.Center
 		descriptionTextView.layer.borderWidth = 1
 		descriptionTextView.layer.borderColor = darkGrayDetails.CGColor
-		descriptionTextView.backgroundColor = whiteNelpyColor
+		descriptionTextView.backgroundColor = whiteBackground
 		descriptionTextView.scrollEnabled = false
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleUnderline.snp_bottom).offset(16)
@@ -175,7 +175,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 
 		let locationContainer = UIView()
 		taskInformationContainer.addSubview(locationContainer)
-		locationContainer.backgroundColor = whiteGrayColor
+		locationContainer.backgroundColor = whitePrimary
 		locationContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(descriptionUnderline.snp_bottom).offset(20)
 			make.left.equalTo(descriptionTextView.snp_left).offset(16)
@@ -204,11 +204,11 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		}
 		
 		let streetAddressLabel = UITextField()
-		streetAddressLabel.backgroundColor = whiteGrayColor
+		streetAddressLabel.backgroundColor = whitePrimary
 		locationContainer.addSubview(streetAddressLabel)
 		streetAddressLabel.text = "175 Forbin Janson"
-		streetAddressLabel.textColor = blackNelpyColor
-		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		streetAddressLabel.textColor = blackPrimary
+		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		streetAddressLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
 			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
@@ -216,11 +216,11 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		}
 		
 		let cityLabel = UITextField()
-		cityLabel.backgroundColor = whiteGrayColor
+		cityLabel.backgroundColor = whitePrimary
 		locationContainer.addSubview(cityLabel)
 		cityLabel.text = "Mont Saint-Hilaire"
-		cityLabel.textColor = blackNelpyColor
-		cityLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		cityLabel.textColor = blackPrimary
+		cityLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		cityLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
 			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
@@ -228,11 +228,11 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		}
 		
 		let zipcodeLabel = UITextField()
-		zipcodeLabel.backgroundColor = whiteGrayColor
+		zipcodeLabel.backgroundColor = whitePrimary
 		locationContainer.addSubview(zipcodeLabel)
 		zipcodeLabel.text = "J3H5E5"
-		zipcodeLabel.textColor = blackNelpyColor
-		zipcodeLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		zipcodeLabel.textColor = blackPrimary
+		zipcodeLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		zipcodeLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
 			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
@@ -254,12 +254,12 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		self.deleteTaskButton = deleteTaskButton
 		deleteTaskButton.setTitle("Delete Task", forState: UIControlState.Normal)
 		deleteTaskButton.setTitle("Sure?", forState: UIControlState.Selected)
-		deleteTaskButton.setTitleColor(nelperRedColor, forState: UIControlState.Normal)
-		deleteTaskButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
+		deleteTaskButton.setTitleColor(redPrimary, forState: UIControlState.Normal)
+		deleteTaskButton.setTitleColor(redPrimary, forState: UIControlState.Selected)
 		self.deleteTaskButton.addTarget(self, action: "didTapDeleteButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		deleteTaskButton.layer.borderWidth = 1
-		deleteTaskButton.layer.borderColor = nelperRedColor.CGColor
-		deleteTaskButton.backgroundColor = whiteGrayColor
+		deleteTaskButton.layer.borderColor = redPrimary.CGColor
+		deleteTaskButton.backgroundColor = whitePrimary
 		deleteTaskButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(locationUnderline.snp_bottom).offset(20)
 			make.centerX.equalTo(taskInformationContainer.snp_centerX)
@@ -276,7 +276,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		
 		let picturesContainer = UIView()
 		contentView.addSubview(picturesContainer)
-		picturesContainer.backgroundColor = whiteGrayColor
+		picturesContainer.backgroundColor = whitePrimary
 		picturesContainer.layer.borderColor = darkGrayDetails.CGColor
 		picturesContainer.layer.borderWidth = 0.5
 		picturesContainer.snp_makeConstraints { (make) -> Void in
@@ -288,7 +288,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		let managePicturesLabel = UILabel()
 		picturesContainer.addSubview(managePicturesLabel)
 		managePicturesLabel.text = "Manage Pictures"
-		managePicturesLabel.textColor = blackNelpyColor
+		managePicturesLabel.textColor = blackPrimary
 		managePicturesLabel.font = UIFont(name: "Lato-Regular", size: kEditTaskSubtitleFontSize)
 		managePicturesLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(picturesContainer.snp_top).offset(10)
@@ -366,11 +366,11 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		let saveChangesButton = UIButton()
 		contentView.addSubview(saveChangesButton)
 		saveChangesButton.setTitle("Save", forState: UIControlState.Normal)
-		saveChangesButton.setTitleColor(grayBlueColor, forState: UIControlState.Normal)
+		saveChangesButton.setTitleColor(grayBlue, forState: UIControlState.Normal)
 		saveChangesButton.addTarget(self, action: "didTapSaveButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		saveChangesButton.layer.borderWidth = 1
-		saveChangesButton.layer.borderColor = grayBlueColor.CGColor
-		saveChangesButton.backgroundColor = whiteGrayColor
+		saveChangesButton.layer.borderColor = grayBlue.CGColor
+		saveChangesButton.backgroundColor = whitePrimary
 		saveChangesButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(picturesContainer.snp_bottom).offset(10)
 			make.centerX.equalTo(taskInformationContainer.snp_centerX)

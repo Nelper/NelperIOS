@@ -75,7 +75,7 @@ class FilterSortViewController: UIViewController{
 			make.right.equalTo(self.view.snp_right)
 			make.bottom.equalTo(self.view.snp_bottom)
 		}
-		background.backgroundColor = whiteNelpyColor
+		background.backgroundColor = whiteBackground
 		
 		let scrollView = UIScrollView()
 		self.scrollView = scrollView
@@ -95,13 +95,13 @@ class FilterSortViewController: UIViewController{
 			make.width.equalTo(background.snp_width)
 		}
 		
-		contentView.backgroundColor = whiteNelpyColor
+		contentView.backgroundColor = whiteBackground
 		
 		//Filters Container
 		
 		let filtersContainer = UIView()
 		contentView.addSubview(filtersContainer)
-		filtersContainer.backgroundColor = whiteGrayColor
+		filtersContainer.backgroundColor = whitePrimary
 		filtersContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top)
 			make.left.equalTo(contentView.snp_left)
@@ -112,7 +112,7 @@ class FilterSortViewController: UIViewController{
 		filtersContainer.addSubview(sortingLabel)
 		sortingLabel.text = "Sort by"
 		sortingLabel.textColor = blackTextColor
-		sortingLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		sortingLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		sortingLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(filtersContainer.snp_centerX)
 			make.top.equalTo(filtersContainer.snp_top).offset(20)
@@ -126,7 +126,7 @@ class FilterSortViewController: UIViewController{
 		sortingSegmentControl.insertSegmentWithTitle("Price", atIndex: 0, animated: false)
 		sortingSegmentControl.insertSegmentWithTitle("Distance", atIndex: 1, animated: false)
 		sortingSegmentControl.insertSegmentWithTitle("Creation Date", atIndex: 2, animated: false)
-		sortingSegmentControl.tintColor = nelperRedColor
+		sortingSegmentControl.tintColor = redPrimary
 		sortingSegmentControl.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(sortingLabel.snp_bottom).offset(20)
 			make.centerX.equalTo(filtersContainer.snp_centerX)
@@ -134,7 +134,7 @@ class FilterSortViewController: UIViewController{
 			make.height.equalTo(35)
 		}
 		sortingSegmentControl.layer.cornerRadius = 3
-		sortingSegmentControl.layer.borderColor = nelperRedColor.CGColor
+		sortingSegmentControl.layer.borderColor = redPrimary.CGColor
 		sortingSegmentControl.layer.borderWidth = 1.0
 		sortingSegmentControl.layer.masksToBounds = true
 		
@@ -152,7 +152,7 @@ class FilterSortViewController: UIViewController{
 		filtersContainer.addSubview(filtersLabel)
 		filtersLabel.text = "Filters"
 		filtersLabel.textColor = blackTextColor
-		filtersLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		filtersLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		filtersLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(filtersContainer.snp_centerX)
 			make.top.equalTo(sortingUnderline.snp_bottom).offset(25)
@@ -161,7 +161,7 @@ class FilterSortViewController: UIViewController{
 		
 		let firstRowOfCategories = UIView()
 		filtersContainer.addSubview(firstRowOfCategories)
-		firstRowOfCategories.backgroundColor = whiteGrayColor
+		firstRowOfCategories.backgroundColor = whitePrimary
 		firstRowOfCategories.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(kFilterCategorySize * 4 + kFilterCategorySpacing * 3)
 			make.height.equalTo(kFilterCategorySize)
@@ -238,7 +238,7 @@ class FilterSortViewController: UIViewController{
 		
 		let secondRowOfCategories = UIView()
 		filtersContainer.addSubview(secondRowOfCategories)
-		secondRowOfCategories.backgroundColor = whiteGrayColor
+		secondRowOfCategories.backgroundColor = whitePrimary
 		secondRowOfCategories.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(kFilterCategorySize * 4 + kFilterCategorySpacing * 3)
 			make.height.equalTo(kFilterCategorySize)
@@ -333,8 +333,8 @@ class FilterSortViewController: UIViewController{
 		let distanceLabel = UILabel()
 		filtersContainer.addSubview(distanceLabel)
 		distanceLabel.text = "Distance within"
-		distanceLabel.textColor = blackNelpyColor
-		distanceLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		distanceLabel.textColor = blackPrimary
+		distanceLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		distanceLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(distanceCheckBox.snp_right).offset(15)
 			make.centerY.equalTo(distanceCheckBox.snp_centerY)
@@ -350,7 +350,7 @@ class FilterSortViewController: UIViewController{
 		distanceStepper.enabled = false
 		distanceStepper.alpha = 0.3
 		filtersContainer.addSubview(distanceStepper)
-		distanceStepper.tintColor = nelperRedColor
+		distanceStepper.tintColor = redPrimary
 		distanceStepper.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(30)
 			make.width.equalTo(60)
@@ -363,8 +363,8 @@ class FilterSortViewController: UIViewController{
 		distanceValueLabel.alpha = 0.3
 		filtersContainer.addSubview(distanceValueLabel)
 		distanceValueLabel.text = "\(Int(self.distanceStepper.value))km"
-		distanceValueLabel.font = UIFont(name: "Lato-Regular", size: kText14)
-		distanceValueLabel.textColor = blackNelpyColor
+		distanceValueLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		distanceValueLabel.textColor = blackPrimary
 		distanceValueLabel.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(distanceStepper.snp_left).offset(-20)
 			make.centerY.equalTo(distanceStepper.snp_centerY)
@@ -388,8 +388,8 @@ class FilterSortViewController: UIViewController{
 		let priceLabel = UILabel()
 		filtersContainer.addSubview(priceLabel)
 		priceLabel.text = "Minimum Price"
-		priceLabel.textColor = blackNelpyColor
-		priceLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		priceLabel.textColor = blackPrimary
+		priceLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		priceLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(priceCheckBox.snp_right).offset(15)
 			make.centerY.equalTo(priceCheckBox.snp_centerY)
@@ -405,7 +405,7 @@ class FilterSortViewController: UIViewController{
 		priceStepper.alpha = 0.3
 		priceStepper.enabled = false
 		filtersContainer.addSubview(priceStepper)
-		priceStepper.tintColor = nelperRedColor
+		priceStepper.tintColor = redPrimary
 		priceStepper.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(30)
 			make.width.equalTo(60)
@@ -418,8 +418,8 @@ class FilterSortViewController: UIViewController{
 		priceValueLabel.alpha = 0.3
 		filtersContainer.addSubview(priceValueLabel)
 		priceValueLabel.text = "\(Int(self.priceStepper.value))$"
-		priceValueLabel.font = UIFont(name: "Lato-Regular", size: kText14)
-		priceValueLabel.textColor = blackNelpyColor
+		priceValueLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		priceValueLabel.textColor = blackPrimary
 		priceValueLabel.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(priceStepper.snp_left).offset(-20)
 			make.centerY.equalTo(priceStepper.snp_centerY)
@@ -445,8 +445,8 @@ class FilterSortViewController: UIViewController{
 		addFiltersContainer.addSubview(cancelButton)
 		cancelButton.setTitle("Cancel", forState: UIControlState.Normal)
 		cancelButton.backgroundColor = darkGrayDetails
-		cancelButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
-		cancelButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		cancelButton.setTitleColor(whiteBackground, forState: UIControlState.Normal)
+		cancelButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		cancelButton.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(addFiltersContainer.snp_width).dividedBy(2)
 			make.height.equalTo(addFiltersContainer.snp_height)
@@ -458,9 +458,9 @@ class FilterSortViewController: UIViewController{
 		confirmButton.addTarget(self, action: "didTapAddFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		addFiltersContainer.addSubview(confirmButton)
 		confirmButton.setTitle("Confirm", forState: UIControlState.Normal)
-		confirmButton.backgroundColor = nelperRedColor
-		confirmButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
-		confirmButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		confirmButton.backgroundColor = redPrimary
+		confirmButton.setTitleColor(whiteBackground, forState: UIControlState.Normal)
+		confirmButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		confirmButton.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(addFiltersContainer.snp_width).dividedBy(2)
 			make.height.equalTo(addFiltersContainer.snp_height)

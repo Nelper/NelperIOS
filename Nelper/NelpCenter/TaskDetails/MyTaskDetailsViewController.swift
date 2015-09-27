@@ -94,7 +94,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo(110)
 		}
-		taskSectionContainer.backgroundColor = nelperRedColor
+		taskSectionContainer.backgroundColor = redPrimary
 		
 		//		taskSectionContainer.layer.borderColor = darkGrayDetails.CGColor
 		//		taskSectionContainer.layer.borderWidth = 1
@@ -115,8 +115,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let title = UILabel()
 		taskSectionContainer.addSubview(title)
 		title.text = self.task.title
-		title.textColor = whiteGrayColor
-		title.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		title.textColor = whitePrimary
+		title.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		title.textAlignment = NSTextAlignment.Center
 		title.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskSectionContainer.snp_top).offset(12)
@@ -127,11 +127,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		taskSectionContainer.addSubview(editButton)
 		editButton.addTarget(self, action: "editButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		editButton.setTitle("Edit Task", forState: UIControlState.Normal)
-		editButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kText14)
-		editButton.setTitleColor(whiteNelpyColor, forState: UIControlState.Normal)
-		editButton.backgroundColor = nelperRedColor
+		editButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kText15)
+		editButton.setTitleColor(whiteBackground, forState: UIControlState.Normal)
+		editButton.backgroundColor = redPrimary
 		editButton.layer.borderWidth = 2
-		editButton.layer.borderColor = whiteGrayColor.CGColor
+		editButton.layer.borderColor = whitePrimary.CGColor
 		editButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(title.snp_bottom).offset(14)
 			make.centerX.equalTo(taskSectionContainer.snp_centerX)
@@ -144,7 +144,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let activeApplicantsContainer = UIView()
 		self.activeApplicantsContainer = activeApplicantsContainer
 		self.contentView.addSubview(activeApplicantsContainer)
-		activeApplicantsContainer.backgroundColor = whiteGrayColor
+		activeApplicantsContainer.backgroundColor = whitePrimary
 		activeApplicantsContainer.layer.borderWidth = 1
 		activeApplicantsContainer.layer.borderColor = darkGrayDetails.CGColor
 		activeApplicantsContainer.snp_makeConstraints { (make) -> Void in
@@ -170,8 +170,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		activeApplicantsContainer.addSubview(applicantsLabel)
 		applicantsLabel.textAlignment = NSTextAlignment.Left
 		applicantsLabel.text = "Applicants"
-		applicantsLabel.textColor = blackNelpyColor
-		applicantsLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		applicantsLabel.textColor = blackPrimary
+		applicantsLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		applicantsLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(pendingApplicantIcon.snp_centerY)
 			make.left.equalTo(pendingApplicantIcon.snp_right).offset(6)
@@ -209,7 +209,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let deniedApplicantsContainer = UIView()
 		self.deniedApplicantsContainer = deniedApplicantsContainer
 		self.contentView.addSubview(deniedApplicantsContainer)
-		deniedApplicantsContainer.backgroundColor = whiteGrayColor
+		deniedApplicantsContainer.backgroundColor = whitePrimary
 		deniedApplicantsContainer.layer.borderWidth = 1
 		deniedApplicantsContainer.layer.borderColor = darkGrayDetails.CGColor
 		deniedApplicantsContainer.snp_makeConstraints { (make) -> Void in
@@ -235,8 +235,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		deniedApplicantsContainer.addSubview(deniedApplicantsLabel)
 		deniedApplicantsLabel.textAlignment = NSTextAlignment.Left
 		deniedApplicantsLabel.text = "Denied Applicants"
-		deniedApplicantsLabel.textColor = blackNelpyColor
-		deniedApplicantsLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		deniedApplicantsLabel.textColor = blackPrimary
+		deniedApplicantsLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		deniedApplicantsLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(deniedApplicantIcon.snp_centerY)
 			make.left.equalTo(deniedApplicantIcon.snp_right).offset(6)
@@ -292,11 +292,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	//MARK: UI
 
 	func adjustUI(){
-		self.container.backgroundColor = whiteNelpyColor
+		self.container.backgroundColor = whiteBackground
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.closeButton = previousBtn
-		self.scrollView.backgroundColor = whiteNelpyColor
+		self.scrollView.backgroundColor = whiteBackground
 		self.navBar.setTitle("My Task Details")
 	}
 	

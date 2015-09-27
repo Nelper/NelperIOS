@@ -34,12 +34,12 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
-		backView.backgroundColor = whiteNelpyColor
+		backView.backgroundColor = whiteBackground
 		backView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
 		
 		//CellContainer (hackForSpacing)
 		let cellView = UIView();
-		cellView.backgroundColor = whiteGrayColor
+		cellView.backgroundColor = whitePrimary
 		backView.addSubview(cellView)
 //		cellView.layer.cornerRadius = 6
 		cellView.layer.borderWidth = 1
@@ -65,7 +65,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			make.left.equalTo(cellView.snp_left)
 			make.height.equalTo(85)
 		}
-		topContainer.backgroundColor = whiteGrayColor
+		topContainer.backgroundColor = whitePrimary
 		let blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
 		let blurView = UIVisualEffectView(effect: blur)
 		blurView.alpha = 0.98
@@ -86,8 +86,8 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		
 		//		var categoryLabel = UILabel()
 		//		self.categoryLabel = categoryLabel
-		//		categoryLabel.textColor = blackNelpyColor
-		//		categoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kText14)
+		//		categoryLabel.textColor = blackPrimary
+		//		categoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kText15)
 		//		topContainer.addSubview(categoryLabel)
 		//		categoryLabel.snp_makeConstraints { (make) -> Void in
 		//			make.left.equalTo(categoryIcon.snp_right).offset(4)
@@ -97,8 +97,8 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		//Title Label
 		let titleLabel = UILabel()
 		self.titleLabel = titleLabel
-		titleLabel.textColor = blackNelpyColor
-		titleLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		titleLabel.textColor = blackPrimary
+		titleLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_bottom).offset(4)
@@ -121,8 +121,8 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		let applicationLabel = UILabel()
 		self.applicationStateLabel = applicationLabel
 		cellView.addSubview(applicationLabel)
-		applicationLabel.font = UIFont(name: "Lato-Light", size: kText13)
-		applicationLabel.textColor = blackNelpyColor
+		applicationLabel.font = UIFont(name: "Lato-Light", size: kText14)
+		applicationLabel.textColor = blackPrimary
 		
 		applicationLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(applicationStateIcon.snp_right).offset(10)
@@ -143,7 +143,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		
 		let moneyContainer = UIView()
 		cellView.addSubview(moneyContainer)
-		moneyContainer.backgroundColor = whiteNelpyColor
+		moneyContainer.backgroundColor = whiteBackground
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(applicationLabel.snp_centerY)
@@ -156,8 +156,8 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		self.price = moneyLabel
 		moneyContainer.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = blackNelpyColor
-		moneyLabel.font = UIFont(name: "Lato-Light", size: kTitle16)
+		moneyLabel.textColor = blackPrimary
+		moneyLabel.font = UIFont(name: "Lato-Light", size: kTitle17)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyContainer.snp_edges)
 		}

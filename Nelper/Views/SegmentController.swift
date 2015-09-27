@@ -52,7 +52,7 @@ class SegmentController: UIControl {
 	func adjustUI() {
 		layer.borderColor = grayDetails.CGColor
 		layer.borderWidth = 1
-		backgroundColor = whiteGrayColor
+		backgroundColor = whitePrimary
 		insertSubview(thumbLine, atIndex: 0)
 		//insertSubview(thumbView, atIndex: 0)
 	}
@@ -68,14 +68,14 @@ class SegmentController: UIControl {
 		for index in 1...items.count {
 			let label = UILabel(frame: CGRectZero)
 			label.text = items[index - 1]
-			label.font = UIFont(name: "Lato-Regular", size: kTitle16)
+			label.font = UIFont(name: "Lato-Regular", size: kTitle17)
 			label.textAlignment = .Center
 			label.textColor = darkGrayDetails
 			self.addSubview(label)
 			labels.append(label)
 		}
 		
-		labels[0].textColor = nelperRedColor
+		labels[0].textColor = redPrimary
 	}
 	
 	override func layoutSubviews() {
@@ -90,11 +90,11 @@ class SegmentController: UIControl {
 		selectFrame.size.width = newWidth
 		
 		thumbLine.frame = CGRect(x: selectFrame.minX, y: selectFrame.maxY - 2, width: selectFrame.width, height: CGFloat(2))
-		thumbLine.backgroundColor = nelperRedColor
+		thumbLine.backgroundColor = redPrimary
 		thumbLine.layer.zPosition = 1
 		
 		//thumbView.frame = selectFrame
-		//thumbView.backgroundColor = whiteGrayColor
+		//thumbView.backgroundColor = whitePrimary
 		//thumbView.layer.cornerRadius = thumbView.frame.height / 2
 
 		let labelHeight = self.bounds.height
@@ -128,7 +128,7 @@ class SegmentController: UIControl {
 	
 	func displayNewSelectIndex() {
 		var label = labels[selectedIndex]
-		label.textColor = nelperRedColor
+		label.textColor = redPrimary
 		
 		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 			self.thumbLine.frame = CGRect(x: label.frame.minX, y: label.frame.maxY - 2, width: label.frame.width, height: CGFloat(2))

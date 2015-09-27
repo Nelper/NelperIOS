@@ -10,14 +10,14 @@ import Foundation
 
 // General
 
-let kNavTitle17: CGFloat = 18 // navbar title only
+let kNavTitle18: CGFloat = 18 // navbar title only
 
-let kTitle16: CGFloat = 17 // segment controller, section title, money, button text, etc.
+let kTitle17: CGFloat = 17 // segment controller, section title, money, button text, etc.
 
-let kText14: CGFloat = 15 // secondary text, task title in cell, category descriptions, etc.
-let kText13: CGFloat = 14 // information in a list, etc.
-let kText12: CGFloat = 13 // information in a cell, etc.
-let kText11: CGFloat = 12 // sub-information such as dates and times
+let kText15: CGFloat = 15 // secondary text, task title in cell, category descriptions, etc.
+let kText14: CGFloat = 14 // information in a list, etc.
+let kText13: CGFloat = 13 // information in a cell, etc.
+let kText12: CGFloat = 12 // sub-information such as dates and times
 
 // Login screen
 

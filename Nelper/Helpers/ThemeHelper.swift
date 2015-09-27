@@ -10,11 +10,11 @@ import Foundation
 
 //COLORS
 
-let whiteNelpyColor = hexStringToUIColor ("eaeaea")
-let blackNelpyColor = hexStringToUIColor ("2c2c2c")
-let nelperRedColor = hexStringToUIColor("ed4b4e")
+let whiteBackground = hexStringToUIColor ("eaeaea")
+let blackPrimary = hexStringToUIColor ("2c2c2c")
+let redPrimary = hexStringToUIColor("ed4b4e")
 
-let whiteGrayColor = hexStringToUIColor("f7f7f7")
+let whitePrimary = hexStringToUIColor("f7f7f7")
 let grayDetails = hexStringToUIColor("e1e1e1")
 let darkGrayDetails = hexStringToUIColor("979797")
 
@@ -22,16 +22,16 @@ let darkGrayDetails = hexStringToUIColor("979797")
 let progressGreen = hexStringToUIColor("29B473")
 let pendingYellow = hexStringToUIColor("F7CC39")
 
-let profileGreenColor = hexStringToUIColor("29b48f")
+let greenProfile = hexStringToUIColor("29b48f")
 
-let facebookBlueColor = hexStringToUIColor ("3b5998")
+let blueFacebook = hexStringToUIColor ("3b5998")
 let greenPriceButton = hexStringToUIColor ("80bf62")
 
 
-let grayBlueColor = hexStringToUIColor ("5a6a7b")
+let grayBlue = hexStringToUIColor ("5a6a7b")
 
-let navBarColor = nelperRedColor
-let tabBarColor = whiteGrayColor
+let navBarColor = redPrimary
+let tabBarColor = whitePrimary
 
 //IMAGES
 

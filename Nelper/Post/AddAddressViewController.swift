@@ -68,7 +68,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		self.popupContainer = popupContainer
 		popupContainer.layer.borderColor = darkGrayDetails.CGColor
 		popupContainer.layer.borderWidth = 0.5
-		popupContainer.backgroundColor = whiteGrayColor
+		popupContainer.backgroundColor = whitePrimary
 		blurContainer.addSubview(popupContainer)
 		popupContainer.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(blurContainer.snp_left).offset(8)
@@ -79,8 +79,8 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		
 		let giveNameLabel = UILabel()
 		popupContainer.addSubview(giveNameLabel)
-		giveNameLabel.textColor = blackNelpyColor
-		giveNameLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		giveNameLabel.textColor = blackPrimary
+		giveNameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		giveNameLabel.text = "Enter a name for the address:"
 		giveNameLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(popupContainer.snp_top).offset(10)
@@ -90,10 +90,10 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		let nameTextField = UITextField()
 		self.nameTextField = nameTextField
 		popupContainer.addSubview(nameTextField)
-		nameTextField.backgroundColor = whiteGrayColor.colorWithAlphaComponent(0.75)
-		nameTextField.attributedPlaceholder = NSAttributedString(string: "Home, Office...", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
-		nameTextField.font = UIFont(name: "Lato-Regular", size: kText14)
-		nameTextField.textColor = blackNelpyColor
+		nameTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
+		nameTextField.attributedPlaceholder = NSAttributedString(string: "Home, Office...", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
+		nameTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+		nameTextField.textColor = blackPrimary
 		nameTextField.textAlignment = NSTextAlignment.Left
 		nameTextField.layer.cornerRadius = 3
 		nameTextField.layer.borderColor = grayDetails.CGColor
@@ -111,8 +111,8 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		
 		let enterAddressLabel = UILabel()
 		popupContainer.addSubview(enterAddressLabel)
-		enterAddressLabel.textColor = blackNelpyColor
-		enterAddressLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		enterAddressLabel.textColor = blackPrimary
+		enterAddressLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		enterAddressLabel.text = "Enter the address"
 		enterAddressLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(nameTextField.snp_bottom).offset(10)
@@ -123,10 +123,10 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		self.addressTextField = addressTextField
 		addressTextField.delegate = self
 		popupContainer.addSubview(addressTextField)
-		addressTextField.backgroundColor = whiteGrayColor.colorWithAlphaComponent(0.75)
-		addressTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
-		addressTextField.font = UIFont(name: "Lato-Regular", size: kText14)
-		addressTextField.textColor = blackNelpyColor
+		addressTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
+		addressTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
+		addressTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+		addressTextField.textColor = blackPrimary
 		addressTextField.textAlignment = NSTextAlignment.Left
 		addressTextField.layer.cornerRadius = 3
 		addressTextField.layer.borderColor = grayDetails.CGColor
@@ -145,9 +145,9 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		let addLocationButton = UIButton()
 		self.addLocationButton = addLocationButton
 		popupContainer.addSubview(addLocationButton)
-		addLocationButton.backgroundColor = nelperRedColor
-		addLocationButton.setTitleColor(whiteGrayColor, forState: UIControlState.Normal)
-		addLocationButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		addLocationButton.backgroundColor = redPrimary
+		addLocationButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		addLocationButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		addLocationButton.setTitle("Add Location", forState: UIControlState.Normal)
 		addLocationButton.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(popupContainer.snp_centerX)
@@ -168,7 +168,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		self.autocompleteTableView.hidden = true
 		self.autocompleteTableView.layer.borderColor = darkGrayDetails.CGColor
 		self.autocompleteTableView.layer.borderWidth = 0.5
-		self.autocompleteTableView.backgroundColor = whiteGrayColor
+		self.autocompleteTableView.backgroundColor = whitePrimary
 		
 		self.autocompleteTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(addressTextField.snp_bottom)

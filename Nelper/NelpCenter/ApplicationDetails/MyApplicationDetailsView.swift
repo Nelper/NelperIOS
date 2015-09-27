@@ -77,13 +77,13 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			make.right.equalTo(self.containerView.snp_right).offset(1)
 			make.height.equalTo(90)
 		}
-		statusContainer.backgroundColor = whiteGrayColor
+		statusContainer.backgroundColor = whitePrimary
 		
 		let yourOfferLabel = UILabel()
 		statusContainer.addSubview(yourOfferLabel)
 		yourOfferLabel.text = "Your offer"
 		yourOfferLabel.textColor = darkGrayDetails
-		yourOfferLabel.font = UIFont(name: "Lato-Regular", size: kText11)
+		yourOfferLabel.font = UIFont(name: "Lato-Regular", size: kText12)
 		yourOfferLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(statusContainer.snp_centerX)
 			make.centerY.equalTo(statusContainer.snp_centerY).offset(-20)
@@ -103,8 +103,8 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		moneyTag.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
 		moneyLabel.text = "$\(self.application.price!)"
-		moneyLabel.textColor = whiteNelpyColor
-		moneyLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		moneyLabel.textColor = whiteBackground
+		moneyLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTag.snp_edges)
 		}
@@ -113,7 +113,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		statusContainer.addSubview(applicationStatusLabel)
 		applicationStatusLabel.text = "Application Status"
 		applicationStatusLabel.textColor = darkGrayDetails
-		applicationStatusLabel.font = UIFont(name: "Lato-Regular", size: kText11)
+		applicationStatusLabel.font = UIFont(name: "Lato-Regular", size: kText12)
 		applicationStatusLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(statusContainer.snp_left).offset(10)
 			make.centerY.equalTo(yourOfferLabel.snp_centerY)
@@ -133,7 +133,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		self.statusLabel = statusLabel
 		statusLabel.text = self.fetchStatusText()
 		statusContainer.addSubview(statusLabel)
-		statusLabel.textColor = blackNelpyColor
+		statusLabel.textColor = blackPrimary
 		statusLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		statusLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(applicationStatusIcon.snp_centerY)
@@ -155,7 +155,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		let dateHelpah = DateHelper()
 		appliedXDaysAgoLabel.text = "\(dateHelpah.timeAgoSinceDate(self.application.createdAt!, numericDates: true))"
 		appliedXDaysAgoLabel.textAlignment = NSTextAlignment.Right
-		appliedXDaysAgoLabel.textColor = blackNelpyColor
+		appliedXDaysAgoLabel.textColor = blackPrimary
 		appliedXDaysAgoLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		appliedXDaysAgoLabel.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(calendarIcon.snp_left).offset(-2)
@@ -167,7 +167,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		appliedDate.textAlignment  = NSTextAlignment.Center
 		appliedDate.text = "Applied"
 		appliedDate.textColor = darkGrayDetails
-		appliedDate.font = UIFont(name: "Lato-Regular", size: kText11)
+		appliedDate.font = UIFont(name: "Lato-Regular", size: kText12)
 		appliedDate.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(yourOfferLabel.snp_centerY)
 			make.left.equalTo(appliedXDaysAgoLabel.snp_left)
@@ -196,7 +196,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		}
 		
 		
-		scrollView.backgroundColor = whiteNelpyColor
+		scrollView.backgroundColor = whiteBackground
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.closeButton = previousBtn
@@ -212,8 +212,8 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			make.height.greaterThanOrEqualTo(background.snp_height)
 			make.width.equalTo(background.snp_width)
 		}
-		self.contentView.backgroundColor = whiteNelpyColor
-		background.backgroundColor = whiteNelpyColor
+		self.contentView.backgroundColor = whiteBackground
+		background.backgroundColor = whiteBackground
 		
 		
 		//Profile Container
@@ -224,7 +224,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	  contentView.addSubview(profileContainer)
 		profileContainer.layer.borderColor = darkGrayDetails.CGColor
 		profileContainer.layer.borderWidth = 0.5
-		profileContainer.backgroundColor = whiteGrayColor
+		profileContainer.backgroundColor = whitePrimary
 		profileContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.contentView.snp_top).offset(10)
 			make.left.equalTo(contentView.snp_left).offset(-1)
@@ -249,8 +249,8 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		let nameLabel = UILabel()
 		profileContainer.addSubview(nameLabel)
 		nameLabel.text = self.poster.name!
-		nameLabel.textColor = blackNelpyColor
-		nameLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		nameLabel.textColor = blackPrimary
+		nameLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		nameLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(profilePicture.snp_centerY)
 			make.left.equalTo(profilePicture.snp_right).offset(6)
@@ -273,7 +273,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		self.contentView.addSubview(taskContainer)
 		taskContainer.layer.borderWidth = 0.5
 		taskContainer.layer.borderColor = darkGrayDetails.CGColor
-		taskContainer.backgroundColor = whiteGrayColor
+		taskContainer.backgroundColor = whitePrimary
 		taskContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileContainer.snp_bottom).offset(10)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
@@ -298,8 +298,8 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		taskContainer.addSubview(taskNameLabel)
 		taskNameLabel.text = self.application.task.title
 		taskNameLabel.textAlignment = NSTextAlignment.Center
-		taskNameLabel.textColor = blackNelpyColor
-		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		taskNameLabel.textColor = blackPrimary
+		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		taskNameLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(categoryIcon.snp_bottom).offset(14)
 			make.centerX.equalTo(taskContainer.snp_centerX)
@@ -319,12 +319,12 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		
 		let descriptionTextView = UITextView()
 		taskContainer.addSubview(descriptionTextView)
-		descriptionTextView.backgroundColor = whiteGrayColor
+		descriptionTextView.backgroundColor = whitePrimary
 		descriptionTextView.text = self.application.task.desc!
-		descriptionTextView.textColor = blackNelpyColor
+		descriptionTextView.textColor = blackPrimary
 		descriptionTextView.scrollEnabled = false
 		descriptionTextView.editable = false
-		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText13)
+		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText14)
 		descriptionTextView.textAlignment = NSTextAlignment.Center
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskNameLabelUnderline.snp_bottom).offset(10)
@@ -366,8 +366,8 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		self.postDateLabel = postDateLabel
 		let dateHelper = DateHelper()
 		postDateLabel.text = "Posted \(dateHelper.timeAgoSinceDate(self.application.task.createdAt!, numericDates: true))"
-		postDateLabel.textColor = blackNelpyColor
-		postDateLabel.font = UIFont(name: "Lato-Regular", size: kText13)
+		postDateLabel.textColor = blackPrimary
+		postDateLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		postDateLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(postedIcon.snp_centerY)
 			make.left.equalTo(postedIcon.snp_right).offset(4)
@@ -388,8 +388,8 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		taskContainer.addSubview(cityLabel)
 		self.cityLabel = cityLabel
 		cityLabel.text = self.application.task.city!
-		cityLabel.textColor = blackNelpyColor
-		cityLabel.font = UIFont(name: "Lato-Regular", size: kText13)
+		cityLabel.textColor = blackPrimary
+		cityLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		cityLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(pinIcon.snp_centerY)
 			make.left.equalTo(pinIcon.snp_right).offset(4)
@@ -399,7 +399,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		taskContainer.addSubview(taskPosterOffer)
 		taskPosterOffer.text = "Task poster is offering"
 		taskPosterOffer.textColor = darkGrayDetails
-		taskPosterOffer.font = UIFont(name: "Lato-Regular", size: kText13)
+		taskPosterOffer.font = UIFont(name: "Lato-Regular", size: kText14)
 		taskPosterOffer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(pinIcon.snp_bottom).offset(15)
 			make.left.equalTo(pinIcon.snp_left).offset(-20)
@@ -419,8 +419,8 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		moneyTagPoster.addSubview(moneyLabelPoster)
 		moneyLabelPoster.textAlignment = NSTextAlignment.Center
 		moneyLabelPoster.text = "$\(Int(self.application.task.priceOffered!))"
-		moneyLabelPoster.textColor = whiteNelpyColor
-		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kText14)
+		moneyLabelPoster.textColor = whiteBackground
+		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kText15)
 		moneyLabelPoster.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTagPoster.snp_edges)
 		}
@@ -442,7 +442,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		self.contentView.addSubview(mapContainer)
 		mapContainer.layer.borderColor = darkGrayDetails.CGColor
 		mapContainer.layer.borderWidth = 0.5
-		mapContainer.backgroundColor = whiteGrayColor
+		mapContainer.backgroundColor = whitePrimary
 		mapContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskContainer.snp_bottom)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
@@ -476,7 +476,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		
 		let cancelContainer = UIView()
 		contentView.addSubview(cancelContainer)
-		cancelContainer.backgroundColor = whiteNelpyColor
+		cancelContainer.backgroundColor = whiteBackground
 		cancelContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(mapView.snp_bottom)
 			make.width.equalTo(self.contentView.snp_width)
@@ -489,12 +489,12 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		self.cancelButton = cancelButton
 		cancelButton.setTitle("Cancel Application", forState: UIControlState.Normal)
 		cancelButton.setTitle("Sure?", forState: UIControlState.Selected)
-		cancelButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
-		cancelButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
+		cancelButton.setTitleColor(blackPrimary, forState: UIControlState.Normal)
+		cancelButton.setTitleColor(redPrimary, forState: UIControlState.Selected)
 		self.cancelButton.addTarget(self, action: "didTapCancelButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		cancelButton.layer.borderWidth = 0.5
 		cancelButton.layer.borderColor = darkGrayDetails.CGColor
-		cancelButton.backgroundColor = whiteGrayColor
+		cancelButton.backgroundColor = whitePrimary
 		cancelButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(mapView.snp_bottom).offset(20)
 			make.centerX.equalTo(cancelContainer.snp_centerX)
@@ -508,7 +508,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		let chatButton = UIButton()
 		self.chatButton = chatButton
 		self.view.addSubview(chatButton)
-		chatButton.backgroundColor = grayBlueColor
+		chatButton.backgroundColor = grayBlue
 		chatButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
 		chatButton.setImage(UIImage(named: "down_arrow"), forState: UIControlState.Selected)
 		chatButton.addTarget(self, action: "chatButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -525,7 +525,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		let fakeButton = UIButton()
 		self.fakeButton = fakeButton
 		self.view.addSubview(fakeButton)
-		fakeButton.backgroundColor = grayBlueColor
+		fakeButton.backgroundColor = grayBlue
 		fakeButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
 		fakeButton.setImage(UIImage(named: "collapse_chat"), forState: UIControlState.Selected)
 		fakeButton.imageView!.contentMode = UIViewContentMode.Center

@@ -85,8 +85,8 @@ class NavBar: UINavigationBar {
 		}
 		
 		self.titleView = UILabel()
-		self.titleView.font = UIFont(name: "Lato-Regular", size: kNavTitle17)
-		self.titleView.textColor = whiteGrayColor
+		self.titleView.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
+		self.titleView.textColor = whitePrimary
 		self.titleView.sizeToFit()
 		
 		self.container.addSubview(self.titleView)
@@ -99,7 +99,7 @@ class NavBar: UINavigationBar {
 		self.logoutButton = UIButton()
 		self.logoutButton.setTitle("logout", forState: UIControlState.Normal)
 		self.logoutButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 12)
-		self.logoutButton.titleLabel?.textColor = whiteGrayColor
+		self.logoutButton.titleLabel?.textColor = whitePrimary
 		self.logoutButton.alpha = 0.3
 		self.addSubview(logoutButton)
 		

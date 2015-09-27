@@ -84,7 +84,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		//ScrollView + ContentView
 		
 		let backgroundView = UIView()
-		backgroundView.backgroundColor = whiteNelpyColor
+		backgroundView.backgroundColor = whiteBackground
 		self.view.addSubview(backgroundView)
 		backgroundView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(navBar.snp_bottom)
@@ -103,7 +103,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let contentView = UIView()
 		self.contentView = contentView
 		scrollView.addSubview(contentView)
-		contentView.backgroundColor = whiteNelpyColor
+		contentView.backgroundColor = whiteBackground
 		contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(scrollView.snp_top)
 			make.left.equalTo(scrollView.snp_left)
@@ -146,7 +146,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		taskFormContainer.layer.borderWidth = 0.5
 		taskFormContainer.layer.borderColor = darkGrayDetails.CGColor
 		self.contentView.addSubview(taskFormContainer)
-		taskFormContainer.backgroundColor = whiteGrayColor
+		taskFormContainer.backgroundColor = whitePrimary
 		taskFormContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(headerPicture.snp_bottom).offset(10)
 			make.left.equalTo(contentView.snp_left).offset(-1)
@@ -159,8 +159,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let taskTitleLabel = UILabel()
 		taskFormContainer.addSubview(taskTitleLabel)
 		taskTitleLabel.text = "Enter your Task Title"
-		taskTitleLabel.textColor = blackNelpyColor
-		taskTitleLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		taskTitleLabel.textColor = blackPrimary
+		taskTitleLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		
 		taskTitleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(headerPicture.snp_bottom).offset(20)
@@ -170,10 +170,10 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		taskTitleTextField.delegate = self
 		self.titleTextField = taskTitleTextField
 		taskFormContainer.addSubview(taskTitleTextField)
-		taskTitleTextField.backgroundColor = whiteGrayColor.colorWithAlphaComponent(0.75)
-		taskTitleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
-		taskTitleTextField.font = UIFont(name: "Lato-Regular", size: kText14)
-		taskTitleTextField.textColor = blackNelpyColor
+		taskTitleTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
+		taskTitleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
+		taskTitleTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+		taskTitleTextField.textColor = blackPrimary
 		taskTitleTextField.textAlignment = NSTextAlignment.Left
 		taskTitleTextField.layer.borderColor = grayDetails.CGColor
 		taskTitleTextField.layer.borderWidth = 1
@@ -205,8 +205,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let descriptionLabel = UILabel()
 		taskFormContainer.addSubview(descriptionLabel)
 		descriptionLabel.text = "Briefly describe the task"
-		descriptionLabel.textColor = blackNelpyColor
-		descriptionLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		descriptionLabel.textColor = blackPrimary
+		descriptionLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		
 		descriptionLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskTitleTextField.snp_bottom).offset(20)
@@ -216,9 +216,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.descriptionTextView = descriptionTextView
 		descriptionTextView.delegate = self
 		taskFormContainer.addSubview(descriptionTextView)
-		descriptionTextView.backgroundColor = whiteGrayColor.colorWithAlphaComponent(0.75)
-		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText14)
-		descriptionTextView.textColor = blackNelpyColor
+		descriptionTextView.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
+		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText15)
+		descriptionTextView.textColor = blackPrimary
 		descriptionTextView.textAlignment = NSTextAlignment.Left
 		descriptionTextView.layer.cornerRadius = 3
 		descriptionTextView.layer.borderColor = grayDetails.CGColor
@@ -238,8 +238,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let priceOfferedLabel = UILabel()
 		taskFormContainer.addSubview(priceOfferedLabel)
 		priceOfferedLabel.text = "How much are you offering?"
-		priceOfferedLabel.textColor = blackNelpyColor
-		priceOfferedLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		priceOfferedLabel.textColor = blackPrimary
+		priceOfferedLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		
 		priceOfferedLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(descriptionTextView.snp_bottom).offset(20)
@@ -249,10 +249,10 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		priceOfferedTextField.delegate = self
 		self.priceOffered = priceOfferedTextField
 		taskFormContainer.addSubview(priceOfferedTextField)
-		priceOfferedTextField.backgroundColor = whiteGrayColor.colorWithAlphaComponent(0.75)
-		priceOfferedTextField.attributedPlaceholder = NSAttributedString(string: "$", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
-		priceOfferedTextField.font = UIFont(name: "Lato-Regular", size: kText14)
-		priceOfferedTextField.textColor = blackNelpyColor
+		priceOfferedTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
+		priceOfferedTextField.attributedPlaceholder = NSAttributedString(string: "$", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
+		priceOfferedTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+		priceOfferedTextField.textColor = blackPrimary
 		priceOfferedTextField.textAlignment = NSTextAlignment.Left
 		priceOfferedTextField.layer.cornerRadius = 3
 		priceOfferedTextField.layer.borderColor = grayDetails.CGColor
@@ -285,8 +285,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let locationLabel = UILabel()
 		taskFormContainer.addSubview(locationLabel)
 		locationLabel.text = "Select your task's location"
-		locationLabel.textColor = blackNelpyColor
-		locationLabel.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		locationLabel.textColor = blackPrimary
+		locationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		
 		locationLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(priceOfferedTextField.snp_bottom).offset(20)
@@ -296,10 +296,10 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		taskFormContainer.addSubview(locationTextField)
 		self.locationTextField = locationTextField
 		self.locationTextField!.delegate = self
-		locationTextField.backgroundColor = whiteGrayColor.colorWithAlphaComponent(0.75)
-		locationTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackNelpyColor.colorWithAlphaComponent(0.75)])
-		locationTextField.font = UIFont(name: "Lato-Regular", size: kText14)
-		locationTextField.textColor = blackNelpyColor
+		locationTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
+		locationTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
+		locationTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+		locationTextField.textColor = blackPrimary
 		locationTextField.textAlignment = NSTextAlignment.Left
 		locationTextField.layer.cornerRadius = 3
 		locationTextField.layer.borderColor = grayDetails.CGColor
@@ -319,9 +319,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		taskFormContainer.addSubview(addLocationButton)
 		self.addLocationButton = addLocationButton
 		addLocationButton.addTarget(self, action: "didTapAddLocation:", forControlEvents: UIControlEvents.TouchUpInside)
-		addLocationButton.backgroundColor = whiteGrayColor
+		addLocationButton.backgroundColor = whitePrimary
 		addLocationButton.setTitle("Add", forState: UIControlState.Normal)
-		addLocationButton.setTitleColor(nelperRedColor, forState: UIControlState.Normal)
+		addLocationButton.setTitleColor(redPrimary, forState: UIControlState.Normal)
 		addLocationButton.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationTextField.snp_height)
 			make.left.equalTo(locationTextField.snp_right).offset(4)
@@ -331,8 +331,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let streetAddressLabel = UILabel()
 		streetAddressLabel.text = "123 Temporaire"
 		taskFormContainer.addSubview(streetAddressLabel)
-		streetAddressLabel.textColor = blackNelpyColor
-		streetAddressLabel.font = UIFont(name: "Lato-Light", size: kText14)
+		streetAddressLabel.textColor = blackPrimary
+		streetAddressLabel.font = UIFont(name: "Lato-Light", size: kText15)
 		streetAddressLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(locationTextField.snp_bottom).offset(16)
 			make.left.equalTo(locationTextField.snp_left)
@@ -341,8 +341,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let cityAddressLabel = UILabel()
 		cityAddressLabel.text = "Montreal"
 		taskFormContainer.addSubview(cityAddressLabel)
-		cityAddressLabel.textColor = blackNelpyColor
-		cityAddressLabel.font = UIFont(name: "Lato-Light", size: kText14)
+		cityAddressLabel.textColor = blackPrimary
+		cityAddressLabel.font = UIFont(name: "Lato-Light", size: kText15)
 		cityAddressLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(streetAddressLabel.snp_bottom)
 			make.left.equalTo(streetAddressLabel.snp_left)
@@ -353,12 +353,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.deleteAddressButton = deleteAddressButton
 		deleteAddressButton.setTitle("Delete Address", forState: UIControlState.Normal)
 		deleteAddressButton.setTitle("Sure?", forState: UIControlState.Selected)
-		deleteAddressButton.setTitleColor(blackNelpyColor, forState: UIControlState.Normal)
-		deleteAddressButton.setTitleColor(nelperRedColor, forState: UIControlState.Selected)
+		deleteAddressButton.setTitleColor(blackPrimary, forState: UIControlState.Normal)
+		deleteAddressButton.setTitleColor(redPrimary, forState: UIControlState.Selected)
 		self.deleteAddressButton.addTarget(self, action: "didTapDeleteAddress:", forControlEvents: UIControlEvents.TouchUpInside)
 		deleteAddressButton.layer.borderWidth = 0.5
 		deleteAddressButton.layer.borderColor = darkGrayDetails.CGColor
-		deleteAddressButton.backgroundColor = whiteGrayColor
+		deleteAddressButton.backgroundColor = whitePrimary
 		deleteAddressButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cityAddressLabel.snp_bottom).offset(16)
 			make.left.equalTo(cityAddressLabel.snp_left)
@@ -370,7 +370,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		//Pictures Container
 		
 		let picturesContainer = UIView()
-		picturesContainer.backgroundColor = whiteGrayColor
+		picturesContainer.backgroundColor = whitePrimary
 		contentView.addSubview(picturesContainer)
 		picturesContainer.layer.borderColor = darkGrayDetails.CGColor
 		picturesContainer.layer.borderWidth = 0.5
@@ -386,9 +386,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		let picturesButton = UIButton()
 		picturesContainer.addSubview(picturesButton)
-		picturesButton.backgroundColor = nelperRedColor
-		picturesButton.setTitleColor(whiteGrayColor, forState: UIControlState.Normal)
-		picturesButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		picturesButton.backgroundColor = redPrimary
+		picturesButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		picturesButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		picturesButton.setTitle("Add Pictures", forState: UIControlState.Normal)
 		
 		picturesButton.addTarget(self, action: "attachPicturesButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -404,9 +404,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let createTaskButton = UIButton()
 		self.contentView.addSubview(createTaskButton)
 		createTaskButton.setTitle("Post Task!", forState: UIControlState.Normal)
-		createTaskButton.setTitleColor(whiteGrayColor, forState: UIControlState.Normal)
-		createTaskButton.backgroundColor = nelperRedColor
-		createTaskButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		createTaskButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		createTaskButton.backgroundColor = redPrimary
+		createTaskButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		createTaskButton.addTarget(self, action: "postButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		
 		createTaskButton.snp_makeConstraints { (make) -> Void in
@@ -423,7 +423,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.closeButton = previousBtn
-		self.contentView.backgroundColor = whiteNelpyColor
+		self.contentView.backgroundColor = whiteBackground
 		self.navBar.setTitle("Create your task")
 	}
 	

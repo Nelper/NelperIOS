@@ -77,7 +77,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		let tasksContainer = UIView()
 		containerView.addSubview(tasksContainer)
 		self.tasksContainer = tasksContainer
-		tasksContainer.backgroundColor = whiteNelpyColor
+		tasksContainer.backgroundColor = whiteBackground
 		tasksContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(segmentControllerView.snp_bottom)
 			make.width.equalTo(self.view.snp_width)
@@ -95,7 +95,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.registerClass(NelpTasksTableViewCell.classForCoder(), forCellReuseIdentifier: NelpTasksTableViewCell.reuseIdentifier)
-		tableView.backgroundColor = whiteNelpyColor
+		tableView.backgroundColor = whiteBackground
 		
 		let refreshView = UIRefreshControl()
 		refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
@@ -117,7 +117,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tableViewApplications.delegate = self
 		tableViewApplications.dataSource = self
 		tableViewApplications.registerClass(NelpApplicationsTableViewCell.classForCoder(), forCellReuseIdentifier: NelpApplicationsTableViewCell.reuseIdentifier)
-		tableViewApplications.backgroundColor = whiteNelpyColor
+		tableViewApplications.backgroundColor = whiteBackground
 		tableViewApplications.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 		
 		let refreshViewApplication = UIRefreshControl()

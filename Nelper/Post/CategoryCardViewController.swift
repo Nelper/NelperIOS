@@ -28,7 +28,7 @@ class CategoryCardViewController:UIView{
 	func createView(){
 		self.layer.borderColor = grayDetails.CGColor
 		self.layer.borderWidth = 1
-		self.backgroundColor = whiteGrayColor
+		self.backgroundColor = whitePrimary
 		let categoryIcon = UIImageView()
 		self.addSubview(categoryIcon)
 		categoryIcon.image = UIImage(named: self.category!)
@@ -42,8 +42,8 @@ class CategoryCardViewController:UIView{
 	
 		if self.category != "other" {
 		let title = UILabel()
-		title.textColor = blackNelpyColor
-		title.font = UIFont(name: "Lato-Regular", size: kTitle16)
+		title.textColor = blackPrimary
+		title.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		title.text = self.getTitle()
 		self.addSubview(title)
 		title.snp_makeConstraints { (make) -> Void in
@@ -56,9 +56,9 @@ class CategoryCardViewController:UIView{
 		examples.editable = false
 		examples.selectable = false
 		examples.scrollEnabled = false
-		examples.backgroundColor = whiteGrayColor
-		examples.font = UIFont(name: "Lato-Light", size: kText14)
-		examples.textColor = blackNelpyColor
+		examples.backgroundColor = whitePrimary
+		examples.font = UIFont(name: "Lato-Light", size: kText15)
+		examples.textColor = blackPrimary
 		examples.textAlignment = NSTextAlignment.Center
 		examples.text = self.getExamples()
 		examples.snp_makeConstraints { (make) -> Void in

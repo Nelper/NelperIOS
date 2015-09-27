@@ -94,7 +94,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		let profileContainer = UIView()
 		self.profileContainer = profileContainer
 		self.containerView.addSubview(profileContainer)
-		profileContainer.backgroundColor = nelperRedColor
+		profileContainer.backgroundColor = redPrimary
 		profileContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.navBar.snp_bottom)
 			make.left.equalTo(self.containerView.snp_left)
@@ -122,9 +122,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		let name = UILabel()
 		profileContainer.addSubview(name)
 		name.numberOfLines = 0
-		name.textColor = whiteNelpyColor
+		name.textColor = whiteBackground
 		name.text = self.applicant.name
-		name.font = UIFont(name: "Lato-Regular", size: kText14)
+		name.font = UIFont(name: "Lato-Regular", size: kText15)
 		
 		name.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(picture.snp_right).offset(15)
@@ -197,8 +197,8 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		let numberOfTasksLabel = UILabel()
 		profileContainer.addSubview(numberOfTasksLabel)
 		numberOfTasksLabel.text = "12 tasks completed"
-		numberOfTasksLabel.textColor = whiteNelpyColor
-		numberOfTasksLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		numberOfTasksLabel.textColor = whiteBackground
+		numberOfTasksLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		numberOfTasksLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(name.snp_left)
 			make.top.equalTo(firstStar.snp_bottom).offset(8)
@@ -216,7 +216,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		//			make.right.equalTo(self.containerView.snp_right)
 		//			make.height.equalTo(60)
 		//		}
-		//		askingForPriceContainer.backgroundColor = whiteGrayColor
+		//		askingForPriceContainer.backgroundColor = whitePrimary
 		//
 		//		let moneyIcon = UIImageView()
 		//		askingForPriceContainer.addSubview(moneyIcon)
@@ -230,8 +230,8 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		//		}
 		//
 		//		let askingForLabel = UILabel()
-		//		askingForLabel.textColor = blackNelpyColor
-		//		askingForLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		//		askingForLabel.textColor = blackPrimary
+		//		askingForLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		//		if self.application.price != nil{
 		//		askingForLabel.text = "\(self.application.price)$"
 		//		}
@@ -268,7 +268,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		}
 		
 		
-		scrollView.backgroundColor = whiteNelpyColor
+		scrollView.backgroundColor = whiteBackground
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.closeButton = previousBtn
@@ -284,8 +284,8 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			make.height.greaterThanOrEqualTo(background.snp_height)
 			make.width.equalTo(background.snp_width)
 		}
-		self.contentView.backgroundColor = whiteNelpyColor
-		background.backgroundColor = whiteNelpyColor
+		self.contentView.backgroundColor = whiteBackground
+		background.backgroundColor = whiteBackground
 		
 		
 		//White Container
@@ -295,7 +295,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.whiteContainer = whiteContainer
 		whiteContainer.layer.borderColor = grayDetails.CGColor
 		whiteContainer.layer.borderWidth = 1
-		whiteContainer.backgroundColor = whiteGrayColor
+		whiteContainer.backgroundColor = whitePrimary
 		whiteContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left)
@@ -321,9 +321,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		let aboutLabel = UILabel()
 		self.aboutLabel = aboutLabel
 		self.whiteContainer.addSubview(aboutLabel)
-		aboutLabel.textColor = blackNelpyColor
+		aboutLabel.textColor = blackPrimary
 		aboutLabel.text = "About"
-		aboutLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		aboutLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		aboutLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(aboutLogo.snp_right).offset(4)
 			make.centerY.equalTo(aboutLogo.snp_centerY)
@@ -334,11 +334,11 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.whiteContainer.addSubview(aboutTextView)
 		self.aboutTextView = aboutTextView
 		aboutTextView.scrollEnabled = false
-		aboutTextView.textColor = blackNelpyColor
-		aboutTextView.backgroundColor = whiteGrayColor
+		aboutTextView.textColor = blackPrimary
+		aboutTextView.backgroundColor = whitePrimary
 		aboutTextView.editable = false
 		aboutTextView.text = self.applicant.about
-		aboutTextView.font = UIFont(name: "Lato-Regular", size: kText14)
+		aboutTextView.font = UIFont(name: "Lato-Regular", size: kText15)
 		aboutTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLogo.snp_left).offset(4)
@@ -383,9 +383,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		let skillsLabel = UILabel()
 		self.skillsLabel = skillsLabel
 		self.whiteContainer.addSubview(skillsLabel)
-		skillsLabel.textColor = blackNelpyColor
+		skillsLabel.textColor = blackPrimary
 		skillsLabel.text = "Skills"
-		skillsLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		skillsLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		skillsLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutTextView.snp_bottom).offset(10)
 			make.left.equalTo(aboutLabel.snp_left)
@@ -412,7 +412,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		skillsTableView.delegate = self
 		skillsTableView.dataSource = self
 		skillsTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
-		skillsTableView.backgroundColor = whiteGrayColor
+		skillsTableView.backgroundColor = whitePrimary
 		skillsTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left)
@@ -438,9 +438,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		let educationLabel = UILabel()
 		self.educationLabel = educationLabel
 		self.whiteContainer.addSubview(educationLabel)
-		educationLabel.textColor = blackNelpyColor
+		educationLabel.textColor = blackPrimary
 		educationLabel.text = "Education"
-		educationLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		educationLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		educationLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsTableView.snp_bottom).offset(10)
 			make.left.equalTo(aboutLabel)
@@ -467,7 +467,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		educationTableView.delegate = self
 		educationTableView.dataSource = self
 		educationTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
-		educationTableView.backgroundColor = whiteGrayColor
+		educationTableView.backgroundColor = whitePrimary
 		educationTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left)
@@ -493,9 +493,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		let experienceLabel = UILabel()
 		self.experienceLabel = experienceLabel
 		self.whiteContainer.addSubview(experienceLabel)
-		experienceLabel.textColor = blackNelpyColor
+		experienceLabel.textColor = blackPrimary
 		experienceLabel.text = "Work experience"
-		experienceLabel.font = UIFont(name: "Lato-Regular", size: kText14)
+		experienceLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		experienceLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationTableView.snp_bottom).offset(10)
 			make.left.equalTo(aboutLabel)
@@ -522,7 +522,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		experienceTableView.delegate = self
 		experienceTableView.dataSource = self
 		experienceTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
-		experienceTableView.backgroundColor = whiteGrayColor
+		experienceTableView.backgroundColor = whitePrimary
 		experienceTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(experienceLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left)
@@ -543,7 +543,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		
 		//Accept Deny Bar
 		
-		self.acceptDenyBar.backgroundColor = profileGreenColor
+		self.acceptDenyBar.backgroundColor = greenProfile
 		
 		let acceptButton = UIButton()
 		self.acceptButton = acceptButton
@@ -574,7 +574,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		let chatButton = UIButton()
 		self.chatButton = chatButton
 		self.view.addSubview(chatButton)
-		chatButton.backgroundColor = grayBlueColor
+		chatButton.backgroundColor = grayBlue
 		chatButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
 		chatButton.setImage(UIImage(named: "down_arrow"), forState: UIControlState.Selected)
 		chatButton.addTarget(self, action: "chatButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -593,7 +593,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		let fakeButton = UIButton()
 		self.fakeButton = fakeButton
 		self.view.addSubview(fakeButton)
-		fakeButton.backgroundColor = grayBlueColor
+		fakeButton.backgroundColor = grayBlue
 		fakeButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
 		fakeButton.setImage(UIImage(named: "collapse_chat"), forState: UIControlState.Selected)
 		fakeButton.imageView!.contentMode = UIViewContentMode.Center
