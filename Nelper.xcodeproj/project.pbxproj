@@ -61,6 +61,7 @@
 		9FB9076C1CAA3EC7FCDFB9DE /* Pods_Nelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C0196C981BB5B49300901155 /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0196C971BB5B49300901155 /* SegmentController.swift */; settings = {ASSET_TAGS = (); }; };
 		C0196C9C1BB642CA00901155 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0196C9B1BB642CA00901155 /* MoreViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C04FF0031BB86873001E204F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04FF0021BB86873001E204F /* Button.swift */; settings = {ASSET_TAGS = (); }; };
 		C087D8D91BB7199A00AA205B /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087D8D81BB7199A00AA205B /* Rating.swift */; settings = {ASSET_TAGS = (); }; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
@@ -241,6 +242,7 @@
 		81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0196C971BB5B49300901155 /* SegmentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegmentController.swift; path = Views/SegmentController.swift; sourceTree = "<group>"; };
 		C0196C9B1BB642CA00901155 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoreViewController.swift; path = More/MoreViewController.swift; sourceTree = "<group>"; };
+		C04FF0021BB86873001E204F /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		C087D8D81BB7199A00AA205B /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
 		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -416,6 +418,7 @@
 				192635441B744D9C005597E3 /* NavBar.swift */,
 				C0196C971BB5B49300901155 /* SegmentController.swift */,
 				F775C0C61B803E9600F7525B /* TabBarCustom.swift */,
+				C04FF0021BB86873001E204F /* Button.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1069,6 +1072,7 @@
 				190F623E1B4F5CAB0091A1D1 /* NelpTask.swift in Sources */,
 				C087D8D91BB7199A00AA205B /* Rating.swift in Sources */,
 				F7E8F9351B953A57007D44D8 /* LayerManager.swift in Sources */,
+				C04FF0031BB86873001E204F /* Button.swift in Sources */,
 				F7E8F8E51B94E7CF007D44D8 /* ATLAddressBarContainerView.m in Sources */,
 				F7E8F8E11B94E7CF007D44D8 /* ATLLocationManager.m in Sources */,
 				F7E8F8E71B94E7CF007D44D8 /* ATLAddressBarView.m in Sources */,

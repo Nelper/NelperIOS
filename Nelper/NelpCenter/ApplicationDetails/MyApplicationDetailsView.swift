@@ -18,37 +18,37 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var containerView: UIView!
 	
-	let kCellHeight:CGFloat = 45
+	let kCellHeight: CGFloat = 45
 	
 	var poster: User!
 	var application: NelpTaskApplication!
 	let locationManager = CLLocationManager()
-	var picture:UIImageView!
-	var firstStar:UIImageView!
-	var secondStar:UIImageView!
-	var thirdStar:UIImageView!
-	var fourthStar:UIImageView!
-	var fifthStar:UIImageView!
-	var scrollView:UIScrollView!
+	var picture: UIImageView!
+	var firstStar: UIImageView!
+	var secondStar: UIImageView!
+	var thirdStar: UIImageView!
+	var fourthStar: UIImageView!
+	var fifthStar: UIImageView!
+	var scrollView: UIScrollView!
 	var delegate: MyApplicationDetailsViewDelegate!
 	
-	var contentView:UIView!
-	var whiteContainer:UIView!
-	var statusContainer:UIView!
-	var chatButton:UIButton!
-	var conversationController:UINavigationController?
-	var tempVC:UIViewController!
-	var fakeButton:UIButton!
-	var cityLabel:UILabel!
-	var postDateLabel:UILabel!
-	var applicationStatusIcon:UIImageView!
-	var statusLabel:UILabel!
-	var cancelButton:UIButton!
+	var contentView: UIView!
+	var whiteContainer: UIView!
+	var statusContainer: UIView!
+	var chatButton: UIButton!
+	var conversationController: UINavigationController?
+	var tempVC: UIViewController!
+	var fakeButton: UIButton!
+	var cityLabel: UILabel!
+	var postDateLabel: UILabel!
+	var applicationStatusIcon: UIImageView!
+	var statusLabel: UILabel!
+	var cancelButton: SecondaryActionButton!
 	
 	
 	//MARK: Initialization
 	
-	convenience init(poster:User, application:NelpTaskApplication){
+	convenience init(poster: User, application: NelpTaskApplication){
 		self.init(nibName: "MyApplicationDetailsView", bundle: nil)
 		self.poster = poster
 		self.application = application
@@ -208,7 +208,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			make.top.equalTo(scrollView.snp_top)
 			make.left.equalTo(scrollView.snp_left)
 			make.right.equalTo(scrollView.snp_right)
-			//            make.bottom.equalTo(self.scrollView.snp_bottom)
+			//make.bottom.equalTo(self.scrollView.snp_bottom)
 			make.height.greaterThanOrEqualTo(background.snp_height)
 			make.width.equalTo(background.snp_width)
 		}
@@ -457,7 +457,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			make.edges.equalTo(mapContainer.snp_edges)
 		}
 		
-		self.locationManager.delegate = self;
+		self.locationManager.delegate = self
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
 		self.locationManager.requestWhenInUseAuthorization()
 		self.locationManager.startUpdatingLocation()
@@ -465,7 +465,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		
 		
 		let taskLocation = CLLocationCoordinate2DMake(self.application.task.location!.latitude, self.application.task.location!.longitude)
-		let span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+		let span: MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
 		let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(taskLocation, span)
 		mapView.setRegion(locationToZoom, animated: true)
 		mapView.setCenterCoordinate(taskLocation, animated: true)
@@ -473,6 +473,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		let circle = MKCircle(centerCoordinate: taskLocation, radius: 400)
 		mapView.addOverlay(circle)
 	
+		//Cancel
 		
 		let cancelContainer = UIView()
 		contentView.addSubview(cancelContainer)
@@ -484,24 +485,14 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			make.bottom.equalTo(self.contentView.snp_bottom)
 		}
 		
-		let cancelButton = UIButton()
+		let cancelButton = SecondaryActionButton()
 		cancelContainer.addSubview(cancelButton)
-		self.cancelButton = cancelButton
 		cancelButton.setTitle("Cancel Application", forState: UIControlState.Normal)
-		cancelButton.setTitle("Sure?", forState: UIControlState.Selected)
-		cancelButton.setTitleColor(blackPrimary, forState: UIControlState.Normal)
-		cancelButton.setTitleColor(redPrimary, forState: UIControlState.Selected)
-		self.cancelButton.addTarget(self, action: "didTapCancelButton:", forControlEvents: UIControlEvents.TouchUpInside)
-		cancelButton.layer.borderWidth = 0.5
-		cancelButton.layer.borderColor = darkGrayDetails.CGColor
-		cancelButton.backgroundColor = whitePrimary
+		cancelButton.addTarget(self, action: "didTapCancelButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		cancelButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(mapView.snp_bottom).offset(20)
 			make.centerX.equalTo(cancelContainer.snp_centerX)
-			make.height.equalTo(45)
-			make.width.equalTo(200)
 		}
-		
 		
 		//Chat Button
 		

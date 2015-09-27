@@ -138,9 +138,9 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		//Rating
 		
 		ratingStarsView = RatingStars()
+		ratingStarsView.userCompletedTasks = self.poster.completedTasks
 		ratingStarsView.userRating = self.poster.rating
 		ratingStarsView.style = "light"
-		ratingStarsView.userCompletedTasks = 10
 		profileContainer.addSubview(ratingStarsView)
 		ratingStarsView.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(picture.snp_centerX)

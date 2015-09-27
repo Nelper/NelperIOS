@@ -23,6 +23,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	let kCellHeight:CGFloat = 45
 	
 	var segmentControllerView: SegmentController!
+	var ratingStarsView: RatingStars!
 	
 	var previousVC:MyTaskDetailsViewController!
 	var applicant: User!
@@ -91,6 +92,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.setImages(self.applicant)
 		
 		//Profile + Header
+		
 		let profileContainer = UIView()
 		self.profileContainer = profileContainer
 		self.containerView.addSubview(profileContainer)
@@ -103,6 +105,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		}
 		
 		//Profile Picture
+		
 		let pictureSize: CGFloat = 85
 		let picture = UIImageView()
 		self.picture = picture
@@ -112,99 +115,25 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.picture.contentMode = UIViewContentMode.ScaleAspectFill
 		profileContainer.addSubview(picture)
 		picture.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(profileContainer.snp_centerY)
-			make.left.equalTo(profileContainer.snp_left).offset(15)
+			make.top.equalTo(profileContainer.snp_top)
+			make.centerX.equalTo(profileContainer.snp_centerX)
 			make.height.equalTo(pictureSize)
 			make.width.equalTo(pictureSize)
 		}
 		
-		//Name
-		let name = UILabel()
-		profileContainer.addSubview(name)
-		name.numberOfLines = 0
-		name.textColor = whiteBackground
-		name.text = self.applicant.name
-		name.font = UIFont(name: "Lato-Regular", size: kText15)
+		//Rating
 		
-		name.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(picture.snp_right).offset(15)
-			make.top.equalTo(picture.snp_top)
+		ratingStarsView = RatingStars()
+		ratingStarsView.userCompletedTasks = self.applicant.completedTasks
+		ratingStarsView.userRating = self.applicant.rating
+		ratingStarsView.style = "light"
+		profileContainer.addSubview(ratingStarsView)
+		ratingStarsView.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(picture.snp_centerX)
+			make.top.equalTo(picture.snp_bottom).offset(8)
+			make.width.equalTo((ratingStarsView.starWidth + ratingStarsView.starPadding) * 6)
+			make.height.equalTo(ratingStarsView.starHeight)
 		}
-		//FeedBack Stars
-		
-		let firstStar = UIImageView()
-		self.firstStar = firstStar
-		profileContainer.addSubview(firstStar)
-		firstStar.contentMode = UIViewContentMode.ScaleAspectFill
-		firstStar.image = UIImage(named: "empty_star_white")
-		firstStar.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(name.snp_left)
-			make.top.equalTo(name.snp_bottom).offset(8)
-			make.height.equalTo(20)
-			make.width.equalTo(20)
-		}
-		
-		let secondStar = UIImageView()
-		self.secondStar = secondStar
-		profileContainer.addSubview(secondStar)
-		secondStar.contentMode = UIViewContentMode.ScaleAspectFill
-		secondStar.image = UIImage(named: "empty_star_white")
-		secondStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(firstStar.snp_bottom)
-			make.left.equalTo(firstStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
-		
-		let thirdStar = UIImageView()
-		self.thirdStar = thirdStar
-		profileContainer.addSubview(thirdStar)
-		thirdStar.contentMode = UIViewContentMode.ScaleAspectFill
-		thirdStar.image = UIImage(named: "empty_star_white")
-		thirdStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(secondStar.snp_bottom)
-			make.left.equalTo(secondStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
-		
-		let fourthStar = UIImageView()
-		self.fourthStar = fourthStar
-		profileContainer.addSubview(fourthStar)
-		fourthStar.contentMode = UIViewContentMode.ScaleAspectFill
-		fourthStar.image = UIImage(named: "empty_star_white")
-		fourthStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(thirdStar.snp_bottom)
-			make.left.equalTo(thirdStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
-		
-		let fifthStar = UIImageView()
-		self.fifthStar = fifthStar
-		profileContainer.addSubview(fifthStar)
-		fifthStar.contentMode = UIViewContentMode.ScaleAspectFill
-		fifthStar.image = UIImage(named: "empty_star_white")
-		fifthStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(fourthStar.snp_bottom)
-			make.left.equalTo(fourthStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
-		
-		//Number of tasks completed
-		
-		let numberOfTasksLabel = UILabel()
-		profileContainer.addSubview(numberOfTasksLabel)
-		numberOfTasksLabel.text = "12 tasks completed"
-		numberOfTasksLabel.textColor = whiteBackground
-		numberOfTasksLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		numberOfTasksLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(name.snp_left)
-			make.top.equalTo(firstStar.snp_bottom).offset(8)
-			make.right.equalTo(profileContainer.snp_right).offset(-4)
-		}
-
 
 		//Asking for Container
 		
@@ -543,7 +472,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		
 		//Accept Deny Bar
 		
-		self.acceptDenyBar.backgroundColor = greenProfile
+		self.acceptDenyBar.backgroundColor = redPrimary
 		
 		let acceptButton = UIButton()
 		self.acceptButton = acceptButton

@@ -11,26 +11,26 @@ import UIKit
 import Alamofire
 import iCarousel
 
-class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouselDelegate, CLLocationManagerDelegate, MKMapViewDelegate{
+class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouselDelegate, CLLocationManagerDelegate, MKMapViewDelegate {
 	
 	
 	var task: NelpTask!
 	var pageViewController: UIPageViewController?
-	var pictures:NSArray?
-	var containerView:UIView!
-	var scrollView:UIScrollView!
-	var contentView:UIView!
-	var postDateLabel:UILabel!
-	var cityLabel:UILabel!
-	var carousel:iCarousel!
+	var pictures: NSArray?
+	var containerView: UIView!
+	var scrollView: UIScrollView!
+	var contentView: UIView!
+	var postDateLabel: UILabel!
+	var cityLabel: UILabel!
+	var carousel: iCarousel!
 	var locationManager = CLLocationManager()
-	var carouselContainer:UIView!
-	var picture:UIImageView!
-	var taskContainer:UIView!
-	var	myOfferStepper:UIStepper!
-	var myOfferValueLabel:UILabel!
-	var myOffer:Double!
-	var applyButton:UIButton!
+	var carouselContainer: UIView!
+	var picture: UIImageView!
+	var taskContainer: UIView!
+	var	myOfferStepper: UIStepper!
+	var myOfferValueLabel: UILabel!
+	var myOffer: Double!
+	var applyButton: PrimaryActionButton!
 	
 	//MARK: Initialization
 	
@@ -46,7 +46,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	//MARK: View Creation
 	
 	func createView(){
-		
 		
 		let containerView = UIView()
 		self.containerView = containerView
@@ -101,7 +100,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		}
 		self.contentView.backgroundColor = whiteBackground
 		background.backgroundColor = whiteBackground
-		
 		
 		//Profile Container
 		
@@ -319,7 +317,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			}
 		}
 		
-		
 		//Map Container
 		
 		let mapContainer = UIView()
@@ -368,8 +365,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		let circle = MKCircle(centerCoordinate: taskLocation, radius: 400)
 		mapView.addOverlay(circle)
 		
-		
-		
 		let offerContainer = UIView()
 		contentView.addSubview(offerContainer)
 		offerContainer.backgroundColor = whiteBackground
@@ -379,17 +374,12 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.top.equalTo(mapView.snp_bottom).offset(20)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
 			make.right.equalTo(self.contentView.snp_right).offset(1)
-			make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
+			make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
 		}
 		
 		let offerLabelContainer = UIView()
 		offerContainer.addSubview(offerLabelContainer)
 		offerContainer.backgroundColor = whitePrimary
-		offerLabelContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(offerContainer.snp_top)
-			make.centerX.equalTo(offerContainer.snp_centerX)
-			make.width.equalTo(180)
-		}
 		offerLabelContainer.sizeToFit()
 		
 		let posterNameOffer = UILabel()
@@ -410,6 +400,14 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.left.equalTo(posterNameOffer.snp_right).offset(12)
 			make.width.equalTo(60)
 			make.height.equalTo(25)
+		}
+		
+		offerLabelContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(offerContainer.snp_top)
+			make.left.equalTo(posterNameOffer.snp_left)
+			make.right.equalTo(moneyTagPoster.snp_right)
+			make.centerX.equalTo(offerContainer.snp_centerX)
+			
 		}
 		
 		let moneyLabelPoster = UILabel()
@@ -471,22 +469,17 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		myOfferValueLabel.text = "$\(Int(self.myOfferStepper.value))"
 		
+		//Apply Button
 		
-		let applyButton = UIButton()
+		let applyButton = PrimaryActionButton()
 		offerContainer.addSubview(applyButton)
-		self.applyButton = applyButton
 		applyButton.setTitle("Apply for $\(Int(self.task.priceOffered!))!", forState: UIControlState.Normal)
-		applyButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-		self.applyButton.addTarget(self, action: "applyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		applyButton.backgroundColor = redPrimary
+		applyButton.addTarget(self, action: "applyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		applyButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(myOfferStepper.snp_bottom).offset(20)
 			make.centerX.equalTo(offerContainer.snp_centerX)
-			make.height.equalTo(40)
-			make.width.equalTo(250)
-			make.bottom.equalTo(offerContainer.snp_bottom).offset(-10)
+			make.bottom.equalTo(offerContainer.snp_bottom).offset(-20)
 		}
-		
 	}
 	
 	//MARK: DATA
@@ -496,10 +489,11 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	
 	- parameter applicant: Task Poster
 	*/
+	
 	func setImages(poster:User){
-		if(poster.profilePictureURL != nil){
+		if (poster.profilePictureURL != nil) {
 			let fbProfilePicture = poster.profilePictureURL
-			request(.GET,fbProfilePicture!).response(){
+			request(.GET,fbProfilePicture!).response() {
 				(_, _, data, _) in
 				let image = UIImage(data: data as NSData!)
 				self.picture.image = image
@@ -507,14 +501,12 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		}
 	}
 	
-	
 	//MARK: View Delegate Methods
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
 	}
-	
 	
 	//MARK: iCarousel Delegate
 	
@@ -574,6 +566,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	//
 	//	- parameter sender: UIButton
 	//	*/
+	
 	func applyButtonTapped(sender: AnyObject) {
 		if(!self.applyButton.selected){
 			ApiHelper.applyForTask(self.task, price: Int(self.myOfferStepper.value))
@@ -594,8 +587,10 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	
 	/**
 	My Offer Value Stepper Control
+	
 	- parameter sender: My Offer Stepper
 	*/
+	
 	func didTapMyOfferStepper(sender:UIStepper){
 		self.myOfferValueLabel.text = "$\(Int(sender.value))"
 		self.myOffer = myOfferStepper.value
@@ -608,6 +603,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	
 	- parameter sender: Poster Profile View
 	*/
+	
 	func didTapProfile(sender:UIView){
 		let nextVC = PosterProfileViewController()
 		nextVC.removeChatButton()
@@ -615,7 +611,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
-	
 	
 	//MARK: Utilities
 	
@@ -635,6 +630,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	/**
 	Updates the button appearance
 	*/
+	
 	func updateButton(){
 		if self.applyButton.selected {
 			self.applyButton.setTitle("#make popup to confirm", forState: UIControlState.Selected)
@@ -644,6 +640,5 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			self.applyButton.backgroundColor = redPrimary
 		}
 	}
-	
 }
 

@@ -27,11 +27,7 @@ class RatingStars: UIView {
 			setRatingView()
 		}
 	}
-	var userCompletedTasks: Int? {
-		didSet {
-			taskCompletedLabel.text = "(10)"
-		}
-	}
+	var userCompletedTasks = Int()
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -42,6 +38,7 @@ class RatingStars: UIView {
 		super.init(coder: coder)!
 		setRatingView()
 	}
+
 	
 	func setRatingView() {
 		for subview in self.subviews {
@@ -80,6 +77,7 @@ class RatingStars: UIView {
 		let taskCompletedLabel = UILabel(frame: CGRect(x: starImages[4].frame.maxX + 8, y: 0, width: 30, height: 18))
 		taskCompletedLabel.textColor = styleColor
 		taskCompletedLabel.font = UIFont(name: "Lato-Light", size: kTitle17)
+		taskCompletedLabel.text = "(\(userCompletedTasks))"
 		self.addSubview(taskCompletedLabel)
 	}
 }
