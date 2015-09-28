@@ -107,7 +107,6 @@ class ApplicantCell: UITableViewCell{
 		moneyLabel.textAlignment = NSTextAlignment.Center
 		moneyLabel.textColor = blackPrimary
 		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
-		moneyLabel.text = "$offer"
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyView.snp_edges)
 		}
@@ -178,6 +177,11 @@ class ApplicantCell: UITableViewCell{
 		self.name.text = applicant.name
 		self.ratingStarsView.userCompletedTasks = applicant.completedTasks
 		self.ratingStarsView.userRating = applicant.rating
+	}
+	
+	func setApplication(application: NelpTaskApplication){
+		self.applicationPrice = application.price!
+		moneyLabel.text = "$\(applicationPrice)"
 	}
 	
 	func setImages(applicant:User) {

@@ -360,7 +360,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			let pendingApplicantCell = tableView.dequeueReusableCellWithIdentifier(ApplicantCell.reuseIdentifier, forIndexPath: indexPath) as! ApplicantCell
 			let application = self.arrayOfApplicants[indexPath.row]
 			pendingApplicantCell.setApplicant(application)
-			
+			let applicant = self.arrayOfApplications[indexPath.row]
+			pendingApplicantCell.setApplication(applicant)
 			return pendingApplicantCell
 			
 		} else if tableView == deniedApplicantsTableView {
