@@ -88,12 +88,16 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		tableView.registerClass(BrowseTaskViewCell.classForCoder(), forCellReuseIdentifier: BrowseTaskViewCell.reuseIdentifier)
 		self.tableView.backgroundColor = whiteBackground
 		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-
+		
+		self.tableViewContainer.addSubview(tableView)
+		
 		let refreshView = UIRefreshControl()
 		refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
 		tableView.addSubview(refreshView)
 		
-		self.tableViewContainer.addSubview(tableView)
+		self.tableViewContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(self.view).offset(-49)
+		}
 		
 		tableView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.tableViewContainer.snp_edges)
@@ -176,7 +180,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	func checkFilters(){
 		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
 			self.filtersButton.setBackgroundImage(UIImage(named: "filters-inactive"), forState: UIControlState.Normal)
-		}else {
+		} else {
 			self.filtersButton.setBackgroundImage(UIImage(named: "filters-active"), forState: UIControlState.Normal)
 		}
 	}
@@ -191,7 +195,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	func onPullToRefresh() {
 		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
 			self.loadData()
-		} else{
+		} else {
 			self.loadDataWithFilters(self.arrayOfFilters, sort: self.sortBy, minPrice: self.minPrice, maxDistance: self.maxDistance)
 		}
 	}
@@ -259,7 +263,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		let vc = BrowseDetailsViewController()
 		vc.task = selectedTask
 		self.presentViewController(vc, animated: false, completion: nil)
-		
 	}
 	
 
@@ -341,9 +344,5 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		nextVC.previousMaxDistance = self.maxDistance
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
-	
-	
-	
-	
 }
 
