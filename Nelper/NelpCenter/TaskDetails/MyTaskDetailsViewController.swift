@@ -17,18 +17,18 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	@IBOutlet weak var container: UIView!
 	@IBOutlet weak var scrollView: UIScrollView!
 	
-	var contentView:UIView!
-	var categoryIcon:UIImageView!
+	var contentView: UIView!
+	var categoryIcon: UIImageView!
 	var task: FindNelpTask!
 	var applicantsTableView: UITableView!
-	var arrayOfApplicants:[User]!
-	var activeApplicantsContainer:UIView!
-	var deniedApplicantsContainer:UIView!
-	var arrayOfDeniedApplicants:[User]!
+	var arrayOfApplicants: [User]!
+	var activeApplicantsContainer: UIView!
+	var deniedApplicantsContainer: UIView!
+	var arrayOfDeniedApplicants: [User]!
 	var deniedApplicantsTableView: UITableView!
-	var arrayOfApplications:[NelpTaskApplication]!
-	var arrayOfAllApplicants:[User]!
-	var taskSectionContainer:UIView!
+	var arrayOfApplications: [NelpTaskApplication]!
+	var arrayOfAllApplicants: [User]!
+	var taskSectionContainer: UIView!
 	
 	//MARK: Initialization
 	
@@ -52,11 +52,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		var arrayOfApplicants = [User]()
 		var arrayOfAllApplicants = [User]()
 		var arrayOfDeniedApplicants = [User]()
-		for application in arrayOfApplications{
-			if application.state == .Pending{
+		for application in arrayOfApplications {
+			if application.state == .Pending {
 				arrayOfApplicants.append(application.user)
 				arrayOfAllApplicants.append(application.user)
-			}else if application.state == .Denied{
+			} else if application.state == .Denied {
 				arrayOfDeniedApplicants.append(application.user)
 				arrayOfAllApplicants.append(application.user)
 			}
@@ -68,7 +68,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	//MARK: View Creation
 	
-	func createView(){
+	func createView() {
 		
 		//ContentView
 		
@@ -171,7 +171,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		applicantsLabel.textAlignment = NSTextAlignment.Left
 		applicantsLabel.text = "Nelpers"
 		applicantsLabel.textColor = blackPrimary
-		applicantsLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		applicantsLabel.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
 		applicantsLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(pendingApplicantIcon.snp_centerY)
 			make.left.equalTo(pendingApplicantIcon.snp_right).offset(12)
@@ -237,7 +237,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		deniedApplicantsLabel.textAlignment = NSTextAlignment.Left
 		deniedApplicantsLabel.text = "Denied Nelpers"
 		deniedApplicantsLabel.textColor = blackPrimary
-		deniedApplicantsLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		deniedApplicantsLabel.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
 		deniedApplicantsLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(deniedApplicantIcon.snp_centerY)
 			make.left.equalTo(deniedApplicantIcon.snp_right).offset(12)
@@ -292,7 +292,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	//MARK: UI
-
+	
 	func adjustUI(){
 		self.container.backgroundColor = whiteBackground
 		let previousBtn = UIButton()
@@ -341,7 +341,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 	}
 	
-
+	
 	
 	//MARK: Tableview Delegate and Datasource
 	
@@ -435,9 +435,9 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.refreshTableView()
 	}
 	
-
 	
-//MARK: Applications Profile View Controller Delegate
+	
+	//MARK: Applications Profile View Controller Delegate
 	
 	func didTapDenyButton(applicant:User){
 		var applicationToDeny:NelpTaskApplication?

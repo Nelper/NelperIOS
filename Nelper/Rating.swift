@@ -17,6 +17,7 @@ class RatingStars: UIView {
 	var starWidth = 18
 	var starHeight = 18
 	var starPadding = 6
+	var textSize = kTitle17
 	
 	var style: String?
 	var styleColor: UIColor!
@@ -74,9 +75,9 @@ class RatingStars: UIView {
 		}
 		
 		//Number of tasks completed
-		let taskCompletedLabel = UILabel(frame: CGRect(x: starImages[4].frame.maxX + 8, y: 0, width: 30, height: 18))
+		let taskCompletedLabel = UILabel(frame: CGRect(x: starImages[4].frame.maxX + (CGFloat(starPadding) + 2), y: -1, width: 30, height: 18))
 		taskCompletedLabel.textColor = styleColor
-		taskCompletedLabel.font = UIFont(name: "Lato-Light", size: kTitle17)
+		taskCompletedLabel.font = UIFont(name: "Lato-Light", size: textSize)
 		taskCompletedLabel.text = "(\(userCompletedTasks))"
 		self.addSubview(taskCompletedLabel)
 	}

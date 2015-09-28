@@ -66,7 +66,7 @@ class ApplicantCell: UITableViewCell{
 		cellView.addSubview(name)
 		name.textColor = blackPrimary
 		name.textAlignment = NSTextAlignment.Left
-		name.font = UIFont(name: "Lato-Regular", size: kText15)
+		name.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		name.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(picture.snp_centerY).offset(-15)
 			make.left.equalTo(picture.snp_right).offset(15)
@@ -77,6 +77,10 @@ class ApplicantCell: UITableViewCell{
 		
 		ratingStarsView = RatingStars()
 		ratingStarsView.style = "dark"
+		ratingStarsView.starHeight = 15
+		ratingStarsView.starWidth = 15
+		ratingStarsView.starPadding = 5
+		ratingStarsView.textSize = kText15
 		cellView.addSubview(ratingStarsView)
 		ratingStarsView.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(name.snp_left)
@@ -93,7 +97,7 @@ class ApplicantCell: UITableViewCell{
 		moneyView.layer.cornerRadius = 3
 		cellView.addSubview(moneyView)
 		moneyView.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(ratingStarsView.snp_right).offset(20)
+			make.left.equalTo(ratingStarsView.snp_right).offset(28)
 			make.centerY.equalTo(ratingStarsView.snp_centerY)
 			make.height.equalTo(35)
 			make.width.equalTo(55)
@@ -120,7 +124,7 @@ class ApplicantCell: UITableViewCell{
 		arrow.alpha = 0.2
 		arrow.contentMode = UIViewContentMode.ScaleAspectFill
 		arrow.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(cellView.snp_right).offset(-20)
+			make.right.equalTo(cellView.snp_right).offset(-18)
 			make.centerY.equalTo(cellView.snp_centerY)
 			make.height.equalTo(25)
 			make.width.equalTo(15)

@@ -58,6 +58,8 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		self.topContainer = topContainer
 		self.topContainer.clipsToBounds = true
 		self.topContainer.layer.masksToBounds = true
+		topContainer.layer.borderWidth = 1
+		topContainer.layer.borderColor = grayDetails.CGColor
 		cellView.addSubview(topContainer)
 		topContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cellView.snp_top)
@@ -66,6 +68,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			make.height.equalTo(85)
 		}
 		topContainer.backgroundColor = whitePrimary
+		
 		let blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
 		let blurView = UIVisualEffectView(effect: blur)
 		blurView.alpha = 0.98
@@ -73,6 +76,14 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		blurView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(topContainer.snp_edges)
 		}
+		
+		let topContainerDarkBox = UIView()
+		topContainer.addSubview(topContainerDarkBox)
+		topContainerDarkBox.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(topContainer.snp_edges)
+		}
+		topContainerDarkBox.backgroundColor = blackPrimary
+		topContainerDarkBox.alpha = 0.15
 		
 		//Category Icon
 		let categoryIcon = UIImageView()

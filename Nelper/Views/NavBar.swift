@@ -44,14 +44,14 @@ class NavBar: UINavigationBar {
 				self.closeButtonView?.removeFromSuperview()
 				self.closeButtonView = value
 				self.closeButtonView?.setImage(UIImage(named: "white-x"), forState: UIControlState.Normal)
-				self.closeButtonView?.imageEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20)
+				self.closeButtonView?.imageEdgeInsets = UIEdgeInsetsMake(25, 20, 25, 30)
 				self.container.addSubview(self.closeButtonView!)
 				
 				self.closeButtonView?.snp_makeConstraints(closure: { (make) -> Void in
 					make.left.equalTo(self.container.snp_left)
 					make.centerY.equalTo(self.container.snp_centerY).offset(8)
-					make.height.equalTo(60)
-					make.width.equalTo(60)
+					make.height.equalTo(70)
+					make.width.equalTo(70)
 				})
 			}
 		}

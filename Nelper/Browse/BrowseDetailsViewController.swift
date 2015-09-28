@@ -76,7 +76,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.top.equalTo(navBar.snp_bottom)
 			make.left.equalTo(self.containerView.snp_left)
 			make.right.equalTo(self.containerView.snp_right)
-			make.bottom.equalTo(self.containerView.snp_bottom)
+			make.bottom.equalTo(self.containerView.snp_bottom).offset(1)
 		}
 		
 		let scrollView = UIScrollView()

@@ -14,6 +14,9 @@ class PrimaryActionButton: UIButton {
 	private var buttonColor = redPrimary
 	private var buttonLabelColor = whitePrimary
 	
+	var height = 40
+	var width = 220
+	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		createView()
@@ -30,8 +33,8 @@ class PrimaryActionButton: UIButton {
 		self.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.setTitleColor(buttonLabelColor, forState: UIControlState.Normal)
 		self.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(40)
-			make.width.equalTo(220)
+			make.height.equalTo(height)
+			make.width.equalTo(width)
 		}
 	}
 }
@@ -42,6 +45,9 @@ class SecondaryActionButton: UIButton {
 	private var buttonBorderColor = darkGrayDetails
 	private var buttonBorderWidth: CGFloat = 0.5
 	private var buttonLabelColor = darkGrayDetails
+	
+	var height = 40
+	var width = 220
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -61,8 +67,8 @@ class SecondaryActionButton: UIButton {
 		self.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.setTitleColor(buttonLabelColor, forState: UIControlState.Normal)
 		self.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(40)
-			make.width.equalTo(220)
+			make.height.equalTo(height)
+			make.width.equalTo(width)
 		}
 	}
 }

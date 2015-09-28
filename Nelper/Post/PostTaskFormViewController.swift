@@ -119,10 +119,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		headerPicture.image = UIImage(named: "square_\(self.task.category!)")
 		headerPicture.contentMode = UIViewContentMode.ScaleAspectFill
 		headerPicture.clipsToBounds = true
+		headerPicture.layer.borderWidth = 1
+		headerPicture.layer.borderColor = grayDetails.CGColor
 		headerPicture.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(contentView.snp_top)
-			make.left.equalTo(contentView.snp_left)
-			make.right.equalTo(contentView.snp_right)
+			make.top.equalTo(contentView.snp_top).offset(-1)
+			make.left.equalTo(contentView.snp_left).offset(-1)
+			make.right.equalTo(contentView.snp_right).offset(1)
 			make.height.equalTo(100)
 		}
 		
@@ -132,6 +134,14 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		blurView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(headerPicture.snp_edges)
 		}
+		
+		let topContainerDarkBox = UIView()
+		headerPicture.addSubview(topContainerDarkBox)
+		topContainerDarkBox.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(headerPicture.snp_edges)
+		}
+		topContainerDarkBox.backgroundColor = blackPrimary
+		topContainerDarkBox.alpha = 0.15
 		
 		let headerPictureLogo = UIImageView()
 		headerPicture.addSubview(headerPictureLogo)
@@ -143,12 +153,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		}
 		
 		let taskFormContainer = UIView()
-		taskFormContainer.layer.borderWidth = 0.5
-		taskFormContainer.layer.borderColor = darkGrayDetails.CGColor
+		taskFormContainer.layer.borderWidth = 1
+		taskFormContainer.layer.borderColor = grayDetails.CGColor
 		self.contentView.addSubview(taskFormContainer)
 		taskFormContainer.backgroundColor = whitePrimary
 		taskFormContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(headerPicture.snp_bottom).offset(10)
+			make.top.equalTo(headerPicture.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
 		}
@@ -163,7 +173,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		taskTitleLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		
 		taskTitleLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(headerPicture.snp_bottom).offset(20)
+			make.top.equalTo(taskFormContainer.snp_top).offset(15)
 			make.left.equalTo(contentView.snp_left).offset(contentInset)
 		}
 		let taskTitleTextField = UITextField()
@@ -372,10 +382,10 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let picturesContainer = UIView()
 		picturesContainer.backgroundColor = whitePrimary
 		contentView.addSubview(picturesContainer)
-		picturesContainer.layer.borderColor = darkGrayDetails.CGColor
-		picturesContainer.layer.borderWidth = 0.5
+		picturesContainer.layer.borderColor = grayDetails.CGColor
+		picturesContainer.layer.borderWidth = 1
 		picturesContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskFormContainer.snp_bottom).offset(10)
+			make.top.equalTo(taskFormContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
 			make.height.equalTo(160)
@@ -508,7 +518,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	*/
 	func DismissKeyboard() {
 		view.endEditing(true)
-		if(self.autocompleteTableView.hidden == false){
+		if (self.autocompleteTableView.hidden == false) {
 			self.autocompleteTableView.hidden = true
 		}
 	}
@@ -523,7 +533,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	- parameter sender: Add Address Button
 	*/
-	func didTapAddLocation(sender:UIButton){
+	func didTapAddLocation(sender:UIButton) {
 		let nextVC = AddAddressViewController()
 		nextVC.delegate = self
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
