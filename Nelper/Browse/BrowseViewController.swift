@@ -66,10 +66,10 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.loadData()
 		self.extendedLayoutIncludesOpaqueBars = true
 	}
-
+	
 	override func viewDidAppear(animated: Bool) {
 		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
-				self.loadData()
+			self.loadData()
 		}
 	}
 	
@@ -96,12 +96,13 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		tableView.addSubview(refreshView)
 		
 		self.tableViewContainer.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.view).offset(-49)
+			make.bottom.equalTo(self.view.snp_bottom).offset(-49)
 		}
 		
 		tableView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.tableViewContainer.snp_edges)
 		}
+		
 		self.refreshView = refreshView
 		
 		//Filters
@@ -125,6 +126,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	
 	- returns: void
 	*/
+	
 	func initializeMapview(){
 		
 		self.locationManager.delegate = self;
@@ -150,10 +152,10 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			self.mapView.setRegion(locationToZoom, animated: true)
 			self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
 		}
+		
 		mapview.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(mapViewContainer.snp_edges)
 		}
-		
 	}
 	
 	//MARK: UI
@@ -164,15 +166,13 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.navBar.setTitle("Browse Tasks")
 	}
 	
-	func createPins(){
-		
+	func createPins() {
 		for task in self.nelpTasks {
 			let taskPin = MKPointAnnotation()
 			if(task.location != nil) {
 				let location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(task.location!.latitude, task.location!.longitude)
 				taskPin.coordinate = location
 				self.mapView.addAnnotation(taskPin)
-				
 			}
 		}
 	}
@@ -225,6 +225,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	- parameter minPrice:    Minimum Price Filter Value
 	- parameter maxDistance: Maximum Distance Filter Value
 	*/
+	
 	func loadDataWithFilters(filters:Array<String>?, sort:String?, minPrice:Double?, maxDistance:Double?){
 		ApiHelper.listNelpTasksWithBlock(filters, sortBy: sort,minPrice:minPrice, maxDistance:maxDistance, block: {(nelpTasks: [NelpTask]?, error: NSError?) -> Void in
 			if error != nil {
@@ -236,7 +237,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 				self.tableView?.reloadData()
 			}
 		})
-		
 	}
 	
 	//MARK: Table View Data Source and Delegate
@@ -255,7 +255,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		cell.setImages(nelpTask)
 		
 		return cell
-		
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -265,7 +264,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.presentViewController(vc, animated: false, completion: nil)
 	}
 	
-
+	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return 85
 	}
@@ -276,30 +275,30 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
 		CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: { (placemarks, error) -> Void in
-			if error != nil{
+			if error != nil {
 				print("Error:" + error!.localizedDescription)
 				return
 				//fuck
-			}else {
+				//shit
+			} else {
 				print("worked")
 			}
-			
 		})
 	}
 	
 	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		
-//		var userLocation: CLLocation = self.locationManager.location
-//		self.currentLocation = userLocation
-//		var userLocationForCenter = userLocation.coordinate
-//		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
-//		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
-//		self.mapView.setRegion(locationToZoom, animated: true)
-//		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
+		//		var userLocation: CLLocation = self.locationManager.location
+		//		self.currentLocation = userLocation
+		//		var userLocationForCenter = userLocation.coordinate
+		//		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+		//		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
+		//		self.mapView.setRegion(locationToZoom, animated: true)
+		//		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
 		
 		if self.currentLocation != nil{
-		LocationHelper.sharedInstance.currentLocation = PFGeoPoint(latitude:self.currentLocation!.coordinate.latitude, longitude:self.currentLocation!.coordinate.longitude)
-		LocationHelper.sharedInstance.currentCLLocation = CLLocationCoordinate2D(latitude: self.currentLocation!.coordinate.latitude, longitude: self.currentLocation!.coordinate.longitude)
+			LocationHelper.sharedInstance.currentLocation = PFGeoPoint(latitude:self.currentLocation!.coordinate.latitude, longitude:self.currentLocation!.coordinate.longitude)
+			LocationHelper.sharedInstance.currentCLLocation = CLLocationCoordinate2D(latitude: self.currentLocation!.coordinate.latitude, longitude: self.currentLocation!.coordinate.longitude)
 		}
 		
 	}
@@ -319,6 +318,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	- parameter minPrice:    Minimum Price Filter Value
 	- parameter maxDistance: Maximum Distance filter value
 	*/
+	
 	func didTapAddFilters(filters: Array<String>?, sort: String?, minPrice:Double?, maxDistance:Double?){
 		self.arrayOfFilters = filters!
 		self.sortBy = sort

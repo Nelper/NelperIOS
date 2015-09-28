@@ -24,6 +24,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	var cityLabel: UILabel!
 	var carousel: iCarousel!
 	var locationManager = CLLocationManager()
+	var taskImageContainer: UIView!
 	var carouselContainer: UIView!
 	var picture: UIImageView!
 	var taskContainer: UIView!
@@ -194,7 +195,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		let taskNameLabelUnderline = UIView()
 		taskContainer.addSubview(taskNameLabelUnderline)
-		taskNameLabelUnderline.backgroundColor = darkGrayDetails
+		taskNameLabelUnderline.backgroundColor = grayDetails
 		taskNameLabelUnderline.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskNameLabel.snp_bottom).offset(15)
 			make.centerX.equalTo(taskContainer.snp_centerX)
@@ -227,7 +228,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		let descriptionUnderline = UIView()
 		taskContainer.addSubview(descriptionUnderline)
-		descriptionUnderline.backgroundColor = darkGrayDetails
+		descriptionUnderline.backgroundColor = grayDetails
 		descriptionUnderline.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(descriptionTextView.snp_bottom).offset(10)
 			make.centerX.equalTo(taskContainer.snp_centerX)
@@ -243,8 +244,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		postDateLabel.textColor = blackPrimary
 		postDateLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		postDateLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(descriptionUnderline.snp_bottom).offset(25)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(25)
+			make.top.equalTo(descriptionUnderline.snp_bottom).offset(40)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(23)
 		}
 		
 		let postedIcon = UIImageView()
@@ -255,7 +256,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.height.equalTo(35)
 			make.width.equalTo(35)
 			make.centerY.equalTo(postDateLabel.snp_centerY)
-			make.right.equalTo(postDateLabel.snp_left).offset(-13)
+			make.right.equalTo(postDateLabel.snp_left).offset(-14)
 		}
 		
 		let cityLabel = UILabel()
@@ -265,8 +266,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		cityLabel.textColor = blackPrimary
 		cityLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		cityLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(postDateLabel.snp_bottom).offset(30)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(20)
+			make.top.equalTo(postDateLabel.snp_bottom).offset(40)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(17)
 		}
 		
 		let pinIcon = UIImageView()
@@ -280,43 +281,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.right.equalTo(cityLabel.snp_left).offset(-8)
 		}
 		
-		if self.task.pictures != nil {
-			if self.pictures!.count > 0 {
-				
-				let carousel = iCarousel()
-				self.carousel = carousel
-				self.carousel.delegate = self
-				self.carousel.clipsToBounds = true
-				self.carousel.type = .Linear
-				self.carousel.bounces = false
-				self.carousel.dataSource = self
-				
-				let carouselContainer = UIView()
-				self.carouselContainer = carouselContainer
-				taskContainer.addSubview(carouselContainer)
-				carouselContainer.backgroundColor = whitePrimary
-				carouselContainer.snp_makeConstraints { (make) -> Void in
-					make.top.equalTo(pinIcon.snp_bottom).offset(30)
-					make.centerX.equalTo(taskContainer.snp_centerX)
-					make.height.equalTo(300)
-					make.width.equalTo(300)
-				}
-				self.carouselContainer.addSubview(carousel)
-				self.carousel.snp_makeConstraints(closure: { (make) -> Void in
-					make.edges.equalTo(carouselContainer.snp_edges)
-				})
-				
-				taskContainer.snp_updateConstraints(closure: { (make) -> Void in
-					make.bottom.equalTo(carouselContainer.snp_bottom).offset(50)
-				})
-				
-			}} else {
-			
-			taskContainer.snp_updateConstraints { (make) -> Void in
-				make.bottom.equalTo(pinIcon.snp_bottom).offset(40)
-			}
-		}
-		
 		//Map Container
 		
 		let mapContainer = UIView()
@@ -325,10 +289,13 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		mapContainer.layer.borderWidth = 1
 		mapContainer.backgroundColor = whitePrimary
 		mapContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskContainer.snp_bottom).offset(-1)
+			make.top.equalTo(pinIcon.snp_bottom).offset(42)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
 			make.right.equalTo(self.contentView.snp_right).offset(1)
 			make.height.equalTo(250)
+		}
+		taskContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(mapContainer.snp_bottom)
 		}
 		
 		self.locationManager.delegate = self;
@@ -351,6 +318,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		mapView.delegate = self
 		mapView.scrollEnabled = false
 		mapView.zoomEnabled = false
+		mapView.userInteractionEnabled = false
 		mapContainer.addSubview(mapView)
 		mapView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(mapContainer.snp_edges)
@@ -365,16 +333,73 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		let circle = MKCircle(centerCoordinate: taskLocation, radius: 400)
 		mapView.addOverlay(circle)
 		
+		//Task Image Container
+		
+		let taskImageContainer = UIView()
+		self.taskImageContainer = taskImageContainer
+		contentView.addSubview(taskImageContainer)
+		
+		if self.task.pictures != nil {
+			if self.pictures!.count > 0 {
+				
+				taskImageContainer.backgroundColor = whitePrimary
+				taskImageContainer.layer.borderWidth = 1
+				taskImageContainer.layer.borderColor = grayDetails.CGColor
+				taskImageContainer.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(taskContainer.snp_bottom).offset(20)
+					make.left.equalTo(self.contentView.snp_left).offset(-1)
+					make.right.equalTo(self.contentView.snp_right).offset(1)
+				}
+				
+				let carousel = iCarousel()
+				self.carousel = carousel
+				self.carousel.delegate = self
+				self.carousel.clipsToBounds = true
+				self.carousel.type = .Linear
+				self.carousel.bounces = false
+				self.carousel.dataSource = self
+				
+				let carouselContainer = UIView()
+				self.carouselContainer = carouselContainer
+				taskImageContainer.addSubview(carouselContainer)
+				carouselContainer.backgroundColor = whitePrimary
+				carouselContainer.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(taskImageContainer.snp_top).offset(20)
+					make.centerX.equalTo(taskImageContainer.snp_centerX)
+					make.height.equalTo(300)
+					make.width.equalTo(self.contentView.snp_width)
+				}
+				
+				self.carouselContainer.addSubview(carousel)
+				self.carousel.snp_makeConstraints(closure: { (make) -> Void in
+					make.edges.equalTo(carouselContainer.snp_edges)
+				})
+				
+				taskImageContainer.snp_updateConstraints(closure: { (make) -> Void in
+					make.bottom.equalTo(carouselContainer.snp_bottom).offset(20)
+				})
+				
+			}} else {
+
+			taskImageContainer.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(taskContainer.snp_bottom)
+				make.bottom.equalTo(taskContainer.snp_bottom)
+			}
+			
+		}
+		
+		//Offer Container
+		
 		let offerContainer = UIView()
 		contentView.addSubview(offerContainer)
 		offerContainer.backgroundColor = whiteBackground
 		offerContainer.layer.borderColor = grayDetails.CGColor
 		offerContainer.layer.borderWidth = 1
 		offerContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(mapView.snp_bottom).offset(20)
+			make.top.equalTo(taskImageContainer.snp_bottom).offset(20)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
 			make.right.equalTo(self.contentView.snp_right).offset(1)
-			make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
+			make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
 		}
 		
 		let offerLabelContainer = UIView()
@@ -385,7 +410,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		let posterNameOffer = UILabel()
 		offerLabelContainer.addSubview(posterNameOffer)
 		posterNameOffer.textColor = darkGrayDetails
-		posterNameOffer.font = UIFont(name: "Lato-Regular", size: kText14)
+		posterNameOffer.font = UIFont(name: "Lato-Regular", size: kText15)
 		posterNameOffer.text = "\(self.task.user.name) is offering"
 		posterNameOffer.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(offerLabelContainer.snp_left)
@@ -407,7 +432,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.left.equalTo(posterNameOffer.snp_left)
 			make.right.equalTo(moneyTagPoster.snp_right)
 			make.centerX.equalTo(offerContainer.snp_centerX)
-			
 		}
 		
 		let moneyLabelPoster = UILabel()
@@ -422,7 +446,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		let taskPosterOfferUnderline = UIView()
 		offerContainer.addSubview(taskPosterOfferUnderline)
-		taskPosterOfferUnderline.backgroundColor = darkGrayDetails
+		taskPosterOfferUnderline.backgroundColor = grayDetails
 		taskPosterOfferUnderline.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(posterNameOffer.snp_bottom).offset(30)
 			make.centerX.equalTo(offerContainer.snp_centerX)
@@ -464,7 +488,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.height.equalTo(30)
 			make.width.equalTo(60)
 			make.centerY.equalTo(myOfferValueLabel.snp_centerY)
-			make.left.equalTo(myOfferValueLabel.snp_right).offset(15)
+			make.left.equalTo(myOfferValueLabel.snp_right).offset(26)
 		}
 		
 		myOfferValueLabel.text = "$\(Int(self.myOfferStepper.value))"
@@ -472,6 +496,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		//Apply Button
 		
 		let applyButton = PrimaryActionButton()
+		self.applyButton = applyButton
 		offerContainer.addSubview(applyButton)
 		applyButton.setTitle("Apply for $\(Int(self.task.priceOffered!))!", forState: UIControlState.Normal)
 		applyButton.addTarget(self, action: "applyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)

@@ -28,7 +28,7 @@ class RatingStars: UIView {
 		}
 	}
 	var userCompletedTasks = Int()
-
+	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		setRatingView()
@@ -38,7 +38,7 @@ class RatingStars: UIView {
 		super.init(coder: coder)!
 		setRatingView()
 	}
-
+	
 	
 	func setRatingView() {
 		for subview in self.subviews {
@@ -65,7 +65,7 @@ class RatingStars: UIView {
 			starImage.image = UIImage(named: styleImage)
 			
 			self.addSubview(starImage)
-
+			
 			if Double(index) >= round(userRating) {
 				starImage.alpha = 0.2
 			}

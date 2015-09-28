@@ -30,7 +30,7 @@ class ApplicantCell: UITableViewCell{
 	var delegate: ApplicantCellDelegate?
 	var index:Int!
 	var cellView:UIView!
-
+	
 	//MARK: Initialization
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -175,7 +175,7 @@ class ApplicantCell: UITableViewCell{
 		askingFor.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(moneyIcon)
 			make.left.equalTo(moneyIcon.snp_right).offset(4)
-
+			
 		}
 		
 		//Arrow
@@ -216,7 +216,7 @@ class ApplicantCell: UITableViewCell{
 	
 	//MARK: Setters
 	
-	func replaceArrowImage(){
+	func replaceArrowImage() {
 		self.rightButton.setBackgroundImage(UIImage(named: "revert"), forState: UIControlState.Normal)
 		self.rightButton.addTarget(self, action: "revertButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.rightButton.snp_updateConstraints{ (make) -> Void in
@@ -227,11 +227,11 @@ class ApplicantCell: UITableViewCell{
 		}
 	}
 	
-	func setFeedback(applicant:User){
-
+	func setFeedback(applicant:User) {
+		
 	}
 	
-	func setApplicant(applicant:User){
+	func setApplicant(applicant:User) {
 		self.applicant = applicant
 		self.setImages(applicant)
 		self.name.text = applicant.name
@@ -241,10 +241,10 @@ class ApplicantCell: UITableViewCell{
 	}
 	
 	
-	func setImages(applicant:User){
-		if(applicant.profilePictureURL != nil){
+	func setImages(applicant:User) {
+		if(applicant.profilePictureURL != nil) {
 			let fbProfilePicture = applicant.profilePictureURL
-			request(.GET,fbProfilePicture!).response(){
+			request(.GET,fbProfilePicture!).response() {
 				(_, _, data, _) in
 				let image = UIImage(data: data as NSData!)
 				self.picture.image = image
@@ -252,7 +252,7 @@ class ApplicantCell: UITableViewCell{
 		}
 	}
 	
-	func revertButtonTapped(sender:UIButton){
+	func revertButtonTapped(sender:UIButton) {
 		self.delegate!.didTapRevertButton(self.applicant)
 	}
 }
