@@ -15,21 +15,18 @@ protocol ApplicantCellDelegate{
 
 class ApplicantCell: UITableViewCell{
 	
-	var applicant:User!
-	var picture:UIImageView!
-	var name:UILabel!
-	var firstStar:UIImageView!
-	var secondStar:UIImageView!
-	var thirdStar:UIImageView!
-	var fourthStar:UIImageView!
-	var fifthStar:UIImageView!
-	var taskCompletedLabel:UILabel!
-	var askingForLabel:UILabel!
-	var rightButton:UIButton!
-	var revertButton:UIButton?
+	var applicant: User!
+	var picture: UIImageView!
+	var name: UILabel!
+	var completedTasks: Int!
+	var moneyLabel: UILabel!
+	var applicationPrice: Int!
+	var rightButton: UIButton!
+	var revertButton: UIButton?
 	var delegate: ApplicantCellDelegate?
-	var index:Int!
-	var cellView:UIView!
+	var index: Int!
+	var cellView: UIView!
+	var ratingStarsView: RatingStars!
 	
 	//MARK: Initialization
 	
@@ -55,7 +52,15 @@ class ApplicantCell: UITableViewCell{
 		
 		cellView.addSubview(picture)
 		
+		picture.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(cellView.snp_left).offset(16)
+			make.centerY.equalTo(cellView.snp_centerY)
+			make.width.equalTo(pictureSize)
+			make.height.equalTo(pictureSize)
+		}
+		
 		//Name Label
+		
 		let name = UILabel()
 		self.name = name
 		cellView.addSubview(name)
@@ -63,119 +68,48 @@ class ApplicantCell: UITableViewCell{
 		name.textAlignment = NSTextAlignment.Left
 		name.font = UIFont(name: "Lato-Regular", size: kText15)
 		name.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(cellView.snp_top).offset(2)
-			make.left.equalTo(picture.snp_left).offset(16)
+			make.centerY.equalTo(picture.snp_centerY).offset(-15)
+			make.left.equalTo(picture.snp_right).offset(15)
 			make.right.equalTo(cellView.snp_right).offset(-10)
 		}
 		
-		picture.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(cellView.snp_left).offset(16)
-			make.top.equalTo(name.snp_bottom).offset(8)
-			make.width.equalTo(pictureSize)
-			make.height.equalTo(pictureSize)
+		//Rating
+		
+		ratingStarsView = RatingStars()
+		ratingStarsView.style = "dark"
+		cellView.addSubview(ratingStarsView)
+		ratingStarsView.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(name.snp_left)
+			make.centerY.equalTo(picture.snp_centerY).offset(15)
+			make.width.equalTo((ratingStarsView.starWidth + ratingStarsView.starPadding) * 6)
+			make.height.equalTo(ratingStarsView.starHeight)
 		}
 		
-		//FeedBack Stars
+		//Money View
 		
-		let firstStar = UIImageView()
-		self.firstStar = firstStar
-		cellView.addSubview(firstStar)
-		firstStar.contentMode = UIViewContentMode.ScaleAspectFill
-		firstStar.image = UIImage(named: "empty_star")
-		firstStar.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(picture.snp_right).offset(10)
-			make.top.equalTo(picture.snp_top).offset(4)
-			make.height.equalTo(20)
-			make.width.equalTo(20)
+		let moneyView = UIView()
+		moneyView.contentMode = UIViewContentMode.ScaleAspectFill
+		moneyView.backgroundColor = whiteBackground
+		moneyView.layer.cornerRadius = 3
+		cellView.addSubview(moneyView)
+		moneyView.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(ratingStarsView.snp_right).offset(20)
+			make.centerY.equalTo(ratingStarsView.snp_centerY)
+			make.height.equalTo(35)
+			make.width.equalTo(55)
 		}
 		
-		let secondStar = UIImageView()
-		self.secondStar = secondStar
-		cellView.addSubview(secondStar)
-		secondStar.contentMode = UIViewContentMode.ScaleAspectFill
-		secondStar.image = UIImage(named: "empty_star")
-		secondStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(firstStar.snp_bottom)
-			make.left.equalTo(firstStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
+		//Money Label
 		
-		let thirdStar = UIImageView()
-		self.thirdStar = thirdStar
-		cellView.addSubview(thirdStar)
-		thirdStar.contentMode = UIViewContentMode.ScaleAspectFill
-		thirdStar.image = UIImage(named: "empty_star")
-		thirdStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(secondStar.snp_bottom)
-			make.left.equalTo(secondStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
-		
-		let fourthStar = UIImageView()
-		self.fourthStar = fourthStar
-		cellView.addSubview(fourthStar)
-		fourthStar.contentMode = UIViewContentMode.ScaleAspectFill
-		fourthStar.image = UIImage(named: "empty_star")
-		fourthStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(thirdStar.snp_bottom)
-			make.left.equalTo(thirdStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
-		
-		let fifthStar = UIImageView()
-		self.fifthStar = fifthStar
-		cellView.addSubview(fifthStar)
-		fifthStar.contentMode = UIViewContentMode.ScaleAspectFill
-		fifthStar.image = UIImage(named: "empty_star")
-		fifthStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(fourthStar.snp_bottom)
-			make.left.equalTo(fourthStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
-		
-		//Task Completed field
-		
-		let taskCompleted = UILabel()
-		cellView.addSubview(taskCompleted)
-		self.taskCompletedLabel = taskCompleted
-		taskCompleted.textColor = blackPrimary
-		taskCompleted.font = UIFont(name: "Lato-Regular", size: kText13)
-		taskCompleted.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(firstStar.snp_left)
-			make.top.equalTo(firstStar.snp_bottom).offset(4)
-			make.right.equalTo(cellView.snp_right).offset(-10)
-		}
-		
-		//Offer
-		
-		//money icon
-		
-		let moneyIcon = UIImageView()
-		moneyIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		moneyIcon.image = UIImage(named: "money_icon.png")
-		cellView.addSubview(moneyIcon)
-		moneyIcon.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(firstStar.snp_left)
-			make.top.equalTo(taskCompleted.snp_bottom).offset(4)
-			make.height.equalTo(40)
-			make.width.equalTo(40)
-		}
-		
-		//Asking for label
-		
-		let askingFor = UILabel()
-		self.askingForLabel = askingFor
-		cellView.addSubview(askingFor)
-		askingFor.textColor = blackPrimary
-		askingFor.font = UIFont(name: "Lato-Regular", size: kText13)
-		askingFor.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(moneyIcon)
-			make.left.equalTo(moneyIcon.snp_right).offset(4)
-			
+		let moneyLabel = UILabel()
+		self.moneyLabel = moneyLabel
+		moneyView.addSubview(moneyLabel)
+		moneyLabel.textAlignment = NSTextAlignment.Center
+		moneyLabel.textColor = blackPrimary
+		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
+		moneyLabel.text = "$offer"
+		moneyLabel.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(moneyView.snp_edges)
 		}
 		
 		//Arrow
@@ -184,12 +118,23 @@ class ApplicantCell: UITableViewCell{
 		self.rightButton = arrow
 		cellView.addSubview(arrow)
 		arrow.setBackgroundImage(UIImage(named: "arrow_applicant_cell.png"), forState: UIControlState.Normal)
+		arrow.alpha = 0.2
 		arrow.contentMode = UIViewContentMode.ScaleAspectFill
 		arrow.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(cellView.snp_right).offset(-4)
+			make.right.equalTo(cellView.snp_right).offset(-20)
 			make.centerY.equalTo(cellView.snp_centerY)
-			make.height.equalTo(35)
-			make.width.equalTo(20)
+			make.height.equalTo(25)
+			make.width.equalTo(15)
+		}
+		
+		let separatorLine = UIView()
+		cellView.addSubview(separatorLine)
+		separatorLine.backgroundColor = grayDetails
+		separatorLine.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(cellView.snp_right)
+			make.left.equalTo(cellView.snp_left)
+			make.bottom.equalTo(cellView.snp_bottom)
+			make.height.equalTo(0.5)
 		}
 		
 		self.addSubview(cellView)
@@ -227,19 +172,13 @@ class ApplicantCell: UITableViewCell{
 		}
 	}
 	
-	func setFeedback(applicant:User) {
-		
-	}
-	
-	func setApplicant(applicant:User) {
+	func setApplicant(applicant: User) {
 		self.applicant = applicant
 		self.setImages(applicant)
 		self.name.text = applicant.name
-		self.taskCompletedLabel.text = "8 tasks completed"
-		self.setFeedback(applicant)
-		self.askingForLabel.text = "Asking 100$"
+		self.ratingStarsView.userCompletedTasks = applicant.completedTasks
+		self.ratingStarsView.userRating = applicant.rating
 	}
-	
 	
 	func setImages(applicant:User) {
 		if(applicant.profilePictureURL != nil) {

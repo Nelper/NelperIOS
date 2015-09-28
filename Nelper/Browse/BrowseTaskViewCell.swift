@@ -29,8 +29,6 @@ class BrowseTaskViewCell: UITableViewCell {
 		
 		self.clipsToBounds = true
 		
-		
-		
 		let cellView = UIView(frame: self.bounds)
 		cellView.backgroundColor = whitePrimary
 		cellView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];

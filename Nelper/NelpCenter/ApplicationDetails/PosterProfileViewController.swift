@@ -170,15 +170,16 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.top.equalTo(segmentControllerView.snp_bottom)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
-			make.bottom.equalTo(self.view.snp_bottom)
+			make.bottom.equalTo(self.contentView.snp_bottom)
 		}
 		
 		let scrollView = UIScrollView()
 		self.scrollView = scrollView
-		self.view.addSubview(scrollView)
+		self.contentView.addSubview(scrollView)
 		scrollView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(background.snp_edges)
 		}
+		
 		scrollView.backgroundColor = whiteBackground
 		
 		let containerView = UIView()

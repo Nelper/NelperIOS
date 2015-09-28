@@ -488,7 +488,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.height.equalTo(30)
 			make.width.equalTo(60)
 			make.centerY.equalTo(myOfferValueLabel.snp_centerY)
-			make.left.equalTo(myOfferValueLabel.snp_right).offset(26)
+			make.left.equalTo(myOfferValueLabel.snp_right).offset(28)
 		}
 		
 		myOfferValueLabel.text = "$\(Int(self.myOfferStepper.value))"
