@@ -68,7 +68,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		//Status Header
 		let statusContainer = UIView()
 		self.statusContainer = statusContainer
-		self.statusContainer.layer.borderColor = darkGrayDetails.CGColor
+		self.statusContainer.layer.borderColor = grayDetails.CGColor
 		self.statusContainer.layer.borderWidth = 0.5
 		self.containerView.addSubview(statusContainer)
 		statusContainer.snp_makeConstraints { (make) -> Void in
@@ -172,7 +172,6 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			make.centerY.equalTo(yourOfferLabel.snp_centerY)
 			make.left.equalTo(appliedXDaysAgoLabel.snp_left)
 			make.right.equalTo(calendarIcon.snp_right)
-			make.height.equalTo(150)
 		}
 		
 		
@@ -376,11 +375,11 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		let cityLabel = UILabel()
 		taskContainer.addSubview(cityLabel)
 		self.cityLabel = cityLabel
+		cityLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		cityLabel.text = self.application.task.city!
 		cityLabel.textColor = blackPrimary
-		cityLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		cityLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(postDateLabel.snp_bottom).offset(40)
+			make.top.equalTo(postedIcon.snp_bottom).offset(30)
 			make.centerX.equalTo(taskContainer.snp_centerX).offset(17)
 		}
 		
