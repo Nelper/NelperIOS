@@ -700,7 +700,8 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		self.scrollView.contentSize = self.contentView.frame.size
+		let contentSize = CGRectMake(0, 0, self.contentView.frame.width, self.contentView.frame.height + 20)
+		self.scrollView.contentSize = contentSize.size
 		
 		let maskPath = UIBezierPath(roundedRect: chatButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))
 		let maskLayer = CAShapeLayer()

@@ -653,7 +653,8 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		self.scrollView.contentSize = self.containerView.frame.size
+		let contentSize = CGRectMake(0, 0, self.containerView.frame.width, self.containerView.frame.height + 20)
+		self.scrollView.contentSize = contentSize.size
 		
 		if self.chatButton != nil {
 		let maskPath = UIBezierPath(roundedRect: chatButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))

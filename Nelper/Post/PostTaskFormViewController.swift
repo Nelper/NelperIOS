@@ -518,9 +518,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	*/
 	func DismissKeyboard() {
 		view.endEditing(true)
-		if (self.autocompleteTableView.hidden == false) {
-			self.autocompleteTableView.hidden = true
-		}
 	}
 	
 	func backButtonTapped(sender: UIButton) {
@@ -540,6 +537,10 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.providesPresentationContextTransitionStyle = true
 		nextVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
 		self.presentViewController(nextVC, animated: true, completion: nil)
+	}
+	
+	func didTapDeleteAddress(sender:UIButton){
+		
 	}
 	
 	/**
