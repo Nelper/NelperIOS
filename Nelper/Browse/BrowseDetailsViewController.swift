@@ -392,7 +392,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		let offerContainer = UIView()
 		contentView.addSubview(offerContainer)
-		offerContainer.backgroundColor = whiteBackground
 		offerContainer.layer.borderColor = grayDetails.CGColor
 		offerContainer.layer.borderWidth = 1
 		offerContainer.snp_makeConstraints { (make) -> Void in
@@ -404,7 +403,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		let offerLabelContainer = UIView()
 		offerContainer.addSubview(offerLabelContainer)
-		offerContainer.backgroundColor = whitePrimary
 		offerLabelContainer.sizeToFit()
 		
 		let posterNameOffer = UILabel()

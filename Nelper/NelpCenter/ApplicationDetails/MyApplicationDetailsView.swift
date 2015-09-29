@@ -222,20 +222,20 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		let profileTapAction = UITapGestureRecognizer(target: self, action: "didTapProfile:")
 		profileContainer.addGestureRecognizer(profileTapAction)
 	  contentView.addSubview(profileContainer)
-		profileContainer.layer.borderColor = darkGrayDetails.CGColor
-		profileContainer.layer.borderWidth = 0.5
+		profileContainer.layer.borderColor = grayDetails.CGColor
+		profileContainer.layer.borderWidth = 1
 		profileContainer.backgroundColor = whitePrimary
 		profileContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.contentView.snp_top).offset(10)
+			make.top.equalTo(self.contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
-			make.height.equalTo(130)
+			make.height.equalTo(100)
 		}
 		
 		let profilePicture = UIImageView()
 		profileContainer.addSubview(profilePicture)
 		self.picture = profilePicture
-		let pictureSize:CGFloat = 100
+		let pictureSize:CGFloat = 80
 		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
 		profilePicture.layer.cornerRadius = pictureSize / 2
 		profilePicture.clipsToBounds = true
@@ -250,18 +250,19 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		profileContainer.addSubview(nameLabel)
 		nameLabel.text = self.poster.name!
 		nameLabel.textColor = blackPrimary
-		nameLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		nameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		nameLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(profilePicture.snp_centerY)
-			make.left.equalTo(profilePicture.snp_right).offset(6)
+			make.left.equalTo(profilePicture.snp_right).offset(15)
 		}
 		
 		let arrow = UIButton()
 		profileContainer.addSubview(arrow)
 		arrow.setBackgroundImage(UIImage(named: "arrow_applicant_cell.png"), forState: UIControlState.Normal)
 		arrow.contentMode = UIViewContentMode.ScaleAspectFill
+		arrow.alpha = 0.3
 		arrow.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(profileContainer.snp_right).offset(-4)
+			make.right.equalTo(profileContainer.snp_right).offset(-20)
 			make.centerY.equalTo(profileContainer.snp_centerY)
 			make.height.equalTo(35)
 			make.width.equalTo(20)
@@ -271,14 +272,13 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		
 		let taskContainer = UIView()
 		self.contentView.addSubview(taskContainer)
-		taskContainer.layer.borderWidth = 0.5
-		taskContainer.layer.borderColor = darkGrayDetails.CGColor
+		taskContainer.layer.borderWidth = 1
+		taskContainer.layer.borderColor = grayDetails.CGColor
 		taskContainer.backgroundColor = whitePrimary
 		taskContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileContainer.snp_bottom).offset(10)
+			make.top.equalTo(profileContainer.snp_bottom).offset(20)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
 			make.right.equalTo(self.contentView.snp_right).offset(1)
-			make.height.equalTo(370)
 		}
 		
 		let categoryIcon = UIImageView()
@@ -289,7 +289,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		categoryIcon.layer.cornerRadius = categoryIconSize / 2
 		categoryIcon.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(taskContainer.snp_centerX)
-			make.top.equalTo(taskContainer.snp_top).offset(10)
+			make.top.equalTo(taskContainer.snp_top).offset(14)
 			make.height.equalTo(categoryIconSize)
 			make.width.equalTo(categoryIconSize)
 		}
@@ -299,7 +299,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		taskNameLabel.text = self.application.task.title
 		taskNameLabel.textAlignment = NSTextAlignment.Center
 		taskNameLabel.textColor = blackPrimary
-		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		taskNameLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(categoryIcon.snp_bottom).offset(14)
 			make.centerX.equalTo(taskContainer.snp_centerX)
@@ -309,9 +309,9 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		
 		let taskNameLabelUnderline = UIView()
 		taskContainer.addSubview(taskNameLabelUnderline)
-		taskNameLabelUnderline.backgroundColor = darkGrayDetails
+		taskNameLabelUnderline.backgroundColor = grayDetails
 		taskNameLabelUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskNameLabel.snp_bottom).offset(10)
+			make.top.equalTo(taskNameLabel.snp_bottom).offset(15)
 			make.centerX.equalTo(taskContainer.snp_centerX)
 			make.width.equalTo(taskContainer.snp_width).dividedBy(1.4)
 			make.height.equalTo(0.5)
@@ -342,23 +342,12 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		
 		let descriptionUnderline = UIView()
 		taskContainer.addSubview(descriptionUnderline)
-		descriptionUnderline.backgroundColor = darkGrayDetails
+		descriptionUnderline.backgroundColor = grayDetails
 		descriptionUnderline.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(descriptionTextView.snp_bottom).offset(10)
 			make.centerX.equalTo(taskContainer.snp_centerX)
 			make.width.equalTo(taskContainer.snp_width).dividedBy(1.4)
 			make.height.equalTo(0.5)
-		}
-		
-		let postedIcon = UIImageView()
-		taskContainer.addSubview(postedIcon)
-		postedIcon.image = UIImage(named:"calendar")
-		postedIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		postedIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(35)
-			make.width.equalTo(35)
-			make.top.equalTo(descriptionUnderline.snp_bottom).offset(16)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(-70)
 		}
 		
 		let postDateLabel = UILabel()
@@ -369,19 +358,19 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		postDateLabel.textColor = blackPrimary
 		postDateLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		postDateLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(postedIcon.snp_centerY)
-			make.left.equalTo(postedIcon.snp_right).offset(4)
+			make.top.equalTo(descriptionUnderline.snp_bottom).offset(40)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(23)
 		}
 		
-		let pinIcon = UIImageView()
-		taskContainer.addSubview(pinIcon)
-		pinIcon.image = UIImage(named: "pin")
-		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		pinIcon.snp_makeConstraints { (make) -> Void in
+		let postedIcon = UIImageView()
+		taskContainer.addSubview(postedIcon)
+		postedIcon.image = UIImage(named:"calendar")
+		postedIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		postedIcon.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(35)
 			make.width.equalTo(35)
-			make.top.equalTo(postedIcon.snp_bottom).offset(15)
-			make.centerX.equalTo(postedIcon.snp_centerX)
+			make.centerY.equalTo(postDateLabel.snp_centerY)
+			make.right.equalTo(postDateLabel.snp_left).offset(-14)
 		}
 		
 		let cityLabel = UILabel()
@@ -391,12 +380,27 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		cityLabel.textColor = blackPrimary
 		cityLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		cityLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(pinIcon.snp_centerY)
-			make.left.equalTo(pinIcon.snp_right).offset(4)
+			make.top.equalTo(postDateLabel.snp_bottom).offset(40)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(17)
 		}
 		
+		let pinIcon = UIImageView()
+		taskContainer.addSubview(pinIcon)
+		pinIcon.image = UIImage(named: "pin")
+		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		pinIcon.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(35)
+			make.width.equalTo(35)
+			make.centerY.equalTo(cityLabel.snp_centerY)
+			make.right.equalTo(cityLabel.snp_left).offset(-8)
+		}
+		
+		let offerLabelContainer = UIView()
+		taskContainer.addSubview(offerLabelContainer)
+		offerLabelContainer.sizeToFit()
+		
 		let taskPosterOffer = UILabel()
-		taskContainer.addSubview(taskPosterOffer)
+		offerLabelContainer.addSubview(taskPosterOffer)
 		taskPosterOffer.text = "Task poster is offering"
 		taskPosterOffer.textColor = darkGrayDetails
 		taskPosterOffer.font = UIFont(name: "Lato-Regular", size: kText14)
@@ -406,11 +410,11 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		}
 		
 		let moneyTagPoster = UIImageView()
-		taskContainer.addSubview(moneyTagPoster)
+		offerLabelContainer.addSubview(moneyTagPoster)
 		moneyTagPoster.image = UIImage(named: "moneytag")
 		moneyTagPoster.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(taskPosterOffer.snp_centerY)
-			make.left.equalTo(taskPosterOffer.snp_right).offset(4)
+			make.left.equalTo(taskPosterOffer.snp_right).offset(12)
 			make.width.equalTo(60)
 			make.height.equalTo(25)
 		}
@@ -419,12 +423,18 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		moneyTagPoster.addSubview(moneyLabelPoster)
 		moneyLabelPoster.textAlignment = NSTextAlignment.Center
 		moneyLabelPoster.text = "$\(Int(self.application.task.priceOffered!))"
-		moneyLabelPoster.textColor = whiteBackground
+		moneyLabelPoster.textColor = whitePrimary
 		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kText15)
 		moneyLabelPoster.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTagPoster.snp_edges)
 		}
 		
+		offerLabelContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(pinIcon.snp_bottom).offset(60)
+			make.left.equalTo(taskPosterOffer.snp_left)
+			make.right.equalTo(moneyTagPoster.snp_right)
+			make.centerX.equalTo(taskContainer.snp_centerX)
+		}
 		
 		let locationNoticeLabel = UILabel()
 		taskContainer.addSubview(locationNoticeLabel)
@@ -433,7 +443,11 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		locationNoticeLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.view.snp_left).offset(2)
-			make.bottom.equalTo(taskContainer.snp_bottom).offset(-2)
+			make.top.equalTo(offerLabelContainer.snp_bottom).offset(15)
+		}
+		
+		taskContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(locationNoticeLabel.snp_bottom).offset(1)
 		}
 		
 		//Map Container
