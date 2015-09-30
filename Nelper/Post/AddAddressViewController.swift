@@ -145,6 +145,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		let addLocationButton = UIButton()
 		self.addLocationButton = addLocationButton
 		popupContainer.addSubview(addLocationButton)
+		addLocationButton.addTarget(self, action: "didTapAddLocationButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		addLocationButton.backgroundColor = redPrimary
 		addLocationButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
 		addLocationButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
@@ -204,8 +205,11 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 			let json = JSON(data.value!)
 			let res = json["result"]
 			
-			let latitude = res["geometry"]["location"]["lat"].doubleValue
-			let longitude = res["geometry"]["location"]["lng"].doubleValue
+			let latitude = res["geometry"]["location"]["lat"].stringValue
+			let longitude =  res["geometry"]["location"]["lng"].stringValue
+			
+			print(latitude)
+			print(longitude)
 			
 			let comps = res["address_components"]
 			self.address.streetNumber = self.getAddressComponent(comps, component: "street_number")["long_name"].string
@@ -216,9 +220,9 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 			self.address.postalCode = self.getAddressComponent(comps, component: "postal_code")["long_name"].string
 			self.address.formattedAddress = res["formatted_address"].string
 			
-			let point = GeoPoint(latitude:latitude, longitude:longitude)
-			self.address.coords = point
+			self.address.coords = ["latitude":latitude,"longitude":longitude]
 			
+			let point = GeoPoint(latitude:Double(latitude)!, longitude:Double(longitude)!)
 			self.location = point
 		}
 		self.autocompleteTableView.hidden = true
@@ -336,6 +340,12 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 			}
 		}
 		return nil
+	}
+	
+	func didTapAddLocationButton(sender:UIButton!){
+		self.address.name = self.nameTextField.text!
+		self.delegate?.didAddLocation(self)
+		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
 }

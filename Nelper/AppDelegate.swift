@@ -62,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		} else {
 			// Show the main app.
 			self.loginLayer()
+			ApiHelper.getCurrentUserPrivateInfo()
 			let tabVC = initAppViewController()
 			self.window?.rootViewController = tabVC
 		}

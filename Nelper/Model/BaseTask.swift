@@ -72,7 +72,7 @@ class BaseTask: BaseModel {
 				if(error != nil){
 					print(error)
 				}
-				var image = UIImage(data: data as NSData!)
+				let image = UIImage(data: data as NSData!)
 				arrayOfImages.append(image!)
 			}
 		}

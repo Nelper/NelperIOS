@@ -121,16 +121,8 @@ class ApiHelper {
 		user.save()
 	}
 	
-	static func getCurrentUserPrivateInfo(block:(AnyObject?, NSError?) -> Void){
-		let privateDataQuery = PFQuery(className: "User")
-		privateDataQuery.includeKey("privateData")
-		privateDataQuery.getObjectInBackgroundWithId((PFUser.currentUser()!.objectId!)) { (response, error) -> Void in
-			if error == nil{
-				block(response,nil)
-			}else{
-				block(nil,error)
-			}
-		}
+	static func getCurrentUserPrivateInfo(){
+		PFUser.currentUser()!["privateData"]!.fetch()
 	}
 	
 	/**

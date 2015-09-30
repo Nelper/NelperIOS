@@ -37,15 +37,33 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var priceStatus:UIImageView!
 	var deleteAddressButton:UIButton!
 	var addLocationButton:UIButton!
+	var savedLocations:Array<Location>?
+	var locations:Array<Dictionary<String,AnyObject>>!
 	
 	var delegate: PostTaskFormViewControllerDelegate?
-	
+		
 	//MARK: Initialization
 	
 	init(task: FindNelpTask){
 		super.init(nibName: nil, bundle: nil)
 		self.task = task
 		self.placesClient = GMSPlacesClient()
+		let locations = PFUser.currentUser()!["privateData"]!["locations"]! as! Array<Dictionary<String,AnyObject>>
+		self.locations = locations
+		if !locations.isEmpty {
+			var arrayOfLocations = Array<Location>()
+			for location in locations{
+				var oneLocation = Location()
+				oneLocation.formattedAddress = location["formattedAddress"]!.stringValue
+				oneLocation.name = location["name"]!.stringValue
+				print(oneLocation.name)
+				print(oneLocation.formattedAddress)
+				arrayOfLocations.append(oneLocation)
+			}
+			self.savedLocations = arrayOfLocations
+		}else{
+			self.savedLocations = Array<Location>()
+		}
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -497,8 +515,14 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	func didAddLocation(vc:AddAddressViewController){
+		self.task.location = vc.location!
+		self.locations.append(vc.address.createDictionary())
 		
-	}
+		PFUser.currentUser()!.setValue(self.locations, forKeyPath: "privateData.locations")
+		PFUser.currentUser()!.saveInBackground()
+		
+}
+
 	
 	//MARK: Actions
 	

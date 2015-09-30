@@ -227,6 +227,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func loginCompleted() {
+				ApiHelper.getCurrentUserPrivateInfo()
         delegate?.onLogin()
     }
 }
