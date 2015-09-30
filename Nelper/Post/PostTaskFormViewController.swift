@@ -16,7 +16,7 @@ protocol PostTaskFormViewControllerDelegate {
 	func dismiss()
 }
 
-class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate,AddAddressViewControllerDelegate {
+class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate,AddAddressViewControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource {
 	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	let imagePicker = UIImagePickerController()
@@ -39,7 +39,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var addLocationButton:UIButton!
 	var savedLocations:Array<Location>?
 	var locations:Array<Dictionary<String,AnyObject>>!
-	
+	var locationsPickerView:UIPickerView?
+	var streetAddressLabel:UILabel!
 	var delegate: PostTaskFormViewControllerDelegate?
 		
 	//MARK: Initialization
@@ -51,13 +52,15 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let locations = PFUser.currentUser()!["privateData"]!["locations"]! as! Array<Dictionary<String,AnyObject>>
 		self.locations = locations
 		if !locations.isEmpty {
+			print(locations)
 			var arrayOfLocations = Array<Location>()
 			for location in locations{
-				var oneLocation = Location()
-				oneLocation.formattedAddress = location["formattedAddress"]!.stringValue
-				oneLocation.name = location["name"]!.stringValue
-				print(oneLocation.name)
-				print(oneLocation.formattedAddress)
+				let oneLocation = Location()
+				oneLocation.formattedAddress = location["formattedAddress"] as? String
+				oneLocation.name = location["name"] as? String
+				oneLocation.city = location["city"] as? String
+				oneLocation.province = location["province"] as? String
+				oneLocation.coords = location["coords"] as? Dictionary<String,String>
 				arrayOfLocations.append(oneLocation)
 			}
 			self.savedLocations = arrayOfLocations
@@ -324,10 +327,24 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		taskFormContainer.addSubview(locationTextField)
 		self.locationTextField = locationTextField
 		self.locationTextField!.delegate = self
+		
 		locationTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
+		if !self.savedLocations!.isEmpty{
+			locationTextField.text = self.savedLocations!.first!.name!
+		}
+	
 		locationTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
 		locationTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		locationTextField.textColor = blackPrimary
+		locationTextField.delegate = self
+		
+		/// Picker view
+		
+		let locationsPickerView = UIPickerView()
+		self.locationsPickerView = locationsPickerView
+		locationsPickerView.delegate = self
+		
+		locationTextField.inputView = locationsPickerView
 		locationTextField.textAlignment = NSTextAlignment.Left
 		locationTextField.layer.cornerRadius = 3
 		locationTextField.layer.borderColor = grayDetails.CGColor
@@ -357,24 +374,18 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		}
 		
 		let streetAddressLabel = UILabel()
-		streetAddressLabel.text = "123 Temporaire"
+		self.streetAddressLabel = streetAddressLabel
+		streetAddressLabel.text = self.savedLocations?.first?.formattedAddress
 		taskFormContainer.addSubview(streetAddressLabel)
+		streetAddressLabel.numberOfLines = 0
 		streetAddressLabel.textColor = blackPrimary
 		streetAddressLabel.font = UIFont(name: "Lato-Light", size: kText15)
 		streetAddressLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(locationTextField.snp_bottom).offset(16)
 			make.left.equalTo(locationTextField.snp_left)
+			make.width.equalTo(200)
 		}
 		
-		let cityAddressLabel = UILabel()
-		cityAddressLabel.text = "Montreal"
-		taskFormContainer.addSubview(cityAddressLabel)
-		cityAddressLabel.textColor = blackPrimary
-		cityAddressLabel.font = UIFont(name: "Lato-Light", size: kText15)
-		cityAddressLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(streetAddressLabel.snp_bottom)
-			make.left.equalTo(streetAddressLabel.snp_left)
-		}
 		
 		let deleteAddressButton = UIButton()
 		taskFormContainer.addSubview(deleteAddressButton)
@@ -388,8 +399,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		deleteAddressButton.layer.borderColor = darkGrayDetails.CGColor
 		deleteAddressButton.backgroundColor = whitePrimary
 		deleteAddressButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(cityAddressLabel.snp_bottom).offset(16)
-			make.left.equalTo(cityAddressLabel.snp_left)
+			make.top.equalTo(streetAddressLabel.snp_bottom).offset(16)
+			make.left.equalTo(streetAddressLabel.snp_left)
 			make.height.equalTo(35)
 			make.width.equalTo(200)
 			make.bottom.equalTo(taskFormContainer.snp_bottom).offset(-16)
@@ -467,8 +478,62 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		}
 	}
 	
-	//MARK: Image Picker Delegate
+	//MARK: UIPicker Delegate and Datasource
 	
+	func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
+		return 1
+	}
+	
+	// returns the # of rows in each component..
+	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+		return (self.savedLocations?.count)!
+	}
+	
+	func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+		return self.savedLocations![row].name
+	}
+	
+	func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+	{
+		self.locationTextField!.text = self.savedLocations?[row].name
+		self.streetAddressLabel.text = self.savedLocations?[row].formattedAddress
+		
+		print(self.savedLocations![row].coords!["latitude"]!)
+		print(self.savedLocations![row].coords!["longitude"]!)
+		self.task.location = GeoPoint(latitude:Double(self.savedLocations![row].coords!["latitude"]!)!,longitude: Double(self.savedLocations![row].coords!["longitude"]!)!)
+		view.endEditing(true)
+	}
+	
+	
+	//MARK: Textfield Delegate
+	
+	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+		
+		if textField == self.locationTextField{
+		return textField != self.locationTextField
+		}else if textField == self.titleTextField{
+				
+				let textFieldRange:NSRange = NSMakeRange(0, textField.text!.characters.count)
+				
+				if NSEqualRanges(textFieldRange, range)	&& string.characters.count == 0{
+					self.titleStatus.image = UIImage(named: "denied")
+				}else{
+					self.titleStatus.image = UIImage(named: "accepted")
+				}
+		}else if textField == self.priceOffered{
+			let textFieldRange:NSRange = NSMakeRange(0, textField.text!.characters.count)
+			
+			if (NSEqualRanges(textFieldRange, range)	&& string.characters.count == 0){
+				self.priceStatus.image = UIImage(named: "denied")
+			}else{
+				self.priceStatus.image = UIImage(named: "accepted")
+			}
+		}
+		return true
+	}
+	
+	//MARK: Image Picker Delegate
+
 	/**
 	Allows the user to pick pictures in his library
 	
@@ -515,10 +580,16 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	func didAddLocation(vc:AddAddressViewController){
-		self.task.location = vc.location!
+		self.task.location = vc.location
 		self.locations.append(vc.address.createDictionary())
+		self.savedLocations?.append(vc.address)
+		self.locationsPickerView?.reloadAllComponents()
+		self.locationTextField?.text = vc.address.name
+		self.streetAddressLabel.text = vc.address.formattedAddress
+
+		PFUser.currentUser()!["privateData"]?.setValue(self.locations, forKey: "locations")
 		
-		PFUser.currentUser()!.setValue(self.locations, forKeyPath: "privateData.locations")
+		print(PFUser.currentUser()!["privateData"]!)
 		PFUser.currentUser()!.saveInBackground()
 		
 }
@@ -564,7 +635,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	func didTapDeleteAddress(sender:UIButton){
-		
+		self.savedLocations?.removeAtIndex(self.locationsPickerView!.selectedRowInComponent(0))
+		self.locationsPickerView?.reloadAllComponents()
 	}
 	
 	/**
