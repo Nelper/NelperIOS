@@ -167,13 +167,13 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		self.autocompleteTableView.hidden = true
 		self.autocompleteTableView.layer.borderColor = darkGrayDetails.CGColor
 		self.autocompleteTableView.layer.borderWidth = 0.5
-		self.autocompleteTableView.backgroundColor = whitePrimary
+		self.autocompleteTableView.backgroundColor = blackPrimary
 		
 		self.autocompleteTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(addressTextField.snp_bottom)
 			make.left.equalTo(addressTextField.snp_left)
 			make.right.equalTo(addressTextField.snp_right)
-			make.bottom.equalTo(self.view.snp_bottom)
+			make.height.equalTo(220)
 		}
 	}
 	
