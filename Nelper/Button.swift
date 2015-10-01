@@ -14,8 +14,17 @@ class PrimaryActionButton: UIButton {
 	private var buttonColor = redPrimary
 	private var buttonLabelColor = whitePrimary
 	
-	var height = 40
-	var width = 220
+	var height = 40 {
+		didSet {
+			createView()
+		}
+	}
+	
+	var width = 220 {
+		didSet {
+			createView()
+		}
+	}
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
