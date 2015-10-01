@@ -23,6 +23,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 	var popupContainer: UIView!
 	var tap: UITapGestureRecognizer!
 	var blurContainer:UIVisualEffectView!
+	var titleLabel: UILabel!
 	var addressTextField:UITextField!
 	var autocompleteTableView:UITableView!
 	var autocompleteArray = [GMSAutocompletePrediction]()
@@ -31,15 +32,22 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 	var location: GeoPoint?
 	var addLocationButton:UIButton!
 	var address = Location()
-	
+	var keyboardIsShowing: Bool! = false
 	
 	
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
 		self.placesClient = GMSPlacesClient()
 		self.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
+		
+		//keyboard move view
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+		
+		
 		self.createView()
 	}
 	
@@ -66,32 +74,30 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		
 		let popupContainer = UIView()
 		self.popupContainer = popupContainer
-		popupContainer.layer.borderColor = darkGrayDetails.CGColor
-		popupContainer.layer.borderWidth = 0.5
-		popupContainer.backgroundColor = whitePrimary
 		blurContainer.addSubview(popupContainer)
 		popupContainer.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(blurContainer.snp_left).offset(8)
 			make.right.equalTo(blurContainer.snp_right).offset(-8)
-			make.top.equalTo(self.view.snp_top).offset(40)
-			make.height.equalTo(300)
+			make.centerY.equalTo(self.view.snp_centerY)
+			//make.height.equalTo(300)
 		}
 		
-		let giveNameLabel = UILabel()
-		popupContainer.addSubview(giveNameLabel)
-		giveNameLabel.textColor = blackPrimary
-		giveNameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		giveNameLabel.text = "Enter a name for the address:"
-		giveNameLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(popupContainer.snp_top).offset(10)
-			make.left.equalTo(popupContainer.snp_left).offset(10)
+		let titleLabel = UILabel()
+		self.titleLabel = titleLabel
+		popupContainer.addSubview(titleLabel)
+		titleLabel.text	= "Add a location"
+		titleLabel.textColor = whitePrimary
+		titleLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		titleLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(popupContainer.snp_top)
+			make.centerX.equalTo(popupContainer.snp_centerX)
 		}
 		
 		let nameTextField = UITextField()
 		self.nameTextField = nameTextField
 		popupContainer.addSubview(nameTextField)
 		nameTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
-		nameTextField.attributedPlaceholder = NSAttributedString(string: "Home, Office...", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
+		nameTextField.attributedPlaceholder = NSAttributedString(string: "Name (home, office, etc.)", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
 		nameTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		nameTextField.textColor = blackPrimary
 		nameTextField.textAlignment = NSTextAlignment.Left
@@ -102,21 +108,10 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		nameTextField.leftView = paddingViewLocationName
 		nameTextField.leftViewMode = UITextFieldViewMode.Always
 		nameTextField.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(giveNameLabel.snp_bottom).offset(10)
+			make.top.equalTo(titleLabel.snp_bottom).offset(15)
 			make.left.equalTo(popupContainer.snp_left).offset(8)
 			make.right.equalTo(popupContainer.snp_right).offset(-8)
 			make.height.equalTo(50)
-		}
-		
-		
-		let enterAddressLabel = UILabel()
-		popupContainer.addSubview(enterAddressLabel)
-		enterAddressLabel.textColor = blackPrimary
-		enterAddressLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		enterAddressLabel.text = "Enter the address"
-		enterAddressLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(nameTextField.snp_bottom).offset(10)
-			make.left.equalTo(popupContainer.snp_left).offset(10)
 		}
 		
 		let addressTextField = UITextField()
@@ -126,6 +121,8 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		addressTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
 		addressTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
 		addressTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+		addressTextField.keyboardType = UIKeyboardType.NumbersAndPunctuation
+		addressTextField.autocorrectionType = UITextAutocorrectionType.No
 		addressTextField.textColor = blackPrimary
 		addressTextField.textAlignment = NSTextAlignment.Left
 		addressTextField.layer.cornerRadius = 3
@@ -136,25 +133,26 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		addressTextField.leftViewMode = UITextFieldViewMode.Always
 		
 		addressTextField.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(enterAddressLabel.snp_bottom).offset(10)
+			make.top.equalTo(nameTextField.snp_bottom).offset(10)
 			make.left.equalTo(popupContainer.snp_left).offset(8)
 			make.right.equalTo(popupContainer.snp_right).offset(-8)
 			make.height.equalTo(50)
 		}
 		
-		let addLocationButton = UIButton()
+		let addLocationButton = PrimaryActionButton()
 		self.addLocationButton = addLocationButton
 		popupContainer.addSubview(addLocationButton)
 		addLocationButton.addTarget(self, action: "didTapAddLocationButton:", forControlEvents: UIControlEvents.TouchUpInside)
-		addLocationButton.backgroundColor = redPrimary
-		addLocationButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-		addLocationButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		addLocationButton.setTitle("Add Location", forState: UIControlState.Normal)
+		addLocationButton.setTitle("Add", forState: UIControlState.Normal)
+		addLocationButton.width = 180
 		addLocationButton.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(popupContainer.snp_centerX)
-			make.bottom.equalTo(self.popupContainer.snp_bottom).offset(-10)
-			make.height.equalTo(40)
-			make.width.equalTo(200)
+			make.top.equalTo(addressTextField.snp_bottom).offset(20)
+		}
+		
+		popupContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(addLocationButton)
+			//make.height.equalTo(300)
 		}
 		
 		//Google Autocomplete Table View
@@ -175,7 +173,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 			make.top.equalTo(addressTextField.snp_bottom)
 			make.left.equalTo(addressTextField.snp_left)
 			make.right.equalTo(addressTextField.snp_right)
-			make.bottom.equalTo(popupContainer.snp_bottom)
+			make.bottom.equalTo(self.view.snp_bottom)
 		}
 	}
 	
@@ -298,6 +296,19 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 	//MARK: View delegate methods
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
+	}
+	
+	//MARK: Keyboard move view
+	func keyboardWillShow(sender: NSNotification) {
+		if keyboardIsShowing == false {
+			self.view.frame.origin.y -= 150
+			keyboardIsShowing = true
+		}
+	}
+	
+	func keyboardWillHide(sender: NSNotification) {
+		self.view.frame.origin.y += 150
+		keyboardIsShowing = false
 	}
 	
 	//MARK: Gesture recognizer delegate methods

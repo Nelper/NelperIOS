@@ -241,11 +241,11 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		self.postDateLabel = postDateLabel
 		let dateHelper = DateHelper()
 		postDateLabel.text = "Posted \(dateHelper.timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
-		postDateLabel.textColor = blackPrimary
+		postDateLabel.textColor = darkGrayDetails
 		postDateLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		postDateLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(descriptionUnderline.snp_bottom).offset(40)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(23)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(22)
 		}
 		
 		let postedIcon = UIImageView()
@@ -263,11 +263,11 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		taskContainer.addSubview(cityLabel)
 		self.cityLabel = cityLabel
 		cityLabel.text = self.task.city!
-		cityLabel.textColor = blackPrimary
+		cityLabel.textColor = darkGrayDetails
 		cityLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		cityLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(postDateLabel.snp_bottom).offset(40)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(17)
+			make.top.equalTo(postedIcon.snp_bottom).offset(30)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(15)
 		}
 		
 		let pinIcon = UIImageView()
@@ -278,7 +278,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.height.equalTo(35)
 			make.width.equalTo(35)
 			make.centerY.equalTo(cityLabel.snp_centerY)
-			make.right.equalTo(cityLabel.snp_left).offset(-8)
+			make.right.equalTo(cityLabel.snp_left).offset(-7)
 		}
 		
 		//Map Container
@@ -294,6 +294,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.right.equalTo(self.contentView.snp_right).offset(1)
 			make.height.equalTo(250)
 		}
+		
 		taskContainer.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(mapContainer.snp_bottom)
 		}
@@ -310,8 +311,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		locationNoticeLabel.textColor = darkGrayDetails
 		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kText13)
 		locationNoticeLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(self.view.snp_left).offset(8)
-			make.bottom.equalTo(taskContainer.snp_bottom).offset(-2)
+			make.left.equalTo(taskContainer.snp_left).offset(8)
+			make.bottom.equalTo(mapContainer.snp_top).offset(-2)
 		}
 		
 		let mapView = MKMapView()
@@ -394,6 +395,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		contentView.addSubview(offerContainer)
 		offerContainer.layer.borderColor = grayDetails.CGColor
 		offerContainer.layer.borderWidth = 1
+		offerContainer.backgroundColor = whitePrimary
 		offerContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskImageContainer.snp_bottom).offset(20)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
@@ -422,7 +424,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.centerY.equalTo(posterNameOffer.snp_centerY)
 			make.left.equalTo(posterNameOffer.snp_right).offset(12)
 			make.width.equalTo(60)
-			make.height.equalTo(25)
+			make.height.equalTo(30)
 		}
 		
 		offerLabelContainer.snp_makeConstraints { (make) -> Void in

@@ -28,7 +28,7 @@
 
 @end
 
-static NSString *const ATLPlaceholderText = @"Enter Message";
+static NSString *const ATLPlaceholderText = @"Message";
 
 @implementation ATLMessageComposeTextView
 
