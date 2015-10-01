@@ -16,13 +16,13 @@ class PrimaryActionButton: UIButton {
 	
 	var height = 40 {
 		didSet {
-			createView()
+			setSize()
 		}
 	}
 	
 	var width = 220 {
 		didSet {
-			createView()
+			setSize()
 		}
 	}
 	
@@ -34,6 +34,13 @@ class PrimaryActionButton: UIButton {
 	required init(coder: NSCoder) {
 		super.init(coder: coder)!
 		createView()
+	}
+	
+	func setSize() {
+		self.snp_updateConstraints { (make) -> Void in
+			make.height.equalTo(height)
+			make.width.equalTo(width)
+		}
 	}
 	
 	func createView() {
@@ -55,8 +62,17 @@ class SecondaryActionButton: UIButton {
 	private var buttonBorderWidth: CGFloat = 0.5
 	private var buttonLabelColor = darkGrayDetails
 	
-	var height = 40
-	var width = 220
+	var height = 40 {
+		didSet {
+			setSize()
+		}
+	}
+	
+	var width = 220 {
+		didSet {
+			setSize()
+		}
+	}
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -66,6 +82,13 @@ class SecondaryActionButton: UIButton {
 	required init(coder: NSCoder) {
 		super.init(coder: coder)!
 		createView()
+	}
+	
+	func setSize() {
+		self.snp_updateConstraints { (make) -> Void in
+			make.height.equalTo(height)
+			make.width.equalTo(width)
+		}
 	}
 	
 	func createView() {

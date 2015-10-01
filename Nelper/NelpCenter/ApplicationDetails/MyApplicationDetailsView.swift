@@ -797,7 +797,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			tempVC.didMoveToParentViewController(self)
 			tempVC.view.backgroundColor = UIColor.clearColor()
 			tempVC.view.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.statusContainer.snp_bottom)
+				make.top.equalTo(self.statusContainer.snp_top)
 				make.bottom.equalTo(self.view.snp_bottom)
 				make.width.equalTo(self.view.snp_width)
 			}
@@ -822,7 +822,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 					self.chatButton.snp_remakeConstraints(closure: { (make) -> Void in
 						self.view.addSubview(self.chatButton)
 						make.right.equalTo(self.view.snp_right).offset(2)
-						make.bottom.equalTo(self.statusContainer.snp_bottom)
+						make.bottom.equalTo(self.statusContainer.snp_top)
 						make.width.equalTo(100)
 						make.height.equalTo(40)
 					})
