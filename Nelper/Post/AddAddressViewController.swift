@@ -79,7 +79,6 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 			make.left.equalTo(blurContainer.snp_left).offset(8)
 			make.right.equalTo(blurContainer.snp_right).offset(-8)
 			make.centerY.equalTo(self.view.snp_centerY)
-			//make.height.equalTo(300)
 		}
 		
 		let titleLabel = UILabel()
@@ -87,7 +86,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		popupContainer.addSubview(titleLabel)
 		titleLabel.text	= "Add a location"
 		titleLabel.textColor = whitePrimary
-		titleLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		titleLabel.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(popupContainer.snp_top)
 			make.centerX.equalTo(popupContainer.snp_centerX)
@@ -144,7 +143,6 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		popupContainer.addSubview(addLocationButton)
 		addLocationButton.addTarget(self, action: "didTapAddLocationButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		addLocationButton.setTitle("Add", forState: UIControlState.Normal)
-		addLocationButton.width = 180
 		addLocationButton.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(popupContainer.snp_centerX)
 			make.top.equalTo(addressTextField.snp_bottom).offset(20)
