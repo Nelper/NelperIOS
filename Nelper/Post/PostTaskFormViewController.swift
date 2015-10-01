@@ -83,6 +83,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		}
 	
 	override func viewDidAppear(animated: Bool) {
+		self.locationsPickerView?.selectRow(0, inComponent: 0, animated: false)
 	}
 	
 	//MARK: View Creation
@@ -588,8 +589,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.streetAddressLabel.text = vc.address.formattedAddress
 
 		PFUser.currentUser()!["privateData"]?.setValue(self.locations, forKey: "locations")
-		
-		print(PFUser.currentUser()!["privateData"]!)
 		PFUser.currentUser()!.saveInBackground()
 		
 }
@@ -636,8 +635,39 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	func didTapDeleteAddress(sender:UIButton){
 		self.savedLocations?.removeAtIndex(self.locationsPickerView!.selectedRowInComponent(0))
-		self.locationsPickerView?.reloadAllComponents()
+		self.locationsPickerView!.reloadAllComponents()
+		if !self.savedLocations!.isEmpty {
+			self.locationsPickerView!.selectRow(0, inComponent: 0, animated: true)
+			self.updateLocationInfoToFirstComponent()
+		}
+		
+		PFUser.currentUser()!["privateData"]?.setValue(self.createDictionaries(self.savedLocations!), forKey: "locations")
+		PFUser.currentUser()!.saveInBackground()
 	}
+	
+	
+	func updateLocationInfoToFirstComponent(){
+		self.locationTextField!.text = self.savedLocations?[0].name
+		self.streetAddressLabel.text = self.savedLocations?[0].formattedAddress
+		self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!)!,longitude: Double(self.savedLocations![0].coords!["longitude"]!)!)
+	}
+	
+	/**
+	Allows the creation of an Array of Dictionaries to Save in Parse
+	
+	- parameter locations: The array of locations
+	
+	- returns: The Array of Dictionaries
+	*/
+	func createDictionaries(locations:Array<Location>) ->Array<Dictionary<String,AnyObject>>{
+		var arrayOfLocations = Array<Dictionary<String,AnyObject>>()
+		for location in locations{
+			let oneLocation = location.createDictionary()
+			arrayOfLocations.append(oneLocation)
+		}
+		return arrayOfLocations
+	}
+	
 	
 	/**
 	Post a task on Nelper
