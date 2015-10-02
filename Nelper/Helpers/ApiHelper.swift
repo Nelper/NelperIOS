@@ -283,17 +283,25 @@ class ApiHelper {
 		
 		let parseTask = PFObject(className: kParseTask)
 		parseTask["title"] = task.title
+		print(task.title)
 		parseTask["desc"] = task.desc
+		print(task.desc)
 		parseTask["user"] = PFUser.currentUser()!
+		print(PFUser.currentUser()!)
 		parseTask["state"] = task.state.rawValue
+		print(task.state.rawValue)
 		parseTask["priceOffered"] = task.priceOffered
+		print(task.priceOffered)
 		parseTask["category"] = task.category
+		print(task.category)
 		let lat = task.location?.latitude
 		let lng = task.location?.longitude
+		print(lng)
 		if lat != nil && lng != nil {
 			let location = PFGeoPoint(latitude: lat!, longitude: lng!)
 			parseTask["location"] = location
 		}
+		print(task.city)
 		parseTask["city"] = task.city
 		if task.pictures == nil {
 			parseTask["pictures"] = []

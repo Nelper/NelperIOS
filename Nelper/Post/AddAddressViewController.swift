@@ -29,10 +29,12 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 	var autocompleteArray = [GMSAutocompletePrediction]()
 	var nameTextField:UITextField!
 	var placesClient: GMSPlacesClient?
-	var location: GeoPoint?
+	var location: GeoPoint!
 	var addLocationButton:UIButton!
 	var address = Location()
-	var keyboardIsShowing: Bool! = false
+	var keyboardIsShowing: Bool = false
+	var addressOk:Bool!
+	var nameOk:Bool!
 	
 	
 	//MARK: Initialization
@@ -42,6 +44,8 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		
 		self.placesClient = GMSPlacesClient()
 		self.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
+		addressOk = false
+		nameOk = false
 		
 		//keyboard move view
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
@@ -219,6 +223,8 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 			self.address.coords = ["latitude":latitude,"longitude":longitude]
 			
 			let point = GeoPoint(latitude:Double(latitude)!, longitude:Double(longitude)!)
+			print(point)
+			self.addressOk = true
 			self.location = point
 		}
 		self.autocompleteTableView.hidden = true
@@ -305,8 +311,10 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 	}
 	
 	func keyboardWillHide(sender: NSNotification) {
+		if keyboardIsShowing == true{
 		self.view.frame.origin.y += 150
 		keyboardIsShowing = false
+		}
 	}
 	
 	//MARK: Gesture recognizer delegate methods
@@ -352,9 +360,16 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 	}
 	
 	func didTapAddLocationButton(sender:UIButton!){
+		if self.addressOk == true && self.nameTextField.text?.characters.count > 0{
 		self.address.name = self.nameTextField.text!
 		self.delegate?.didAddLocation(self)
 		self.dismissViewControllerAnimated(true, completion: nil)
+		}else{
+				let popup = UIAlertController(title: "Missing information", message: "You must name and select a valid address!", preferredStyle: UIAlertControllerStyle.Alert)
+			popup.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action) -> Void in
+			}))
+				self.presentViewController(popup, animated: true, completion: nil)
+		}
 	}
 	
 }

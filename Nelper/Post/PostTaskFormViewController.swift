@@ -16,7 +16,7 @@ protocol PostTaskFormViewControllerDelegate {
 	func dismiss()
 }
 
-class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate,AddAddressViewControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource {
+class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate,AddAddressViewControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	let imagePicker = UIImagePickerController()
@@ -27,7 +27,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var descriptionTextView:UITextView?
 	var priceOffered:UITextField?
 	var autocompleteArray = [GMSAutocompletePrediction]()
-	var imagesArray = NSMutableArray()
 	var tap: UITapGestureRecognizer?
 	var contentView:UIView!
 	var scrollView:UIScrollView!
@@ -42,6 +41,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var locationsPickerView:UIPickerView?
 	var streetAddressLabel:UILabel!
 	var delegate: PostTaskFormViewControllerDelegate?
+	var picturesCollectionView:UICollectionView!
+	var arrayOfPictures = Array<UIImage>()
 		
 	//MARK: Initialization
 	
@@ -52,7 +53,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let locations = PFUser.currentUser()!["privateData"]!["locations"]! as! Array<Dictionary<String,AnyObject>>
 		self.locations = locations
 		if !locations.isEmpty {
-			print(locations)
 			var arrayOfLocations = Array<Location>()
 			for location in locations{
 				let oneLocation = Location()
@@ -64,6 +64,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 				arrayOfLocations.append(oneLocation)
 			}
 			self.savedLocations = arrayOfLocations
+			self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!)!,longitude: Double(self.savedLocations![0].coords!["longitude"]!)!)
+			self.task.city = self.savedLocations![0].city
 		}else{
 			self.savedLocations = Array<Location>()
 		}
@@ -376,7 +378,13 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		let streetAddressLabel = UILabel()
 		self.streetAddressLabel = streetAddressLabel
+		if self.savedLocations!.isEmpty{
+			locationTextField.userInteractionEnabled = false
+			locationTextField.text = ""
+			streetAddressLabel.text = "You have no saved addresses!"
+		}else{
 		streetAddressLabel.text = self.savedLocations?.first?.formattedAddress
+		}
 		taskFormContainer.addSubview(streetAddressLabel)
 		streetAddressLabel.numberOfLines = 0
 		streetAddressLabel.textColor = blackPrimary
@@ -421,7 +429,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.height.equalTo(160)
 		}
 		
-		
 		//Attach Pictures Button
 		
 		let picturesButton = UIButton()
@@ -438,6 +445,22 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.height.equalTo(35)
 			make.width.equalTo(200)
 		}
+		let flowLayout = UICollectionViewFlowLayout()
+		flowLayout.scrollDirection = UICollectionViewScrollDirection.Horizontal
+		let picturesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: flowLayout)
+		picturesContainer.addSubview(picturesCollectionView)
+		self.picturesCollectionView = picturesCollectionView
+		self.picturesCollectionView.delegate = self
+		self.picturesCollectionView.dataSource = self
+		picturesCollectionView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(picturesContainer.snp_top).offset(4)
+			make.bottom.equalTo(picturesButton.snp_top).offset(-4)
+			make.left.equalTo(picturesContainer.snp_left).offset(4)
+			make.right.equalTo(picturesContainer.snp_right).offset(-4)
+		}
+
+		picturesCollectionView.registerClass(PicturesCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: PicturesCollectionViewCell.reuseIdentifier)
+		picturesCollectionView.backgroundColor = whitePrimary
 		
 		//Create task button
 		
@@ -472,11 +495,34 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	*/
 	func convertImagesToData(){
 		self.task.pictures = Array()
-		for image in self.imagesArray{
-			let imageData = UIImageJPEGRepresentation(image as! UIImage, 0.50)
+		for image in self.arrayOfPictures{
+			let imageData = UIImageJPEGRepresentation(image , 0.50)
 			let imageFile = PFFile(name:"image.png", data:imageData!)
 			self.task.pictures!.append(imageFile)
 		}
+	}
+	
+	//MARK:UICollectionView Datasource and Delegate
+	
+	func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+		return 1
+	}
+	
+	
+	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return self.arrayOfPictures.count
+	}
+	
+	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+		
+		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PicturesCollectionViewCell.reuseIdentifier, forIndexPath: indexPath) as! PicturesCollectionViewCell
+		let image = self.arrayOfPictures[indexPath.row]
+		cell.imageView.image = image
+		return cell
+	}
+	
+	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+		return CGSizeMake(self.picturesCollectionView.frame.height, self.picturesCollectionView.frame.height)
 	}
 	
 	//MARK: UIPicker Delegate and Datasource
@@ -499,9 +545,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.locationTextField!.text = self.savedLocations?[row].name
 		self.streetAddressLabel.text = self.savedLocations?[row].formattedAddress
 		
-		print(self.savedLocations![row].coords!["latitude"]!)
-		print(self.savedLocations![row].coords!["longitude"]!)
+		
 		self.task.location = GeoPoint(latitude:Double(self.savedLocations![row].coords!["latitude"]!)!,longitude: Double(self.savedLocations![row].coords!["longitude"]!)!)
+		self.task.city = self.savedLocations![row].city
 		view.endEditing(true)
 	}
 	
@@ -543,16 +589,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	*/
 	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
 		if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
-			self.imagesArray.addObject(pickedImage)
-//			if(self.imagesArray.count == 1){
-//				self.imageOne!.image = pickedImage
-//			}else if(self.imagesArray.count == 2){
-//				self.imageTwo!.image = pickedImage
-//			}else if(self.imagesArray.count == 3){
-//				self.imageThree!.image = pickedImage
-//			}else if(self.imagesArray.count == 4){
-//				self.imageFour!.image = pickedImage
-//			}
+			self.arrayOfPictures.append(pickedImage)
+			self.picturesCollectionView.reloadData()
 		}
 		dismissViewControllerAnimated(true, completion: nil)
 	}
@@ -582,14 +620,29 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	func didAddLocation(vc:AddAddressViewController){
 		self.task.location = vc.location
+		self.task.city = vc.address.city!
 		self.locations.append(vc.address.createDictionary())
 		self.savedLocations?.append(vc.address)
 		self.locationsPickerView?.reloadAllComponents()
 		self.locationTextField?.text = vc.address.name
 		self.streetAddressLabel.text = vc.address.formattedAddress
-
-		PFUser.currentUser()!["privateData"]?.setValue(self.locations, forKey: "locations")
-		PFUser.currentUser()!.saveInBackground()
+		
+		let query = PFQuery(className: "UserPrivateData")
+		query.getObjectInBackgroundWithId((PFUser.currentUser()!["privateData"]!.objectId!!),block: { (data , error) -> Void in
+			if error != nil{
+				print(error)
+			}else{
+				if let data = data {
+					data["locations"] = self.locations
+					data.saveInBackground()
+				}
+			}
+		})
+		
+		
+//		PFUser.currentUser()!["privateData"]!.setValue(self.locations!, forKey: "locations")
+//		PFUser.currentUser()!.saveInBackground()
+		self.locationTextField!.userInteractionEnabled = true
 		
 }
 
@@ -638,7 +691,14 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.locationsPickerView!.reloadAllComponents()
 		if !self.savedLocations!.isEmpty {
 			self.locationsPickerView!.selectRow(0, inComponent: 0, animated: true)
+			self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!)!,longitude: Double(self.savedLocations![0].coords!["longitude"]!)!)
+			self.task.city = self.savedLocations![0].city
 			self.updateLocationInfoToFirstComponent()
+		}else{
+			locationTextField!.text = ""
+			streetAddressLabel.text = "You have no saved addresses!"
+			self.task.city = nil
+			self.task.location = nil
 		}
 		
 		PFUser.currentUser()!["privateData"]?.setValue(self.createDictionaries(self.savedLocations!), forKey: "locations")
@@ -675,11 +735,16 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	- parameter sender: Post Button
 	*/
 	func postButtonTapped(sender: UIButton) {
-		if(self.imagesArray.count != 0){
+		if(self.arrayOfPictures.count != 0){
 			self.convertImagesToData()
 		}
+		self.task.state = .Pending
 		self.task.title = self.titleTextField!.text
+		if self.descriptionTextView!.text != nil{
 		self.task.desc = self.descriptionTextView!.text
+		}else{
+			self.task.desc = ""
+		}
 		self.task.priceOffered = Double(self.priceOffered!.text!)
 				ApiHelper.addTask(self.task, block: { (task, error) -> Void in
 					self.delegate?.nelpTaskAdded(self.task)
