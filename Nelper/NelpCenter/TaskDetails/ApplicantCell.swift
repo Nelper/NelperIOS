@@ -75,7 +75,8 @@ class ApplicantCell: UITableViewCell{
 		
 		//Rating
 		
-		ratingStarsView = RatingStars()
+		let ratingStarsView = RatingStars()
+		self.ratingStarsView = ratingStarsView
 		ratingStarsView.style = "dark"
 		ratingStarsView.starHeight = 15
 		ratingStarsView.starWidth = 15

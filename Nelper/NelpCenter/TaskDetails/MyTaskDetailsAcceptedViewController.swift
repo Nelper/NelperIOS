@@ -16,13 +16,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	var scrollView:UIScrollView!
 	var task:FindNelpTask!
 	var acceptedApplicant:User!
+	var applicationPrice: Int!
 	var acceptedApplication:NelpTaskApplication!
 	var picture:UIImageView!
-	var firstStar:UIImageView!
-	var secondStar:UIImageView!
-	var thirdStar:UIImageView!
-	var fourthStar:UIImageView!
-	var fifthStar:UIImageView!
+	var ratingStarsView: RatingStars!
 	var chatButton:UIButton!
 	var conversationController:UINavigationController?
 	var tempVC:UIViewController!
@@ -36,7 +33,6 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		self.setApplicant()
 		self.setImages(acceptedApplicant)
 		self.createView()
-		self.setFeedback(acceptedApplicant)
 	}
 	
 	//MARK:Creating the View
@@ -100,12 +96,12 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		taskLabel.text = self.task.title
 		taskLabelContainer.addSubview(taskLabel)
 		taskLabel.textColor = darkGrayDetails
-		taskLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		taskLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		taskLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskLabelContainer.snp_top).offset(4)
 			make.bottom.equalTo(taskLabelContainer.snp_bottom).offset(-4)
 			make.left.equalTo(taskLabelContainer.snp_left).offset(8)
-			make.right.equalTo(taskLabelContainer.snp_right).offset(-4)
+			make.right.equalTo(taskLabelContainer.snp_right).offset(-8)
 		}
 		
 		//Progress + Payment Container
@@ -292,18 +288,13 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		
 		//Payment Button
 		
-		let paymentButton = UIButton()
+		let paymentButton = PrimaryActionButton()
 		progressContainer.addSubview(paymentButton)
 		paymentButton.setTitle("Proceed to Payment", forState: UIControlState.Normal)
 		paymentButton.addTarget(self, action: "didTapPaymentButton:", forControlEvents: UIControlEvents.TouchUpInside)
-		paymentButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-		paymentButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		paymentButton.backgroundColor = redPrimary
 		paymentButton.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(progressContainer.snp_bottom).offset(-60)
+			make.bottom.equalTo(progressContainer.snp_bottom).offset(-55)
 			make.centerX.equalTo(progressContainer.snp_centerX)
-			make.width.equalTo(progressContainer.snp_width).dividedBy(1.6)
-			make.height.equalTo(40)
 		}
 		
 		//About Nelper Pay
@@ -337,7 +328,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		nelperPayLine.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(paymentButton.snp_top).offset(-55)
 			make.centerX.equalTo(progressContainer.snp_centerX)
-			make.width.equalTo(progressContainer.snp_width).dividedBy(1.3)
+			make.width.equalTo(progressContainer.snp_width).dividedBy(1.2)
 			make.height.equalTo(1)
 		}
 		
@@ -359,10 +350,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		applicantContainer.layer.borderColor = grayDetails.CGColor
 		applicantContainer.layer.borderWidth = 1
 		applicantContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(progressContainer.snp_bottom).offset(30)
+			make.top.equalTo(progressContainer.snp_bottom).offset(20)
 			make.width.equalTo(contentView.snp_width)
-			make.height.equalTo(backgroundView.snp_height).dividedBy(1.5)
-			make.bottom.equalTo(self.contentView.snp_bottom)
+			make.height.equalTo(backgroundView.snp_height).dividedBy(2)
+			make.bottom.equalTo(contentView.snp_bottom).offset(-20)
 		}
 		
 		//Header
@@ -375,7 +366,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		headerContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(applicantContainer.snp_top)
 			make.width.equalTo(applicantContainer.snp_width)
-			make.height.equalTo(applicantContainer.snp_height).dividedBy(7)
+			make.height.equalTo(applicantContainer.snp_height).dividedBy(5)
 		}
 		
 		let acceptedIcon = UIImageView()
@@ -384,7 +375,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		acceptedIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		acceptedIcon.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(headerContainer.snp_centerY)
-			make.left.equalTo(headerContainer.snp_left).offset(16)
+			make.left.equalTo(headerContainer.snp_left).offset(20)
 			make.width.equalTo(30)
 			make.height.equalTo(30)
 		}
@@ -393,7 +384,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		headerContainer.addSubview(acceptedApplicantLabel)
 		acceptedApplicantLabel.text = "Accepted Nelper"
 		acceptedApplicantLabel.textColor = blackPrimary
-		acceptedApplicantLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		acceptedApplicantLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		acceptedApplicantLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(acceptedIcon.snp_centerY)
 			make.left.equalTo(acceptedIcon.snp_right).offset(12)
@@ -409,138 +400,95 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		profileContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(headerContainer.snp_bottom)
 			make.width.equalTo(applicantContainer.snp_width)
-			make.height.equalTo(applicantContainer.snp_height).dividedBy(2.1)
+			make.height.equalTo(applicantContainer.snp_height).dividedBy(3)
 		}
+		
+		//Profile picture
+		
+		let profilePicture = UIImageView()
+		self.picture = profilePicture
+		profileContainer.addSubview(profilePicture)
+		let pictureSize: CGFloat = 70
+		profilePicture.layer.cornerRadius = pictureSize / 2
+		profilePicture.clipsToBounds = true
+		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
+		profilePicture.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(profileContainer.snp_left).offset(16)
+			make.centerY.equalTo(profileContainer.snp_centerY)
+			make.height.equalTo(pictureSize)
+			make.width.equalTo(pictureSize)
+		}
+		
+		//Name
 		
 		let applicantName = UILabel()
 		profileContainer.addSubview(applicantName)
 		applicantName.text = self.acceptedApplicant.name
 		applicantName.textColor = blackPrimary
-		applicantName.font = UIFont(name: "Lato-Regular", size: kText15)
+		applicantName.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		applicantName.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileContainer.snp_top).offset(18)
-			make.left.equalTo(profileContainer.snp_left).offset(20)
+			make.centerY.equalTo(profilePicture.snp_centerY).offset(-15)
+			make.left.equalTo(profilePicture.snp_right).offset(15)
 			make.right.equalTo(profileContainer.snp_right).offset(-10)
 		}
 		
-		let profilePicture = UIImageView()
-		self.picture = profilePicture
-		profileContainer.addSubview(profilePicture)
-		let pictureSize: CGFloat = 100
-		profilePicture.layer.cornerRadius = pictureSize / 2
-		profilePicture.clipsToBounds = true
-		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
-		profilePicture.snp_makeConstraints { (make) -> Void in
+		//Rating
+		
+		let ratingStarsView = RatingStars()
+		self.ratingStarsView = ratingStarsView
+		self.ratingStarsView.style = "dark"
+		self.ratingStarsView.starHeight = 15
+		self.ratingStarsView.starWidth = 15
+		self.ratingStarsView.starPadding = 5
+		self.ratingStarsView.textSize = kText15
+		self.ratingStarsView.userCompletedTasks = acceptedApplicant.completedTasks
+		self.ratingStarsView.userRating = acceptedApplicant.rating
+		profileContainer.addSubview(ratingStarsView)
+		ratingStarsView.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(applicantName.snp_left)
-			make.top.equalTo(applicantName.snp_bottom).offset(20)
-			make.height.equalTo(pictureSize)
-			make.width.equalTo(pictureSize)
+			make.centerY.equalTo(profilePicture.snp_centerY).offset(15)
+			make.width.equalTo((ratingStarsView.starWidth + ratingStarsView.starPadding) * 6)
+			make.height.equalTo(ratingStarsView.starHeight)
 		}
 		
-		//FeedBack Stars
+		//Money View
 		
-		let firstStar = UIImageView()
-		self.firstStar = firstStar
-		profileContainer.addSubview(firstStar)
-		firstStar.contentMode = UIViewContentMode.ScaleAspectFill
-		firstStar.image = UIImage(named: "empty_star")
-		firstStar.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(picture.snp_right).offset(30)
-			make.top.equalTo(picture.snp_top).offset(10)
-			make.height.equalTo(20)
-			make.width.equalTo(20)
+		let moneyView = UIView()
+		moneyView.contentMode = UIViewContentMode.ScaleAspectFill
+		moneyView.backgroundColor = whiteBackground
+		moneyView.layer.cornerRadius = 3
+		profileContainer.addSubview(moneyView)
+		moneyView.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(ratingStarsView.snp_right).offset(28)
+			make.centerY.equalTo(ratingStarsView.snp_centerY)
+			make.height.equalTo(35)
+			make.width.equalTo(55)
 		}
 		
-		let secondStar = UIImageView()
-		self.secondStar = secondStar
-		profileContainer.addSubview(secondStar)
-		secondStar.contentMode = UIViewContentMode.ScaleAspectFill
-		secondStar.image = UIImage(named: "empty_star")
-		secondStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(firstStar.snp_bottom)
-			make.left.equalTo(firstStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
+		//Money Label
+		
+		let moneyLabel = UILabel()
+		profileContainer.addSubview(moneyLabel)
+		moneyLabel.textAlignment = NSTextAlignment.Center
+		moneyLabel.textColor = blackPrimary
+		moneyLabel.text = "$\(applicationPrice)"
+		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
+		moneyLabel.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(moneyView.snp_edges)
 		}
 		
-		let thirdStar = UIImageView()
-		self.thirdStar = thirdStar
-		profileContainer.addSubview(thirdStar)
-		thirdStar.contentMode = UIViewContentMode.ScaleAspectFill
-		thirdStar.image = UIImage(named: "empty_star")
-		thirdStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(secondStar.snp_bottom)
-			make.left.equalTo(secondStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
-		
-		let fourthStar = UIImageView()
-		self.fourthStar = fourthStar
-		profileContainer.addSubview(fourthStar)
-		fourthStar.contentMode = UIViewContentMode.ScaleAspectFill
-		fourthStar.image = UIImage(named: "empty_star")
-		fourthStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(thirdStar.snp_bottom)
-			make.left.equalTo(thirdStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
-		
-		let fifthStar = UIImageView()
-		self.fifthStar = fifthStar
-		profileContainer.addSubview(fifthStar)
-		fifthStar.contentMode = UIViewContentMode.ScaleAspectFill
-		fifthStar.image = UIImage(named: "empty_star")
-		fifthStar.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(fourthStar.snp_bottom)
-			make.left.equalTo(fourthStar.snp_right).offset(4)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
-		}
-		
-		let numberOfTasksCompletedLabel = UILabel()
-		profileContainer.addSubview(numberOfTasksCompletedLabel)
-		numberOfTasksCompletedLabel.textColor = blackPrimary
-		numberOfTasksCompletedLabel.text = "8 tasks completed"
-		numberOfTasksCompletedLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
-		numberOfTasksCompletedLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(firstStar.snp_bottom).offset(4)
-			make.left.equalTo(firstStar.snp_left)
-		}
+		//Arrow
 		
 		let arrow = UIButton()
 		profileContainer.addSubview(arrow)
 		arrow.setBackgroundImage(UIImage(named: "arrow_applicant_cell.png"), forState: UIControlState.Normal)
+		arrow.alpha = 0.2
 		arrow.contentMode = UIViewContentMode.ScaleAspectFill
-		arrow.alpha = 0.5
 		arrow.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(profileContainer.snp_right).offset(-20)
+			make.right.equalTo(profileContainer.snp_right).offset(-18)
 			make.centerY.equalTo(profileContainer.snp_centerY)
-			make.height.equalTo(35)
-			make.width.equalTo(20)
-		}
-		
-		let moneyTag = UIImageView()
-		profileContainer.addSubview(moneyTag)
-		moneyTag.contentMode = UIViewContentMode.ScaleAspectFill
-		moneyTag.image = UIImage(named: "moneytag")
-		moneyTag.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(thirdStar.snp_centerX)
-			make.bottom.equalTo(profilePicture.snp_bottom).offset(-10)
-			make.width.equalTo(70)
-			make.height.equalTo(30)
-		}
-		
-		let priceToPay = UILabel()
-		priceToPay.textAlignment = NSTextAlignment.Center
-		profileContainer.addSubview(priceToPay)
-		priceToPay.text = "$\(self.acceptedApplication.price!)"
-		priceToPay.textColor = whiteBackground
-		priceToPay.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		priceToPay.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(moneyTag.snp_centerX).offset(2)
-			make.centerY.equalTo(moneyTag.snp_centerY)
+			make.height.equalTo(25)
+			make.width.equalTo(15)
 		}
 		
 		let profileUnderline = UIView()
@@ -550,7 +498,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 			make.top.equalTo(profileContainer.snp_bottom)
 			make.width.equalTo(applicantContainer.snp_width)
 			make.centerX.equalTo(applicantContainer.snp_centerX)
-			make.height.equalTo(1)
+			make.height.equalTo(0.5)
 		}
 		
 		let profileTapAction = UITapGestureRecognizer(target: self, action: "didTapProfile:")
@@ -665,9 +613,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	// MARK: Setters
 	func setApplicant(){
 		for application in self.task.applications{
-			if application.state == .Accepted{
+			if application.state == .Accepted {
 				self.acceptedApplicant = application.user!
 				self.acceptedApplication = application
+				self.applicationPrice = application.price!
 			}
 		}
 	}
@@ -677,9 +626,6 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	
 	- parameter applicant: Applicant
 	*/
-	func setFeedback(applicant:User){
-		self.fifthStar.alpha = 0.5
-	}
 	
 	// MARK: View Delegate
 	override func viewDidLayoutSubviews() {
@@ -808,7 +754,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 					})
 					self.conversationController!.didMoveToParentViewController(tempVC)
 			}
-		}else{
+		} else {
 			
 			
 			UIView.animateWithDuration(0.5, animations: { () -> Void in
