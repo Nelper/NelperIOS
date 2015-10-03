@@ -22,7 +22,7 @@ class User : BaseModel {
 	var education:[Dictionary<String,String>]!
 	var experience:[Dictionary<String,String>]!
 	var about:String!
-	var privateDate:UserPrivateData?
+	var privateData:UserPrivateData?
 	
 	
 	init(parseUser: PFUser) {

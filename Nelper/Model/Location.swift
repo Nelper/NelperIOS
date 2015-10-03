@@ -18,7 +18,7 @@ class Location{
 	var province: String?
 	var country: String?
 	var postalCode: String?
-	var coords: Dictionary<String,String>?
+	var coords: Dictionary<String,Double>?
 	
 	func createDictionary()->Dictionary<String,AnyObject> {
 		var dictionary = Dictionary<String,AnyObject>()

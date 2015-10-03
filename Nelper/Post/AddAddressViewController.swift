@@ -205,8 +205,8 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 			let json = JSON(data.value!)
 			let res = json["result"]
 			
-			let latitude = res["geometry"]["location"]["lat"].stringValue
-			let longitude =  res["geometry"]["location"]["lng"].stringValue
+			let latitude = res["geometry"]["location"]["lat"].doubleValue
+			let longitude =  res["geometry"]["location"]["lng"].doubleValue
 			
 			print(latitude)
 			print(longitude)
@@ -222,7 +222,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 			
 			self.address.coords = ["latitude":latitude,"longitude":longitude]
 			
-			let point = GeoPoint(latitude:Double(latitude)!, longitude:Double(longitude)!)
+			let point = GeoPoint(latitude: latitude, longitude:longitude)
 			print(point)
 			self.addressOk = true
 			self.location = point
