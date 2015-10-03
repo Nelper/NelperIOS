@@ -60,11 +60,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 				oneLocation.name = location["name"] as? String
 				oneLocation.city = location["city"] as? String
 				oneLocation.province = location["province"] as? String
-				oneLocation.coords = location["coords"] as? Dictionary<String,String>
+				oneLocation.coords = location["coords"] as? Dictionary<String,Double>
 				arrayOfLocations.append(oneLocation)
 			}
 			self.savedLocations = arrayOfLocations
-			self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!)!,longitude: Double(self.savedLocations![0].coords!["longitude"]!)!)
+			print(arrayOfLocations[0].coords)
+			self.task.location = GeoPoint(latitude:self.savedLocations![0].coords!["latitude"]!,longitude: self.savedLocations![0].coords!["longitude"]!)
 			self.task.city = self.savedLocations![0].city
 		}else{
 			self.savedLocations = Array<Location>()
@@ -546,7 +547,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.streetAddressLabel.text = self.savedLocations?[row].formattedAddress
 		
 		
-		self.task.location = GeoPoint(latitude:Double(self.savedLocations![row].coords!["latitude"]!)!,longitude: Double(self.savedLocations![row].coords!["longitude"]!)!)
+		self.task.location = GeoPoint(latitude:Double(self.savedLocations![row].coords!["latitude"]!),longitude: Double(self.savedLocations![row].coords!["longitude"]!))
 		self.task.city = self.savedLocations![row].city
 		view.endEditing(true)
 	}
@@ -691,7 +692,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.locationsPickerView!.reloadAllComponents()
 		if !self.savedLocations!.isEmpty {
 			self.locationsPickerView!.selectRow(0, inComponent: 0, animated: true)
-			self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!)!,longitude: Double(self.savedLocations![0].coords!["longitude"]!)!)
+			self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!),longitude: Double(self.savedLocations![0].coords!["longitude"]!))
 			self.task.city = self.savedLocations![0].city
 			self.updateLocationInfoToFirstComponent()
 		}else{
@@ -709,7 +710,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	func updateLocationInfoToFirstComponent(){
 		self.locationTextField!.text = self.savedLocations?[0].name
 		self.streetAddressLabel.text = self.savedLocations?[0].formattedAddress
-		self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!)!,longitude: Double(self.savedLocations![0].coords!["longitude"]!)!)
+		self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!),longitude: Double(self.savedLocations![0].coords!["longitude"]!))
 	}
 	
 	/**

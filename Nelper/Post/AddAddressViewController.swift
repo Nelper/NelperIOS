@@ -220,7 +220,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 			self.address.postalCode = self.getAddressComponent(comps, component: "postal_code")["long_name"].string
 			self.address.formattedAddress = res["formatted_address"].string
 			
-			self.address.coords = ["latitude":latitude,"longitude":longitude]
+			self.address.coords = ["latitude":Double(latitude)!,"longitude":Double(longitude)!]
 			
 			let point = GeoPoint(latitude:Double(latitude)!, longitude:Double(longitude)!)
 			print(point)

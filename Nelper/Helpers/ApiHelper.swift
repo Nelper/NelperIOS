@@ -122,7 +122,9 @@ class ApiHelper {
 	}
 	
 	static func getCurrentUserPrivateInfo(){
-		PFUser.currentUser()!["privateData"]!.fetch()
+		
+		PFUser.currentUser()!.fetch()
+		PFUser.currentUser()!["privateData"]!.fetchIfNeeded()
 	}
 	
 	/**
