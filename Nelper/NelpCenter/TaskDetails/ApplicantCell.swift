@@ -167,6 +167,7 @@ class ApplicantCell: UITableViewCell{
 	
 	func replaceArrowImage() {
 		self.rightButton.setBackgroundImage(UIImage(named: "revert"), forState: UIControlState.Normal)
+		self.rightButton.alpha = 1
 		self.rightButton.addTarget(self, action: "revertButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.rightButton.snp_updateConstraints{ (make) -> Void in
 			make.height.equalTo(50)

@@ -218,7 +218,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo((self.arrayOfDeniedApplicants.count*100)+65)
-			make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
 		}
 		
 		let deniedApplicantIcon = UIImageView()
@@ -268,6 +267,13 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.centerX.equalTo(deniedApplicantsContainer.snp_centerX)
 			make.height.equalTo(0.5)
 			make.width.equalTo(deniedApplicantsContainer.snp_width)
+		}
+		
+		let fakeView = UIView()
+		self.contentView.addSubview(fakeView)
+		fakeView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(deniedApplicantsContainer.snp_bottom)
+			make.bottom.equalTo(self.contentView.snp_bottom)
 		}
 	}
 	
@@ -330,14 +336,14 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.top.equalTo(activeApplicantsContainer.snp_bottom).offset(10)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
-			make.height.equalTo((self.arrayOfDeniedApplicants.count*100)+70)
+			make.height.equalTo((self.arrayOfDeniedApplicants.count*100)+65)
 		}
 		
 		activeApplicantsContainer.snp_updateConstraints { (make) -> Void in
 			make.top.equalTo(taskSectionContainer.snp_bottom).offset(10)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
-			make.height.equalTo((self.arrayOfApplicants.count*100)+70)
+			make.height.equalTo((self.arrayOfApplicants.count*100)+65)
 		}
 	}
 	
@@ -369,6 +375,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			let deniedApplicantCell = tableView.dequeueReusableCellWithIdentifier(ApplicantCell.reuseIdentifier, forIndexPath: indexPath) as! ApplicantCell
 			let deniedApplicant = self.arrayOfDeniedApplicants[indexPath.row]
 			deniedApplicantCell.setApplicant(deniedApplicant)
+			for application in self.arrayOfApplications{
+				if application.user.objectId == deniedApplicant.objectId{
+					deniedApplicantCell.setApplication(application)
+				}
+			}
 			deniedApplicantCell.replaceArrowImage()
 			deniedApplicantCell.delegate = self
 			
@@ -400,7 +411,14 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		self.scrollView.contentSize = self.contentView.frame.size
+		let contentsize = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height + 10)
+		self.scrollView.contentSize = contentsize.size
+		
+		if self.arrayOfDeniedApplicants.isEmpty{
+			self.deniedApplicantsContainer.snp_remakeConstraints(closure: { (make) -> Void in
+				make.height.equalTo(0)
+			})
+		}
 	}
 	
 	//MARK: Cell delegate methods
@@ -433,6 +451,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		})
 		
 		self.refreshTableView()
+		if self.arrayOfDeniedApplicants.isEmpty{
+				self.deniedApplicantsContainer.snp_remakeConstraints(closure: { (make) -> Void in
+					make.height.equalTo(0)
+				})
+		}
 	}
 	
 	
