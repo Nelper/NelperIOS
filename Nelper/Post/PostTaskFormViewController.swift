@@ -16,7 +16,7 @@ protocol PostTaskFormViewControllerDelegate {
 	func dismiss()
 }
 
-class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate,AddAddressViewControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate,AddAddressViewControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate {
 	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	let imagePicker = UIImagePickerController()
@@ -517,6 +517,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		
 		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PicturesCollectionViewCell.reuseIdentifier, forIndexPath: indexPath) as! PicturesCollectionViewCell
+		cell.delegate = self
+		cell.tag = indexPath.row
 		let image = self.arrayOfPictures[indexPath.row]
 		cell.imageView.image = image
 		return cell
@@ -550,6 +552,13 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.task.location = GeoPoint(latitude:Double(self.savedLocations![row].coords!["latitude"]!),longitude: Double(self.savedLocations![row].coords!["longitude"]!))
 		self.task.city = self.savedLocations![row].city
 		view.endEditing(true)
+	}
+	
+	//MARK: Picture Cell Delegate
+	
+	func didRemovePicture(vc: PicturesCollectionViewCell) {
+		self.arrayOfPictures.removeAtIndex(vc.tag)
+		self.picturesCollectionView.reloadData()
 	}
 	
 	
