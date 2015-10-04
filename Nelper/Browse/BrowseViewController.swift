@@ -178,7 +178,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	}
 	
 	func checkFilters(){
-		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
+		if self.arrayOfFilters.isEmpty && self.minPrice == nil && self.maxDistance == nil {
 			self.filtersButton.setImage(UIImage(named: "filters-inactive"), forState: UIControlState.Normal)
 			
 			self.filtersButton.imageEdgeInsets = UIEdgeInsetsMake(13, 16, 8, 18)
