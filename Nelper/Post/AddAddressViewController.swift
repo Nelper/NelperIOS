@@ -99,7 +99,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		let nameTextField = UITextField()
 		self.nameTextField = nameTextField
 		popupContainer.addSubview(nameTextField)
-		nameTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
+		nameTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.50)
 		nameTextField.attributedPlaceholder = NSAttributedString(string: "Name (home, office, etc.)", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
 		nameTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		nameTextField.textColor = blackPrimary
@@ -121,7 +121,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		self.addressTextField = addressTextField
 		addressTextField.delegate = self
 		popupContainer.addSubview(addressTextField)
-		addressTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
+		addressTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.50)
 		addressTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
 		addressTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		addressTextField.keyboardType = UIKeyboardType.NumbersAndPunctuation
@@ -348,6 +348,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 	
 		- returns: The JSON part of the component
 	*/
+	
 	func getAddressComponent(addressComponents: JSON, component: String) -> JSON {
 		for (_, comp):(String, JSON) in addressComponents {
 			for (_, t):(String, JSON) in comp["types"] {

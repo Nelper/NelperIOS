@@ -21,14 +21,23 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 	var contentView: UIView!
 	var logo: UIImageView!
 	
-	var buttonsContainer: UIView!
-	
+	var firstContainer: UIView!
 	var fbButton: UIButton!
 	var fbLogo: UIImageView!
 	var emailButton: UIButton!
 	
-	//var emailField: UITextField!
-	//var passwordField: UITextField!
+	var secondContainer: UIView!
+	var emailField: UITextField!
+	var textfieldUnderline: UIView!
+	var passwordField: UITextField!
+	var loginButton: UIButton!
+	var arrow: UIButton!
+	var registerButton: UIButton!
+	var forgotPassButton: UIButton!
+	
+	var emailActive = false
+	
+	var keyboardIsShowing: Bool = false
 	
 	//MARK: Initialization
 	
@@ -42,6 +51,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
 		self.tap = tap
 		self.contentView.addGestureRecognizer(tap)
+		
+		// KEYBOARD VIEW MOVER
+		/*
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+		*/
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -71,38 +86,39 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.contentView.addSubview(logo)
 		self.logo.image = UIImage(named: "logo_beige_nobackground_v2")
 		self.logo.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.contentView.snp_top).offset(80)
+			make.top.equalTo(self.contentView.snp_top).offset(75)
 			make.centerX.equalTo(self.contentView.snp_centerX)
-			make.width.equalTo(150)
-			make.height.equalTo(150)
+			make.width.equalTo(220)
+			make.height.equalTo(220)
 		}
 		
 		//MARK: FIRST: BUTTONS
 		
-		let buttonsContainer = UIView()
-		self.buttonsContainer = buttonsContainer
-		self.contentView.addSubview(self.buttonsContainer)
-		self.buttonsContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.logo.snp_bottom).offset(40)
+		let firstContainer = UIView()
+		self.firstContainer = firstContainer
+		self.contentView.addSubview(self.firstContainer)
+		self.firstContainer.alpha = 1
+		self.firstContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.logo.snp_bottom).offset(50)
 			make.left.equalTo(self.contentView.snp_left)
-			make.right.equalTo(self.contentView.snp_right)
-			make.height.equalTo(50 + 20 + 50)
+			make.width.equalTo(self.contentView.snp_width)
+			make.bottom.equalTo(contentView.snp_bottom)
 		}
 		
 		let fbButton = UIButton()
 		self.fbButton = fbButton
-		self.buttonsContainer.addSubview(self.fbButton)
+		self.firstContainer.addSubview(self.fbButton)
 		self.fbButton.backgroundColor = blueFacebook
 		self.fbButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
 		self.fbButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
 		self.fbButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
 		self.fbButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		self.fbButton.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0)
+		self.fbButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
 		self.fbButton.addTarget(self, action: "facebookLogin:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.fbButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.buttonsContainer.snp_top)
-			make.left.equalTo(self.buttonsContainer.snp_left).offset(8)
-			make.right.equalTo(self.buttonsContainer.snp_right).offset(-8)
+			make.top.equalTo(self.firstContainer.snp_top)
+			make.left.equalTo(self.firstContainer.snp_left).offset(24)
+			make.right.equalTo(self.firstContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
 		}
 		
@@ -111,119 +127,145 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.fbButton.addSubview(self.fbLogo)
 		self.fbLogo.image = UIImage(named: "facebook_512_white")
 		self.fbLogo.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.fbButton.snp_bottom).offset(9)
-			make.left.equalTo(self.fbButton.snp_left).offset(0)
-			make.width.equalTo(55)
-			make.height.equalTo(55)
+			make.bottom.equalTo(self.fbButton.snp_bottom).offset(11)
+			make.left.equalTo(self.fbButton.snp_left).offset(5)
+			make.width.equalTo(60)
+			make.height.equalTo(60)
 		}
 		
 		let emailButton = UIButton()
 		self.emailButton = emailButton
-		self.buttonsContainer.addSubview(self.emailButton)
-		self.emailButton.backgroundColor = whitePrimary
+		self.firstContainer.addSubview(self.emailButton)
+		self.emailButton.layer.borderColor = whitePrimary.CGColor
+		self.emailButton.layer.borderWidth = 1
 		self.emailButton.setTitle("Email sign in", forState: UIControlState.Normal)
 		self.emailButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
 		self.emailButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.emailButton.addTarget(self, action: "didTapEmailButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.emailButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.fbButton.snp_bottom).offset(20)
-			make.left.equalTo(self.buttonsContainer.snp_left).offset(8)
-			make.right.equalTo(self.buttonsContainer.snp_right).offset(-8)
+			make.left.equalTo(self.firstContainer.snp_left).offset(24)
+			make.right.equalTo(self.firstContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
 		}
 		
 		//MARK: SECOND: TEXTFIELDS
 		
-		/*let emailRegisterContainer = UIView()
-		self.emailRegisterContainer = emailRegisterContainer
-		self.emailField.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(logo.snp_bottom).offset(20)
-			make.left.equalTo(contentView.snp_left).offset(8)
-			make.right.equalTo(contentView.snp_right).offset(-8)
-			make.height.equalTo(50)
+		let secondContainer = UIView()
+		self.secondContainer = secondContainer
+		self.contentView.addSubview(self.secondContainer)
+		self.secondContainer.alpha = 0
+		self.secondContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.logo.snp_bottom)
+			make.left.equalTo(self.contentView.snp_right)
+			make.width.equalTo(self.contentView.snp_width)
+			make.bottom.equalTo(contentView.snp_bottom)
 		}
 		
 		let emailField = UITextField()
 		self.emailField = emailField
-		self.contentView.addSubview(emailField)
-		self.emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
+		self.secondContainer.addSubview(emailField)
+		self.emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
 		self.emailField.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.emailField.keyboardType = UIKeyboardType.EmailAddress
+		self.emailField.autocorrectionType = UITextAutocorrectionType.No
+		self.emailField.autocapitalizationType = UITextAutocapitalizationType.None
+		self.emailField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.emailField.backgroundColor = whitePrimary
 		self.emailField.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(logo.snp_bottom).offset(20)
-			make.left.equalTo(contentView.snp_left).offset(8)
-			make.right.equalTo(contentView.snp_right).offset(-8)
+			make.top.equalTo(self.firstContainer.snp_top)
+			make.left.equalTo(self.secondContainer.snp_left).offset(24)
+			make.right.equalTo(self.secondContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
+		}
+		
+		let textfieldUnderline = UIView()
+		self.textfieldUnderline = textfieldUnderline
+		self.secondContainer.addSubview(textfieldUnderline)
+		self.textfieldUnderline.backgroundColor = grayDetails
+		self.textfieldUnderline.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(emailField.snp_bottom)
+			make.centerX.equalTo(emailField.snp_centerX)
+			make.width.equalTo(emailField.snp_width)
+			make.height.equalTo(1)
 		}
 		
 		let passwordField = UITextField()
 		self.passwordField = passwordField
-		self.contentView.addSubview(passwordField)
-		self.passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
+		self.secondContainer.addSubview(passwordField)
+		self.passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
 		self.passwordField.font = UIFont(name: "Lato-Regular", size: kText15)
-		self.passwordField.keyboardType = UIKeyboardType.EmailAddress
+		self.passwordField.autocorrectionType = UITextAutocorrectionType.No
+		self.emailField.autocapitalizationType = UITextAutocapitalizationType.None
+		self.passwordField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.passwordField.backgroundColor = whitePrimary
 		self.passwordField.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(passwordField.snp_bottom).offset(10)
-			make.left.equalTo(contentView.snp_left).offset(8)
-			make.right.equalTo(contentView.snp_right).offset(-8)
+			make.top.equalTo(self.emailField.snp_bottom).offset(1)
+			make.left.equalTo(self.secondContainer.snp_left).offset(24)
+			make.right.equalTo(self.secondContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
-		}*/
+		}
+		
+		let loginButton = UIButton()
+		self.loginButton = loginButton
+		self.secondContainer.addSubview(self.loginButton)
+		self.loginButton.setTitle("Login", forState: UIControlState.Normal)
+		self.loginButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.loginButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		self.loginButton.addTarget(self, action: "emailLogin:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.loginButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.passwordField.snp_bottom)
+			make.left.equalTo(self.secondContainer.snp_left).offset(24)
+			make.right.equalTo(self.secondContainer.snp_right).offset(-24)
+			make.height.equalTo(50)
+		}
+		
+		let arrow = UIButton()
+		self.arrow = arrow
+		self.secondContainer.addSubview(self.arrow)
+		self.arrow.setImage(UIImage(named: "left-white-arrow"), forState: UIControlState.Normal)
+		self.arrow.imageEdgeInsets = UIEdgeInsetsMake(5, 0, 45, 50)
+		self.arrow.addTarget(self, action: "didTapEmailButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.arrow.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.secondContainer.snp_top)
+			make.left.equalTo(self.emailField.snp_left)
+			make.height.equalTo(70)
+			make.width.equalTo(70)
+		}
+		
+		let registerButton = UIButton()
+		self.registerButton = registerButton
+		self.secondContainer.addSubview(self.registerButton)
+		self.registerButton.layer.borderColor = whitePrimary.CGColor
+		self.registerButton.layer.borderWidth = 1
+		self.registerButton.setTitle("Register", forState: UIControlState.Normal)
+		self.registerButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.registerButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		self.registerButton.addTarget(self, action: "registerAccount:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.registerButton.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(self.secondContainer.snp_bottom).offset(-50)
+			make.left.equalTo(self.secondContainer.snp_left).offset(24)
+			make.right.equalTo(self.secondContainer.snp_right).offset(-24)
+			make.height.equalTo(50)
+		}
+		
+		let forgotPassButton = UIButton()
+		self.forgotPassButton = forgotPassButton
+		self.secondContainer.addSubview(self.forgotPassButton)
+		self.forgotPassButton.setTitle("I forgot my password", forState: UIControlState.Normal)
+		self.forgotPassButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.forgotPassButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.forgotPassButton.addTarget(self, action: "forgotPassword:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.forgotPassButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.registerButton.snp_bottom).offset(5)
+			make.left.equalTo(self.secondContainer.snp_left).offset(24)
+			make.right.equalTo(self.secondContainer.snp_right).offset(-24)
+			make.height.equalTo(40)
+		}
 	}
 	
 	func adjustUI(){
 		
-		/*self.logoImage.image = UIImage(named: "logo_beige_nobackground_v2")
-		self.logoImage.contentMode = UIViewContentMode.ScaleAspectFill
-		
-		self.container.backgroundColor = redPrimary
-		
-		self.nelperLabel.textColor = whiteBackground
-		self.nelperLabel.text = "Nelper"
-		self.nelperLabel.font = UIFont(name: "ABeeZee-Regular", size: kLoginScreenFontSize)
-		
-		self.emailField.layer.cornerRadius = 3
-		self.emailField.layer.borderWidth = 2
-		self.emailField.layer.borderColor = blackPrimary.CGColor
-		
-		self.passwordField.layer.cornerRadius = 3
-		self.passwordField.layer.borderWidth = 2
-		self.passwordField.layer.borderColor = blackPrimary.CGColor
-		
-		self.loginButton.setTitle("Login", forState: UIControlState.Normal)
-		self.loginButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kTitle17 + 2)
-		
-		self.facebookLoginButton.backgroundColor = blueFacebook
-		self.facebookLoginButton.layer.cornerRadius = 3
-		self.facebookLoginButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
-		self.facebookLoginButton.setTitleColor(whiteBackground, forState: UIControlState.Normal)
-		self.facebookLoginButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-		self.facebookLoginButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kTitle17)
-		self.facebookLoginButton.layer.borderColor = blackPrimary.CGColor
-		self.facebookLoginButton.layer.borderWidth = 2
-		self.facebookLoginButton.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0)
-		
-		let facebooklogo = UIImageView()
-		facebooklogo.image = UIImage(named: "facebook_512_white")
-		self.facebookLoginButton.addSubview(facebooklogo)
-		facebooklogo.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.facebookLoginButton.snp_bottom).offset(9)
-			make.left.equalTo(self.facebookLoginButton.snp_left).offset(0)
-			make.width.equalTo(55)
-			make.height.equalTo(55)
-		}
-		
-		self.skipButton.backgroundColor = blackPrimary
-		self.skipButton.layer.cornerRadius = 3
-		self.skipButton.setTitle("Maybe later", forState: UIControlState.Normal)
-		self.skipButton.setTitleColor(whiteBackground, forState: UIControlState.Normal)
-		self.skipButton.titleLabel?.font = UIFont(name: "ABeeZee-Regular", size: kTitle17)
-		self.skipButton.layer.borderColor = UIColor.blackColor().CGColor
-		self.skipButton.layer.borderWidth = 2
-		
-		self.forgotPass.setTitle("I forgot my password", forState: UIControlState.Normal)
-		*/
 	}
 	
 	// Elements animation (fade in)
@@ -232,6 +274,23 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		super.viewDidAppear(animated)
 		
 	}
+	
+	//MARK: KEYBOARD VIEW MOVER
+	/*
+	func keyboardWillShow(sender: NSNotification) {
+		if keyboardIsShowing == false {
+			self.view.frame.origin.y -= 150
+			keyboardIsShowing = true
+		}
+	}
+	
+	func keyboardWillHide(sender: NSNotification) {
+		if keyboardIsShowing == true{
+			self.view.frame.origin.y += 150
+			keyboardIsShowing = false
+		}
+	}
+	*/
 	
 	//MARK: Actions
 	
@@ -253,14 +312,21 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		}
 	}
 	
+	func emailLogin(sender: UIButton) {
+		
+	}
+	
+	func registerAccount(sender: UIButton) {
+		
+	}
+		
+	func forgotPassword(sender: UIButton) {
+		
+	}
+	
 	func skipLogin(sender: AnyObject) {
 		self.loginCompleted()
 	}
-	
-	
-	func loginClicked(sender: AnyObject) {
-	}
-	
 	
 	//Login
 	
@@ -292,6 +358,50 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 	}
 	
 	func didTapEmailButton(sender: UIButton) {
+		
+		if self.emailActive == false {
+			
+			self.firstContainer.snp_updateConstraints { (make) -> Void in
+				make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.maxX))
+			}
+			self.secondContainer.snp_updateConstraints { (make) -> Void in
+				make.left.equalTo(self.contentView.snp_right).offset(-(self.contentView.frame.maxX))
+			}
+			
+			
+			UIView.animateWithDuration(0.5, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.firstContainer.layoutIfNeeded()
+				self.secondContainer.layoutIfNeeded()
+				
+				self.firstContainer.alpha = 0
+				self.secondContainer.alpha = 1
+			}, completion: nil)
+			
+			self.emailActive = true
+			DismissKeyboard()
+			
+		} else {
+			
+			self.firstContainer.snp_updateConstraints { (make) -> Void in
+				make.left.equalTo(self.contentView.snp_left)
+			}
+			self.secondContainer.snp_updateConstraints { (make) -> Void in
+				make.left.equalTo(self.contentView.snp_right)
+			}
+			
+			
+			UIView.animateWithDuration(0.5, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.firstContainer.layoutIfNeeded()
+				self.secondContainer.layoutIfNeeded()
+				
+				self.firstContainer.alpha = 1
+				self.secondContainer.alpha = 0
+			}, completion: nil)
+			
+			self.emailActive = false
+			DismissKeyboard()
+		}
+		
 	}
 
 }
