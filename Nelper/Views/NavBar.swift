@@ -25,14 +25,14 @@ class NavBar: UINavigationBar {
 				self.backButtonView?.removeFromSuperview()
 				self.backButtonView = value
 				self.backButtonView?.setImage(UIImage(named: "left-white-arrow"), forState: UIControlState.Normal)
-				self.backButtonView?.imageEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20)
+				self.backButtonView?.imageEdgeInsets = UIEdgeInsetsMake(5, 24, 45, 56)
 				self.container.addSubview(self.backButtonView!)
 				
 				self.backButtonView?.snp_makeConstraints(closure: { (make) -> Void in
 					make.left.equalTo(self.container.snp_left)
 					make.centerY.equalTo(self.container.snp_centerY).offset(8)
-					make.height.equalTo(60)
-					make.width.equalTo(60)
+					make.height.equalTo(70)
+					make.width.equalTo(100)
 				})
 			}
 		}

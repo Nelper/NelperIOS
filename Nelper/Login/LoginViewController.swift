@@ -31,13 +31,22 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 	var textfieldUnderline: UIView!
 	var passwordField: UITextField!
 	var loginButton: UIButton!
-	var arrow: UIButton!
+	var arrowSecond: UIButton!
 	var registerButton: UIButton!
 	var forgotPassButton: UIButton!
 	
-	var emailActive = false
+	var thirdContainer: UIView!
+	var emailFieldRegister: UITextField!
+	var passwordFieldRegister: UITextField!
+	var passwordfieldUnderlineRegister: UIView!
+	var passwordFieldConfirmRegister: UITextField!
+	var registerAccountButton: UIButton!
+	var arrowThird: UIButton!
 	
-	var keyboardIsShowing: Bool = false
+	var emailActive = false
+	var registerActive = false
+	
+	var keyboardIsShowing = false
 	
 	//MARK: Initialization
 	
@@ -53,10 +62,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.contentView.addGestureRecognizer(tap)
 		
 		// KEYBOARD VIEW MOVER
-		/*
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-		*/
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -92,7 +99,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 			make.height.equalTo(220)
 		}
 		
-		//MARK: FIRST: BUTTONS
+		//MARK: FIRST: FB SIGN IN
 		
 		let firstContainer = UIView()
 		self.firstContainer = firstContainer
@@ -149,7 +156,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 			make.height.equalTo(50)
 		}
 		
-		//MARK: SECOND: TEXTFIELDS
+		//MARK: SECOND: EMAIL LOGIN
 		
 		let secondContainer = UIView()
 		self.secondContainer = secondContainer
@@ -157,7 +164,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.secondContainer.alpha = 0
 		self.secondContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.logo.snp_bottom)
-			make.left.equalTo(self.contentView.snp_right)
+			make.left.equalTo(self.firstContainer.snp_right)
 			make.width.equalTo(self.contentView.snp_width)
 			make.bottom.equalTo(contentView.snp_bottom)
 		}
@@ -184,9 +191,9 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.secondContainer.addSubview(textfieldUnderline)
 		self.textfieldUnderline.backgroundColor = grayDetails
 		self.textfieldUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(emailField.snp_bottom)
-			make.centerX.equalTo(emailField.snp_centerX)
-			make.width.equalTo(emailField.snp_width)
+			make.top.equalTo(self.emailField.snp_bottom)
+			make.centerX.equalTo(self.emailField.snp_centerX)
+			make.width.equalTo(self.emailField.snp_width)
 			make.height.equalTo(1)
 		}
 		
@@ -196,7 +203,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
 		self.passwordField.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.passwordField.autocorrectionType = UITextAutocorrectionType.No
-		self.emailField.autocapitalizationType = UITextAutocapitalizationType.None
+		self.passwordField.autocapitalizationType = UITextAutocapitalizationType.None
 		self.passwordField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.passwordField.backgroundColor = whitePrimary
 		self.passwordField.snp_makeConstraints { (make) -> Void in
@@ -220,17 +227,17 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 			make.height.equalTo(50)
 		}
 		
-		let arrow = UIButton()
-		self.arrow = arrow
-		self.secondContainer.addSubview(self.arrow)
-		self.arrow.setImage(UIImage(named: "left-white-arrow"), forState: UIControlState.Normal)
-		self.arrow.imageEdgeInsets = UIEdgeInsetsMake(5, 0, 45, 50)
-		self.arrow.addTarget(self, action: "didTapEmailButton:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.arrow.snp_makeConstraints { (make) -> Void in
+		let arrowSecond = UIButton()
+		self.arrowSecond = arrowSecond
+		self.secondContainer.addSubview(self.arrowSecond)
+		self.arrowSecond.setImage(UIImage(named: "left-white-arrow"), forState: UIControlState.Normal)
+		self.arrowSecond.imageEdgeInsets = UIEdgeInsetsMake(5, 24, 45, 56)
+		self.arrowSecond.addTarget(self, action: "didTapEmailButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.arrowSecond.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.secondContainer.snp_top)
 			make.left.equalTo(self.emailField.snp_left)
 			make.height.equalTo(70)
-			make.width.equalTo(70)
+			make.width.equalTo(100)
 		}
 		
 		let registerButton = UIButton()
@@ -238,10 +245,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.secondContainer.addSubview(self.registerButton)
 		self.registerButton.layer.borderColor = whitePrimary.CGColor
 		self.registerButton.layer.borderWidth = 1
-		self.registerButton.setTitle("Register", forState: UIControlState.Normal)
+		self.registerButton.setTitle("Register new account", forState: UIControlState.Normal)
 		self.registerButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
 		self.registerButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		self.registerButton.addTarget(self, action: "registerAccount:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.registerButton.addTarget(self, action: "didTapRegisterButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.registerButton.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(self.secondContainer.snp_bottom).offset(-50)
 			make.left.equalTo(self.secondContainer.snp_left).offset(24)
@@ -262,6 +269,106 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 			make.right.equalTo(self.secondContainer.snp_right).offset(-24)
 			make.height.equalTo(40)
 		}
+		
+		//MARK: THIRD: EMAIL REGISTER
+		
+		let thirdContainer = UIView()
+		self.thirdContainer = thirdContainer
+		self.contentView.addSubview(self.thirdContainer)
+		self.thirdContainer.alpha = 0
+		self.thirdContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.logo.snp_bottom)
+			make.left.equalTo(self.secondContainer.snp_right)
+			make.width.equalTo(self.contentView.snp_width)
+			make.bottom.equalTo(self.contentView.snp_bottom)
+		}
+		
+		let emailFieldRegister = UITextField()
+		self.emailFieldRegister = emailFieldRegister
+		self.thirdContainer.addSubview(emailFieldRegister)
+		self.emailFieldRegister.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
+		self.emailFieldRegister.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.emailFieldRegister.keyboardType = UIKeyboardType.EmailAddress
+		self.emailFieldRegister.autocorrectionType = UITextAutocorrectionType.No
+		self.emailFieldRegister.autocapitalizationType = UITextAutocapitalizationType.None
+		self.emailFieldRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
+		self.emailFieldRegister.backgroundColor = whitePrimary
+		self.emailFieldRegister.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.firstContainer.snp_top)
+			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
+			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
+			make.height.equalTo(50)
+		}
+		
+		let passwordFieldRegister = UITextField()
+		self.passwordFieldRegister = passwordFieldRegister
+		self.thirdContainer.addSubview(passwordFieldRegister)
+		self.passwordFieldRegister.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
+		self.passwordFieldRegister.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.passwordFieldRegister.autocorrectionType = UITextAutocorrectionType.No
+		self.passwordFieldRegister.autocapitalizationType = UITextAutocapitalizationType.None
+		self.passwordFieldRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
+		self.passwordFieldRegister.backgroundColor = whitePrimary
+		self.passwordFieldRegister.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.emailFieldRegister.snp_bottom).offset(10)
+			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
+			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
+			make.height.equalTo(50)
+		}
+		
+		let passwordfieldUnderlineRegister = UIView()
+		self.passwordfieldUnderlineRegister = passwordfieldUnderlineRegister
+		self.thirdContainer.addSubview(passwordfieldUnderlineRegister)
+		self.passwordfieldUnderlineRegister.backgroundColor = grayDetails
+		self.passwordfieldUnderlineRegister.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.passwordFieldRegister.snp_bottom)
+			make.centerX.equalTo(self.passwordFieldRegister.snp_centerX)
+			make.width.equalTo(self.passwordFieldRegister.snp_width)
+			make.height.equalTo(1)
+		}
+		
+		let passwordFieldConfirmRegister = UITextField()
+		self.passwordFieldConfirmRegister = passwordFieldConfirmRegister
+		self.thirdContainer.addSubview(passwordFieldConfirmRegister)
+		self.passwordFieldConfirmRegister.attributedPlaceholder = NSAttributedString(string: "Confirm password", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
+		self.passwordFieldConfirmRegister.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.passwordFieldConfirmRegister.autocorrectionType = UITextAutocorrectionType.No
+		self.passwordFieldConfirmRegister.autocapitalizationType = UITextAutocapitalizationType.None
+		self.passwordFieldConfirmRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
+		self.passwordFieldConfirmRegister.backgroundColor = whitePrimary
+		self.passwordFieldConfirmRegister.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.passwordFieldRegister.snp_bottom).offset(1)
+			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
+			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
+			make.height.equalTo(50)
+		}
+		
+		let registerAccountButton = UIButton()
+		self.registerAccountButton = registerAccountButton
+		self.thirdContainer.addSubview(self.registerAccountButton)
+		self.registerAccountButton.setTitle("Sign up", forState: UIControlState.Normal)
+		self.registerAccountButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.registerAccountButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		self.registerAccountButton.addTarget(self, action: "createAccount:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.registerAccountButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.passwordFieldConfirmRegister.snp_bottom)
+			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
+			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
+			make.height.equalTo(50)
+		}
+		
+		let arrowThird = UIButton()
+		self.arrowThird = arrowThird
+		self.thirdContainer.addSubview(self.arrowThird)
+		self.arrowThird.setImage(UIImage(named: "left-white-arrow"), forState: UIControlState.Normal)
+		self.arrowThird.imageEdgeInsets = UIEdgeInsetsMake(5, 24, 45, 56)
+		self.arrowThird.addTarget(self, action: "didTapRegisterButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.arrowThird.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.thirdContainer.snp_top)
+			make.left.equalTo(self.thirdContainer.snp_left)
+			make.height.equalTo(70)
+			make.width.equalTo(100)
+		}
 	}
 	
 	func adjustUI(){
@@ -276,21 +383,20 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 	}
 	
 	//MARK: KEYBOARD VIEW MOVER
-	/*
+	
 	func keyboardWillShow(sender: NSNotification) {
 		if keyboardIsShowing == false {
-			self.view.frame.origin.y -= 150
+			self.view.frame.origin.y -= 100
 			keyboardIsShowing = true
 		}
 	}
 	
 	func keyboardWillHide(sender: NSNotification) {
 		if keyboardIsShowing == true{
-			self.view.frame.origin.y += 150
+			self.view.frame.origin.y += 100
 			keyboardIsShowing = false
 		}
 	}
-	*/
 	
 	//MARK: Actions
 	
@@ -315,12 +421,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 	func emailLogin(sender: UIButton) {
 		
 	}
-	
-	func registerAccount(sender: UIButton) {
-		
-	}
 		
 	func forgotPassword(sender: UIButton) {
+		
+	}
+	
+	func createAccount(sender: UIButton) {
 		
 	}
 	
@@ -357,6 +463,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		delegate?.onLogin()
 	}
 	
+	//MARK: ANIMATE FIRST <-> SECOND VIEW
+	
 	func didTapEmailButton(sender: UIButton) {
 		
 		if self.emailActive == false {
@@ -364,14 +472,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 			self.firstContainer.snp_updateConstraints { (make) -> Void in
 				make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.maxX))
 			}
-			self.secondContainer.snp_updateConstraints { (make) -> Void in
-				make.left.equalTo(self.contentView.snp_right).offset(-(self.contentView.frame.maxX))
-			}
-			
 			
 			UIView.animateWithDuration(0.5, delay: 0.0, options: [.CurveEaseOut], animations:  {
 				self.firstContainer.layoutIfNeeded()
 				self.secondContainer.layoutIfNeeded()
+				self.thirdContainer.layoutIfNeeded()
 				
 				self.firstContainer.alpha = 0
 				self.secondContainer.alpha = 1
@@ -385,14 +490,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 			self.firstContainer.snp_updateConstraints { (make) -> Void in
 				make.left.equalTo(self.contentView.snp_left)
 			}
-			self.secondContainer.snp_updateConstraints { (make) -> Void in
-				make.left.equalTo(self.contentView.snp_right)
-			}
-			
 			
 			UIView.animateWithDuration(0.5, delay: 0.0, options: [.CurveEaseOut], animations:  {
 				self.firstContainer.layoutIfNeeded()
 				self.secondContainer.layoutIfNeeded()
+				self.thirdContainer.layoutIfNeeded()
 				
 				self.firstContainer.alpha = 1
 				self.secondContainer.alpha = 0
@@ -401,7 +503,47 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 			self.emailActive = false
 			DismissKeyboard()
 		}
+	}
+	
+	//MARK: ANIMATE SECOND <-> THIRD VIEW
+	
+	func didTapRegisterButton(sender: UIButton) {
+		if self.registerActive == false {
+			
+			self.firstContainer.snp_updateConstraints { (make) -> Void in
+				make.left.equalTo(self.contentView.snp_left).offset(-2*(self.contentView.frame.maxX))
+			}
+			
+			UIView.animateWithDuration(0.5, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.firstContainer.layoutIfNeeded()
+				self.secondContainer.layoutIfNeeded()
+				self.thirdContainer.layoutIfNeeded()
+				
+				self.secondContainer.alpha = 0
+				self.thirdContainer.alpha = 1
+			}, completion: nil)
+			
+			self.registerActive = true
+			DismissKeyboard()
+			
+		} else {
+			
+			self.firstContainer.snp_updateConstraints { (make) -> Void in
+				make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.maxX))
+			}
+			
+			UIView.animateWithDuration(0.5, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.firstContainer.layoutIfNeeded()
+				self.secondContainer.layoutIfNeeded()
+				self.thirdContainer.layoutIfNeeded()
+				
+				self.secondContainer.alpha = 1
+				self.thirdContainer.alpha = 0
+				}, completion: nil)
 		
+			self.registerActive = false
+			DismissKeyboard()
+		}
 	}
 
 }
