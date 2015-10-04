@@ -29,6 +29,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var arrayOfApplications: [NelpTaskApplication]!
 	var arrayOfAllApplicants: [User]!
 	var taskSectionContainer: UIView!
+	var deniedApplicantIcon:UIImageView!
+	var deniedApplicantsLabel:UILabel!
 	
 	//MARK: Initialization
 	
@@ -221,6 +223,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 		let deniedApplicantIcon = UIImageView()
+		self.deniedApplicantIcon = deniedApplicantIcon
 		deniedApplicantsContainer.addSubview(deniedApplicantIcon)
 		deniedApplicantIcon.image = UIImage(named: "denied.png")
 		deniedApplicantIcon.contentMode = UIViewContentMode.ScaleAspectFill
@@ -232,9 +235,10 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 		let deniedApplicantsLabel = UILabel()
+		self.deniedApplicantsLabel = deniedApplicantsLabel
 		deniedApplicantsContainer.addSubview(deniedApplicantsLabel)
 		deniedApplicantsLabel.textAlignment = NSTextAlignment.Left
-		deniedApplicantsLabel.text = "Denied Nelpers"
+		deniedApplicantsLabel.text = "Declined Nelpers"
 		deniedApplicantsLabel.textColor = blackPrimary
 		deniedApplicantsLabel.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
 		deniedApplicantsLabel.snp_makeConstraints { (make) -> Void in
@@ -414,6 +418,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let contentsize = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height + 10)
 		self.scrollView.contentSize = contentsize.size
 		
+		self.deniedApplicantsLabel.alpha = 1
+		self.deniedApplicantIcon.alpha = 1
 		if self.arrayOfDeniedApplicants.isEmpty{
 			self.deniedApplicantsContainer.snp_remakeConstraints(closure: { (make) -> Void in
 				make.height.equalTo(0)
@@ -452,9 +458,16 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		self.refreshTableView()
 		if self.arrayOfDeniedApplicants.isEmpty{
-				self.deniedApplicantsContainer.snp_remakeConstraints(closure: { (make) -> Void in
+				self.deniedApplicantsContainer.snp_updateConstraints(closure: { (make) -> Void in
 					make.height.equalTo(0)
 				})
+			self.deniedApplicantIcon.alpha = 0
+			self.deniedApplicantsLabel.alpha = 0
+
+			UIView.animateWithDuration(0.5, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.deniedApplicantsContainer.layoutIfNeeded()
+				self.deniedApplicantIcon.layoutIfNeeded()
+				}, completion: nil)
 		}
 	}
 	
