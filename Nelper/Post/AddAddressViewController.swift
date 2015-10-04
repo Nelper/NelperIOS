@@ -47,7 +47,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		addressOk = false
 		nameOk = false
 		
-		//keyboard move view
+		//KEYBOARD VIEW MOVER
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
 		

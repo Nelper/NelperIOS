@@ -36,7 +36,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	var refreshView: UIRefreshControl!
 	var filtersButton:UIButton!
 	
-	var nelpTasks = [NelpTask]()
+	var nelpTasks = [Task]()
 	var findNelpTasks = [FindNelpTask]()
 	
 	var mapView: MKMapView!
@@ -206,7 +206,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	Fetches the required date from Backend
 	*/
 	func loadData() {
-		ApiHelper.listNelpTasksWithBlock(nil, sortBy: nil, minPrice: nil, maxDistance: nil, block: {(nelpTasks: [NelpTask]?, error: NSError?) -> Void in
+		ApiHelper.listNelpTasksWithBlock(nil, sortBy: nil, minPrice: nil, maxDistance: nil, block: {(nelpTasks: [Task]?, error: NSError?) -> Void in
 			if error != nil {
 				
 			} else {
@@ -229,7 +229,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	*/
 	
 	func loadDataWithFilters(filters:Array<String>?, sort:String?, minPrice:Double?, maxDistance:Double?){
-		ApiHelper.listNelpTasksWithBlock(filters, sortBy: sort,minPrice:minPrice, maxDistance:maxDistance, block: {(nelpTasks: [NelpTask]?, error: NSError?) -> Void in
+		ApiHelper.listNelpTasksWithBlock(filters, sortBy: sort,minPrice:minPrice, maxDistance:maxDistance, block: {(nelpTasks: [Task]?, error: NSError?) -> Void in
 			if error != nil {
 				
 			} else {
@@ -252,9 +252,9 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		
 		let cell = self.tableView.dequeueReusableCellWithIdentifier(BrowseTaskViewCell.reuseIdentifier, forIndexPath: indexPath) as! BrowseTaskViewCell
 		
-		let nelpTask = self.nelpTasks[indexPath.item]
-		cell.setNelpTask(nelpTask)
-		cell.setImages(nelpTask)
+		let task = self.nelpTasks[indexPath.item]
+		cell.setNelpTask(task)
+		cell.setImages(task)
 		
 		return cell
 	}

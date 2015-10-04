@@ -73,7 +73,6 @@
 		F73AE64A1B6D3CEA00FE672E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73AE6491B6D3CEA00FE672E /* Accounts.framework */; };
 		F73AE64C1B6D3CFF00FE672E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73AE64B1B6D3CFF00FE672E /* Social.framework */; };
 		F762D0061B4B66B000812235 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F762D0041B4B66B000812235 /* LoginViewController.swift */; };
-		F762D0071B4B66B000812235 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F762D0051B4B66B000812235 /* LoginViewController.xib */; };
 		F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775C0C61B803E9600F7525B /* TabBarCustom.swift */; };
 		F777FBAD1BA1245B00328709 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F777FBAC1BA1245B00328709 /* DateHelper.swift */; };
 		F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ApiHelper.swift */; };
@@ -255,7 +254,6 @@
 		F73AE6491B6D3CEA00FE672E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		F73AE64B1B6D3CFF00FE672E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		F762D0041B4B66B000812235 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Nelper/Login/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
-		F762D0051B4B66B000812235 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = Nelper/Login/LoginViewController.xib; sourceTree = SOURCE_ROOT; };
 		F775C0C61B803E9600F7525B /* TabBarCustom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarCustom.swift; path = Views/TabBarCustom.swift; sourceTree = "<group>"; };
 		F777FBAC1BA1245B00328709 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateHelper.swift; path = Nelper/Helpers/DateHelper.swift; sourceTree = SOURCE_ROOT; };
 		F782A6281B6567E100C78470 /* ApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHelper.swift; path = Nelper/Helpers/ApiHelper.swift; sourceTree = SOURCE_ROOT; };
@@ -429,7 +427,6 @@
 			isa = PBXGroup;
 			children = (
 				F762D0041B4B66B000812235 /* LoginViewController.swift */,
-				F762D0051B4B66B000812235 /* LoginViewController.xib */,
 			);
 			name = Login;
 			path = ViewControllers/Login;
@@ -954,7 +951,6 @@
 				F7E8F9181B94E7DF007D44D8 /* layerLogo@3x.png in Resources */,
 				19DB24481BB70E8000468E91 /* MyTaskDetailsViewController.xib in Resources */,
 				19DB245E1BB711AA00468E91 /* BrowseViewController.xib in Resources */,
-				F762D0071B4B66B000812235 /* LoginViewController.xib in Resources */,
 				199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */,
 				F7E8F9161B94E7DF007D44D8 /* layerLogo.png in Resources */,
 				F7E8F91B1B94E7DF007D44D8 /* location_dark@3x.png in Resources */,

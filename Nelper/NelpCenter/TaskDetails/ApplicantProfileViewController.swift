@@ -750,7 +750,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			}
 		})
 		self.application.task.state = .Accepted
-		let queryTask = PFQuery(className: "NelpTask")
+		let queryTask = PFQuery(className: "Task")
 		queryTask.getObjectInBackgroundWithId(self.application.task.objectId, block: { (task , error) -> Void in
 			if error != nil{
 				print(error)

@@ -12,7 +12,7 @@ import Alamofire
 import SwiftyJSON
 
 protocol PostTaskFormViewControllerDelegate {
-	func nelpTaskAdded(nelpTask: FindNelpTask) -> Void
+	func nelpTaskAdded(task: FindNelpTask) -> Void
 	func dismiss()
 }
 

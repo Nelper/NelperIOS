@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PostTaskCategoriesViewControllerDelegate {
-	func nelpTaskAdded(nelpTask: FindNelpTask) -> Void
+	func nelpTaskAdded(task: FindNelpTask) -> Void
 }
 
 class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, PostTaskFormViewControllerDelegate {
@@ -255,15 +255,15 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 	}
 	
 	
-	//MARK: NelpTask Delegate Methods
+	//MARK: Task Delegate Methods
 	
 	/**
 	Adds the task to the Nelp Center "My Task" table view
 	
-	- parameter nelpTask: The newly created task
+	- parameter task: The newly created task
 	*/
-	func nelpTaskAdded(nelpTask: FindNelpTask) {
-		delegate?.nelpTaskAdded(nelpTask)
+	func nelpTaskAdded(task: FindNelpTask) {
+		delegate?.nelpTaskAdded(task)
 	}
 	
 	

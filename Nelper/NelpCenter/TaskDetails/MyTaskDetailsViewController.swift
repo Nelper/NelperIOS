@@ -302,10 +302,10 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.navBar.setTitle("My Task Details")
 	}
 	
-	func setImages(nelpTask:FindNelpTask){
+	func setImages(task:FindNelpTask){
 		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2;
 		self.categoryIcon.clipsToBounds = true
-		self.categoryIcon.image = UIImage(named: nelpTask.category!)
+		self.categoryIcon.image = UIImage(named: task.category!)
 	}
 	
 	func drawTableViewsSize(){

@@ -20,7 +20,7 @@ class BrowseTaskViewCell: UITableViewCell {
 	var categoryPicture:UIImageView!
 	var creationDate:UILabel!
 	var moneyBackground:UIView!
-	var task: NelpTask!
+	var task: Task!
 	
 	//MARK: Initialization
 	
@@ -173,39 +173,39 @@ class BrowseTaskViewCell: UITableViewCell {
 	
 	
 	/**
-	Sets the cell NelpTask
+	Sets the cell Task
 	
-	- parameter nelpTask: The NelpTask
+	- parameter task: The Task
 	*/
-	func setNelpTask(nelpTask:NelpTask) {
-		self.task = nelpTask
-		self.title.text = nelpTask.title
+	func setNelpTask(task:Task) {
+		self.task = task
+		self.title.text = task.title
 		self.title.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.title.textColor = blackTextColor
 		
-		self.author.text = "\(nelpTask.user.name)"
+		self.author.text = "\(task.user.name)"
 		self.author.font = UIFont(name: "Lato-Light", size: kText13)
 		self.author.textColor = blackTextColor
 		
-		let price = String(format: "%.0f", nelpTask.priceOffered!)
+		let price = String(format: "%.0f", task.priceOffered!)
 		
 		self.price.text = "$"+price
 		
 		let dateHelper = DateHelper()
 		self.creationDate.text = "Posted \(dateHelper.timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
 		
-		self.categoryPicture.image = UIImage(named: nelpTask.category!)
+		self.categoryPicture.image = UIImage(named: task.category!)
 		
 	}
 	
 	/**
 	Set profile image on the cell
 	
-	- parameter nelpTask: NelpTask
+	- parameter task: Task
 	*/
-	func setImages(nelpTask:NelpTask) {
-		if(nelpTask.user.profilePictureURL != nil){
-			let fbProfilePicture = nelpTask.user.profilePictureURL
+	func setImages(task:Task) {
+		if(task.user.profilePictureURL != nil){
+			let fbProfilePicture = task.user.profilePictureURL
 			request(.GET,fbProfilePicture!).response(){
 				(_, _, data, _) in
 				let image = UIImage(data: data as NSData!)

@@ -14,7 +14,7 @@ import iCarousel
 class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouselDelegate, CLLocationManagerDelegate, MKMapViewDelegate {
 	
 	
-	var task: NelpTask!
+	var task: Task!
 	var pageViewController: UIPageViewController?
 	var pictures: NSArray?
 	var containerView: UIView!

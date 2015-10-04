@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-private let kParseTask = "NelpTask"
+private let kParseTask = "Task"
 private let kParseTaskApplication = "NelpTaskApplication"
 
 class ApiHelper {
@@ -136,7 +136,7 @@ class ApiHelper {
 	- parameter maxDistance:    maximum distance filter
 	- parameter block:          block
 	*/
-	static func listNelpTasksWithBlock(arrayOfFilters:Array<String>?, sortBy: String?,minPrice: Double?, maxDistance: Double?,block: ([NelpTask]?, NSError?) -> Void) {
+	static func listNelpTasksWithBlock(arrayOfFilters:Array<String>?, sortBy: String?,minPrice: Double?, maxDistance: Double?,block: ([Task]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		if let arrayOfFilters = arrayOfFilters{
 			print(arrayOfFilters.count, terminator: "")
@@ -167,7 +167,7 @@ class ApiHelper {
 			taskQuery.orderByDescending("createdAt")
 		}
 		taskQuery.includeKey("user")
-		taskQuery.whereKey("state", equalTo: NelpTask.State.Pending.rawValue)
+		taskQuery.whereKey("state", equalTo: Task.State.Pending.rawValue)
 		taskQuery.limit = 20
 		taskQuery.findObjectsInBackgroundWithBlock { (pfTasks, error) -> Void in
 			if error != nil {
@@ -185,8 +185,8 @@ class ApiHelper {
 						return
 					}
 					
-					let tasks = pfTasks!.map({ (pfTask) -> NelpTask in
-						let task = NelpTask(parseTask: pfTask as! PFObject)
+					let tasks = pfTasks!.map({ (pfTask) -> Task in
+						let task = Task(parseTask: pfTask as! PFObject)
 						let index = pfApplications!.map({($0["task"] as! PFObject).objectId!}).indexOf(task.objectId)
 						if let index = index {
 							task.application = NelpTaskApplication(parseApplication: pfApplications![index] as! PFObject)
@@ -198,7 +198,7 @@ class ApiHelper {
 					block(tasks, nil)
 				})
 			} else {
-				block(pfTasks!.map({ NelpTask(parseTask: $0 as! PFObject) }), nil)
+				block(pfTasks!.map({ Task(parseTask: $0 as! PFObject) }), nil)
 			}
 		}
 	}
@@ -211,7 +211,7 @@ class ApiHelper {
 	static func listMyNelpTasksWithBlock(block: ([FindNelpTask]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		taskQuery.whereKey("user", equalTo: PFUser.currentUser()!)
-		taskQuery.whereKey("state", containedIn: [NelpTask.State.Pending.rawValue, NelpTask.State.Accepted.rawValue ])
+		taskQuery.whereKey("state", containedIn: [Task.State.Pending.rawValue, Task.State.Accepted.rawValue ])
 		taskQuery.orderByDescending("createdAt")
 		taskQuery.limit = 20
 		taskQuery.findObjectsInBackgroundWithBlock { (pfTasks, error) -> Void in
@@ -338,7 +338,7 @@ class ApiHelper {
 	
 	static func editTask(task: FindNelpTask) {
 		
-		let query = PFQuery(className: "NelpTask")
+		let query = PFQuery(className: "Task")
 		query.getObjectInBackgroundWithId(task.objectId, block: { (taskFetched , error) -> Void in
 			if error != nil{
 				print(error)
@@ -368,7 +368,7 @@ class ApiHelper {
 	
 	//Apply for a task
 	
-	static func applyForTask(task: NelpTask, price:Int) {
+	static func applyForTask(task: Task, price:Int) {
 		let parseTask = PFObject(withoutDataWithClassName: kParseTask, objectId: task.objectId)
 		let parseApplication = PFObject(className: kParseTaskApplication)
 		parseApplication["state"] = NelpTaskApplication.State.Pending.rawValue
@@ -384,7 +384,7 @@ class ApiHelper {
 	
 	//Cancel application on a task
 	
-	static func cancelApplyForTask(task: NelpTask) {
+	static func cancelApplyForTask(task: Task) {
 		let parseApplication = PFObject(withoutDataWithClassName:kParseTaskApplication, objectId:task.application!.objectId)
 		parseApplication["state"] = NelpTaskApplication.State.Canceled.rawValue
 		parseApplication.saveEventually()

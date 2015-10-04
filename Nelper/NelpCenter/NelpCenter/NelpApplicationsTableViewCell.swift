@@ -241,7 +241,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	
 	func setNelpApplication(nelpApplication: NelpTaskApplication) {
 		self.nelpApplication = nelpApplication
-		//		self.categoryLabel.text = nelpTask.category!.uppercaseString
+		//		self.categoryLabel.text = task.category!.uppercaseString
 		self.titleLabel.text = nelpApplication.task.title
 		let price = String(format: "%.0f", nelpApplication.task.priceOffered!)
 		self.price.text = "$"+price

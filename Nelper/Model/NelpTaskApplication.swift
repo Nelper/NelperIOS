@@ -20,7 +20,7 @@ class NelpTaskApplication: BaseModel {
 	var createdAt: NSDate!
 	var isNew: Bool = true
 	var user: User!
-	var task: NelpTask!
+	var task: Task!
 	var price: Int?
 	
 	init(parseApplication: PFObject) {
@@ -37,7 +37,7 @@ class NelpTaskApplication: BaseModel {
 		user = User(parseUser: parseApplication["user"] as! PFUser)
 		if parseApplication["task"] != nil{
 			if parseApplication["task"]!.isDataAvailable() == true {
-				task = NelpTask(parseTask: parseApplication["task"] as! PFObject)
+				task = Task(parseTask: parseApplication["task"] as! PFObject)
 			}
 		}
 	}

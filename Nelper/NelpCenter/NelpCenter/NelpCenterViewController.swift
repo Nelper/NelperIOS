@@ -200,9 +200,9 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			if (!self.nelpTasks.isEmpty) {
 				let cellTask = NelpTasksTableViewCell()
 				
-				let nelpTask = self.nelpTasks[indexPath.item]
-				cellTask.setNelpTask(nelpTask)
-				cellTask.setImages(nelpTask)
+				let task = self.nelpTasks[indexPath.item]
+				cellTask.setNelpTask(task)
+				cellTask.setImages(task)
 				
 				return cellTask
 			}
@@ -263,8 +263,8 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 //	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 //		if(tableView == myTasksTableView) {
 //			if (editingStyle == UITableViewCellEditingStyle.Delete){
-//				let nelpTask = nelpTasks[indexPath.row];
-//				ApiHelper.deleteTask(nelpTask)
+//				let task = nelpTasks[indexPath.row];
+//				ApiHelper.deleteTask(task)
 //				self.nelpTasks.removeAtIndex(indexPath.row)
 //				self.myTasksTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
 //			}

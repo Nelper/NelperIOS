@@ -57,7 +57,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
 		self.tap = tap
 		contentView.addGestureRecognizer(tap)
-		
 	}
 	
 	override func viewDidAppear(animated: Bool) {

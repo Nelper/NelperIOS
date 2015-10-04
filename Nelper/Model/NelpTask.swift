@@ -9,7 +9,7 @@
 import Foundation
 
 
-class NelpTask: BaseTask {
+class Task: BaseTask {
   
   var application: NelpTaskApplication?
 

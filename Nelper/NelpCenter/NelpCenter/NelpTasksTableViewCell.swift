@@ -23,7 +23,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 	var numberOfApplicantsIcon:UIImageView!
 	var numberOfApplicantsLabel:UILabel!
 	
-	var nelpTask:FindNelpTask!
+	var task:FindNelpTask!
 	
 	//MARK: Initialization
 	
@@ -207,27 +207,27 @@ class NelpTasksTableViewCell: UITableViewCell {
 	/**
 	Set images for cell (Category,header image)
 	
-	- parameter nelpTask: <#nelpTask description#>
+	- parameter task: <#task description#>
 	*/
-	func setImages(nelpTask:FindNelpTask){
+	func setImages(task:FindNelpTask){
 		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2;
 		self.categoryIcon.clipsToBounds = true
-		self.categoryIcon.image = UIImage(named: nelpTask.category!)
+		self.categoryIcon.image = UIImage(named: task.category!)
 		self.notificationIcon.layer.cornerRadius = self.notificationIcon.frame.size.width / 2;
 		self.notificationIcon.clipsToBounds = true
-		self.setNotification(nelpTask)
+		self.setNotification(task)
 
-		if(nelpTask.pictures != nil){
-		if(!nelpTask.pictures!.isEmpty){
-		ApiHelper.getPictures(nelpTask.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
+		if(task.pictures != nil){
+		if(!task.pictures!.isEmpty){
+		ApiHelper.getPictures(task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
 			self.topContainer.image = imageReturned
 		})}}else{
-			self.topContainer.image = UIImage(named: "square_\(nelpTask.category!)")!
+			self.topContainer.image = UIImage(named: "square_\(task.category!)")!
 		}
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true
 		
-		if nelpTask.state == .Accepted {
+		if task.state == .Accepted {
 			self.numberOfApplicantsIcon.image = UIImage(named: "accepted")
 			self.numberOfApplicantsLabel.text = "Nelper Accepted"
 		}
@@ -237,38 +237,38 @@ class NelpTasksTableViewCell: UITableViewCell {
 	/**
 	Sets the number of applicants and new application notification icon
 	
-	- parameter nelpTask: <#nelpTask description#>
+	- parameter task: <#task description#>
 	*/
-	func setNotification(nelpTask:FindNelpTask) {
+	func setNotification(task:FindNelpTask) {
 		
-		if (nelpTask.applications.count == 0) {
+		if (task.applications.count == 0) {
 			self.numberOfApplicants.text = "0 Nelper"
-		} else if (nelpTask.applications.count == 1) {
+		} else if (task.applications.count == 1) {
 			self.numberOfApplicants.text = "1 Nelper"
 		} else {
-			self.numberOfApplicants.text = "\(nelpTask.applications.count) Nelpers"
+			self.numberOfApplicants.text = "\(task.applications.count) Nelpers"
 		}
 		
-		for application in nelpTask.applications{
+		for application in task.applications{
 			if(application.isNew){
 				self.notificationIcon.hidden = false
 			}else {
 				self.notificationIcon.hidden = true
 			}
 			
-		ApiHelper.setTaskViewed(nelpTask)
+		ApiHelper.setTaskViewed(task)
 		}
 	}
 	
 	/**
 	Sets the cell task
 	
-	- parameter nelpTask: Nelp Task
+	- parameter task: Nelp Task
 	*/
-	func setNelpTask(nelpTask: FindNelpTask) {
-//		self.categoryLabel.text = nelpTask.category!.uppercaseString
-		self.titleLabel.text = nelpTask.title
-		let price = String(format: "%.0f", nelpTask.priceOffered!)
+	func setNelpTask(task: FindNelpTask) {
+//		self.categoryLabel.text = task.category!.uppercaseString
+		self.titleLabel.text = task.title
+		let price = String(format: "%.0f", task.priceOffered!)
 		self.price.text = "$"+price
 
 	}
