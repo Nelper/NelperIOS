@@ -91,12 +91,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		let logo = UIImageView()
 		self.logo = logo
 		self.contentView.addSubview(logo)
-		self.logo.image = UIImage(named: "logo_beige_nobackground_v2")
+		self.logo.image = UIImage(named: "login_logo")
 		self.logo.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.contentView.snp_top).offset(75)
+			make.top.equalTo(self.contentView.snp_top).offset(70)
 			make.centerX.equalTo(self.contentView.snp_centerX)
-			make.width.equalTo(220)
-			make.height.equalTo(220)
+			make.width.equalTo(200)
+			make.height.equalTo(200)
 		}
 		
 		//MARK: FIRST: FB SIGN IN
@@ -106,7 +106,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.contentView.addSubview(self.firstContainer)
 		self.firstContainer.alpha = 1
 		self.firstContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.logo.snp_bottom).offset(50)
+			make.top.equalTo(self.logo.snp_bottom).offset(60)
 			make.left.equalTo(self.contentView.snp_left)
 			make.width.equalTo(self.contentView.snp_width)
 			make.bottom.equalTo(contentView.snp_bottom)
@@ -231,11 +231,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.arrowSecond = arrowSecond
 		self.secondContainer.addSubview(self.arrowSecond)
 		self.arrowSecond.setImage(UIImage(named: "left-white-arrow"), forState: UIControlState.Normal)
-		self.arrowSecond.imageEdgeInsets = UIEdgeInsetsMake(5, 24, 45, 56)
+		self.arrowSecond.imageEdgeInsets = UIEdgeInsetsMake(10, 24, 40, 56)
 		self.arrowSecond.addTarget(self, action: "didTapEmailButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.arrowSecond.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.secondContainer.snp_top)
-			make.left.equalTo(self.emailField.snp_left)
+			make.top.equalTo(self.secondContainer.snp_top).offset(10)
+			make.left.equalTo(self.secondContainer.snp_left)
 			make.height.equalTo(70)
 			make.width.equalTo(100)
 		}
@@ -310,7 +310,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.passwordFieldRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.passwordFieldRegister.backgroundColor = whitePrimary
 		self.passwordFieldRegister.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.emailFieldRegister.snp_bottom).offset(10)
+			make.top.equalTo(self.emailFieldRegister.snp_bottom).offset(20)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
@@ -361,10 +361,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.arrowThird = arrowThird
 		self.thirdContainer.addSubview(self.arrowThird)
 		self.arrowThird.setImage(UIImage(named: "left-white-arrow"), forState: UIControlState.Normal)
-		self.arrowThird.imageEdgeInsets = UIEdgeInsetsMake(5, 24, 45, 56)
+		self.arrowThird.imageEdgeInsets = UIEdgeInsetsMake(10, 24, 40, 56)
 		self.arrowThird.addTarget(self, action: "didTapRegisterButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.arrowThird.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.thirdContainer.snp_top)
+			make.top.equalTo(self.thirdContainer.snp_top).offset(10)
 			make.left.equalTo(self.thirdContainer.snp_left)
 			make.height.equalTo(70)
 			make.width.equalTo(100)
