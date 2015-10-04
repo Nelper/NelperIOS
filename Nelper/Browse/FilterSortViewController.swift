@@ -42,6 +42,7 @@ class FilterSortViewController: UIViewController{
 	var previousMaxDistance:Double?
 	var scrollView:UIScrollView!
 	var contentView:UIView!
+	var lastFilterWasAll:Bool = false
 	
 	//MARK: Initialization
 	
@@ -475,6 +476,10 @@ class FilterSortViewController: UIViewController{
 	Check previously applied filters
 	*/
 	func checkFilters(){
+		if self.arrayOfFiltersFromPrevious.isEmpty {
+			self.didTapAll(nil)
+			print(self.lastFilterWasAll)
+		}
 		for filter in self.arrayOfFiltersFromPrevious {
 			if filter == "technology"{
 				self.didTapTechnology(nil)
@@ -547,10 +552,10 @@ class FilterSortViewController: UIViewController{
 	}
 	
 	func didTapAddFiltersButton(sender:UIButton){
-		if self.arrayOfFilters.isEmpty == false || self.sortBy != nil || minPrice != nil || self.maxDistance != nil{
+//		if self.arrayOfFilters.isEmpty == false || self.sortBy != nil || minPrice != nil || self.maxDistance != nil{
 			self.delegate.didTapAddFilters(self.arrayOfFilters, sort: self.sortBy, minPrice: self.minPrice, maxDistance: self.maxDistance)
 			self.dismissViewControllerAnimated(true, completion: nil)
-		}
+//		}
 	}
 	
 	/**
@@ -636,9 +641,14 @@ class FilterSortViewController: UIViewController{
 	
 	func didTapTechnology(sender:UIButton?){
 		self.technologyButton.selected = !self.technologyButton.selected
+		if lastFilterWasAll == true{
+			self.arrayOfFilters.removeAll()
+			self.didTapAll(nil)
+		}
 		if self.technologyButton.selected == true{
 			self.technologyButton.alpha = 1
 			self.arrayOfFilters.append("technology")
+			self.lastFilterWasAll = false
 		}else{
 			self.technologyButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++) {
@@ -652,8 +662,13 @@ class FilterSortViewController: UIViewController{
 	
 	func didTapBusiness(sender:UIButton?){
 		self.businessButton.selected = !self.businessButton.selected
+		if lastFilterWasAll == true{
+			self.arrayOfFilters.removeAll()
+			self.didTapAll(nil)
+		}
 		if self.businessButton.selected == true{
 			self.arrayOfFilters.append("business")
+			self.lastFilterWasAll = false
 			self.businessButton.alpha = 1
 			
 		}else{
@@ -670,17 +685,19 @@ class FilterSortViewController: UIViewController{
 	func didTapAll(sender:UIButton?){
 		self.allButton.selected = !self.allButton.selected
 		if self.allButton.selected == true{
+			self.deselectAll()
 			self.arrayOfFilters.removeAll(keepCapacity: false)
 			
-			self.arrayOfFilters.append("business")
-			self.arrayOfFilters.append("technology")
-			self.arrayOfFilters.append("gardening")
-			self.arrayOfFilters.append("housecleaning")
-			self.arrayOfFilters.append("other")
-			self.arrayOfFilters.append("multimedia")
-			self.arrayOfFilters.append("handywork")
+//			self.arrayOfFilters.append("business")
+//			self.arrayOfFilters.append("technology")
+//			self.arrayOfFilters.append("gardening")
+//			self.arrayOfFilters.append("housecleaning")
+//			self.arrayOfFilters.append("other")
+//			self.arrayOfFilters.append("multimedia")
+//			self.arrayOfFilters.append("handywork")
 			
 			self.allButton.alpha = 1
+			self.lastFilterWasAll = true
 			
 		}else{
 			self.allButton.alpha = 0.3
@@ -690,9 +707,14 @@ class FilterSortViewController: UIViewController{
 	
 	func didTapGardening(sender:UIButton?){
 		self.gardeningButton.selected = !self.gardeningButton.selected
+		if lastFilterWasAll == true{
+			self.arrayOfFilters.removeAll()
+			self.didTapAll(nil)
+		}
 		if self.gardeningButton.selected == true{
 			self.arrayOfFilters.append("gardening")
 			self.gardeningButton.alpha = 1
+			self.lastFilterWasAll = false
 			
 		}else{
 			self.gardeningButton.alpha = 0.3
@@ -707,10 +729,14 @@ class FilterSortViewController: UIViewController{
 	
 	func didTapCleaning(sender:UIButton?){
 		self.cleaningButton.selected = !self.cleaningButton.selected
+		if lastFilterWasAll == true{
+			self.arrayOfFilters.removeAll()
+			self.didTapAll(nil)
+		}
 		if self.cleaningButton.selected == true{
 			self.arrayOfFilters.append("housecleaning")
 			self.cleaningButton.alpha = 1
-			
+			self.lastFilterWasAll = false
 		}else{
 			self.cleaningButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
@@ -724,9 +750,14 @@ class FilterSortViewController: UIViewController{
 	
 	func didTapOther(sender:UIButton?){
 		self.otherButton.selected = !self.otherButton.selected
+		if lastFilterWasAll == true{
+			self.arrayOfFilters.removeAll()
+			self.didTapAll(nil)
+		}
 		if self.otherButton.selected == true{
 			self.arrayOfFilters.append("other")
 			self.otherButton.alpha = 1
+			self.lastFilterWasAll = false
 			
 		}else{
 			self.otherButton.alpha = 0.3
@@ -741,9 +772,14 @@ class FilterSortViewController: UIViewController{
 	
 	func didTapMultimedia(sender:UIButton?){
 		self.multimediaButton.selected = !self.multimediaButton.selected
+		if lastFilterWasAll == true{
+			self.arrayOfFilters.removeAll()
+			self.didTapAll(nil)
+		}
 		if self.multimediaButton.selected == true{
 			self.multimediaButton.alpha = 1
 			self.arrayOfFilters.append("multimedia")
+			self.lastFilterWasAll = false
 		}else{
 			self.multimediaButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
@@ -757,9 +793,14 @@ class FilterSortViewController: UIViewController{
 	
 	func didTapHandywork(sender:UIButton?){
 		self.handyworkButton.selected = !self.handyworkButton.selected
+		if lastFilterWasAll == true{
+			self.arrayOfFilters.removeAll()
+			self.didTapAll(nil)
+		}
 		if self.handyworkButton.selected == true{
 			self.handyworkButton.alpha = 1
 			self.arrayOfFilters.append("handywork")
+			self.lastFilterWasAll = false
 		}else{
 			self.handyworkButton.alpha = 0.3
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++ ){
@@ -767,6 +808,26 @@ class FilterSortViewController: UIViewController{
 				if filter == "handywork"{
 					self.arrayOfFilters.removeAtIndex(i)
 				}
+			}
+		}
+	}
+	
+	func deselectAll(){
+		for filter in self.arrayOfFilters {
+			if filter == "technology"{
+				self.didTapTechnology(nil)
+			}else if filter == "business"{
+				self.didTapBusiness(nil)
+			}else if filter == "gardening"{
+				self.didTapGardening(nil)
+			}else if filter == "housecleaning"{
+				self.didTapCleaning(nil)
+			}else if filter == "multimedia"{
+				self.didTapMultimedia(nil)
+			}else if filter == "other"{
+				self.didTapOther(nil)
+			}else if filter == "handywork"{
+				self.didTapHandywork(nil)
 			}
 		}
 	}
