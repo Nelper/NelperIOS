@@ -17,7 +17,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	var task:FindNelpTask!
 	var acceptedApplicant:User!
 	var applicationPrice: Int!
-	var acceptedApplication:NelpTaskApplication!
+	var acceptedApplication:TaskApplication!
 	var picture:UIImageView!
 	var ratingStarsView: RatingStars!
 	var chatButton:UIButton!
@@ -667,7 +667,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	}
 	
 	func didTapProfile(gesture:UITapGestureRecognizer){
-		var acceptedApplication: NelpTaskApplication!
+		var acceptedApplication: TaskApplication!
 		for application in self.task.applications {
 			if application.state == .Accepted{
 				acceptedApplication = application

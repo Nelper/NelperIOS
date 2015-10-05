@@ -19,7 +19,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	var navBar:NavBar!
 	var poster: User!
 	var hideChatButton:Bool?
-	var application: NelpTaskApplication!
+	var application: TaskApplication!
 	var picture:UIImageView!
 	var firstStar:UIImageView!
 	var secondStar:UIImageView!

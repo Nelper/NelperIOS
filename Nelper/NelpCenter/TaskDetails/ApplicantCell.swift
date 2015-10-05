@@ -185,7 +185,7 @@ class ApplicantCell: UITableViewCell{
 		self.ratingStarsView.userRating = applicant.rating
 	}
 	
-	func setApplication(application: NelpTaskApplication){
+	func setApplication(application: TaskApplication){
 		self.applicationPrice = application.price!
 		moneyLabel.text = "$\(applicationPrice)"
 	}

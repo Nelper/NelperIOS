@@ -20,7 +20,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	var profilePicture:UIImageView!
 	var tasksContainer:UIView!
 	var nelpTasks = [FindNelpTask]()
-	var nelpApplications = [NelpTaskApplication]()
+	var nelpApplications = [TaskApplication]()
 	var myTasksTableView: UITableView!
 	var myApplicationsTableView:UITableView!
 	var refreshView: UIRefreshControl!
@@ -165,7 +165,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			}
 		}
 		
-		ApiHelper.listMyNelpApplicationsWithBlock { (nelpApplications: [NelpTaskApplication]?, error: NSError?) -> Void in
+		ApiHelper.listMyNelpApplicationsWithBlock { (nelpApplications: [TaskApplication]?, error: NSError?) -> Void in
 			if error != nil {
 				print(error, terminator: "")
 			} else {
@@ -179,7 +179,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	//MARK: My Applications Details VC Delegate
 	
-	func didCancelApplication(application:NelpTaskApplication){
+	func didCancelApplication(application:TaskApplication){
 		self.myApplicationsTableView.reloadData()
 	}
 	

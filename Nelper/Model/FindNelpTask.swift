@@ -10,6 +10,6 @@ import Foundation
 
 class FindNelpTask: BaseTask {
   
-  var applications = [NelpTaskApplication]()
+  var applications = [TaskApplication]()
   
 }

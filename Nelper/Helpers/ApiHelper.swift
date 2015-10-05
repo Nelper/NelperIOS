@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 private let kParseTask = "Task"
-private let kParseTaskApplication = "NelpTaskApplication"
+private let kParseTaskApplication = "TaskApplication"
 
 class ApiHelper {
 	
@@ -177,7 +177,7 @@ class ApiHelper {
 			if (PFUser.currentUser() != nil) {
 				let applicationQuery = PFQuery(className: kParseTaskApplication)
 				applicationQuery.whereKey("user", equalTo: PFUser.currentUser()!)
-				applicationQuery.whereKey("state", equalTo: NelpTaskApplication.State.Pending.rawValue)
+				applicationQuery.whereKey("state", equalTo: TaskApplication.State.Pending.rawValue)
 				applicationQuery.whereKey("task", containedIn: pfTasks!)
 				applicationQuery.findObjectsInBackgroundWithBlock({ (pfApplications, error) -> Void in
 					if error != nil {
@@ -189,7 +189,7 @@ class ApiHelper {
 						let task = Task(parseTask: pfTask as! PFObject)
 						let index = pfApplications!.map({($0["task"] as! PFObject).objectId!}).indexOf(task.objectId)
 						if let index = index {
-							task.application = NelpTaskApplication(parseApplication: pfApplications![index] as! PFObject)
+							task.application = TaskApplication(parseApplication: pfApplications![index] as! PFObject)
 						}
 						
 						return task
@@ -223,7 +223,7 @@ class ApiHelper {
 			let applicationQuery = PFQuery(className: kParseTaskApplication)
 			applicationQuery.includeKey("user")
 			applicationQuery.whereKey("task", containedIn: pfTasks!)
-			applicationQuery.whereKey("state", notEqualTo: NelpTaskApplication.State.Canceled.rawValue)
+			applicationQuery.whereKey("state", notEqualTo: TaskApplication.State.Canceled.rawValue)
 			applicationQuery.findObjectsInBackgroundWithBlock({ (pfApplications, error) -> Void in
 				if error != nil {
 					block(nil, error)
@@ -234,7 +234,7 @@ class ApiHelper {
 					let task = FindNelpTask(parseTask: pfTask as! PFObject)
 					let applications = pfApplications!
 						.filter({ ($0["task"] as! PFObject).objectId == task.objectId })
-						.map({ NelpTaskApplication(parseApplication: $0 as! PFObject) })
+						.map({ TaskApplication(parseApplication: $0 as! PFObject) })
 					
 					task.applications = applications
 					
@@ -252,11 +252,11 @@ class ApiHelper {
 	
 	- parameter block: block
 	*/
-	static func listMyNelpApplicationsWithBlock(block: ([NelpTaskApplication]?, NSError?) -> Void) {
+	static func listMyNelpApplicationsWithBlock(block: ([TaskApplication]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTaskApplication)
 		taskQuery.includeKey("task.user")
 		taskQuery.whereKey("user", equalTo: PFUser.currentUser()!)
-		taskQuery.whereKey("state", notEqualTo: NelpTaskApplication.State.Canceled.rawValue)
+		taskQuery.whereKey("state", notEqualTo: TaskApplication.State.Canceled.rawValue)
 		taskQuery.orderByDescending("createdAt")
 		taskQuery.limit = 20
 		taskQuery.findObjectsInBackgroundWithBlock { (pfTaskApplications, error) -> Void in
@@ -264,8 +264,8 @@ class ApiHelper {
 				block(nil, error)
 				return
 			}
-			let applications = pfTaskApplications!.map({ (pfTaskApplication) -> NelpTaskApplication in
-			let application = NelpTaskApplication(parseApplication: pfTaskApplication as! PFObject)
+			let applications = pfTaskApplications!.map({ (pfTaskApplication) -> TaskApplication in
+			let application = TaskApplication(parseApplication: pfTaskApplication as! PFObject)
 			return application
 			})
 			block(applications, nil)
@@ -371,12 +371,12 @@ class ApiHelper {
 	static func applyForTask(task: Task, price:Int) {
 		let parseTask = PFObject(withoutDataWithClassName: kParseTask, objectId: task.objectId)
 		let parseApplication = PFObject(className: kParseTaskApplication)
-		parseApplication["state"] = NelpTaskApplication.State.Pending.rawValue
+		parseApplication["state"] = TaskApplication.State.Pending.rawValue
 		parseApplication["user"] = PFUser.currentUser()!
 		parseApplication["task"] = parseTask
 		parseApplication["isNew"] = true
 		parseApplication["price"] = price
-		task.application = NelpTaskApplication(parseApplication: parseApplication)
+		task.application = TaskApplication(parseApplication: parseApplication)
 		parseApplication.saveInBackgroundWithBlock { (ok, error) -> Void in
 			task.application?.objectId = parseApplication.objectId
 		}
@@ -386,22 +386,22 @@ class ApiHelper {
 	
 	static func cancelApplyForTask(task: Task) {
 		let parseApplication = PFObject(withoutDataWithClassName:kParseTaskApplication, objectId:task.application!.objectId)
-		parseApplication["state"] = NelpTaskApplication.State.Canceled.rawValue
+		parseApplication["state"] = TaskApplication.State.Canceled.rawValue
 		parseApplication.saveEventually()
 	}
 	
-	static func cancelApplyForTaskWithApplication(application: NelpTaskApplication) {
+	static func cancelApplyForTaskWithApplication(application: TaskApplication) {
 		print(application.objectId, terminator: "")
 		let parseApplication = PFObject(withoutDataWithClassName:kParseTaskApplication, objectId:application.objectId)
-		parseApplication["state"] = NelpTaskApplication.State.Canceled.rawValue
+		parseApplication["state"] = TaskApplication.State.Canceled.rawValue
 		parseApplication.saveEventually()
 	}
 		
 	//Accept applicant
 	
-	static func acceptApplication(application: NelpTaskApplication) {
+	static func acceptApplication(application: TaskApplication) {
 		let parseApplication = PFObject(withoutDataWithClassName: kParseTaskApplication, objectId: application.objectId)
-		parseApplication.setValue(NelpTaskApplication.State.Accepted.rawValue, forKey: "state:")
+		parseApplication.setValue(TaskApplication.State.Accepted.rawValue, forKey: "state:")
 		let parseTask = PFObject(className: kParseTask)
 		parseTask.objectId = application.task.objectId
 		parseTask.setValue(FindNelpTask.State.Accepted.rawValue, forKey: "state")
@@ -411,9 +411,9 @@ class ApiHelper {
 	
 	//Deny an applicant
 	
-	static func denyApplication(application: NelpTaskApplication) {
+	static func denyApplication(application: TaskApplication) {
 		let parseApplication = PFObject(withoutDataWithClassName: kParseTaskApplication, objectId: application.objectId)
-		parseApplication.setValue(NelpTaskApplication.State.Denied.rawValue, forKey: "state:")
+		parseApplication.setValue(TaskApplication.State.Denied.rawValue, forKey: "state:")
 		parseApplication.saveEventually()
 	}
 	
@@ -421,7 +421,7 @@ class ApiHelper {
 	static func setTaskViewed(task: FindNelpTask) {
 		let parseApplications = task.applications
 			.filter({ $0.isNew })
-			.map({ (a: NelpTaskApplication) -> PFObject in
+			.map({ (a: TaskApplication) -> PFObject in
 				let parseApplication = PFObject(withoutDataWithClassName: kParseTaskApplication, objectId: a.objectId)
 				parseApplication.setValue(false, forKey: "isNew")
 				return parseApplication

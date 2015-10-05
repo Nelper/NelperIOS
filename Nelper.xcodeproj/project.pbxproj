@@ -66,7 +66,7 @@
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
 		F72385DA1BBE1533000793B8 /* PicturesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72385D91BBE1533000793B8 /* PicturesCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
-		F72F27DC1B53224100CD3B0B /* NelpTaskApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F27DB1B53224100CD3B0B /* NelpTaskApplication.swift */; };
+		F72F27DC1B53224100CD3B0B /* TaskApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F27DB1B53224100CD3B0B /* TaskApplication.swift */; };
 		F72F284F1B53607C00CD3B0B /* ThemeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F284E1B53607C00CD3B0B /* ThemeHelper.swift */; };
 		F73A45BE1B72F4B600FD8C79 /* MKPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A45BD1B72F4B600FD8C79 /* MKPin.swift */; };
 		F73A45C01B72FEA400FD8C79 /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A45BF1B72FEA400FD8C79 /* LocationHelper.swift */; };
@@ -247,7 +247,7 @@
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
 		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		F72385D91BBE1533000793B8 /* PicturesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicturesCollectionViewCell.swift; sourceTree = "<group>"; };
-		F72F27DB1B53224100CD3B0B /* NelpTaskApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTaskApplication.swift; path = Nelper/Model/NelpTaskApplication.swift; sourceTree = SOURCE_ROOT; };
+		F72F27DB1B53224100CD3B0B /* TaskApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TaskApplication.swift; path = Nelper/Model/TaskApplication.swift; sourceTree = SOURCE_ROOT; };
 		F72F284E1B53607C00CD3B0B /* ThemeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeHelper.swift; path = Nelper/Helpers/ThemeHelper.swift; sourceTree = SOURCE_ROOT; };
 		F73A45BD1B72F4B600FD8C79 /* MKPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MKPin.swift; path = Nelper/Model/MKPin.swift; sourceTree = SOURCE_ROOT; };
 		F73A45BF1B72FEA400FD8C79 /* LocationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationHelper.swift; path = Nelper/Helpers/LocationHelper.swift; sourceTree = SOURCE_ROOT; };
@@ -649,7 +649,7 @@
 			isa = PBXGroup;
 			children = (
 				190F623A1B4F5CAB0091A1D1 /* NelpTask.swift */,
-				F72F27DB1B53224100CD3B0B /* NelpTaskApplication.swift */,
+				F72F27DB1B53224100CD3B0B /* TaskApplication.swift */,
 				19761A121B684F41001600E1 /* User.swift */,
 				19761A141B684FDB001600E1 /* GeoPoint.swift */,
 				19761A161B6850C4001600E1 /* BaseModel.swift */,
@@ -1041,7 +1041,7 @@
 				19DB24461BB70E8000468E91 /* MyTaskDetailsAcceptedViewController.swift in Sources */,
 				F7E8F8DD1B94E7CF007D44D8 /* ATLMediaAttachment.m in Sources */,
 				19DB24401BB70E8000468E91 /* NelpTasksTableViewCell.swift in Sources */,
-				F72F27DC1B53224100CD3B0B /* NelpTaskApplication.swift in Sources */,
+				F72F27DC1B53224100CD3B0B /* TaskApplication.swift in Sources */,
 				F7E8F8EB1B94E7CF007D44D8 /* ATLConversationCollectionViewHeader.m in Sources */,
 				19761A191B6877FB001600E1 /* FindNelpTask.swift in Sources */,
 				19DB24411BB70E8000468E91 /* ApplicantCell.swift in Sources */,

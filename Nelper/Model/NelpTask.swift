@@ -11,6 +11,6 @@ import Foundation
 
 class Task: BaseTask {
   
-  var application: NelpTaskApplication?
+  var application: TaskApplication?
 
 }

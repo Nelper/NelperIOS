@@ -1,5 +1,5 @@
 //
-//  NelpTaskApplication.swift
+//  TaskApplication.swift
 //  Nelper
 //
 //  Created by Charles Vinette on 2015-07-12.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NelpTaskApplication: BaseModel {
+class TaskApplication: BaseModel {
 	enum State: Int {
 		case Pending = 0
 		case Canceled

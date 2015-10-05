@@ -40,8 +40,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		self.pictures = self.task.pictures
 		self.setImages(self.task.user!)
 		self.createView()
-		
-		//		self.startButtonConfig()
+		self.startButtonConfig()
 	}
 	
 	//MARK: View Creation
@@ -498,6 +497,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		let applyButton = PrimaryActionButton()
 		self.applyButton = applyButton
 		offerContainer.addSubview(applyButton)
+		
+		applyButton.setTitle("Sure?", forState: UIControlState.Selected)
 		applyButton.setTitle("Apply for $\(Int(self.task.priceOffered!))!", forState: UIControlState.Normal)
 		applyButton.addTarget(self, action: "applyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		applyButton.snp_makeConstraints { (make) -> Void in
@@ -592,15 +593,12 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	//	- parameter sender: UIButton
 	//	*/
 	
-	func applyButtonTapped(sender: AnyObject) {
-		if(!self.applyButton.selected){
+	func applyButtonTapped(sender: UIButton) {
+		
+		if sender.selected == false {
+			sender.selected = true
+			}else if sender.selected == true{
 			ApiHelper.applyForTask(self.task, price: Int(self.myOfferStepper.value))
-			self.applyButton.selected = true
-			self.updateButton()
-		}else{
-			ApiHelper.cancelApplyForTask(self.task)
-			self.applyButton.selected = false
-			self.task.application!.state = .Canceled
 			self.updateButton()
 		}
 	}
@@ -644,10 +642,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	*/
 	func startButtonConfig(){
 		if self.task.application != nil && self.task.application!.state != .Canceled {
-			self.applyButton.selected = true
-			self.updateButton()
-		} else {
-			self.applyButton.selected = false
 			self.updateButton()
 		}
 	}
@@ -657,13 +651,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	*/
 	
 	func updateButton(){
-		if self.applyButton.selected {
-			self.applyButton.setTitle("#make popup to confirm", forState: UIControlState.Selected)
-			self.applyButton.backgroundColor = redPrimary
-		} else {
-			self.applyButton.setTitle("Apply for $\(Int(self.task.priceOffered!))!", forState: UIControlState.Normal)
-			self.applyButton.backgroundColor = redPrimary
-		}
+		self.applyButton.setTitle("Applied", forState: UIControlState.Normal)
 	}
 }
 

@@ -28,7 +28,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	var previousVC:MyTaskDetailsViewController!
 	var applicant: User!
 	var delegate:ApplicantProfileViewControllerDelegate?
-	var application: NelpTaskApplication!
+	var application: TaskApplication!
 	var picture:UIImageView!
 	var firstStar:UIImageView!
 	var secondStar:UIImageView!
@@ -70,7 +70,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	//MARK: Initialization
 	
-	convenience init(applicant:User, application:NelpTaskApplication){
+	convenience init(applicant:User, application:TaskApplication){
 		self.init(nibName: "ApplicantProfileViewController", bundle: nil)
 		self.applicant = applicant
 		self.application = application
@@ -740,7 +740,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	func acceptButtonTapped(sender:UIButton){
 		self.application.state = .Accepted
-		let query = PFQuery(className: "NelpTaskApplication")
+		let query = PFQuery(className: "TaskApplication")
 		query.getObjectInBackgroundWithId(self.application.objectId, block: { (application , error) -> Void in
 			if error != nil{
 				print(error)
@@ -765,7 +765,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	func denyButtonTapped(sender:UIButton){
 		self.application.state = .Denied
-		let query = PFQuery(className: "NelpTaskApplication")
+		let query = PFQuery(className: "TaskApplication")
 		query.getObjectInBackgroundWithId(self.application.objectId, block: { (application , error) -> Void in
 			if error != nil{
 				print(error)

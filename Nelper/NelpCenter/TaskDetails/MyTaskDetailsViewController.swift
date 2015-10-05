@@ -26,7 +26,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var deniedApplicantsContainer: UIView!
 	var arrayOfDeniedApplicants: [User]!
 	var deniedApplicantsTableView: UITableView!
-	var arrayOfApplications: [NelpTaskApplication]!
+	var arrayOfApplications: [TaskApplication]!
 	var arrayOfAllApplicants: [User]!
 	var taskSectionContainer: UIView!
 	var deniedApplicantIcon:UIImageView!
@@ -430,7 +430,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	//MARK: Cell delegate methods
 	
 	func didTapRevertButton(applicant:User){
-		var applicationToRevert:NelpTaskApplication!
+		var applicationToRevert:TaskApplication!
 		for application in self.arrayOfApplications{
 			print(application.user.objectId)
 			print(applicant.objectId)
@@ -446,7 +446,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			}
 		}
 		applicationToRevert.state = .Pending
-		let query = PFQuery(className: "NelpTaskApplication")
+		let query = PFQuery(className: "TaskApplication")
 		query.getObjectInBackgroundWithId(applicationToRevert.objectId, block: { (application, error) -> Void in
 			if error != nil{
 				print(error)
@@ -476,7 +476,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	//MARK: Applications Profile View Controller Delegate
 	
 	func didTapDenyButton(applicant:User){
-		var applicationToDeny:NelpTaskApplication?
+		var applicationToDeny:TaskApplication?
 		for application in self.arrayOfApplications{
 			print(application.user.objectId)
 			print(applicant.objectId)
