@@ -22,6 +22,7 @@ class BaseTask: BaseModel {
   var desc: String!
   var user: User!
   var location : GeoPoint?
+	var exactLocation: Location?
 	var city: String?
   var priceOffered: Double?
 	var category: String?

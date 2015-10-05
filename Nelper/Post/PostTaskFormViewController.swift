@@ -43,7 +43,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var delegate: PostTaskFormViewControllerDelegate?
 	var picturesCollectionView:UICollectionView!
 	var arrayOfPictures = Array<UIImage>()
-		
+	
 	//MARK: Initialization
 	
 	init(task: FindNelpTask){
@@ -67,11 +67,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			print(arrayOfLocations[0].coords)
 			self.task.location = GeoPoint(latitude:self.savedLocations![0].coords!["latitude"]!,longitude: self.savedLocations![0].coords!["longitude"]!)
 			self.task.city = self.savedLocations![0].city
+			self.task.exactLocation = self.savedLocations![0]
 		}else{
 			self.savedLocations = Array<Location>()
 		}
 	}
-
+	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -83,7 +84,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
 		self.tap = tap
 		contentView.addGestureRecognizer(tap)
-		}
+	}
 	
 	override func viewDidAppear(animated: Bool) {
 		self.locationsPickerView?.selectRow(0, inComponent: 0, animated: false)
@@ -266,7 +267,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.right.equalTo(contentView.snp_right).offset(-50)
 			make.height.equalTo(150)
 		}
-
+		
 		
 		//Price Offered Label + TextField
 		
@@ -336,7 +337,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		if !self.savedLocations!.isEmpty{
 			locationTextField.text = self.savedLocations!.first!.name!
 		}
-	
+		
 		locationTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
 		locationTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		locationTextField.textColor = blackPrimary
@@ -384,7 +385,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			locationTextField.text = ""
 			streetAddressLabel.text = "You have no saved addresses!"
 		}else{
-		streetAddressLabel.text = self.savedLocations?.first?.formattedAddress
+			streetAddressLabel.text = self.savedLocations?.first?.formattedAddress
 		}
 		taskFormContainer.addSubview(streetAddressLabel)
 		streetAddressLabel.numberOfLines = 0
@@ -459,7 +460,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.left.equalTo(picturesContainer.snp_left).offset(4)
 			make.right.equalTo(picturesContainer.snp_right).offset(-4)
 		}
-
+		
 		picturesCollectionView.registerClass(PicturesCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: PicturesCollectionViewCell.reuseIdentifier)
 		picturesCollectionView.backgroundColor = whitePrimary
 		
@@ -551,6 +552,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		self.task.location = GeoPoint(latitude:Double(self.savedLocations![row].coords!["latitude"]!),longitude: Double(self.savedLocations![row].coords!["longitude"]!))
 		self.task.city = self.savedLocations![row].city
+		self.task.exactLocation = self.savedLocations![row]
 		view.endEditing(true)
 	}
 	
@@ -567,16 +569,16 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
 		
 		if textField == self.locationTextField{
-		return textField != self.locationTextField
+			return textField != self.locationTextField
 		}else if textField == self.titleTextField{
-				
-				let textFieldRange:NSRange = NSMakeRange(0, textField.text!.characters.count)
-				
-				if NSEqualRanges(textFieldRange, range)	&& string.characters.count == 0{
-					self.titleStatus.image = UIImage(named: "denied")
-				}else{
-					self.titleStatus.image = UIImage(named: "accepted")
-				}
+			
+			let textFieldRange:NSRange = NSMakeRange(0, textField.text!.characters.count)
+			
+			if NSEqualRanges(textFieldRange, range)	&& string.characters.count == 0{
+				self.titleStatus.image = UIImage(named: "denied")
+			}else{
+				self.titleStatus.image = UIImage(named: "accepted")
+			}
 		}else if textField == self.priceOffered{
 			let textFieldRange:NSRange = NSMakeRange(0, textField.text!.characters.count)
 			
@@ -590,7 +592,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	//MARK: Image Picker Delegate
-
+	
 	/**
 	Allows the user to pick pictures in his library
 	
@@ -631,31 +633,21 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	func didAddLocation(vc:AddAddressViewController){
 		self.task.location = vc.location
 		self.task.city = vc.address.city!
+		self.task.exactLocation = vc.address
 		self.locations.append(vc.address.createDictionary())
 		self.savedLocations?.append(vc.address)
 		self.locationsPickerView?.reloadAllComponents()
 		self.locationTextField?.text = vc.address.name
 		self.streetAddressLabel.text = vc.address.formattedAddress
 		
-		let query = PFQuery(className: "UserPrivateData")
-		query.getObjectInBackgroundWithId((PFUser.currentUser()!["privateData"]!.objectId!!),block: { (data , error) -> Void in
-			if error != nil{
-				print(error)
-			}else{
-				if let data = data {
-					data["locations"] = self.locations
-					data.saveInBackground()
-				}
-			}
-		})
+		let userPrivate = PFUser.currentUser()!["privateData"] as! PFObject
+		userPrivate.setValue(self.locations!, forKey: "locations")
+		userPrivate.saveEventually()
 		
-		
-//		PFUser.currentUser()!["privateData"]!.setValue(self.locations!, forKey: "locations")
-//		PFUser.currentUser()!.saveInBackground()
 		self.locationTextField!.userInteractionEnabled = true
 		
-}
-
+	}
+	
 	
 	//MARK: Actions
 	
@@ -709,6 +701,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			streetAddressLabel.text = "You have no saved addresses!"
 			self.task.city = nil
 			self.task.location = nil
+			self.task.exactLocation = nil
 		}
 		
 		PFUser.currentUser()!["privateData"]?.setValue(self.createDictionaries(self.savedLocations!), forKey: "locations")
@@ -720,6 +713,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.locationTextField!.text = self.savedLocations?[0].name
 		self.streetAddressLabel.text = self.savedLocations?[0].formattedAddress
 		self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!),longitude: Double(self.savedLocations![0].coords!["longitude"]!))
+		self.task.exactLocation = self.savedLocations?[0]
 	}
 	
 	/**
@@ -745,21 +739,22 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	- parameter sender: Post Button
 	*/
 	func postButtonTapped(sender: UIButton) {
-		if(self.arrayOfPictures.count != 0){
+		print(self.task.exactLocation)
+		if self.arrayOfPictures.count != 0 {
 			self.convertImagesToData()
 		}
 		self.task.state = .Pending
 		self.task.title = self.titleTextField!.text
 		if self.descriptionTextView!.text != nil{
-		self.task.desc = self.descriptionTextView!.text
+			self.task.desc = self.descriptionTextView!.text
 		}else{
 			self.task.desc = ""
 		}
 		self.task.priceOffered = Double(self.priceOffered!.text!)
-				ApiHelper.addTask(self.task, block: { (task, error) -> Void in
-					self.delegate?.nelpTaskAdded(self.task)
-					self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-					self.dismissViewControllerAnimated(true, completion: nil)
-				})
+		ApiHelper.addTask(self.task, block: { (task, error) -> Void in
+			self.delegate?.nelpTaskAdded(self.task)
+			self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+			self.dismissViewControllerAnimated(true, completion: nil)
+		})
 	}
 }
