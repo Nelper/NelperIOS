@@ -17,7 +17,7 @@ class FindNelpTask: BaseTask {
 		case Rated
 	}
   
-  var applications = [NelpTaskApplication]()
+  var applications = [TaskApplication]()
 	var completionState: CompletionState = .Accepted
   
 }
