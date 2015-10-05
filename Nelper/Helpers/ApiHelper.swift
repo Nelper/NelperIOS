@@ -9,7 +9,9 @@
 import Foundation
 import Alamofire
 private let kParseTask = "Task"
+private let kParseTaskPrivate = "TaskPrivate"
 private let kParseTaskApplication = "NelpTaskApplication"
+
 
 class ApiHelper {
 	
@@ -285,25 +287,18 @@ class ApiHelper {
 		
 		let parseTask = PFObject(className: kParseTask)
 		parseTask["title"] = task.title
-		print(task.title)
 		parseTask["desc"] = task.desc
-		print(task.desc)
 		parseTask["user"] = PFUser.currentUser()!
-		print(PFUser.currentUser()!)
 		parseTask["state"] = task.state.rawValue
-		print(task.state.rawValue)
+		parseTask["completionState"] = task.completionState.rawValue
 		parseTask["priceOffered"] = task.priceOffered
-		print(task.priceOffered)
 		parseTask["category"] = task.category
-		print(task.category)
 		let lat = task.location?.latitude
 		let lng = task.location?.longitude
-		print(lng)
 		if lat != nil && lng != nil {
 			let location = PFGeoPoint(latitude: lat!, longitude: lng!)
 			parseTask["location"] = location
 		}
-		print(task.city)
 		parseTask["city"] = task.city
 		if task.pictures == nil {
 			parseTask["pictures"] = []
@@ -315,6 +310,19 @@ class ApiHelper {
 		acl.setPublicReadAccess(true)
 		acl.setPublicWriteAccess(false)
 		parseTask.ACL = acl
+		
+		let taskPrivate = PFObject(className: kParseTaskPrivate)
+		if let exactLocation = task.exactLocation {
+			var locationDict = exactLocation.createDictionary()
+			// Remove the keys we dont care about.
+			locationDict.removeValueForKey("name")
+			locationDict.removeValueForKey("formattedAddress")
+			taskPrivate["location"] = locationDict
+		}
+		let privateACL = PFACL(user: user)
+		taskPrivate.ACL = privateACL
+		
+		parseTask["privateData"] = taskPrivate
 		
 		parseTask.saveInBackgroundWithBlock { (ok, error) -> Void in
 			if error != nil {

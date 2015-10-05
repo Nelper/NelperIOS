@@ -9,7 +9,15 @@
 import Foundation
 
 class FindNelpTask: BaseTask {
+	
+	enum CompletionState: Int {
+		case Accepted = 0
+		case PaymentState
+		case Completed
+		case Rated
+	}
   
   var applications = [NelpTaskApplication]()
+	var completionState: CompletionState = .Accepted
   
 }
