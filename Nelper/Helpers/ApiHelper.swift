@@ -45,12 +45,14 @@ class ApiHelper {
 	- parameter name:     Name of the user
 	- parameter block:    Block
 	*/
-	static func registerWithEmail(email: String, password: String, name: String, block: (User?, NSError?) -> Void) {
+	static func registerWithEmail(email: String, password: String, firstName: String, lastName: String, block: (User?, NSError?) -> Void) {
 		let user = PFUser()
 		user.username = email
 		user.email = email
 		user.password = password
-		user["name"] = name
+		user["firstName"] = firstName
+		user["lastName"] = lastName
+		user["name"] = "\(firstName) \(lastName)"
 		user.signUpInBackgroundWithBlock { (ok, error) -> Void in
 			if error != nil {
 				block(nil, error)

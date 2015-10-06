@@ -15,6 +15,8 @@ class User : BaseModel {
 	var rating: Double!
 	var completedTasks: Int!
 	var name: String!
+	var firstName: String!
+	var lastName: String!
 	var location: GeoPoint?
 	var createdAt: NSDate!
 	var profilePictureURL:String?
@@ -34,6 +36,8 @@ class User : BaseModel {
 		completedTasks = parseUser["tasksCompleted"] as! Int!
 		objectId = parseUser.objectId!
 		name = parseUser["name"] as! String
+		firstName = parseUser["firstName"] as! String
+		lastName = parseUser["lastName"] as! String
 		location = parseUser["location"] as? GeoPoint
 		createdAt = parseUser.createdAt!
 		if parseUser["skills"] != nil{
