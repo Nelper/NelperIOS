@@ -94,16 +94,13 @@ class BrowseTaskViewCell: UITableViewCell {
 		}
 		
 		let creationDate = UILabel()
+		creationDate.adjustsFontSizeToFitWidth = true
 		self.creationDate = creationDate
 		cellView.addSubview(creationDate)
 		
 		self.creationDate.font = UIFont(name: "Lato-Light", size: kText13)
 		self.creationDate.textColor = blackTextColor
 		
-		creationDate.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(author.snp_bottom).offset(7)
-			make.left.equalTo(author.snp_left)
-		}
 		
 		let moneyContainer = UIView()
 		cellView.addSubview(moneyContainer)
@@ -114,6 +111,12 @@ class BrowseTaskViewCell: UITableViewCell {
 			make.bottom.equalTo(creationDate.snp_bottom).offset(-4)
 			make.width.equalTo(55)
 			make.height.equalTo(35)
+		}
+		
+		creationDate.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(author.snp_bottom).offset(7)
+			make.left.equalTo(author.snp_left)
+			make.right.equalTo(moneyContainer.snp_left).offset(6)
 		}
 		
 		let moneyLabel = UILabel()

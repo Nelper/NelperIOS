@@ -13,7 +13,7 @@ import Alamofire
 class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate{
 	
 	var poster: User!
-	var application: NelpTaskApplication!
+	var application: TaskApplication!
 	let locationManager = CLLocationManager()
 	var picture:UIImageView!
 	var firstStar:UIImageView!
@@ -42,7 +42,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 	
 	//MARK: Initialization
 	
-	convenience init(poster:User, application:NelpTaskApplication){
+	convenience init(poster:User, application:TaskApplication){
 		self.init(nibName: "MyApplicationDetailsView", bundle: nil)
 		self.poster = poster
 		self.application = application

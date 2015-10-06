@@ -23,7 +23,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	var applicationStateLabel: UILabel!
 	var distanceLabel: UILabel!
 	var cityLabel: UILabel!
-	var nelpApplication: NelpTaskApplication!
+	var nelpApplication: TaskApplication!
 	
 	//MARK: Initialization
 
@@ -193,7 +193,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	
 	//MARK: Setters
 	
-	func setImages(nelpApplication:NelpTaskApplication){
+	func setImages(nelpApplication:TaskApplication){
 		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2;
 		self.categoryIcon.clipsToBounds = true
 		self.categoryIcon.image = UIImage(named: nelpApplication.task.category!)
@@ -211,7 +211,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		self.topContainer.clipsToBounds = true
 	}
 	
-	func setStateInformation(nelpApplication:NelpTaskApplication){
+	func setStateInformation(nelpApplication:TaskApplication){
 		
 		if nelpApplication.state.rawValue == 0 {
 			self.applicationStateIcon.image = UIImage(named: "pending.png")!
@@ -239,7 +239,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	}
 	
 	
-	func setNelpApplication(nelpApplication: NelpTaskApplication) {
+	func setNelpApplication(nelpApplication: TaskApplication) {
 		self.nelpApplication = nelpApplication
 		//		self.categoryLabel.text = task.category!.uppercaseString
 		self.titleLabel.text = nelpApplication.task.title

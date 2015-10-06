@@ -11,7 +11,7 @@ import Alamofire
 import iCarousel
 
 protocol MyApplicationDetailsViewDelegate{
-	func didCancelApplication(application:NelpTaskApplication)
+	func didCancelApplication(application:TaskApplication)
 }
 
 class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, iCarouselDataSource, iCarouselDelegate {
@@ -22,7 +22,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	let kCellHeight: CGFloat = 45
 	
 	var poster: User!
-	var application: NelpTaskApplication!
+	var application: TaskApplication!
 	var pictures: NSArray?
 	var carousel: iCarousel!
 	let locationManager = CLLocationManager()
@@ -48,7 +48,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	
 	//MARK: Initialization
 	
-	convenience init(poster: User, application: NelpTaskApplication){
+	convenience init(poster: User, application: TaskApplication){
 		self.init(nibName: "MyApplicationDetailsView", bundle: nil)
 		self.poster = poster
 		self.application = application
