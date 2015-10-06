@@ -689,7 +689,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	func didTapDeleteAddress(sender:UIButton){
+		if self.savedLocations!.isEmpty == false{
 		self.savedLocations?.removeAtIndex(self.locationsPickerView!.selectedRowInComponent(0))
+		}
 		self.locationsPickerView!.reloadAllComponents()
 		if !self.savedLocations!.isEmpty {
 			self.locationsPickerView!.selectRow(0, inComponent: 0, animated: true)
