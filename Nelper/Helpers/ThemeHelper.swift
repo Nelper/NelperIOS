@@ -24,8 +24,9 @@ let pendingYellow = hexStringToUIColor("F7CC39")
 
 let greenProfile = hexStringToUIColor("29b48f")
 
-let blueFacebook = hexStringToUIColor ("3b5998")
-let greenPriceButton = hexStringToUIColor ("80bf62")
+let blueFacebook = hexStringToUIColor("3b5998")
+let blueTwitter = hexStringToUIColor("55acee")
+let greenPriceButton = hexStringToUIColor("80bf62")
 
 
 let grayBlue = hexStringToUIColor ("5a6a7b")

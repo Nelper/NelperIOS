@@ -12,18 +12,24 @@ protocol LoginViewControllerDelegate {
 	func onLogin() -> Void
 }
 
-class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
+class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
 
 	let permissions = ["public_profile"]
 	var delegate: LoginViewControllerDelegate?
 	var tap: UITapGestureRecognizer?
 	
+	var backgroundView: UIView!
+	var scrollView: UIScrollView!
 	var contentView: UIView!
 	var logo: UIImageView!
 	
 	var firstContainer: UIView!
 	var fbButton: UIButton!
 	var fbLogo: UIImageView!
+	var fbLine: UIView!
+	var twitterButton: UIButton!
+	var twitterLogo: UIImageView!
+	var twitterLine: UIView!
 	var emailButton: UIButton!
 	
 	var secondContainer: UIView!
@@ -36,6 +42,9 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 	var forgotPassButton: UIButton!
 	
 	var thirdContainer: UIView!
+	var firstnameField: UITextField!
+	var firstnameUnderlineRegister: UIView!
+	var lastnameField: UITextField!
 	var emailFieldRegister: UITextField!
 	var passwordFieldRegister: UITextField!
 	var passwordfieldUnderlineRegister: UIView!
@@ -46,24 +55,40 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 	var emailActive = false
 	var registerActive = false
 	
-	var keyboardIsShowing = false
+	var keyboardFrame: CGRect!
+	var contentInsets: UIEdgeInsets!
+	var activeField: UITextField!
+	var fieldEditing = false
 	
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		self.view.backgroundColor = redPrimary
+	
 		self.createView()
 		self.adjustUI()
 		
 		// KEYBOARD DISMISS
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
 		self.tap = tap
-		self.contentView.addGestureRecognizer(tap)
+		self.view.addGestureRecognizer(tap)
 		
 		// KEYBOARD VIEW MOVER
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+		keyboardObserver()
+		self.emailField.delegate = self
+		self.passwordField.delegate = self
+		self.firstnameField.delegate = self
+		self.lastnameField.delegate = self
+		self.emailFieldRegister.delegate = self
+		self.passwordFieldRegister.delegate = self
+		self.passwordFieldConfirmRegister.delegate = self
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		self.scrollView.contentSize = self.contentView.frame.size
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -80,12 +105,30 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 	
 	func createView() {
 		
+		let backgroundView = UIView()
+		self.backgroundView = backgroundView
+		self.view.addSubview(self.backgroundView)
+		self.backgroundView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(self.view.snp_edges)
+		}
+		
+		let scrollView = UIScrollView()
+		self.scrollView = scrollView
+		self.backgroundView.addSubview(self.scrollView)
+		self.scrollView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(self.backgroundView.snp_edges)
+		}
+		
 		let contentView = UIView()
 		self.contentView = contentView
-		self.view.addSubview(contentView)
+		self.scrollView.addSubview(self.contentView)
 		self.contentView.backgroundColor = redPrimary
 		self.contentView.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(self.view.snp_edges)
+			make.top.equalTo(scrollView.snp_top)
+			make.left.equalTo(scrollView.snp_left)
+			make.right.equalTo(scrollView.snp_right)
+			make.height.greaterThanOrEqualTo(backgroundView.snp_height)
+			make.width.equalTo(backgroundView.snp_width)
 		}
 		
 		let logo = UIImageView()
@@ -99,7 +142,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 			make.height.equalTo(200)
 		}
 		
-		//MARK: FIRST: FB SIGN IN
+		//MARK: FIRST: SIGN IN
 		
 		let firstContainer = UIView()
 		self.firstContainer = firstContainer
@@ -118,9 +161,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.fbButton.backgroundColor = blueFacebook
 		self.fbButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
 		self.fbButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-		self.fbButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+		self.fbButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 0)
 		self.fbButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		self.fbButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
 		self.fbButton.addTarget(self, action: "facebookLogin:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.fbButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.firstContainer.snp_top)
@@ -132,13 +174,69 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		let fbLogo = UIImageView()
 		self.fbLogo = fbLogo
 		self.fbButton.addSubview(self.fbLogo)
-		self.fbLogo.image = UIImage(named: "facebook_512_white")
+		self.fbLogo.image = UIImage(named: "fb-black")
+		self.fbLogo.alpha = 0.4
 		self.fbLogo.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.fbButton.snp_bottom).offset(11)
-			make.left.equalTo(self.fbButton.snp_left).offset(5)
-			make.width.equalTo(60)
-			make.height.equalTo(60)
+			make.left.equalTo(self.fbButton.snp_left).offset(10)
+			make.centerY.equalTo(self.fbButton.snp_centerY)
+			make.width.equalTo(30)
+			make.height.equalTo(30)
 		}
+		
+		let fbLine = UIView()
+		self.fbLine = fbLine
+		self.fbButton.addSubview(fbLine)
+		self.fbLine.backgroundColor = blackPrimary
+		self.fbLine.alpha = 0.2
+		self.fbLine.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(self.fbLogo.snp_right).offset(10)
+			make.centerY.equalTo(self.fbButton.snp_centerY).offset(5)
+			make.width.equalTo(1)
+			make.top.equalTo(fbButton.snp_top).offset(5)
+			make.bottom.equalTo(fbButton.snp_bottom).offset(-5)
+		}
+		
+		let twitterButton = UIButton()
+		self.twitterButton = twitterButton
+		self.firstContainer.addSubview(self.twitterButton)
+		self.twitterButton.backgroundColor = blueTwitter
+		self.twitterButton.setTitle("Sign in with Twitter", forState: UIControlState.Normal)
+		self.twitterButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.twitterButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
+		self.twitterButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		self.twitterButton.addTarget(self, action: "twitterLogin:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.twitterButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.fbButton.snp_bottom).offset(20)
+			make.left.equalTo(self.fbButton.snp_left)
+			make.right.equalTo(self.fbButton.snp_right)
+			make.height.equalTo(50)
+		}
+		
+		let twitterLogo = UIImageView()
+		self.twitterLogo = twitterLogo
+		self.twitterButton.addSubview(self.twitterLogo)
+		self.twitterLogo.image = UIImage(named: "twitter-black")
+		self.twitterLogo.alpha = 0.4
+		self.twitterLogo.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(self.twitterButton.snp_left).offset(10)
+			make.centerY.equalTo(self.twitterButton.snp_centerY)
+			make.width.equalTo(30)
+			make.height.equalTo(30)
+		}
+		
+		let twitterLine = UIView()
+		self.twitterLine = twitterLine
+		self.twitterButton.addSubview(self.twitterLine)
+		self.twitterLine.backgroundColor = blackPrimary
+		self.twitterLine.alpha = 0.2
+		self.twitterLine.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(self.twitterLogo.snp_right).offset(10)
+			make.centerY.equalTo(self.twitterButton.snp_centerY).offset(5)
+			make.width.equalTo(1)
+			make.top.equalTo(self.twitterButton.snp_top).offset(5)
+			make.bottom.equalTo(self.twitterButton.snp_bottom).offset(-5)
+		}
+
 		
 		let emailButton = UIButton()
 		self.emailButton = emailButton
@@ -150,7 +248,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.emailButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.emailButton.addTarget(self, action: "didTapEmailButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.emailButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.fbButton.snp_bottom).offset(20)
+			make.bottom.equalTo(self.contentView.snp_bottom).offset(-30)
 			make.left.equalTo(self.firstContainer.snp_left).offset(24)
 			make.right.equalTo(self.firstContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
@@ -283,6 +381,47 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 			make.bottom.equalTo(self.contentView.snp_bottom)
 		}
 		
+		let firstnameField = UITextField()
+		self.firstnameField = firstnameField
+		self.thirdContainer.addSubview(firstnameField)
+		self.firstnameField.attributedPlaceholder = NSAttributedString(string: "First name", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
+		self.firstnameField.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.firstnameField.autocorrectionType = UITextAutocorrectionType.No
+		self.firstnameField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
+		self.firstnameField.backgroundColor = whitePrimary
+		self.firstnameField.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.firstContainer.snp_top)
+			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
+			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
+			make.height.equalTo(50)
+		}
+		
+		let firstnameUnderlineRegister = UIView()
+		self.firstnameUnderlineRegister = firstnameUnderlineRegister
+		self.thirdContainer.addSubview(firstnameUnderlineRegister)
+		self.firstnameUnderlineRegister.backgroundColor = grayDetails
+		self.firstnameUnderlineRegister.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.firstnameField.snp_bottom)
+			make.centerX.equalTo(self.firstnameField.snp_centerX)
+			make.width.equalTo(self.firstnameField.snp_width)
+			make.height.equalTo(1)
+		}
+		
+		let lastnameField = UITextField()
+		self.lastnameField = lastnameField
+		self.thirdContainer.addSubview(lastnameField)
+		self.lastnameField.attributedPlaceholder = NSAttributedString(string: "Last name", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
+		self.lastnameField.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.lastnameField.autocorrectionType = UITextAutocorrectionType.No
+		self.lastnameField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
+		self.lastnameField.backgroundColor = whitePrimary
+		self.lastnameField.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.firstnameField.snp_bottom).offset(1)
+			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
+			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
+			make.height.equalTo(50)
+		}
+		
 		let emailFieldRegister = UITextField()
 		self.emailFieldRegister = emailFieldRegister
 		self.thirdContainer.addSubview(emailFieldRegister)
@@ -294,7 +433,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.emailFieldRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.emailFieldRegister.backgroundColor = whitePrimary
 		self.emailFieldRegister.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.firstContainer.snp_top)
+			make.top.equalTo(self.lastnameField.snp_bottom).offset(10)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
@@ -310,7 +449,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 		self.passwordFieldRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.passwordFieldRegister.backgroundColor = whitePrimary
 		self.passwordFieldRegister.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.emailFieldRegister.snp_bottom).offset(20)
+			make.top.equalTo(self.emailFieldRegister.snp_bottom).offset(10)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
@@ -384,24 +523,54 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 	
 	//MARK: KEYBOARD VIEW MOVER
 	
-	func keyboardWillShow(sender: NSNotification) {
-		if keyboardIsShowing == false {
-			self.view.frame.origin.y -= 100
-			keyboardIsShowing = true
+	func keyboardObserver() {
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+		
+	}
+	
+	func textFieldDidBeginEditing(textField: UITextField) {
+		self.activeField = textField
+		self.fieldEditing = true
+	}
+	
+	func textFieldDidEndEditing(textField: UITextField) {
+		self.activeField = nil
+		self.fieldEditing = false
+	}
+	
+	func keyboardDidShow(notification: NSNotification) {
+		
+		let info = notification.userInfo!
+		let value = info[UIKeyboardFrameEndUserInfoKey]!
+		self.keyboardFrame = value.CGRectValue
+		
+		self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height + 50, 0)
+		
+		self.scrollView.contentInset = contentInsets
+		self.scrollView.scrollIndicatorInsets = contentInsets
+		
+		var aRect = self.view.frame
+		aRect.size.height -= self.keyboardFrame.height
+		
+		if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
+			self.scrollView.scrollRectToVisible(self.activeField.frame, animated: true)
 		}
 	}
 	
-	func keyboardWillHide(sender: NSNotification) {
-		if keyboardIsShowing == true{
-			self.view.frame.origin.y += 100
-			keyboardIsShowing = false
-		}
+	func keyboardWillHide(notification: NSNotification) {
+		self.contentInsets = UIEdgeInsetsZero
+		self.scrollView.contentInset = contentInsets
+		self.scrollView.scrollIndicatorInsets = contentInsets
 	}
 	
 	//MARK: Actions
 	
 	func facebookLogin(sender: UIButton) {
+		
 		PFFacebookUtils.logInInBackgroundWithReadPermissions(self.permissions) { (user: PFUser?, error: NSError?) -> Void in
+			
 			if error != nil {
 				//TODO: handle login errors.
 				NSLog("Login error")
@@ -411,11 +580,17 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 			if user!.isNew {
 				NSLog("User signed up and logged in through Facebook!")
 				self.getFBUserInfo()
+				
 			} else {
+				
 				NSLog("User logged in through Facebook! \(user!.username)")
 				self.getFBUserInfo()
 			}
 		}
+	}
+	
+	func twitterLogin(sender: UIButton) {
+		
 	}
 	
 	func emailLogin(sender: UIButton) {
@@ -437,10 +612,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 	//Login
 	
 	func getFBUserInfo() {
+		
 		let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
 		request.startWithCompletionHandler { (conn:FBSDKGraphRequestConnection!, user:AnyObject!, error:NSError!) -> Void in
+			
 			if error != nil {
+				
 				self.loginCompleted()
+				
 			} else {
 				var results = user as! Dictionary<String, AnyObject>
 				
@@ -467,7 +646,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 	
 	func didTapEmailButton(sender: UIButton) {
 		
-		if self.emailActive == false {
+		if !self.emailActive {
 			
 			self.firstContainer.snp_updateConstraints { (make) -> Void in
 				make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.maxX))
@@ -483,6 +662,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 			}, completion: nil)
 			
 			self.emailActive = true
+			DismissKeyboard()
+			
+		} else if self.fieldEditing {
+			
 			DismissKeyboard()
 			
 		} else {
@@ -508,7 +691,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 	//MARK: ANIMATE SECOND <-> THIRD VIEW
 	
 	func didTapRegisterButton(sender: UIButton) {
-		if self.registerActive == false {
+		if !self.registerActive {
 			
 			self.firstContainer.snp_updateConstraints { (make) -> Void in
 				make.left.equalTo(self.contentView.snp_left).offset(-2*(self.contentView.frame.maxX))
@@ -524,6 +707,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 			}, completion: nil)
 			
 			self.registerActive = true
+			DismissKeyboard()
+		
+		} else if self.fieldEditing {
+			
 			DismissKeyboard()
 			
 		} else {

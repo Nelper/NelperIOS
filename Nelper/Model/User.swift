@@ -36,8 +36,8 @@ class User : BaseModel {
 		completedTasks = parseUser["tasksCompleted"] as! Int!
 		objectId = parseUser.objectId!
 		name = parseUser["name"] as! String
-		firstName = parseUser["firstName"] as! String
-		lastName = parseUser["lastName"] as! String
+		//firstName = parseUser["firstName"] as! String
+		//lastName = parseUser["lastName"] as! String
 		location = parseUser["location"] as? GeoPoint
 		createdAt = parseUser.createdAt!
 		if parseUser["skills"] != nil{
