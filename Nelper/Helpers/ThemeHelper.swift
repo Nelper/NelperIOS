@@ -8,11 +8,15 @@
 
 import Foundation
 
+
+
 //COLORS
 
-let whiteBackground = hexStringToUIColor ("eaeaea")
-let blackPrimary = hexStringToUIColor ("2c2c2c")
+let whiteBackground = hexStringToUIColor("eaeaea")
+let blackPrimary = hexStringToUIColor("2c2c2c")
 let redPrimary = hexStringToUIColor("ed4b4e")
+
+let redPrimarySelected = hexStringToUIColor("f16f71")
 
 let whitePrimary = hexStringToUIColor("f7f7f7")
 let grayDetails = hexStringToUIColor("e1e1e1")
@@ -25,11 +29,13 @@ let pendingYellow = hexStringToUIColor("F7CC39")
 let greenProfile = hexStringToUIColor("29b48f")
 
 let blueFacebook = hexStringToUIColor("3b5998")
+let blueFacebookSelected = hexStringToUIColor("4f6aa2")
 let blueTwitter = hexStringToUIColor("55acee")
+let blueTwitterSelected = hexStringToUIColor("77bdf1")
+
 let greenPriceButton = hexStringToUIColor("80bf62")
 
-
-let grayBlue = hexStringToUIColor ("5a6a7b")
+let grayBlue = hexStringToUIColor("5a6a7b")
 
 let navBarColor = redPrimary
 let tabBarColor = whitePrimary
@@ -37,12 +43,12 @@ let tabBarColor = whitePrimary
 //IMAGES
 
 let tabBarSearch:UIImage = UIImage(named: "search_dark.png")!
-let tabBarNelp:UIImage = UIImage(named:"help_dark.png")!
-let tabBarProfile:UIImage = UIImage(named:"profile_dark.png")!
+let tabBarNelp:UIImage = UIImage(named: "help_dark.png")!
+let tabBarProfile:UIImage = UIImage(named: "profile_dark.png")!
 
 let tabBarSearchSelected:UIImage = UIImage(named: "search_orange.png")!
-let tabBarNelpSelected:UIImage = UIImage(named:"help_orange.png")!
-let tabBarProfileSelected:UIImage = UIImage(named:"profile_orange.png")!
+let tabBarNelpSelected:UIImage = UIImage(named: "help_orange.png")!
+let tabBarProfileSelected:UIImage = UIImage(named: "profile_orange.png")!
 
 //TEXT
 

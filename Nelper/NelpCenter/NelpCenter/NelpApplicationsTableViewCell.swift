@@ -193,33 +193,33 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	
 	//MARK: Setters
 	
-	func setImages(nelpApplication:TaskApplication){
-		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2;
+	func setImages(nelpApplication:TaskApplication) {
+		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2
 		self.categoryIcon.clipsToBounds = true
 		self.categoryIcon.image = UIImage(named: nelpApplication.task.category!)
 		
 		setStateInformation(nelpApplication)
 		
-		if(nelpApplication.task.pictures != nil){
+		if(nelpApplication.task.pictures != nil) {
 			if(!nelpApplication.task.pictures!.isEmpty){
 				getPictures(nelpApplication.task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
 					self.topContainer.image = imageReturned
-				})}}else{
+				})}} else {
 			self.topContainer.image = UIImage(named: "square_\(nelpApplication.task.category!)")!
 		}
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true
 	}
 	
-	func setStateInformation(nelpApplication:TaskApplication){
+	func setStateInformation(nelpApplication:TaskApplication) {
 		
 		if nelpApplication.state.rawValue == 0 {
 			self.applicationStateIcon.image = UIImage(named: "pending.png")!
 			self.applicationStateLabel.text = "Pending"
-		} else if nelpApplication.state.rawValue == 2{
+		} else if nelpApplication.state.rawValue == 2 {
 			self.applicationStateIcon.image = UIImage(named: "accepted.png")!
 			self.applicationStateLabel.text = "Accepted"
-		} else if nelpApplication.state.rawValue == 3{
+		} else if nelpApplication.state.rawValue == 3 {
 			self.applicationStateIcon.image = UIImage(named: "denied.png")!
 			self.applicationStateLabel.text = "Denied"
 		}
@@ -228,9 +228,9 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	
 	func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {
 		var image: UIImage!
-		request(.GET,imageURL).response(){
+		request(.GET,imageURL).response() {
 			(_, _, data, error) in
-			if(error != nil){
+			if(error != nil) {
 				print(error)
 			}
 			image = UIImage(data: data as NSData!)
