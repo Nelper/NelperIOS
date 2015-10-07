@@ -60,12 +60,13 @@
 		19DB24651BB711B500468E91 /* SkillsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24621BB711B500468E91 /* SkillsTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		9FB9076C1CAA3EC7FCDFB9DE /* Pods_Nelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C0196C981BB5B49300901155 /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0196C971BB5B49300901155 /* SegmentController.swift */; settings = {ASSET_TAGS = (); }; };
-		C0196C9C1BB642CA00901155 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0196C9B1BB642CA00901155 /* MoreViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C04FF0031BB86873001E204F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04FF0021BB86873001E204F /* Button.swift */; settings = {ASSET_TAGS = (); }; };
 		C087D8D91BB7199A00AA205B /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087D8D81BB7199A00AA205B /* Rating.swift */; settings = {ASSET_TAGS = (); }; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
 		F72385DA1BBE1533000793B8 /* PicturesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72385D91BBE1533000793B8 /* PicturesCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		F72385E51BC5A624000793B8 /* MoreMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72385E31BC5A624000793B8 /* MoreMenuTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F72385E61BC5A624000793B8 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72385E41BC5A624000793B8 /* MoreViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		F72F27DC1B53224100CD3B0B /* TaskApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F27DB1B53224100CD3B0B /* TaskApplication.swift */; };
 		F72F284F1B53607C00CD3B0B /* ThemeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F284E1B53607C00CD3B0B /* ThemeHelper.swift */; };
 		F73A45BE1B72F4B600FD8C79 /* MKPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A45BD1B72F4B600FD8C79 /* MKPin.swift */; };
@@ -241,12 +242,13 @@
 		3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
 		81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0196C971BB5B49300901155 /* SegmentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegmentController.swift; path = Views/SegmentController.swift; sourceTree = "<group>"; };
-		C0196C9B1BB642CA00901155 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoreViewController.swift; path = More/MoreViewController.swift; sourceTree = "<group>"; };
 		C04FF0021BB86873001E204F /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		C087D8D81BB7199A00AA205B /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
 		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		F72385D91BBE1533000793B8 /* PicturesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicturesCollectionViewCell.swift; sourceTree = "<group>"; };
+		F72385E31BC5A624000793B8 /* MoreMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMenuTableViewController.swift; sourceTree = "<group>"; };
+		F72385E41BC5A624000793B8 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		F72F27DB1B53224100CD3B0B /* TaskApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TaskApplication.swift; path = Nelper/Model/TaskApplication.swift; sourceTree = SOURCE_ROOT; };
 		F72F284E1B53607C00CD3B0B /* ThemeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeHelper.swift; path = Nelper/Helpers/ThemeHelper.swift; sourceTree = SOURCE_ROOT; };
 		F73A45BD1B72F4B600FD8C79 /* MKPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MKPin.swift; path = Nelper/Model/MKPin.swift; sourceTree = SOURCE_ROOT; };
@@ -460,8 +462,8 @@
 				19DB245F1BB711B500468E91 /* Profile */,
 				19DB24541BB711AA00468E91 /* Browse */,
 				19DB24491BB7119C00468E91 /* Post */,
+				F72385E21BC5A624000793B8 /* More */,
 				193F04101B485F75003CBDA6 /* Login */,
-				C0196C9A1BB6425F00901155 /* More */,
 				F7F007031B9767D0009766C1 /* Payments */,
 				19DB24251BB70E8000468E91 /* NelpCenter */,
 				F762CFFD1B4B591D00812235 /* Model */,
@@ -594,14 +596,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		C0196C9A1BB6425F00901155 /* More */ = {
-			isa = PBXGroup;
-			children = (
-				C0196C9B1BB642CA00901155 /* MoreViewController.swift */,
-			);
-			name = More;
-			sourceTree = "<group>";
-		};
 		E00C0A7D0D690598AC42849C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -629,6 +623,15 @@
 				81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F72385E21BC5A624000793B8 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				F72385E31BC5A624000793B8 /* MoreMenuTableViewController.swift */,
+				F72385E41BC5A624000793B8 /* MoreViewController.swift */,
+			);
+			path = More;
 			sourceTree = "<group>";
 		};
 		F72F28501B53608E00CD3B0B /* Helpers */ = {
@@ -1032,6 +1035,7 @@
 				F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */,
 				F7E8F8F61B94E7CF007D44D8 /* ATLParticipantTableViewCell.m in Sources */,
 				F7E8F8D51B94E7CF007D44D8 /* ATLAddressBarViewController.m in Sources */,
+				F72385E51BC5A624000793B8 /* MoreMenuTableViewController.swift in Sources */,
 				F7E8F8E91B94E7CF007D44D8 /* ATLConversationCollectionView.m in Sources */,
 				19DB244F1BB7119C00468E91 /* AddAddressViewController.swift in Sources */,
 				19DB24531BB7119C00468E91 /* PostTaskFormViewController.swift in Sources */,
@@ -1052,7 +1056,6 @@
 				19DB24421BB70E8000468E91 /* ApplicantChatViewController.swift in Sources */,
 				C0196C981BB5B49300901155 /* SegmentController.swift in Sources */,
 				19DB245D1BB711AA00468E91 /* BrowseViewController.swift in Sources */,
-				C0196C9C1BB642CA00901155 /* MoreViewController.swift in Sources */,
 				19DB24391BB70E8000468E91 /* MyApplicationDetailsAcceptedViewController.swift in Sources */,
 				F7E8F8EC1B94E7CF007D44D8 /* ATLConversationCollectionViewMoreMessagesHeader.m in Sources */,
 				F7F007051B9767D0009766C1 /* STRPPaymentViewController.swift in Sources */,
@@ -1090,6 +1093,7 @@
 				F7E18C181BB6480C00160771 /* UserPrivateData.swift in Sources */,
 				19DB245B1BB711AA00468E91 /* BrowseDetailsViewController.swift in Sources */,
 				F7E8F8E31B94E7CF007D44D8 /* ATLMessagingUtilities.m in Sources */,
+				F72385E61BC5A624000793B8 /* MoreViewController.swift in Sources */,
 				19DB243E1BB70E8000468E91 /* NelpCenterViewController.swift in Sources */,
 				F7E8F8D41B94E7CF007D44D8 /* Atlas.m in Sources */,
 				F7E8F8D71B94E7CF007D44D8 /* ATLConversationListViewController.m in Sources */,
