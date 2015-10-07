@@ -101,7 +101,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
 		tableView.addSubview(refreshView)
 		
-		self.tasksContainer.addSubview(tableView);
+		self.tasksContainer.addSubview(tableView)
 		tableView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.tasksContainer.snp_edges)
 		}
@@ -124,7 +124,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		refreshViewApplication.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
 		tableViewApplications.addSubview(refreshViewApplication)
 		
-		self.tasksContainer.addSubview(tableViewApplications);
+		self.tasksContainer.addSubview(tableViewApplications)
 		tableViewApplications.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.tasksContainer.snp_edges)
 		}
@@ -155,7 +155,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	Load User's Task and Applications
 	*/
 	func loadData() {
-		ApiHelper.listMyNelpTasksWithBlock{ (nelpTasks: [FindNelpTask]?, error: NSError?) -> Void in
+		ApiHelper.listMyNelpTasksWithBlock { (nelpTasks: [FindNelpTask]?, error: NSError?) -> Void in
 			if error != nil {
 				print(error, terminator: "")
 			} else {

@@ -12,6 +12,8 @@ protocol LoginViewControllerDelegate {
 	func onLogin() -> Void
 }
 
+
+
 class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
 
 	let permissions = ["public_profile"]
@@ -158,7 +160,9 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let fbButton = UIButton()
 		self.fbButton = fbButton
 		self.firstContainer.addSubview(self.fbButton)
-		self.fbButton.backgroundColor = blueFacebook
+		self.fbButton.clipsToBounds = true
+		self.fbButton.setBackgroundColor(blueFacebook, forState: UIControlState.Normal)
+		self.fbButton.setBackgroundColor(blueFacebookSelected, forState: UIControlState.Highlighted)
 		self.fbButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
 		self.fbButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
 		self.fbButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 0)
@@ -190,7 +194,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.fbLine.alpha = 0.2
 		self.fbLine.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.fbLogo.snp_right).offset(10)
-			make.centerY.equalTo(self.fbButton.snp_centerY).offset(5)
 			make.width.equalTo(1)
 			make.top.equalTo(fbButton.snp_top).offset(5)
 			make.bottom.equalTo(fbButton.snp_bottom).offset(-5)
@@ -199,7 +202,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let twitterButton = UIButton()
 		self.twitterButton = twitterButton
 		self.firstContainer.addSubview(self.twitterButton)
-		self.twitterButton.backgroundColor = blueTwitter
+		self.twitterButton.setBackgroundColor(blueTwitter, forState: UIControlState.Normal)
+		self.twitterButton.setBackgroundColor(blueTwitterSelected, forState: UIControlState.Highlighted)
 		self.twitterButton.setTitle("Sign in with Twitter", forState: UIControlState.Normal)
 		self.twitterButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
 		self.twitterButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
@@ -231,7 +235,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.twitterLine.alpha = 0.2
 		self.twitterLine.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.twitterLogo.snp_right).offset(10)
-			make.centerY.equalTo(self.twitterButton.snp_centerY).offset(5)
 			make.width.equalTo(1)
 			make.top.equalTo(self.twitterButton.snp_top).offset(5)
 			make.bottom.equalTo(self.twitterButton.snp_bottom).offset(-5)
@@ -243,6 +246,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.firstContainer.addSubview(self.emailButton)
 		self.emailButton.layer.borderColor = whitePrimary.CGColor
 		self.emailButton.layer.borderWidth = 1
+		self.emailButton.setBackgroundColor(redPrimary, forState: UIControlState.Normal)
+		self.emailButton.setBackgroundColor(redPrimarySelected, forState: UIControlState.Highlighted)
 		self.emailButton.setTitle("Email sign in", forState: UIControlState.Normal)
 		self.emailButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
 		self.emailButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
@@ -316,6 +321,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.secondContainer.addSubview(self.loginButton)
 		self.loginButton.setTitle("Login", forState: UIControlState.Normal)
 		self.loginButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.loginButton.setTitleColor(redPrimarySelected, forState: UIControlState.Highlighted)
 		self.loginButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.loginButton.addTarget(self, action: "emailLogin:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.loginButton.snp_makeConstraints { (make) -> Void in
@@ -343,12 +349,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.secondContainer.addSubview(self.registerButton)
 		self.registerButton.layer.borderColor = whitePrimary.CGColor
 		self.registerButton.layer.borderWidth = 1
+		self.registerButton.setBackgroundColor(redPrimary, forState: UIControlState.Normal)
+		self.registerButton.setBackgroundColor(redPrimarySelected, forState: UIControlState.Highlighted)
 		self.registerButton.setTitle("Register new account", forState: UIControlState.Normal)
 		self.registerButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
 		self.registerButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.registerButton.addTarget(self, action: "didTapRegisterButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.registerButton.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.secondContainer.snp_bottom).offset(-50)
+			make.bottom.equalTo(self.secondContainer.snp_bottom).offset(-55)
 			make.left.equalTo(self.secondContainer.snp_left).offset(24)
 			make.right.equalTo(self.secondContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
@@ -359,6 +367,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.secondContainer.addSubview(self.forgotPassButton)
 		self.forgotPassButton.setTitle("I forgot my password", forState: UIControlState.Normal)
 		self.forgotPassButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.forgotPassButton.setTitleColor(redPrimarySelected, forState: UIControlState.Highlighted)
 		self.forgotPassButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.forgotPassButton.addTarget(self, action: "forgotPassword:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.forgotPassButton.snp_makeConstraints { (make) -> Void in
@@ -487,7 +496,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.thirdContainer.addSubview(self.registerAccountButton)
 		self.registerAccountButton.setTitle("Sign up", forState: UIControlState.Normal)
 		self.registerAccountButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.registerAccountButton.setTitleColor(redPrimarySelected, forState: UIControlState.Highlighted)
 		self.registerAccountButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		self.registerAccountButton.setBackgroundColor(redPrimary, forState: UIControlState.Normal)
+		self.registerAccountButton.setBackgroundColor(redPrimarySelected, forState: UIControlState.Highlighted)
 		self.registerAccountButton.addTarget(self, action: "createAccount:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.registerAccountButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.passwordFieldConfirmRegister.snp_bottom)
@@ -546,7 +558,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let value = info[UIKeyboardFrameEndUserInfoKey]!
 		self.keyboardFrame = value.CGRectValue
 		
-		self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height + 50, 0)
+		self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height + 100, 0)
 		
 		self.scrollView.contentInset = contentInsets
 		self.scrollView.scrollIndicatorInsets = contentInsets
@@ -652,7 +664,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.maxX))
 			}
 			
-			UIView.animateWithDuration(0.5, delay: 0.0, options: [.CurveEaseOut], animations:  {
+			UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 				self.firstContainer.layoutIfNeeded()
 				self.secondContainer.layoutIfNeeded()
 				self.thirdContainer.layoutIfNeeded()
@@ -674,7 +686,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				make.left.equalTo(self.contentView.snp_left)
 			}
 			
-			UIView.animateWithDuration(0.5, delay: 0.0, options: [.CurveEaseOut], animations:  {
+			UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 				self.firstContainer.layoutIfNeeded()
 				self.secondContainer.layoutIfNeeded()
 				self.thirdContainer.layoutIfNeeded()
@@ -697,7 +709,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				make.left.equalTo(self.contentView.snp_left).offset(-2*(self.contentView.frame.maxX))
 			}
 			
-			UIView.animateWithDuration(0.5, delay: 0.0, options: [.CurveEaseOut], animations:  {
+			UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 				self.firstContainer.layoutIfNeeded()
 				self.secondContainer.layoutIfNeeded()
 				self.thirdContainer.layoutIfNeeded()
@@ -719,7 +731,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.maxX))
 			}
 			
-			UIView.animateWithDuration(0.5, delay: 0.0, options: [.CurveEaseOut], animations:  {
+			UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 				self.firstContainer.layoutIfNeeded()
 				self.secondContainer.layoutIfNeeded()
 				self.thirdContainer.layoutIfNeeded()
