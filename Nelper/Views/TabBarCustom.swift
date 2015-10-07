@@ -10,13 +10,16 @@ import Foundation
 import UIKit
 import SnapKit
 
-class TabBarCustom: UITabBarController {
+class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
+	
+	var presentedVC:UIViewController!
 	
 	//MARK: Initialization
 	
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		self.createView()
+		self.delegate = self
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -40,7 +43,8 @@ class TabBarCustom: UITabBarController {
 		let postVCItem = UITabBarItem(title: "Post a task", image: UIImage(named: "post_task"), selectedImage: UIImage(named: "post_task"))
 		postVC.tabBarItem = postVCItem
 		
-		let moreVC = UIViewController()
+//		let moreVC = MoreViewController(menuViewController: UIViewController(), contentViewController: MoreMenuTableViewController())
+		let moreVC = MoreViewController()
 		let moreVCItem = UITabBarItem(title: "More", image: UIImage(named: "menu"), selectedImage: UIImage(named: "more"))
 		moreVC.tabBarItem = moreVCItem
 		
@@ -50,4 +54,35 @@ class TabBarCustom: UITabBarController {
 		self.tabBar.tintColor = redPrimary
 		
 	}
+	
+	func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+		if viewController == self.viewControllers![3]{
+			let nextVC = MoreViewController()
+			presentedVC.addChildViewController(nextVC)
+			presentedVC.view.addSubview(nextVC.view)
+			nextVC.didMoveToParentViewController(presentedVC)
+			
+			nextVC.view.snp_makeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(presentedVC.view.snp_top)
+				make.bottom.equalTo(presentedVC.view.snp_bottom)
+				make.left.equalTo(presentedVC.view.snp_right)
+			})
+			nextVC.view.layoutIfNeeded()
+			
+			nextVC.view.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(presentedVC.view.snp_top)
+				make.bottom.equalTo(presentedVC.view.snp_bottom)
+				make.right.equalTo(presentedVC.view.snp_right)
+				make.width.equalTo(presentedVC.view.snp_width).multipliedBy(0.60)
+			})
+			
+			UIView.animateWithDuration(0.5, animations: { () -> Void in
+				nextVC.view.layoutIfNeeded()
+			})
+			
+			return false
+		}
+		return true
+	}
+	
 }
