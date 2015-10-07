@@ -16,13 +16,15 @@ protocol AddAddressViewControllerDelegate{
 	func didAddLocation(vc:AddAddressViewController)
 }
 
-class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate{
+class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
 	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	var delegate:AddAddressViewControllerDelegate?
 	var popupContainer: UIView!
 	var tap: UITapGestureRecognizer!
 	var blurContainer:UIVisualEffectView!
+	var scrollView: UIScrollView!
+	var contentView: UIView!
 	var titleLabel: UILabel!
 	var addressTextField:UITextField!
 	var autocompleteTableView:UITableView!
@@ -36,6 +38,10 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 	var addressOk:Bool!
 	var nameOk:Bool!
 	
+	var keyboardFrame: CGRect!
+	var contentInsets: UIEdgeInsets!
+	var activeField: UITextField!
+	var fieldEditing = false
 	
 	//MARK: Initialization
 	
@@ -47,12 +53,17 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		addressOk = false
 		nameOk = false
 		
-		//KEYBOARD VIEW MOVER
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-		
-		
 		self.createView()
+		
+		// KEYBOARD VIEW MOVER
+		keyboardObserver()
+		self.nameTextField.delegate = self
+		self.addressTextField.delegate = self
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		self.scrollView.contentSize = self.popupContainer.frame.size
 	}
 	
 	//MARK: View Creation
@@ -76,13 +87,31 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		self.view.backgroundColor = UIColor.clearColor()
 		self.view.addSubview(blurContainer)
 		
+		let scrollView = UIScrollView()
+		self.scrollView = scrollView
+		self.blurContainer.addSubview(self.scrollView)
+		self.scrollView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(self.blurContainer.snp_edges)
+		}
+		
+		let contentView = UIView()
+		self.contentView = contentView
+		self.scrollView.addSubview(self.contentView)
+		self.contentView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(scrollView.snp_top)
+			make.left.equalTo(scrollView.snp_left)
+			make.right.equalTo(scrollView.snp_right)
+			make.height.greaterThanOrEqualTo(blurContainer.snp_height)
+			make.width.equalTo(blurContainer.snp_width)
+		}
+		
 		let popupContainer = UIView()
 		self.popupContainer = popupContainer
-		blurContainer.addSubview(popupContainer)
+		self.contentView.addSubview(popupContainer)
 		popupContainer.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(blurContainer.snp_left).offset(8)
-			make.right.equalTo(blurContainer.snp_right).offset(-8)
-			make.centerY.equalTo(self.view.snp_centerY)
+			make.left.equalTo(contentView.snp_left).offset(8)
+			make.right.equalTo(contentView.snp_right).offset(-8)
+			make.top.equalTo(contentView.snp_top).offset(200)
 		}
 		
 		let titleLabel = UILabel()
@@ -99,14 +128,12 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		let nameTextField = UITextField()
 		self.nameTextField = nameTextField
 		popupContainer.addSubview(nameTextField)
-		nameTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.50)
+		nameTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.70)
 		nameTextField.attributedPlaceholder = NSAttributedString(string: "Name (home, office, etc.)", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
 		nameTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		nameTextField.textColor = blackPrimary
 		nameTextField.textAlignment = NSTextAlignment.Left
-		nameTextField.layer.cornerRadius = 3
-		nameTextField.layer.borderColor = grayDetails.CGColor
-		nameTextField.layer.borderWidth = 1
+		nameTextField.autocorrectionType = UITextAutocorrectionType.No
 		let paddingViewLocationName = UIView(frame: CGRectMake(0, 0, 10, 0))
 		nameTextField.leftView = paddingViewLocationName
 		nameTextField.leftViewMode = UITextFieldViewMode.Always
@@ -121,16 +148,13 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		self.addressTextField = addressTextField
 		addressTextField.delegate = self
 		popupContainer.addSubview(addressTextField)
-		addressTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.50)
+		addressTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.70)
 		addressTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
 		addressTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		addressTextField.keyboardType = UIKeyboardType.NumbersAndPunctuation
 		addressTextField.autocorrectionType = UITextAutocorrectionType.No
 		addressTextField.textColor = blackPrimary
 		addressTextField.textAlignment = NSTextAlignment.Left
-		addressTextField.layer.cornerRadius = 3
-		addressTextField.layer.borderColor = grayDetails.CGColor
-		addressTextField.layer.borderWidth = 1
 		let paddingViewLocation = UIView(frame: CGRectMake(0, 0, 10, 0))
 		addressTextField.leftView = paddingViewLocation
 		addressTextField.leftViewMode = UITextFieldViewMode.Always
@@ -236,10 +260,6 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 	
 	//MARK: TextField delegate method
 	
-	func textFieldDidBeginEditing(textField: UITextField){
-		
-	}
-	
 	func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
 		return true
 	}
@@ -297,26 +317,6 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		})
 	}
 	
-	//MARK: View delegate methods
-	override func viewDidLayoutSubviews() {
-		super.viewDidLayoutSubviews()
-	}
-	
-	//MARK: Keyboard move view
-	func keyboardWillShow(sender: NSNotification) {
-		if keyboardIsShowing == false {
-			self.view.frame.origin.y -= 150
-			keyboardIsShowing = true
-		}
-	}
-	
-	func keyboardWillHide(sender: NSNotification) {
-		if keyboardIsShowing == true{
-		self.view.frame.origin.y += 150
-		keyboardIsShowing = false
-		}
-	}
-	
 	//MARK: Gesture recognizer delegate methods
 	
 	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
@@ -336,6 +336,50 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		}else{
 			self.dismissViewControllerAnimated(true, completion: nil)
 		}
+	}
+	
+	//MARK: KEYBOARD VIEW MOVER
+	
+	func keyboardObserver() {
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+		
+	}
+	
+	func textFieldDidBeginEditing(textField: UITextField) {
+		self.activeField = textField
+		self.fieldEditing = true
+	}
+	
+	func textFieldDidEndEditing(textField: UITextField) {
+		self.activeField = nil
+		self.fieldEditing = false
+	}
+	
+	func keyboardDidShow(notification: NSNotification) {
+		
+		let info = notification.userInfo!
+		let value = info[UIKeyboardFrameEndUserInfoKey]!
+		self.keyboardFrame = value.CGRectValue
+		
+		self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height + 100, 0)
+		
+		self.scrollView.contentInset = contentInsets
+		self.scrollView.scrollIndicatorInsets = contentInsets
+		
+		var aRect = self.view.frame
+		aRect.size.height -= self.keyboardFrame.height
+		
+		if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
+			self.scrollView.scrollRectToVisible(self.activeField.frame, animated: true)
+		}
+	}
+	
+	func keyboardWillHide(notification: NSNotification) {
+		self.contentInsets = UIEdgeInsetsZero
+		self.scrollView.contentInset = contentInsets
+		self.scrollView.scrollIndicatorInsets = contentInsets
 	}
 	
 	//MARK: Actions
