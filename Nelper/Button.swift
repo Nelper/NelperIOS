@@ -111,7 +111,7 @@ class SecondaryActionButton: UIButton {
 		self.backgroundColor = buttonColor
 		self.layer.borderColor = buttonBorderColor.CGColor
 		self.layer.borderWidth = buttonBorderWidth
-		self.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		self.titleLabel?.font = UIFont(name: "Lato-Light", size: kTitle17)
 		self.setTitleColor(buttonLabelColor, forState: UIControlState.Normal)
 		self.setTitleColor(buttonLabelColorSelected, forState: UIControlState.Highlighted)
 		self.snp_makeConstraints { (make) -> Void in

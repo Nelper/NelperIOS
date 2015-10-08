@@ -11,12 +11,12 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-protocol AddAddressViewControllerDelegate{
+protocol AddAddressViewControllerDelegate {
 	func didClosePopup(vc:AddAddressViewController)
 	func didAddLocation(vc:AddAddressViewController)
 }
 
-class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
+class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
 	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	var delegate:AddAddressViewControllerDelegate?
@@ -68,7 +68,7 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 	
 	//MARK: View Creation
 	
-	func createView(){
+	func createView() {
 		
 		let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
 		let blurContainer = UIVisualEffectView(effect: blurEffect)
@@ -258,6 +258,12 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		return 60
 	}
 	
+	//MARK: DISMISS KEYBOARD
+	
+	func DismissKeyboard() {
+		view.endEditing(true)
+	}
+	
 	//MARK: TextField delegate method
 	
 	func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
@@ -328,13 +334,15 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 	
 	
 	func tapDetected(){
-		if self.addressTextField.editing == true || self.nameTextField.editing == true{
+		if self.addressTextField.editing == true || self.nameTextField.editing == true {
 			self.view.endEditing(true)
-			if self.autocompleteTableView.hidden == false{
+			if self.autocompleteTableView.hidden == false {
 				self.autocompleteTableView.hidden == true
 			}
-		}else{
+		} else {
+			DismissKeyboard()
 			self.dismissViewControllerAnimated(true, completion: nil)
+			self.delegate?.didClosePopup(self)
 		}
 	}
 	
@@ -404,14 +412,17 @@ class AddAddressViewController:UIViewController, UIGestureRecognizerDelegate, UI
 		return nil
 	}
 	
-	func didTapAddLocationButton(sender:UIButton!){
-		if self.addressOk == true && self.nameTextField.text?.characters.count > 0{
-		self.address.name = self.nameTextField.text!
-		self.delegate?.didAddLocation(self)
-		self.dismissViewControllerAnimated(true, completion: nil)
-		}else{
-				let popup = UIAlertController(title: "Missing information", message: "You must name and select a valid address!", preferredStyle: UIAlertControllerStyle.Alert)
-			popup.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action) -> Void in
+	func didTapAddLocationButton(sender:UIButton!) {
+		DismissKeyboard()
+		
+		if self.addressOk == true && self.nameTextField.text?.characters.count > 0 {
+			self.address.name = self.nameTextField.text!
+			self.delegate?.didAddLocation(self)
+			self.dismissViewControllerAnimated(true, completion: nil)
+			self.delegate?.didClosePopup(self)
+		} else {
+			let popup = UIAlertController(title: "Missing information", message: "You must enter a name and select a valid address!", preferredStyle: UIAlertControllerStyle.Alert)
+			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 			}))
 				self.presentViewController(popup, animated: true, completion: nil)
 		}

@@ -16,37 +16,43 @@ protocol PostTaskFormViewControllerDelegate {
 	func dismiss()
 }
 
-class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate,AddAddressViewControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate {
+class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, AddAddressViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate {
 	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	let imagePicker = UIImagePickerController()
 	var task: FindNelpTask!
 	var placesClient: GMSPlacesClient?
 	var locationTextField: UITextField?
-	var titleTextField:UITextField?
-	var descriptionTextView:UITextView?
-	var priceOffered:UITextField?
+	var titleTextField: UITextField!
+	var descriptionTextView: UITextView!
+	var priceOffered: UITextField!
 	var autocompleteArray = [GMSAutocompletePrediction]()
 	var tap: UITapGestureRecognizer?
-	var contentView:UIView!
-	var scrollView:UIScrollView!
-	var navBar:NavBar!
-	var autocompleteTableView:UITableView!
-	var titleStatus:UIImageView!
-	var priceStatus:UIImageView!
-	var deleteAddressButton:UIButton!
-	var addLocationButton:UIButton!
-	var savedLocations:Array<Location>?
-	var locations:Array<Dictionary<String,AnyObject>>!
-	var locationsPickerView:UIPickerView?
-	var streetAddressLabel:UILabel!
+	var contentView: UIView!
+	var scrollView: UIScrollView!
+	var navBar: NavBar!
+	var autocompleteTableView: UITableView!
+	var titleStatus: UIImageView!
+	var priceStatus: UIImageView!
+	var deleteAddressButton: SecondaryActionButton!
+	var addLocationButton: PrimaryActionButton!
+	var savedLocations: Array<Location>?
+	var locations: Array<Dictionary<String,AnyObject>>!
+	var locationsPickerView: UIPickerView?
+	var streetAddressLabel: UILabel!
 	var delegate: PostTaskFormViewControllerDelegate?
-	var picturesCollectionView:UICollectionView!
+	var picturesCollectionView: UICollectionView!
 	var arrayOfPictures = Array<UIImage>()
+	
+	var keyboardFrame: CGRect!
+	var contentInsets: UIEdgeInsets!
+	var activeField: UIView!
+	var fieldEditing = false
+	var popupShown = false
 	
 	//MARK: Initialization
 	
-	init(task: FindNelpTask){
+	init(task: FindNelpTask) {
 		super.init(nibName: nil, bundle: nil)
 		self.task = task
 		self.placesClient = GMSPlacesClient()
@@ -60,6 +66,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 				oneLocation.name = location["name"] as? String
 				oneLocation.city = location["city"] as? String
 				oneLocation.province = location["province"] as? String
+				oneLocation.route = location["route"] as? String
+				oneLocation.streetNumber = location["streetNumber"] as? String
+				oneLocation.country = location["country"] as? String
 				oneLocation.coords = location["coords"] as? Dictionary<String,Double>
 				arrayOfLocations.append(oneLocation)
 			}
@@ -68,7 +77,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			self.task.location = GeoPoint(latitude:self.savedLocations![0].coords!["latitude"]!,longitude: self.savedLocations![0].coords!["longitude"]!)
 			self.task.city = self.savedLocations![0].city
 			self.task.exactLocation = self.savedLocations![0]
-		}else{
+		} else {
 			self.savedLocations = Array<Location>()
 		}
 	}
@@ -84,6 +93,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
 		self.tap = tap
 		contentView.addGestureRecognizer(tap)
+		
+		// KEYBOARD VIEW MOVER
+		keyboardObserver()
+		self.titleTextField.delegate = self
+		self.priceOffered.delegate = self
+		self.descriptionTextView.delegate = self
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -92,7 +107,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	//MARK: View Creation
 	
-	func createView(){
+	func createView() {
 		
 		let contentInset: CGFloat = 12
 		
@@ -206,16 +221,15 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		taskTitleTextField.delegate = self
 		self.titleTextField = taskTitleTextField
 		taskFormContainer.addSubview(taskTitleTextField)
-		taskTitleTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
+		taskTitleTextField.backgroundColor = whitePrimary
 		taskTitleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
 		taskTitleTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		taskTitleTextField.textColor = blackPrimary
 		taskTitleTextField.textAlignment = NSTextAlignment.Left
+		taskTitleTextField.autocorrectionType = UITextAutocorrectionType.No
 		taskTitleTextField.layer.borderColor = grayDetails.CGColor
 		taskTitleTextField.layer.borderWidth = 1
-		let paddingViewTitle = UIView(frame: CGRectMake(0, 0, 10, 0))
-		taskTitleTextField.leftView = paddingViewTitle
-		taskTitleTextField.leftViewMode = UITextFieldViewMode.Always
+		taskTitleTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		
 		taskTitleTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
@@ -252,13 +266,15 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.descriptionTextView = descriptionTextView
 		descriptionTextView.delegate = self
 		taskFormContainer.addSubview(descriptionTextView)
-		descriptionTextView.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
+		descriptionTextView.backgroundColor = whitePrimary
 		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText15)
 		descriptionTextView.textColor = blackPrimary
 		descriptionTextView.textAlignment = NSTextAlignment.Left
-		descriptionTextView.layer.cornerRadius = 3
 		descriptionTextView.layer.borderColor = grayDetails.CGColor
 		descriptionTextView.layer.borderWidth = 1
+		descriptionTextView.layer.sublayerTransform = CATransform3DMakeTranslation(7, 0, 0)
+		descriptionTextView.text = "Description   "
+		descriptionTextView.textColor = blackPrimary.colorWithAlphaComponent(0.75)
 		
 		
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
@@ -267,7 +283,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.right.equalTo(contentView.snp_right).offset(-50)
 			make.height.equalTo(150)
 		}
-		
 		
 		//Price Offered Label + TextField
 		
@@ -285,17 +300,14 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		priceOfferedTextField.delegate = self
 		self.priceOffered = priceOfferedTextField
 		taskFormContainer.addSubview(priceOfferedTextField)
-		priceOfferedTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
+		priceOfferedTextField.backgroundColor = whitePrimary
 		priceOfferedTextField.attributedPlaceholder = NSAttributedString(string: "$", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
 		priceOfferedTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		priceOfferedTextField.textColor = blackPrimary
 		priceOfferedTextField.textAlignment = NSTextAlignment.Left
-		priceOfferedTextField.layer.cornerRadius = 3
 		priceOfferedTextField.layer.borderColor = grayDetails.CGColor
 		priceOfferedTextField.layer.borderWidth = 1
-		let paddingViewPrice = UIView(frame: CGRectMake(0, 0, 10, 0))
-		priceOfferedTextField.leftView = paddingViewPrice
-		priceOfferedTextField.leftViewMode = UITextFieldViewMode.Always
+		priceOfferedTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		priceOfferedTextField.keyboardType = UIKeyboardType.NumberPad
 		
 		priceOfferedTextField.snp_makeConstraints { (make) -> Void in
@@ -333,14 +345,15 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.locationTextField = locationTextField
 		self.locationTextField!.delegate = self
 		
-		locationTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.75)
+		locationTextField.backgroundColor = whitePrimary
 		if !self.savedLocations!.isEmpty{
 			locationTextField.text = self.savedLocations!.first!.name!
 		}
 		
 		locationTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
 		locationTextField.font = UIFont(name: "Lato-Regular", size: kText15)
-		locationTextField.textColor = blackPrimary
+		locationTextField.textColor = blackPrimary.colorWithAlphaComponent(0.75)
+		locationTextField.textAlignment = NSTextAlignment.Center
 		locationTextField.delegate = self
 		
 		/// Picker view
@@ -350,70 +363,64 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		locationsPickerView.delegate = self
 		
 		locationTextField.inputView = locationsPickerView
-		locationTextField.textAlignment = NSTextAlignment.Left
-		locationTextField.layer.cornerRadius = 3
 		locationTextField.layer.borderColor = grayDetails.CGColor
 		locationTextField.layer.borderWidth = 1
-		let paddingViewLocation = UIView(frame: CGRectMake(0, 0, 10, 0))
-		locationTextField.leftView = paddingViewLocation
-		locationTextField.leftViewMode = UITextFieldViewMode.Always
-		
 		locationTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(locationLabel.snp_bottom).offset(10)
-			make.width.equalTo(self.contentView.snp_width).multipliedBy(0.66)
+			make.width.equalTo(self.contentView.snp_width).multipliedBy(0.6)
 			make.height.equalTo(50)
 		}
 		
-		let addLocationButton = UIButton()
+		let addLocationButton = PrimaryActionButton()
 		taskFormContainer.addSubview(addLocationButton)
 		self.addLocationButton = addLocationButton
 		addLocationButton.addTarget(self, action: "didTapAddLocation:", forControlEvents: UIControlEvents.TouchUpInside)
-		addLocationButton.backgroundColor = whitePrimary
-		addLocationButton.setTitle("Add", forState: UIControlState.Normal)
-		addLocationButton.setTitleColor(redPrimary, forState: UIControlState.Normal)
+		addLocationButton.setTitle("Add new", forState: UIControlState.Normal)
+		addLocationButton.width = 100
+		addLocationButton.height = 45
 		addLocationButton.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(locationTextField.snp_height)
-			make.left.equalTo(locationTextField.snp_right).offset(4)
-			make.bottom.equalTo(locationTextField.snp_bottom)
+			make.left.equalTo(locationTextField.snp_right).offset(10)
+			make.centerY.equalTo(locationTextField.snp_centerY)
 		}
 		
 		let streetAddressLabel = UILabel()
 		self.streetAddressLabel = streetAddressLabel
+		
 		if self.savedLocations!.isEmpty{
 			locationTextField.userInteractionEnabled = false
 			locationTextField.text = ""
-			streetAddressLabel.text = "You have no saved addresses!"
-		}else{
-			streetAddressLabel.text = self.savedLocations?.first?.formattedAddress
+			streetAddressLabel.text = "You haven't saved any adress yet!"
+		} else {
+			if self.savedLocations?.first?.streetNumber != nil {
+				streetAddressLabel.text = "\(self.savedLocations!.first!.streetNumber!) \(self.savedLocations!.first!.route!)\n\(self.savedLocations!.first!.city!), \(self.savedLocations!.first!.province!)\n\(self.savedLocations!.first!.country!)"
+			} else {
+				self.streetAddressLabel.text = "\(self.savedLocations!.first!.route!)\n\(self.savedLocations!.first!.city!), \(self.savedLocations!.first!.province!)\n\(self.savedLocations!.first!.country!)"
+			}
+		
 		}
+		
 		taskFormContainer.addSubview(streetAddressLabel)
 		streetAddressLabel.numberOfLines = 0
-		streetAddressLabel.textColor = blackPrimary
+		streetAddressLabel.textColor = darkGrayDetails
 		streetAddressLabel.font = UIFont(name: "Lato-Light", size: kText15)
 		streetAddressLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(locationTextField.snp_bottom).offset(16)
-			make.left.equalTo(locationTextField.snp_left)
-			make.width.equalTo(200)
+			make.left.equalTo(locationTextField.snp_left).offset(5)
+			make.right.equalTo(taskFormContainer.snp_right).offset(-25)
 		}
 		
-		
-		let deleteAddressButton = UIButton()
+		let deleteAddressButton = SecondaryActionButton()
 		taskFormContainer.addSubview(deleteAddressButton)
 		self.deleteAddressButton = deleteAddressButton
-		deleteAddressButton.setTitle("Delete Address", forState: UIControlState.Normal)
-		deleteAddressButton.setTitle("Sure?", forState: UIControlState.Selected)
-		deleteAddressButton.setTitleColor(blackPrimary, forState: UIControlState.Normal)
-		deleteAddressButton.setTitleColor(redPrimary, forState: UIControlState.Selected)
+		deleteAddressButton.setTitle("Delete this address", forState: UIControlState.Normal)
+		deleteAddressButton.setTitle("Are you sure?", forState: UIControlState.Selected)
 		self.deleteAddressButton.addTarget(self, action: "didTapDeleteAddress:", forControlEvents: UIControlEvents.TouchUpInside)
-		deleteAddressButton.layer.borderWidth = 0.5
-		deleteAddressButton.layer.borderColor = darkGrayDetails.CGColor
 		deleteAddressButton.backgroundColor = whitePrimary
+		deleteAddressButton.width = 200
 		deleteAddressButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(streetAddressLabel.snp_bottom).offset(16)
 			make.left.equalTo(streetAddressLabel.snp_left)
-			make.height.equalTo(35)
-			make.width.equalTo(200)
 			make.bottom.equalTo(taskFormContainer.snp_bottom).offset(-16)
 		}
 		
@@ -490,12 +497,16 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.navBar.closeButton = previousBtn
 		self.contentView.backgroundColor = whiteBackground
 		self.navBar.setTitle("Create your task")
+		
+		if self.savedLocations!.isEmpty {
+			
+		}
 	}
 	
 	/**
 	Converts the attached task pictures to Data in order to save them in parse.
 	*/
-	func convertImagesToData(){
+	func convertImagesToData() {
 		self.task.pictures = Array()
 		for image in self.arrayOfPictures{
 			let imageData = UIImageJPEGRepresentation(image , 0.50)
@@ -547,7 +558,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
 	{
 		self.locationTextField!.text = self.savedLocations?[row].name
-		self.streetAddressLabel.text = self.savedLocations?[row].formattedAddress
+		
+		if self.savedLocations?[row].streetNumber != nil {
+			streetAddressLabel.text = "\(self.savedLocations![row].streetNumber!) \(self.savedLocations![row].route!)\n\(self.savedLocations![row].city!), \(self.savedLocations![row].province!)\n\(self.savedLocations![row].country!)"
+		} else {
+			self.streetAddressLabel.text = "\(self.savedLocations![row].route!)\n\(self.savedLocations![row].city!), \(self.savedLocations![row].province!)\n\(self.savedLocations![row].country!)"
+		}
 		
 		
 		self.task.location = GeoPoint(latitude:Double(self.savedLocations![row].coords!["latitude"]!),longitude: Double(self.savedLocations![row].coords!["longitude"]!))
@@ -611,12 +627,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	//MARK: TextView Delegate method
-	
-	func textViewDidBeginEditing(textView: UITextView) {
-		self.tap!.enabled = true
-	}
-	
 	//MARK: View Delegate Method
 	
 	override func viewDidLayoutSubviews() {
@@ -628,9 +638,10 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	//MARK: Add Address Location Delegate
 	
 	func didClosePopup(vc: AddAddressViewController) {
+		self.popupShown = false
 	}
 	
-	func didAddLocation(vc:AddAddressViewController){
+	func didAddLocation(vc:AddAddressViewController) {
 		self.task.location = vc.location
 		self.task.city = vc.address.city!
 		self.task.exactLocation = vc.address
@@ -638,7 +649,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.savedLocations?.append(vc.address)
 		self.locationsPickerView?.reloadAllComponents()
 		self.locationTextField?.text = vc.address.name
-		self.streetAddressLabel.text = vc.address.formattedAddress
+		
+		if vc.address.streetNumber != nil {
+			streetAddressLabel.text = "\(vc.address.streetNumber!) \(vc.address.route!)\n\(vc.address.city!), \(vc.address.province!)\n\(vc.address.country!)"
+		} else {
+			self.streetAddressLabel.text = "\(vc.address.route!)\n\(vc.address.city!), \(vc.address.province!)\n\(vc.address.country!)"
+		}
 		
 		let userPrivate = PFUser.currentUser()!["privateData"] as! PFObject
 		userPrivate.setValue(self.locations!, forKey: "locations")
@@ -648,6 +664,71 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 	}
 	
+	//MARK: KEYBOARD VIEW MOVER
+	
+	func keyboardObserver() {
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardDidShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+		
+	}
+	
+	func textFieldDidBeginEditing(textField: UITextField) {
+		self.activeField = textField
+		self.fieldEditing = true
+	}
+	
+	func textFieldDidEndEditing(textField: UITextField) {
+		self.activeField = nil
+		self.fieldEditing = false
+	}
+	
+	func textViewDidBeginEditing(textView: UITextView) {
+		self.activeField = textView
+		self.fieldEditing = true
+		
+		if textView.text == "Description   " {
+			textView.text = ""
+			textView.textColor = blackPrimary
+		}
+	}
+	
+	func textViewDidEndEditing(textView: UITextView) {
+		self.activeField = nil
+		self.fieldEditing = false
+		
+		if textView.text == "" {
+			textView.text = "Description   "
+			textView.textColor = blackPrimary.colorWithAlphaComponent(0.75)
+		}
+	}
+	
+	func keyboardDidShow(notification: NSNotification) {
+		
+		if !popupShown {
+			let info = notification.userInfo!
+			let value = info[UIKeyboardFrameEndUserInfoKey]!
+			self.keyboardFrame = value.CGRectValue
+		
+			self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height, 0)
+		
+			self.scrollView.contentInset = contentInsets
+			self.scrollView.scrollIndicatorInsets = contentInsets
+		
+			var aRect = self.view.frame
+			aRect.size.height -= self.keyboardFrame.height
+		
+			if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
+				self.scrollView.scrollRectToVisible(self.activeField.frame, animated: true)
+			}
+		}
+	}
+	
+	func keyboardWillHide(notification: NSNotification) {
+		self.contentInsets = UIEdgeInsetsZero
+		self.scrollView.contentInset = contentInsets
+		self.scrollView.scrollIndicatorInsets = contentInsets
+	}
 	
 	//MARK: Actions
 	
@@ -680,12 +761,16 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	- parameter sender: Add Address Button
 	*/
 	func didTapAddLocation(sender:UIButton) {
+		DismissKeyboard()
+		
 		let nextVC = AddAddressViewController()
 		nextVC.delegate = self
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
 		self.providesPresentationContextTransitionStyle = true
 		nextVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
 		self.presentViewController(nextVC, animated: true, completion: nil)
+		
+		self.popupShown = true
 	}
 	
 	func didTapDeleteAddress(sender:UIButton){
@@ -698,9 +783,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!),longitude: Double(self.savedLocations![0].coords!["longitude"]!))
 			self.task.city = self.savedLocations![0].city
 			self.updateLocationInfoToFirstComponent()
-		}else{
+		} else {
 			locationTextField!.text = ""
-			streetAddressLabel.text = "You have no saved addresses!"
+			streetAddressLabel.text = "You haven't saved any address yet!"
 			self.task.city = nil
 			self.task.location = nil
 			self.task.exactLocation = nil
@@ -713,7 +798,13 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	func updateLocationInfoToFirstComponent(){
 		self.locationTextField!.text = self.savedLocations?[0].name
-		self.streetAddressLabel.text = self.savedLocations?[0].formattedAddress
+		if self.savedLocations?[0].streetNumber != nil {
+			streetAddressLabel.text = "\(self.savedLocations![0].streetNumber!) \(self.savedLocations![0].route!)\n\(self.savedLocations![0].city!), \(self.savedLocations![0].province!)\n\(self.savedLocations![0].country!)"
+		} else {
+			self.streetAddressLabel.text = "\(self.savedLocations![0].route!)\n\(self.savedLocations![0].city!), \(self.savedLocations![0].province!)\n\(self.savedLocations![0].country!)"
+		}
+		
+		self.savedLocations?[0].formattedAddress
 		self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!),longitude: Double(self.savedLocations![0].coords!["longitude"]!))
 		self.task.exactLocation = self.savedLocations?[0]
 	}
@@ -749,7 +840,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.task.title = self.titleTextField!.text
 		if self.descriptionTextView!.text != nil{
 			self.task.desc = self.descriptionTextView!.text
-		}else{
+		} else {
 			self.task.desc = ""
 		}
 		self.task.priceOffered = Double(self.priceOffered!.text!)
