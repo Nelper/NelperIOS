@@ -13,12 +13,15 @@ import SnapKit
 class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	
 	var presentedVC:UIViewController!
+	var moreIsOpen:Bool!
+	var nextVC:MoreViewController!
 	
 	//MARK: Initialization
 	
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		self.createView()
+		self.moreIsOpen = false
 		self.delegate = self
 	}
 	
@@ -57,7 +60,9 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	
 	func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
 		if viewController == self.viewControllers![3]{
+			if self.moreIsOpen == false{
 			let nextVC = MoreViewController()
+			self.nextVC = nextVC
 			presentedVC.addChildViewController(nextVC)
 			presentedVC.view.addSubview(nextVC.view)
 			nextVC.didMoveToParentViewController(presentedVC)
@@ -73,16 +78,36 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 				make.top.equalTo(presentedVC.view.snp_top)
 				make.bottom.equalTo(presentedVC.view.snp_bottom)
 				make.right.equalTo(presentedVC.view.snp_right)
-				make.width.equalTo(presentedVC.view.snp_width).multipliedBy(0.60)
+				make.width.equalTo(presentedVC.view.snp_width).multipliedBy(0.70)
 			})
 			
 			UIView.animateWithDuration(0.5, animations: { () -> Void in
 				nextVC.view.layoutIfNeeded()
 			})
+			self.moreIsOpen = true
+			}else {
+				self.closeMoreMenu()
+			}
 			
 			return false
+		}
+		if self.moreIsOpen == true{
+			self.closeMoreMenu()
 		}
 		return true
 	}
 	
+	func closeMoreMenu(){
+		nextVC.view.snp_remakeConstraints(closure: { (make) -> Void in
+			make.top.equalTo(presentedVC.view.snp_top)
+			make.bottom.equalTo(presentedVC.view.snp_bottom)
+			make.left.equalTo(presentedVC.view.snp_right)
+			make.width.equalTo(presentedVC.view.snp_width).multipliedBy(0.70)
+		})
+		
+		UIView.animateWithDuration(0.5, animations: { () -> Void in
+			self.nextVC.view.layoutIfNeeded()
+		})
+		self.moreIsOpen = false
+	}
 }
