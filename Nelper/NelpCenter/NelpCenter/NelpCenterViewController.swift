@@ -45,6 +45,8 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	override func viewDidAppear(animated: Bool) {
 		self.loadData()
+		let rootvc:TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
+		rootvc.presentedVC = self
 	}
 	
 	//MARK: View Creation

@@ -24,14 +24,6 @@ class MoreViewController: UIViewController {
 		super.viewDidLoad()
 		let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
 		self.view = UIVisualEffectView(effect: blurEffect)
-		let testButton = UIButton()
-		self.view.addSubview(testButton)
-		testButton.backgroundColor = UIColor.redColor()
-		testButton.snp_makeConstraints { (make) -> Void in
-			make.center.equalTo(self.view.snp_center)
-			make.width.equalTo(30)
-			make.height.equalTo(30)
-		}
 	}
 }
 

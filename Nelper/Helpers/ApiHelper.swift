@@ -122,7 +122,7 @@ class ApiHelper {
 	static func setUserLocation(loc: GeoPoint) {
 		let user = PFUser.currentUser()!
 		user["location"] = PFGeoPoint(latitude: loc.latitude, longitude: loc.longitude)
-		user.save()
+		user.saveInBackground()
 	}
 	
 	static func getCurrentUserPrivateInfo(){
@@ -144,10 +144,12 @@ class ApiHelper {
 		let taskQuery = PFQuery(className: kParseTask)
 		if let arrayOfFilters = arrayOfFilters{
 			print(arrayOfFilters.count, terminator: "")
+			var filters = Array<String>()
 			for filter in arrayOfFilters{
-				taskQuery.whereKey("category", equalTo:filter)
+				filters.append(filter)
 				print(filter, terminator: "")
 			}
+			taskQuery.whereKey("category", containedIn:filters)
 		}
 		
 		if let minPrice = minPrice {
