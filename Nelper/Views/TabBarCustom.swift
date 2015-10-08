@@ -81,7 +81,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 				make.width.equalTo(presentedVC.view.snp_width).multipliedBy(0.70)
 			})
 			
-			UIView.animateWithDuration(0.5, animations: { () -> Void in
+			UIView.animateWithDuration(0.4, animations: { () -> Void in
 				nextVC.view.layoutIfNeeded()
 			})
 			self.moreIsOpen = true
@@ -105,7 +105,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 			make.width.equalTo(presentedVC.view.snp_width).multipliedBy(0.70)
 		})
 		
-		UIView.animateWithDuration(0.5, animations: { () -> Void in
+		UIView.animateWithDuration(0.4, animations: { () -> Void in
 			self.nextVC.view.layoutIfNeeded()
 		})
 		self.moreIsOpen = false
