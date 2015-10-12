@@ -94,33 +94,9 @@ class NavBar: UINavigationBar {
 			make.centerX.equalTo(self.container.snp_centerX).offset(0)
 			make.centerY.equalTo(self.container.snp_centerY).offset(8)
 		}
-		
-		//Logout Button (temporary)
-		self.logoutButton = UIButton()
-		self.logoutButton.setTitle("logout", forState: UIControlState.Normal)
-		self.logoutButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 12)
-		self.logoutButton.titleLabel?.textColor = whitePrimary
-		self.logoutButton.alpha = 0.3
-		self.addSubview(logoutButton)
-		
-		self.logoutButton.addTarget(self, action: "logoutButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		
-		logoutButton.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(container.snp_bottom)
-			make.centerX.equalTo(container.snp_centerX)
-			make.height.equalTo(20)
-			make.width.equalTo(50)
-		}
 	}
 	
 	func setTitle(title:String){
 		self.titleView.text = title
-	}
-	
-	func logoutButtonTapped(sender: AnyObject) {
-		ApiHelper.logout()
-		
-		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		appDelegate.showLogin(true)
 	}
 }
