@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (2.0.2)
+  - Alamofire (3.0.0)
   - GoogleMaps (1.10.3)
   - iCarousel (1.8.2)
   - LayerKit (0.16.0)
@@ -29,7 +29,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
+  Alamofire: b61782387f81bcc538a0284cf2bb5d7995cd0a80
   GoogleMaps: 945e4ac3b74bcca3ddada51df256eb7beddb474d
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
   LayerKit: 8976a2a4d5f73b808e6328a5c66732605a3c247a
@@ -37,4 +37,4 @@ SPEC CHECKSUMS:
   Stripe: 6864be95b09092f05526bc2e0a50804bc556aa0d
   SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.37.2
