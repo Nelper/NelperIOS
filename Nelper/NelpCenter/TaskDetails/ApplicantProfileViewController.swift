@@ -134,7 +134,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			make.width.equalTo((ratingStarsView.starWidth + ratingStarsView.starPadding) * 6)
 			make.height.equalTo(ratingStarsView.starHeight)
 		}
-
+		
 		//Asking for Container
 		
 		//		let askingForPriceContainer = UIView()
@@ -544,7 +544,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	- parameter applicant: The Applicant
 	*/
-
+	
 	func setImages(applicant:User){
 		if(applicant.profilePictureURL != nil){
 			let fbProfilePicture = applicant.profilePictureURL
@@ -740,42 +740,21 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	func acceptButtonTapped(sender:UIButton){
 		self.application.state = .Accepted
-		let query = PFQuery(className: "TaskApplication")
-		query.getObjectInBackgroundWithId(self.application.objectId, block: { (application , error) -> Void in
-			if error != nil{
-				print(error)
-			}else if let application = application{
-				application["state"] = self.application.state.rawValue
-				application.saveInBackground()
-			}
-		})
 		self.application.task.state = .Accepted
-		let queryTask = PFQuery(className: "Task")
-		queryTask.getObjectInBackgroundWithId(self.application.task.objectId, block: { (task , error) -> Void in
-			if error != nil{
-				print(error)
-			}else if let task = task{
-				task["state"] = self.application.task.state.rawValue
-				task.saveInBackground()
-			}
-		})
-		self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
-		self.dismissViewControllerAnimated(true, completion: nil)
+		
+		ApiHelper.acceptApplication(self.application) {
+			// TODO: This should navigate to the accepted application view and not the my tasks list.
+			self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
+			self.dismissViewControllerAnimated(true, completion: nil)
+		}
 	}
 	
 	func denyButtonTapped(sender:UIButton){
 		self.application.state = .Denied
-		let query = PFQuery(className: "TaskApplication")
-		query.getObjectInBackgroundWithId(self.application.objectId, block: { (application , error) -> Void in
-			if error != nil{
-				print(error)
-			}else if let application = application{
-				application["state"] = self.application.state.rawValue
-				application.saveInBackground()
-			}
-		})
-		self.delegate!.didTapDenyButton(self.applicant)
-		self.dismissViewControllerAnimated(true, completion: nil)
+		ApiHelper.denyApplication(self.application) {
+			self.delegate!.didTapDenyButton(self.applicant)
+			self.dismissViewControllerAnimated(true, completion: nil)
+		}
 	}
 	
 	
@@ -879,9 +858,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	func onIndexChange(index: Int) {
 		if index == 0 {
-
+			
 		} else if index == 1 {
-
+			
 		}
 	}
 	

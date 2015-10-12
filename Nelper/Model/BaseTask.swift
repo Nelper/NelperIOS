@@ -17,7 +17,11 @@ class BaseTask: BaseModel {
     case Deleted
     case Completed
 	}
-  
+	var id: String {
+		get {
+			return GraphQLClient.toGlobalId("Task", id: self.objectId)
+		}
+	}
   var title: String!
   var desc: String!
   var user: User!

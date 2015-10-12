@@ -411,22 +411,34 @@ class ApiHelper {
 		
 	//Accept applicant
 	
-	static func acceptApplication(application: TaskApplication) {
-		let parseApplication = PFObject(withoutDataWithClassName: kParseTaskApplication, objectId: application.objectId)
-		parseApplication.setValue(TaskApplication.State.Accepted.rawValue, forKey: "state:")
-		let parseTask = PFObject(className: kParseTask)
-		parseTask.objectId = application.task.objectId
-		parseTask.setValue(FindNelpTask.State.Accepted.rawValue, forKey: "state")
-		
-		PFObject.saveAllInBackground([parseApplication, parseTask])
+	static func acceptApplication(application: TaskApplication, block: () -> Void) {
+		GraphQLClient.mutation(
+			"SetApplicationState",
+			input: [
+				"taskId": application.task.id,
+				"applicationId": application.id,
+				"state": "ACCEPTED",
+			],
+			block: {(data) -> Void in
+				block()
+			}
+		)
 	}
 	
 	//Deny an applicant
 	
-	static func denyApplication(application: TaskApplication) {
-		let parseApplication = PFObject(withoutDataWithClassName: kParseTaskApplication, objectId: application.objectId)
-		parseApplication.setValue(TaskApplication.State.Denied.rawValue, forKey: "state:")
-		parseApplication.saveEventually()
+	static func denyApplication(application: TaskApplication, block: () -> Void) {
+		GraphQLClient.mutation(
+			"SetApplicationState",
+			input: [
+				"taskId": application.task.id,
+				"applicationId": application.id,
+				"state": "DENIED",
+			],
+			block: {(data) -> Void in
+				block()
+			}
+		)
 	}
 	
 	//Set task as viewed

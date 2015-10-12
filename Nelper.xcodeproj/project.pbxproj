@@ -19,6 +19,7 @@
 		190F62471B4F617D0091A1D1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62461B4F617D0091A1D1 /* libsqlite3.dylib */; };
 		190F62491B4F618C0091A1D1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62481B4F618C0091A1D1 /* SystemConfiguration.framework */; };
 		192635451B744D9C005597E3 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192635441B744D9C005597E3 /* NavBar.swift */; };
+		196176C51BCB0BF000F2AF5F /* GraphQLClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196176C41BCB0BF000F2AF5F /* GraphQLClient.swift */; settings = {ASSET_TAGS = (); }; };
 		19761A131B684F41001600E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A121B684F41001600E1 /* User.swift */; };
 		19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A141B684FDB001600E1 /* GeoPoint.swift */; };
 		19761A171B6850C4001600E1 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A161B6850C4001600E1 /* BaseModel.swift */; };
@@ -195,6 +196,7 @@
 		190F62461B4F617D0091A1D1 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		190F62481B4F618C0091A1D1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		192635441B744D9C005597E3 /* NavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavBar.swift; path = Views/NavBar.swift; sourceTree = "<group>"; };
+		196176C41BCB0BF000F2AF5F /* GraphQLClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GraphQLClient.swift; path = Nelper/Helpers/GraphQLClient.swift; sourceTree = SOURCE_ROOT; };
 		19761A121B684F41001600E1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Nelper/Model/User.swift; sourceTree = SOURCE_ROOT; };
 		19761A141B684FDB001600E1 /* GeoPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeoPoint.swift; path = Nelper/Model/GeoPoint.swift; sourceTree = SOURCE_ROOT; };
 		19761A161B6850C4001600E1 /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseModel.swift; path = Nelper/Model/BaseModel.swift; sourceTree = SOURCE_ROOT; };
@@ -643,6 +645,7 @@
 				F73A45BF1B72FEA400FD8C79 /* LocationHelper.swift */,
 				F7E8F9341B953A57007D44D8 /* LayerManager.swift */,
 				F777FBAC1BA1245B00328709 /* DateHelper.swift */,
+				196176C41BCB0BF000F2AF5F /* GraphQLClient.swift */,
 			);
 			name = Helpers;
 			path = ViewControllers/Offer;
@@ -1044,6 +1047,7 @@
 				19761A171B6850C4001600E1 /* BaseModel.swift in Sources */,
 				19DB24461BB70E8000468E91 /* MyTaskDetailsAcceptedViewController.swift in Sources */,
 				F7E8F8DD1B94E7CF007D44D8 /* ATLMediaAttachment.m in Sources */,
+				196176C51BCB0BF000F2AF5F /* GraphQLClient.swift in Sources */,
 				19DB24401BB70E8000468E91 /* NelpTasksTableViewCell.swift in Sources */,
 				F72F27DC1B53224100CD3B0B /* TaskApplication.swift in Sources */,
 				F7E8F8EB1B94E7CF007D44D8 /* ATLConversationCollectionViewHeader.m in Sources */,
