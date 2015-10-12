@@ -90,6 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		GraphQLClient.sessionToken = PFUser.currentUser()?.sessionToken
 		let tabVC = initAppViewController()
 		self.loginLayer()
+		self.window?.rootViewController = tabVC
 		self.window?.rootViewController?.presentViewController(tabVC, animated: true, completion: nil)
 	}
 	
