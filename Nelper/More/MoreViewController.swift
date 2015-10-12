@@ -36,7 +36,7 @@ class MoreViewController: UIViewController {
 		
 		//SET SECTIONS
 		let sections = [
-			(title: "Profile", icon: UIImage(named: "noProfilePicture"), action: Selector("profileTapped:")),
+			(title: "My Profile", icon: UIImage(named: "noProfilePicture"), action: Selector("profileTapped:")),
 			(title: "Settings", icon: UIImage(named:"settings-menu"), action: Selector("settingsTapped:")),
 			(title: "Support", icon: UIImage(named:"support-menu"), action: Selector("howItWorksTapped:")),
 			(title: "FAQ", icon: UIImage(named:"faq-menu"), action: Selector("faqTapped:")),
@@ -78,9 +78,9 @@ class MoreViewController: UIViewController {
 			let sectionButton = UIButton()
 			self.sectionButton = sectionButton
 			self.sectionButton.setTitle(self.sections[index].title, forState: UIControlState.Normal)
-			self.sectionButton.setTitleColor(blackPrimary.colorWithAlphaComponent(0.4), forState: UIControlState.Normal)
+			self.sectionButton.setTitleColor(blackPrimary.colorWithAlphaComponent(0.5), forState: UIControlState.Normal)
 			self.sectionButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTextSize)
-			self.sectionButton.setBackgroundColor(grayDetails, forState: UIControlState.Highlighted)
+			self.sectionButton.setBackgroundColor(whitePrimary.colorWithAlphaComponent(0.5), forState: UIControlState.Highlighted)
 			self.sectionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
 			self.sectionButton.addTarget(self, action: self.sections[index].action, forControlEvents: UIControlEvents.TouchUpInside)
 			self.sectionContainer.addSubview(sectionButton)
@@ -115,7 +115,6 @@ class MoreViewController: UIViewController {
 				self.sectionIcon!.clipsToBounds = true
 				self.sectionIcon!.contentMode = UIViewContentMode.ScaleAspectFill
 				self.sectionIcon!.image = self.sections[index].icon
-				self.sectionIcon!.alpha = 0.4
 				self.sectionIcon!.snp_makeConstraints { (make) -> Void in
 					make.left.equalTo(self.sectionButton.snp_left).offset(30)
 					make.centerY.equalTo(self.sectionButton.snp_centerY)
@@ -123,13 +122,18 @@ class MoreViewController: UIViewController {
 					make.width.equalTo(self.iconHeight)
 				}
 				
-				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, (CGFloat(iconHeight) * 2), 0, 0)
+				if index != 0 {
+					self.sectionIcon!.alpha = 0.4
+					self.sectionIcon!.layer.cornerRadius = 0
+				}
+				
+				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, ((CGFloat(iconHeight) * 2) + 10), 0, 0)
 				
 				self.sectionIcons.append(sectionIcon)
 				
 			} else {
 				
-				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0)
+				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0)
 			}
 			
 			isFirstSection = false

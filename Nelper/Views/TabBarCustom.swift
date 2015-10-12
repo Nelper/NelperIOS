@@ -18,6 +18,8 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	var backgroundDark: UIView!
 	var viewIsCreated = false
 	
+	let swipeRec = UISwipeGestureRecognizer()
+	
 	//MARK: Initialization
 	
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -78,6 +80,8 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 					self.backgroundDark.snp_makeConstraints(closure: { (make) -> Void in
 						make.edges.equalTo(presentedVC.view.snp_edges)
 					})
+					backgroundDark.addGestureRecognizer(swipeRec)
+					backgroundDark.userInteractionEnabled = true
 					
 					let nextVC = MoreViewController()
 					self.nextVC = nextVC
@@ -107,9 +111,11 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 					self.backgroundDark.alpha = 1
 				})
 				
+				swipeRec.addTarget(self, action: "swipedView")
 				self.moreIsOpen = true
 				
 			} else {
+				
 				self.closeMoreMenu()
 			}
 			
@@ -123,6 +129,10 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 		return true
 	}
 	
+	func swipedView() {
+		closeMoreMenu()
+	}
+	
 	func closeMoreMenu() {
 		nextVC.view.snp_remakeConstraints(closure: { (make) -> Void in
 			make.top.equalTo(presentedVC.view.snp_top)
@@ -130,6 +140,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 			make.left.equalTo(presentedVC.view.snp_right)
 			make.width.equalTo(presentedVC.view.snp_width).multipliedBy(0.70)
 		})
+		swipeRec.removeTarget(self, action: "swipedView")
 		
 		UIView.animateWithDuration(0.4, animations: { () -> Void in
 			self.nextVC.view.layoutIfNeeded()
