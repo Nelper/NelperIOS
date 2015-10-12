@@ -20,6 +20,7 @@ class MoreViewController: UIViewController {
 	private var sectionIcon: UIImageView?
 	private var firstEmptyIconSection = true
 	private var separatorLine: UIView!
+	private var kTextSize: CGFloat!
 	
 	private var sections = [(title: String, icon: UIImage?, action: Selector)]()
 	
@@ -38,17 +39,17 @@ class MoreViewController: UIViewController {
 			(title: "Profile", icon: UIImage(named: "noProfilePicture"), action: Selector("profileTapped:")),
 			(title: "Settings", icon: UIImage(named:"twitter-black"), action: Selector("settingsTapped:")),
 			(title: "Logout", icon: UIImage(named:"twitter-black"), action: Selector("logoutTapped:")),
-			(title: "", icon: nil, action: Selector("spaceHack:")),
-			(title: "How it works", icon: nil, action: Selector("howItWorksTapped:")),
-			(title: "FAQ", icon: nil, action: Selector("faqTapped:"))
+			(title: "How it works", icon: UIImage(named:"twitter-black"), action: Selector("howItWorksTapped:")),
+			(title: "FAQ", icon: UIImage(named:"twitter-black"), action: Selector("faqTapped:"))
 		]
 		self.sections = sections
 		self.numberOfSections = sections.count
 		
 		//SET LAYOUT K
 		self.iconHeight = 40
-		self.sectionHeight = 40
-		self.sectionPadding = 15
+		self.sectionHeight = 50
+		self.sectionPadding = 20
+		self.kTextSize = 19
 		
 		self.createView()
 		self.setProfilePicture()
@@ -56,37 +57,34 @@ class MoreViewController: UIViewController {
 	
 	func createView(){
 		
-		let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
-		self.view = UIVisualEffectView(effect: blurEffect)
-		
-		let menuTitle = UILabel()
-		self.menuTitle = menuTitle
-		self.view.addSubview(menuTitle)
-		menuTitle.text = "More"
-		menuTitle.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
-		menuTitle.textColor = whitePrimary
-		menuTitle.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(self.view.snp_top).offset(40)
-			make.left.equalTo(self.view.snp_left).offset(20)
+		//BLUR AND VIBRANCY
+		let blurEffect = UIBlurEffect(style: .ExtraLight)
+		let blurEffectView = UIVisualEffectView(effect: blurEffect)
+		self.view.addSubview(blurEffectView)
+		blurEffectView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(self.view.snp_edges)
 		}
 		
+		//CONTAINER
 		let sectionContainer = UIView()
 		self.sectionContainer = sectionContainer
-		self.view.addSubview(sectionContainer)
+		blurEffectView.contentView.addSubview(sectionContainer)
 		self.sectionContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.menuTitle.snp_top).offset(70)
+			make.top.equalTo(self.view.snp_top).offset(80)
 			make.left.equalTo(self.view.snp_left)
 			make.right.equalTo(self.view.snp_right)
 			make.height.equalTo(sectionHeight * numberOfSections)
 		}
 		
+		//EACH SECTIONS
 		for index in 0...(numberOfSections - 1) {
 			
 			let sectionButton = UIButton()
 			self.sectionButton = sectionButton
 			self.sectionButton.setTitle(self.sections[index].title, forState: UIControlState.Normal)
-			self.sectionButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-			self.sectionButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
+			self.sectionButton.setTitleColor(whitePrimary.colorWithAlphaComponent(0.6), forState: UIControlState.Normal)
+			self.sectionButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTextSize)
+			self.sectionButton.setBackgroundColor(grayDetails, forState: UIControlState.Highlighted)
 			self.sectionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
 			self.sectionButton.addTarget(self, action: self.sections[index].action, forControlEvents: UIControlEvents.TouchUpInside)
 			self.sectionContainer.addSubview(sectionButton)
@@ -96,8 +94,19 @@ class MoreViewController: UIViewController {
 				make.right.equalTo(self.sectionContainer.snp_right)
 				make.height.equalTo(self.sectionHeight)
 			}
-
 			
+			let separatorLine = UIView()
+			self.separatorLine = separatorLine
+			self.sectionButton.addSubview(separatorLine)
+			self.separatorLine.backgroundColor = grayDetails
+			self.separatorLine.alpha = 0.5
+			self.separatorLine.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(0.5)
+				make.top.equalTo(self.sectionButton.snp_top).offset(-(sectionPadding / 2))
+				make.width.equalTo(self.sectionButton.snp_width).multipliedBy(0.3)
+				make.centerX.equalTo(self.sectionButton.snp_centerX)
+			}
+
 			if sections[index].icon != nil {
 				
 				let sectionIcon = UIImageView()
@@ -110,7 +119,7 @@ class MoreViewController: UIViewController {
 				self.sectionIcon!.image = self.sections[index].icon
 				self.sectionIcon!.snp_makeConstraints { (make) -> Void in
 					make.left.equalTo(self.sectionButton.snp_left).offset(20)
-					make.centerY.equalTo(self.sectionButton.snp_centerY)
+					make.centerY.equalTo(self.sectionButton.snp_centerY).offset(-10)
 					make.height.equalTo(self.iconHeight)
 					make.width.equalTo(self.iconHeight)
 				}
@@ -121,22 +130,6 @@ class MoreViewController: UIViewController {
 				
 			} else {
 				
-				if self.firstEmptyIconSection {
-
-					let separatorLine = UIView()
-					self.separatorLine = separatorLine
-					self.sectionButton.addSubview(separatorLine)
-					self.separatorLine.backgroundColor = grayDetails
-					self.separatorLine.snp_updateConstraints { (make) -> Void in
-						make.height.equalTo(0.5)
-						make.centerY.equalTo(self.sectionButton.snp_centerY)
-						make.width.equalTo(self.sectionButton.snp_width)
-						make.left.equalTo(self.sectionContainer.snp_left)
-					}
-					
-					self.firstEmptyIconSection = false
-				}
-				
 				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0)
 			}
 		}
@@ -145,11 +138,11 @@ class MoreViewController: UIViewController {
 	//MARK: ACTIONS
 	
 	func profileTapped(sender: UIButton) {
-		
+		print("profile")
 	}
 	
 	func settingsTapped(sender:UIButton) {
-		
+		print("settings")
 	}
 	
 	func logoutTapped(sender:UIButton) {
@@ -164,11 +157,11 @@ class MoreViewController: UIViewController {
 	}
 	
 	func howItWorksTapped(sender: UIButton) {
-		
+		print("how it works")
 	}
 	
 	func faqTapped(sender: UIButton) {
-		
+		print("faq")
 	}
 	
 	//MARK: Data
