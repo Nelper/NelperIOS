@@ -52,8 +52,8 @@ class BrowseTaskViewCell: UITableViewCell {
 		
 		let categoryPicture = UIImageView()
 		self.categoryPicture = categoryPicture
-		self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2;
-		self.categoryPicture.clipsToBounds = true;
+		self.categoryPicture.layer.cornerRadius = self.categoryPicture.frame.size.width / 2
+		self.categoryPicture.clipsToBounds = true
 		
 		cellView.addSubview(categoryPicture)
 		

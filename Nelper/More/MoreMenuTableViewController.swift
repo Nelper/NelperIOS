@@ -16,7 +16,7 @@ class MoreMenuTableViewController : UITableViewController{
 		super.viewDidLoad()
 		
 		// Customize apperance of table view
-		tableView.contentInset = UIEdgeInsetsMake(64.0, 0, 0, 0) //
+		tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0) //
 		tableView.separatorStyle = .None
 		tableView.backgroundColor = UIColor.clearColor()
 		tableView.scrollsToTop = false

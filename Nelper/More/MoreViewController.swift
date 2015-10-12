@@ -12,184 +12,163 @@ import SnapKit
 import Alamofire
 
 class MoreViewController: UIViewController {
-	var profilePicture:UIImageView!
+	
+	private var menuTitle: UILabel!
+	
+	private var sectionContainer: UIView!
+	private var sectionButton: UIButton!
+	private var sectionIcon: UIImageView?
+	private var firstEmptyIconSection = true
+	private var separatorLine: UIView!
+	
+	private var sections = [(title: String, icon: UIImage?, action: Selector)]()
+	
+	private var numberOfSections: Int!
+	private var iconHeight: Int!
+	private var sectionHeight: Int!
+	private var sectionPadding: Int!
+	
+	private var sectionIcons = [UIImageView]()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		//SET SECTIONS
+		let sections = [
+			(title: "Profile", icon: UIImage(named: "noProfilePicture"), action: Selector("profileTapped:")),
+			(title: "Settings", icon: UIImage(named:"twitter-black"), action: Selector("settingsTapped:")),
+			(title: "Logout", icon: UIImage(named:"twitter-black"), action: Selector("logoutTapped:")),
+			(title: "", icon: nil, action: Selector("spaceHack:")),
+			(title: "How it works", icon: nil, action: Selector("howItWorksTapped:")),
+			(title: "FAQ", icon: nil, action: Selector("faqTapped:"))
+		]
+		self.sections = sections
+		self.numberOfSections = sections.count
+		
+		//SET LAYOUT K
+		self.iconHeight = 40
+		self.sectionHeight = 40
+		self.sectionPadding = 15
+		
 		self.createView()
 		self.setProfilePicture()
 	}
 	
 	func createView(){
-				let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+		
+		let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
 		self.view = UIVisualEffectView(effect: blurEffect)
 		
 		let menuTitle = UILabel()
+		self.menuTitle = menuTitle
 		self.view.addSubview(menuTitle)
 		menuTitle.text = "More"
-		menuTitle.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		menuTitle.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
 		menuTitle.textColor = whitePrimary
 		menuTitle.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(self.view.snp_top).offset(32)
+			make.centerY.equalTo(self.view.snp_top).offset(40)
 			make.left.equalTo(self.view.snp_left).offset(20)
 		}
 		
-		// Profile "Cell"
-		let profileContainer = UIView()
-		profileContainer.backgroundColor = UIColor.clearColor()
-		self.view.addSubview(profileContainer)
-		profileContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.view.snp_top).offset(80)
-			make.left.equalTo(menuTitle.snp_left)
-			make.right.equalTo(self.view.snp_right)
-			make.height.equalTo(40)
-		}
-		
-		let profilePicture = UIImageView()
-		profileContainer.addSubview(profilePicture)
-		self.profilePicture = profilePicture
-		let profilePictureSize:CGFloat = 40
-		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
-		self.profilePicture.layer.cornerRadius = profilePictureSize/2
-		self.profilePicture.clipsToBounds = true
-		profilePicture.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(profileContainer)
-			make.top.equalTo(profileContainer)
-			make.width.equalTo(profilePictureSize)
-			make.height.equalTo(profilePictureSize)
-		}
-		
-		let profileLabel = UILabel()
-		profileContainer.addSubview(profileLabel)
-		profileLabel.text = "My Profile"
-		profileLabel.textColor = whitePrimary
-		profileLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		profileLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(profilePicture.snp_right).offset(8)
-			make.centerY.equalTo(profilePicture.snp_centerY)
-		}
-		
-		//Setting "cell"
-		
-		let settingsContainer = UIView()
-		settingsContainer.backgroundColor = UIColor.clearColor()
-		self.view.addSubview(settingsContainer)
-		settingsContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileContainer.snp_bottom).offset(20)
-			make.left.equalTo(menuTitle.snp_left)
-			make.right.equalTo(self.view.snp_right)
-			make.height.equalTo(40)
-		}
-		
-		let settingsIcon = UIImageView()
-		settingsContainer.addSubview(settingsIcon)
-		settingsIcon.image = UIImage(named: "twitter-black")
-		settingsIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		settingsIcon.layer.cornerRadius = profilePictureSize/2
-		settingsIcon.clipsToBounds = true
-		settingsIcon.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(settingsContainer)
-			make.top.equalTo(settingsContainer)
-			make.width.equalTo(profilePictureSize)
-			make.height.equalTo(profilePictureSize)
-		}
-		
-		let settingsLabel = UILabel()
-		settingsContainer.addSubview(settingsLabel)
-		settingsLabel.text = "Settings"
-		settingsLabel.textColor = whitePrimary
-		settingsLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		settingsLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(settingsIcon.snp_right).offset(8)
-			make.centerY.equalTo(settingsIcon.snp_centerY)
-		}
-		
-		//Logout "cell"
-		
-		let logoutContainer = UIView()
-		logoutContainer.backgroundColor = UIColor.clearColor()
-		self.view.addSubview(logoutContainer)
-		logoutContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(settingsContainer.snp_bottom).offset(20)
-			make.left.equalTo(menuTitle.snp_left)
-			make.right.equalTo(self.view.snp_right)
-			make.height.equalTo(40)
-		}
-		
-		let logoutIcon = UIImageView()
-		logoutContainer.addSubview(logoutIcon)
-		logoutIcon.image = UIImage(named: "twitter-black")
-		logoutIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		logoutIcon.layer.cornerRadius = profilePictureSize/2
-		logoutIcon.clipsToBounds = true
-		logoutIcon.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(logoutContainer)
-			make.top.equalTo(logoutContainer)
-			make.width.equalTo(profilePictureSize)
-			make.height.equalTo(profilePictureSize)
-		}
-		
-		let logoutLabel = UILabel()
-		logoutContainer.addSubview(logoutLabel)
-		logoutLabel.text = "Logout"
-		logoutLabel.textColor = whitePrimary
-		logoutLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		logoutLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(logoutIcon.snp_right).offset(8)
-			make.centerY.equalTo(logoutIcon.snp_centerY)
-		}
-		
-		//White line
-		
-		let whiteLine = UIView()
-		self.view.addSubview(whiteLine)
-		whiteLine.backgroundColor = blackPrimary.colorWithAlphaComponent(0.3)
-		whiteLine.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(logoutContainer.snp_bottom).offset(20)
+		let sectionContainer = UIView()
+		self.sectionContainer = sectionContainer
+		self.view.addSubview(sectionContainer)
+		self.sectionContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.menuTitle.snp_top).offset(70)
 			make.left.equalTo(self.view.snp_left)
 			make.right.equalTo(self.view.snp_right)
-			make.height.equalTo(2)
+			make.height.equalTo(sectionHeight * numberOfSections)
 		}
 		
-		let howItWorksContainer = UIView()
-		howItWorksContainer.backgroundColor = UIColor.clearColor()
-		self.view.addSubview(howItWorksContainer)
-		howItWorksContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(whiteLine.snp_bottom).offset(20)
-			make.left.equalTo(menuTitle.snp_left)
-			make.right.equalTo(self.view.snp_right)
-			make.height.equalTo(40)
+		for index in 0...(numberOfSections - 1) {
+			
+			let sectionButton = UIButton()
+			self.sectionButton = sectionButton
+			self.sectionButton.setTitle(self.sections[index].title, forState: UIControlState.Normal)
+			self.sectionButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+			self.sectionButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
+			self.sectionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+			self.sectionButton.addTarget(self, action: self.sections[index].action, forControlEvents: UIControlEvents.TouchUpInside)
+			self.sectionContainer.addSubview(sectionButton)
+			self.sectionButton.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(sectionContainer.snp_top).offset(index * (self.sectionHeight + self.sectionPadding))
+				make.left.equalTo(self.sectionContainer.snp_left)
+				make.right.equalTo(self.sectionContainer.snp_right)
+				make.height.equalTo(self.sectionHeight)
+			}
+
+			
+			if sections[index].icon != nil {
+				
+				let sectionIcon = UIImageView()
+				self.sectionIcon = sectionIcon
+				self.sectionButton.addSubview(sectionIcon)
+				self.sectionIcon!.layer.cornerRadius = CGFloat(iconHeight) / 2
+				self.sectionIcon!.layer.masksToBounds = true
+				self.sectionIcon!.clipsToBounds = true
+				self.sectionIcon!.contentMode = UIViewContentMode.ScaleAspectFill
+				self.sectionIcon!.image = self.sections[index].icon
+				self.sectionIcon!.snp_makeConstraints { (make) -> Void in
+					make.left.equalTo(self.sectionButton.snp_left).offset(20)
+					make.centerY.equalTo(self.sectionButton.snp_centerY)
+					make.height.equalTo(self.iconHeight)
+					make.width.equalTo(self.iconHeight)
+				}
+				
+				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, (CGFloat(iconHeight) * 2), 0, 0)
+				
+				self.sectionIcons.append(sectionIcon)
+				
+			} else {
+				
+				if self.firstEmptyIconSection {
+
+					let separatorLine = UIView()
+					self.separatorLine = separatorLine
+					self.sectionButton.addSubview(separatorLine)
+					self.separatorLine.backgroundColor = grayDetails
+					self.separatorLine.snp_updateConstraints { (make) -> Void in
+						make.height.equalTo(0.5)
+						make.centerY.equalTo(self.sectionButton.snp_centerY)
+						make.width.equalTo(self.sectionButton.snp_width)
+						make.left.equalTo(self.sectionContainer.snp_left)
+					}
+					
+					self.firstEmptyIconSection = false
+				}
+				
+				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0)
+			}
 		}
+	}
+	
+	//MARK: ACTIONS
+	
+	func profileTapped(sender: UIButton) {
 		
-		let howItWorksLabel = UILabel()
-		howItWorksContainer.addSubview(howItWorksLabel)
-		howItWorksLabel.textColor = whitePrimary
-		howItWorksLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		howItWorksLabel.text = "How it works"
-		howItWorksLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(howItWorksContainer.snp_left)
-			make.centerY.equalTo(howItWorksContainer.snp_centerY)
-		}
+	}
+	
+	func settingsTapped(sender:UIButton) {
 		
-		let faqContainer = UIView()
-		faqContainer.backgroundColor = UIColor.clearColor()
-		self.view.addSubview(faqContainer)
-		faqContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(howItWorksContainer.snp_bottom).offset(20)
-			make.left.equalTo(menuTitle.snp_left)
-			make.right.equalTo(self.view.snp_right)
-			make.height.equalTo(40)
-		}
+	}
+	
+	func logoutTapped(sender:UIButton) {
+		ApiHelper.logout()
 		
-		let faqLabel = UILabel()
-		faqContainer.addSubview(faqLabel)
-		faqLabel.textColor = whitePrimary
-		faqLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		faqLabel.text = "FAQ"
-		faqLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(faqContainer.snp_left)
-			make.centerY.equalTo(faqContainer.snp_centerY)
-		}
+		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		appDelegate.showLogin(true)
+	}
+	
+	func spaceHack(sender:UIButton) {
+		
+	}
+	
+	func howItWorksTapped(sender: UIButton) {
+		
+	}
+	
+	func faqTapped(sender: UIButton) {
+		
 	}
 	
 	//MARK: Data
@@ -199,14 +178,12 @@ class MoreViewController: UIViewController {
 	*/
 	func setProfilePicture() {
 		
-		let image = UIImage(named: "noProfilePicture")
-		
 		if PFUser.currentUser()!.objectForKey("customPicture") != nil {
 			let profilePic = (PFUser.currentUser()!.objectForKey("customPicture") as? PFFile)!
 			request(.GET,profilePic.url!).response() {
 				(_, _, data, _) in
 				let image = UIImage(data: data as NSData!)
-				self.profilePicture.image = image
+				self.sectionIcons[0].image = image
 			}
 			
 		} else if PFUser.currentUser()!.objectForKey("pictureURL") != nil {
@@ -214,11 +191,9 @@ class MoreViewController: UIViewController {
 			request(.GET,profilePic).response() {
 				(_, _, data, _) in
 				let image = UIImage(data: data as NSData!)
-				self.profilePicture.image = image
+				self.sectionIcons[0].image = image
 			}
 		}
-		
-		self.profilePicture.image = image
 	}
 }
 

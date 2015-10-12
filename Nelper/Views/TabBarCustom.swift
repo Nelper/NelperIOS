@@ -12,9 +12,11 @@ import SnapKit
 
 class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	
-	var presentedVC:UIViewController!
-	var moreIsOpen:Bool!
-	var nextVC:MoreViewController!
+	var presentedVC: UIViewController!
+	var moreIsOpen: Bool!
+	var nextVC: MoreViewController!
+	var backgroundDark: UIView!
+	var viewIsCreated = false
 	
 	//MARK: Initialization
 	
@@ -33,7 +35,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	//MARK: View Creation
 	
 	func createView(){
-		self.tabBar.translucent = false		
+		self.tabBar.translucent = false
 		let browseVC = BrowseViewController()
 		let browseVCItem = UITabBarItem(title: "Browse tasks", image: UIImage(named: "browse_default"), selectedImage: UIImage(named: "browse_default"))
 		browseVC.tabBarItem = browseVCItem
@@ -46,7 +48,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 		let postVCItem = UITabBarItem(title: "Post a task", image: UIImage(named: "post_task"), selectedImage: UIImage(named: "post_task"))
 		postVC.tabBarItem = postVCItem
 		
-//		let moreVC = MoreViewController(menuViewController: UIViewController(), contentViewController: MoreMenuTableViewController())
+		//		let moreVC = MoreViewController(menuViewController: UIViewController(), contentViewController: MoreMenuTableViewController())
 		let moreVC = MoreViewController()
 		let moreVCItem = UITabBarItem(title: "More", image: UIImage(named: "menu"), selectedImage: UIImage(named: "more"))
 		moreVC.tabBarItem = moreVCItem
@@ -59,45 +61,69 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	}
 	
 	func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-		if viewController == self.viewControllers![3]{
-			if self.moreIsOpen == false{
-			let nextVC = MoreViewController()
-			self.nextVC = nextVC
-			presentedVC.addChildViewController(nextVC)
-			presentedVC.view.addSubview(nextVC.view)
-			nextVC.didMoveToParentViewController(presentedVC)
-			
-			nextVC.view.snp_makeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(presentedVC.view.snp_top)
-				make.bottom.equalTo(presentedVC.view.snp_bottom)
-				make.left.equalTo(presentedVC.view.snp_right)
-			})
-			nextVC.view.layoutIfNeeded()
-			
-			nextVC.view.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(presentedVC.view.snp_top)
-				make.bottom.equalTo(presentedVC.view.snp_bottom)
-				make.right.equalTo(presentedVC.view.snp_right)
-				make.width.equalTo(presentedVC.view.snp_width).multipliedBy(0.70)
-			})
-			
-			UIView.animateWithDuration(0.4, animations: { () -> Void in
-				nextVC.view.layoutIfNeeded()
-			})
-			self.moreIsOpen = true
-			}else {
+		if viewController != self.viewControllers![3] {
+			self.viewIsCreated = false
+		}
+		
+		if viewController == self.viewControllers![3] {
+			if self.moreIsOpen == false {
+				
+				if self.viewIsCreated == false {
+				
+					let backgroundDark = UIView()
+					self.backgroundDark = backgroundDark
+					presentedVC.view.addSubview(backgroundDark)
+					self.backgroundDark.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+					self.backgroundDark.alpha = 0
+					self.backgroundDark.snp_makeConstraints(closure: { (make) -> Void in
+						make.edges.equalTo(presentedVC.view.snp_edges)
+					})
+					
+					let nextVC = MoreViewController()
+					self.nextVC = nextVC
+					presentedVC.addChildViewController(nextVC)
+					presentedVC.view.addSubview(nextVC.view)
+					nextVC.didMoveToParentViewController(presentedVC)
+					
+					nextVC.view.snp_makeConstraints(closure: { (make) -> Void in
+						make.top.equalTo(presentedVC.view.snp_top)
+						make.bottom.equalTo(presentedVC.view.snp_bottom)
+						make.left.equalTo(presentedVC.view.snp_right)
+					})
+					nextVC.view.layoutIfNeeded()
+					
+					viewIsCreated = true
+				}
+				
+				nextVC.view.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(presentedVC.view.snp_top)
+					make.bottom.equalTo(presentedVC.view.snp_bottom)
+					make.right.equalTo(presentedVC.view.snp_right)
+					make.width.equalTo(presentedVC.view.snp_width).multipliedBy(0.72)
+				})
+				
+				UIView.animateWithDuration(0.4, animations: { () -> Void in
+					self.nextVC.view.layoutIfNeeded()
+					self.backgroundDark.alpha = 1
+				})
+				
+				self.moreIsOpen = true
+				
+			} else {
 				self.closeMoreMenu()
 			}
 			
 			return false
 		}
-		if self.moreIsOpen == true{
+		
+		if self.moreIsOpen == true {
 			self.closeMoreMenu()
 		}
+		
 		return true
 	}
 	
-	func closeMoreMenu(){
+	func closeMoreMenu() {
 		nextVC.view.snp_remakeConstraints(closure: { (make) -> Void in
 			make.top.equalTo(presentedVC.view.snp_top)
 			make.bottom.equalTo(presentedVC.view.snp_bottom)
@@ -107,7 +133,9 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 		
 		UIView.animateWithDuration(0.4, animations: { () -> Void in
 			self.nextVC.view.layoutIfNeeded()
+			self.backgroundDark.alpha = 0
 		})
+		
 		self.moreIsOpen = false
 	}
 }
