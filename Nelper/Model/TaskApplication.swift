@@ -16,6 +16,11 @@ class TaskApplication: BaseModel {
 		case Denied
 	}
 	
+	var id: String {
+		get {
+			return GraphQLClient.toGlobalId("TaskApplication", id: self.objectId)
+		}
+	}
 	var state: State = .Pending
 	var createdAt: NSDate!
 	var isNew: Bool = true

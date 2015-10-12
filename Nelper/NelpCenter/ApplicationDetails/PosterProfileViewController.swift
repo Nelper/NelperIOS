@@ -21,11 +21,6 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	var hideChatButton:Bool?
 	var application: TaskApplication!
 	var picture:UIImageView!
-	var firstStar:UIImageView!
-	var secondStar:UIImageView!
-	var thirdStar:UIImageView!
-	var fourthStar:UIImageView!
-	var fifthStar:UIImageView!
 	var scrollView:UIScrollView!
 	var skillsLabel:UILabel!
 	var aboutLabel:UILabel!
@@ -49,8 +44,6 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	var skillsBottomLine:UIView!
 	var experienceBottomLine:UIView!
 	var educationBottomLine:UIView!
-	var denyButton:UIButton!
-	var acceptButton:UIButton!
 	var profileContainer:UIView!
 	var chatButton:UIButton!
 	var conversationController:UINavigationController?

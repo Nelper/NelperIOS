@@ -34,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		
 		Parse.setApplicationId("w6MsLIhprn1GaHllI4WYa8zcLghnPUQi5jwe7FxN", clientKey: "NRdzngSkWnGsHTMdcYumEuoXX1N8tt0ZN0o48fZV")
 		
-		PFUser.enableAutomaticUser()
 		PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
 		
 		PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
@@ -42,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		//Layer
 		
 		let LayerAppIDString: NSURL! = NSURL(string: "layer:///apps/staging/33a90a5e-5006-11e5-a708-7f0c79166812")
-
+		
 		
 		layerClient = LYRClient(appID: LayerAppIDString)
 		LayerManager.sharedInstance.layerClient = layerClient
@@ -56,10 +55,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		self.window!.makeKeyAndVisible()
 		
 		
-		if(PFUser.currentUser()?.username == nil) {
+		if PFUser.currentUser() == nil {
 			// If the user is not logged show the login page.
 			self.showLogin(false)
 		} else {
+			GraphQLClient.userId = PFUser.currentUser()?.objectId
+			GraphQLClient.sessionToken = PFUser.currentUser()?.sessionToken
 			// Show the main app.
 			self.loginLayer()
 			ApiHelper.getCurrentUserPrivateInfo()
@@ -67,8 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 			self.window?.rootViewController = tabVC
 		}
 		
-		
-//		NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveLayerObjectsDidChangeNotification:", name: LYRClientObjectsDidChangeNotification, object: layerClient)
+		//		NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveLayerObjectsDidChangeNotification:", name: LYRClientObjectsDidChangeNotification, object: layerClient)
 		
 		return true
 	}
@@ -86,6 +86,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	
 	// LoginViewControllerDelegate
 	func onLogin() {
+		GraphQLClient.userId = PFUser.currentUser()?.objectId
+		GraphQLClient.sessionToken = PFUser.currentUser()?.sessionToken
 		let tabVC = initAppViewController()
 		self.loginLayer()
 		self.window?.rootViewController?.presentViewController(tabVC, animated: true, completion: nil)
@@ -206,8 +208,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		
 		var changes:Array<AnyObject>
 		if let notif: AnyObject = notification.userInfo?[LYRClientObjectChangesUserInfoKey]{
-		changes = notif as! Array<AnyObject>
-		
+			changes = notif as! Array<AnyObject>
+			
 			for change in changes{
 				let changeClass = change.object
 				let updateKey: LYRObjectChangeType = change.type
@@ -215,10 +217,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 					var conversation = changeClass
 					
 					switch(updateKey){
-					
+						
 					case LYRObjectChangeType.Create:
 						print("a")
-					
+						
 					case LYRObjectChangeType.Update:
 						print("b")
 						
@@ -237,24 +239,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	}
 	
 	
-//	func didReceiveTypingIndicator(notification:NSNotification){
-//		
-//		var participantID : AnyObject = notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]!
-//		notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]! = "Your neighbor" as AnyObject
-//		
-//		if notification.userInfo![LYRTypingIndicatorValueUserInfoKey] != nil{
-//			var typingIndicator: UInt = notification.userInfo![LYRTypingIndicatorValueUserInfoKey] as! UInt
-//			if typingIndicator == 0{
-//			notification.object!.sendTypingIndicator(LYRTypingIndicator.DidBegin)
-//			}else if typingIndicator == 1 {
-//				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidFinish)
-//
-//			}else if typingIndicator == 2{
-//				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidPause)
-//			}
-//		}
-//	}
-
+	//	func didReceiveTypingIndicator(notification:NSNotification){
+	//
+	//		var participantID : AnyObject = notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]!
+	//		notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]! = "Your neighbor" as AnyObject
+	//
+	//		if notification.userInfo![LYRTypingIndicatorValueUserInfoKey] != nil{
+	//			var typingIndicator: UInt = notification.userInfo![LYRTypingIndicatorValueUserInfoKey] as! UInt
+	//			if typingIndicator == 0{
+	//			notification.object!.sendTypingIndicator(LYRTypingIndicator.DidBegin)
+	//			}else if typingIndicator == 1 {
+	//				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidFinish)
+	//
+	//			}else if typingIndicator == 2{
+	//				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidPause)
+	//			}
+	//		}
+	//	}
+	
 	func applicationDidFinishLaunching(application: UIApplication) {
 		UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
 	}
