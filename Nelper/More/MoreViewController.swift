@@ -153,7 +153,8 @@ class MoreViewController: UIViewController {
 	//MARK: ACTIONS
 	
 	func profileTapped(sender: UIButton) {
-		print("profile")
+		let nextVC = FullProfileViewController()
+		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
 	func settingsTapped(sender: UIButton) {

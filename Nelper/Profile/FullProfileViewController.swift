@@ -37,7 +37,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	var fifthStar:UIImageView!
 	var whiteContainer:UIView!
 
-
+	let kCellHeight = 60
+	
 	//MARK: Initialization
 	
 	convenience init() {
@@ -60,7 +61,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-		drawTableViewsSize()
 	}
 	
 	//MARK: View Creation
@@ -294,7 +294,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
 			make.right.equalTo(contentView.snp_right).offset(-19)
-			make.height.equalTo(self.arrayOfSkills.count * 60)
 		}
 		
 		let addSkillButton = UIButton()
@@ -334,8 +333,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(educationLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
 			make.right.equalTo(contentView.snp_right).offset(-19)
-            make.height.equalTo(self.arrayOfEducation.count * 60)
-
 		}
 		
 		let addEducationButton = UIButton()
@@ -375,8 +372,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.top.equalTo(experienceLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
 			make.right.equalTo(contentView.snp_right).offset(-19)
-			make.height.equalTo(self.arrayOfExperience.count * 60)
-			
 		}
 		
 		let addExperienceButton = UIButton()
@@ -388,6 +383,14 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 			make.right.equalTo(contentView.snp_right).offset(-25)
 			make.width.equalTo(20)
 			make.height.equalTo(20)
+		}
+		
+		let fakeView = UIView()
+		whiteContainer.addSubview(fakeView)
+		fakeView.backgroundColor = UIColor.clearColor()
+		fakeView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(experienceTableView.snp_bottom)
+			make.bottom.equalTo(whiteContainer.snp_bottom)
 		}
 		
 	}
@@ -456,7 +459,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.scrollView.contentSize = self.contentView.frame.size
+				let frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height + 10)
+        self.scrollView.contentSize = frame.size
     }
 	
 	//MARK: Data
@@ -552,10 +556,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
 			let skillTitle: String = (popup.textFields!.first?.text!)!
 			self.arrayOfSkills.append(["title":skillTitle])
-            self.skillsTableView.snp_updateConstraints { (make) -> Void in
-                make.height.equalTo(self.arrayOfSkills.count * 60)
-            }
-            self.addScrollContent()
 			self.refreshTableView()
 		}))
 		
@@ -575,10 +575,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
 			let educationTitle: String = (popup.textFields!.first?.text!)!
 			self.arrayOfEducation.append(["title":educationTitle])
-            self.educationTableView.snp_updateConstraints { (make) -> Void in
-                make.height.equalTo(self.arrayOfEducation.count * 60)
-            }
-            self.addScrollContent()
 			self.refreshTableView()
 		}))
 		
@@ -597,10 +593,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
 			let experienceTitle: String = (popup.textFields!.first?.text!)!
 			self.arrayOfExperience.append(["title":experienceTitle])
-			self.experienceTableView.snp_updateConstraints { (make) -> Void in
-				make.height.equalTo(self.arrayOfExperience.count * 60)
-			}
-			self.addScrollContent()
 			self.refreshTableView()
 		}))
 		
@@ -609,28 +601,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		presentViewController(popup, animated: true, completion: nil)
 	}
-	
-	/**
-	Hack for Content View Size
-	*/
-	func drawTableViewsSize(){
-		self.experienceTableView.snp_updateConstraints { (make) -> Void in
-			make.height.equalTo(self.arrayOfExperience.count * 60)
-		}
-		
-		self.educationTableView.snp_updateConstraints { (make) -> Void in
-			make.height.equalTo(self.arrayOfEducation.count * 60)
-		}
-		
-		self.skillsTableView.snp_updateConstraints { (make) -> Void in
-			make.height.equalTo(self.arrayOfSkills.count * 60)
-		}
-		let numbersToMultiplyBy = self.arrayOfExperience.count + self.arrayOfEducation.count + self.arrayOfSkills.count
-		let numbersToAdd:CGFloat = CGFloat(numbersToMultiplyBy * 60)
-		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + numbersToAdd)
-		self.contentView.snp_updateConstraints { (make) -> Void in
-			make.height.equalTo(self.scrollView.contentSize.height)
-		}	}
+
 	
 	/**
 	Refresh table view after each edit
@@ -639,7 +610,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.skillsTableView.reloadData()
 		self.educationTableView.reloadData()
 		self.experienceTableView.reloadData()
-			
+		
 		var arrayExperience = [Dictionary<String,String>]()
 			for experience in self.arrayOfExperience{
 				var dictionary = [String:String]()
@@ -661,29 +632,22 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 				arrayEducation.append(dictionary)
 			}
 			
+			self.skillsTableView.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(self.arrayOfSkills.count * Int(kCellHeight))
+			}
+			self.educationTableView.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(self.arrayOfEducation.count * Int(kCellHeight))
+			}
+			self.experienceTableView.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(self.arrayOfExperience.count * Int(kCellHeight))
+			}
 			
 		PFUser.currentUser()!["experience"] = arrayExperience
 		PFUser.currentUser()!["skills"] = arraySkills
 		PFUser.currentUser()!["education"] = arrayEducation
 		PFUser.currentUser()!.saveInBackground()
 	}
-    
-	/**
-	Hack for table view size (Not elegant at all, need to change this...)
-	*/
-		func addScrollContent(){
-        self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + 60)
-        self.contentView.snp_updateConstraints { (make) -> Void in
-            make.height.equalTo(self.scrollView.contentSize.height)
-        }
-			}
-	
-	func removeScrollContent(){
-		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height - 60)
-		self.contentView.snp_updateConstraints { (make) -> Void in
-			make.height.equalTo(self.scrollView.contentSize.height)
-		}
-	}
+
 	
 	/**
 	Triggered when delete button is tapped on a cell
@@ -694,23 +658,17 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	func didTapDeleteButton(index: Int, type:String) {
 		if type == "skills"{
 			self.arrayOfSkills.removeAtIndex(index)
-			self.removeScrollContent()
 			self.skillsTableView.snp_updateConstraints { (make) -> Void in
-				make.height.equalTo(self.arrayOfSkills.count * 60)
 			}
 			self.refreshTableView()
 		}else if type == "education" {
 			self.arrayOfEducation.removeAtIndex(index)
-			self.removeScrollContent()
 			self.educationTableView.snp_updateConstraints { (make) -> Void in
-				make.height.equalTo(self.arrayOfEducation.count * 60)
 			}
 			self.refreshTableView()
 		}else if type == "experience"{
 			self.arrayOfExperience.removeAtIndex(index)
-			self.removeScrollContent()
 			self.experienceTableView.snp_updateConstraints { (make) -> Void in
-				make.height.equalTo(self.arrayOfExperience.count * 60)
 			}
 			self.refreshTableView()
 		}

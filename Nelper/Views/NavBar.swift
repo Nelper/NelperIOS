@@ -68,14 +68,14 @@ class NavBar: UINavigationBar {
 	}
 	
 	func adjustUI() {
-		self.translucent = false
-		self.shadowImage = UIImage()
-		self.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-		self.layer.shadowColor = UIColor.blackColor().CGColor
-		self.layer.shadowOffset = CGSizeMake(0.0, 3)
-		self.layer.shadowOpacity = 0.25
-		self.layer.masksToBounds = false
-		self.layer.shouldRasterize = true
+//		self.translucent = false
+//		self.shadowImage = UIImage()
+//		self.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+//		self.layer.shadowColor = UIColor.blackColor().CGColor
+//		self.layer.shadowOffset = CGSizeMake(0.0, 3)
+//		self.layer.shadowOpacity = 0.25
+//		self.layer.masksToBounds = false
+//		self.layer.shouldRasterize = true
 		
 		self.container = UIView()
 		self.container.backgroundColor = navBarColor

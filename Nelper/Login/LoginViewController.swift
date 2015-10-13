@@ -301,6 +301,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		}
 		
 		let passwordField = UITextField()
+		passwordField.secureTextEntry = true
 		self.passwordField = passwordField
 		self.secondContainer.addSubview(passwordField)
 		self.passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
@@ -449,6 +450,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		}
 		
 		let passwordFieldRegister = UITextField()
+		passwordFieldRegister.secureTextEntry = true
 		self.passwordFieldRegister = passwordFieldRegister
 		self.thirdContainer.addSubview(passwordFieldRegister)
 		self.passwordFieldRegister.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
@@ -476,6 +478,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		}
 		
 		let passwordFieldConfirmRegister = UITextField()
+		passwordFieldConfirmRegister.secureTextEntry = true
 		self.passwordFieldConfirmRegister = passwordFieldConfirmRegister
 		self.thirdContainer.addSubview(passwordFieldConfirmRegister)
 		self.passwordFieldConfirmRegister.attributedPlaceholder = NSAttributedString(string: "Confirm password", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
@@ -605,7 +608,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		
 		PFTwitterUtils.logInWithBlock { (user, error) -> Void in
 			if error != nil{
-				
+				print("\(error)")
 			}else{
 				if user!.isNew{
 					print("User signed up and logged in through Twitta!")
@@ -620,15 +623,39 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	}
 	
 	func emailLogin(sender: UIButton) {
-		
+		ApiHelper.loginWithEmail(self.emailField.text!, password: self.passwordField.text!, block: { (user, error) -> Void in
+			if error != nil{
+				print("\(error)")
+			}else{
+				self.loginCompleted()
+				self.getEmailInfo()
+			}
+		})
 	}
-		
+	
 	func forgotPassword(sender: UIButton) {
 		
 	}
 	
 	func createAccount(sender: UIButton) {
-		
+		if self.emailFieldRegister.text?.characters.count >  0 && self.passwordFieldRegister.text?.characters.count > 0 && self.firstnameField.text?.characters.count > 0 && self.lastnameField.text?.characters.count > 0{
+			if self.passwordFieldRegister.text == self.passwordFieldConfirmRegister.text{
+				ApiHelper.registerWithEmail(self.emailFieldRegister.text!, password: self.passwordFieldRegister.text!, firstName: self.firstnameField.text!, lastName: self.lastnameField.text!) { (user, error) -> Void in
+					if error != nil{
+						print("\(error)")
+					}else{
+						ApiHelper.loginWithEmail(self.emailFieldRegister.text!, password: self.passwordFieldRegister.text!, block: { (user, error) -> Void in
+							if error != nil{
+								print("\(error)")
+							}else{
+								self.getEmailInfo()
+								self.loginCompleted()
+							}
+						})
+					}
+				}
+			}
+		}
 	}
 	
 	func skipLogin(sender: AnyObject) {
@@ -664,7 +691,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	}
 	
 	func getTwitterUserInfo(){
-		
+	}
+	
+	func getEmailInfo(){
+		PFUser.currentUser()!.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+			self.loginCompleted()
+		})
 	}
 	
 	func loginCompleted() {

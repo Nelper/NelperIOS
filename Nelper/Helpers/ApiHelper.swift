@@ -53,6 +53,14 @@ class ApiHelper {
 		user["firstName"] = firstName
 		user["lastName"] = lastName
 		user["name"] = "\(firstName) \(lastName)"
+		user["skills"] = []
+		user["experience"] = []
+		user["education"] = []
+		let userPrivate = PFObject(className: "UserPrivateData")
+		userPrivate["email"] = email
+		userPrivate["locations"] = []
+		user["privateData"] = userPrivate
+		
 		user.signUpInBackgroundWithBlock { (ok, error) -> Void in
 			if error != nil {
 				block(nil, error)
