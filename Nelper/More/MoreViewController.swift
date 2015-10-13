@@ -13,7 +13,7 @@ import Alamofire
 
 class MoreViewController: UIViewController {
 	
-	private var menuTitle: UILabel!
+	private var blurEffectView: UIVisualEffectView!
 	
 	private var sectionContainer: UIView!
 	private var sectionButton: UIButton!
@@ -30,6 +30,7 @@ class MoreViewController: UIViewController {
 	private var sectionPadding: Int!
 	
 	private var sectionIcons = [UIImageView]()
+	private var sectionButtons = [UIButton]()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -38,7 +39,7 @@ class MoreViewController: UIViewController {
 		let sections = [
 			(title: "My Profile", icon: UIImage(named: "noProfilePicture"), action: Selector("profileTapped:")),
 			(title: "Settings", icon: UIImage(named:"settings-menu"), action: Selector("settingsTapped:")),
-			(title: "Support", icon: UIImage(named:"support-menu"), action: Selector("howItWorksTapped:")),
+			(title: "Support", icon: UIImage(named:"support-menu"), action: Selector("supportTapped:")),
 			(title: "FAQ", icon: UIImage(named:"faq-menu"), action: Selector("faqTapped:")),
 			(title: "Logout", icon: UIImage(named:"logout-menu"), action: Selector("logoutTapped:"))
 		]
@@ -59,18 +60,23 @@ class MoreViewController: UIViewController {
 		
 		//BLUR AND VIBRANCY
 		let blurEffect = UIBlurEffect(style: .ExtraLight)
-		self.view = UIVisualEffectView(effect: blurEffect)
+		self.blurEffectView = UIVisualEffectView(effect: blurEffect)
+		self.view.addSubview(blurEffectView)
+		self.blurEffectView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(self.view.snp_edges)
+		}
 		
 		//CONTAINER
 		let sectionContainer = UIView()
 		self.sectionContainer = sectionContainer
-		self.view.addSubview(sectionContainer)
+		self.blurEffectView.addSubview(sectionContainer)
 		self.sectionContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top).offset(80)
 			make.left.equalTo(self.view.snp_left)
-			make.right.equalTo(self.view.snp_right)
-			make.bottom.equalTo(self.view.snp_bottom)
+			make.width.equalTo(self.view.snp_width)
+			make.height.equalTo(self.view.snp_height)
 		}
+		self.sectionContainer.layoutIfNeeded()
 		
 		//EACH SECTIONS
 		for index in 0...(numberOfSections - 1) {
@@ -85,11 +91,13 @@ class MoreViewController: UIViewController {
 			self.sectionButton.addTarget(self, action: self.sections[index].action, forControlEvents: UIControlEvents.TouchUpInside)
 			self.sectionContainer.addSubview(sectionButton)
 			self.sectionButton.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(sectionContainer.snp_top).offset(index * (self.sectionHeight + self.sectionPadding))
+				make.top.equalTo(self.sectionContainer.snp_top).offset(index * (self.sectionHeight + self.sectionPadding))
 				make.left.equalTo(self.sectionContainer.snp_right)
 				make.width.equalTo(self.sectionContainer.snp_width)
 				make.height.equalTo(self.sectionHeight)
 			}
+			self.sectionButton.alpha = 0
+			self.sectionButton.layoutIfNeeded()
 			
 			if !isFirstSection {
 				let separatorLine = UIView()
@@ -103,6 +111,7 @@ class MoreViewController: UIViewController {
 					make.width.equalTo(self.sectionButton.snp_width).multipliedBy(0.5)
 					make.centerX.equalTo(self.sectionButton.snp_centerX).offset(-15)
 				}
+				self.separatorLine.layoutIfNeeded()
 			}
 
 			if sections[index].icon != nil {
@@ -121,6 +130,7 @@ class MoreViewController: UIViewController {
 					make.height.equalTo(self.iconHeight)
 					make.width.equalTo(self.iconHeight)
 				}
+				self.sectionIcon!.layoutIfNeeded()
 				
 				if index != 0 {
 					self.sectionIcon!.alpha = 0.4
@@ -129,20 +139,22 @@ class MoreViewController: UIViewController {
 				
 				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, ((CGFloat(iconHeight) * 2) + 10), 0, 0)
 				
-				self.sectionIcons.append(sectionIcon)
+				self.sectionIcons.append(self.sectionIcon!)
 				
 			} else {
 				
 				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0)
 			}
 			
+			//ANIMATION
+			let animationDuration = (Double(index) * 0.1) + 0.4
+			
 			self.sectionButton.snp_updateConstraints { (make) -> Void in
-				make.left.equalTo(self.sectionContainer.snp_left)
+				make.left.equalTo(self.sectionContainer.snp_right).offset((-self.view.frame.width) * 0.70)
 			}
 			
-			let animationDuration = Double(index) * 0.3
-			
-			UIView.animateWithDuration(animationDuration, delay: 0.0, options: [.CurveEaseOut], animations:  {
+			UIView.animateWithDuration(animationDuration, delay: 0, options: [.CurveEaseOut], animations:  {
+				self.sectionButton.alpha = 1
 				self.sectionButton.layoutIfNeeded()
 			}, completion: nil)
 			
@@ -168,12 +180,8 @@ class MoreViewController: UIViewController {
 		appDelegate.showLogin(true)
 	}
 	
-	func spaceHack(sender:UIButton) {
-		
-	}
-	
-	func howItWorksTapped(sender: UIButton) {
-		print("how it works")
+	func fsupportTapped(sender: UIButton) {
+		print("support")
 	}
 	
 	func faqTapped(sender: UIButton) {
@@ -182,7 +190,7 @@ class MoreViewController: UIViewController {
 	
 	//MARK: Data
 	
-	/**
+	/*
 	Sets the user profile picture
 	*/
 	func setProfilePicture() {
