@@ -15,11 +15,11 @@ class BrowseTaskViewCell: UITableViewCell {
 	
 	var title: UILabel!
 	var author:UILabel!
-	var price:UILabel!
-	var picture:UIImageView!
-	var categoryPicture:UIImageView!
-	var creationDate:UILabel!
-	var moneyBackground:UIView!
+	var price: UILabel!
+	var picture: UIImageView!
+	var categoryPicture: UIImageView!
+	var creationDate: UILabel!
+	var moneyBackground: UIView!
 	var task: Task!
 	
 	//MARK: Initialization
@@ -36,7 +36,7 @@ class BrowseTaskViewCell: UITableViewCell {
 		let pictureSize: CGFloat = 70
 		let picture = UIImageView()
 		self.picture = picture
-		self.picture.layer.cornerRadius = pictureSize / 2;
+		self.picture.layer.cornerRadius = pictureSize / 2
 		self.picture.layer.masksToBounds = true
 		self.picture.clipsToBounds = true
 		self.picture.contentMode = UIViewContentMode.ScaleAspectFill

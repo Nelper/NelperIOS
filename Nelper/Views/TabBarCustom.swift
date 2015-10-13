@@ -92,6 +92,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 					nextVC.view.snp_makeConstraints(closure: { (make) -> Void in
 						make.top.equalTo(presentedVC.view.snp_top)
 						make.bottom.equalTo(presentedVC.view.snp_bottom)
+						make.width.equalTo(presentedVC.view.snp_width).multipliedBy(0.70)
 						make.left.equalTo(presentedVC.view.snp_right)
 					})
 					nextVC.view.layoutIfNeeded()
@@ -99,11 +100,8 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 					viewIsCreated = true
 				}
 				
-				nextVC.view.snp_remakeConstraints(closure: { (make) -> Void in
-					make.top.equalTo(presentedVC.view.snp_top)
-					make.bottom.equalTo(presentedVC.view.snp_bottom)
-					make.right.equalTo(presentedVC.view.snp_right)
-					make.width.equalTo(presentedVC.view.snp_width).multipliedBy(0.72)
+				nextVC.view.snp_updateConstraints(closure: { (make) -> Void in
+					make.left.equalTo(presentedVC.view.snp_right).offset(-nextVC.view.frame.width)
 				})
 				
 				UIView.animateWithDuration(0.4, animations: { () -> Void in
