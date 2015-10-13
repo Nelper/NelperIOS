@@ -66,9 +66,9 @@ class GraphQLClient {
 		}
 		
 		request(.POST, self.endpoint, parameters: parameters, encoding: .JSON, headers: self.headers)
-			.responseJSON { (_, _, data) -> Void in
+			.responseJSON { response in
 				if let block = block {
-					block(data.value, data.error)
+					block(response.result.value, response.result.error)
 				}
 		}
 	}

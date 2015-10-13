@@ -585,7 +585,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			
 			if error != nil {
 				//TODO: handle login errors.
-				NSLog("Login error")
+				NSLog("\(error)")
 				return
 			}
 			
@@ -602,6 +602,20 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	}
 	
 	func twitterLogin(sender: UIButton) {
+		
+		PFTwitterUtils.logInWithBlock { (user, error) -> Void in
+			if error != nil{
+				
+			}else{
+				if user!.isNew{
+					print("User signed up and logged in through Twitta!")
+					self.getTwitterUserInfo()
+				}else{
+					print("User logged in through Twitta")
+					self.getTwitterUserInfo()
+				}
+			}
+		}
 		
 	}
 	
@@ -647,6 +661,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				})
 			}
 		}
+	}
+	
+	func getTwitterUserInfo(){
+		
 	}
 	
 	func loginCompleted() {

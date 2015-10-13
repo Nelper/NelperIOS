@@ -225,8 +225,8 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		
 		let geocodeURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(prediction.placeID)&key=\(kGoogleAPIKey)"
 		
-		request(.GET, geocodeURL).responseJSON { _, _, data in
-			let json = JSON(data.value!)
+		request(.GET, geocodeURL).responseJSON { response in
+			let json = JSON(response.result.value!)
 			let res = json["result"]
 			
 			let latitude = res["geometry"]["location"]["lat"].doubleValue
