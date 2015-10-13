@@ -86,8 +86,8 @@ class MoreViewController: UIViewController {
 			self.sectionContainer.addSubview(sectionButton)
 			self.sectionButton.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(sectionContainer.snp_top).offset(index * (self.sectionHeight + self.sectionPadding))
-				make.left.equalTo(self.sectionContainer.snp_left)
-				make.right.equalTo(self.sectionContainer.snp_right)
+				make.left.equalTo(self.sectionContainer.snp_right)
+				make.width.equalTo(self.sectionContainer.snp_width)
 				make.height.equalTo(self.sectionHeight)
 			}
 			
@@ -135,6 +135,16 @@ class MoreViewController: UIViewController {
 				
 				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0)
 			}
+			
+			self.sectionButton.snp_updateConstraints { (make) -> Void in
+				make.left.equalTo(self.sectionContainer.snp_left)
+			}
+			
+			let animationDuration = Double(index) * 0.3
+			
+			UIView.animateWithDuration(animationDuration, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.sectionButton.layoutIfNeeded()
+			}, completion: nil)
 			
 			isFirstSection = false
 		}

@@ -96,7 +96,7 @@ class NavBar: UINavigationBar {
 		}
 	}
 	
-	func setTitle(title:String){
+	func setTitle(title:String) {
 		self.titleView.text = title
 	}
 }
