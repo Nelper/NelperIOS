@@ -12,6 +12,7 @@ pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git', :branc
 pod 'iCarousel'
 pod 'LayerKit'
 pod 'Stripe'
+pod 'SupportKit'
 
 end
 

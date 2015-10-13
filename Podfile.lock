@@ -7,6 +7,7 @@ PODS:
   - Stripe (5.1.4):
     - Stripe/Core (= 5.1.4)
   - Stripe/Core (5.1.4)
+  - SupportKit (2.10.3)
   - SwiftyJSON (2.2.1)
 
 DEPENDENCIES:
@@ -16,6 +17,7 @@ DEPENDENCIES:
   - LayerKit
   - SnapKit
   - Stripe
+  - SupportKit
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`, branch `xcode7`)
 
 EXTERNAL SOURCES:
@@ -35,6 +37,7 @@ SPEC CHECKSUMS:
   LayerKit: 8976a2a4d5f73b808e6328a5c66732605a3c247a
   SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
   Stripe: 6864be95b09092f05526bc2e0a50804bc556aa0d
+  SupportKit: e170762069400f4742d8f1a9ba2d5c21f7c61b23
   SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
 
 COCOAPODS: 0.37.2

@@ -180,8 +180,9 @@ class MoreViewController: UIViewController {
 		appDelegate.showLogin(true)
 	}
 	
-	func fsupportTapped(sender: UIButton) {
-		print("support")
+	func supportTapped(sender: UIButton) {
+		
+		SupportKit.show()
 	}
 	
 	func faqTapped(sender: UIButton) {

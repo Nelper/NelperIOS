@@ -23,6 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		
+		//Support Kit
+		
+//		SupportKit.initWithSettings(SKTSettings(appToken: "9x5o1paxgfpjzzsgodj80yti3"))
+			let supportKitSettings = (SKTSettings(appToken: "9x5o1paxgfpjzzsgodj80yti3"))
+			supportKitSettings.conversationAccentColor = redPrimary
+			SupportKit.initWithSettings(supportKitSettings)
 		//Stripe
 		
 		Stripe.setDefaultPublishableKey("pk_test_gYIk5RNw7X2LCS4501jd4HpE")

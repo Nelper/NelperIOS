@@ -17,6 +17,20 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aDt-vG-wLw" customClass="NavBar" customModule="Nelper" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.90196084980000002" green="0.16078431900000001" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="3gF-ow-ZIh"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="Pqc-xr-U3B"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Pqc-xr-U3B"/>
+                        </mask>
+                    </variation>
+                </view>
                 <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LIY-pa-DSN" userLabel="Background">
                     <rect key="frame" x="0.0" y="64" width="375" height="536"/>
                     <subviews>
@@ -33,20 +47,6 @@
                         <constraint firstAttribute="trailing" secondItem="7dF-qZ-3TV" secondAttribute="trailing" id="sAQ-Z6-g1v"/>
                         <constraint firstItem="7dF-qZ-3TV" firstAttribute="top" secondItem="LIY-pa-DSN" secondAttribute="top" id="z6h-T4-gPT"/>
                     </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aDt-vG-wLw" customClass="NavBar" customModule="Nelper" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                    <animations/>
-                    <color key="backgroundColor" red="0.90196084980000002" green="0.16078431900000001" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="64" id="3gF-ow-ZIh"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="Pqc-xr-U3B"/>
-                    </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="Pqc-xr-U3B"/>
-                        </mask>
-                    </variation>
                 </view>
             </subviews>
             <animations/>
