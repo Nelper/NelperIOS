@@ -81,7 +81,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	Creates the view
 	*/
 	
-	func createTaskTableView(){
+	func createTaskTableView() {
 		let tableView = UITableView()
 		self.tableView = tableView
 		self.tableView.delegate = self

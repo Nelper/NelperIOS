@@ -16,7 +16,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	@IBOutlet weak var backGroundView: UIView!
 	@IBOutlet weak var scrollView: UIScrollView!
 
-	
 	var profilePicture:UIImageView!
 	var aboutTextView: UITextView!
 	var skillsTableView:UITableView!

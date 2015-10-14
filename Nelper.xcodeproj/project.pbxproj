@@ -61,6 +61,8 @@
 		19DB24651BB711B500468E91 /* SkillsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24621BB711B500468E91 /* SkillsTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		9FB9076C1CAA3EC7FCDFB9DE /* Pods_Nelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C0196C981BB5B49300901155 /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0196C971BB5B49300901155 /* SegmentController.swift */; settings = {ASSET_TAGS = (); }; };
+		C04598CB1BCE035600AFA579 /* MainSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CA1BCE035500AFA579 /* MainSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C04598CD1BCE14FB00AFA579 /* MainSettingsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		C04FF0031BB86873001E204F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04FF0021BB86873001E204F /* Button.swift */; settings = {ASSET_TAGS = (); }; };
 		C087D8D91BB7199A00AA205B /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087D8D81BB7199A00AA205B /* Rating.swift */; settings = {ASSET_TAGS = (); }; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
@@ -244,6 +246,8 @@
 		3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
 		81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0196C971BB5B49300901155 /* SegmentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegmentController.swift; path = Views/SegmentController.swift; sourceTree = "<group>"; };
+		C04598CA1BCE035500AFA579 /* MainSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainSettingsViewController.swift; path = Nelper/MainSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
+		C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainSettingsViewCell.swift; path = Nelper/MainSettingsViewCell.swift; sourceTree = SOURCE_ROOT; };
 		C04FF0021BB86873001E204F /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		C087D8D81BB7199A00AA205B /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
@@ -461,6 +465,7 @@
 			isa = PBXGroup;
 			children = (
 				192635431B744C57005597E3 /* Views */,
+				C04598C91BCE02E400AFA579 /* Settings */,
 				19DB245F1BB711B500468E91 /* Profile */,
 				19DB24541BB711AA00468E91 /* Browse */,
 				19DB24491BB7119C00468E91 /* Post */,
@@ -596,6 +601,16 @@
 				3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C04598C91BCE02E400AFA579 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C04598CA1BCE035500AFA579 /* MainSettingsViewController.swift */,
+				C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */,
+			);
+			name = Settings;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		E00C0A7D0D690598AC42849C /* Frameworks */ = {
@@ -1100,6 +1115,7 @@
 				F72385E61BC5A624000793B8 /* MoreViewController.swift in Sources */,
 				19DB243E1BB70E8000468E91 /* NelpCenterViewController.swift in Sources */,
 				F7E8F8D41B94E7CF007D44D8 /* Atlas.m in Sources */,
+				C04598CB1BCE035600AFA579 /* MainSettingsViewController.swift in Sources */,
 				F7E8F8D71B94E7CF007D44D8 /* ATLConversationListViewController.m in Sources */,
 				192635451B744D9C005597E3 /* NavBar.swift in Sources */,
 				F7E8F8E81B94E7CF007D44D8 /* ATLAvatarImageView.m in Sources */,
@@ -1110,6 +1126,7 @@
 				19DB24501BB7119C00468E91 /* AutocompleteCell.swift in Sources */,
 				F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */,
 				F72385DA1BBE1533000793B8 /* PicturesCollectionViewCell.swift in Sources */,
+				C04598CD1BCE14FB00AFA579 /* MainSettingsViewCell.swift in Sources */,
 				F7E8F8DA1B94E7CF007D44D8 /* ATLTypingIndicatorViewController.m in Sources */,
 				F7E8F8DF1B94E7CF007D44D8 /* ATLConstants.m in Sources */,
 				F7E8F8EA1B94E7CF007D44D8 /* ATLConversationCollectionViewFooter.m in Sources */,

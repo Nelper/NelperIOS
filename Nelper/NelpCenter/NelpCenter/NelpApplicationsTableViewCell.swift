@@ -38,10 +38,9 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		backView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
 		
 		//CellContainer (hackForSpacing)
-		let cellView = UIView();
+		let cellView = UIView()
 		cellView.backgroundColor = whitePrimary
 		backView.addSubview(cellView)
-//		cellView.layer.cornerRadius = 6
 		cellView.layer.borderWidth = 1
 		cellView.layer.borderColor = grayDetails.CGColor
 		cellView.layer.masksToBounds = true
@@ -71,7 +70,6 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		
 		let blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
 		let blurView = UIVisualEffectView(effect: blur)
-		blurView.alpha = 0.98
 		topContainer.addSubview(blurView)
 		blurView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(topContainer.snp_edges)

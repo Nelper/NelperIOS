@@ -496,7 +496,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.closeButton = previousBtn
 		self.contentView.backgroundColor = whiteBackground
-		self.navBar.setTitle("Create your task")
 		
 		if self.savedLocations!.isEmpty {
 			

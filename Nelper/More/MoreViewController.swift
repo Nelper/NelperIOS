@@ -58,7 +58,7 @@ class MoreViewController: UIViewController {
 	
 	func createView(){
 		
-		//BLUR AND VIBRANCY
+		//BLUR
 		let blurEffect = UIBlurEffect(style: .ExtraLight)
 		self.blurEffectView = UIVisualEffectView(effect: blurEffect)
 		self.view.addSubview(blurEffectView)
@@ -170,7 +170,8 @@ class MoreViewController: UIViewController {
 	}
 	
 	func settingsTapped(sender: UIButton) {
-		print("settings")
+		let nextVC = MainSettingsViewController()
+		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
 	func logoutTapped(sender: UIButton) {

@@ -70,7 +70,6 @@ class NelpTasksTableViewCell: UITableViewCell {
 
 		let blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
 		let blurView = UIVisualEffectView(effect: blur)
-		blurView.alpha = 0.98
 		topContainer.addSubview(blurView)
 		blurView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(topContainer.snp_edges)
