@@ -476,6 +476,7 @@ class FilterSortViewController: UIViewController{
 	Check previously applied filters
 	*/
 	func checkFilters(){
+		print(self.arrayOfFiltersFromPrevious.count)
 		if self.arrayOfFiltersFromPrevious.isEmpty {
 			self.didTapAll(nil)
 			print(self.lastFilterWasAll)
@@ -527,7 +528,7 @@ class FilterSortViewController: UIViewController{
 		if self.previousSortBy != nil{
 			if previousSortBy == "createdAt"{
 				self.sortingSegmentControl.selectedSegmentIndex = 2
-			}else if previousSortBy == "location"{
+			}else if previousSortBy == "distance"{
 				self.sortingSegmentControl.selectedSegmentIndex = 1
 			}else if previousSortBy == "priceOffered"{
 				self.sortingSegmentControl.selectedSegmentIndex = 0
@@ -663,6 +664,7 @@ class FilterSortViewController: UIViewController{
 	func didTapBusiness(sender:UIButton?){
 		self.businessButton.selected = !self.businessButton.selected
 		if lastFilterWasAll == true{
+			self.allButton.selected = false
 			self.arrayOfFilters.removeAll()
 			self.didTapAll(nil)
 		}

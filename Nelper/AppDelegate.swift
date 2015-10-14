@@ -23,12 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		
-		//Support Kit
-		
-//		SupportKit.initWithSettings(SKTSettings(appToken: "9x5o1paxgfpjzzsgodj80yti3"))
-			let supportKitSettings = (SKTSettings(appToken: "9x5o1paxgfpjzzsgodj80yti3"))
-			supportKitSettings.conversationAccentColor = redPrimary
-			SupportKit.initWithSettings(supportKitSettings)
+
 		//Stripe
 		
 		Stripe.setDefaultPublishableKey("pk_test_gYIk5RNw7X2LCS4501jd4HpE")
@@ -69,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 			GraphQLClient.sessionToken = PFUser.currentUser()?.sessionToken
 			// Show the main app.
 			self.loginLayer()
+			self.loginSupportKit()
 			ApiHelper.getCurrentUserPrivateInfo()
 			let tabVC = initAppViewController()
 			self.window?.rootViewController = tabVC
@@ -96,6 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		GraphQLClient.sessionToken = PFUser.currentUser()?.sessionToken
 		let tabVC = initAppViewController()
 		self.loginLayer()
+		self.loginSupportKit()
 		self.window?.rootViewController = tabVC
 		self.window?.rootViewController?.presentViewController(tabVC, animated: true, completion: nil)
 	}
@@ -116,6 +113,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 				openURL: url,
 				sourceApplication: sourceApplication,
 				annotation: annotation)
+	}
+	
+	func loginSupportKit(){
+		let supportKitSettings = (SKTSettings(appToken: "9x5o1paxgfpjzzsgodj80yti3"))
+		supportKitSettings.conversationAccentColor = redPrimary
+		SKTUser.currentUser().firstName = PFUser.currentUser()?.objectForKey("name") as? String
+		SupportKit.initWithSettings(supportKitSettings)
+		SupportKit.login(PFUser.currentUser()!.objectId, jwt: nil)
 	}
 	
 	func loginLayer() {

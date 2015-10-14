@@ -181,7 +181,6 @@ class MoreViewController: UIViewController {
 	}
 	
 	func supportTapped(sender: UIButton) {
-		
 		SupportKit.show()
 	}
 	
