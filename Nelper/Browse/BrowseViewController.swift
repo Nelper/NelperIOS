@@ -233,8 +233,9 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	func loadDataWithFilters(filters:Array<String>?, sort:String?, minPrice:Double?, maxDistance:Double?){
 		ApiHelper.listNelpTasksWithBlock(filters, sortBy: sort,minPrice:minPrice, maxDistance:maxDistance, block: {(nelpTasks: [Task]?, error: NSError?) -> Void in
 			if error != nil {
-				
+				print(error)
 			} else {
+				print(nelpTasks!.count)
 				self.nelpTasks = nelpTasks!
 				self.createPins()
 				self.refreshView?.endRefreshing()

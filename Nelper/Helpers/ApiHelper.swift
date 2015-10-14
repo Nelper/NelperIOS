@@ -105,6 +105,7 @@ class ApiHelper {
 	
 	//Logout
 	static func logout() {
+		SupportKit.logout()
 		PFUser.logOut()
 	}
 	
@@ -151,6 +152,7 @@ class ApiHelper {
 	static func listNelpTasksWithBlock(arrayOfFilters:Array<String>?, sortBy: String?,minPrice: Double?, maxDistance: Double?,block: ([Task]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		if let arrayOfFilters = arrayOfFilters{
+			if arrayOfFilters.count != 0{
 			print(arrayOfFilters.count, terminator: "")
 			var filters = Array<String>()
 			for filter in arrayOfFilters{
@@ -158,7 +160,7 @@ class ApiHelper {
 				print(filter, terminator: "")
 			}
 			taskQuery.whereKey("category", containedIn:filters)
-		}
+			}}
 		
 		if let minPrice = minPrice {
 		 taskQuery.whereKey("priceOffered", greaterThanOrEqualTo: minPrice)
@@ -170,9 +172,9 @@ class ApiHelper {
 			let distance:Double = maxDistance
 			taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation!, withinKilometers: distance)
 		}
-		
+		print(sortBy)
 		if let sortBy = sortBy{
-			if sortBy == "location" && maxDistance == nil{
+			if sortBy == "distance" && maxDistance == nil{
 					taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation)
 			}else if sortBy == "priceOffered"{
 			taskQuery.orderByDescending(sortBy)
@@ -212,6 +214,7 @@ class ApiHelper {
 					block(tasks, nil)
 				})
 			} else {
+				print(pfTasks!.count)
 				block(pfTasks!.map({ Task(parseTask: $0 as! PFObject) }), nil)
 			}
 		}
