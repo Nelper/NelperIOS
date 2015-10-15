@@ -85,61 +85,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.width.equalTo(self.container.snp_width)
 		}
 		
-		//Task Section
-		
-		let taskSectionContainer = UIView()
-		self.taskSectionContainer = taskSectionContainer
-		self.contentView.addSubview(taskSectionContainer)
-		taskSectionContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.contentView.snp_top)
-			make.left.equalTo(self.contentView.snp_left)
-			make.right.equalTo(self.contentView.snp_right)
-			make.height.equalTo(110)
-		}
-		taskSectionContainer.backgroundColor = redPrimary
-		
-		//		taskSectionContainer.layer.borderColor = darkGrayDetails.CGColor
-		//		taskSectionContainer.layer.borderWidth = 1
-		
-		
-		//		var categoryIcon = UIImageView()
-		//		self.categoryIcon = categoryIcon
-		//		contentView.addSubview(categoryIcon)
-		//		self.categoryIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		//		self.categoryIcon.snp_makeConstraints { (make) -> Void in
-		//			make.height.equalTo(60)
-		//			make.width.equalTo(60)
-		//			make.centerX.equalTo(taskSectionContainer.snp_centerX)
-		//			make.centerY.equalTo(taskSectionContainer.snp_top)
-		//		}
-		//		self.setImages(self.task)
-		
-		let title = UILabel()
-		taskSectionContainer.addSubview(title)
-		title.text = self.task.title
-		title.textColor = whitePrimary
-		title.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		title.textAlignment = NSTextAlignment.Center
-		title.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskSectionContainer.snp_top).offset(12)
-			make.centerX.equalTo(taskSectionContainer.snp_centerX)
-		}
-		
-		let editButton = UIButton()
-		taskSectionContainer.addSubview(editButton)
-		editButton.addTarget(self, action: "editButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		editButton.setTitle("Edit Task", forState: UIControlState.Normal)
-		editButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kText15)
-		editButton.setTitleColor(whiteBackground, forState: UIControlState.Normal)
-		editButton.backgroundColor = redPrimary
-		editButton.layer.borderWidth = 2
-		editButton.layer.borderColor = whitePrimary.CGColor
-		editButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(title.snp_bottom).offset(14)
-			make.centerX.equalTo(taskSectionContainer.snp_centerX)
-			make.width.equalTo(140)
-			make.height.equalTo(35)
-		}
 		
 		//Pending Applicants Container
 		
@@ -150,7 +95,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		activeApplicantsContainer.layer.borderWidth = 1
 		activeApplicantsContainer.layer.borderColor = grayDetails.CGColor
 		activeApplicantsContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskSectionContainer.snp_bottom).offset(20)
+			make.top.equalTo(contentView.snp_top).offset(20)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo((self.arrayOfApplicants.count*100)+65)
@@ -344,7 +289,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 		activeApplicantsContainer.snp_updateConstraints { (make) -> Void in
-			make.top.equalTo(taskSectionContainer.snp_bottom).offset(10)
+			make.top.equalTo(self.contentView.snp_top).offset(20)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo((self.arrayOfApplicants.count*100)+65)
@@ -421,9 +366,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.deniedApplicantsLabel.alpha = 1
 		self.deniedApplicantIcon.alpha = 1
 		if self.arrayOfDeniedApplicants.isEmpty{
-			self.deniedApplicantsContainer.snp_remakeConstraints(closure: { (make) -> Void in
-				make.height.equalTo(0)
-			})
+			self.deniedApplicantsContainer.hidden = true
+			
+//			self.deniedApplicantsContainer.snp_remakeConstraints(closure: { (make) -> Void in
+//				make.height.equalTo(0)
+//			})
 		}
 	}
 	
@@ -477,6 +424,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	func didTapDenyButton(applicant:User){
 		var applicationToDeny:TaskApplication?
+		self.deniedApplicantsContainer.hidden = false
 		for application in self.arrayOfApplications{
 			print(application.user.objectId)
 			print(applicant.objectId)

@@ -652,6 +652,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	
 	func updateButton(){
 		self.applyButton.setTitle("Applied", forState: UIControlState.Normal)
+		self.applyButton.setTitle("Applied", forState: UIControlState.Selected)
+		self.applyButton.enabled = false
 	}
 }
 

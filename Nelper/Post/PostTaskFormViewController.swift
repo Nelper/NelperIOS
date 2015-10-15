@@ -105,6 +105,10 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.locationsPickerView?.selectRow(0, inComponent: 0, animated: false)
 	}
 	
+	override func viewDidDisappear(animated: Bool) {
+		NSNotificationCenter.defaultCenter().removeObserver(self)
+	}
+	
 	//MARK: View Creation
 	
 	func createView() {

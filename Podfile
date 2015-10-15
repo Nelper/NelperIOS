@@ -13,6 +13,7 @@ pod 'iCarousel'
 pod 'LayerKit'
 pod 'Stripe'
 pod 'SupportKit'
+pod 'FXBlurView'
 
 end
 
