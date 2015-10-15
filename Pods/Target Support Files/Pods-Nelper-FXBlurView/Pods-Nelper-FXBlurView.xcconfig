@@ -1,0 +1,1 @@
+PODS_NELPER_FXBLURVIEW_OTHER_LDFLAGS = -framework "Accelerate" -framework "QuartzCore"

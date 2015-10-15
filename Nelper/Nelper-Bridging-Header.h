@@ -14,3 +14,4 @@
 #import <Atlas.h>
 #import <Stripe/Stripe.h>
 #import <SupportKit/SupportKit.h>
+#import <FXBlurView/FXBlurView.h>

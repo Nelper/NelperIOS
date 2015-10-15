@@ -29,9 +29,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		
 		self.clipsToBounds = true
-		
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
 		backView.backgroundColor = whiteBackground
@@ -67,21 +65,6 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			make.height.equalTo(85)
 		}
 		topContainer.backgroundColor = whitePrimary
-		
-		let blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
-		let blurView = UIVisualEffectView(effect: blur)
-		topContainer.addSubview(blurView)
-		blurView.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(topContainer.snp_edges)
-		}
-		
-		let topContainerDarkBox = UIView()
-		topContainer.addSubview(topContainerDarkBox)
-		topContainerDarkBox.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(topContainer.snp_edges)
-		}
-		topContainerDarkBox.backgroundColor = blackPrimary
-		topContainerDarkBox.alpha = 0.15
 		
 		//Category Icon
 		let categoryIcon = UIImageView()
@@ -201,9 +184,9 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		if(nelpApplication.task.pictures != nil) {
 			if(!nelpApplication.task.pictures!.isEmpty){
 				getPictures(nelpApplication.task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
-					self.topContainer.image = imageReturned
+					self.topContainer.image = imageReturned.blurredImageWithRadius(3, iterations: 100, tintColor: nil)
 				})}} else {
-			self.topContainer.image = UIImage(named: "square_\(nelpApplication.task.category!)")!
+			self.topContainer.image = UIImage(named: "square_\(nelpApplication.task.category!)")!.blurredImageWithRadius(3, iterations: 100, tintColor: nil)
 		}
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true

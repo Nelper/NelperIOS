@@ -731,6 +731,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	func didTapCancelButton(sender:UIButton){
 		if sender.selected == false {
 			sender.selected = true
+			sender.setTitle("Sure?", forState: UIControlState.Selected)
 			
 		} else if sender.selected == true{
 			ApiHelper.cancelApplyForTaskWithApplication(self.application)

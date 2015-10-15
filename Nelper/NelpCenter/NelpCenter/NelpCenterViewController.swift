@@ -23,8 +23,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	var nelpApplications = [TaskApplication]()
 	var myTasksTableView: UITableView!
 	var myApplicationsTableView:UITableView!
-	var refreshView: UIRefreshControl!
-	var refreshViewApplication: UIRefreshControl!
 	var locationManager = CLLocationManager()
 	var currentLocation: CLLocation?
 	
@@ -47,6 +45,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.loadData()
 		let rootvc:TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
 		rootvc.presentedVC = self
+
 	}
 	
 	//MARK: View Creation
@@ -99,16 +98,11 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tableView.registerClass(NelpTasksTableViewCell.classForCoder(), forCellReuseIdentifier: NelpTasksTableViewCell.reuseIdentifier)
 		tableView.backgroundColor = whiteBackground
 		
-		let refreshView = UIRefreshControl()
-		refreshView.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
-		tableView.addSubview(refreshView)
-		
 		self.tasksContainer.addSubview(tableView)
 		tableView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.tasksContainer.snp_edges)
 		}
 		self.myTasksTableView = tableView
-		self.refreshView = refreshView
 		self.myTasksTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 	}
 	
@@ -122,17 +116,13 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tableViewApplications.backgroundColor = whiteBackground
 		tableViewApplications.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 		
-		let refreshViewApplication = UIRefreshControl()
-		refreshViewApplication.addTarget(self, action: "onPullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
-		tableViewApplications.addSubview(refreshViewApplication)
-		
+
 		self.tasksContainer.addSubview(tableViewApplications)
 		tableViewApplications.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.tasksContainer.snp_edges)
 		}
 		
 		self.myApplicationsTableView = tableViewApplications
-		self.refreshViewApplication = refreshViewApplication
 		self.myApplicationsTableView.hidden = true
 		self.myApplicationsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 	}
@@ -162,7 +152,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				print(error, terminator: "")
 			} else {
 				self.nelpTasks = nelpTasks!
-				self.refreshView?.endRefreshing()
 				self.myTasksTableView?.reloadData()
 			}
 		}
@@ -172,7 +161,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				print(error, terminator: "")
 			} else {
 				self.nelpApplications = nelpApplications!
-				self.refreshViewApplication?.endRefreshing()
 				self.myApplicationsTableView?.reloadData()
 			}
 		}
@@ -200,7 +188,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		if(tableView == myTasksTableView) {
 			if (!self.nelpTasks.isEmpty) {
-				let cellTask = NelpTasksTableViewCell()
+				let cellTask = self.myTasksTableView.dequeueReusableCellWithIdentifier(NelpTasksTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpTasksTableViewCell
 				
 				let task = self.nelpTasks[indexPath.item]
 				cellTask.setNelpTask(task)
@@ -210,7 +198,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			}
 		} else if (tableView == myApplicationsTableView) {
 			if(!self.nelpApplications.isEmpty) {
-				let cellApplication = NelpApplicationsTableViewCell()
+				let cellApplication = self.myApplicationsTableView.dequeueReusableCellWithIdentifier(NelpApplicationsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpApplicationsTableViewCell
 				
 				let nelpApplication = self.nelpApplications[indexPath.item]
 				cellApplication.setNelpApplication(nelpApplication)
