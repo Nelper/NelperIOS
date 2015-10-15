@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  MainSettingsViewController.swift
 //  Nelper
 //
 //  Created by Pierre-Luc Benoit on 2015-10-13.
@@ -12,10 +12,10 @@ import UIKit
 class MainSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	
 	private var contentView: UIView!
-	var navBar: NavBar!
+	private var navBar: NavBar!
 	
 	private var tableView: UITableView!
-	var sections = [String]()
+	var sections = [(title: String, viewController: UIViewController)]()
 	
 	private var cellHeight = CGFloat()
 	
@@ -24,11 +24,16 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 		
 		cellHeight = 60
 		
+		let accountVc = AccountSettingsViewController()
+		let notificationsVc = NotificationsSettingsViewController()
+		let bankVc = BankSettingsViewController()
+		let transactionsVc = TransactionsSettingsViewController()
+		
 		self.sections = [
-			"Account",
-			"Notifications",
-			"Bank Deposits",
-			"Transaction History"
+			(title: "Account", viewController: accountVc),
+			(title: "Notifications", viewController: notificationsVc),
+			(title: "Bank Deposits", viewController: bankVc),
+			(title: "Transaction History", viewController: transactionsVc)
 		]
 		
 		createView()
@@ -88,12 +93,20 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 		let cell = self.tableView.dequeueReusableCellWithIdentifier(MainSettingsViewCell.reuseIdentifier, forIndexPath: indexPath) as! MainSettingsViewCell
 		
 		let sectionTitle = self.sections[indexPath.row]
-		cell.setSectionTitle(sectionTitle)
+		cell.setSectionTitle(sectionTitle.title)
+		
+		cell.selectionStyle = UITableViewCellSelectionStyle.Blue
 		
 		return cell
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let selectedSection = self.sections[indexPath.row]
+		
+		dispatch_async(dispatch_get_main_queue()) {
+			self.presentViewController(selectedSection.viewController, animated: true, completion: nil)
+		}
+			
 		/*let selectedTask = self.nelpTasks[indexPath.row]
 		let vc = BrowseDetailsViewController()
 		vc.task = selectedTask
@@ -116,7 +129,6 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 	
 	
 	//MARK: ACTIONS
-	
 	func backButtonTapped(sender: UIButton) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 		view.endEditing(true) // dissmiss keyboard without delay

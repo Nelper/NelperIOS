@@ -189,7 +189,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	//MARK: Tableview Delegate and Datasource
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		if(tableView == self.myTasksTableView) {
+		if (tableView == self.myTasksTableView) {
 			return nelpTasks.count
 		} else if (tableView == self.myApplicationsTableView) {
 			return nelpApplications.count
@@ -198,7 +198,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		if(tableView == myTasksTableView) {
+		if (tableView == myTasksTableView) {
 			if (!self.nelpTasks.isEmpty) {
 				let cellTask = NelpTasksTableViewCell()
 				
@@ -209,7 +209,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				return cellTask
 			}
 		} else if (tableView == myApplicationsTableView) {
-			if(!self.nelpApplications.isEmpty) {
+			if (!self.nelpApplications.isEmpty) {
 				let cellApplication = NelpApplicationsTableViewCell()
 				
 				let nelpApplication = self.nelpApplications[indexPath.item]
@@ -224,7 +224,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		if(tableView == myTasksTableView) {
+		if (tableView == myTasksTableView) {
 			let task = nelpTasks[indexPath.row]
 			
 			if task.state == .Accepted {
@@ -273,7 +273,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 //		}
 //	}
 	
-	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	func tableView (tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if (tableView == myTasksTableView) {
 			return 200
 		} else if (tableView == myApplicationsTableView) {

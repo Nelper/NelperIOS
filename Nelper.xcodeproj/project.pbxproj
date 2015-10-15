@@ -65,6 +65,11 @@
 		C04598CD1BCE14FB00AFA579 /* MainSettingsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		C04FF0031BB86873001E204F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04FF0021BB86873001E204F /* Button.swift */; settings = {ASSET_TAGS = (); }; };
 		C087D8D91BB7199A00AA205B /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087D8D81BB7199A00AA205B /* Rating.swift */; settings = {ASSET_TAGS = (); }; };
+		C0BED3961BCF413800CE3B63 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3951BCF413800CE3B63 /* AccountSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C0BED3981BCF458600CE3B63 /* NotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3971BCF458600CE3B63 /* NotificationsSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C0BED39A1BCF45E900CE3B63 /* BankSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3991BCF45E900CE3B63 /* BankSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C0BED39C1BCF461000CE3B63 /* TransactionsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED39B1BCF461000CE3B63 /* TransactionsSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C0BED39F1BCF4E3C00CE3B63 /* DefaultContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED39E1BCF4E3C00CE3B63 /* DefaultContainer.swift */; settings = {ASSET_TAGS = (); }; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
 		F72385DA1BBE1533000793B8 /* PicturesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72385D91BBE1533000793B8 /* PicturesCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
@@ -250,6 +255,11 @@
 		C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainSettingsViewCell.swift; path = Nelper/MainSettingsViewCell.swift; sourceTree = SOURCE_ROOT; };
 		C04FF0021BB86873001E204F /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		C087D8D81BB7199A00AA205B /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
+		C0BED3951BCF413800CE3B63 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountSettingsViewController.swift; path = Nelper/AccountSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
+		C0BED3971BCF458600CE3B63 /* NotificationsSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationsSettingsViewController.swift; path = Nelper/NotificationsSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
+		C0BED3991BCF45E900CE3B63 /* BankSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BankSettingsViewController.swift; path = Nelper/BankSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
+		C0BED39B1BCF461000CE3B63 /* TransactionsSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionsSettingsViewController.swift; path = Nelper/TransactionsSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
+		C0BED39E1BCF4E3C00CE3B63 /* DefaultContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultContainer.swift; sourceTree = "<group>"; };
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
 		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		F72385D91BBE1533000793B8 /* PicturesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicturesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -423,6 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				C087D8D81BB7199A00AA205B /* Rating.swift */,
+				C0BED39E1BCF4E3C00CE3B63 /* DefaultContainer.swift */,
 				192635441B744D9C005597E3 /* NavBar.swift */,
 				C0196C971BB5B49300901155 /* SegmentController.swift */,
 				F775C0C61B803E9600F7525B /* TabBarCustom.swift */,
@@ -608,9 +619,21 @@
 			children = (
 				C04598CA1BCE035500AFA579 /* MainSettingsViewController.swift */,
 				C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */,
+				C0BED39D1BCF478B00CE3B63 /* Sections */,
 			);
 			name = Settings;
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		C0BED39D1BCF478B00CE3B63 /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				C0BED3951BCF413800CE3B63 /* AccountSettingsViewController.swift */,
+				C0BED3971BCF458600CE3B63 /* NotificationsSettingsViewController.swift */,
+				C0BED3991BCF45E900CE3B63 /* BankSettingsViewController.swift */,
+				C0BED39B1BCF461000CE3B63 /* TransactionsSettingsViewController.swift */,
+			);
+			name = Sections;
 			sourceTree = "<group>";
 		};
 		E00C0A7D0D690598AC42849C /* Frameworks */ = {
@@ -1051,6 +1074,7 @@
 				F7E8F8E61B94E7CF007D44D8 /* ATLAddressBarTextView.m in Sources */,
 				19DB24521BB7119C00468E91 /* PostTaskCategoriesViewController.swift in Sources */,
 				F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */,
+				C0BED39F1BCF4E3C00CE3B63 /* DefaultContainer.swift in Sources */,
 				F7E8F8F61B94E7CF007D44D8 /* ATLParticipantTableViewCell.m in Sources */,
 				F7E8F8D51B94E7CF007D44D8 /* ATLAddressBarViewController.m in Sources */,
 				F72385E51BC5A624000793B8 /* MoreMenuTableViewController.swift in Sources */,
@@ -1064,10 +1088,12 @@
 				F7E8F8DD1B94E7CF007D44D8 /* ATLMediaAttachment.m in Sources */,
 				196176C51BCB0BF000F2AF5F /* GraphQLClient.swift in Sources */,
 				19DB24401BB70E8000468E91 /* NelpTasksTableViewCell.swift in Sources */,
+				C0BED3981BCF458600CE3B63 /* NotificationsSettingsViewController.swift in Sources */,
 				F72F27DC1B53224100CD3B0B /* TaskApplication.swift in Sources */,
 				F7E8F8EB1B94E7CF007D44D8 /* ATLConversationCollectionViewHeader.m in Sources */,
 				19761A191B6877FB001600E1 /* FindNelpTask.swift in Sources */,
 				19DB24411BB70E8000468E91 /* ApplicantCell.swift in Sources */,
+				C0BED3961BCF413800CE3B63 /* AccountSettingsViewController.swift in Sources */,
 				19DB245C1BB711AA00468E91 /* BrowseTaskViewCell.swift in Sources */,
 				F7E8F8E21B94E7CF007D44D8 /* ATLMediaInputStream.m in Sources */,
 				F7E8F8F21B94E7CF007D44D8 /* ATLMessageComposeTextView.m in Sources */,
@@ -1106,11 +1132,13 @@
 				F7E8F8E01B94E7CF007D44D8 /* ATLErrors.m in Sources */,
 				19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */,
 				F7E8F9331B94F3A4007D44D8 /* PFUser+ATLParticipant.swift in Sources */,
+				C0BED39A1BCF45E900CE3B63 /* BankSettingsViewController.swift in Sources */,
 				19DB243C1BB70E8000468E91 /* PosterProfileViewController.swift in Sources */,
 				19DB243D1BB70E8000468E91 /* NelpApplicationsTableViewCell.swift in Sources */,
 				F7067AB41B56001300F19745 /* FontHelper.swift in Sources */,
 				F7E18C181BB6480C00160771 /* UserPrivateData.swift in Sources */,
 				19DB245B1BB711AA00468E91 /* BrowseDetailsViewController.swift in Sources */,
+				C0BED39C1BCF461000CE3B63 /* TransactionsSettingsViewController.swift in Sources */,
 				F7E8F8E31B94E7CF007D44D8 /* ATLMessagingUtilities.m in Sources */,
 				F72385E61BC5A624000793B8 /* MoreViewController.swift in Sources */,
 				19DB243E1BB70E8000468E91 /* NelpCenterViewController.swift in Sources */,
