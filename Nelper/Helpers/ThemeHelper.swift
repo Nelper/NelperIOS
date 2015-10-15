@@ -21,6 +21,7 @@ let redPrimarySelected = hexStringToUIColor("f16f71")
 let whitePrimary = hexStringToUIColor("f7f7f7")
 let grayDetails = hexStringToUIColor("e1e1e1")
 let darkGrayDetails = hexStringToUIColor("979797")
+let darkGrayText = hexStringToUIColor("3d3d3d")
 
 
 let progressGreen = hexStringToUIColor("29B473")

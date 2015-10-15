@@ -69,7 +69,7 @@
 		C0BED3981BCF458600CE3B63 /* NotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3971BCF458600CE3B63 /* NotificationsSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C0BED39A1BCF45E900CE3B63 /* BankSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3991BCF45E900CE3B63 /* BankSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C0BED39C1BCF461000CE3B63 /* TransactionsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED39B1BCF461000CE3B63 /* TransactionsSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C0BED39F1BCF4E3C00CE3B63 /* DefaultContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED39E1BCF4E3C00CE3B63 /* DefaultContainer.swift */; settings = {ASSET_TAGS = (); }; };
+		C0BED39F1BCF4E3C00CE3B63 /* UIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED39E1BCF4E3C00CE3B63 /* UIElements.swift */; settings = {ASSET_TAGS = (); }; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
 		F72385DA1BBE1533000793B8 /* PicturesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72385D91BBE1533000793B8 /* PicturesCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
@@ -259,7 +259,7 @@
 		C0BED3971BCF458600CE3B63 /* NotificationsSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationsSettingsViewController.swift; path = Nelper/NotificationsSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0BED3991BCF45E900CE3B63 /* BankSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BankSettingsViewController.swift; path = Nelper/BankSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0BED39B1BCF461000CE3B63 /* TransactionsSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionsSettingsViewController.swift; path = Nelper/TransactionsSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
-		C0BED39E1BCF4E3C00CE3B63 /* DefaultContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultContainer.swift; sourceTree = "<group>"; };
+		C0BED39E1BCF4E3C00CE3B63 /* UIElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIElements.swift; sourceTree = "<group>"; };
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
 		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		F72385D91BBE1533000793B8 /* PicturesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicturesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -433,7 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				C087D8D81BB7199A00AA205B /* Rating.swift */,
-				C0BED39E1BCF4E3C00CE3B63 /* DefaultContainer.swift */,
+				C0BED39E1BCF4E3C00CE3B63 /* UIElements.swift */,
 				192635441B744D9C005597E3 /* NavBar.swift */,
 				C0196C971BB5B49300901155 /* SegmentController.swift */,
 				F775C0C61B803E9600F7525B /* TabBarCustom.swift */,
@@ -1074,7 +1074,7 @@
 				F7E8F8E61B94E7CF007D44D8 /* ATLAddressBarTextView.m in Sources */,
 				19DB24521BB7119C00468E91 /* PostTaskCategoriesViewController.swift in Sources */,
 				F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */,
-				C0BED39F1BCF4E3C00CE3B63 /* DefaultContainer.swift in Sources */,
+				C0BED39F1BCF4E3C00CE3B63 /* UIElements.swift in Sources */,
 				F7E8F8F61B94E7CF007D44D8 /* ATLParticipantTableViewCell.m in Sources */,
 				F7E8F8D51B94E7CF007D44D8 /* ATLAddressBarViewController.m in Sources */,
 				F72385E51BC5A624000793B8 /* MoreMenuTableViewController.swift in Sources */,
