@@ -32,9 +32,7 @@ class MainSettingsViewCell: UITableViewCell {
 	override func setSelected(selected: Bool, animated: Bool) {
 	}
 	
-	override func setHighlighted(highlighted: Bool, animated: Bool) {
-	}
-	
+		
 	static var reuseIdentifier: String {
 		get {
 			return "MainSettingsViewCell"

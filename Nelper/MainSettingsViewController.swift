@@ -84,6 +84,11 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 		}
 	}
 	
+	func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
+		tableView.cellForRowAtIndexPath(indexPath)?.backgroundColor = UIColor.whiteColor()
+	}
+	
+	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.sections.count
 	}
