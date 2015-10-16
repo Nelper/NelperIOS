@@ -603,10 +603,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				NSLog("User signed up and logged in through Facebook!")
 				self.getFBUserInfo()
 				
+				PFUser.currentUser()!["loginProvider"] = "facebook"
+				PFUser.currentUser()!.saveInBackground()
+				
 			} else {
 				
 				NSLog("User logged in through Facebook! \(user!.username)")
 				self.getFBUserInfo()
+				
 			}
 		}
 	}
@@ -616,11 +620,18 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		PFTwitterUtils.logInWithBlock { (user, error) -> Void in
 			if error != nil{
 				print("\(error)")
+				
 			}else{
+				
 				if user!.isNew{
 					print("User signed up and logged in through Twitta!")
 					self.getTwitterUserInfo()
+					
+					PFUser.currentUser()!["loginProvider"] = "twitter"
+					PFUser.currentUser()!.saveInBackground()
+					
 				}else{
+					
 					print("User logged in through Twitta")
 					self.getTwitterUserInfo()
 				}
@@ -645,16 +656,27 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	}
 	
 	func createAccount(sender: UIButton) {
-		if self.emailFieldRegister.text?.characters.count >  0 && self.passwordFieldRegister.text?.characters.count > 0 && self.firstnameField.text?.characters.count > 0 && self.lastnameField.text?.characters.count > 0{
-			if self.passwordFieldRegister.text == self.passwordFieldConfirmRegister.text{
+		if self.emailFieldRegister.text?.characters.count >  0 && self.passwordFieldRegister.text?.characters.count > 0 && self.firstnameField.text?.characters.count > 0 && self.lastnameField.text?.characters.count > 0 {
+			
+			if self.passwordFieldRegister.text == self.passwordFieldConfirmRegister.text {
+				
 				ApiHelper.registerWithEmail(self.emailFieldRegister.text!, password: self.passwordFieldRegister.text!, firstName: self.firstnameField.text!, lastName: self.lastnameField.text!) { (user, error) -> Void in
-					if error != nil{
+					
+					PFUser.currentUser()!["loginProvider"] = "email"
+					PFUser.currentUser()!.saveInBackground()
+					
+					if error != nil {
 						print("\(error)")
-					}else{
+						
+					} else {
+						
 						ApiHelper.loginWithEmail(self.emailFieldRegister.text!, password: self.passwordFieldRegister.text!, block: { (user, error) -> Void in
-							if error != nil{
+							
+							if error != nil {
 								print("\(error)")
-							}else{
+								
+							} else {
+								
 								self.getEmailInfo()
 								self.loginCompleted()
 							}

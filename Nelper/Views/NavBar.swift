@@ -65,6 +65,7 @@ class NavBar: UINavigationBar {
 				self.saveButtonView?.setTitle("Save", forState: UIControlState.Normal)
 				self.saveButtonView?.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
 				self.saveButtonView?.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+				self.saveButtonView?.setTitleColor(darkGrayDetails, forState: UIControlState.Highlighted)
 				self.saveButtonView?.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
 				self.saveButtonView?.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 				self.container.addSubview(self.saveButtonView!)

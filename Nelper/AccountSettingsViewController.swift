@@ -351,10 +351,9 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			make.bottom.equalTo(self.locationContainerArray[hardcodedArray.count - 1].snp_bottom).offset(20)
 		}
 		
-		let userAuthData: String? = PFUser.currentUser()?.objectForKey("authData") as? String
-		print(userAuthData)
+		let loginProvider: String? = PFUser.currentUser()?.objectForKey("loginProvider") as? String
 		
-		if (userAuthData == nil) {
+		if (loginProvider == "email") {
 			
 			self.willShowPassword = true
 			

@@ -15,6 +15,7 @@ class User : BaseModel {
 	var rating: Double!
 	var completedTasks: Int!
 	var name: String!
+	var loginProvider: String?
 	var authData: String?
 	var firstName: String!
 	var lastName: String!
@@ -27,9 +28,8 @@ class User : BaseModel {
 	var about:String!
 	var privateData:UserPrivateData?
 	
-	
 	init(parseUser: PFUser) {
-		super.init();
+		super.init()
 		
 		username = parseUser.username!
 		email = parseUser.email
@@ -37,7 +37,7 @@ class User : BaseModel {
 		completedTasks = parseUser["tasksCompleted"] as! Int!
 		objectId = parseUser.objectId!
 		name = parseUser["name"] as! String
-		authData = parseUser["authData"] as? String
+		loginProvider = parseUser["loginProvider"] as? String
 		//firstName = parseUser["firstName"] as! String
 		//lastName = parseUser["lastName"] as! String
 		location = parseUser["location"] as? GeoPoint
