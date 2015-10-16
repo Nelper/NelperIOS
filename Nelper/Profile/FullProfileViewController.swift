@@ -66,35 +66,16 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	func createView(){
 		
 		//navbar
-		self.scrollView.backgroundColor = whiteBackground
-		let previousBtn = UIButton()
-		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.closeButton = previousBtn
-
-		
-        let contentView = UIView()
-        self.contentView = contentView
-        self.scrollView.addSubview(contentView)
-        contentView.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(self.scrollView.snp_top)
-            make.left.equalTo(self.scrollView.snp_left)
-            make.right.equalTo(self.scrollView.snp_right)
-            make.height.greaterThanOrEqualTo(self.backGroundView.snp_height)
-            make.width.equalTo(self.backGroundView.snp_width)
-        }
-		
-		self.contentView.backgroundColor = whiteBackground
-		self.backGroundView.backgroundColor = whiteBackground
 		
 		//Profile Header
 		let profileView = UIView()
-		self.contentView.addSubview(profileView)
+		self.view.addSubview(profileView)
 		profileView.backgroundColor = redPrimary
 		
 		profileView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.contentView.snp_top)
-			make.left.equalTo(self.contentView.snp_left)
-			make.right.equalTo(self.contentView.snp_right)
+			make.top.equalTo(self.navBar.snp_bottom)
+			make.left.equalTo(self.view.snp_left)
+			make.right.equalTo(self.view.snp_right)
 			make.height.equalTo(125)
 		}
 		
@@ -202,8 +183,30 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		numberOfTasksLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(name.snp_left)
 			make.top.equalTo(firstStar.snp_bottom).offset(8)
-			make.right.equalTo(self.contentView.snp_right).offset(-4)
+			make.right.equalTo(self.view.snp_right).offset(-4)
 		}
+
+		
+		self.scrollView.backgroundColor = whiteBackground
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.closeButton = previousBtn
+
+		
+        let contentView = UIView()
+        self.contentView = contentView
+        self.scrollView.addSubview(contentView)
+        contentView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(self.scrollView.snp_top)
+            make.left.equalTo(self.scrollView.snp_left)
+            make.right.equalTo(self.scrollView.snp_right)
+            make.height.greaterThanOrEqualTo(self.backGroundView.snp_height)
+            make.width.equalTo(self.backGroundView.snp_width)
+        }
+		
+		self.contentView.backgroundColor = whiteBackground
+		self.backGroundView.backgroundColor = whiteBackground
+		
 		
 		
 		//White Container
@@ -215,7 +218,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		whiteContainer.layer.borderWidth = 1
 		whiteContainer.backgroundColor = whitePrimary
 		whiteContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileView.snp_bottom).offset(10)
+			make.top.equalTo(contentView.snp_top).offset(10)
 			make.left.equalTo(contentView.snp_left)
 			make.right.equalTo(contentView.snp_right)
 			make.bottom.equalTo(contentView.snp_bottom).offset(-10)
