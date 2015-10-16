@@ -11,7 +11,8 @@ import UIKit
 
 class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
 	
-	private var navBar: NavBar!
+	var navBar: NavBar!
+	var saveButton: UIButton!
 	
 	var backgroundView: UIView!
 	var scrollView: UIScrollView!
@@ -20,8 +21,10 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	var generalContainer: DefaultContainerView!
 	var emailLabel: UILabel!
 	var emailTextField: DefaultTextFieldView!
+	var userEmail: String!
 	var phoneLabel: UILabel!
 	var phoneTextField: DefaultTextFieldView!
+	var userPhone: String?
 	
 	var locationsContainer: DefaultContainerView!
 	var addLocationButton: UIButton!
@@ -61,13 +64,15 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	var fieldEditing = false
 	var popupShown = false
 	
+	var settingsWereEdited = false
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		setLocations()
 		
 		createView()
-		adjustUI()
+		setTextFields()
 		
 		//KEYBOARD
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
@@ -79,6 +84,21 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.confirmTextField.delegate = self
 		self.emailTextField.delegate = self
 		self.phoneTextField.delegate = self
+	}
+	
+	///MARK: UI
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		self.scrollView.contentSize = self.contentView.frame.size
+	}
+	
+	func setTextFields() {
+		self.userEmail = "admin@nelper.ca"
+		self.userPhone = "514-283-2746"
+		self.currentTextField.text = ""
+		self.newTextField.text = ""
+		self.confirmTextField.text = ""
 	}
 	
 	func setLocations() {
@@ -96,6 +116,12 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.navBar = navBar
 		self.view.addSubview(self.navBar)
 		self.navBar.setTitle("Account Settings")
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.closeButton = previousBtn
+		let saveBtn = UIButton()
+		saveBtn.addTarget(self, action: "saveButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.saveButton = saveBtn
 		self.navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
@@ -157,7 +183,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		let emailTextField = DefaultTextFieldView()
 		self.emailTextField = emailTextField
 		self.generalContainer.contentView.addSubview(self.emailTextField)
-		self.emailTextField.text = "admin@nelper.ca"
+		self.emailTextField.text = userEmail
 		self.emailTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.emailTextField.keyboardType = UIKeyboardType.EmailAddress
 		self.emailTextField.autocorrectionType = UITextAutocorrectionType.No
@@ -183,7 +209,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		let phoneTextField = DefaultTextFieldView()
 		self.phoneTextField = phoneTextField
 		self.generalContainer.contentView.addSubview(self.phoneTextField)
-		self.phoneTextField.text = "450.453.2345"
+		self.phoneTextField.text = userPhone
 		self.phoneTextField.keyboardType = UIKeyboardType.NamePhonePad
 		self.phoneTextField.autocorrectionType = UITextAutocorrectionType.No
 		self.phoneTextField.autocapitalizationType = UITextAutocapitalizationType.None
@@ -326,6 +352,8 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		}
 		
 		let userAuthData: String? = PFUser.currentUser()?.objectForKey("authData") as? String
+		print(userAuthData)
+		
 		if (userAuthData == nil) {
 			
 			self.willShowPassword = true
@@ -455,7 +483,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.deletionNoticeLabel = deletionNoticeLabel
 		self.deleteContainer.contentView.addSubview(self.deletionNoticeLabel)
 		self.deletionNoticeLabel.text = "Account deletion is permanent"
-		self.deletionNoticeLabel.font = UIFont(name: "Lato-Light", size: kTitle17)
+		self.deletionNoticeLabel.font = UIFont(name: "Lato-Light", size: kText15)
 		self.deletionNoticeLabel.textColor = darkGrayText
 		self.deletionNoticeLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.deleteContainer.contentView.snp_top).offset(15)
@@ -482,21 +510,6 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		}
 	}
 	
-	
-	///MARK: UI
-	func adjustUI() {
-		
-		//NAVBAR
-		let previousBtn = UIButton()
-		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.closeButton = previousBtn
-	}
-	
-	override func viewDidLayoutSubviews() {
-		super.viewDidLayoutSubviews()
-		self.scrollView.contentSize = self.contentView.frame.size
-	}
-	
 	///MARK: KEYBOARD
 	
 	func DismissKeyboard() {
@@ -505,15 +518,15 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	
 	func keyboardObserver() {
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardDidShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
-	/*override func viewDidDisappear(animated: Bool) {
+	override func viewDidDisappear(animated: Bool) {
 		
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-	}*/
+	}
 	
 	func textFieldDidBeginEditing(textField: UITextField) {
 		self.activeField = textField
@@ -540,7 +553,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			var aRect = self.view.frame
 			aRect.size.height -= self.keyboardFrame.height
 			
-			if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
+			if !(CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
 				self.scrollView.scrollRectToVisible(self.activeField.frame, animated: true)
 			}
 		}
@@ -553,20 +566,76 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	}
 
 	///MARK: ACTIONS
+	
 	func backButtonTapped(sender: UIButton) {
-		self.dismissViewControllerAnimated(true, completion: nil)
-		view.endEditing(true) // dissmiss keyboard without delay
+		
+		if (self.emailTextField.text != self.userEmail) || (self.phoneTextField.text != userPhone) || (self.currentTextField.text != "") || (self.newTextField.text != "") || (self.confirmTextField.text != "") {
+			
+			self.settingsWereEdited = true
+		} else {
+			self.settingsWereEdited = false
+		}
+		
+		if self.settingsWereEdited {
+			DismissKeyboard() // dismiss keyboard without delay
+			
+			let popup = UIAlertController(title: "Discard changes?", message: "Your changes will not be saved", preferredStyle: UIAlertControllerStyle.Alert)
+			let popupSubview = popup.view.subviews.first! as UIView
+			let popupContentView = popupSubview.subviews.first! as UIView
+			popupContentView.layer.cornerRadius = 0
+			
+			popup.view.subviews.first!
+			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+				self.dismissViewControllerAnimated(true, completion: nil)
+			}))
+			popup.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action) -> Void in
+			}))
+			
+			self.presentViewController(popup, animated: true, completion: nil)
+			
+		} else {
+			
+			DismissKeyboard() // dismiss keyboard without delay
+			setTextFields()
+			self.dismissViewControllerAnimated(true, completion: nil)
+		}
+	}
+	
+	func saveButtonTapped(sender: UIButton) {
+		print("saved")
 	}
 	
 	func locationContainerTapped(sender: UIButton) {
-		//self.popupShown = true
+		
+		if self.fieldEditing {
+			
+			DismissKeyboard()
+			
+		} else {
+			
+			//self.popupShown = true
+		}
 	}
 	
 	func addTapped(sender: UIButton) {
-		//self.popupShown = true
+		if self.fieldEditing {
+			
+			DismissKeyboard()
+			
+		} else {
+			
+			//self.popupShown = true
+		}
 	}
 	
 	func deleteButtonTapped(sender: UIButton) {
-		//self.popupShown = true
+		if self.fieldEditing {
+			
+			DismissKeyboard()
+			
+		} else {
+			
+			//self.popupShown = true
+		}
 	}
 }

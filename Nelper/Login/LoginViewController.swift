@@ -546,7 +546,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	
 	override func viewDidDisappear(animated: Bool) {
 		
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
@@ -566,7 +566,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let value = info[UIKeyboardFrameEndUserInfoKey]!
 		self.keyboardFrame = value.CGRectValue
 		
-		self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height + 100, 0)
+		self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height, 0)
 		
 		self.scrollView.contentInset = contentInsets
 		self.scrollView.scrollIndicatorInsets = contentInsets
@@ -574,8 +574,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		var aRect = self.view.frame
 		aRect.size.height -= self.keyboardFrame.height
 		
+		let activeFieldAdjustedFrame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height)
+		
 		if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
-			self.scrollView.scrollRectToVisible(self.activeField.frame, animated: true)
+			self.scrollView.scrollRectToVisible(activeFieldAdjustedFrame, animated: true)
 		}
 	}
 	
