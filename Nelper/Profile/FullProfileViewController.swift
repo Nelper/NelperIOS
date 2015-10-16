@@ -458,7 +458,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-				let frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height + 10)
+		let frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height + 10)
         self.scrollView.contentSize = frame.size
     }
 	

@@ -542,7 +542,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+	}
+	
+	override func viewDidDisappear(animated: Bool) {
 		
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
 	func textFieldDidBeginEditing(textField: UITextField) {

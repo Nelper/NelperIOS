@@ -105,10 +105,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.locationsPickerView?.selectRow(0, inComponent: 0, animated: false)
 	}
 	
-	override func viewDidDisappear(animated: Bool) {
-		NSNotificationCenter.defaultCenter().removeObserver(self)
-	}
-	
 	//MARK: View Creation
 	
 	func createView() {
@@ -673,7 +669,11 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardDidShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-		
+	}
+	
+	override func viewDidDisappear(animated: Bool) {
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
 	func textFieldDidBeginEditing(textField: UITextField) {
