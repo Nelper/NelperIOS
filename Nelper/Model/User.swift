@@ -15,6 +15,7 @@ class User : BaseModel {
 	var rating: Double!
 	var completedTasks: Int!
 	var name: String!
+	var authData: String?
 	var firstName: String!
 	var lastName: String!
 	var location: GeoPoint?
@@ -36,6 +37,7 @@ class User : BaseModel {
 		completedTasks = parseUser["tasksCompleted"] as! Int!
 		objectId = parseUser.objectId!
 		name = parseUser["name"] as! String
+		authData = parseUser["authData"] as? String
 		//firstName = parseUser["firstName"] as! String
 		//lastName = parseUser["lastName"] as! String
 		location = parseUser["location"] as? GeoPoint

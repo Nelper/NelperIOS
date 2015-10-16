@@ -34,7 +34,6 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	var location: GeoPoint!
 	var addLocationButton:UIButton!
 	var address = Location()
-	var keyboardIsShowing: Bool = false
 	var addressOk:Bool!
 	var nameOk:Bool!
 	
@@ -352,7 +351,12 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+	}
+	
+	override func viewDidDisappear(animated: Bool) {
 		
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
 	func textFieldDidBeginEditing(textField: UITextField) {

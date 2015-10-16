@@ -94,7 +94,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.top.equalTo(scrollView.snp_top)
 			make.left.equalTo(scrollView.snp_left)
 			make.right.equalTo(scrollView.snp_right)
-			//make.bottom.equalTo(self.scrollView.snp_bottom)
 			make.height.greaterThanOrEqualTo(background.snp_height)
 			make.width.equalTo(background.snp_width)
 		}
