@@ -69,7 +69,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	
 	func createView() {
 		
-		let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+		let blurEffect = UIBlurEffect(style: .Dark)
 		let blurContainer = UIVisualEffectView(effect: blurEffect)
 		self.blurContainer = blurContainer
 		self.view.addSubview(blurContainer)
@@ -82,7 +82,6 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		self.tap.delegate = self
 		blurContainer.addGestureRecognizer(tap)
 		
-		self.view.backgroundColor = UIColor.clearColor()
 		self.view.backgroundColor = UIColor.clearColor()
 		self.view.addSubview(blurContainer)
 		
@@ -428,7 +427,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 			let popup = UIAlertController(title: "Missing information", message: "You must enter a name and select a valid address!", preferredStyle: UIAlertControllerStyle.Alert)
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 			}))
-				self.presentViewController(popup, animated: true, completion: nil)
+			self.presentViewController(popup, animated: true, completion: nil)
 		}
 	}
 	

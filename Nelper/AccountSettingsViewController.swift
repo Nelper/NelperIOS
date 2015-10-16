@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import FXBlurView
 
 class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
 	
@@ -66,11 +67,25 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	
 	var settingsWereEdited = false
 	
+	var saveConfirmationBackground: UIView!
+	var saveConfirmationBlurView: FXBlurView!
+	var saveConfirmationContainer: UIView!
+	var saveConfirmationLabel: UILabel!
+	
+	var textFieldError = false
+	var textFieldErrorMessages = [String]()
+	
+	var loginProvider: String!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		setLocations()
+		self.loginProvider = PFUser.currentUser()?.objectForKey("loginProvider") as? String
 		
+		self.userEmail = PFUser.currentUser()?.objectForKey("email") as? String
+		self.userPhone = "514-283-2746"
+		
+		setLocations()
 		createView()
 		setTextFields()
 		
@@ -79,11 +94,11 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.tap = tap
 		self.view.addGestureRecognizer(tap)
 		keyboardObserver()
-		self.currentTextField.delegate = self
-		self.newTextField.delegate = self
-		self.confirmTextField.delegate = self
 		self.emailTextField.delegate = self
 		self.phoneTextField.delegate = self
+		self.currentTextField?.delegate = self
+		self.newTextField?.delegate = self
+		self.confirmTextField?.delegate = self
 	}
 	
 	///MARK: UI
@@ -94,11 +109,12 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	}
 	
 	func setTextFields() {
-		self.userEmail = "admin@nelper.ca"
-		self.userPhone = "514-283-2746"
-		self.currentTextField.text = ""
-		self.newTextField.text = ""
-		self.confirmTextField.text = ""
+		self.emailTextField.text = self.userEmail
+		self.phoneTextField.text = self.userPhone
+		
+		self.currentTextField?.text = ""
+		self.newTextField?.text = ""
+		self.confirmTextField?.text = ""
 	}
 	
 	func setLocations() {
@@ -183,7 +199,6 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		let emailTextField = DefaultTextFieldView()
 		self.emailTextField = emailTextField
 		self.generalContainer.contentView.addSubview(self.emailTextField)
-		self.emailTextField.text = userEmail
 		self.emailTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.emailTextField.keyboardType = UIKeyboardType.EmailAddress
 		self.emailTextField.autocorrectionType = UITextAutocorrectionType.No
@@ -209,7 +224,6 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		let phoneTextField = DefaultTextFieldView()
 		self.phoneTextField = phoneTextField
 		self.generalContainer.contentView.addSubview(self.phoneTextField)
-		self.phoneTextField.text = userPhone
 		self.phoneTextField.keyboardType = UIKeyboardType.NamePhonePad
 		self.phoneTextField.autocorrectionType = UITextAutocorrectionType.No
 		self.phoneTextField.autocapitalizationType = UITextAutocapitalizationType.None
@@ -351,9 +365,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			make.bottom.equalTo(self.locationContainerArray[hardcodedArray.count - 1].snp_bottom).offset(20)
 		}
 		
-		let loginProvider: String? = PFUser.currentUser()?.objectForKey("loginProvider") as? String
-		
-		if (loginProvider == "email") {
+		if (self.loginProvider == "email") {
 			
 			self.willShowPassword = true
 			
@@ -455,7 +467,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			}
 		}
 		
-		///PASSWORD
+		///DELETE
 		let deleteContainer = DefaultContainerView()
 		self.deleteContainer = deleteContainer
 		self.contentView.addSubview(self.deleteContainer)
@@ -568,11 +580,25 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	
 	func backButtonTapped(sender: UIButton) {
 		
-		if (self.emailTextField.text != self.userEmail) || (self.phoneTextField.text != userPhone) || (self.currentTextField.text != "") || (self.newTextField.text != "") || (self.confirmTextField.text != "") {
+		if (self.loginProvider == "email") {
+			if (self.emailTextField.text != self.userEmail) || (self.phoneTextField.text != userPhone) || (self.currentTextField?.text != "") || (self.newTextField?.text != "") || (self.confirmTextField?.text != "") {
 			
-			self.settingsWereEdited = true
+				self.settingsWereEdited = true
+			
+			} else {
+			
+				self.settingsWereEdited = false
+			}
 		} else {
-			self.settingsWereEdited = false
+			
+			if (self.emailTextField.text != self.userEmail) || (self.phoneTextField.text != userPhone) {
+				
+				self.settingsWereEdited = true
+				
+			} else {
+				
+				self.settingsWereEdited = false
+			}
 		}
 		
 		if self.settingsWereEdited {
@@ -582,10 +608,9 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			let popupSubview = popup.view.subviews.first! as UIView
 			let popupContentView = popupSubview.subviews.first! as UIView
 			popupContentView.layer.cornerRadius = 0
-			
-			popup.view.subviews.first!
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 				self.dismissViewControllerAnimated(true, completion: nil)
+				self.setTextFields()
 			}))
 			popup.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action) -> Void in
 			}))
@@ -595,13 +620,140 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		} else {
 			
 			DismissKeyboard() // dismiss keyboard without delay
-			setTextFields()
 			self.dismissViewControllerAnimated(true, completion: nil)
 		}
 	}
 	
 	func saveButtonTapped(sender: UIButton) {
-		print("saved")
+		
+		self.textFieldError = false
+		self.textFieldErrorMessages.removeAll()
+		
+		if self.newTextField?.text != self.confirmTextField?.text {
+			print("passwords dont match")
+			self.textFieldError = true
+			self.textFieldErrorMessages.append("New passwords don't match")
+		}
+		
+		if !self.emailTextField.text!.isEmail() {
+			print("not a valid email address")
+			self.textFieldError = true
+			self.textFieldErrorMessages.append("Please enter a valid email address")
+		}
+		
+		//REVIEW FORMAT? EXTENSION.SWIFT
+		if !self.phoneTextField.text!.isPhoneNumber() {
+			print("not a valid phone number of type xxx-xxx-xxxx")
+			self.textFieldError = true
+			self.textFieldErrorMessages.append("Please enter a valid phone number")
+		}
+		
+		if self.textFieldError {
+			var popupMessage = ""
+			
+			for i in 0...(self.textFieldErrorMessages.count - 1) {
+				if i == 0 {
+					popupMessage = self.textFieldErrorMessages[i]
+				} else {
+					popupMessage += "\n\(self.textFieldErrorMessages[i])"
+				}
+			}
+			
+			DismissKeyboard()
+			
+			let popup = UIAlertController(title: "Please fix the following fields", message: popupMessage, preferredStyle: UIAlertControllerStyle.Alert)
+			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+			}))
+			self.presentViewController(popup, animated: true, completion: nil)
+			
+		} else {
+			
+			DismissKeyboard()
+			
+			let saveConfirmationBlurView = FXBlurView(frame: self.view.bounds)
+			self.saveConfirmationBlurView = saveConfirmationBlurView
+			self.saveConfirmationBlurView.alpha = 0
+			self.saveConfirmationBlurView.tintColor = UIColor.clearColor()
+			self.saveConfirmationBlurView.updateInterval = 100
+			self.saveConfirmationBlurView.iterations = 2
+			self.saveConfirmationBlurView.blurRadius = 4
+			self.saveConfirmationBlurView.dynamic = false
+			self.saveConfirmationBlurView.underlyingView = self.view
+			self.view.addSubview(self.saveConfirmationBlurView)
+			
+			let saveConfirmationBackground = UIView()
+			self.saveConfirmationBackground = saveConfirmationBackground
+			self.saveConfirmationBlurView.addSubview(self.saveConfirmationBackground)
+			self.saveConfirmationBackground.backgroundColor = blackPrimary.colorWithAlphaComponent(0.4)
+			self.saveConfirmationBackground.snp_makeConstraints { (make) -> Void in
+				make.edges.equalTo(self.saveConfirmationBlurView.snp_edges)
+			}
+			
+			let saveConfirmationContainer = UIView()
+			self.saveConfirmationContainer = saveConfirmationContainer
+			self.saveConfirmationBlurView.addSubview(self.saveConfirmationContainer)
+			self.saveConfirmationContainer.backgroundColor = whitePrimary
+			self.saveConfirmationContainer.snp_makeConstraints { (make) -> Void in
+				make.centerX.equalTo(self.view.snp_centerX)
+				make.centerY.equalTo(self.view.snp_centerY)
+				make.width.equalTo(self.view.snp_width).multipliedBy(0.7)
+				make.height.equalTo(0)
+			}
+			
+			let saveConfirmationLabel = UILabel()
+			self.saveConfirmationLabel = saveConfirmationLabel
+			self.saveConfirmationContainer.addSubview(saveConfirmationLabel)
+			self.saveConfirmationLabel.text = "Settings saved!"
+			self.saveConfirmationLabel.alpha = 0
+			self.saveConfirmationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+			self.saveConfirmationLabel.textColor = darkGrayText
+			self.saveConfirmationLabel.snp_makeConstraints { (make) -> Void in
+				make.centerX.equalTo(self.saveConfirmationContainer.snp_centerX)
+				make.centerY.equalTo(self.saveConfirmationContainer.snp_centerY)
+			}
+			
+			self.saveConfirmationContainer.layoutIfNeeded()
+			
+			self.saveConfirmationContainer.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(100)
+			}
+			
+			UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				self.saveConfirmationBlurView.alpha = 1
+				self.saveConfirmationContainer.layoutIfNeeded()
+				}, completion: nil)
+			
+			UIView.animateWithDuration(0.2, delay: 0.2, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				self.saveConfirmationLabel.alpha = 1
+				}, completion: nil)
+			
+			self.saveConfirmationContainer.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(0)
+			}
+			
+			UIView.animateWithDuration(0.2, delay: 2.5, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				self.saveConfirmationLabel.alpha = 0
+				}, completion: nil)
+			
+			UIView.animateWithDuration(0.2, delay: 2.7, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				self.saveConfirmationBlurView.alpha = 0
+				self.saveConfirmationContainer.layoutIfNeeded()
+				}, completion: nil)
+			
+			_ = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "dismissVC", userInfo: nil, repeats: false)
+			
+			PFUser.currentUser()!["email"] = self.emailTextField.text
+			PFUser.currentUser()!.saveInBackground()
+	 }
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		
+		self.saveConfirmationBlurView?.removeFromSuperview()
+	}
+	
+	func dismissVC() {
+		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
 	func locationContainerTapped(sender: UIButton) {

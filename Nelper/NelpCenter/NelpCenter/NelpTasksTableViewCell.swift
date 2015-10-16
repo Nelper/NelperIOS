@@ -207,7 +207,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		ApiHelper.getPictures(task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
 			self.topContainer.image = imageReturned.blurredImageWithRadius(3, iterations: 100, tintColor: nil)
 		})}}else{
-			self.topContainer.image = UIImage(named: "square_\(task.category!)")!.blurredImageWithRadius(3, iterations: 100, tintColor: nil)
+			self.topContainer.image = UIImage(named: "square_\(task.category!)")!.blurredImageWithRadius(4, iterations: 100, tintColor: nil)
 		}
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true

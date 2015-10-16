@@ -184,7 +184,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		if(nelpApplication.task.pictures != nil) {
 			if(!nelpApplication.task.pictures!.isEmpty){
 				getPictures(nelpApplication.task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
-					self.topContainer.image = imageReturned.blurredImageWithRadius(3, iterations: 100, tintColor: nil)
+					self.topContainer.image = imageReturned.blurredImageWithRadius(4, iterations: 100, tintColor: nil)
 				})}} else {
 			self.topContainer.image = UIImage(named: "square_\(nelpApplication.task.category!)")!.blurredImageWithRadius(3, iterations: 100, tintColor: nil)
 		}
