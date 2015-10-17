@@ -232,7 +232,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.titleTextField = taskTitleTextField
 		taskFormContainer.addSubview(taskTitleTextField)
 		taskTitleTextField.backgroundColor = whitePrimary
-		taskTitleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
+		taskTitleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
 		taskTitleTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		taskTitleTextField.textColor = blackPrimary
 		taskTitleTextField.textAlignment = NSTextAlignment.Left
@@ -278,7 +278,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		taskFormContainer.addSubview(descriptionTextView)
 		descriptionTextView.backgroundColor = whitePrimary
 		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText15)
-		descriptionTextView.textColor = blackPrimary
+		descriptionTextView.textColor = textFieldPlaceholderColor
 		descriptionTextView.textAlignment = NSTextAlignment.Left
 		descriptionTextView.layer.borderColor = grayDetails.CGColor
 		descriptionTextView.layer.borderWidth = 1
@@ -311,9 +311,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.priceOffered = priceOfferedTextField
 		taskFormContainer.addSubview(priceOfferedTextField)
 		priceOfferedTextField.backgroundColor = whitePrimary
-		priceOfferedTextField.attributedPlaceholder = NSAttributedString(string: "$", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
+		priceOfferedTextField.attributedPlaceholder = NSAttributedString(string: "$", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
 		priceOfferedTextField.font = UIFont(name: "Lato-Regular", size: kText15)
-		priceOfferedTextField.textColor = blackPrimary
+		priceOfferedTextField.textColor = textFieldTextColor
 		priceOfferedTextField.textAlignment = NSTextAlignment.Left
 		priceOfferedTextField.layer.borderColor = grayDetails.CGColor
 		priceOfferedTextField.layer.borderWidth = 1
@@ -691,7 +691,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		if textView.text == "Description   " {
 			textView.text = ""
-			textView.textColor = blackPrimary
+			textView.textColor = textFieldTextColor
 		}
 	}
 	
@@ -701,7 +701,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		if textView.text == "" {
 			textView.text = "Description   "
-			textView.textColor = blackPrimary.colorWithAlphaComponent(0.75)
+			textView.textColor = textFieldPlaceholderColor
 		}
 	}
 	

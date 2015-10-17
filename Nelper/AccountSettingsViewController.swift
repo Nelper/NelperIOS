@@ -36,6 +36,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		(name: "Office", address: "1 Rue Notre Dame Ouest\nMontréal-Des-Longues-Villes, QC\nH2Y 3N2")
 	]
 	var locationContainer: UIButton!
+	var locationContainerLine: UIView!
 	var locationContainerArray = [UIButton]()
 	var locationNameLabel: UILabel!
 	var locationName: UILabel!
@@ -354,6 +355,17 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 					make.top.equalTo(self.locationContainer.snp_top)
 					make.left.equalTo(self.locationAddressLabel.snp_left)
 					make.right.equalTo(self.locationContainer.snp_right)
+				}
+				
+				let locationContainerLine = UIView()
+				self.locationContainerLine = locationContainerLine
+				self.locationContainer.addSubview(locationContainerLine)
+				self.locationContainerLine.backgroundColor = darkGrayDetails
+				self.locationContainerLine.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(self.locationName.snp_top)
+					make.right.equalTo(self.locationName.snp_left).offset(-6)
+					make.width.equalTo(0.5)
+					make.bottom.equalTo(self.locationAddress.snp_bottom)
 				}
 				
 				self.locationName.snp_makeConstraints { (make) -> Void in
@@ -700,7 +712,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			let saveConfirmationBackground = UIView()
 			self.saveConfirmationBackground = saveConfirmationBackground
 			self.saveConfirmationBlurView.addSubview(self.saveConfirmationBackground)
-			self.saveConfirmationBackground.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
+			self.saveConfirmationBackground.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
 			self.saveConfirmationBackground.snp_makeConstraints { (make) -> Void in
 				make.edges.equalTo(self.saveConfirmationBlurView.snp_edges)
 			}
@@ -787,7 +799,13 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	func addTapped(sender: UIButton) {
 		DismissKeyboard()
 		
+		UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false, UIScreen.mainScreen().scale)
+		self.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
+		let blurImage = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+		
 		let nextVC = AddAddressViewController()
+		nextVC.blurImage = blurImage
 		nextVC.delegate = self
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
 		self.providesPresentationContextTransitionStyle = true

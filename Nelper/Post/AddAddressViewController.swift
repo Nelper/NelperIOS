@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Alamofire
 import SwiftyJSON
+import FXBlurView
 
 protocol AddAddressViewControllerDelegate {
 	func didClosePopup(vc:AddAddressViewController)
@@ -20,9 +21,10 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	var delegate:AddAddressViewControllerDelegate?
+	var backgroundImage: UIImageView!
 	var popupContainer: UIView!
 	var tap: UITapGestureRecognizer!
-	var blurContainer:UIVisualEffectView!
+	var blurContainer: FXBlurView!
 	var scrollView: UIScrollView!
 	var contentView: UIView!
 	var titleLabel: UILabel!
@@ -36,6 +38,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	var address = Location()
 	var addressOk:Bool!
 	var nameOk:Bool!
+	var blurImage: UIImage!
 	
 	var contentInsets: UIEdgeInsets!
 	var activeField: UITextField!
@@ -82,10 +85,20 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	
 	func createView() {
 		
-		let blurEffect = UIBlurEffect(style: .Dark)
-		let blurContainer = UIVisualEffectView(effect: blurEffect)
+		let backgroundImage = UIImageView(frame: self.view.frame)
+		self.backgroundImage = backgroundImage
+		self.backgroundImage.image = self.blurImage//.blurredImageWithRadius(3, iterations: 100, tintColor: nil)
+		self.view.addSubview(backgroundImage)
+		
+		let blurContainer = FXBlurView(frame: self.view.bounds)
 		self.blurContainer = blurContainer
-		self.view.addSubview(blurContainer)
+		self.blurContainer.tintColor = UIColor.clearColor()
+		self.blurContainer.updateInterval = 100
+		self.blurContainer.iterations = 2
+		self.blurContainer.blurRadius = 4
+		self.blurContainer.dynamic = false
+		self.blurContainer.underlyingView = nil
+		self.backgroundImage.addSubview(self.blurContainer)
 		blurContainer.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.view.snp_edges)
 		}
@@ -100,6 +113,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		
 		let scrollView = UIScrollView()
 		self.scrollView = scrollView
+		self.scrollView.backgroundColor = blackPrimary.colorWithAlphaComponent(0.4)
 		self.blurContainer.addSubview(self.scrollView)
 		self.scrollView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.blurContainer.snp_edges)
@@ -140,9 +154,9 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		self.nameTextField = nameTextField
 		popupContainer.addSubview(nameTextField)
 		nameTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.70)
-		nameTextField.attributedPlaceholder = NSAttributedString(string: "Name (home, office, etc.)", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
+		nameTextField.attributedPlaceholder = NSAttributedString(string: "Name (home, office, etc.)", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
 		nameTextField.font = UIFont(name: "Lato-Regular", size: kText15)
-		nameTextField.textColor = blackPrimary
+		nameTextField.textColor = textFieldTextColor
 		nameTextField.textAlignment = NSTextAlignment.Left
 		nameTextField.autocorrectionType = UITextAutocorrectionType.No
 		let paddingViewLocationName = UIView(frame: CGRectMake(0, 0, 10, 0))
@@ -160,11 +174,11 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		addressTextField.delegate = self
 		popupContainer.addSubview(addressTextField)
 		addressTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.70)
-		addressTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
+		addressTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
 		addressTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		addressTextField.keyboardType = UIKeyboardType.NumbersAndPunctuation
 		addressTextField.autocorrectionType = UITextAutocorrectionType.No
-		addressTextField.textColor = blackPrimary
+		addressTextField.textColor = textFieldTextColor
 		addressTextField.textAlignment = NSTextAlignment.Left
 		let paddingViewLocation = UIView(frame: CGRectMake(0, 0, 10, 0))
 		addressTextField.leftView = paddingViewLocation

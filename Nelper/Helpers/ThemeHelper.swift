@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 
 //COLORS
@@ -23,6 +23,8 @@ let grayDetails = hexStringToUIColor("e1e1e1")
 let darkGrayDetails = hexStringToUIColor("979797")
 let darkGrayText = hexStringToUIColor("3d3d3d")
 
+let textFieldTextColor = darkGrayText.colorWithAlphaComponent(0.8)
+let textFieldPlaceholderColor = darkGrayText.colorWithAlphaComponent(0.5)
 
 let progressGreen = hexStringToUIColor("29B473")
 let pendingYellow = hexStringToUIColor("F7CC39")

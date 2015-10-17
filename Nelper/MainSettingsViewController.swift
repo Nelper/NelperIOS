@@ -97,10 +97,19 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 		
 		let cell = self.tableView.dequeueReusableCellWithIdentifier(MainSettingsViewCell.reuseIdentifier, forIndexPath: indexPath) as! MainSettingsViewCell
 		
+		let lastSectionIndex = self.tableView.numberOfSections - 1
+		let lastRowIndex = self.tableView.numberOfRowsInSection(lastSectionIndex) - 1
+		
+		if (indexPath.section == lastSectionIndex) && (indexPath.row == lastRowIndex) {
+			cell.setLastSectionLine(true)
+		}
+		
 		let sectionTitle = self.sections[indexPath.row]
 		cell.setSectionTitle(sectionTitle.title)
 		
 		cell.selectionStyle = UITableViewCellSelectionStyle.Blue
+		
+		
 		
 		return cell
 	}

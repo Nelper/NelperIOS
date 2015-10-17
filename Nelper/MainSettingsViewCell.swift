@@ -85,5 +85,12 @@ class MainSettingsViewCell: UITableViewCell {
 	func setSectionTitle(sectionTitle: String) {
 		self.sectionLabel.text = sectionTitle
 	}
-	
+
+	func setLastSectionLine(isLast: Bool) {
+		if (isLast == true) {
+			self.separatorLine.snp_updateConstraints { (make) -> Void in
+				make.left.equalTo(self.cellView.snp_left)
+			}
+		}
+	}
 }
