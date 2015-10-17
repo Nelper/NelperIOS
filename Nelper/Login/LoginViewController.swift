@@ -12,8 +12,6 @@ protocol LoginViewControllerDelegate {
 	func onLogin() -> Void
 }
 
-
-
 class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
 
 	let permissions = ["public_profile"]
@@ -57,7 +55,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	var emailActive = false
 	var registerActive = false
 	
-	var keyboardFrame: CGRect!
 	var contentInsets: UIEdgeInsets!
 	var activeField: UITextField!
 	var fieldEditing = false
@@ -78,7 +75,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.view.addGestureRecognizer(tap)
 		
 		// KEYBOARD VIEW MOVER
-		keyboardObserver()
 		self.emailField.delegate = self
 		self.passwordField.delegate = self
 		self.firstnameField.delegate = self
@@ -86,6 +82,20 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.emailFieldRegister.delegate = self
 		self.passwordFieldRegister.delegate = self
 		self.passwordFieldConfirmRegister.delegate = self
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(true)
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+	}
+	
+	override func viewDidDisappear(animated: Bool) {
+		super.viewDidDisappear(true)
+		
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
 	override func viewDidLayoutSubviews() {
@@ -529,26 +539,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		
 	}
 	
-	// Elements animation (fade in)
-	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		
-	}
-	
-	//MARK: KEYBOARD VIEW MOVER
-	
-	func keyboardObserver() {
-		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-	}
-	
-	override func viewDidDisappear(animated: Bool) {
-		
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-	}
+	//MARK: KEYBOARD VIEW MOVER, WITH viewDidDis/Appear AND textfielddelegate
 	
 	func textFieldDidBeginEditing(textField: UITextField) {
 		self.activeField = textField
@@ -563,8 +554,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	func keyboardDidShow(notification: NSNotification) {
 		
 		let info = notification.userInfo!
-		let value = info[UIKeyboardFrameEndUserInfoKey]!
-		self.keyboardFrame = value.CGRectValue
+		var keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+		keyboardFrame = self.view.convertRect(keyboardFrame, fromView: nil)
 		
 		self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height, 0)
 		
@@ -572,12 +563,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.scrollView.scrollIndicatorInsets = contentInsets
 		
 		var aRect = self.view.frame
-		aRect.size.height -= self.keyboardFrame.height
+		aRect.size.height -= keyboardFrame.height
 		
-		let activeFieldAdjustedFrame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height)
+		let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
 		
-		if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
-			self.scrollView.scrollRectToVisible(activeFieldAdjustedFrame, animated: true)
+		if self.activeField != nil {
+			if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
+				self.scrollView.scrollRectToVisible(frame, animated: true)
+			}
 		}
 	}
 	

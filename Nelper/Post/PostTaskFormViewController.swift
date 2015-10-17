@@ -44,7 +44,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var picturesCollectionView: UICollectionView!
 	var arrayOfPictures = Array<UIImage>()
 	
-	var keyboardFrame: CGRect!
 	var contentInsets: UIEdgeInsets!
 	var activeField: UIView!
 	var fieldEditing = false
@@ -95,14 +94,25 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		contentView.addGestureRecognizer(tap)
 		
 		// KEYBOARD VIEW MOVER
-		keyboardObserver()
 		self.titleTextField.delegate = self
 		self.priceOffered.delegate = self
 		self.descriptionTextView.delegate = self
 	}
 	
 	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(true)
+		
 		self.locationsPickerView?.selectRow(0, inComponent: 0, animated: false)
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardDidShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+	}
+	
+	override func viewDidDisappear(animated: Bool) {
+		super.viewDidDisappear(true)
+		
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
 	//MARK: View Creation
@@ -514,7 +524,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		}
 	}
 	
-	//MARK:UICollectionView Datasource and Delegate
+	//MARK: UICollectionView Datasource and Delegate
 	
 	func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
 		return 1
@@ -663,18 +673,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 	}
 	
-	//MARK: KEYBOARD VIEW MOVER
-	
-	func keyboardObserver() {
-		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardDidShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-	}
-	
-	override func viewDidDisappear(animated: Bool) {
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-	}
+	//MARK: KEYBOARD VIEW MOVER, WITH viewDidDis/Appear AND textfielddelegate
 	
 	func textFieldDidBeginEditing(textField: UITextField) {
 		self.activeField = textField
@@ -710,19 +709,23 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		if !popupShown {
 			let info = notification.userInfo!
-			let value = info[UIKeyboardFrameEndUserInfoKey]!
-			self.keyboardFrame = value.CGRectValue
-		
+			var keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+			keyboardFrame = self.view.convertRect(keyboardFrame, fromView: nil)
+			
 			self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height, 0)
-		
+			
 			self.scrollView.contentInset = contentInsets
 			self.scrollView.scrollIndicatorInsets = contentInsets
-		
+			
 			var aRect = self.view.frame
-			aRect.size.height -= self.keyboardFrame.height
-		
-			if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
-				self.scrollView.scrollRectToVisible(self.activeField.frame, animated: true)
+			aRect.size.height -= keyboardFrame.height
+			
+			let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
+			
+			if self.activeField != nil {
+				if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
+					self.scrollView.scrollRectToVisible(frame, animated: true)
+				}
 			}
 		}
 	}

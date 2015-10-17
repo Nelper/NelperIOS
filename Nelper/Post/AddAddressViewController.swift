@@ -37,7 +37,6 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	var addressOk:Bool!
 	var nameOk:Bool!
 	
-	var keyboardFrame: CGRect!
 	var contentInsets: UIEdgeInsets!
 	var activeField: UITextField!
 	var fieldEditing = false
@@ -52,17 +51,31 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		addressOk = false
 		nameOk = false
 		
-		self.createView()
+		createView()
 		
 		// KEYBOARD VIEW MOVER
-		keyboardObserver()
 		self.nameTextField.delegate = self
 		self.addressTextField.delegate = self
 	}
 	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(true)
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+	}
+	
+	override func viewDidDisappear(animated: Bool) {
+		super.viewDidDisappear(true)
+		
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+	}
+	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		self.scrollView.contentSize = self.popupContainer.frame.size
+		self.scrollView.contentSize = self.contentView.frame.size
+		self.scrollView.contentSize.height *= 0.8
 	}
 	
 	//MARK: View Creation
@@ -344,19 +357,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		}
 	}
 	
-	//MARK: KEYBOARD VIEW MOVER
-	
-	func keyboardObserver() {
-		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-	}
-	
-	override func viewDidDisappear(animated: Bool) {
-		
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-	}
+	//MARK: KEYBOARD VIEW MOVER, WITH viewDidDis/Appear AND textfielddelegate
 	
 	func textFieldDidBeginEditing(textField: UITextField) {
 		self.activeField = textField
@@ -371,19 +372,23 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	func keyboardDidShow(notification: NSNotification) {
 		
 		let info = notification.userInfo!
-		let value = info[UIKeyboardFrameEndUserInfoKey]!
-		self.keyboardFrame = value.CGRectValue
+		var keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+		keyboardFrame = self.view.convertRect(keyboardFrame, fromView: nil)
 		
-		self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height + 100, 0)
+		self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height, 0)
 		
 		self.scrollView.contentInset = contentInsets
 		self.scrollView.scrollIndicatorInsets = contentInsets
 		
 		var aRect = self.view.frame
-		aRect.size.height -= self.keyboardFrame.height
+		aRect.size.height -= keyboardFrame.height
 		
-		if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
-			self.scrollView.scrollRectToVisible(self.activeField.frame, animated: true)
+		let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
+		
+		if self.activeField != nil {
+			if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
+				self.scrollView.scrollRectToVisible(frame, animated: true)
+			}
 		}
 	}
 	
