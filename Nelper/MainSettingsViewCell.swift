@@ -64,8 +64,8 @@ class MainSettingsViewCell: UITableViewCell {
 		self.rightArrow.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(self.cellView.snp_right).offset(-20)
 			make.centerY.equalTo(self.cellView.snp_centerY)
-			make.height.equalTo(25)
-			make.width.equalTo(15)
+			make.height.equalTo(18)
+			make.width.equalTo(10)
 		}
 		
 		let separatorLine = UIView()
@@ -74,7 +74,7 @@ class MainSettingsViewCell: UITableViewCell {
 		self.separatorLine.backgroundColor = grayDetails
 		self.separatorLine.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(self.cellView.snp_right)
-			make.left.equalTo(self.cellView.snp_left)
+			make.left.equalTo(self.cellView.snp_left).offset(20)
 			make.bottom.equalTo(self.cellView.snp_bottom)
 			make.height.equalTo(0.5)
 		}

@@ -22,7 +22,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	@IBOutlet weak var container: UIView!
 	@IBOutlet weak var mapViewContainer: UIView!
 	
-	
 	@IBOutlet weak var tableViewContainer: UIView!
 	
 	@IBOutlet weak var centerButton: UIButton!
@@ -129,7 +128,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	- returns: void
 	*/
 	
-	func initializeMapview(){
+	func initializeMapview() {
 		
 		self.locationManager.delegate = self;
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -138,13 +137,11 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.locationManager.distanceFilter = 40
 		
 		let mapview = MKMapView()
-		
-		self.mapView = mapview;
-		
+		self.mapView = mapview
 		self.mapViewContainer.addSubview(mapview)
 		self.mapView.showsUserLocation = true
 		
-		if((self.locationManager.location) != nil){
+		if ((self.locationManager.location) != nil) {
 			let userLocation: CLLocation = self.locationManager.location!
 			self.currentLocation = userLocation
 			LocationHelper.sharedInstance.currentLocation = PFGeoPoint(latitude:userLocation.coordinate.latitude, longitude:userLocation.coordinate.longitude)

@@ -22,7 +22,7 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		cellHeight = 60
+		cellHeight = 54
 		
 		let accountVc = AccountSettingsViewController()
 		let notificationsVc = NotificationsSettingsViewController()

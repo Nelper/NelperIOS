@@ -323,8 +323,8 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				self.locationName = locationName
 				self.locationContainer.addSubview(self.locationName)
 				self.locationName.text = hardcodedArray[i].name
-				self.locationName.font = UIFont(name: "Lato-Regular", size: kText15)
-				self.locationName.textColor = darkGrayDetails
+				self.locationName.font = UIFont(name: "Lato-Light", size: kText15)
+				self.locationName.textColor = darkGrayText
 				self.locationName.snp_makeConstraints { (make) -> Void in
 					make.top.equalTo(self.locationContainer.snp_top)
 					make.left.equalTo(self.locationNameLabel.snp_left)
@@ -335,8 +335,8 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				self.locationContainer.addSubview(self.locationAddress)
 				self.locationAddress.text = hardcodedArray[i].address
 				self.locationAddress.numberOfLines = 0
-				self.locationAddress.font = UIFont(name: "Lato-Regular", size: kText15)
-				self.locationAddress.textColor = darkGrayDetails
+				self.locationAddress.font = UIFont(name: "Lato-Light", size: kText15)
+				self.locationAddress.textColor = darkGrayText
 				self.locationAddress.snp_makeConstraints { (make) -> Void in
 					make.top.equalTo(self.locationContainer.snp_top)
 					make.left.equalTo(self.locationAddressLabel.snp_left)
@@ -362,7 +362,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		}
 		
 		self.locationsContainer.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.locationContainerArray[hardcodedArray.count - 1].snp_bottom).offset(20)
+			make.bottom.equalTo(self.locationContainerArray[hardcodedArray.count - 1].snp_bottom).offset(30)
 		}
 		
 		if (self.loginProvider == "email") {
@@ -495,7 +495,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.deleteContainer.contentView.addSubview(self.deletionNoticeLabel)
 		self.deletionNoticeLabel.text = "Account deletion is permanent"
 		self.deletionNoticeLabel.font = UIFont(name: "Lato-Light", size: kText15)
-		self.deletionNoticeLabel.textColor = darkGrayText
+		self.deletionNoticeLabel.textColor = redPrimary
 		self.deletionNoticeLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.deleteContainer.contentView.snp_top).offset(15)
 			make.left.equalTo(self.deleteContainer.snp_left).offset(self.kPadding)
@@ -506,6 +506,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.deleteContainer.addSubview(deleteButton)
 		self.deleteButton.backgroundColor = whitePrimary
 		self.deleteButton.setTitle("Delete my account", forState: UIControlState.Normal)
+		self.deleteButton.setTitleColor(darkGrayText, forState: UIControlState.Normal)
 		self.deleteButton.addTarget(self, action: "deleteButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.deleteButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.deletionNoticeLabel.snp_bottom).offset(15)
@@ -684,7 +685,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			let saveConfirmationBackground = UIView()
 			self.saveConfirmationBackground = saveConfirmationBackground
 			self.saveConfirmationBlurView.addSubview(self.saveConfirmationBackground)
-			self.saveConfirmationBackground.backgroundColor = blackPrimary.colorWithAlphaComponent(0.4)
+			self.saveConfirmationBackground.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
 			self.saveConfirmationBackground.snp_makeConstraints { (make) -> Void in
 				make.edges.equalTo(self.saveConfirmationBlurView.snp_edges)
 			}
@@ -718,12 +719,12 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				make.height.equalTo(100)
 			}
 			
-			UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+			UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
 				self.saveConfirmationBlurView.alpha = 1
 				self.saveConfirmationContainer.layoutIfNeeded()
 				}, completion: nil)
 			
-			UIView.animateWithDuration(0.2, delay: 0.2, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+			UIView.animateWithDuration(0.4, delay: 0.2, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
 				self.saveConfirmationLabel.alpha = 1
 				}, completion: nil)
 			
@@ -769,14 +770,16 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	}
 	
 	func addTapped(sender: UIButton) {
-		if self.fieldEditing {
-			
-			DismissKeyboard()
-			
-		} else {
-			
-			//self.popupShown = true
-		}
+		/*DismissKeyboard()
+		
+		let nextVC = AddAddressViewController()
+		nextVC.delegate = self
+		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+		self.providesPresentationContextTransitionStyle = true
+		nextVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+		self.presentViewController(nextVC, animated: true, completion: nil)
+		
+		self.popupShown = true*/
 	}
 	
 	func deleteButtonTapped(sender: UIButton) {

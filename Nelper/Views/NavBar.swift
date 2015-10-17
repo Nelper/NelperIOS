@@ -99,14 +99,14 @@ class NavBar: UINavigationBar {
 		}
 		
 		self.titleView = UILabel()
-		self.titleView.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
+		self.titleView.font = UIFont(name: "Lato-Light", size: kNavTitle18)
 		self.titleView.textColor = whitePrimary
 		self.titleView.sizeToFit()
 		
 		self.container.addSubview(self.titleView)
 		self.titleView.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(self.container.snp_centerX).offset(0)
-			make.centerY.equalTo(self.container.snp_centerY).offset(8)
+			make.centerX.equalTo(self.container.snp_centerX)
+			make.centerY.equalTo(self.container.snp_centerY).offset(9)
 		}
 	}
 	

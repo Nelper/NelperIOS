@@ -76,7 +76,7 @@ class DefaultContainerView: UIView {
 		let titleLine = UIView()
 		self.titleLine = titleLine
 		self.titleView.addSubview(self.titleLine)
-		self.titleLine.backgroundColor = grayDetails
+		self.titleLine.backgroundColor = darkGrayDetails
 		self.titleLine.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(self.titleView.snp_bottom)
 			make.centerX.equalTo(self.backgroundView.snp_centerX)
@@ -125,7 +125,7 @@ class DefaultTextFieldView: UITextField {
 	func createView() {
 		self.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.textColor = darkGrayDetails
+		self.textColor = darkGrayText.colorWithAlphaComponent(0.8)
 		self.backgroundColor = whitePrimary
 		self.layer.borderWidth = 0.5
 		self.layer.borderColor = grayDetails.CGColor

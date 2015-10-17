@@ -19,7 +19,8 @@ class SegmentController: UIControl {
 	private var labels = [UILabel]()
 	var thumbView = UIView()
 	var thumbLine = UIView()
-
+	let thumbLineHeight: CGFloat! = 3
+	
 	var delegate: SegmentControllerDelegate?
 	
 	var items = [String]() {
@@ -89,7 +90,7 @@ class SegmentController: UIControl {
 		let newWidth = CGRectGetWidth(selectFrame) / CGFloat(items.count)
 		selectFrame.size.width = newWidth
 		
-		thumbLine.frame = CGRect(x: selectFrame.minX, y: selectFrame.maxY - 2, width: selectFrame.width, height: CGFloat(2))
+		thumbLine.frame = CGRect(x: selectFrame.minX, y: (selectFrame.maxY - self.thumbLineHeight), width: selectFrame.width, height: self.thumbLineHeight)
 		thumbLine.backgroundColor = redPrimary
 		thumbLine.layer.zPosition = 1
 		
@@ -101,7 +102,7 @@ class SegmentController: UIControl {
 		let labelWidth = self.bounds.width / CGFloat(labels.count)
 		
 		for index in 0...labels.count - 1 {
-			var label = labels[index]
+			let label = labels[index]
 			
 			let xPosition = CGFloat(index) * labelWidth
 			label.frame = CGRectMake(xPosition, 0, labelWidth, labelHeight)
@@ -131,7 +132,7 @@ class SegmentController: UIControl {
 		label.textColor = redPrimary
 		
 		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
-			self.thumbLine.frame = CGRect(x: label.frame.minX, y: label.frame.maxY - 2, width: label.frame.width, height: CGFloat(2))
+			self.thumbLine.frame = CGRect(x: label.frame.minX, y: (label.frame.maxY - self.thumbLineHeight), width: label.frame.width, height: self.thumbLineHeight)
 			//self.thumbView.frame = label.frame
 		}, completion: nil)
 
