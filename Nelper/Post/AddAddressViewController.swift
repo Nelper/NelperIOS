@@ -99,7 +99,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		self.blurContainer.dynamic = false
 		self.blurContainer.underlyingView = nil
 		self.backgroundImage.addSubview(self.blurContainer)
-		blurContainer.snp_makeConstraints { (make) -> Void in
+		self.blurContainer.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.view.snp_edges)
 		}
 		
@@ -203,7 +203,6 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		
 		popupContainer.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(addLocationButton)
-			//make.height.equalTo(300)
 		}
 		
 		//Google Autocomplete Table View

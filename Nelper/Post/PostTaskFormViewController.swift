@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Alamofire
 import SwiftyJSON
+import FXBlurView
 
 protocol PostTaskFormViewControllerDelegate {
 	func nelpTaskAdded(task: FindNelpTask) -> Void
@@ -167,7 +168,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		let headerPicture = UIImageView()
 		contentView.addSubview(headerPicture)
-		headerPicture.image = UIImage(named: "square_\(self.task.category!)")
+		headerPicture.image = UIImage(named: "square_\(self.task.category!)")!.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
 		headerPicture.contentMode = UIViewContentMode.ScaleAspectFill
 		headerPicture.clipsToBounds = true
 		headerPicture.layer.borderWidth = 1
@@ -178,21 +179,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.right.equalTo(contentView.snp_right).offset(1)
 			make.height.equalTo(100)
 		}
-		
-		let blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
-		let blurView = UIVisualEffectView(effect: blur)
-		headerPicture.addSubview(blurView)
-		blurView.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(headerPicture.snp_edges)
-		}
-		
-		let topContainerDarkBox = UIView()
-		headerPicture.addSubview(topContainerDarkBox)
-		topContainerDarkBox.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(headerPicture.snp_edges)
-		}
-		topContainerDarkBox.backgroundColor = blackPrimary
-		topContainerDarkBox.alpha = 0.15
 		
 		let headerPictureLogo = UIImageView()
 		headerPicture.addSubview(headerPictureLogo)
@@ -282,9 +268,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		descriptionTextView.textAlignment = NSTextAlignment.Left
 		descriptionTextView.layer.borderColor = grayDetails.CGColor
 		descriptionTextView.layer.borderWidth = 1
-		descriptionTextView.layer.sublayerTransform = CATransform3DMakeTranslation(7, 0, 0)
+		descriptionTextView.layer.sublayerTransform = CATransform3DMakeTranslation(6, 0, 0)
 		descriptionTextView.text = "Description   "
-		descriptionTextView.textColor = blackPrimary.colorWithAlphaComponent(0.75)
 		
 		
 		descriptionTextView.snp_makeConstraints { (make) -> Void in

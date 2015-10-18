@@ -45,6 +45,7 @@ class DefaultContainerView: UIView {
 		let backgroundView = UIView()
 		self.backgroundView = backgroundView
 		self.addSubview(self.backgroundView)
+		self.backgroundView.backgroundColor = darkGrayDetails.colorWithAlphaComponent(0.8)
 		self.backgroundView.layer.borderColor = grayDetails.CGColor
 		self.backgroundView.layer.borderWidth = 1
 		self.backgroundView.snp_makeConstraints { (make) -> Void in
@@ -73,22 +74,12 @@ class DefaultContainerView: UIView {
 			make.left.equalTo(self.titleView.snp_left).offset(20)
 		}
 		
-		let titleLine = UIView()
-		self.titleLine = titleLine
-		self.titleView.addSubview(self.titleLine)
-		self.titleLine.backgroundColor = darkGrayDetails
-		self.titleLine.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.titleView.snp_bottom)
-			make.centerX.equalTo(self.backgroundView.snp_centerX)
-			make.height.equalTo(0.5)
-		}
-		
 		let contentView = UIView()
 		self.contentView = contentView
 		self.backgroundView.addSubview(self.contentView)
 		self.contentView.backgroundColor = whitePrimary
 		self.contentView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.titleView.snp_bottom).offset(1)
+			make.top.equalTo(self.titleView.snp_bottom).offset(0.5)
 			make.left.equalTo(self.backgroundView.snp_left)
 			make.right.equalTo(self.backgroundView.snp_right)
 			make.bottom.equalTo(self.backgroundView.snp_bottom)
@@ -127,7 +118,7 @@ class DefaultTextFieldView: UITextField {
 		self.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.textColor = textFieldTextColor
 		self.backgroundColor = whitePrimary
-		self.layer.borderWidth = 0.5
+		self.layer.borderWidth = 1
 		self.layer.borderColor = grayDetails.CGColor
 		self.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(50)
