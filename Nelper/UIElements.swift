@@ -125,7 +125,7 @@ class DefaultTextFieldView: UITextField {
 	func createView() {
 		self.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.textColor = darkGrayText.colorWithAlphaComponent(0.8)
+		self.textColor = textFieldTextColor
 		self.backgroundColor = whitePrimary
 		self.layer.borderWidth = 0.5
 		self.layer.borderColor = grayDetails.CGColor

@@ -12,8 +12,6 @@ protocol LoginViewControllerDelegate {
 	func onLogin() -> Void
 }
 
-
-
 class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
 
 	let permissions = ["public_profile"]
@@ -57,7 +55,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	var emailActive = false
 	var registerActive = false
 	
-	var keyboardFrame: CGRect!
 	var contentInsets: UIEdgeInsets!
 	var activeField: UITextField!
 	var fieldEditing = false
@@ -78,7 +75,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.view.addGestureRecognizer(tap)
 		
 		// KEYBOARD VIEW MOVER
-		keyboardObserver()
 		self.emailField.delegate = self
 		self.passwordField.delegate = self
 		self.firstnameField.delegate = self
@@ -86,6 +82,20 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.emailFieldRegister.delegate = self
 		self.passwordFieldRegister.delegate = self
 		self.passwordFieldConfirmRegister.delegate = self
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(true)
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+	}
+	
+	override func viewDidDisappear(animated: Bool) {
+		super.viewDidDisappear(true)
+		
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
 	override func viewDidLayoutSubviews() {
@@ -275,7 +285,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let emailField = UITextField()
 		self.emailField = emailField
 		self.secondContainer.addSubview(emailField)
-		self.emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
+		self.emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.emailField.textColor = textFieldTextColor
 		self.emailField.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.emailField.keyboardType = UIKeyboardType.EmailAddress
 		self.emailField.autocorrectionType = UITextAutocorrectionType.No
@@ -301,10 +312,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		}
 		
 		let passwordField = UITextField()
-		passwordField.secureTextEntry = true
 		self.passwordField = passwordField
 		self.secondContainer.addSubview(passwordField)
-		self.passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
+		self.passwordField.secureTextEntry = true
+		self.passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.passwordField.textColor = textFieldTextColor
 		self.passwordField.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.passwordField.autocorrectionType = UITextAutocorrectionType.No
 		self.passwordField.autocapitalizationType = UITextAutocapitalizationType.None
@@ -394,7 +406,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let firstnameField = UITextField()
 		self.firstnameField = firstnameField
 		self.thirdContainer.addSubview(firstnameField)
-		self.firstnameField.attributedPlaceholder = NSAttributedString(string: "First name", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
+		self.firstnameField.attributedPlaceholder = NSAttributedString(string: "First name", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.firstnameField.textColor = textFieldTextColor
 		self.firstnameField.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.firstnameField.autocorrectionType = UITextAutocorrectionType.No
 		self.firstnameField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
@@ -420,7 +433,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let lastnameField = UITextField()
 		self.lastnameField = lastnameField
 		self.thirdContainer.addSubview(lastnameField)
-		self.lastnameField.attributedPlaceholder = NSAttributedString(string: "Last name", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
+		self.lastnameField.attributedPlaceholder = NSAttributedString(string: "Last name", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.lastnameField.textColor = textFieldTextColor
 		self.lastnameField.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.lastnameField.autocorrectionType = UITextAutocorrectionType.No
 		self.lastnameField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
@@ -435,7 +449,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let emailFieldRegister = UITextField()
 		self.emailFieldRegister = emailFieldRegister
 		self.thirdContainer.addSubview(emailFieldRegister)
-		self.emailFieldRegister.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
+		self.emailFieldRegister.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.emailFieldRegister.textColor = textFieldTextColor
 		self.emailFieldRegister.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.emailFieldRegister.keyboardType = UIKeyboardType.EmailAddress
 		self.emailFieldRegister.autocorrectionType = UITextAutocorrectionType.No
@@ -450,10 +465,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		}
 		
 		let passwordFieldRegister = UITextField()
-		passwordFieldRegister.secureTextEntry = true
 		self.passwordFieldRegister = passwordFieldRegister
 		self.thirdContainer.addSubview(passwordFieldRegister)
-		self.passwordFieldRegister.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
+		self.passwordFieldRegister.secureTextEntry = true
+		self.passwordFieldRegister.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.passwordFieldRegister.textColor = textFieldTextColor
 		self.passwordFieldRegister.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.passwordFieldRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.passwordFieldRegister.autocapitalizationType = UITextAutocapitalizationType.None
@@ -478,10 +494,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		}
 		
 		let passwordFieldConfirmRegister = UITextField()
-		passwordFieldConfirmRegister.secureTextEntry = true
 		self.passwordFieldConfirmRegister = passwordFieldConfirmRegister
+		self.passwordFieldConfirmRegister.secureTextEntry = true
 		self.thirdContainer.addSubview(passwordFieldConfirmRegister)
-		self.passwordFieldConfirmRegister.attributedPlaceholder = NSAttributedString(string: "Confirm password", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.50)])
+		self.passwordFieldConfirmRegister.attributedPlaceholder = NSAttributedString(string: "Confirm password", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.passwordFieldConfirmRegister.textColor = textFieldTextColor
 		self.passwordFieldConfirmRegister.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.passwordFieldConfirmRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.passwordFieldConfirmRegister.autocapitalizationType = UITextAutocapitalizationType.None
@@ -529,26 +546,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		
 	}
 	
-	// Elements animation (fade in)
-	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		
-	}
-	
-	//MARK: KEYBOARD VIEW MOVER
-	
-	func keyboardObserver() {
-		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-	}
-	
-	override func viewDidDisappear(animated: Bool) {
-		
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-	}
+	//MARK: KEYBOARD VIEW MOVER, WITH viewDidDis/Appear AND textfielddelegate
 	
 	func textFieldDidBeginEditing(textField: UITextField) {
 		self.activeField = textField
@@ -563,8 +561,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	func keyboardDidShow(notification: NSNotification) {
 		
 		let info = notification.userInfo!
-		let value = info[UIKeyboardFrameEndUserInfoKey]!
-		self.keyboardFrame = value.CGRectValue
+		var keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+		keyboardFrame = self.view.convertRect(keyboardFrame, fromView: nil)
 		
 		self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height, 0)
 		
@@ -572,12 +570,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.scrollView.scrollIndicatorInsets = contentInsets
 		
 		var aRect = self.view.frame
-		aRect.size.height -= self.keyboardFrame.height
+		aRect.size.height -= keyboardFrame.height
 		
-		let activeFieldAdjustedFrame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height)
+		let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
 		
-		if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
-			self.scrollView.scrollRectToVisible(activeFieldAdjustedFrame, animated: true)
+		if self.activeField != nil {
+			if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
+				self.scrollView.scrollRectToVisible(frame, animated: true)
+			}
 		}
 	}
 	

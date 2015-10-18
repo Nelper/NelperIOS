@@ -48,7 +48,7 @@ class NavBar: UINavigationBar {
 				self.container.addSubview(self.closeButtonView!)
 				self.closeButtonView?.snp_makeConstraints(closure: { (make) -> Void in
 					make.left.equalTo(self.container.snp_left)
-					make.centerY.equalTo(self.container.snp_centerY).offset(8)
+					make.centerY.equalTo(self.container.snp_centerY).offset(9)
 					make.height.equalTo(70)
 					make.width.equalTo(70)
 				})
@@ -70,7 +70,7 @@ class NavBar: UINavigationBar {
 				self.saveButtonView?.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 				self.container.addSubview(self.saveButtonView!)
 				self.saveButtonView?.snp_makeConstraints { (make) -> Void in
-					make.centerY.equalTo(self.container.snp_centerY).offset(8)
+					make.centerY.equalTo(self.container.snp_centerY).offset(9)
 					make.right.equalTo(self.self.container.snp_right)
 					make.height.equalTo(70)
 					make.width.equalTo(100)

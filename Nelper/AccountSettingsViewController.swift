@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import FXBlurView
 
-class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
+class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, AddAddressViewControllerDelegate {
 	
 	var navBar: NavBar!
 	var saveButton: UIButton!
@@ -36,6 +36,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		(name: "Office", address: "1 Rue Notre Dame Ouest\nMontréal-Des-Longues-Villes, QC\nH2Y 3N2")
 	]
 	var locationContainer: UIButton!
+	var locationContainerLine: UIView!
 	var locationContainerArray = [UIButton]()
 	var locationNameLabel: UILabel!
 	var locationName: UILabel!
@@ -93,12 +94,25 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
 		self.tap = tap
 		self.view.addGestureRecognizer(tap)
-		keyboardObserver()
 		self.emailTextField.delegate = self
 		self.phoneTextField.delegate = self
 		self.currentTextField?.delegate = self
 		self.newTextField?.delegate = self
 		self.confirmTextField?.delegate = self
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(true)
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+	}
+	
+	override func viewDidDisappear(animated: Bool) {
+		super.viewDidDisappear(true)
+		
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
 	///MARK: UI
@@ -343,6 +357,17 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 					make.right.equalTo(self.locationContainer.snp_right)
 				}
 				
+				let locationContainerLine = UIView()
+				self.locationContainerLine = locationContainerLine
+				self.locationContainer.addSubview(locationContainerLine)
+				self.locationContainerLine.backgroundColor = darkGrayDetails
+				self.locationContainerLine.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(self.locationName.snp_top)
+					make.right.equalTo(self.locationName.snp_left).offset(-6)
+					make.width.equalTo(0.5)
+					make.bottom.equalTo(self.locationAddress.snp_bottom)
+				}
+				
 				self.locationName.snp_makeConstraints { (make) -> Void in
 					make.right.equalTo(self.locationAddress.snp_left)
 				}
@@ -522,22 +547,10 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		}
 	}
 	
-	///MARK: KEYBOARD
+	///MARK: KEYBOARD, WITH viewDidDis/Appear AND textfielddelegate
 	
 	func DismissKeyboard() {
 		view.endEditing(true)
-	}
-	
-	func keyboardObserver() {
-		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-	}
-	
-	override func viewDidDisappear(animated: Bool) {
-		
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
 	func textFieldDidBeginEditing(textField: UITextField) {
@@ -552,10 +565,10 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	
 	func keyboardDidShow(notification: NSNotification) {
 		
-		if !self.popupShown {
+		if !popupShown {
 			let info = notification.userInfo!
-			let value = info[UIKeyboardFrameEndUserInfoKey]!
-			self.keyboardFrame = value.CGRectValue
+			var keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+			keyboardFrame = self.view.convertRect(keyboardFrame, fromView: nil)
 			
 			self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height, 0)
 			
@@ -563,10 +576,14 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.scrollView.scrollIndicatorInsets = contentInsets
 			
 			var aRect = self.view.frame
-			aRect.size.height -= self.keyboardFrame.height
+			aRect.size.height -= keyboardFrame.height
 			
-			if !(CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
-				self.scrollView.scrollRectToVisible(self.activeField.frame, animated: true)
+			let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
+			
+			if self.activeField != nil {
+				if !(CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
+					self.scrollView.scrollRectToVisible(frame, animated: true)
+				}
 			}
 		}
 	}
@@ -577,6 +594,16 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.scrollView.scrollIndicatorInsets = contentInsets
 	}
 
+	///ADDADDRESS LOCATION DELEGATE
+	
+	func didClosePopup(vc: AddAddressViewController) {
+		self.popupShown = false
+	}
+	
+	func didAddLocation(vc:AddAddressViewController) {
+		
+	}
+	
 	///MARK: ACTIONS
 	
 	func backButtonTapped(sender: UIButton) {
@@ -685,7 +712,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			let saveConfirmationBackground = UIView()
 			self.saveConfirmationBackground = saveConfirmationBackground
 			self.saveConfirmationBlurView.addSubview(self.saveConfirmationBackground)
-			self.saveConfirmationBackground.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
+			self.saveConfirmationBackground.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
 			self.saveConfirmationBackground.snp_makeConstraints { (make) -> Void in
 				make.edges.equalTo(self.saveConfirmationBlurView.snp_edges)
 			}
@@ -770,16 +797,22 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	}
 	
 	func addTapped(sender: UIButton) {
-		/*DismissKeyboard()
+		DismissKeyboard()
+		
+		UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false, UIScreen.mainScreen().scale)
+		self.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
+		let blurImage = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
 		
 		let nextVC = AddAddressViewController()
+		nextVC.blurImage = blurImage
 		nextVC.delegate = self
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
 		self.providesPresentationContextTransitionStyle = true
 		nextVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
 		self.presentViewController(nextVC, animated: true, completion: nil)
 		
-		self.popupShown = true*/
+		self.popupShown = true
 	}
 	
 	func deleteButtonTapped(sender: UIButton) {
