@@ -175,9 +175,6 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 }
 	
-	override func setHighlighted(highlighted: Bool, animated: Bool) {
-	}
-	
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}

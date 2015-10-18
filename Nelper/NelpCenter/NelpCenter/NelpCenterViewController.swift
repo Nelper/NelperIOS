@@ -92,7 +92,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
 		tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 		
-		
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.registerClass(NelpTasksTableViewCell.classForCoder(), forCellReuseIdentifier: NelpTasksTableViewCell.reuseIdentifier)
@@ -115,7 +114,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tableViewApplications.registerClass(NelpApplicationsTableViewCell.classForCoder(), forCellReuseIdentifier: NelpApplicationsTableViewCell.reuseIdentifier)
 		tableViewApplications.backgroundColor = whiteBackground
 		tableViewApplications.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-		
 
 		self.tasksContainer.addSubview(tableViewApplications)
 		tableViewApplications.snp_makeConstraints { (make) -> Void in
@@ -189,7 +187,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		if(tableView == myTasksTableView) {
 			if (!self.nelpTasks.isEmpty) {
 				let cellTask = self.myTasksTableView.dequeueReusableCellWithIdentifier(NelpTasksTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpTasksTableViewCell
-				
+				cellTask.selectionStyle = UITableViewCellSelectionStyle.None
 				let task = self.nelpTasks[indexPath.item]
 				cellTask.setNelpTask(task)
 				cellTask.setImages(task)
@@ -199,7 +197,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		} else if (tableView == myApplicationsTableView) {
 			if(!self.nelpApplications.isEmpty) {
 				let cellApplication = self.myApplicationsTableView.dequeueReusableCellWithIdentifier(NelpApplicationsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpApplicationsTableViewCell
-				
+				cellApplication.selectionStyle = UITableViewCellSelectionStyle.None
 				let nelpApplication = self.nelpApplications[indexPath.item]
 				cellApplication.setNelpApplication(nelpApplication)
 				cellApplication.setImages(nelpApplication)
