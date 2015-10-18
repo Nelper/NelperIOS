@@ -35,6 +35,12 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var titleTextField:UITextField!
 	var descriptionTextView:UITextView!
 	var deleteTaskButton:UIButton!
+	var tap:UIGestureRecognizer!
+	var pictures:Array<PFFile>?
+	var picturesContainer:UIView!
+	var images = Array<UIImage>()
+	var imagePicker = UIImagePickerController()
+	
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
@@ -340,13 +346,15 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.width.equalTo(200)
 			make.bottom.equalTo(taskInformationContainer.snp_bottom).offset(-20)
 		}
-		
 		taskInformationContainer.sizeToFit()
+		
+		self.createPicturesContainer()
+		
 		
 		let fakeView = UIView()
 		self.contentView.addSubview(fakeView)
 		fakeView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskInformationContainer.snp_bottom)
+			make.top.equalTo(self.picturesContainer.snp_bottom)
 			make.bottom.equalTo(self.contentView.snp_bottom)
 		}
 	}
@@ -381,6 +389,62 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.scrollView.backgroundColor = whiteBackground
 		self.navBar.setTitle("My Task Details")
 	}
+	
+	func createPicturesContainer(){
+		
+		let picturesContainer = UIView()
+		contentView.addSubview(picturesContainer)
+		self.picturesContainer = picturesContainer
+		picturesContainer.backgroundColor = whitePrimary
+		picturesContainer.layer.borderColor = darkGrayDetails.CGColor
+		picturesContainer.layer.borderWidth = 0.5
+		picturesContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(taskInformationContainer.snp_bottom).offset(10)
+			make.left.equalTo(contentView.snp_left).offset(-1)
+			make.right.equalTo(contentView.snp_right)
+		}
+		
+		let managePicturesLabel = UILabel()
+		picturesContainer.addSubview(managePicturesLabel)
+		managePicturesLabel.text = "Manage Pictures"
+		managePicturesLabel.textColor = blackPrimary
+		managePicturesLabel.font = UIFont(name: "Lato-Regular", size: kEditTaskSubtitleFontSize)
+		managePicturesLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(picturesContainer.snp_top).offset(10)
+			make.left.equalTo(picturesContainer.snp_left).offset(10)
+		}
+		
+		if self.pictures != nil{
+		}
+		
+		if self.pictures != nil {
+	}
+		
+		picturesContainer.sizeToFit()
+		
+		//Save button
+		
+		let saveChangesButton = UIButton()
+		contentView.addSubview(saveChangesButton)
+		saveChangesButton.setTitle("Save", forState: UIControlState.Normal)
+		saveChangesButton.setTitleColor(grayBlue, forState: UIControlState.Normal)
+		saveChangesButton.addTarget(self, action: "didTapSaveButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		saveChangesButton.layer.borderWidth = 1
+		saveChangesButton.layer.borderColor = grayBlue.CGColor
+		saveChangesButton.backgroundColor = whitePrimary
+		saveChangesButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(picturesContainer.snp_bottom).offset(10)
+			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+			make.height.equalTo(45)
+			make.width.equalTo(200)
+			make.bottom.equalTo(contentView.snp_bottom).offset(-10)
+		}
+		
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+		self.tap = tap
+		contentView.addGestureRecognizer(tap)
+	}
+	
 	
 	func makeDeniedApplicantsContainer(){
 		let deniedApplicantsContainer = UIView()
@@ -563,6 +627,13 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 	}
 	
+	//MARK: UIGesture Recognizer
+	
+	func dismissKeyboard(){
+		view.endEditing(true)
+	}
+	
+	
 	//MARK: Cell delegate methods
 	
 	func didTapRevertButton(applicant:User){
@@ -642,6 +713,21 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.createView()
 	}
 	
+	//MARK: Utilities
+	
+	/**
+	Fetches the task images in order to edit them
+	*/
+	func getImagesFromParse(){
+		if let pffiles = self.pictures{
+			for picture in pffiles{
+				ApiHelper.getPictures(picture.url!, block: { (image) -> Void in
+					self.images.append(image)
+				})
+			}
+		}
+	}
+	
 	//MARK: Actions
 	
 	func editButtonTapped(sender:UIButton){
@@ -655,6 +741,36 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	func backButtonTapped(sender:UIButton){
 		self.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	func didTapAddImage(sender:UIButton){
+		imagePicker.allowsEditing = false
+		imagePicker.sourceType = .PhotoLibrary
+		presentViewController(imagePicker, animated: true, completion: nil)
+	}
+	
+	func didTapSaveButton(sender:UIButton){
+		self.task.title = self.titleTextField.text
+		print(self.task.title, terminator: "")
+		if !self.images.isEmpty{
+			self.task.pictures = ApiHelper.convertImagesToData(self.images)
+		}
+		self.task.desc = self.descriptionTextView.text
+		
+		ApiHelper.editTask(self.task)
+		self.didEditTask(self.task)
+		self.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	func didTapDeleteButton(sender:UIButton){
+		if sender.selected == false {
+			sender.selected = true
+			
+		}else if sender.selected == true{
+			ApiHelper.deleteTask(self.task)
+			self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+			self.dismissViewControllerAnimated(true, completion: nil)
+		}
 	}
 	
 }
