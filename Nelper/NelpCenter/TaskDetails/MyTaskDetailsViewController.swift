@@ -31,7 +31,10 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var taskSectionContainer: UIView!
 	var deniedApplicantIcon:UIImageView!
 	var deniedApplicantsLabel:UILabel!
-	
+	var taskInformationContainer:UIView!
+	var titleTextField:UITextField!
+	var descriptionTextView:UITextView!
+	var deleteTaskButton:UIButton!
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
@@ -154,6 +157,232 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//Denied Applicants
 		
+		self.makeDeniedApplicantsContainer()
+		//Task Edit
+		
+		let taskInformationContainer = UIView()
+		self.taskInformationContainer = taskInformationContainer
+		contentView.addSubview(taskInformationContainer)
+		taskInformationContainer.layer.borderColor = darkGrayDetails.CGColor
+		taskInformationContainer.layer.borderWidth = 0.5
+		taskInformationContainer.backgroundColor = whitePrimary
+		taskInformationContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(deniedApplicantsContainer.snp_bottom).offset(20)
+			make.left.equalTo(contentView.snp_left).offset(-1)
+			make.right.equalTo(contentView.snp_right).offset(1)
+		}
+		
+		let categoryIcon = UIImageView()
+		taskInformationContainer.addSubview(categoryIcon)
+		let iconSize:CGFloat = 60
+		categoryIcon.layer.cornerRadius = iconSize / 2
+		categoryIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		categoryIcon.image = UIImage(named: self.task.category!)
+		categoryIcon.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(taskInformationContainer.snp_top).offset(16)
+			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+			make.width.equalTo(iconSize)
+			make.height.equalTo(iconSize)
+		}
+		
+		let titleTextField = UITextField()
+		self.titleTextField = titleTextField
+		taskInformationContainer.addSubview(titleTextField)
+		titleTextField.text = self.task.title
+		titleTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+		titleTextField.textAlignment = NSTextAlignment.Center
+		titleTextField.layer.borderWidth = 1
+		titleTextField.layer.borderColor = darkGrayDetails.CGColor
+		titleTextField.backgroundColor = whiteBackground
+		titleTextField.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(categoryIcon.snp_bottom).offset(20)
+			make.left.equalTo(taskInformationContainer.snp_left).offset(12)
+			make.right.equalTo(taskInformationContainer.snp_right).offset(-12)
+			make.height.equalTo(40)
+		}
+		
+		let titleUnderline = UIView()
+		taskInformationContainer.addSubview(titleUnderline)
+		titleUnderline.backgroundColor = darkGrayDetails
+		titleUnderline.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(titleTextField.snp_bottom).offset(16)
+			make.width.equalTo(taskInformationContainer.snp_width).dividedBy(1.4)
+			make.height.equalTo(0.5)
+			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+			
+		}
+		
+		let descriptionTextView = UITextView()
+		self.descriptionTextView = descriptionTextView
+		taskInformationContainer.addSubview(descriptionTextView)
+		descriptionTextView.text = self.task.desc
+		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
+		descriptionTextView.textAlignment = NSTextAlignment.Center
+		descriptionTextView.layer.borderWidth = 1
+		descriptionTextView.layer.borderColor = darkGrayDetails.CGColor
+		descriptionTextView.backgroundColor = whiteBackground
+		descriptionTextView.scrollEnabled = false
+		descriptionTextView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(titleUnderline.snp_bottom).offset(16)
+			make.width.equalTo(titleTextField.snp_width)
+			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+		}
+		
+		let fixedWidth = descriptionTextView.frame.size.width
+		descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+		let newSize = descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+		var newFrame = descriptionTextView.frame
+		newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+		descriptionTextView.frame = newFrame;
+		
+		let descriptionUnderline = UIView()
+		taskInformationContainer.addSubview(descriptionUnderline)
+		descriptionUnderline.backgroundColor = darkGrayDetails
+		descriptionUnderline.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(descriptionTextView.snp_bottom).offset(16)
+			make.width.equalTo(taskInformationContainer.snp_width).dividedBy(1.4)
+			make.height.equalTo(0.5)
+			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+			
+		}
+		
+		let locationContainer = UIView()
+		taskInformationContainer.addSubview(locationContainer)
+		locationContainer.backgroundColor = whitePrimary
+		locationContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(descriptionUnderline.snp_bottom).offset(20)
+			make.left.equalTo(descriptionTextView.snp_left).offset(16)
+			make.width.equalTo(taskInformationContainer.snp_width).dividedBy(2)
+		}
+		
+		let pinIcon = UIImageView()
+		locationContainer.addSubview(pinIcon)
+		pinIcon.image = UIImage(named: "pin")
+		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		pinIcon.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(45)
+			make.width.equalTo(45)
+			make.centerY.equalTo(locationContainer.snp_centerY)
+			make.left.equalTo(locationContainer.snp_left).offset(4)
+		}
+		
+		let locationVerticalLine = UIView()
+		locationContainer.addSubview(locationVerticalLine)
+		locationVerticalLine.backgroundColor = darkGrayDetails
+		locationVerticalLine.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(locationContainer.snp_top)
+			make.bottom.equalTo(locationContainer.snp_bottom)
+			make.width.equalTo(1)
+			make.left.equalTo(pinIcon.snp_right).offset(4)
+		}
+		
+		let streetAddressLabel = UITextField()
+		streetAddressLabel.backgroundColor = whitePrimary
+		locationContainer.addSubview(streetAddressLabel)
+		streetAddressLabel.text = "175 Forbin Janson"
+		streetAddressLabel.textColor = blackPrimary
+		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		streetAddressLabel.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
+			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
+			make.top.equalTo(locationContainer.snp_top)
+		}
+		
+		let cityLabel = UITextField()
+		cityLabel.backgroundColor = whitePrimary
+		locationContainer.addSubview(cityLabel)
+		cityLabel.text = "Mont Saint-Hilaire"
+		cityLabel.textColor = blackPrimary
+		cityLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		cityLabel.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
+			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
+			make.top.equalTo(streetAddressLabel.snp_bottom)
+		}
+		
+		let zipcodeLabel = UITextField()
+		zipcodeLabel.backgroundColor = whitePrimary
+		locationContainer.addSubview(zipcodeLabel)
+		zipcodeLabel.text = "J3H5E5"
+		zipcodeLabel.textColor = blackPrimary
+		zipcodeLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		zipcodeLabel.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
+			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
+			make.top.equalTo(cityLabel.snp_bottom)
+		}
+		
+		let locationUnderline = UIView()
+		taskInformationContainer.addSubview(locationUnderline)
+		locationUnderline.backgroundColor = darkGrayDetails
+		locationUnderline.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(locationContainer.snp_bottom).offset(20)
+			make.width.equalTo(taskInformationContainer.snp_width).dividedBy(1.4)
+			make.height.equalTo(0.5)
+			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+		}
+		
+		let deleteTaskButton = UIButton()
+		taskInformationContainer.addSubview(deleteTaskButton)
+		self.deleteTaskButton = deleteTaskButton
+		deleteTaskButton.setTitle("Delete Task", forState: UIControlState.Normal)
+		deleteTaskButton.setTitle("Sure?", forState: UIControlState.Selected)
+		deleteTaskButton.setTitleColor(redPrimary, forState: UIControlState.Normal)
+		deleteTaskButton.setTitleColor(redPrimary, forState: UIControlState.Selected)
+		self.deleteTaskButton.addTarget(self, action: "didTapDeleteButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		deleteTaskButton.layer.borderWidth = 1
+		deleteTaskButton.layer.borderColor = redPrimary.CGColor
+		deleteTaskButton.backgroundColor = whitePrimary
+		deleteTaskButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(locationUnderline.snp_bottom).offset(20)
+			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+			make.height.equalTo(45)
+			make.width.equalTo(200)
+			make.bottom.equalTo(taskInformationContainer.snp_bottom).offset(-20)
+		}
+		
+		taskInformationContainer.sizeToFit()
+		
+		let fakeView = UIView()
+		self.contentView.addSubview(fakeView)
+		fakeView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(taskInformationContainer.snp_bottom)
+			make.bottom.equalTo(self.contentView.snp_bottom)
+		}
+	}
+	
+	
+	//MARK: Refresh Tableview
+	func refreshTableView(){
+		self.applicantsTableView.reloadData()
+		self.deniedApplicantsTableView.reloadData()
+		self.updateFrames()
+	}
+	
+	func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {
+		var image: UIImage!
+		request(.GET,imageURL).response(){
+			(_, _, data, error) in
+			if(error != nil){
+				print(error)
+			}
+			image = UIImage(data: data as NSData!)
+			block(image)
+		}
+	}
+	
+	//MARK: UI
+	
+	func adjustUI(){
+		self.container.backgroundColor = whiteBackground
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.closeButton = previousBtn
+		self.scrollView.backgroundColor = whiteBackground
+		self.navBar.setTitle("My Task Details")
+	}
+	
+	func makeDeniedApplicantsContainer(){
 		let deniedApplicantsContainer = UIView()
 		self.deniedApplicantsContainer = deniedApplicantsContainer
 		self.contentView.addSubview(deniedApplicantsContainer)
@@ -217,46 +446,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.height.equalTo(0.5)
 			make.width.equalTo(deniedApplicantsContainer.snp_width)
 		}
-		
-		let fakeView = UIView()
-		self.contentView.addSubview(fakeView)
-		fakeView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(deniedApplicantsContainer.snp_bottom)
-			make.bottom.equalTo(self.contentView.snp_bottom)
-		}
 	}
-	
-	
-	//MARK: Refresh Tableview
-	func refreshTableView(){
-		self.applicantsTableView.reloadData()
-		self.deniedApplicantsTableView.reloadData()
-		self.updateFrames()
-	}
-	
-	func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {
-		var image: UIImage!
-		request(.GET,imageURL).response(){
-			(_, _, data, error) in
-			if(error != nil){
-				print(error)
-			}
-			image = UIImage(data: data as NSData!)
-			block(image)
-		}
-	}
-	
-	//MARK: UI
-	
-	func adjustUI(){
-		self.container.backgroundColor = whiteBackground
-		let previousBtn = UIButton()
-		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.closeButton = previousBtn
-		self.scrollView.backgroundColor = whiteBackground
-		self.navBar.setTitle("My Task Details")
-	}
-	
 	func setImages(task:FindNelpTask){
 		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2;
 		self.categoryIcon.clipsToBounds = true
@@ -363,14 +553,13 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let contentsize = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height + 10)
 		self.scrollView.contentSize = contentsize.size
 		
-		self.deniedApplicantsLabel.alpha = 1
-		self.deniedApplicantIcon.alpha = 1
+		
 		if self.arrayOfDeniedApplicants.isEmpty{
-			self.deniedApplicantsContainer.hidden = true
 			
-//			self.deniedApplicantsContainer.snp_remakeConstraints(closure: { (make) -> Void in
-//				make.height.equalTo(0)
-//			})
+			self.deniedApplicantsContainer.removeFromSuperview()
+			self.taskInformationContainer.snp_updateConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.activeApplicantsContainer.snp_bottom).offset(10)
+			})
 		}
 	}
 	
@@ -405,16 +594,10 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		self.refreshTableView()
 		if self.arrayOfDeniedApplicants.isEmpty{
-				self.deniedApplicantsContainer.snp_updateConstraints(closure: { (make) -> Void in
-					make.height.equalTo(0)
-				})
-			self.deniedApplicantIcon.alpha = 0
-			self.deniedApplicantsLabel.alpha = 0
-
-			UIView.animateWithDuration(0.5, delay: 0.0, options: [.CurveEaseOut], animations:  {
-				self.deniedApplicantsContainer.layoutIfNeeded()
-				self.deniedApplicantIcon.layoutIfNeeded()
-				}, completion: nil)
+			self.deniedApplicantsContainer.removeFromSuperview()
+			self.taskInformationContainer.snp_updateConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.activeApplicantsContainer.snp_bottom).offset(10)
+			})
 		}
 	}
 	
@@ -424,7 +607,13 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	func didTapDenyButton(applicant:User){
 		var applicationToDeny:TaskApplication?
-		self.deniedApplicantsContainer.hidden = false
+		self.makeDeniedApplicantsContainer()
+		self.deniedApplicantsContainer.layoutIfNeeded()
+		self.taskInformationContainer.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(deniedApplicantsContainer.snp_bottom).offset(20)
+				make.left.equalTo(contentView.snp_left).offset(-1)
+				make.right.equalTo(contentView.snp_right).offset(1)
+			})
 		for application in self.arrayOfApplications{
 			print(application.user.objectId)
 			print(applicant.objectId)

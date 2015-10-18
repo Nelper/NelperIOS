@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import FXBlurView
 
 class NelpTasksTableViewCell: UITableViewCell {
   
@@ -205,9 +206,10 @@ class NelpTasksTableViewCell: UITableViewCell {
 		if(task.pictures != nil){
 		if(!task.pictures!.isEmpty){
 		ApiHelper.getPictures(task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
-			self.topContainer.image = imageReturned.blurredImageWithRadius(3, iterations: 100, tintColor: nil)
+			self.topContainer.image = imageReturned.blurredImageWithRadius(3, iterations: 50, tintColor: nil)
 		})}}else{
-			self.topContainer.image = UIImage(named: "square_\(task.category!)")!.blurredImageWithRadius(4, iterations: 100, tintColor: nil)
+			
+			self.topContainer.image = UIImage(named: "square_\(task.category!)")!.blurredImageWithRadius(4, iterations: 50, tintColor: nil)
 		}
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true

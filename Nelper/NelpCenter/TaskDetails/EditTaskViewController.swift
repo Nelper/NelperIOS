@@ -44,23 +44,23 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		self.imagePicker.delegate = self
 		
 		//Navbar
-		let navBar = NavBar()
-		let previousBtn = UIButton()
-		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.view.addSubview(navBar)
-		navBar.closeButton = previousBtn
-		navBar.setTitle("Edit Task")
-		navBar.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.view.snp_top)
-			make.left.equalTo(self.view.snp_left)
-			make.right.equalTo(self.view.snp_right)
-			make.height.equalTo(64)
-		}
+//		let navBar = NavBar()
+//		let previousBtn = UIButton()
+//		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+//		self.view.addSubview(navBar)
+//		navBar.closeButton = previousBtn
+//		navBar.setTitle("Edit Task")
+//		navBar.snp_makeConstraints { (make) -> Void in
+//			make.top.equalTo(self.view.snp_top)
+//			make.left.equalTo(self.view.snp_left)
+//			make.right.equalTo(self.view.snp_right)
+//			make.height.equalTo(64)
+//		}
 		
 		let background = UIView()
 		self.view.addSubview(background)
 		background.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(navBar.snp_bottom)
+			make.top.equalTo(self.view.snp_top)
 			make.left.equalTo(self.view.snp_left)
 			make.right.equalTo(self.view.snp_right)
 			make.bottom.equalTo(self.view.snp_bottom)
