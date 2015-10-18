@@ -360,7 +360,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				let locationContainerLine = UIView()
 				self.locationContainerLine = locationContainerLine
 				self.locationContainer.addSubview(locationContainerLine)
-				self.locationContainerLine.backgroundColor = darkGrayDetails
+				self.locationContainerLine.backgroundColor = darkGrayDetails.colorWithAlphaComponent(0.8)
 				self.locationContainerLine.snp_makeConstraints { (make) -> Void in
 					make.top.equalTo(self.locationName.snp_top)
 					make.right.equalTo(self.locationName.snp_left).offset(-6)
