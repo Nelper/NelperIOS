@@ -543,7 +543,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		}
 		
 		self.contentView.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.deleteContainer.snp_bottom).offset(20)
+			make.bottom.equalTo(self.deleteContainer.snp_bottom).offset(self.kPadding)
 		}
 	}
 	

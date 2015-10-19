@@ -13,6 +13,9 @@ class NotificationsSettingsViewController: UIViewController {
 	
 	
 	private var navBar: NavBar!
+	
+	var backgroundView: UIView!
+	var scrollView: UIScrollView!
 	var contentView: UIView!
 	
 	var emailNotContainer: DefaultContainerView!
@@ -24,6 +27,7 @@ class NotificationsSettingsViewController: UIViewController {
 	var t1SecondEvent: UILabel!
 	var t1SecondSwitch: UISwitch!
 	
+	var t2SeparatorLine: UIView!
 	var t2Label: UILabel!
 	var t2EmailMeWhen: UILabel!
 	var t2FirstEvent: UILabel!
@@ -31,6 +35,7 @@ class NotificationsSettingsViewController: UIViewController {
 	var t2SecondEvent: UILabel!
 	var t2SecondSwitch: UISwitch!
 	
+	var t3SeparatorLine: UIView!
 	var t3Label: UILabel!
 	var t3SendMe: UILabel!
 	var t3FirstEvent: UILabel!
@@ -43,6 +48,14 @@ class NotificationsSettingsViewController: UIViewController {
 		
 		createView()
 		adjustUI()
+	}
+	
+	///MARK: UI
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		self.scrollView.contentSize = CGSizeMake(self.contentView.frame.width, self.contentView.frame.height)
+		self.scrollView.alwaysBounceVertical = true
 	}
 	
 	func createView() {
@@ -59,15 +72,34 @@ class NotificationsSettingsViewController: UIViewController {
 			make.height.equalTo(64)
 		}
 		
-		let contentView = UIView()
-		self.contentView = contentView
-		self.view.addSubview(contentView)
-		self.contentView.backgroundColor = whiteBackground
-		self.contentView.snp_makeConstraints { (make) -> Void in
+		let backgroundView = UIView()
+		self.backgroundView = backgroundView
+		self.view.addSubview(self.backgroundView)
+		self.backgroundView.backgroundColor = whiteBackground
+		self.backgroundView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.navBar.snp_bottom)
 			make.left.equalTo(self.view.snp_left)
 			make.right.equalTo(self.view.snp_right)
 			make.bottom.equalTo(self.view.snp_bottom)
+		}
+		
+		let scrollView = UIScrollView()
+		self.scrollView = scrollView
+		self.backgroundView.addSubview(self.scrollView)
+		self.scrollView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(self.backgroundView)
+		}
+		
+		let contentView = UIView()
+		self.contentView = contentView
+		self.scrollView.addSubview(contentView)
+		self.contentView.backgroundColor = whiteBackground
+		self.contentView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(scrollView.snp_top)
+			make.left.equalTo(scrollView.snp_left)
+			make.right.equalTo(scrollView.snp_right)
+			make.height.greaterThanOrEqualTo(backgroundView.snp_height)
+			make.width.equalTo(backgroundView.snp_width)
 		}
 		
 		///EMAIL NOTIFICATIONS
@@ -98,7 +130,7 @@ class NotificationsSettingsViewController: UIViewController {
 		self.emailNotContainer.contentView.addSubview(self.t1EmailMeWhen)
 		self.t1EmailMeWhen.text = "Email me when"
 		self.t1EmailMeWhen.font = UIFont(name: "Lato-Regular", size: kText15)
-		self.t1EmailMeWhen.textColor = blackPrimary
+		self.t1EmailMeWhen.textColor = darkGrayText
 		self.t1EmailMeWhen.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.t1Label.snp_bottom).offset(15)
 			make.left.equalTo(self.t1Label.snp_left)
@@ -162,15 +194,26 @@ class NotificationsSettingsViewController: UIViewController {
 			make.right.equalTo(self.t1FirstEvent.snp_right)
 		}
 		
+		let t2SeparatorLine = UIView()
+		self.t2SeparatorLine = t2SeparatorLine
+		self.emailNotContainer.addSubview(t2SeparatorLine)
+		self.t2SeparatorLine.backgroundColor = grayDetails
+		self.t2SeparatorLine.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(self.emailNotContainer.snp_right)
+			make.left.equalTo(self.emailNotContainer.snp_left)
+			make.top.equalTo(self.t1SecondSwitch.snp_bottom).offset(15)
+			make.height.equalTo(0.5)
+		}
+		
 		///NELPER
 		let t2Label = UILabel()
 		self.t2Label = t2Label
 		self.emailNotContainer.contentView.addSubview(self.t2Label)
-		self.t2Label.text = "Task Poster"
+		self.t2Label.text = "Nelper"
 		self.t2Label.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.t2Label.textColor = redPrimary
 		self.t2Label.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.t1SecondEvent.snp_bottom).offset(kPadding + 10)
+			make.top.equalTo(self.t2SeparatorLine.snp_bottom).offset(15)
 			make.left.equalTo(self.emailNotContainer.snp_left).offset(self.kPadding)
 		}
 		
@@ -179,7 +222,7 @@ class NotificationsSettingsViewController: UIViewController {
 		self.emailNotContainer.contentView.addSubview(self.t2EmailMeWhen)
 		self.t2EmailMeWhen.text = "Email me when"
 		self.t2EmailMeWhen.font = UIFont(name: "Lato-Regular", size: kText15)
-		self.t2EmailMeWhen.textColor = blackPrimary
+		self.t2EmailMeWhen.textColor = darkGrayText
 		self.t2EmailMeWhen.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.t2Label.snp_bottom).offset(15)
 			make.left.equalTo(self.t2Label.snp_left)
@@ -243,8 +286,72 @@ class NotificationsSettingsViewController: UIViewController {
 			make.right.equalTo(self.t2FirstEvent.snp_right)
 		}
 		
+		let t3SeparatorLine = UIView()
+		self.t3SeparatorLine = t3SeparatorLine
+		self.emailNotContainer.addSubview(t3SeparatorLine)
+		self.t3SeparatorLine.backgroundColor = grayDetails
+		self.t3SeparatorLine.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(self.emailNotContainer.snp_right)
+			make.left.equalTo(self.emailNotContainer.snp_left)
+			make.top.equalTo(self.t2SecondSwitch.snp_bottom).offset(15)
+			make.height.equalTo(0.5)
+		}
+		
+		///NEWSLETTER
+		let t3Label = UILabel()
+		self.t3Label = t3Label
+		self.emailNotContainer.contentView.addSubview(self.t3Label)
+		self.t3Label.text = "Nelper"
+		self.t3Label.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		self.t3Label.textColor = redPrimary
+		self.t3Label.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.t3SeparatorLine.snp_bottom).offset(15)
+			make.left.equalTo(self.emailNotContainer.snp_left).offset(self.kPadding)
+		}
+		
+		let t3SendMe = UILabel()
+		self.t3SendMe = t3SendMe
+		self.emailNotContainer.contentView.addSubview(self.t3SendMe)
+		self.t3SendMe.text = "Send me"
+		self.t3SendMe.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.t3SendMe.textColor = darkGrayText
+		self.t3SendMe.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.t3Label.snp_bottom).offset(15)
+			make.left.equalTo(self.t3Label.snp_left)
+		}
+		
+		let t3FirstEvent = UILabel()
+		self.t3FirstEvent = t3FirstEvent
+		self.emailNotContainer.contentView.addSubview(self.t3FirstEvent)
+		self.t3FirstEvent.text = "Newsletters introducing new features"
+		self.t3FirstEvent.font = UIFont(name: "Lato-Light", size: kText15)
+		self.t3FirstEvent.textColor = blackPrimary
+		self.t3FirstEvent.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.t3SendMe.snp_bottom).offset(kPadding)
+			make.left.equalTo(self.t3Label.snp_left)
+		}
+		
+		let t3FirstSwitch = UISwitch()
+		self.t3FirstSwitch = t3FirstSwitch
+		self.emailNotContainer.contentView.addSubview(self.t3FirstSwitch)
+		self.t3FirstSwitch.on = true
+		self.t3FirstSwitch.onTintColor = redPrimary
+		self.t3FirstSwitch.tintColor = grayDetails
+		self.t3FirstSwitch.thumbTintColor = whitePrimary
+		self.t3FirstSwitch.setOn(true, animated: false)
+		self.t3FirstSwitch.addTarget(self, action: "t3FirstSwitchChanged:", forControlEvents: .ValueChanged)
+		self.t3FirstSwitch.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(self.emailNotContainer.snp_right).offset(-self.kPadding)
+			make.centerY.equalTo(self.t3FirstEvent.snp_centerY)
+		}
+		
+		self.t3FirstEvent.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(self.t3FirstSwitch.snp_left).offset(-15)
+		}
+
+		
 		self.emailNotContainer.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.t2SecondEvent.snp_bottom).offset(self.kPadding)
+			make.bottom.equalTo(self.t3FirstSwitch.snp_bottom).offset(self.kPadding)
 		}
 	}
 	
@@ -278,4 +385,9 @@ class NotificationsSettingsViewController: UIViewController {
 	func t2SecondSwitchChanged(sender: UISwitch) {
 		
 	}
+	
+	func t3FirstSwitchChanged(sender: UISwitch) {
+		
+	}
+	
 }
