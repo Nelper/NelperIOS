@@ -13,25 +13,27 @@ import SnapKit
 class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	
 	var presentedVC: UIViewController!
-	var moreIsOpen: Bool!
 	var nextVC: MoreViewController!
 	var backgroundDark: UIView!
 	var viewIsCreated = false
+	var moreIsOpen = false
 	
 	let swipeRec = UISwipeGestureRecognizer()
+	let swipeRec2 = UISwipeGestureRecognizer()
+	let tapRec = UITapGestureRecognizer()
 	
 	//MARK: Initialization
 	
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		self.createView()
-		self.moreIsOpen = false
 		self.delegate = self
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		self.createView()
+		self.delegate = self
 	}
 	
 	//MARK: View Creation
@@ -71,7 +73,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 			if self.moreIsOpen == false {
 				
 				if self.viewIsCreated == false {
-				
+					
 					let backgroundDark = UIView()
 					self.backgroundDark = backgroundDark
 					presentedVC.view.addSubview(backgroundDark)
@@ -81,6 +83,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 						make.edges.equalTo(presentedVC.view.snp_edges)
 					})
 					backgroundDark.addGestureRecognizer(swipeRec)
+					backgroundDark.addGestureRecognizer(tapRec)
 					backgroundDark.userInteractionEnabled = true
 					
 					let nextVC = MoreViewController()
@@ -88,6 +91,8 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 					presentedVC.addChildViewController(nextVC)
 					presentedVC.view.addSubview(nextVC.view)
 					nextVC.didMoveToParentViewController(presentedVC)
+					
+					nextVC.fullView = presentedVC
 					
 					nextVC.view.snp_makeConstraints(closure: { (make) -> Void in
 						make.top.equalTo(presentedVC.view.snp_top)
@@ -97,7 +102,12 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 					})
 					nextVC.view.layoutIfNeeded()
 					
+					nextVC.view.addGestureRecognizer(swipeRec2)
+					nextVC.view.userInteractionEnabled = true
+					
 					viewIsCreated = true
+				} else {
+					nextVC.openingAnimation()
 				}
 				
 				nextVC.view.snp_updateConstraints(closure: { (make) -> Void in
@@ -110,18 +120,21 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 				})
 				
 				swipeRec.addTarget(self, action: "swipedView")
+				swipeRec2.addTarget(self, action: "swipedView")
+				tapRec.addTarget(self, action: "swipedView")
+				
 				self.moreIsOpen = true
 				
 			} else {
 				
-				self.closeMoreMenu()
+				closeMoreMenu()
 			}
 			
 			return false
 		}
 		
-		if self.moreIsOpen == true {
-			self.closeMoreMenu()
+		if self.moreIsOpen {
+			closeMoreMenu()
 		}
 		
 		return true
@@ -138,12 +151,16 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 			make.left.equalTo(presentedVC.view.snp_right)
 			make.width.equalTo(presentedVC.view.snp_width).multipliedBy(0.70)
 		})
-		swipeRec.removeTarget(self, action: "swipedView")
+		//swipeRec.removeTarget(self, action: "swipedView")
+		//swipeRec2.removeTarget(self, action: "swipedView")
+		//tapRec.removeTarget(self, action: "swipedView")
 		
 		UIView.animateWithDuration(0.4, animations: { () -> Void in
 			self.nextVC.view.layoutIfNeeded()
 			self.backgroundDark.alpha = 0
 		})
+		
+		nextVC.closingAnimation()
 		
 		self.moreIsOpen = false
 	}

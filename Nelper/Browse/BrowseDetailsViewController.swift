@@ -496,7 +496,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		let applyButton = PrimaryActionButton()
 		self.applyButton = applyButton
 		offerContainer.addSubview(applyButton)
-		
 		applyButton.setTitle("Sure?", forState: UIControlState.Selected)
 		applyButton.setTitle("Apply for $\(Int(self.task.priceOffered!))!", forState: UIControlState.Normal)
 		applyButton.addTarget(self, action: "applyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
