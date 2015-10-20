@@ -186,7 +186,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		if(tableView == myTasksTableView) {
 			if (!self.nelpTasks.isEmpty) {
-				let cellTask = self.myTasksTableView.dequeueReusableCellWithIdentifier(NelpTasksTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpTasksTableViewCell
+				let cellTask = NelpTasksTableViewCell()
 				cellTask.selectionStyle = UITableViewCellSelectionStyle.None
 				let task = self.nelpTasks[indexPath.item]
 				cellTask.setNelpTask(task)
@@ -196,7 +196,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			}
 		} else if (tableView == myApplicationsTableView) {
 			if(!self.nelpApplications.isEmpty) {
-				let cellApplication = self.myApplicationsTableView.dequeueReusableCellWithIdentifier(NelpApplicationsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! NelpApplicationsTableViewCell
+				let cellApplication = NelpApplicationsTableViewCell()
 				cellApplication.selectionStyle = UITableViewCellSelectionStyle.None
 				let nelpApplication = self.nelpApplications[indexPath.item]
 				cellApplication.setNelpApplication(nelpApplication)
