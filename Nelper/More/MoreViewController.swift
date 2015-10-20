@@ -32,6 +32,8 @@ class MoreViewController: UIViewController {
 	private var sectionIcons = [UIImageView]()
 	private var sectionButtons = [UIButton]()
 	
+	var fullView: UIViewController!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -84,7 +86,7 @@ class MoreViewController: UIViewController {
 			let sectionButton = UIButton()
 			self.sectionButton = sectionButton
 			self.sectionButton.setTitle(self.sections[index].title, forState: UIControlState.Normal)
-			self.sectionButton.setTitleColor(blackPrimary.colorWithAlphaComponent(0.5), forState: UIControlState.Normal)
+			self.sectionButton.setTitleColor(blackPrimary.colorWithAlphaComponent(0.6), forState: UIControlState.Normal)
 			self.sectionButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTextSize)
 			self.sectionButton.setBackgroundColor(whitePrimary.colorWithAlphaComponent(0.5), forState: UIControlState.Highlighted)
 			self.sectionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
@@ -158,7 +160,40 @@ class MoreViewController: UIViewController {
 				self.sectionButton.layoutIfNeeded()
 			}, completion: nil)
 			
+			self.sectionButtons.append(sectionButton)
+			
 			isFirstSection = false
+		}
+	}
+	
+	//MARK ANIMATIONS
+	func closingAnimation() {
+		
+		for sectionButton in self.sectionButtons {
+			sectionButton.snp_updateConstraints { (make) -> Void in
+				make.left.equalTo(self.sectionContainer.snp_right)
+			}
+			
+			UIView.animateWithDuration(0.4, delay: 0, options: [.CurveEaseOut], animations:  {
+				sectionButton.alpha = 0
+				sectionButton.layoutIfNeeded()
+				}, completion: nil)
+		}
+	}
+	
+	func openingAnimation() {
+		for i in 0...(numberOfSections) - 1 {
+			
+			let animationDuration = (Double(i) * 0.1) + 0.4
+			
+			self.sectionButtons[i].snp_updateConstraints { (make) -> Void in
+				make.left.equalTo(self.sectionContainer.snp_right).offset((-self.fullView.view.frame.width) * 0.70)
+			}
+			
+			UIView.animateWithDuration(animationDuration, delay: 0, options: [.CurveEaseOut], animations:  {
+				self.sectionButtons[i].alpha = 1
+				self.sectionButtons[i].layoutIfNeeded()
+				}, completion: nil)
 		}
 	}
 	

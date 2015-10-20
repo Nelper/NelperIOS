@@ -49,7 +49,10 @@ class DefaultContainerView: UIView {
 		self.backgroundView.layer.borderColor = grayDetails.CGColor
 		self.backgroundView.layer.borderWidth = 1
 		self.backgroundView.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(self.snp_edges)
+			make.left.equalTo(self.snp_left).offset(-1)
+			make.right.equalTo(self.snp_right).offset(1)
+			make.top.equalTo(self.snp_top)
+			make.bottom.equalTo(self.snp_bottom)
 		}
 		
 		let titleView = UIView()

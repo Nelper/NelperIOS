@@ -45,6 +45,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var picturesCollectionView: UICollectionView!
 	var arrayOfPictures = Array<UIImage>()
 	
+	var backgroundView: UIView!
+	var picturesButton: PrimaryActionButton!
+	var picturesContainer: UIView!
+	var collectionViewHeight = Int()
+	var createTaskButton: UIButton!
+	
 	var contentInsets: UIEdgeInsets!
 	var activeField: UIView!
 	var fieldEditing = false
@@ -136,6 +142,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		//ScrollView + ContentView
 		
 		let backgroundView = UIView()
+		self.backgroundView = backgroundView
 		backgroundView.backgroundColor = whiteBackground
 		self.view.addSubview(backgroundView)
 		backgroundView.snp_makeConstraints { (make) -> Void in
@@ -347,7 +354,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		locationTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
 		locationTextField.font = UIFont(name: "Lato-Regular", size: kText15)
-		locationTextField.textColor = blackPrimary.colorWithAlphaComponent(0.75)
+		locationTextField.textColor = textFieldTextColor
 		locationTextField.textAlignment = NSTextAlignment.Center
 		locationTextField.delegate = self
 		
@@ -363,7 +370,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		locationTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(locationLabel.snp_bottom).offset(10)
-			make.width.equalTo(self.contentView.snp_width).multipliedBy(0.6)
+			make.right.equalTo(self.contentView.snp_right).offset(-100)
 			make.height.equalTo(50)
 		}
 		
@@ -371,9 +378,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		taskFormContainer.addSubview(addLocationButton)
 		self.addLocationButton = addLocationButton
 		addLocationButton.addTarget(self, action: "didTapAddLocation:", forControlEvents: UIControlEvents.TouchUpInside)
-		addLocationButton.setTitle("Add new", forState: UIControlState.Normal)
-		addLocationButton.width = 100
-		addLocationButton.height = 45
+		addLocationButton.setTitle("Add", forState: UIControlState.Normal)
+		addLocationButton.height = 50
+		addLocationButton.width = 80
 		addLocationButton.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(locationTextField.snp_right).offset(10)
 			make.centerY.equalTo(locationTextField.snp_centerY)
@@ -422,6 +429,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		//Pictures Container
 		
 		let picturesContainer = UIView()
+		self.picturesContainer = picturesContainer
 		picturesContainer.backgroundColor = whitePrimary
 		contentView.addSubview(picturesContainer)
 		picturesContainer.layer.borderColor = grayDetails.CGColor
@@ -430,45 +438,48 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.top.equalTo(taskFormContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
-			make.height.equalTo(160)
 		}
 		
 		//Attach Pictures Button
 		
-		let picturesButton = UIButton()
-		picturesContainer.addSubview(picturesButton)
-		picturesButton.backgroundColor = redPrimary
-		picturesButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-		picturesButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		picturesButton.setTitle("Add Pictures", forState: UIControlState.Normal)
+		self.collectionViewHeight = 150
 		
-		picturesButton.addTarget(self, action: "attachPicturesButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		picturesButton.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(deleteAddressButton.snp_left)
-			make.bottom.equalTo(picturesContainer.snp_bottom).offset(-16)
-			make.height.equalTo(35)
-			make.width.equalTo(200)
-		}
 		let flowLayout = UICollectionViewFlowLayout()
 		flowLayout.scrollDirection = UICollectionViewScrollDirection.Horizontal
+		
 		let picturesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: flowLayout)
 		picturesContainer.addSubview(picturesCollectionView)
 		self.picturesCollectionView = picturesCollectionView
 		self.picturesCollectionView.delegate = self
 		self.picturesCollectionView.dataSource = self
 		picturesCollectionView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(picturesContainer.snp_top).offset(4)
-			make.bottom.equalTo(picturesButton.snp_top).offset(-4)
-			make.left.equalTo(picturesContainer.snp_left).offset(4)
-			make.right.equalTo(picturesContainer.snp_right).offset(-4)
+			make.top.equalTo(picturesContainer.snp_top).offset(10)
+			make.height.equalTo(collectionViewHeight)
+			make.left.equalTo(picturesContainer.snp_left).offset(5)
+			make.right.equalTo(picturesContainer.snp_right).offset(-5)
+		}
+		
+		let picturesButton = PrimaryActionButton()
+		self.picturesButton = picturesButton
+		picturesContainer.addSubview(picturesButton)
+		picturesButton.setTitle("Add pictures", forState: UIControlState.Normal)
+		picturesButton.addTarget(self, action: "attachPicturesButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		picturesButton.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(deleteAddressButton.snp_left)
+			make.top.equalTo(picturesContainer.snp_top).offset(20)
+		}
+		
+		picturesContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(picturesButton.snp_bottom).offset(20)
 		}
 		
 		picturesCollectionView.registerClass(PicturesCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: PicturesCollectionViewCell.reuseIdentifier)
-		picturesCollectionView.backgroundColor = whitePrimary
+		picturesCollectionView.backgroundColor = UIColor.clearColor()
 		
 		//Create task button
 		
 		let createTaskButton = UIButton()
+		self.createTaskButton = createTaskButton
 		self.contentView.addSubview(createTaskButton)
 		createTaskButton.setTitle("Post Task!", forState: UIControlState.Normal)
 		createTaskButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
@@ -477,10 +488,10 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		createTaskButton.addTarget(self, action: "postButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		
 		createTaskButton.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(self.view.snp_left).offset(20)
-			make.right.equalTo(self.view.snp_right).offset(-20)
-			make.height.equalTo(40)
-			make.top.equalTo(picturesContainer.snp_bottom).offset(20)
+			make.left.equalTo(self.view.snp_left).offset(contentInset * 2)
+			make.right.equalTo(self.view.snp_right).offset(contentInset * 2)
+			make.height.equalTo(50)
+			make.top.equalTo(picturesContainer.snp_bottom).offset(30)
 			make.centerX.equalTo(self.contentView.snp_centerX)
 			make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
 		}
@@ -571,8 +582,49 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	func didRemovePicture(vc: PicturesCollectionViewCell) {
 		self.arrayOfPictures.removeAtIndex(vc.tag)
 		self.picturesCollectionView.reloadData()
+		
+		if self.arrayOfPictures.isEmpty {
+			picturesButton.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(picturesContainer.snp_top).offset(20)
+			}
+			
+			UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.picturesButton.layoutIfNeeded()
+				self.picturesContainer.layoutIfNeeded()
+				self.createTaskButton.layoutIfNeeded()
+				self.backgroundView.layoutIfNeeded()
+				
+				self.scrollView.contentSize = self.contentView.frame.size
+				}, completion: nil)
+		}
 	}
 	
+	//MARK: Image Picker Delegate
+	
+	/**
+	Allows the user to pick pictures in his library
+	
+	- parameter picker: ImagePicker instance
+	- parameter info:   .
+	*/
+	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+		if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
+			self.arrayOfPictures.append(pickedImage)
+			self.picturesCollectionView.reloadData()
+		}
+		dismissViewControllerAnimated(true, completion: nil)
+		
+		self.picturesButton.snp_updateConstraints { (make) -> Void in
+			make.top.equalTo(picturesContainer.snp_top).offset(10 + self.collectionViewHeight + 20)
+		}
+		
+		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
+			self.picturesButton.layoutIfNeeded()
+			self.picturesContainer.layoutIfNeeded()
+			self.createTaskButton.layoutIfNeeded()
+			self.backgroundView.layoutIfNeeded()
+			}, completion: nil)
+	}
 	
 	//MARK: Textfield Delegate
 	
@@ -601,21 +653,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		return true
 	}
 	
-	//MARK: Image Picker Delegate
-	
-	/**
-	Allows the user to pick pictures in his library
-	
-	- parameter picker: ImagePicker instance
-	- parameter info:   .
-	*/
-	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-		if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
-			self.arrayOfPictures.append(pickedImage)
-			self.picturesCollectionView.reloadData()
-		}
-		dismissViewControllerAnimated(true, completion: nil)
-	}
+
 	
 	func imagePickerControllerDidCancel(picker: UIImagePickerController) {
 		dismissViewControllerAnimated(true, completion: nil)

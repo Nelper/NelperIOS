@@ -36,17 +36,19 @@ class PicturesCollectionViewCell: UICollectionViewCell {
 		}
 		let removeButton = UIButton()
 		self.addSubview(removeButton)
-		removeButton.setBackgroundImage(UIImage(named:"denied"), forState: UIControlState.Normal)
+		removeButton.setImage(UIImage(named:"denied"), forState: UIControlState.Normal)
+		removeButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+		removeButton.backgroundColor = UIColor.clearColor()
 		removeButton.addTarget(self, action: "didRemovePicture:", forControlEvents: UIControlEvents.TouchUpInside)
 		removeButton.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(imageView.snp_left)
-			make.top.equalTo(imageView.snp_top)
-			make.width.equalTo(20)
-			make.height.equalTo(20)
+			make.left.equalTo(imageView.snp_left).offset(5)
+			make.top.equalTo(imageView.snp_top).offset(5)
+			make.width.equalTo(40)
+			make.height.equalTo(40)
 		}
 	}
 	
-	func didRemovePicture(sender:UIButton){
+	func didRemovePicture(sender:UIButton) {
 		self.delegate?.didRemovePicture(self)
 	}
 
