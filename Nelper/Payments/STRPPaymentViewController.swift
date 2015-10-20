@@ -22,6 +22,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 	var titleLabel: UILabel!
 	var tap: UITapGestureRecognizer!
 	var blurContainer:UIVisualEffectView!
+	var task:FindNelpTask!
 	
 	
 	//MARK: Initialization
@@ -153,7 +154,15 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 			if error == nil {
 				if let token = token{
 					print("getting token properly: \(token)")
+					GraphQLClient.mutation("SendPayment", input: ["taskId":self.task.id, "token":token], block: { (object, error) -> Void in
+						if error != nil{
+							print(error)
+						}else{
+							//Woohoo
+						}
+					})
 				}
+				
 			}else{
 				//Fuck
 			}
