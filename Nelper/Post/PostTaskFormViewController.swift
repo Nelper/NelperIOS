@@ -37,8 +37,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var priceStatus: UIImageView!
 	var deleteAddressButton: SecondaryActionButton!
 	var addLocationButton: PrimaryActionButton!
-	var savedLocations: [Location]?
-	var locations: Array<Dictionary<String,AnyObject>>!
+	var locations: [Location]?
 	var locationsPickerView: UIPickerView?
 	var streetAddressLabel: UILabel!
 	var delegate: PostTaskFormViewControllerDelegate?
@@ -65,17 +64,15 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.task = task
 		self.placesClient = GMSPlacesClient()
 		
-		userPrivateData = ApiHelper.getUserPrivateData()
-		self.savedLocations = userPrivateData.locations
+		self.userPrivateData = ApiHelper.getUserPrivateData()
+		self.locations = userPrivateData.locations
 		
-		let locations = PFUser.currentUser()!["privateData"]!["locations"]! as! Array<Dictionary<String,AnyObject>>
-		self.locations = locations
-		if !locations.isEmpty {
-			self.task.location = GeoPoint(latitude:self.savedLocations![0].coords!["latitude"]!,longitude: self.savedLocations![0].coords!["longitude"]!)
-			self.task.city = self.savedLocations![0].city
-			self.task.exactLocation = self.savedLocations![0]
+		if !self.locations!.isEmpty {
+			self.task.location = GeoPoint(latitude:self.locations![0].coords!["latitude"]!,longitude: self.locations![0].coords!["longitude"]!)
+			self.task.city = self.locations![0].city
+			self.task.exactLocation = self.locations![0]
 		} else {
-			self.savedLocations = Array<Location>()
+			self.locations = [Location]()
 		}
 	}
 	
@@ -339,8 +336,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.locationTextField!.delegate = self
 		
 		locationTextField.backgroundColor = whitePrimary
-		if !self.savedLocations!.isEmpty{
-			locationTextField.text = self.savedLocations!.first!.name!
+		if !self.locations!.isEmpty{
+			locationTextField.text = self.locations!.first!.name!
 		}
 		
 		locationTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
@@ -380,12 +377,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let streetAddressLabel = UILabel()
 		self.streetAddressLabel = streetAddressLabel
 		
-		if self.savedLocations!.isEmpty{
+		if self.locations!.isEmpty{
 			locationTextField.userInteractionEnabled = false
 			locationTextField.text = ""
 			streetAddressLabel.text = "You haven't saved any adress yet!"
 		} else {
-			streetAddressLabel.text = self.savedLocations?.first?.formattedTextLabel
+			streetAddressLabel.text = self.locations?.first?.formattedTextLabel
 		
 		}
 		
@@ -490,7 +487,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.navBar.closeButton = previousBtn
 		self.contentView.backgroundColor = whiteBackground
 		
-		if self.savedLocations!.isEmpty {
+		if self.locations!.isEmpty {
 			
 		}
 	}
@@ -540,23 +537,23 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	// returns the # of rows in each component..
 	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-		return (self.savedLocations?.count)!
+		return (self.locations?.count)!
 	}
 	
 	func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-		return self.savedLocations![row].name
+		return self.locations![row].name
 	}
 	
 	func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
 	{
-		self.locationTextField!.text = self.savedLocations?[row].name
+		self.locationTextField!.text = self.locations?[row].name
 		
-		streetAddressLabel.text = self.savedLocations?[row].formattedTextLabel
+		streetAddressLabel.text = self.locations?[row].formattedTextLabel
 		
 		
-		self.task.location = GeoPoint(latitude:Double(self.savedLocations![row].coords!["latitude"]!),longitude: Double(self.savedLocations![row].coords!["longitude"]!))
-		self.task.city = self.savedLocations![row].city
-		self.task.exactLocation = self.savedLocations![row]
+		self.task.location = GeoPoint(latitude:Double(self.locations![row].coords!["latitude"]!),longitude: Double(self.locations![row].coords!["longitude"]!))
+		self.task.city = self.locations![row].city
+		self.task.exactLocation = self.locations![row]
 		view.endEditing(true)
 	}
 	
@@ -660,16 +657,13 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.task.location = vc.location
 		self.task.city = vc.address.city!
 		self.task.exactLocation = vc.address
-		self.locations.append(vc.address.createDictionary())
-		self.savedLocations?.append(vc.address)
+		self.locations?.append(vc.address)
 		self.locationsPickerView?.reloadAllComponents()
 		self.locationTextField?.text = vc.address.name
 		
 		self.streetAddressLabel.text = vc.address.formattedTextLabel
 		
-		let userPrivate = PFUser.currentUser()!["privateData"] as! PFObject
-		userPrivate.setValue(self.locations!, forKey: "locations")
-		userPrivate.saveEventually()
+		ApiHelper.updateUserLocations(self.userPrivateData.locations)
 		
 		self.locationTextField!.userInteractionEnabled = true
 		
@@ -771,7 +765,13 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	func didTapAddLocation(sender:UIButton) {
 		DismissKeyboard()
 		
+		UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false, UIScreen.mainScreen().scale)
+		self.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
+		let blurImage = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+		
 		let nextVC = AddAddressViewController()
+		nextVC.blurImage = blurImage
 		nextVC.delegate = self
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
 		self.providesPresentationContextTransitionStyle = true
@@ -782,14 +782,14 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	func didTapDeleteAddress(sender:UIButton){
-		if self.savedLocations!.isEmpty == false{
-		self.savedLocations?.removeAtIndex(self.locationsPickerView!.selectedRowInComponent(0))
+		if self.locations!.isEmpty == false{
+		self.locations?.removeAtIndex(self.locationsPickerView!.selectedRowInComponent(0))
 		}
 		self.locationsPickerView!.reloadAllComponents()
-		if !self.savedLocations!.isEmpty {
+		if !self.locations!.isEmpty {
 			self.locationsPickerView!.selectRow(0, inComponent: 0, animated: true)
-			self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!),longitude: Double(self.savedLocations![0].coords!["longitude"]!))
-			self.task.city = self.savedLocations![0].city
+			self.task.location = GeoPoint(latitude:Double(self.locations![0].coords!["latitude"]!),longitude: Double(self.locations![0].coords!["longitude"]!))
+			self.task.city = self.locations![0].city
 			self.updateLocationInfoToFirstComponent()
 		} else {
 			locationTextField!.text = ""
@@ -799,19 +799,19 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			self.task.exactLocation = nil
 		}
 		
-		PFUser.currentUser()!["privateData"]?.setValue(self.createDictionaries(self.savedLocations!), forKey: "locations")
+		PFUser.currentUser()!["privateData"]?.setValue(self.createDictionaries(self.locations!), forKey: "locations")
 		PFUser.currentUser()!.saveInBackground()
 	}
 	
 	
 	func updateLocationInfoToFirstComponent(){
-		self.locationTextField!.text = self.savedLocations?[0].name
+		self.locationTextField!.text = self.locations?[0].name
 		
-		self.streetAddressLabel.text = self.savedLocations?[0].formattedTextLabel
+		self.streetAddressLabel.text = self.locations?[0].formattedTextLabel
 		
-		self.savedLocations?[0].formattedAddress
-		self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!),longitude: Double(self.savedLocations![0].coords!["longitude"]!))
-		self.task.exactLocation = self.savedLocations?[0]
+		self.locations?[0].formattedAddress
+		self.task.location = GeoPoint(latitude:Double(self.locations![0].coords!["latitude"]!),longitude: Double(self.locations![0].coords!["longitude"]!))
+		self.task.exactLocation = self.locations?[0]
 	}
 	
 	/**

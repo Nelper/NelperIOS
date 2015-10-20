@@ -99,7 +99,7 @@ class NavBar: UINavigationBar {
 		}
 		
 		self.titleView = UILabel()
-		self.titleView.font = UIFont(name: "Lato-Light", size: kNavTitle18)
+		self.titleView.font = UIFont(name: "Lato-Regular", size: 17)
 		self.titleView.textColor = whitePrimary
 		self.titleView.sizeToFit()
 		

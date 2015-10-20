@@ -78,7 +78,6 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
-		self.scrollView.contentSize.height *= 0.8
 	}
 	
 	//MARK: View Creation
@@ -183,7 +182,6 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		let paddingViewLocation = UIView(frame: CGRectMake(0, 0, 10, 0))
 		addressTextField.leftView = paddingViewLocation
 		addressTextField.leftViewMode = UITextFieldViewMode.Always
-		
 		addressTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(nameTextField.snp_bottom).offset(10)
 			make.left.equalTo(popupContainer.snp_left).offset(8)
@@ -217,13 +215,12 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		self.autocompleteTableView.hidden = true
 		self.autocompleteTableView.layer.borderColor = darkGrayDetails.CGColor
 		self.autocompleteTableView.layer.borderWidth = 0.5
-		self.autocompleteTableView.backgroundColor = blackPrimary
-		
+		self.autocompleteTableView.backgroundColor = whitePrimary.colorWithAlphaComponent(0.6)
 		self.autocompleteTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(addressTextField.snp_bottom)
 			make.left.equalTo(addressTextField.snp_left)
 			make.right.equalTo(addressTextField.snp_right)
-			make.height.equalTo(220)
+			make.height.equalTo(240)
 		}
 	}
 	
@@ -295,13 +292,13 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	}
 	
 	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-		if(textField == addressTextField){
+		if(textField == addressTextField) {
 			
 			let textFieldRange:NSRange = NSMakeRange(0, textField.text!.characters.count)
 			
 			if NSEqualRanges(textFieldRange, range)	&& string.characters.count == 0 {
 				self.autocompleteTableView.hidden = true
-			}else{
+			} else {
 				self.autocompleteTableView.hidden = false
 			}
 			var substring = textField.text! as NSString
@@ -388,7 +385,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		var keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
 		keyboardFrame = self.view.convertRect(keyboardFrame, fromView: nil)
 		
-		self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height, 0)
+		self.contentInsets = UIEdgeInsetsMake(0, 0, keyboardFrame.height * 0.8, 0)
 		
 		self.scrollView.contentInset = contentInsets
 		self.scrollView.scrollIndicatorInsets = contentInsets
@@ -396,13 +393,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		var aRect = self.view.frame
 		aRect.size.height -= keyboardFrame.height
 		
-		let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
-		
-		if self.activeField != nil {
-			if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
-				self.scrollView.scrollRectToVisible(frame, animated: true)
-			}
-		}
+		self.scrollView.scrollRectToVisible(CGRectMake(scrollView.contentSize.width - 1, scrollView.contentSize.height * 0.895, 1, 1), animated: true)
 	}
 	
 	func keyboardWillHide(notification: NSNotification) {

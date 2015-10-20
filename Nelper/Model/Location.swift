@@ -32,31 +32,31 @@ class Location {
 	func createDictionary()->Dictionary<String,AnyObject> {
 		var dictionary = Dictionary<String,AnyObject>()
 		
-		if self.name != nil{
+		if self.name != nil {
 			dictionary["name"] = self.name
 		}
-		if self.formattedAddress != nil{
+		if self.formattedAddress != nil {
 			dictionary["formattedAddress"] = self.formattedAddress
 		}
-		if self.streetNumber != nil{
+		if self.streetNumber != nil {
 			dictionary["streetNumber"] = self.streetNumber
 		}
-		if self.route != nil{
+		if self.route != nil {
 			dictionary["route"] = self.route
 		}
-		if self.city != nil{
+		if self.city != nil {
 			dictionary["city"] = self.city
 		}
-		if self.province != nil{
+		if self.province != nil {
 			dictionary["province"] = self.province
 		}
-		if self.country != nil{
+		if self.country != nil {
 			dictionary["country"] = self.country
 		}
-		if self.postalCode != nil{
+		if self.postalCode != nil {
 			dictionary["postalCode"] = self.postalCode
 		}
-		if self.coords != nil{
+		if self.coords != nil {
 			dictionary["coords"] = self.coords
 		}
 		return dictionary

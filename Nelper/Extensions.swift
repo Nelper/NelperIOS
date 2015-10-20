@@ -20,7 +20,7 @@ extension String {
 
 extension String {
 	func isPhoneNumber() -> Bool {
-		let regex = try! NSRegularExpression(pattern: "^\\d{3}-\\d{3}-\\d{4}$",
+		let regex = try! NSRegularExpression(pattern: "^\\d{10}$",
 			options: [.CaseInsensitive])
 		
 		return regex.firstMatchInString(self, options:[],

@@ -10,10 +10,10 @@ import Foundation
 
 class UserPrivateData: BaseModel {
 	
-	var email:String!
-	var language:String?
+	var email: String!
+	var phone: String?
+	var language: String?
 	var locations = [Location]()
-	var phoneNumber:String!
 	var notifications = NotificationSettings()
 
 	init(parsePrivateData: PFObject) {
@@ -39,6 +39,9 @@ class UserPrivateData: BaseModel {
 			oneLocation.coords = location["coords"] as? Dictionary<String,Double>
 			self.locations.append(oneLocation)
 		}
+		
+		self.email = parsePrivateData["email"] as! String
+		self.phone = parsePrivateData["phone"] as? String
 	}
 }
 

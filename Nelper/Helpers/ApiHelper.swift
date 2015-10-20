@@ -515,4 +515,35 @@ class ApiHelper {
 		userPrivateData["notifications"] = notificationDict
 		userPrivateData.saveEventually()
 	}
+	
+	//Update user locations
+	
+	static func updateUserLocations(locations: [Location]) {
+		let userPrivateData = PFUser.currentUser()!["privateData"] as! PFObject
+		let locationDict = locations.map { (location: Location) -> Dictionary<String,AnyObject> in
+			return [
+				"formattedAddress": location.formattedAddress!,
+				"name": location.name!,
+				"city": location.city!,
+				"province": location.province!,
+				"route": location.route!,
+				"streetNumber": location.streetNumber!,
+				"country": location.country!,
+				"coords": location.coords!
+			]
+		}
+		
+		userPrivateData["locations"] = locationDict
+		userPrivateData.saveEventually()
+	}
+	
+	//Update account settings
+	
+	static func updateUserAccountSettings(email: String, phone: String?) {
+		let userPrivateData = PFUser.currentUser()!["privateData"] as! PFObject
+		
+		userPrivateData["email"] = email
+		userPrivateData["phone"] = phone
+		userPrivateData.saveEventually()
+	}
 }

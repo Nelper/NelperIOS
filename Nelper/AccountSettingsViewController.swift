@@ -85,11 +85,10 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.loginProvider = PFUser.currentUser()?.objectForKey("loginProvider") as? String
 		
 		//GET USER INFO
-		self.userEmail = PFUser.currentUser()?.objectForKey("email") as? String
-		self.userPhone = "514-283-2746"
+		self.userEmail = self.userPrivateData.email
+		self.userPhone = self.userPrivateData.phone
 		
 		//CALL
-		setLocations()
 		createView()
 		setTextFields()
 		
@@ -118,7 +117,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
-	///MARK: UI
+	//MARK: UI
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
@@ -134,17 +133,9 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.confirmTextField?.text = ""
 	}
 	
-	func setLocations() {
-		
-		//let locations = PFUser.currentUser()!["privateData"]!["locations"]! as! Array<Dictionary<String,AnyObject>>
-		//self.locations = locations
-		
-		//print(locations)
-	}
-	
 	func createView() {
 		
-		///NAVBAR
+		//NAVBAR
 		let navBar = NavBar()
 		self.navBar = navBar
 		self.view.addSubview(self.navBar)
@@ -190,7 +181,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			make.width.equalTo(self.backgroundView.snp_width)
 		}
 		
-		///GENERAL
+		//GENERAL
 		let generalContainer = DefaultContainerView()
 		self.generalContainer = generalContainer
 		self.contentView.addSubview(self.generalContainer)
@@ -241,6 +232,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		let phoneTextField = DefaultTextFieldView()
 		self.phoneTextField = phoneTextField
 		self.generalContainer.contentView.addSubview(self.phoneTextField)
+		self.phoneTextField.attributedPlaceholder = NSAttributedString(string: "None", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
 		self.phoneTextField.keyboardType = UIKeyboardType.NamePhonePad
 		self.phoneTextField.autocorrectionType = UITextAutocorrectionType.No
 		self.phoneTextField.autocapitalizationType = UITextAutocapitalizationType.None
@@ -254,7 +246,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			make.bottom.equalTo(self.phoneTextField.snp_bottom).offset(kPadding)
 		}
 		
-		///LOCATIONS
+		//LOCATIONS
 		let locationsContainer = DefaultContainerView()
 		self.locationsContainer = locationsContainer
 		self.contentView.addSubview(self.locationsContainer)
@@ -319,87 +311,17 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.locationAddressLabel.textColor = darkGrayText
 			self.locationAddressLabel.snp_makeConstraints { (make) -> Void in
 				make.centerY.equalTo(self.locationNameLabel.snp_centerY)
-				make.left.equalTo(self.locationNameLabel.snp_right).offset(45)
+				make.left.equalTo(self.locationNameLabel.snp_right).offset(50)
 			}
 			
-			self.locationContainerHeight = 0
-			
-			for i in 0...(locations.count - 1) {
-				
-				let locationContainer = UIButton()
-				self.locationContainer = locationContainer
-				self.locationsContainer.addSubview(self.locationContainer)
-				self.locationContainer.backgroundColor = whitePrimary
-				self.locationContainer.setBackgroundColor(grayDetails, forState: UIControlState.Highlighted)
-				self.locationContainer.addTarget(self, action: "locationContainerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-				self.locationContainer.snp_makeConstraints { (make) -> Void in
-					make.top.equalTo(self.locationNameLabel.snp_bottom).offset(20 + (i * (Int(locationContainerHeight) + 20)))
-					make.left.equalTo(self.locationsContainer.snp_left)
-					make.right.equalTo(self.locationsContainer.snp_right)
-				}
-				
-				let locationName = UILabel()
-				self.locationName = locationName
-				self.locationContainer.addSubview(self.locationName)
-				self.locationName.text = locations[i].name
-				self.locationName.font = UIFont(name: "Lato-Light", size: kText15)
-				self.locationName.textColor = darkGrayText
-				self.locationName.snp_makeConstraints { (make) -> Void in
-					make.top.equalTo(self.locationContainer.snp_top)
-					make.left.equalTo(self.locationNameLabel.snp_left)
-				}
-				
-				let locationAddress = UILabel()
-				self.locationAddress = locationAddress
-				self.locationContainer.addSubview(self.locationAddress)
-				self.locationAddress.text = locations[i].formattedTextLabel
-				self.locationAddress.numberOfLines = 0
-				self.locationAddress.font = UIFont(name: "Lato-Light", size: kText15)
-				self.locationAddress.textColor = darkGrayText
-				self.locationAddress.snp_makeConstraints { (make) -> Void in
-					make.top.equalTo(self.locationContainer.snp_top)
-					make.left.equalTo(self.locationAddressLabel.snp_left)
-					make.right.equalTo(self.locationContainer.snp_right)
-				}
-				
-				let locationContainerLine = UIView()
-				self.locationContainerLine = locationContainerLine
-				self.locationContainer.addSubview(locationContainerLine)
-				self.locationContainerLine.backgroundColor = darkGrayDetails.colorWithAlphaComponent(0.8)
-				self.locationContainerLine.snp_makeConstraints { (make) -> Void in
-					make.top.equalTo(self.locationName.snp_top)
-					make.right.equalTo(self.locationName.snp_left).offset(-6)
-					make.width.equalTo(0.5)
-					make.bottom.equalTo(self.locationAddress.snp_bottom)
-				}
-				
-				self.locationName.snp_makeConstraints { (make) -> Void in
-					make.right.equalTo(self.locationAddress.snp_left)
-				}
-				
-				self.locationContainer.layoutIfNeeded()
-				
-				if self.locationContainerHeight == 0 {
-					self.locationContainerHeight = self.locationAddress.frame.maxY
-				}
-					
-				self.locationContainer.snp_updateConstraints { (make) -> Void in
-					make.height.equalTo(self.locationContainerHeight)
-				}
-				
-				self.locationContainerArray.append(self.locationContainer)
-			}
-		}
-		
-		self.locationsContainer.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.locationContainerArray[locations.count - 1].snp_bottom).offset(30)
+			createLocationView(true)
 		}
 		
 		if (self.loginProvider == "email") {
 			
 			self.willShowPassword = true
 			
-			///PASSWORD
+			//PASSWORD
 			let passwordContainer = DefaultContainerView()
 			self.passwordContainer = passwordContainer
 			self.contentView.addSubview(self.passwordContainer)
@@ -497,7 +419,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			}
 		}
 		
-		///DELETE
+		//DELETE
 		let deleteContainer = DefaultContainerView()
 		self.deleteContainer = deleteContainer
 		self.contentView.addSubview(self.deleteContainer)
@@ -552,7 +474,100 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		}
 	}
 	
-	///MARK: KEYBOARD, WITH viewDidDis/Appear AND textfielddelegate
+	/**
+	creates/update the view for locations list
+	
+	- parameter isFirstCreation: true if the func is called for the first time
+	*/
+	func createLocationView(isFirstCreation: Bool) {
+		
+		for locationCont in self.locationContainerArray {
+			locationCont.removeFromSuperview()
+		}
+		
+		self.locationContainerArray.removeAll()
+		
+		let locations = self.userPrivateData.locations
+		self.locationContainerHeight = 0
+		
+		for i in 0...(locations.count - 1) {
+			
+			let locationContainer = UIButton()
+			self.locationContainer = locationContainer
+			self.locationsContainer.addSubview(self.locationContainer)
+			self.locationContainer.backgroundColor = whitePrimary
+			self.locationContainer.setBackgroundColor(grayDetails, forState: UIControlState.Highlighted)
+			self.locationContainer.addTarget(self, action: "locationContainerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+			self.locationContainer.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(self.locationNameLabel.snp_bottom).offset(20 + (i * (Int(locationContainerHeight) + 20)))
+				make.left.equalTo(self.locationsContainer.snp_left)
+				make.right.equalTo(self.locationsContainer.snp_right)
+			}
+			
+			let locationName = UILabel()
+			self.locationName = locationName
+			self.locationContainer.addSubview(self.locationName)
+			self.locationName.text = locations[i].name
+			self.locationName.font = UIFont(name: "Lato-Light", size: kText15)
+			self.locationName.textColor = darkGrayText
+			self.locationName.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(self.locationContainer.snp_top)
+				make.left.equalTo(self.locationNameLabel.snp_left)
+			}
+			
+			let locationAddress = UILabel()
+			self.locationAddress = locationAddress
+			self.locationContainer.addSubview(self.locationAddress)
+			self.locationAddress.text = locations[i].formattedTextLabel
+			self.locationAddress.numberOfLines = 0
+			self.locationAddress.font = UIFont(name: "Lato-Light", size: kText15)
+			self.locationAddress.textColor = darkGrayText
+			self.locationAddress.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(self.locationContainer.snp_top)
+				make.left.equalTo(self.locationAddressLabel.snp_left)
+				make.right.equalTo(self.locationContainer.snp_right)
+			}
+			
+			let locationContainerLine = UIView()
+			self.locationContainerLine = locationContainerLine
+			self.locationContainer.addSubview(locationContainerLine)
+			self.locationContainerLine.backgroundColor = darkGrayDetails.colorWithAlphaComponent(0.5)
+			self.locationContainerLine.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(self.locationName.snp_top)
+				make.right.equalTo(self.locationName.snp_left).offset(-6)
+				make.width.equalTo(0.5)
+				make.bottom.equalTo(self.locationAddress.snp_bottom)
+			}
+			
+			self.locationName.snp_makeConstraints { (make) -> Void in
+				make.right.equalTo(self.locationAddress.snp_left)
+			}
+			
+			self.locationContainer.layoutIfNeeded()
+			
+			if self.locationContainerHeight == 0 {
+				self.locationContainerHeight = self.locationAddress.frame.maxY
+			}
+			
+			self.locationContainer.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(self.locationContainerHeight)
+			}
+			
+			self.locationContainerArray.append(self.locationContainer)
+		}
+		
+		if isFirstCreation {
+			self.locationsContainer.snp_makeConstraints { (make) -> Void in
+				make.bottom.equalTo(self.locationContainerArray[locations.count - 1].snp_bottom).offset(30)
+			}
+		} else {
+			self.locationsContainer.snp_updateConstraints { (make) -> Void in
+				make.bottom.equalTo(self.locationContainerArray[locations.count - 1].snp_bottom).offset(30)
+			}
+		}
+	}
+	
+	//MARK: KEYBOARD, WITH viewDidDis/Appear AND textfielddelegate
 	
 	func DismissKeyboard() {
 		view.endEditing(true)
@@ -599,7 +614,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.scrollView.scrollIndicatorInsets = contentInsets
 	}
 
-	///ADDADDRESS LOCATION DELEGATE
+	//ADDADDRESS LOCATION DELEGATE
 	
 	func didClosePopup(vc: AddAddressViewController) {
 		self.popupShown = false
@@ -608,15 +623,12 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	func didAddLocation(vc:AddAddressViewController) {
 		self.userPrivateData.locations.append(vc.address)
 		
-		for subview in self.view.subviews {
-			subview.removeFromSuperview()
-		}
+		ApiHelper.updateUserLocations(self.userPrivateData.locations)
 		
-		createView()
-		
+		createLocationView(false)
 	}
 	
-	///MARK: ACTIONS
+	//MARK: ACTIONS
 	
 	func backButtonTapped(sender: UIButton) {
 		
@@ -682,10 +694,10 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		}
 		
 		//REVIEW FORMAT? EXTENSION.SWIFT
-		if !self.phoneTextField.text!.isPhoneNumber() {
-			print("not a valid phone number of type xxx-xxx-xxxx")
+		if !self.phoneTextField.text!.isPhoneNumber() && self.phoneTextField.text != "" {
+			print("not a valid 10 digits phone number")
 			self.textFieldError = true
-			self.textFieldErrorMessages.append("Please enter a valid phone number")
+			self.textFieldErrorMessages.append("Please enter a valid 10 digits phone number")
 		}
 		
 		if self.textFieldError {
@@ -701,7 +713,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			
 			DismissKeyboard()
 			
-			let popup = UIAlertController(title: "Please fix the following fields", message: popupMessage, preferredStyle: UIAlertControllerStyle.Alert)
+			let popup = UIAlertController(title: "Incorrect fields", message: popupMessage, preferredStyle: UIAlertControllerStyle.Alert)
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 			}))
 			self.presentViewController(popup, animated: true, completion: nil)
@@ -782,8 +794,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			
 			_ = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "dismissVC", userInfo: nil, repeats: false)
 			
-			PFUser.currentUser()!["email"] = self.emailTextField.text
-			PFUser.currentUser()!.saveInBackground()
+			ApiHelper.updateUserAccountSettings(self.emailTextField.text!, phone: self.phoneTextField.text)
 	 }
 	}
 	
