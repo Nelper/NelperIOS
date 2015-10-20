@@ -30,11 +30,6 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	var locationsContainer: DefaultContainerView!
 	var addLocationButton: UIButton!
 	var emptyLocationsLabel: UILabel!
-	//var locations: Array<Dictionary<String,AnyObject>>!
-	var hardcodedArray = [
-		(name: "Home", address: "175 Rue Forbin-Janson\nMont-Saint-Hilaire, QC\nJ3H 4E4"),
-		(name: "Office", address: "1 Rue Notre Dame Ouest\nMontréal-Des-Longues-Villes, QC\nH2Y 3N2")
-	]
 	var locationContainer: UIButton!
 	var locationContainerLine: UIView!
 	var locationContainerArray = [UIButton]()
@@ -78,14 +73,22 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	
 	var loginProvider: String!
 	
+	var userPrivateData: UserPrivateData!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		//GET LOCATIONS
+		userPrivateData = ApiHelper.getUserPrivateData()
+		
+		//GET LOGIN PROVIDER
 		self.loginProvider = PFUser.currentUser()?.objectForKey("loginProvider") as? String
 		
+		//GET USER INFO
 		self.userEmail = PFUser.currentUser()?.objectForKey("email") as? String
 		self.userPhone = "514-283-2746"
 		
+		//CALL
 		setLocations()
 		createView()
 		setTextFields()
@@ -280,7 +283,9 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			make.width.equalTo(80)
 		}
 		
-		if hardcodedArray.isEmpty {
+		let locations = self.userPrivateData.locations
+		
+		if locations.isEmpty {
 			
 			let emptyLocationsLabel = UILabel()
 			self.emptyLocationsLabel = emptyLocationsLabel
@@ -319,7 +324,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			
 			self.locationContainerHeight = 0
 			
-			for i in 0...(hardcodedArray.count - 1) {
+			for i in 0...(locations.count - 1) {
 				
 				let locationContainer = UIButton()
 				self.locationContainer = locationContainer
@@ -336,7 +341,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				let locationName = UILabel()
 				self.locationName = locationName
 				self.locationContainer.addSubview(self.locationName)
-				self.locationName.text = hardcodedArray[i].name
+				self.locationName.text = locations[i].name
 				self.locationName.font = UIFont(name: "Lato-Light", size: kText15)
 				self.locationName.textColor = darkGrayText
 				self.locationName.snp_makeConstraints { (make) -> Void in
@@ -347,7 +352,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				let locationAddress = UILabel()
 				self.locationAddress = locationAddress
 				self.locationContainer.addSubview(self.locationAddress)
-				self.locationAddress.text = hardcodedArray[i].address
+				self.locationAddress.text = locations[i].formattedTextLabel
 				self.locationAddress.numberOfLines = 0
 				self.locationAddress.font = UIFont(name: "Lato-Light", size: kText15)
 				self.locationAddress.textColor = darkGrayText
@@ -387,7 +392,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		}
 		
 		self.locationsContainer.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.locationContainerArray[hardcodedArray.count - 1].snp_bottom).offset(30)
+			make.bottom.equalTo(self.locationContainerArray[locations.count - 1].snp_bottom).offset(30)
 		}
 		
 		if (self.loginProvider == "email") {
@@ -601,6 +606,13 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	}
 	
 	func didAddLocation(vc:AddAddressViewController) {
+		self.userPrivateData.locations.append(vc.address)
+		
+		for subview in self.view.subviews {
+			subview.removeFromSuperview()
+		}
+		
+		createView()
 		
 	}
 	

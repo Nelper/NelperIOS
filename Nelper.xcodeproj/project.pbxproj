@@ -74,7 +74,6 @@
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
 		F72385DA1BBE1533000793B8 /* PicturesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72385D91BBE1533000793B8 /* PicturesCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
-		F72385E51BC5A624000793B8 /* MoreMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72385E31BC5A624000793B8 /* MoreMenuTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		F72385E61BC5A624000793B8 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72385E41BC5A624000793B8 /* MoreViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		F72F27DC1B53224100CD3B0B /* TaskApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F27DB1B53224100CD3B0B /* TaskApplication.swift */; };
 		F72F284F1B53607C00CD3B0B /* ThemeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F284E1B53607C00CD3B0B /* ThemeHelper.swift */; };
@@ -265,7 +264,6 @@
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
 		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		F72385D91BBE1533000793B8 /* PicturesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicturesCollectionViewCell.swift; sourceTree = "<group>"; };
-		F72385E31BC5A624000793B8 /* MoreMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMenuTableViewController.swift; sourceTree = "<group>"; };
 		F72385E41BC5A624000793B8 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		F72F27DB1B53224100CD3B0B /* TaskApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TaskApplication.swift; path = Nelper/Model/TaskApplication.swift; sourceTree = SOURCE_ROOT; };
 		F72F284E1B53607C00CD3B0B /* ThemeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeHelper.swift; path = Nelper/Helpers/ThemeHelper.swift; sourceTree = SOURCE_ROOT; };
@@ -670,7 +668,6 @@
 		F72385E21BC5A624000793B8 /* More */ = {
 			isa = PBXGroup;
 			children = (
-				F72385E31BC5A624000793B8 /* MoreMenuTableViewController.swift */,
 				F72385E41BC5A624000793B8 /* MoreViewController.swift */,
 			);
 			path = More;
@@ -1080,7 +1077,6 @@
 				C0BED39F1BCF4E3C00CE3B63 /* UIElements.swift in Sources */,
 				F7E8F8F61B94E7CF007D44D8 /* ATLParticipantTableViewCell.m in Sources */,
 				F7E8F8D51B94E7CF007D44D8 /* ATLAddressBarViewController.m in Sources */,
-				F72385E51BC5A624000793B8 /* MoreMenuTableViewController.swift in Sources */,
 				F7E8F8E91B94E7CF007D44D8 /* ATLConversationCollectionView.m in Sources */,
 				19DB244F1BB7119C00468E91 /* AddAddressViewController.swift in Sources */,
 				19DB24531BB7119C00468E91 /* PostTaskFormViewController.swift in Sources */,

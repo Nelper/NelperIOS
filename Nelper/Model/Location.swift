@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Location{
+class Location {
 	var name: String?
 	var formattedAddress: String?
 	var streetNumber: String?
@@ -19,6 +19,15 @@ class Location{
 	var country: String?
 	var postalCode: String?
 	var coords: Dictionary<String, Double>?
+	var formattedTextLabel: String {
+		get {
+			if self.streetNumber != nil {
+				return "\(self.streetNumber!) \(self.route!)\n\(self.city!), \(self.province!)\n\(self.country!)"
+			} else {
+				return "\(self.route!)\n\(self.city!), \(self.province!)\n\(self.country!)"
+			}
+		}
+	}
 	
 	func createDictionary()->Dictionary<String,AnyObject> {
 		var dictionary = Dictionary<String,AnyObject>()

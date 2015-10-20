@@ -151,9 +151,9 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 			make.left.equalTo(presentedVC.view.snp_right)
 			make.width.equalTo(presentedVC.view.snp_width).multipliedBy(0.70)
 		})
-		//swipeRec.removeTarget(self, action: "swipedView")
-		//swipeRec2.removeTarget(self, action: "swipedView")
-		//tapRec.removeTarget(self, action: "swipedView")
+		swipeRec.removeTarget(self, action: "swipedView")
+		swipeRec2.removeTarget(self, action: "swipedView")
+		tapRec.removeTarget(self, action: "swipedView")
 		
 		UIView.animateWithDuration(0.4, animations: { () -> Void in
 			self.nextVC.view.layoutIfNeeded()

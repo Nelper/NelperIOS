@@ -37,7 +37,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var priceStatus: UIImageView!
 	var deleteAddressButton: SecondaryActionButton!
 	var addLocationButton: PrimaryActionButton!
-	var savedLocations: Array<Location>?
+	var savedLocations: [Location]?
 	var locations: Array<Dictionary<String,AnyObject>>!
 	var locationsPickerView: UIPickerView?
 	var streetAddressLabel: UILabel!
@@ -56,30 +56,21 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var fieldEditing = false
 	var popupShown = false
 	
+	var userPrivateData: UserPrivateData!
+	
 	//MARK: Initialization
 	
 	init(task: FindNelpTask) {
 		super.init(nibName: nil, bundle: nil)
 		self.task = task
 		self.placesClient = GMSPlacesClient()
+		
+		userPrivateData = ApiHelper.getUserPrivateData()
+		self.savedLocations = userPrivateData.locations
+		
 		let locations = PFUser.currentUser()!["privateData"]!["locations"]! as! Array<Dictionary<String,AnyObject>>
 		self.locations = locations
 		if !locations.isEmpty {
-			var arrayOfLocations = Array<Location>()
-			for location in locations{
-				let oneLocation = Location()
-				oneLocation.formattedAddress = location["formattedAddress"] as? String
-				oneLocation.name = location["name"] as? String
-				oneLocation.city = location["city"] as? String
-				oneLocation.province = location["province"] as? String
-				oneLocation.route = location["route"] as? String
-				oneLocation.streetNumber = location["streetNumber"] as? String
-				oneLocation.country = location["country"] as? String
-				oneLocation.coords = location["coords"] as? Dictionary<String,Double>
-				arrayOfLocations.append(oneLocation)
-			}
-			self.savedLocations = arrayOfLocations
-			print(arrayOfLocations[0].coords)
 			self.task.location = GeoPoint(latitude:self.savedLocations![0].coords!["latitude"]!,longitude: self.savedLocations![0].coords!["longitude"]!)
 			self.task.city = self.savedLocations![0].city
 			self.task.exactLocation = self.savedLocations![0]
@@ -394,11 +385,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			locationTextField.text = ""
 			streetAddressLabel.text = "You haven't saved any adress yet!"
 		} else {
-			if self.savedLocations?.first?.streetNumber != nil {
-				streetAddressLabel.text = "\(self.savedLocations!.first!.streetNumber!) \(self.savedLocations!.first!.route!)\n\(self.savedLocations!.first!.city!), \(self.savedLocations!.first!.province!)\n\(self.savedLocations!.first!.country!)"
-			} else {
-				self.streetAddressLabel.text = "\(self.savedLocations!.first!.route!)\n\(self.savedLocations!.first!.city!), \(self.savedLocations!.first!.province!)\n\(self.savedLocations!.first!.country!)"
-			}
+			streetAddressLabel.text = self.savedLocations?.first?.formattedTextLabel
 		
 		}
 		
@@ -564,11 +551,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	{
 		self.locationTextField!.text = self.savedLocations?[row].name
 		
-		if self.savedLocations?[row].streetNumber != nil {
-			streetAddressLabel.text = "\(self.savedLocations![row].streetNumber!) \(self.savedLocations![row].route!)\n\(self.savedLocations![row].city!), \(self.savedLocations![row].province!)\n\(self.savedLocations![row].country!)"
-		} else {
-			self.streetAddressLabel.text = "\(self.savedLocations![row].route!)\n\(self.savedLocations![row].city!), \(self.savedLocations![row].province!)\n\(self.savedLocations![row].country!)"
-		}
+		streetAddressLabel.text = self.savedLocations?[row].formattedTextLabel
 		
 		
 		self.task.location = GeoPoint(latitude:Double(self.savedLocations![row].coords!["latitude"]!),longitude: Double(self.savedLocations![row].coords!["longitude"]!))
@@ -682,11 +665,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.locationsPickerView?.reloadAllComponents()
 		self.locationTextField?.text = vc.address.name
 		
-		if vc.address.streetNumber != nil {
-			streetAddressLabel.text = "\(vc.address.streetNumber!) \(vc.address.route!)\n\(vc.address.city!), \(vc.address.province!)\n\(vc.address.country!)"
-		} else {
-			self.streetAddressLabel.text = "\(vc.address.route!)\n\(vc.address.city!), \(vc.address.province!)\n\(vc.address.country!)"
-		}
+		self.streetAddressLabel.text = vc.address.formattedTextLabel
 		
 		let userPrivate = PFUser.currentUser()!["privateData"] as! PFObject
 		userPrivate.setValue(self.locations!, forKey: "locations")
@@ -827,11 +806,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	func updateLocationInfoToFirstComponent(){
 		self.locationTextField!.text = self.savedLocations?[0].name
-		if self.savedLocations?[0].streetNumber != nil {
-			streetAddressLabel.text = "\(self.savedLocations![0].streetNumber!) \(self.savedLocations![0].route!)\n\(self.savedLocations![0].city!), \(self.savedLocations![0].province!)\n\(self.savedLocations![0].country!)"
-		} else {
-			self.streetAddressLabel.text = "\(self.savedLocations![0].route!)\n\(self.savedLocations![0].city!), \(self.savedLocations![0].province!)\n\(self.savedLocations![0].country!)"
-		}
+		
+		self.streetAddressLabel.text = self.savedLocations?[0].formattedTextLabel
 		
 		self.savedLocations?[0].formattedAddress
 		self.task.location = GeoPoint(latitude:Double(self.savedLocations![0].coords!["latitude"]!),longitude: Double(self.savedLocations![0].coords!["longitude"]!))

@@ -43,8 +43,13 @@ class NotificationsSettingsViewController: UIViewController {
 	
 	let kPadding: Int = 20
 	
+	var userPrivateData: UserPrivateData!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		userPrivateData = ApiHelper.getUserPrivateData()
+		
 		
 		createView()
 		adjustUI()
@@ -59,6 +64,8 @@ class NotificationsSettingsViewController: UIViewController {
 	}
 	
 	func createView() {
+		
+		let notifications = userPrivateData.notifications
 		
 		///NAVBAR
 		let navBar = NavBar()
@@ -150,11 +157,10 @@ class NotificationsSettingsViewController: UIViewController {
 		let t1FirstSwitch = UISwitch()
 		self.t1FirstSwitch = t1FirstSwitch
 		self.emailNotContainer.contentView.addSubview(self.t1FirstSwitch)
-		self.t1FirstSwitch.on = true
+		self.t1FirstSwitch.on = notifications.posterApplication.email
 		self.t1FirstSwitch.onTintColor = redPrimary
 		self.t1FirstSwitch.tintColor = grayDetails
 		self.t1FirstSwitch.thumbTintColor = whitePrimary
-		self.t1FirstSwitch.setOn(true, animated: false)
 		self.t1FirstSwitch.addTarget(self, action: "t1FirstSwitchChanged:", forControlEvents: .ValueChanged)
 		self.t1FirstSwitch.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(self.emailNotContainer.snp_right).offset(-self.kPadding)
@@ -179,11 +185,10 @@ class NotificationsSettingsViewController: UIViewController {
 		let t1SecondSwitch = UISwitch()
 		self.t1SecondSwitch = t1SecondSwitch
 		self.emailNotContainer.contentView.addSubview(self.t1SecondSwitch)
-		self.t1SecondSwitch.on = true
+		self.t1SecondSwitch.on = notifications.posterRequestPayment.email
 		self.t1SecondSwitch.onTintColor = redPrimary
 		self.t1SecondSwitch.tintColor = grayDetails
 		self.t1SecondSwitch.thumbTintColor = whitePrimary
-		self.t1SecondSwitch.setOn(true, animated: false)
 		self.t1SecondSwitch.addTarget(self, action: "t1SecondSwitchChanged:", forControlEvents: .ValueChanged)
 		self.t1SecondSwitch.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(self.t1FirstSwitch.snp_right)
@@ -242,11 +247,10 @@ class NotificationsSettingsViewController: UIViewController {
 		let t2FirstSwitch = UISwitch()
 		self.t2FirstSwitch = t2FirstSwitch
 		self.emailNotContainer.contentView.addSubview(self.t2FirstSwitch)
-		self.t2FirstSwitch.on = true
+		self.t2FirstSwitch.on = notifications.nelperApplicationStatus.email
 		self.t2FirstSwitch.onTintColor = redPrimary
 		self.t2FirstSwitch.tintColor = grayDetails
 		self.t2FirstSwitch.thumbTintColor = whitePrimary
-		self.t2FirstSwitch.setOn(true, animated: false)
 		self.t2FirstSwitch.addTarget(self, action: "t2FirstSwitchChanged:", forControlEvents: .ValueChanged)
 		self.t2FirstSwitch.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(self.emailNotContainer.snp_right).offset(-self.kPadding)
@@ -271,11 +275,10 @@ class NotificationsSettingsViewController: UIViewController {
 		let t2SecondSwitch = UISwitch()
 		self.t2SecondSwitch = t2SecondSwitch
 		self.emailNotContainer.contentView.addSubview(self.t2SecondSwitch)
-		self.t2SecondSwitch.on = true
+		self.t2SecondSwitch.on = notifications.nelperReceivedPayment.email
 		self.t2SecondSwitch.onTintColor = redPrimary
 		self.t2SecondSwitch.tintColor = grayDetails
 		self.t2SecondSwitch.thumbTintColor = whitePrimary
-		self.t2SecondSwitch.setOn(true, animated: false)
 		self.t2SecondSwitch.addTarget(self, action: "t2SecondSwitchChanged:", forControlEvents: .ValueChanged)
 		self.t2SecondSwitch.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(self.t2FirstSwitch.snp_right)
@@ -334,11 +337,10 @@ class NotificationsSettingsViewController: UIViewController {
 		let t3FirstSwitch = UISwitch()
 		self.t3FirstSwitch = t3FirstSwitch
 		self.emailNotContainer.contentView.addSubview(self.t3FirstSwitch)
-		self.t3FirstSwitch.on = true
+		self.t3FirstSwitch.on = notifications.newsletter.email
 		self.t3FirstSwitch.onTintColor = redPrimary
 		self.t3FirstSwitch.tintColor = grayDetails
 		self.t3FirstSwitch.thumbTintColor = whitePrimary
-		self.t3FirstSwitch.setOn(true, animated: false)
 		self.t3FirstSwitch.addTarget(self, action: "t3FirstSwitchChanged:", forControlEvents: .ValueChanged)
 		self.t3FirstSwitch.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(self.emailNotContainer.snp_right).offset(-self.kPadding)
@@ -371,23 +373,28 @@ class NotificationsSettingsViewController: UIViewController {
 	}
 	
 	func t1FirstSwitchChanged(sender: UISwitch) {
-		
+		self.userPrivateData.notifications.posterApplication.email = !self.userPrivateData.notifications.posterApplication.email
+		ApiHelper.updateNotificationSettings(self.userPrivateData.notifications)
 	}
 	
 	func t1SecondSwitchChanged(sender: UISwitch) {
-		
+		self.userPrivateData.notifications.posterRequestPayment.email = !self.userPrivateData.notifications.posterRequestPayment.email
+		ApiHelper.updateNotificationSettings(self.userPrivateData.notifications)
 	}
 	
 	func t2FirstSwitchChanged(sender: UISwitch) {
-		
+		self.userPrivateData.notifications.nelperApplicationStatus.email = !self.userPrivateData.notifications.nelperApplicationStatus.email
+		ApiHelper.updateNotificationSettings(self.userPrivateData.notifications)
 	}
 	
 	func t2SecondSwitchChanged(sender: UISwitch) {
-		
+		self.userPrivateData.notifications.nelperReceivedPayment.email = !self.userPrivateData.notifications.nelperReceivedPayment.email
+		ApiHelper.updateNotificationSettings(self.userPrivateData.notifications)
 	}
 	
 	func t3FirstSwitchChanged(sender: UISwitch) {
-		
+		self.userPrivateData.notifications.newsletter.email = !self.userPrivateData.notifications.newsletter.email
+		ApiHelper.updateNotificationSettings(self.userPrivateData.notifications)
 	}
 	
 }

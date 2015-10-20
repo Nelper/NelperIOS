@@ -481,7 +481,7 @@ class ApiHelper {
 	
 	//Convert uploaded pictures to PFFile
 	
-	static func convertImagesToData(images:Array<UIImage>) -> Array<PFFile>{
+	static func convertImagesToData(images:Array<UIImage>) -> Array<PFFile> {
 		var imagesInData = Array<PFFile>()
 		for image in images{
 			let imageData = UIImageJPEGRepresentation(image as UIImage, 0.50)
@@ -489,5 +489,30 @@ class ApiHelper {
 			imagesInData.append(imageFile)
 		}
 		return imagesInData
+	}
+	
+	//Get privateData
+	
+	static func getUserPrivateData() -> UserPrivateData	{
+		let userPrivateData = PFUser.currentUser()!["privateData"] as! PFObject
+		
+		return UserPrivateData(parsePrivateData: userPrivateData)
+	}
+	
+	//Update notification settings
+	
+	static func updateNotificationSettings(notification: NotificationSettings) {
+		let userPrivateData = PFUser.currentUser()!["privateData"] as! PFObject
+		let notificationDict = [
+			"posterApplication": ["email":notification.posterApplication.email],
+			"posterRequestPayment": ["email":notification.posterRequestPayment.email],
+			"nelperApplicationStatus": ["email":notification.nelperApplicationStatus.email],
+			"nelperReceivedPayment": ["email":notification.nelperReceivedPayment.email],
+			"newsletter": ["email":notification.newsletter.email]
+		]
+		
+		
+		userPrivateData["notifications"] = notificationDict
+		userPrivateData.saveEventually()
 	}
 }
