@@ -17,6 +17,13 @@ class BaseTask: BaseModel {
     case Deleted
     case Completed
 	}
+	
+	enum CompletionState: Int{
+		case Accepted = 0
+		case PaymentSent
+		case Completed
+		case Rated
+	}
 	var id: String {
 		get {
 			return GraphQLClient.toGlobalId("Task", id: self.objectId)
@@ -32,6 +39,7 @@ class BaseTask: BaseModel {
 	var category: String?
   var pictures: Array<PFFile>?
   var state: State = .Pending
+	var completionState: CompletionState = .Accepted
 	var createdAt: NSDate!
   
   override init() {
@@ -66,6 +74,7 @@ class BaseTask: BaseModel {
 			}
 		}
     state = State(rawValue: parseTask["state"] as! Int)!
+		completionState = CompletionState(rawValue: parseTask["completionState"] as! Int)!
   }
 	
 	func getArrayOfPictures(arrayOfPictures: Array<PFFile>) -> Array<UIImage> {

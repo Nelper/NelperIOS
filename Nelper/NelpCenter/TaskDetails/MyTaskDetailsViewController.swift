@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 import iCarousel
 
-class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, EditTaskViewControllerDelegate{
+class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, EditTaskViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var container: UIView!
@@ -36,24 +36,33 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var descriptionTextView:UITextView!
 	var deleteTaskButton:UIButton!
 	var tap:UIGestureRecognizer!
-	var pictures:Array<PFFile>?
+	var pictures = Array<PFFile>()
 	var picturesContainer:UIView!
 	var images = Array<UIImage>()
 	var imagePicker = UIImagePickerController()
+	var fakeView:UIView!
+	var saveChangesButton:UIButton!
+	var picturesCollectionView:UICollectionView!
+	
 	
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		imagePicker.delegate = self
 		self.automaticallyAdjustsScrollViewInsets = false
 		self.createView()
+		if self.task.pictures != nil{
+			self.pictures = self.task.pictures!
+			print(pictures.count)
+			self.getImagesFromParse()
+		}
 		self.adjustUI()
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-		//		self.drawTableViewsSize()
+		
 	}
-	
 	
 	convenience init(findNelpTask:FindNelpTask) {
 		self.init(nibName: "MyTaskDetailsViewController", bundle: nil)
@@ -94,78 +103,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.width.equalTo(self.container.snp_width)
 		}
 		
-		
-		//Pending Applicants Container
-		
-		let activeApplicantsContainer = UIView()
-		self.activeApplicantsContainer = activeApplicantsContainer
-		self.contentView.addSubview(activeApplicantsContainer)
-		activeApplicantsContainer.backgroundColor = whitePrimary
-		activeApplicantsContainer.layer.borderWidth = 1
-		activeApplicantsContainer.layer.borderColor = grayDetails.CGColor
-		activeApplicantsContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(contentView.snp_top).offset(20)
-			make.left.equalTo(self.contentView.snp_left)
-			make.right.equalTo(self.contentView.snp_right)
-			make.height.equalTo((self.arrayOfApplicants.count*100)+65)
-		}
-		
-		
-		let pendingApplicantIcon = UIImageView()
-		activeApplicantsContainer.addSubview(pendingApplicantIcon)
-		pendingApplicantIcon.image = UIImage(named: "pending.png")
-		pendingApplicantIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		pendingApplicantIcon.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(activeApplicantsContainer.snp_top).offset(20)
-			make.left.equalTo(activeApplicantsContainer.snp_left).offset(20)
-			make.height.equalTo(30)
-			make.width.equalTo(30)
-		}
-		
-		let applicantsLabel = UILabel()
-		activeApplicantsContainer.addSubview(applicantsLabel)
-		applicantsLabel.textAlignment = NSTextAlignment.Left
-		applicantsLabel.text = "Nelpers"
-		applicantsLabel.textColor = blackPrimary
-		applicantsLabel.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
-		applicantsLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(pendingApplicantIcon.snp_centerY)
-			make.left.equalTo(pendingApplicantIcon.snp_right).offset(12)
-		}
-		
-		
-		//Applicants Table View
-		
-		let applicantsTableView = UITableView()
-		self.applicantsTableView = applicantsTableView
-		self.applicantsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
-		applicantsTableView.registerClass(ApplicantCell.classForCoder(), forCellReuseIdentifier: ApplicantCell.reuseIdentifier)
-		self.applicantsTableView.scrollEnabled = false
-		self.applicantsTableView.dataSource = self
-		self.applicantsTableView.delegate = self
-		activeApplicantsContainer.addSubview(applicantsTableView)
-		applicantsTableView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(applicantsLabel.snp_bottom).offset(20)
-			make.left.equalTo(activeApplicantsContainer.snp_left)
-			make.right.equalTo(activeApplicantsContainer.snp_right)
-			make.bottom.equalTo(activeApplicantsContainer.snp_bottom)
-		}
-		
-		let pendingBottomLine = UIView()
-		pendingBottomLine.backgroundColor = grayDetails
-		activeApplicantsContainer.addSubview(pendingBottomLine)
-		pendingBottomLine.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(applicantsTableView.snp_top).offset(-2)
-			make.centerX.equalTo(activeApplicantsContainer.snp_centerX)
-			make.height.equalTo(0.5)
-			make.width.equalTo(activeApplicantsContainer.snp_width)
-		}
-		
-		//Denied Applicants
-		
-		self.makeDeniedApplicantsContainer()
-		//Task Edit
-		
 		let taskInformationContainer = UIView()
 		self.taskInformationContainer = taskInformationContainer
 		contentView.addSubview(taskInformationContainer)
@@ -173,7 +110,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		taskInformationContainer.layer.borderWidth = 0.5
 		taskInformationContainer.backgroundColor = whitePrimary
 		taskInformationContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(deniedApplicantsContainer.snp_bottom).offset(20)
+			make.top.equalTo(contentView.snp_top).offset(10)
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
 		}
@@ -348,16 +285,164 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		taskInformationContainer.sizeToFit()
 		
-		self.createPicturesContainer()
+		let picturesContainer = UIView()
+		contentView.addSubview(picturesContainer)
+		self.picturesContainer = picturesContainer
+		picturesContainer.backgroundColor = whitePrimary
+		picturesContainer.layer.borderColor = darkGrayDetails.CGColor
+		picturesContainer.layer.borderWidth = 0.5
+		picturesContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(taskInformationContainer.snp_bottom).offset(10)
+			make.left.equalTo(contentView.snp_left).offset(-1)
+			make.right.equalTo(contentView.snp_right)
+			make.height.equalTo(180)
+		}
+		
+		//Attach Pictures Button
+		
+		let picturesButton = UIButton()
+		picturesContainer.addSubview(picturesButton)
+		picturesButton.backgroundColor = redPrimary
+		picturesButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		picturesButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		picturesButton.setTitle("Add Pictures", forState: UIControlState.Normal)
+		
+		picturesButton.addTarget(self, action: "didTapAddImage:", forControlEvents: UIControlEvents.TouchUpInside)
+		picturesButton.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(picturesContainer.snp_left).offset(6)
+			make.bottom.equalTo(picturesContainer.snp_bottom).offset(-6)
+			make.height.equalTo(35)
+			make.width.equalTo(200)
+		}
+		
+		
+		//Save button
+		
+		let saveChangesButton = UIButton()
+		self.saveChangesButton = saveChangesButton
+		contentView.addSubview(saveChangesButton)
+		saveChangesButton.setTitle("Save", forState: UIControlState.Normal)
+		saveChangesButton.setTitleColor(grayBlue, forState: UIControlState.Normal)
+		saveChangesButton.addTarget(self, action: "didTapSaveButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		saveChangesButton.layer.borderWidth = 1
+		saveChangesButton.layer.borderColor = grayBlue.CGColor
+		saveChangesButton.backgroundColor = whitePrimary
+		saveChangesButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(picturesContainer.snp_bottom).offset(10)
+			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+			make.height.equalTo(45)
+			make.width.equalTo(200)
+		}
+		
+		let managePicturesLabel = UILabel()
+		picturesContainer.addSubview(managePicturesLabel)
+		managePicturesLabel.text = "Manage Pictures"
+		managePicturesLabel.textColor = blackPrimary
+		managePicturesLabel.font = UIFont(name: "Lato-Regular", size: kEditTaskSubtitleFontSize)
+		managePicturesLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(picturesContainer.snp_top).offset(10)
+			make.left.equalTo(picturesContainer.snp_left).offset(10)
+		}
+		
+		let flowLayout = UICollectionViewFlowLayout()
+		flowLayout.scrollDirection = UICollectionViewScrollDirection.Horizontal
+		let picturesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: flowLayout)
+		picturesContainer.addSubview(picturesCollectionView)
+		self.picturesCollectionView = picturesCollectionView
+		self.picturesCollectionView.delegate = self
+		self.picturesCollectionView.dataSource = self
+		picturesCollectionView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(managePicturesLabel.snp_bottom).offset(4)
+			make.bottom.equalTo(picturesButton.snp_top).offset(-4)
+			make.left.equalTo(picturesContainer.snp_left).offset(4)
+			make.right.equalTo(picturesContainer.snp_right).offset(-4)
+		}
+		
+		picturesCollectionView.registerClass(PicturesCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: PicturesCollectionViewCell.reuseIdentifier)
+		picturesCollectionView.backgroundColor = whitePrimary
+		
+		
+		//Pending Applicants Container
+		
+		let activeApplicantsContainer = UIView()
+		self.activeApplicantsContainer = activeApplicantsContainer
+		self.contentView.addSubview(activeApplicantsContainer)
+		activeApplicantsContainer.backgroundColor = whitePrimary
+		activeApplicantsContainer.layer.borderWidth = 1
+		activeApplicantsContainer.layer.borderColor = grayDetails.CGColor
+		activeApplicantsContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(saveChangesButton.snp_bottom).offset(10)
+			make.left.equalTo(self.contentView.snp_left)
+			make.right.equalTo(self.contentView.snp_right)
+			make.height.equalTo((self.arrayOfApplicants.count*100)+65)
+		}
+		
+		
+		let pendingApplicantIcon = UIImageView()
+		activeApplicantsContainer.addSubview(pendingApplicantIcon)
+		pendingApplicantIcon.image = UIImage(named: "pending.png")
+		pendingApplicantIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		pendingApplicantIcon.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(activeApplicantsContainer.snp_top).offset(20)
+			make.left.equalTo(activeApplicantsContainer.snp_left).offset(20)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
+		}
+		
+		let applicantsLabel = UILabel()
+		activeApplicantsContainer.addSubview(applicantsLabel)
+		applicantsLabel.textAlignment = NSTextAlignment.Left
+		applicantsLabel.text = "Nelpers"
+		applicantsLabel.textColor = blackPrimary
+		applicantsLabel.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
+		applicantsLabel.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(pendingApplicantIcon.snp_centerY)
+			make.left.equalTo(pendingApplicantIcon.snp_right).offset(12)
+		}
+		
+		
+		//Applicants Table View
+		
+		let applicantsTableView = UITableView()
+		self.applicantsTableView = applicantsTableView
+		self.applicantsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+		applicantsTableView.registerClass(ApplicantCell.classForCoder(), forCellReuseIdentifier: ApplicantCell.reuseIdentifier)
+		self.applicantsTableView.scrollEnabled = false
+		self.applicantsTableView.dataSource = self
+		self.applicantsTableView.delegate = self
+		activeApplicantsContainer.addSubview(applicantsTableView)
+		applicantsTableView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(applicantsLabel.snp_bottom).offset(20)
+			make.left.equalTo(activeApplicantsContainer.snp_left)
+			make.right.equalTo(activeApplicantsContainer.snp_right)
+			make.bottom.equalTo(activeApplicantsContainer.snp_bottom)
+		}
+		
+		let pendingBottomLine = UIView()
+		pendingBottomLine.backgroundColor = grayDetails
+		activeApplicantsContainer.addSubview(pendingBottomLine)
+		pendingBottomLine.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(applicantsTableView.snp_top).offset(-2)
+			make.centerX.equalTo(activeApplicantsContainer.snp_centerX)
+			make.height.equalTo(0.5)
+			make.width.equalTo(activeApplicantsContainer.snp_width)
+		}
+		
+		//Denied Applicants
+		
+		self.makeDeniedApplicantsContainer()
 		
 		
 		let fakeView = UIView()
+		self.fakeView = fakeView
 		self.contentView.addSubview(fakeView)
 		fakeView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.picturesContainer.snp_bottom)
+			make.top.equalTo(self.deniedApplicantsContainer.snp_bottom)
 			make.bottom.equalTo(self.contentView.snp_bottom)
 		}
+		self.view.layoutIfNeeded()
 	}
+	
 	
 	
 	//MARK: Refresh Tableview
@@ -387,65 +472,12 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.closeButton = previousBtn
 		self.scrollView.backgroundColor = whiteBackground
-		self.navBar.setTitle("My Task Details")
+		self.navBar.setTitle("My Task")
 	}
 	
-	func createPicturesContainer(){
-		
-		let picturesContainer = UIView()
-		contentView.addSubview(picturesContainer)
-		self.picturesContainer = picturesContainer
-		picturesContainer.backgroundColor = whitePrimary
-		picturesContainer.layer.borderColor = darkGrayDetails.CGColor
-		picturesContainer.layer.borderWidth = 0.5
-		picturesContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskInformationContainer.snp_bottom).offset(10)
-			make.left.equalTo(contentView.snp_left).offset(-1)
-			make.right.equalTo(contentView.snp_right)
-		}
-		
-		let managePicturesLabel = UILabel()
-		picturesContainer.addSubview(managePicturesLabel)
-		managePicturesLabel.text = "Manage Pictures"
-		managePicturesLabel.textColor = blackPrimary
-		managePicturesLabel.font = UIFont(name: "Lato-Regular", size: kEditTaskSubtitleFontSize)
-		managePicturesLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(picturesContainer.snp_top).offset(10)
-			make.left.equalTo(picturesContainer.snp_left).offset(10)
-		}
-		
-		if self.pictures != nil{
-		}
-		
-		if self.pictures != nil {
-	}
-		
-		picturesContainer.sizeToFit()
-		
-		//Save button
-		
-		let saveChangesButton = UIButton()
-		contentView.addSubview(saveChangesButton)
-		saveChangesButton.setTitle("Save", forState: UIControlState.Normal)
-		saveChangesButton.setTitleColor(grayBlue, forState: UIControlState.Normal)
-		saveChangesButton.addTarget(self, action: "didTapSaveButton:", forControlEvents: UIControlEvents.TouchUpInside)
-		saveChangesButton.layer.borderWidth = 1
-		saveChangesButton.layer.borderColor = grayBlue.CGColor
-		saveChangesButton.backgroundColor = whitePrimary
-		saveChangesButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(picturesContainer.snp_bottom).offset(10)
-			make.centerX.equalTo(taskInformationContainer.snp_centerX)
-			make.height.equalTo(45)
-			make.width.equalTo(200)
-			make.bottom.equalTo(contentView.snp_bottom).offset(-10)
-		}
-		
-		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-		self.tap = tap
-		contentView.addGestureRecognizer(tap)
-	}
-	
-	
+	/**
+	Make the Denied Applicants Container if needed.
+	*/
 	func makeDeniedApplicantsContainer(){
 		let deniedApplicantsContainer = UIView()
 		self.deniedApplicantsContainer = deniedApplicantsContainer
@@ -510,13 +542,28 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.height.equalTo(0.5)
 			make.width.equalTo(deniedApplicantsContainer.snp_width)
 		}
+		if self.fakeView != nil{
+			self.fakeView.snp_remakeConstraints { (make) -> Void in
+				make.top.equalTo(self.deniedApplicantsContainer.snp_bottom)
+				make.bottom.equalTo(self.contentView.snp_bottom)
+			}}
 	}
+	
+	/**
+	Set the category images
+	
+	- parameter task: the task
+	*/
 	func setImages(task:FindNelpTask){
 		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2;
 		self.categoryIcon.clipsToBounds = true
 		self.categoryIcon.image = UIImage(named: task.category!)
 	}
 	
+	
+	/**
+	Redraws the tableviess
+	*/
 	func drawTableViewsSize(){
 		self.activeApplicantsContainer.snp_updateConstraints { (make) -> Void in
 			make.height.equalTo((self.arrayOfApplicants.count * 100)+70)
@@ -533,6 +580,9 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 	}
 	
+	/**
+	Update the frame sizes
+	*/
 	func updateFrames(){
 		
 		deniedApplicantsContainer.snp_updateConstraints { (make) -> Void in
@@ -543,11 +593,13 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 		activeApplicantsContainer.snp_updateConstraints { (make) -> Void in
-			make.top.equalTo(self.contentView.snp_top).offset(20)
+			make.top.equalTo(self.saveChangesButton.snp_bottom).offset(10)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo((self.arrayOfApplicants.count*100)+65)
 		}
+		
+		self.scrollView.contentSize = self.contentView.frame.size
 	}
 	
 	
@@ -610,21 +662,72 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		return 100
 	}
 	
+	//MARK: UICollectionView Delegate and Datasource
+	
+	func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+		return 1
+	}
+	
+	
+	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return self.images.count
+	}
+	
+	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+		
+		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PicturesCollectionViewCell.reuseIdentifier, forIndexPath: indexPath) as! PicturesCollectionViewCell
+		cell.delegate = self
+		cell.tag = indexPath.row
+		let image = self.images[indexPath.row]
+		cell.imageView.image = image
+		return cell
+	}
+	
+	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+		return CGSizeMake(self.picturesCollectionView.frame.height, self.picturesCollectionView.frame.height)
+	}
+	
+	func didRemovePicture(vc: PicturesCollectionViewCell) {
+		self.images.removeAtIndex(vc.tag)
+		self.picturesCollectionView.reloadData()
+	}
+	
+	
+	//MARK: Image Picker Delegate
+	
+	/**
+	Allows the user to pick pictures in his library
+	
+	- parameter picker: ImagePicker instance
+	- parameter info:   .
+	*/
+	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+		if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
+			self.images.append(pickedImage)
+			self.picturesCollectionView.reloadData()
+		}
+		dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+		dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	
 	//MARK: View delegate Methods
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
+		if self.arrayOfDeniedApplicants.isEmpty{
+			self.deniedApplicantsContainer.removeFromSuperview()
+			self.fakeView.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.activeApplicantsContainer.snp_bottom)
+				make.bottom.equalTo(self.contentView.snp_bottom)
+			})
+		}
 		let contentsize = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height + 10)
 		self.scrollView.contentSize = contentsize.size
 		
-		
-		if self.arrayOfDeniedApplicants.isEmpty{
-			
-			self.deniedApplicantsContainer.removeFromSuperview()
-			self.taskInformationContainer.snp_updateConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.activeApplicantsContainer.snp_bottom).offset(10)
-			})
-		}
 	}
 	
 	//MARK: UIGesture Recognizer
@@ -665,10 +768,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		self.refreshTableView()
 		if self.arrayOfDeniedApplicants.isEmpty{
-			self.deniedApplicantsContainer.removeFromSuperview()
-			self.taskInformationContainer.snp_updateConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.activeApplicantsContainer.snp_bottom).offset(10)
+			self.fakeView.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.activeApplicantsContainer.snp_bottom)
+				make.bottom.equalTo(self.contentView.snp_bottom)
 			})
+			self.deniedApplicantsContainer.removeFromSuperview()
 		}
 	}
 	
@@ -680,11 +784,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		var applicationToDeny:TaskApplication?
 		self.makeDeniedApplicantsContainer()
 		self.deniedApplicantsContainer.layoutIfNeeded()
-		self.taskInformationContainer.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(deniedApplicantsContainer.snp_bottom).offset(20)
-				make.left.equalTo(contentView.snp_left).offset(-1)
-				make.right.equalTo(contentView.snp_right).offset(1)
-			})
 		for application in self.arrayOfApplications{
 			print(application.user.objectId)
 			print(applicant.objectId)
@@ -699,6 +798,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 				}
 			}
 		}
+		self.updateFrames()
 		self.refreshTableView()
 	}
 	
@@ -719,14 +819,15 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	Fetches the task images in order to edit them
 	*/
 	func getImagesFromParse(){
-		if let pffiles = self.pictures{
-			for picture in pffiles{
-				ApiHelper.getPictures(picture.url!, block: { (image) -> Void in
-					self.images.append(image)
-				})
-			}
+		for picture in self.pictures{
+			ApiHelper.getPictures(picture.url!, block: { (image) -> Void in
+				self.images.append(image)
+				print(self.images.count)
+				self.picturesCollectionView.reloadData()
+			})
 		}
 	}
+	
 	
 	//MARK: Actions
 	

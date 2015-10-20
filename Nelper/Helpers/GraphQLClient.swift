@@ -33,6 +33,7 @@ class GraphQLClient {
 		sendRequest(query, variables: variables, block: block)
 	}
 	
+
 	static func mutation(name: String, var input: Dictionary<String, AnyObject>, block: ((AnyObject?, ErrorType?) -> Void)?) {
 		// The mutation is the name of the mutation with the first letter as lowercase.
 		var mutation = String(name)

@@ -18,6 +18,5 @@ class FindNelpTask: BaseTask {
 	}
   
   var applications = [TaskApplication]()
-	var completionState: CompletionState = .Accepted
-  
+	
 }
