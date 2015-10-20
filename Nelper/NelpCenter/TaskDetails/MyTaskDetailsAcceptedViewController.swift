@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Alamofire
 
-class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileViewControllerDelegate {
+class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileViewControllerDelegate, STRPPaymentViewControllerDelegate {
 	
 	var contentView:UIView!
 	var scrollView:UIScrollView!
@@ -31,6 +31,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	var paymentLine:UIView!
 	var approvedTaskImageView:UIImageView!
 	var approvedTaskLine:UIView!
+	var progressButton:UIButton!
 	
 	//MARK: Initialization
 	
@@ -189,7 +190,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		progressContainer.addSubview(leaveFeedbackLine)
 		leaveFeedbackLine.backgroundColor = blackPrimary
 		leaveFeedbackLine.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(leaveFeedbackImageView.snp_bottom).offset(-2)
+			make.top.equalTo(leaveFeedbackImageView.snp_bottom).offset(2)
 			make.bottom.equalTo(leaveFeedbackLabel.snp_top)
 			make.width.equalTo(1)
 			make.centerX.equalTo(leaveFeedbackImageView.snp_centerX)
@@ -323,6 +324,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		//Payment Button
 		
 		let paymentButton = PrimaryActionButton()
+		self.progressButton = paymentButton
 		progressContainer.addSubview(paymentButton)
 		paymentButton.setTitle("Proceed to Payment", forState: UIControlState.Normal)
 		paymentButton.addTarget(self, action: "didTapPaymentButton:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -649,6 +651,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		self.approvedTaskImageView.image = UIImage(named:"pending")
 		self.leaveFeedbackLine.backgroundColor = pendingYellow
 		self.leaveFeedbackImageView.image = UIImage(named:"pending")
+		self.progressButton.setTitle("Approve Task", forState: UIControlState.Normal)
+		self.progressButton.setTitle("Sure?", forState: UIControlState.Selected)
+		self.progressButton.removeTarget(self, action: "didTapPaymentButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.progressButton.addTarget(self, action: "didTapApproveTaskButton:", forControlEvents: UIControlEvents.TouchUpInside)
 	}
 	
 	func setCompleted(){
@@ -658,6 +664,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		self.approvedTaskImageView.image = UIImage(named:"accepted")
 		self.leaveFeedbackLine.backgroundColor = pendingYellow
 		self.leaveFeedbackImageView.image = UIImage(named:"pending")
+		self.progressButton.selected = false
+		self.progressButton.setTitle("Rate your Nelper", forState: UIControlState.Normal)
+		self.progressButton.removeTarget(self, action: "didTapApproveTaskButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.progressButton.addTarget(self, action: "didTapRateYourNelperButton:", forControlEvents: UIControlEvents.TouchUpInside)
 	}
 	
 	func setRated(){
@@ -667,6 +677,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		self.approvedTaskImageView.image = UIImage(named:"accepted")
 		self.leaveFeedbackLine.backgroundColor = progressGreen
 		self.leaveFeedbackImageView.image = UIImage(named:"accepted")
+		self.progressButton.setTitle("Completed", forState: UIControlState.Normal)
+		self.progressButton.removeTarget(self, action: "didTapRateYourNelperButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.progressButton.setBackgroundColor(progressGreen, forState: UIControlState.Normal)
+		self.progressButton.enabled = false
 	}
 	
 	// MARK: DATA
@@ -705,6 +719,16 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	- parameter applicant: Applicant
 	*/
 	
+	// MARK: Stripe Delegate
+	
+	func didSendPayment(){
+		self.setPaymentSent()
+	}
+	
+	func didClosePopup(vc: STRPPaymentViewController) {
+		
+	}
+	
 	// MARK: View Delegate
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
@@ -739,10 +763,25 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	
 	func didTapPaymentButton(sender:UIButton){
 		let nextVC = STRPPaymentViewController()
+		nextVC.delegate = self
 		nextVC.task = self.task
 		nextVC.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
 		self.presentViewController(nextVC, animated: true, completion: nil)
+	}
+	
+	func didTapApproveTaskButton(sender:UIButton){
+		if sender.selected == false {
+			sender.selected = true
+		}else if sender.selected == true{
+			GraphQLClient.mutation("CompleteTask", input: ["taskId":self.task.id], block: nil)
+			self.setCompleted()
+		}
+	}
+	
+	func didTapRateYourNelperButton(sender:UIButton){
+		GraphQLClient.mutation("SendApplicantFeedback", input: ["taskId":self.task.id, "rating":5,"content":"Charles a été génial"], block: nil)
+		self.setRated()
 	}
 	
 	func didTapProfile(gesture:UITapGestureRecognizer){

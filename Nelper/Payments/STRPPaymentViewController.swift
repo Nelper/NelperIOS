@@ -11,6 +11,7 @@ import Stripe
 
 protocol STRPPaymentViewControllerDelegate{
 	func didClosePopup(vc:STRPPaymentViewController)
+	func didSendPayment()
 }
 
 class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegate, UIGestureRecognizerDelegate{
@@ -154,11 +155,13 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 			if error == nil {
 				if let token = token{
 					print("getting token properly: \(token)")
-					GraphQLClient.mutation("SendPayment", input: ["taskId":self.task.id, "token":token], block: { (object, error) -> Void in
+					GraphQLClient.mutation("SendPayment", input: ["taskId":self.task.id, "token":token.tokenId], block: { (object, error) -> Void in
 						if error != nil{
 							print(error)
 						}else{
-							//Woohoo
+							print(object)
+							self.dismissViewControllerAnimated(true, completion: nil)
+							self.delegate!.didSendPayment()
 						}
 					})
 				}
