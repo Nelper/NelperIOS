@@ -31,7 +31,3 @@ let kLogoutButtonSize:CGFloat = 12
 // Progress Bar
 
 let kProgressBarTextFontSize:CGFloat = 14
-
-// Edit Task Details
-
-let kEditTaskSubtitleFontSize:CGFloat = 18

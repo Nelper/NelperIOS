@@ -289,7 +289,7 @@ class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDeleg
 		picturesContainer.addSubview(managePicturesLabel)
 		managePicturesLabel.text = "Manage Pictures"
 		managePicturesLabel.textColor = blackPrimary
-		managePicturesLabel.font = UIFont(name: "Lato-Regular", size: kEditTaskSubtitleFontSize)
+		managePicturesLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		managePicturesLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(picturesContainer.snp_top).offset(10)
 			make.left.equalTo(picturesContainer.snp_left).offset(10)

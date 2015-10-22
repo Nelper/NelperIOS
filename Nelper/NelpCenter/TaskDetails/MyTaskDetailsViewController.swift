@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 import iCarousel
 
-class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, EditTaskViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, EditTaskViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var container: UIView!
@@ -31,28 +31,49 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var taskSectionContainer: UIView!
 	var deniedApplicantIcon:UIImageView!
 	var deniedApplicantsLabel:UILabel!
-	var taskInformationContainer:UIView!
+	
 	var titleTextField:UITextField!
 	var descriptionTextView:UITextView!
 	var deleteTaskButton:UIButton!
 	var tap:UIGestureRecognizer!
-	var pictures = Array<PFFile>()
+	var pictures = [PFFile]()
 	var picturesContainer:UIView!
-	var images = Array<UIImage>()
+	var images = [UIImage]()
 	var imagePicker = UIImagePickerController()
 	var fakeView:UIView!
 	var saveChangesButton:UIButton!
 	var picturesCollectionView:UICollectionView!
 	
+	var firstContainer: UIView!
+	var secondContainer: UIView!
+	var thirdContainer: UIView!
+
+	let firstSwipeRecLeft = UISwipeGestureRecognizer()
+	let secondSwipeRecLeft = UISwipeGestureRecognizer()
+	let secondSwipeRecRight = UISwipeGestureRecognizer()
+	let thirdSwipeRecRight = UISwipeGestureRecognizer()
+	var viewWidth = CGFloat()
 	
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
 		imagePicker.delegate = self
 		self.automaticallyAdjustsScrollViewInsets = false
+		
+		firstSwipeRecLeft.addTarget(self, action: "swipedFirstView:")
+		firstSwipeRecLeft.direction = UISwipeGestureRecognizerDirection.Left
+		secondSwipeRecLeft.addTarget(self, action: "swipedSecondView:")
+		secondSwipeRecLeft.direction = UISwipeGestureRecognizerDirection.Left
+		secondSwipeRecRight.addTarget(self, action: "swipedSecondView:")
+		secondSwipeRecRight.direction = UISwipeGestureRecognizerDirection.Right
+		thirdSwipeRecRight.addTarget(self, action: "swipedThirdView:")
+		thirdSwipeRecRight.direction = UISwipeGestureRecognizerDirection.Right
+		
 		self.createView()
-		if self.task.pictures != nil{
+		
+		if self.task.pictures != nil {
 			self.pictures = self.task.pictures!
 			print(pictures.count)
 			self.getImagesFromParse()
@@ -90,6 +111,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	func createView() {
 		
+		let containerHeight = 250
+		
 		//ContentView
 		
 		let contentView = UIView()
@@ -103,34 +126,36 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.width.equalTo(self.container.snp_width)
 		}
 		
-		let taskInformationContainer = UIView()
-		self.taskInformationContainer = taskInformationContainer
-		contentView.addSubview(taskInformationContainer)
-		taskInformationContainer.layer.borderColor = darkGrayDetails.CGColor
-		taskInformationContainer.layer.borderWidth = 0.5
-		taskInformationContainer.backgroundColor = whitePrimary
-		taskInformationContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(contentView.snp_top).offset(10)
-			make.left.equalTo(contentView.snp_left).offset(-1)
-			make.right.equalTo(contentView.snp_right).offset(1)
+		//FIRST CONTAINER
+		
+		let firstContainer = UIView()
+		self.firstContainer = firstContainer
+		self.contentView.addSubview(firstContainer)
+		self.firstContainer.backgroundColor = whitePrimary
+		self.firstContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(contentView.snp_top).offset(20)
+			make.left.equalTo(contentView.snp_left)
+			make.width.equalTo(self.contentView.snp_width)
+			make.height.equalTo(containerHeight)
 		}
+		self.firstContainer.addGestureRecognizer(self.firstSwipeRecLeft)
 		
 		let categoryIcon = UIImageView()
-		taskInformationContainer.addSubview(categoryIcon)
+		firstContainer.addSubview(categoryIcon)
 		let iconSize:CGFloat = 60
 		categoryIcon.layer.cornerRadius = iconSize / 2
 		categoryIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		categoryIcon.image = UIImage(named: self.task.category!)
 		categoryIcon.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskInformationContainer.snp_top).offset(16)
-			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+			make.top.equalTo(firstContainer.snp_top).offset(16)
+			make.centerX.equalTo(firstContainer.snp_centerX)
 			make.width.equalTo(iconSize)
 			make.height.equalTo(iconSize)
 		}
 		
 		let titleTextField = UITextField()
 		self.titleTextField = titleTextField
-		taskInformationContainer.addSubview(titleTextField)
+		firstContainer.addSubview(titleTextField)
 		titleTextField.text = self.task.title
 		titleTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		titleTextField.textAlignment = NSTextAlignment.Center
@@ -139,25 +164,25 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		titleTextField.backgroundColor = whiteBackground
 		titleTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(categoryIcon.snp_bottom).offset(20)
-			make.left.equalTo(taskInformationContainer.snp_left).offset(12)
-			make.right.equalTo(taskInformationContainer.snp_right).offset(-12)
+			make.left.equalTo(firstContainer.snp_left).offset(12)
+			make.right.equalTo(firstContainer.snp_right).offset(-12)
 			make.height.equalTo(40)
 		}
 		
 		let titleUnderline = UIView()
-		taskInformationContainer.addSubview(titleUnderline)
+		firstContainer.addSubview(titleUnderline)
 		titleUnderline.backgroundColor = darkGrayDetails
 		titleUnderline.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleTextField.snp_bottom).offset(16)
-			make.width.equalTo(taskInformationContainer.snp_width).dividedBy(1.4)
+			make.width.equalTo(firstContainer.snp_width).dividedBy(1.4)
 			make.height.equalTo(0.5)
-			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+			make.centerX.equalTo(firstContainer.snp_centerX)
 			
 		}
 		
 		let descriptionTextView = UITextView()
 		self.descriptionTextView = descriptionTextView
-		taskInformationContainer.addSubview(descriptionTextView)
+		firstContainer.addSubview(descriptionTextView)
 		descriptionTextView.text = self.task.desc
 		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		descriptionTextView.textAlignment = NSTextAlignment.Center
@@ -168,7 +193,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleUnderline.snp_bottom).offset(16)
 			make.width.equalTo(titleTextField.snp_width)
-			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+			make.centerX.equalTo(firstContainer.snp_centerX)
 		}
 		
 		let fixedWidth = descriptionTextView.frame.size.width
@@ -179,141 +204,100 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		descriptionTextView.frame = newFrame;
 		
 		let descriptionUnderline = UIView()
-		taskInformationContainer.addSubview(descriptionUnderline)
+		firstContainer.addSubview(descriptionUnderline)
 		descriptionUnderline.backgroundColor = darkGrayDetails
 		descriptionUnderline.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(descriptionTextView.snp_bottom).offset(16)
-			make.width.equalTo(taskInformationContainer.snp_width).dividedBy(1.4)
+			make.width.equalTo(firstContainer.snp_width).dividedBy(1.4)
 			make.height.equalTo(0.5)
-			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+			make.centerX.equalTo(firstContainer.snp_centerX)
 			
 		}
 		
-		let locationContainer = UIView()
-		taskInformationContainer.addSubview(locationContainer)
-		locationContainer.backgroundColor = whitePrimary
-		locationContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(descriptionUnderline.snp_bottom).offset(20)
-			make.left.equalTo(descriptionTextView.snp_left).offset(16)
-			make.width.equalTo(taskInformationContainer.snp_width).dividedBy(2)
+		//SECOND CONTAINER
+		let secondContainer = UIView()
+		self.secondContainer = secondContainer
+		self.contentView.addSubview(secondContainer)
+		secondContainer.backgroundColor = whitePrimary
+		secondContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(contentView.snp_top).offset(20)
+			make.left.equalTo(self.firstContainer.snp_right)
+			make.width.equalTo(self.contentView.snp_width)
+			make.height.equalTo(self.firstContainer.snp_height)
+		}
+		self.secondContainer.addGestureRecognizer(self.secondSwipeRecLeft)
+		self.secondContainer.addGestureRecognizer(self.secondSwipeRecRight)
+		
+		//TODO: LINK ADDRESS
+		let streetAddressLabel = UITextField()
+		streetAddressLabel.backgroundColor = whitePrimary
+		secondContainer.addSubview(streetAddressLabel)
+		streetAddressLabel.text = "175 Forbin Janson"
+		streetAddressLabel.textColor = blackPrimary
+		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		streetAddressLabel.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(secondContainer.snp_height).dividedBy(3)
+			make.centerX.equalTo(secondContainer.snp_centerX).offset(25)
+			make.centerY.equalTo(secondContainer.snp_centerY)
 		}
 		
 		let pinIcon = UIImageView()
-		locationContainer.addSubview(pinIcon)
+		secondContainer.addSubview(pinIcon)
 		pinIcon.image = UIImage(named: "pin")
 		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		pinIcon.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(45)
 			make.width.equalTo(45)
-			make.centerY.equalTo(locationContainer.snp_centerY)
-			make.left.equalTo(locationContainer.snp_left).offset(4)
+			make.centerY.equalTo(streetAddressLabel.snp_centerY)
+			make.right.equalTo(streetAddressLabel.snp_left).offset(-10)
 		}
 		
 		let locationVerticalLine = UIView()
-		locationContainer.addSubview(locationVerticalLine)
+		secondContainer.addSubview(locationVerticalLine)
 		locationVerticalLine.backgroundColor = darkGrayDetails
 		locationVerticalLine.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(locationContainer.snp_top)
-			make.bottom.equalTo(locationContainer.snp_bottom)
-			make.width.equalTo(1)
-			make.left.equalTo(pinIcon.snp_right).offset(4)
+			make.top.equalTo(streetAddressLabel.snp_top)
+			make.bottom.equalTo(streetAddressLabel.snp_bottom)
+			make.width.equalTo(0.5)
+			make.left.equalTo(pinIcon.snp_right).offset(5)
 		}
 		
-		let streetAddressLabel = UITextField()
-		streetAddressLabel.backgroundColor = whitePrimary
-		locationContainer.addSubview(streetAddressLabel)
-		streetAddressLabel.text = "175 Forbin Janson"
-		streetAddressLabel.textColor = blackPrimary
-		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		streetAddressLabel.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
-			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
-			make.top.equalTo(locationContainer.snp_top)
+		//THIRD CONTAINER
+		let thirdContainer = UIView()
+		self.thirdContainer = thirdContainer
+		self.contentView.addSubview(thirdContainer)
+		thirdContainer.backgroundColor = whitePrimary
+		thirdContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(contentView.snp_top).offset(20)
+			make.left.equalTo(secondContainer.snp_right)
+			make.width.equalTo(self.contentView.snp_width)
+			make.height.equalTo(self.firstContainer.snp_height)
 		}
+		self.thirdContainer.addGestureRecognizer(self.thirdSwipeRecRight)
 		
-		let cityLabel = UITextField()
-		cityLabel.backgroundColor = whitePrimary
-		locationContainer.addSubview(cityLabel)
-		cityLabel.text = "Mont Saint-Hilaire"
-		cityLabel.textColor = blackPrimary
-		cityLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		cityLabel.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
-			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
-			make.top.equalTo(streetAddressLabel.snp_bottom)
-		}
+		//Title label
 		
-		let zipcodeLabel = UITextField()
-		zipcodeLabel.backgroundColor = whitePrimary
-		locationContainer.addSubview(zipcodeLabel)
-		zipcodeLabel.text = "J3H5E5"
-		zipcodeLabel.textColor = blackPrimary
-		zipcodeLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		zipcodeLabel.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
-			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
-			make.top.equalTo(cityLabel.snp_bottom)
-		}
-		
-		let locationUnderline = UIView()
-		taskInformationContainer.addSubview(locationUnderline)
-		locationUnderline.backgroundColor = darkGrayDetails
-		locationUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(locationContainer.snp_bottom).offset(20)
-			make.width.equalTo(taskInformationContainer.snp_width).dividedBy(1.4)
-			make.height.equalTo(0.5)
-			make.centerX.equalTo(taskInformationContainer.snp_centerX)
-		}
-		
-		let deleteTaskButton = UIButton()
-		taskInformationContainer.addSubview(deleteTaskButton)
-		self.deleteTaskButton = deleteTaskButton
-		deleteTaskButton.setTitle("Delete Task", forState: UIControlState.Normal)
-		deleteTaskButton.setTitle("Sure?", forState: UIControlState.Selected)
-		deleteTaskButton.setTitleColor(redPrimary, forState: UIControlState.Normal)
-		deleteTaskButton.setTitleColor(redPrimary, forState: UIControlState.Selected)
-		self.deleteTaskButton.addTarget(self, action: "didTapDeleteButton:", forControlEvents: UIControlEvents.TouchUpInside)
-		deleteTaskButton.layer.borderWidth = 1
-		deleteTaskButton.layer.borderColor = redPrimary.CGColor
-		deleteTaskButton.backgroundColor = whitePrimary
-		deleteTaskButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(locationUnderline.snp_bottom).offset(20)
-			make.centerX.equalTo(taskInformationContainer.snp_centerX)
-			make.height.equalTo(45)
-			make.width.equalTo(200)
-			make.bottom.equalTo(taskInformationContainer.snp_bottom).offset(-20)
-		}
-		taskInformationContainer.sizeToFit()
-		
-		let picturesContainer = UIView()
-		contentView.addSubview(picturesContainer)
-		self.picturesContainer = picturesContainer
-		picturesContainer.backgroundColor = whitePrimary
-		picturesContainer.layer.borderColor = darkGrayDetails.CGColor
-		picturesContainer.layer.borderWidth = 0.5
-		picturesContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskInformationContainer.snp_bottom).offset(10)
-			make.left.equalTo(contentView.snp_left).offset(-1)
-			make.right.equalTo(contentView.snp_right)
-			make.height.equalTo(180)
+		let managePicturesLabel = UILabel()
+		thirdContainer.addSubview(managePicturesLabel)
+		managePicturesLabel.text = "Manage Pictures"
+		managePicturesLabel.textColor = blackPrimary
+		managePicturesLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		managePicturesLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(secondContainer.snp_top).offset(20)
+			make.centerY.equalTo(thirdContainer.snp_centerY)
 		}
 		
 		//Attach Pictures Button
 		
-		let picturesButton = UIButton()
-		picturesContainer.addSubview(picturesButton)
-		picturesButton.backgroundColor = redPrimary
-		picturesButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-		picturesButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		let picturesButton = PrimaryActionButton()
+		thirdContainer.addSubview(picturesButton)
 		picturesButton.setTitle("Add Pictures", forState: UIControlState.Normal)
-		
 		picturesButton.addTarget(self, action: "didTapAddImage:", forControlEvents: UIControlEvents.TouchUpInside)
 		picturesButton.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(picturesContainer.snp_left).offset(6)
-			make.bottom.equalTo(picturesContainer.snp_bottom).offset(-6)
-			make.height.equalTo(35)
-			make.width.equalTo(200)
+			make.centerX.equalTo(thirdContainer.snp_centerX)
+			make.top.equalTo(thirdContainer.snp_top).offset(20)
 		}
+		
 		
 		
 		//Save button
@@ -328,34 +312,28 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		saveChangesButton.layer.borderColor = grayBlue.CGColor
 		saveChangesButton.backgroundColor = whitePrimary
 		saveChangesButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(picturesContainer.snp_bottom).offset(10)
-			make.centerX.equalTo(taskInformationContainer.snp_centerX)
+			make.top.equalTo(firstContainer.snp_bottom).offset(10)
+			make.centerX.equalTo(firstContainer.snp_centerX)
 			make.height.equalTo(45)
 			make.width.equalTo(200)
 		}
 		
-		let managePicturesLabel = UILabel()
-		picturesContainer.addSubview(managePicturesLabel)
-		managePicturesLabel.text = "Manage Pictures"
-		managePicturesLabel.textColor = blackPrimary
-		managePicturesLabel.font = UIFont(name: "Lato-Regular", size: kEditTaskSubtitleFontSize)
-		managePicturesLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(picturesContainer.snp_top).offset(10)
-			make.left.equalTo(picturesContainer.snp_left).offset(10)
-		}
+		//Collection View
+		
+		let collectionViewHeight = 150
 		
 		let flowLayout = UICollectionViewFlowLayout()
 		flowLayout.scrollDirection = UICollectionViewScrollDirection.Horizontal
 		let picturesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: flowLayout)
-		picturesContainer.addSubview(picturesCollectionView)
+		thirdContainer.addSubview(picturesCollectionView)
 		self.picturesCollectionView = picturesCollectionView
 		self.picturesCollectionView.delegate = self
 		self.picturesCollectionView.dataSource = self
 		picturesCollectionView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(managePicturesLabel.snp_bottom).offset(4)
-			make.bottom.equalTo(picturesButton.snp_top).offset(-4)
-			make.left.equalTo(picturesContainer.snp_left).offset(4)
-			make.right.equalTo(picturesContainer.snp_right).offset(-4)
+			make.top.equalTo(managePicturesLabel.snp_bottom).offset(10)
+			make.height.equalTo(collectionViewHeight)
+			make.left.equalTo(thirdContainer.snp_left).offset(5)
+			make.right.equalTo(thirdContainer.snp_right).offset(-5)
 		}
 		
 		picturesCollectionView.registerClass(PicturesCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: PicturesCollectionViewCell.reuseIdentifier)
@@ -371,7 +349,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		activeApplicantsContainer.layer.borderWidth = 1
 		activeApplicantsContainer.layer.borderColor = grayDetails.CGColor
 		activeApplicantsContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(saveChangesButton.snp_bottom).offset(10)
+			make.top.equalTo(saveChangesButton.snp_bottom).offset(20)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo((self.arrayOfApplicants.count*100)+65)
@@ -443,8 +421,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.view.layoutIfNeeded()
 	}
 	
-	
-	
 	//MARK: Refresh Tableview
 	func refreshTableView(){
 		self.applicantsTableView.reloadData()
@@ -469,8 +445,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	func adjustUI(){
 		self.container.backgroundColor = whiteBackground
 		let previousBtn = UIButton()
+		let deleteBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		deleteBtn.addTarget(self, action: "deleteTaskButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.closeButton = previousBtn
+		self.navBar.deleteButton = deleteBtn
 		self.scrollView.backgroundColor = whiteBackground
 		self.navBar.setTitle("My Task")
 	}
@@ -831,7 +810,67 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	//MARK: Actions
 	
-	func editButtonTapped(sender:UIButton){
+	/**
+	Moves the view to the next horizontal container
+	
+	- parameter sender: condition left or right swipe for swipedSecondView
+	*/
+	func swipedFirstView(sender: UISwipeGestureRecognizer) {
+		
+		print("swipe")
+		self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
+			make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.width))
+		})
+		
+		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
+			self.firstContainer.layoutIfNeeded()
+			self.secondContainer.layoutIfNeeded()
+			self.thirdContainer.layoutIfNeeded()
+		}, completion: nil)
+	}
+	
+	func swipedSecondView(sender: UISwipeGestureRecognizer) {
+		
+		switch sender.direction {
+		case UISwipeGestureRecognizerDirection.Left:
+			self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
+				make.left.equalTo(self.contentView.snp_left).offset(-2 * (self.contentView.frame.width))
+			})
+			
+			UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.firstContainer.layoutIfNeeded()
+				self.secondContainer.layoutIfNeeded()
+				self.thirdContainer.layoutIfNeeded()
+				}, completion: nil)
+		case UISwipeGestureRecognizerDirection.Right:
+			self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
+				make.left.equalTo(self.contentView.snp_left)
+			})
+			
+			UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.firstContainer.layoutIfNeeded()
+				self.secondContainer.layoutIfNeeded()
+				self.thirdContainer.layoutIfNeeded()
+				}, completion: nil)
+		default:
+			break
+		}
+	}
+	
+	func swipedThirdView(sender: UISwipeGestureRecognizer) {
+		
+		self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
+			make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.width))
+		})
+		
+		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
+			self.firstContainer.layoutIfNeeded()
+			self.secondContainer.layoutIfNeeded()
+			self.thirdContainer.layoutIfNeeded()
+			}, completion: nil)
+	}
+	
+	func editButtonTapped(sender: UIButton) {
 		let nextVC = EditTaskViewController()
 		nextVC.task = self.task
 		nextVC.delegate = self
@@ -840,7 +879,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 	}
 	
-	func backButtonTapped(sender:UIButton){
+	func backButtonTapped(sender: UIButton) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
@@ -850,6 +889,9 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		presentViewController(imagePicker, animated: true, completion: nil)
 	}
 	
+	func deleteTaskButtonTapped(sender: UIButton) {
+	}
+		
 	func didTapSaveButton(sender:UIButton){
 		self.task.title = self.titleTextField.text
 		print(self.task.title, terminator: "")
@@ -863,7 +905,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	func didTapDeleteButton(sender:UIButton){
+	func didTapDeleteButton(sender: UIButton) {
 		if sender.selected == false {
 			sender.selected = true
 			

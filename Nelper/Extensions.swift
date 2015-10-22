@@ -27,3 +27,13 @@ extension String {
 			range: NSMakeRange(0, utf16.count)) != nil
 	}
 }
+
+extension String {
+	func isAccepted(min: Int) -> Bool {
+		if (self.utf16.count >= min) {
+			return true
+		} else {
+			return false
+		}
+	}
+}

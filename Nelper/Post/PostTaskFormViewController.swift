@@ -26,6 +26,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var locationTextField: UITextField?
 	var titleTextField: UITextField!
 	var descriptionTextView: UITextView!
+	var descriptionStatus: UIImageView!
 	var priceOffered: UITextField!
 	var autocompleteArray = [GMSAutocompletePrediction]()
 	var tap: UITapGestureRecognizer?
@@ -265,13 +266,23 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		descriptionTextView.layer.borderWidth = 1
 		descriptionTextView.layer.sublayerTransform = CATransform3DMakeTranslation(6, 0, 0)
 		descriptionTextView.text = "Description   "
-		
-		
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(descriptionLabel.snp_bottom).offset(10)
 			make.right.equalTo(contentView.snp_right).offset(-50)
 			make.height.equalTo(150)
+		}
+		
+		let descriptionStatus = UIImageView()
+		self.descriptionStatus = descriptionStatus
+		taskFormContainer.addSubview(descriptionStatus)
+		descriptionStatus.image = UIImage(named: "denied")
+		descriptionStatus.contentMode = UIViewContentMode.ScaleAspectFit
+		descriptionStatus.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(descriptionTextView.snp_right).offset(2)
+			make.right.equalTo(contentView.snp_right).offset(-2)
+			make.centerY.equalTo(descriptionTextView.snp_centerY)
+			make.height.equalTo(30)
 		}
 		
 		//Price Offered Label + TextField
@@ -367,7 +378,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.addLocationButton = addLocationButton
 		addLocationButton.addTarget(self, action: "didTapAddLocation:", forControlEvents: UIControlEvents.TouchUpInside)
 		addLocationButton.setTitle("Add", forState: UIControlState.Normal)
-		addLocationButton.height = 50
 		addLocationButton.width = 80
 		addLocationButton.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(locationTextField.snp_right).offset(10)
@@ -449,7 +459,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		picturesButton.setTitle("Add pictures", forState: UIControlState.Normal)
 		picturesButton.addTarget(self, action: "attachPicturesButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		picturesButton.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(deleteAddressButton.snp_left)
+			make.centerX.equalTo(picturesContainer.snp_centerX)
 			make.top.equalTo(picturesContainer.snp_top).offset(20)
 		}
 		
@@ -473,7 +483,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		createTaskButton.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.view.snp_left).offset(contentInset * 2)
-			make.right.equalTo(self.view.snp_right).offset(contentInset * 2)
+			make.right.equalTo(self.view.snp_right).offset(-contentInset * 2)
 			make.height.equalTo(50)
 			make.top.equalTo(picturesContainer.snp_bottom).offset(30)
 			make.centerX.equalTo(self.contentView.snp_centerX)
@@ -606,33 +616,54 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			}, completion: nil)
 	}
 	
-	//MARK: Textfield Delegate
+	//MARK: Textfield and Textview Delegate
+	//TODO: FIX THIS SHIT I CAN'T :D
 	
 	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
 		
-		if textField == self.locationTextField{
+		if textField == self.locationTextField {
 			return textField != self.locationTextField
-		}else if textField == self.titleTextField{
+		} else if textField == self.titleTextField {
 			
-			let textFieldRange:NSRange = NSMakeRange(0, textField.text!.characters.count)
+			let textFieldRange: NSRange = NSMakeRange(0, textField.text!.characters.count)
 			
-			if NSEqualRanges(textFieldRange, range)	&& string.characters.count == 0{
-				self.titleStatus.image = UIImage(named: "denied")
-			}else{
+			if NSEqualRanges(textFieldRange, range) && string.characters.count >= 6 {
 				self.titleStatus.image = UIImage(named: "accepted")
+			} else if NSEqualRanges(textFieldRange, range)	&& string.characters.count == 0 {
+				self.titleStatus.image = nil
+			} else {
+				self.titleStatus.image = UIImage(named: "denied")
 			}
-		}else if textField == self.priceOffered{
+		} else if textField == self.priceOffered {
 			let textFieldRange:NSRange = NSMakeRange(0, textField.text!.characters.count)
 			
-			if (NSEqualRanges(textFieldRange, range)	&& string.characters.count == 0){
-				self.priceStatus.image = UIImage(named: "denied")
-			}else{
+			if NSEqualRanges(textFieldRange, range) && string.characters.count >= 6 {
 				self.priceStatus.image = UIImage(named: "accepted")
+			} else if (NSEqualRanges(textFieldRange, range) && string.characters.count == 0) {
+				self.priceStatus.image = nil
+			} else {
+				self.priceStatus.image = UIImage(named: "denied")
 			}
 		}
 		return true
 	}
 	
+	func textView(textView: UITextView, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+		
+		if textView == self.descriptionTextView {
+			let textViewRange: NSRange = NSMakeRange(0, textView.text!.characters.count)
+			
+			if NSEqualRanges(textViewRange, range) && string.characters.count >= 6 {
+				self.descriptionStatus.image = UIImage(named: "accepted")
+			} else if NSEqualRanges(textViewRange, range)	&& string.characters.count == 0 {
+				self.descriptionStatus.image = nil
+			} else {
+				self.descriptionStatus.image = UIImage(named: "denied")
+			}
+		}
+		
+		return true
+	}
 
 	
 	func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -663,6 +694,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		self.streetAddressLabel.text = vc.address.formattedTextLabel
 		
+		self.userPrivateData.locations.append(vc.address)
 		ApiHelper.updateUserLocations(self.userPrivateData.locations)
 		
 		self.locationTextField!.userInteractionEnabled = true
@@ -716,11 +748,13 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			var aRect = self.view.frame
 			aRect.size.height -= keyboardFrame.height
 			
-			let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
-			
-			if self.activeField != nil {
-				if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
-					self.scrollView.scrollRectToVisible(frame, animated: true)
+			if activeField != nil {
+				let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
+				
+				if self.activeField != nil {
+					if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
+						self.scrollView.scrollRectToVisible(frame, animated: true)
+					}
 				}
 			}
 		}
@@ -740,6 +774,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	- parameter sender: Add pictures button
 	*/
 	func attachPicturesButtonTapped(sender: UIButton){
+		DismissKeyboard()
 		imagePicker.allowsEditing = false
 		imagePicker.sourceType = .PhotoLibrary
 		presentViewController(imagePicker, animated: true, completion: nil)

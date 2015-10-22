@@ -693,7 +693,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.textFieldErrorMessages.append("Please enter a valid email address")
 		}
 		
-		//REVIEW FORMAT? EXTENSION.SWIFT
+		//TODO: REVIEW FORMAT? Helper -> extension.swift
 		if !self.phoneTextField.text!.isPhoneNumber() && self.phoneTextField.text != "" {
 			print("not a valid 10 digits phone number")
 			self.textFieldError = true
