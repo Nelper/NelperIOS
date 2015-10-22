@@ -368,7 +368,7 @@ class NotificationsSettingsViewController: UIViewController {
 	
 	//MARK: ACTIONS
 	func backButtonTapped(sender: UIButton) {
-		self.dismissViewControllerAnimated(true, completion: nil)
+		self.navigationController?.popViewControllerAnimated(true)
 		view.endEditing(true) // dissmiss keyboard without delay
 	}
 	

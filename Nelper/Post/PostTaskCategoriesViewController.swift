@@ -252,7 +252,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 		nextScreenVC.delegate = self
 		
 		dispatch_async(dispatch_get_main_queue()){
-			self.presentViewController(nextScreenVC, animated: true, completion: nil)
+			self.navigationController?.pushViewController(nextScreenVC, animated: true)
 		}
 	}
 	
@@ -268,8 +268,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 		delegate?.nelpTaskAdded(task)
 	}
 	
-	
-	func dismiss(){
-		self.dismissViewControllerAnimated(true, completion: nil)
+	func dismiss() {
+		
 	}
 }

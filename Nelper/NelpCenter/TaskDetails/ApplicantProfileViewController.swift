@@ -735,7 +735,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	//MARK: Actions
 	
 	func backButtonTapped(sender:UIButton){
-		self.dismissViewControllerAnimated(true, completion: nil)
+		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
 	func acceptButtonTapped(sender:UIButton){
@@ -753,7 +753,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.application.state = .Denied
 		ApiHelper.denyApplication(self.application) {
 			self.delegate!.didTapDenyButton(self.applicant)
-			self.dismissViewControllerAnimated(true, completion: nil)
+			self.navigationController?.popViewControllerAnimated(true)
 		}
 	}
 	

@@ -40,20 +40,25 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	
 	func createView(){
 		self.tabBar.translucent = false
-		let browseVC = BrowseViewController()
+		let browseVC = UINavigationController(rootViewController: BrowseViewController())
+		browseVC.navigationBarHidden = true
+//		let browseVC = BrowseViewController()
 		let browseVCItem = UITabBarItem(title: "Browse tasks", image: UIImage(named: "browse_default"), selectedImage: UIImage(named: "browse_default"))
 		browseVC.tabBarItem = browseVCItem
 		
-		let nelpCenterVC = NelpCenterViewController()
+		let nelpCenterVC = UINavigationController(rootViewController:NelpCenterViewController())
+		nelpCenterVC.navigationBarHidden = true
 		let nelpCenterVCItem = UITabBarItem(title: "Nelp Center", image: UIImage(named: "nelpcenter_default"), selectedImage: UIImage(named: "nelpcenter_default"))
 		nelpCenterVC.tabBarItem = nelpCenterVCItem
 		
-		let postVC = PostTaskCategoriesViewController()
+		let postVC = UINavigationController(rootViewController:PostTaskCategoriesViewController())
+		postVC.navigationBarHidden = true
 		let postVCItem = UITabBarItem(title: "Post a task", image: UIImage(named: "post_task"), selectedImage: UIImage(named: "post_task"))
 		postVC.tabBarItem = postVCItem
 		
 		//		let moreVC = MoreViewController(menuViewController: UIViewController(), contentViewController: MoreMenuTableViewController())
-		let moreVC = MoreViewController()
+		let moreVC = UINavigationController(rootViewController: MoreViewController())
+		moreVC.navigationBarHidden = true
 		let moreVCItem = UITabBarItem(title: "More", image: UIImage(named: "menu"), selectedImage: UIImage(named: "more"))
 		moreVC.tabBarItem = moreVCItem
 		

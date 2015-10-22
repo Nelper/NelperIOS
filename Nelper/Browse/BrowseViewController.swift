@@ -262,8 +262,9 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let selectedTask = self.nelpTasks[indexPath.row]
 		let vc = BrowseDetailsViewController()
+		vc.hidesBottomBarWhenPushed = true
 		vc.task = selectedTask
-		self.presentViewController(vc, animated: false, completion: nil)
+		self.navigationController?.pushViewController(vc, animated: true)
 	}
 	
 	

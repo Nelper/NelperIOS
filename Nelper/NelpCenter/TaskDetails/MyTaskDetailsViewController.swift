@@ -782,7 +782,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	func dismissVC(){
-		self.dismissViewControllerAnimated(true, completion: {})
+		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
 	//MARK: Edit Task Delegate
@@ -880,7 +880,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	func backButtonTapped(sender: UIButton) {
-		self.dismissViewControllerAnimated(true, completion: nil)
+		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
 	func didTapAddImage(sender:UIButton){
@@ -902,7 +902,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		ApiHelper.editTask(self.task)
 		self.didEditTask(self.task)
-		self.dismissViewControllerAnimated(true, completion: nil)
+		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
 	func didTapDeleteButton(sender: UIButton) {

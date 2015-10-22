@@ -725,7 +725,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	//MARK: Actions
 	
 	func backButtonTapped(sender:UIButton){
-		self.dismissViewControllerAnimated(true, completion: nil)
+		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
 	func didTapCancelButton(sender:UIButton){
@@ -737,7 +737,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			ApiHelper.cancelApplyForTaskWithApplication(self.application)
 			self.application.state = .Canceled
 			self.delegate.didCancelApplication(self.application)
-			self.dismissViewControllerAnimated(true, completion: nil)
+			self.navigationController?.popViewControllerAnimated(true)
 		}
 	}
 	
@@ -750,7 +750,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		let nextVC = PosterProfileViewController()
 		nextVC.poster = self.poster
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-		self.presentViewController(nextVC, animated: true, completion: nil)
+		self.navigationController?.pushViewController(nextVC, animated: true)
 	}
 	
 	

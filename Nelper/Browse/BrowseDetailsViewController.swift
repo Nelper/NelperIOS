@@ -602,7 +602,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	}
 	
 	func backButtonTapped(sender: UIButton) {
-		self.dismissViewControllerAnimated(true, completion: nil)
+		self.navigationController?.popViewControllerAnimated(true)
 		view.endEditing(true) // dissmiss keyboard without delay
 	}
 	
@@ -629,8 +629,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		let nextVC = PosterProfileViewController()
 		nextVC.removeChatButton()
 		nextVC.poster = self.task.user
-		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-		self.presentViewController(nextVC, animated: true, completion: nil)
+		nextVC.hidesBottomBarWhenPushed = true
+		self.navigationController?.pushViewController(nextVC, animated: true)
 	}
 	
 	//MARK: Utilities

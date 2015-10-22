@@ -661,7 +661,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			let popupContentView = popupSubview.subviews.first! as UIView
 			popupContentView.layer.cornerRadius = 0
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
-				self.dismissViewControllerAnimated(true, completion: nil)
+				self.navigationController?.popViewControllerAnimated(true)
 				self.setTextFields()
 			}))
 			popup.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action) -> Void in
@@ -672,7 +672,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		} else {
 			
 			DismissKeyboard() // dismiss keyboard without delay
-			self.dismissViewControllerAnimated(true, completion: nil)
+			self.navigationController?.popViewControllerAnimated(true)
 		}
 	}
 	
@@ -804,7 +804,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	}
 	
 	func dismissVC() {
-		self.dismissViewControllerAnimated(true, completion: nil)
+		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
 	func locationContainerTapped(sender: UIButton) {
