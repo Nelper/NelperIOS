@@ -86,7 +86,7 @@ class NavBar: UINavigationBar {
 				self.deleteButtonView?.removeFromSuperview()
 				self.deleteButtonView = value
 				self.deleteButtonView?.setImage(UIImage(named: "remove-white"), forState: UIControlState.Normal)
-				self.deleteButtonView?.imageEdgeInsets = UIEdgeInsetsMake(26, 51, 26, 31)
+				self.deleteButtonView?.imageEdgeInsets = UIEdgeInsetsMake(26, 52, 26, 30)
 				self.container.addSubview(self.deleteButtonView!)
 				self.deleteButtonView?.snp_makeConstraints(closure: { (make) -> Void in
 					make.right.equalTo(self.container.snp_right)

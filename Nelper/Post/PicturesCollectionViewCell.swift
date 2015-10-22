@@ -27,6 +27,10 @@ class PicturesCollectionViewCell: UICollectionViewCell {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
+		self.layer.borderColor = grayDetails.CGColor
+		self.layer.borderWidth = 0.5
+		self.backgroundColor = UIColor.whiteColor()
+		
 		let imageView = UIImageView()
 		imageView.contentMode = UIViewContentMode.ScaleAspectFit
 		self.imageView = imageView
@@ -41,15 +45,20 @@ class PicturesCollectionViewCell: UICollectionViewCell {
 		removeButton.backgroundColor = UIColor.clearColor()
 		removeButton.addTarget(self, action: "didRemovePicture:", forControlEvents: UIControlEvents.TouchUpInside)
 		removeButton.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(imageView.snp_left).offset(5)
-			make.top.equalTo(imageView.snp_top).offset(5)
-			make.width.equalTo(40)
-			make.height.equalTo(40)
+			make.left.equalTo(imageView.snp_left)
+			make.top.equalTo(imageView.snp_top)
+			make.width.equalTo(35)
+			make.height.equalTo(35)
 		}
 	}
 	
 	func didRemovePicture(sender:UIButton) {
-		self.delegate?.didRemovePicture(self)
+		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
+			self.alpha = 0
+			}, completion: { finished in
+				self.delegate?.didRemovePicture(self)
+				self.alpha = 1
+		})
 	}
 
 	static var reuseIdentifier: String {

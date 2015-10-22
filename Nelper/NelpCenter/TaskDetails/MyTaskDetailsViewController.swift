@@ -32,27 +32,36 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var deniedApplicantIcon:UIImageView!
 	var deniedApplicantsLabel:UILabel!
 	
-	var titleTextField:UITextField!
-	var descriptionTextView:UITextView!
-	var deleteTaskButton:UIButton!
-	var tap:UIGestureRecognizer!
+	var titleTextField: UITextField!
+	var descriptionTextView: UITextView!
+	var deleteTaskButton: UIButton!
+	var tap: UIGestureRecognizer!
 	var pictures = [PFFile]()
-	var picturesContainer:UIView!
 	var images = [UIImage]()
 	var imagePicker = UIImagePickerController()
-	var fakeView:UIView!
-	var saveChangesButton:UIButton!
-	var picturesCollectionView:UICollectionView!
+	var fakeView: UIView!
+	var saveChangesButton: UIButton!
+	var picturesCollectionView: UICollectionView!
 	
 	var firstContainer: UIView!
 	var secondContainer: UIView!
 	var thirdContainer: UIView!
+	var firstO: PageControllerOval!
+	var secondO: PageControllerOval!
+	var thirdO: PageControllerOval!
+	var selectedAlpha: CGFloat = 1
+	var unselectedAlpha: CGFloat = 0.5
+	var selectedSize: CGFloat = 10
+	var unselectedSize: CGFloat = 8
+	
+	var noPicturesLabel: UILabel!
+	
 
 	let firstSwipeRecLeft = UISwipeGestureRecognizer()
 	let secondSwipeRecLeft = UISwipeGestureRecognizer()
 	let secondSwipeRecRight = UISwipeGestureRecognizer()
 	let thirdSwipeRecRight = UISwipeGestureRecognizer()
-	var viewWidth = CGFloat()
+	
 	
 	//MARK: Initialization
 	
@@ -71,13 +80,14 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		thirdSwipeRecRight.addTarget(self, action: "swipedThirdView:")
 		thirdSwipeRecRight.direction = UISwipeGestureRecognizerDirection.Right
 		
-		self.createView()
-		
 		if self.task.pictures != nil {
 			self.pictures = self.task.pictures!
 			print(pictures.count)
 			self.getImagesFromParse()
 		}
+		
+		self.createView()
+		
 		self.adjustUI()
 	}
 	
@@ -111,7 +121,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	func createView() {
 		
-		let containerHeight = 250
+		let containerHeight = 280
 		
 		//ContentView
 		
@@ -127,7 +137,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 		//FIRST CONTAINER
-		
 		let firstContainer = UIView()
 		self.firstContainer = firstContainer
 		self.contentView.addSubview(firstContainer)
@@ -157,11 +166,12 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.titleTextField = titleTextField
 		firstContainer.addSubview(titleTextField)
 		titleTextField.text = self.task.title
-		titleTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+		titleTextField.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		titleTextField.textColor = textFieldTextColor
 		titleTextField.textAlignment = NSTextAlignment.Center
 		titleTextField.layer.borderWidth = 1
-		titleTextField.layer.borderColor = darkGrayDetails.CGColor
-		titleTextField.backgroundColor = whiteBackground
+		titleTextField.layer.borderColor = grayDetails.CGColor
+		titleTextField.backgroundColor = UIColor.clearColor()
 		titleTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(categoryIcon.snp_bottom).offset(20)
 			make.left.equalTo(firstContainer.snp_left).offset(12)
@@ -173,7 +183,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		firstContainer.addSubview(titleUnderline)
 		titleUnderline.backgroundColor = darkGrayDetails
 		titleUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(titleTextField.snp_bottom).offset(16)
+			make.top.equalTo(titleTextField.snp_bottom).offset(20)
 			make.width.equalTo(firstContainer.snp_width).dividedBy(1.4)
 			make.height.equalTo(0.5)
 			make.centerX.equalTo(firstContainer.snp_centerX)
@@ -184,35 +194,27 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.descriptionTextView = descriptionTextView
 		firstContainer.addSubview(descriptionTextView)
 		descriptionTextView.text = self.task.desc
-		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
+		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText15)
+		descriptionTextView.textColor = textFieldTextColor
 		descriptionTextView.textAlignment = NSTextAlignment.Center
 		descriptionTextView.layer.borderWidth = 1
-		descriptionTextView.layer.borderColor = darkGrayDetails.CGColor
-		descriptionTextView.backgroundColor = whiteBackground
+		descriptionTextView.layer.borderColor = grayDetails.CGColor
+		descriptionTextView.backgroundColor = UIColor.clearColor()
 		descriptionTextView.scrollEnabled = false
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(titleUnderline.snp_bottom).offset(16)
+			make.top.equalTo(titleUnderline.snp_bottom).offset(20)
 			make.width.equalTo(titleTextField.snp_width)
 			make.centerX.equalTo(firstContainer.snp_centerX)
 		}
+		
+		/* whats this?
 		
 		let fixedWidth = descriptionTextView.frame.size.width
 		descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
 		let newSize = descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
 		var newFrame = descriptionTextView.frame
 		newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-		descriptionTextView.frame = newFrame;
-		
-		let descriptionUnderline = UIView()
-		firstContainer.addSubview(descriptionUnderline)
-		descriptionUnderline.backgroundColor = darkGrayDetails
-		descriptionUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(descriptionTextView.snp_bottom).offset(16)
-			make.width.equalTo(firstContainer.snp_width).dividedBy(1.4)
-			make.height.equalTo(0.5)
-			make.centerX.equalTo(firstContainer.snp_centerX)
-			
-		}
+		descriptionTextView.frame = newFrame*/
 		
 		//SECOND CONTAINER
 		let secondContainer = UIView()
@@ -228,16 +230,26 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.secondContainer.addGestureRecognizer(self.secondSwipeRecLeft)
 		self.secondContainer.addGestureRecognizer(self.secondSwipeRecRight)
 		
+		let manageLocationsLabel = UILabel()
+		secondContainer.addSubview(manageLocationsLabel)
+		manageLocationsLabel.text = "Manage Locations"
+		manageLocationsLabel.textColor = blackPrimary
+		manageLocationsLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		manageLocationsLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(secondContainer.snp_top).offset(20)
+			make.centerX.equalTo(secondContainer.snp_centerX)
+		}
+		
 		//TODO: LINK ADDRESS
 		let streetAddressLabel = UITextField()
 		streetAddressLabel.backgroundColor = whitePrimary
 		secondContainer.addSubview(streetAddressLabel)
-		streetAddressLabel.text = "175 Forbin Janson"
+		streetAddressLabel.text = "Work in progress :D"
 		streetAddressLabel.textColor = blackPrimary
 		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		streetAddressLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(secondContainer.snp_height).dividedBy(3)
-			make.centerX.equalTo(secondContainer.snp_centerX).offset(25)
+			make.centerX.equalTo(secondContainer.snp_centerX).offset(20)
 			make.centerY.equalTo(secondContainer.snp_centerY)
 		}
 		
@@ -249,7 +261,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.height.equalTo(45)
 			make.width.equalTo(45)
 			make.centerY.equalTo(streetAddressLabel.snp_centerY)
-			make.right.equalTo(streetAddressLabel.snp_left).offset(-10)
+			make.right.equalTo(streetAddressLabel.snp_left).offset(-15)
 		}
 		
 		let locationVerticalLine = UIView()
@@ -283,11 +295,52 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		managePicturesLabel.textColor = blackPrimary
 		managePicturesLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		managePicturesLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(secondContainer.snp_top).offset(20)
-			make.centerY.equalTo(thirdContainer.snp_centerY)
+			make.top.equalTo(thirdContainer.snp_top).offset(20)
+			make.centerX.equalTo(thirdContainer.snp_centerX)
 		}
 		
-		//Attach Pictures Button
+		//If no picture label
+		
+		let noPicturesLabel = UILabel()
+		self.noPicturesLabel = noPicturesLabel
+		thirdContainer.addSubview(noPicturesLabel)
+		noPicturesLabel.text = "You have not added any pictures for this task"
+		noPicturesLabel.textColor = darkGrayDetails
+		noPicturesLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		noPicturesLabel.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(thirdContainer.snp_centerY).offset(-8)
+			make.centerX.equalTo(thirdContainer.snp_centerX)
+		}
+		
+		if self.pictures.isEmpty {
+			noPicturesLabel.hidden = false
+		} else {
+			noPicturesLabel.hidden = true
+		}
+		
+		//Collection View
+		
+		let collectionViewHeight = 130
+		
+		let flowLayout = UICollectionViewFlowLayout()
+		flowLayout.scrollDirection = UICollectionViewScrollDirection.Horizontal
+		let picturesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: flowLayout)
+		thirdContainer.addSubview(picturesCollectionView)
+		self.picturesCollectionView = picturesCollectionView
+		self.picturesCollectionView.delegate = self
+		self.picturesCollectionView.backgroundColor = UIColor.clearColor()
+		self.picturesCollectionView.dataSource = self
+		picturesCollectionView.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(thirdContainer.snp_centerY).offset(-8)
+			make.height.equalTo(collectionViewHeight)
+			make.left.equalTo(thirdContainer.snp_left)
+			make.right.equalTo(thirdContainer.snp_right)
+		}
+		
+		picturesCollectionView.registerClass(PicturesCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: PicturesCollectionViewCell.reuseIdentifier)
+		picturesCollectionView.backgroundColor = UIColor.clearColor()
+		
+		//Add pictures Button
 		
 		let picturesButton = PrimaryActionButton()
 		thirdContainer.addSubview(picturesButton)
@@ -295,12 +348,77 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		picturesButton.addTarget(self, action: "didTapAddImage:", forControlEvents: UIControlEvents.TouchUpInside)
 		picturesButton.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(thirdContainer.snp_centerX)
-			make.top.equalTo(thirdContainer.snp_top).offset(20)
+			make.bottom.equalTo(thirdContainer.snp_bottom).offset(-10)
 		}
 		
+		//PAGING CONTAINER
+		let pagingContainer = UIView()
+		self.contentView.addSubview(pagingContainer)
+		pagingContainer.backgroundColor = whitePrimary
+		pagingContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(firstContainer.snp_bottom)
+			make.left.equalTo(contentView.snp_left)
+			make.right.equalTo(contentView.snp_right)
+			make.height.equalTo(50)
+		}
 		
+		let firstO = PageControllerOval()
+		self.firstO = firstO
+		pagingContainer.addSubview(firstO)
+		firstO.backgroundColor = UIColor.clearColor()
+		firstO.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(pagingContainer.snp_centerX).offset(-20)
+			make.centerY.equalTo(pagingContainer.snp_centerY)
+			make.width.equalTo(self.selectedSize)
+			make.height.equalTo(self.selectedSize)
+		}
+		self.firstO.alpha = self.selectedAlpha
 		
-		//Save button
+		let secondO = PageControllerOval()
+		self.secondO = secondO
+		pagingContainer.addSubview(secondO)
+		secondO.backgroundColor = UIColor.clearColor()
+		secondO.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(pagingContainer.snp_centerX)
+			make.centerY.equalTo(pagingContainer.snp_centerY)
+			make.width.equalTo(self.unselectedSize)
+			make.height.equalTo(self.unselectedSize)
+		}
+		self.secondO.alpha = self.unselectedAlpha
+		
+		let thirdO = PageControllerOval()
+		self.thirdO = thirdO
+		pagingContainer.addSubview(thirdO)
+		thirdO.backgroundColor = UIColor.clearColor()
+		thirdO.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(pagingContainer.snp_centerX).offset(20)
+			make.centerY.equalTo(pagingContainer.snp_centerY)
+			make.width.equalTo(self.unselectedSize)
+			make.height.equalTo(self.unselectedSize)
+		}
+		self.thirdO.alpha = self.unselectedAlpha
+		
+		//Borders
+		
+		let topBorder = UIView()
+		self.contentView.addSubview(topBorder)
+		topBorder.backgroundColor = grayDetails
+		topBorder.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(firstContainer.snp_top)
+			make.height.equalTo(1)
+			make.width.equalTo(self.contentView.snp_width)
+		}
+		
+		let botBorder = UIView()
+		self.contentView.addSubview(botBorder)
+		botBorder.backgroundColor = grayDetails
+		botBorder.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(pagingContainer.snp_bottom)
+			make.height.equalTo(1)
+			make.width.equalTo(self.contentView.snp_width)
+		}
+		
+		/*//Save button
 		
 		let saveChangesButton = UIButton()
 		self.saveChangesButton = saveChangesButton
@@ -316,29 +434,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.centerX.equalTo(firstContainer.snp_centerX)
 			make.height.equalTo(45)
 			make.width.equalTo(200)
-		}
-		
-		//Collection View
-		
-		let collectionViewHeight = 150
-		
-		let flowLayout = UICollectionViewFlowLayout()
-		flowLayout.scrollDirection = UICollectionViewScrollDirection.Horizontal
-		let picturesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: flowLayout)
-		thirdContainer.addSubview(picturesCollectionView)
-		self.picturesCollectionView = picturesCollectionView
-		self.picturesCollectionView.delegate = self
-		self.picturesCollectionView.dataSource = self
-		picturesCollectionView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(managePicturesLabel.snp_bottom).offset(10)
-			make.height.equalTo(collectionViewHeight)
-			make.left.equalTo(thirdContainer.snp_left).offset(5)
-			make.right.equalTo(thirdContainer.snp_right).offset(-5)
-		}
-		
-		picturesCollectionView.registerClass(PicturesCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: PicturesCollectionViewCell.reuseIdentifier)
-		picturesCollectionView.backgroundColor = whitePrimary
-		
+		}*/
 		
 		//Pending Applicants Container
 		
@@ -349,7 +445,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		activeApplicantsContainer.layer.borderWidth = 1
 		activeApplicantsContainer.layer.borderColor = grayDetails.CGColor
 		activeApplicantsContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(saveChangesButton.snp_bottom).offset(20)
+			make.top.equalTo(pagingContainer.snp_bottom).offset(20)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo((self.arrayOfApplicants.count*100)+65)
@@ -377,7 +473,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.centerY.equalTo(pendingApplicantIcon.snp_centerY)
 			make.left.equalTo(pendingApplicantIcon.snp_right).offset(12)
 		}
-		
 		
 		//Applicants Table View
 		
@@ -410,7 +505,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		self.makeDeniedApplicantsContainer()
 		
-		
 		let fakeView = UIView()
 		self.fakeView = fakeView
 		self.contentView.addSubview(fakeView)
@@ -441,6 +535,82 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	//MARK: UI
+	
+	func updateActivePage(activeView: Int) {
+		switch activeView {
+		case 1:
+			self.firstO.snp_updateConstraints { (make) -> Void in
+				make.width.equalTo(self.selectedSize)
+				make.height.equalTo(self.selectedSize)
+			}
+			self.secondO.snp_updateConstraints { (make) -> Void in
+				make.width.equalTo(self.unselectedSize)
+				make.height.equalTo(self.unselectedSize)
+			}
+			self.thirdO.snp_updateConstraints { (make) -> Void in
+				make.width.equalTo(self.unselectedSize)
+				make.height.equalTo(self.unselectedSize)
+			}
+			
+			UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.firstO.layoutIfNeeded()
+				self.secondO.layoutIfNeeded()
+				self.thirdO.layoutIfNeeded()
+				
+				self.firstO.alpha = self.selectedAlpha
+				self.secondO.alpha = self.unselectedAlpha
+				self.thirdO.alpha = self.unselectedAlpha
+				}, completion: nil)
+		case 2:
+			self.firstO.snp_updateConstraints { (make) -> Void in
+				make.width.equalTo(self.unselectedSize)
+				make.height.equalTo(self.unselectedSize)
+			}
+			self.secondO.snp_updateConstraints { (make) -> Void in
+				make.width.equalTo(self.selectedSize)
+				make.height.equalTo(self.selectedSize)
+			}
+			self.thirdO.snp_updateConstraints { (make) -> Void in
+				make.width.equalTo(self.unselectedSize)
+				make.height.equalTo(self.unselectedSize)
+			}
+			
+			UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.firstO.layoutIfNeeded()
+				self.secondO.layoutIfNeeded()
+				self.thirdO.layoutIfNeeded()
+				
+				self.firstO.alpha = self.unselectedAlpha
+				self.secondO.alpha = self.selectedAlpha
+				self.thirdO.alpha = self.unselectedAlpha
+				}, completion: nil)
+		case 3:
+			self.firstO.snp_updateConstraints { (make) -> Void in
+				make.width.equalTo(self.unselectedSize)
+				make.height.equalTo(self.unselectedSize)
+			}
+			self.secondO.snp_updateConstraints { (make) -> Void in
+				make.width.equalTo(self.unselectedSize)
+				make.height.equalTo(self.unselectedSize)
+			}
+			self.thirdO.snp_updateConstraints { (make) -> Void in
+				make.width.equalTo(self.selectedSize)
+				make.height.equalTo(self.selectedSize)
+			}
+			
+			UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.firstO.layoutIfNeeded()
+				self.secondO.layoutIfNeeded()
+				self.thirdO.layoutIfNeeded()
+				
+				self.firstO.alpha = self.unselectedAlpha
+				self.secondO.alpha = self.unselectedAlpha
+				self.thirdO.alpha = self.selectedAlpha
+				}, completion: nil)
+		default:
+			break
+		}
+	}
 	
 	func adjustUI(){
 		self.container.backgroundColor = whiteBackground
@@ -663,12 +833,35 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+		
 		return CGSizeMake(self.picturesCollectionView.frame.height, self.picturesCollectionView.frame.height)
+	}
+	
+	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+		return 20
+	}
+	
+	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+		
+		let cellWidth = self.picturesCollectionView.frame.height
+		let cellCount = CGFloat(collectionView.numberOfItemsInSection(section))
+		let cellSpacing = 20 * (cellCount - 1)
+		var inset = (collectionView.bounds.size.width - (cellCount * (cellWidth + (cellSpacing)))) * 0.5
+		inset = max(inset, 20)
+		
+		return UIEdgeInsetsMake(0.0, inset, 0.0, 0.0)
+		
 	}
 	
 	func didRemovePicture(vc: PicturesCollectionViewCell) {
 		self.images.removeAtIndex(vc.tag)
 		self.picturesCollectionView.reloadData()
+		
+		if self.images.isEmpty {
+				self.noPicturesLabel.hidden = false
+		} else {
+				self.noPicturesLabel.hidden = true
+		}
 	}
 	
 	
@@ -684,7 +877,9 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
 			self.images.append(pickedImage)
 			self.picturesCollectionView.reloadData()
+			self.noPicturesLabel.hidden = true
 		}
+		
 		dismissViewControllerAnimated(true, completion: nil)
 	}
 	
@@ -816,11 +1011,10 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	- parameter sender: condition left or right swipe for swipedSecondView
 	*/
 	func swipedFirstView(sender: UISwipeGestureRecognizer) {
-		
-		print("swipe")
 		self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
 			make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.width))
 		})
+		updateActivePage(2)
 		
 		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 			self.firstContainer.layoutIfNeeded()
@@ -836,6 +1030,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
 				make.left.equalTo(self.contentView.snp_left).offset(-2 * (self.contentView.frame.width))
 			})
+			updateActivePage(3)
 			
 			UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 				self.firstContainer.layoutIfNeeded()
@@ -846,6 +1041,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
 				make.left.equalTo(self.contentView.snp_left)
 			})
+			updateActivePage(1)
 			
 			UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 				self.firstContainer.layoutIfNeeded()
@@ -862,6 +1058,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
 			make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.width))
 		})
+		updateActivePage(2)
 		
 		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 			self.firstContainer.layoutIfNeeded()
