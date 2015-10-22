@@ -49,17 +49,16 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		let navBar = NavBar()
 		self.navBar = navBar
 		self.view.addSubview(navBar)
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		navBar.backButton = previousBtn
+		navBar.setTitle("My Task")
 		navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
 			make.left.equalTo(self.view.snp_left)
 			make.height.equalTo(64)
 		}
-		
-		let previousBtn = UIButton()
-		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		navBar.closeButton = previousBtn
-		navBar.setTitle("My Task")
 		
 		let backgroundView = UIView()
 		self.view.addSubview(backgroundView)

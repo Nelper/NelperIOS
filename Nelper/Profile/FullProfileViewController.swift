@@ -47,7 +47,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.automaticallyAdjustsScrollViewInsets = false
-		self.navBar.setTitle("My Profile")
 		createView()
 		loadData()
 		refreshTableView()
@@ -66,6 +65,10 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	func createView(){
 		
 		//navbar
+		self.navBar.setTitle("My Profile")
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.backButton = previousBtn
 		
 		//Profile Header
 		let profileView = UIView()
@@ -188,9 +191,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 
 		
 		self.scrollView.backgroundColor = whiteBackground
-		let previousBtn = UIButton()
-		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.closeButton = previousBtn
 
 		
         let contentView = UIView()

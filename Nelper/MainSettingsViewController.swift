@@ -137,7 +137,7 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 		//NAVBAR
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.closeButton = previousBtn
+		self.navBar.backButton = previousBtn
 		self.contentView.backgroundColor = whiteBackground
 	}
 	

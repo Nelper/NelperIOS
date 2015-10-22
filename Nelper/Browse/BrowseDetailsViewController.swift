@@ -58,7 +58,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.containerView.addSubview(navBar)
-		navBar.closeButton = previousBtn
+		navBar.backButton = previousBtn
 		navBar.setTitle("Task Details")
 		navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.containerView.snp_top)

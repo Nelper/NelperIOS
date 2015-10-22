@@ -28,6 +28,9 @@ class TransactionsSettingsViewController: UIViewController {
 		self.navBar = navBar
 		self.view.addSubview(self.navBar)
 		self.navBar.setTitle("Transaction History")
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.backButton = previousBtn
 		self.navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
@@ -48,12 +51,7 @@ class TransactionsSettingsViewController: UIViewController {
 	}
 	
 	func adjustUI() {
-		
-		//NAVBAR
-		let previousBtn = UIButton()
-		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.closeButton = previousBtn
-		self.contentView.backgroundColor = whiteBackground
+	
 	}
 	
 	//MARK: ACTIONS

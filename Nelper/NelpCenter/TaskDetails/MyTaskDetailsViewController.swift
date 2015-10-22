@@ -618,7 +618,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let deleteBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		deleteBtn.addTarget(self, action: "deleteTaskButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.closeButton = previousBtn
+		self.navBar.backButton = previousBtn
 		self.navBar.deleteButton = deleteBtn
 		self.scrollView.backgroundColor = whiteBackground
 		self.navBar.setTitle("My Task")

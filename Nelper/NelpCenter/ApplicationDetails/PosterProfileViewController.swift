@@ -82,7 +82,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		navBar.closeButton = previousBtn
+		navBar.backButton = previousBtn
 		navBar.setTitle(self.poster.name)
 		
 		let contentView = UIView()

@@ -121,6 +121,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.navBar = navBar
 		self.view.addSubview(navBar)
 		navBar.setTitle("Post a task")
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.backButton = previousBtn
 		navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
@@ -492,14 +495,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	func adjustUI(){
-		let previousBtn = UIButton()
-		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.closeButton = previousBtn
-		self.contentView.backgroundColor = whiteBackground
 		
-		if self.locations!.isEmpty {
-			
-		}
 	}
 	
 	/**

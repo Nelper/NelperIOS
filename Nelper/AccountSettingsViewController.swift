@@ -142,7 +142,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.navBar.setTitle("Account Settings")
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.closeButton = previousBtn
+		self.navBar.backButton = previousBtn
 		let saveBtn = UIButton()
 		saveBtn.addTarget(self, action: "saveButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.saveButton = saveBtn
