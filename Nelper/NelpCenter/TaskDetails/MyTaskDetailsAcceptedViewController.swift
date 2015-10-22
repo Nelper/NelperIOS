@@ -758,7 +758,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	//MARK:Actions
 	
 	func backButtonTapped(sender:UIButton){
-		self.dismissViewControllerAnimated(true, completion: nil)
+		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
 	func didTapPaymentButton(sender:UIButton){
@@ -794,7 +794,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		let nextVC = PosterProfileViewController()
 		nextVC.poster = self.acceptedApplicant
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-		self.presentViewController(nextVC, animated: true, completion: nil)
+		self.navigationController?.pushViewController(nextVC, animated: true)
 		
 	}
 	

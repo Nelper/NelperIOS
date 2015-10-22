@@ -118,7 +118,7 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 		let selectedSection = self.sections[indexPath.row]
 		
 		dispatch_async(dispatch_get_main_queue()) {
-			self.presentViewController(selectedSection.viewController, animated: true, completion: nil)
+			self.navigationController?.pushViewController(selectedSection.viewController, animated: true)
 		}
 			
 		/*let selectedTask = self.nelpTasks[indexPath.row]
@@ -144,7 +144,7 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 	
 	//MARK: ACTIONS
 	func backButtonTapped(sender: UIButton) {
-		self.dismissViewControllerAnimated(true, completion: nil)
+		self.navigationController?.popViewControllerAnimated(true)
 		view.endEditing(true) // dissmiss keyboard without delay
 	}
 	

@@ -668,7 +668,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	//MARK: Actions
 	
 	func backButtonTapped(sender:UIButton){
-		self.dismissViewControllerAnimated(true, completion: nil)
+			self.navigationController?.popViewControllerAnimated(true)
 	}
 	
 	

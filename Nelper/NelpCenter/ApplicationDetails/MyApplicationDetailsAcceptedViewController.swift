@@ -895,7 +895,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		let nextVC = PosterProfileViewController()
 		nextVC.poster = self.poster
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-		self.presentViewController(nextVC, animated: true, completion: nil)
+		self.navigationController?.pushViewController(nextVC, animated: true)
 	}
 	
 	/**

@@ -217,12 +217,12 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				let nextVC = MyTaskDetailsAcceptedViewController()
 				nextVC.task = task
 				dispatch_async(dispatch_get_main_queue()) {
-					self.presentViewController(nextVC, animated: true, completion: nil)
+					self.navigationController?.pushViewController(nextVC, animated: true)
 				}
 			} else {
 			let nextVC = MyTaskDetailsViewController(findNelpTask: task)
 			dispatch_async(dispatch_get_main_queue()) {
-				self.presentViewController(nextVC, animated: true, completion: nil)
+				self.navigationController?.pushViewController(nextVC, animated: true)
 			}
 			}
 		} else if (tableView == myApplicationsTableView) {
@@ -233,7 +233,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				nextVC.poster = application.task.user
 				nextVC.application = application
 				dispatch_async(dispatch_get_main_queue()) {
-					self.presentViewController(nextVC, animated: true, completion: nil)
+					self.navigationController?.pushViewController(nextVC, animated: true)
 				}
 				
 			} else {
@@ -241,7 +241,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			nextVC.delegate = self
 			
 			dispatch_async(dispatch_get_main_queue()) {
-				self.presentViewController(nextVC, animated: true, completion: nil)
+				self.navigationController?.pushViewController(nextVC, animated: true)
 			}
 			}
 		}
@@ -277,7 +277,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	*/
 	func profileButtonTapped(sender:UIButton) {
 		let nextVC = FullProfileViewController()
-		self.presentViewController(nextVC, animated: true, completion: nil)
+		self.navigationController?.pushViewController(nextVC, animated: true)
 	}
 	
 	func onIndexChange(index: Int) {

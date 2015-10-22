@@ -201,12 +201,12 @@ class MoreViewController: UIViewController {
 	
 	func profileTapped(sender: UIButton) {
 		let nextVC = FullProfileViewController()
-		self.presentViewController(nextVC, animated: true, completion: nil)
+		self.navigationController?.pushViewController(nextVC, animated: true)
 	}
 	
 	func settingsTapped(sender: UIButton) {
 		let nextVC = MainSettingsViewController()
-		self.presentViewController(nextVC, animated: true, completion: nil)
+		self.navigationController?.pushViewController(nextVC, animated: true)
 	}
 	
 	func logoutTapped(sender: UIButton) {
