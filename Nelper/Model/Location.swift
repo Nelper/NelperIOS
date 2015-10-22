@@ -29,8 +29,25 @@ class Location {
 		}
 	}
 	
-	func createDictionary()->Dictionary<String,AnyObject> {
-		var dictionary = Dictionary<String,AnyObject>()
+	init(parseLocation: AnyObject) {
+		let dict = parseLocation as! Dictionary<String, AnyObject>
+		
+		self.formattedAddress = dict["formattedAddress"] as? String
+		self.name = dict["name"] as? String
+		self.city = dict["city"] as? String
+		self.province = dict["province"] as? String
+		self.route = dict["route"] as? String
+		self.streetNumber = dict["streetNumber"] as? String
+		self.country = dict["country"] as? String
+		self.coords = dict["coords"] as? Dictionary<String, Double>
+	}
+	
+	init() {
+		
+	}
+		
+	func createDictionary() -> Dictionary<String, AnyObject> {
+		var dictionary = Dictionary<String, AnyObject>()
 		
 		if self.name != nil {
 			dictionary["name"] = self.name

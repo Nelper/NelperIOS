@@ -27,7 +27,7 @@ class NavBar: UINavigationBar {
 				self.backButtonView?.removeFromSuperview()
 				self.backButtonView = value
 				self.backButtonView?.setImage(UIImage(named: "left-white-arrow"), forState: UIControlState.Normal)
-				self.backButtonView?.imageEdgeInsets = UIEdgeInsetsMake(26, 22, 24, 58)
+				self.backButtonView?.imageEdgeInsets = UIEdgeInsetsMake(28, 22, 22, 58)
 				self.container.addSubview(self.backButtonView!)
 				self.backButtonView?.snp_makeConstraints(closure: { (make) -> Void in
 					make.left.equalTo(self.container.snp_left)
@@ -86,7 +86,7 @@ class NavBar: UINavigationBar {
 				self.deleteButtonView?.removeFromSuperview()
 				self.deleteButtonView = value
 				self.deleteButtonView?.setImage(UIImage(named: "remove-white"), forState: UIControlState.Normal)
-				self.deleteButtonView?.imageEdgeInsets = UIEdgeInsetsMake(26, 52, 26, 30)
+				self.deleteButtonView?.imageEdgeInsets = UIEdgeInsetsMake(27, 54, 25, 28)
 				self.container.addSubview(self.deleteButtonView!)
 				self.deleteButtonView?.snp_makeConstraints(closure: { (make) -> Void in
 					make.right.equalTo(self.container.snp_right)

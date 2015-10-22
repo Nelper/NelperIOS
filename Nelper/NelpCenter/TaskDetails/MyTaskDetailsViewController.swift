@@ -169,8 +169,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		titleTextField.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		titleTextField.textColor = textFieldTextColor
 		titleTextField.textAlignment = NSTextAlignment.Center
-		titleTextField.layer.borderWidth = 1
-		titleTextField.layer.borderColor = grayDetails.CGColor
+		//titleTextField.layer.borderWidth = 1
+		//titleTextField.layer.borderColor = grayDetails.CGColor
 		titleTextField.backgroundColor = UIColor.clearColor()
 		titleTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(categoryIcon.snp_bottom).offset(20)
@@ -181,7 +181,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		let titleUnderline = UIView()
 		firstContainer.addSubview(titleUnderline)
-		titleUnderline.backgroundColor = darkGrayDetails
+		titleUnderline.backgroundColor = grayDetails
 		titleUnderline.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleTextField.snp_bottom).offset(20)
 			make.width.equalTo(firstContainer.snp_width).dividedBy(1.4)
@@ -197,8 +197,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText15)
 		descriptionTextView.textColor = textFieldTextColor
 		descriptionTextView.textAlignment = NSTextAlignment.Center
-		descriptionTextView.layer.borderWidth = 1
-		descriptionTextView.layer.borderColor = grayDetails.CGColor
+		//descriptionTextView.layer.borderWidth = 1
+		//descriptionTextView.layer.borderColor = grayDetails.CGColor
 		descriptionTextView.backgroundColor = UIColor.clearColor()
 		descriptionTextView.scrollEnabled = false
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
@@ -232,7 +232,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		let manageLocationsLabel = UILabel()
 		secondContainer.addSubview(manageLocationsLabel)
-		manageLocationsLabel.text = "Manage Locations"
+		manageLocationsLabel.text = "Task Location"
 		manageLocationsLabel.textColor = blackPrimary
 		manageLocationsLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		manageLocationsLabel.snp_makeConstraints { (make) -> Void in
@@ -241,27 +241,27 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 		//TODO: LINK ADDRESS
-		let streetAddressLabel = UITextField()
+		let streetAddressLabel = UILabel()
 		streetAddressLabel.backgroundColor = whitePrimary
 		secondContainer.addSubview(streetAddressLabel)
-		streetAddressLabel.text = "Work in progress :D"
+		streetAddressLabel.text = self.task.exactLocation!.formattedTextLabel
+		streetAddressLabel.numberOfLines = 0
 		streetAddressLabel.textColor = blackPrimary
 		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		streetAddressLabel.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(secondContainer.snp_height).dividedBy(3)
-			make.centerX.equalTo(secondContainer.snp_centerX).offset(20)
+			make.centerX.equalTo(secondContainer.snp_centerX).offset(25)
 			make.centerY.equalTo(secondContainer.snp_centerY)
 		}
 		
 		let pinIcon = UIImageView()
 		secondContainer.addSubview(pinIcon)
-		pinIcon.image = UIImage(named: "pin")
+		pinIcon.image = UIImage(named: "pin-map")
 		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		pinIcon.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(45)
 			make.width.equalTo(45)
 			make.centerY.equalTo(streetAddressLabel.snp_centerY)
-			make.right.equalTo(streetAddressLabel.snp_left).offset(-15)
+			make.right.equalTo(streetAddressLabel.snp_left).offset(-20)
 		}
 		
 		let locationVerticalLine = UIView()
@@ -271,7 +271,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.top.equalTo(streetAddressLabel.snp_top)
 			make.bottom.equalTo(streetAddressLabel.snp_bottom)
 			make.width.equalTo(0.5)
-			make.left.equalTo(pinIcon.snp_right).offset(5)
+			make.left.equalTo(pinIcon.snp_right).offset(12)
 		}
 		
 		//THIRD CONTAINER

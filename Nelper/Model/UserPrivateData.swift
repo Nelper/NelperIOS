@@ -19,6 +19,7 @@ class UserPrivateData: BaseModel {
 	init(parsePrivateData: PFObject) {
 		super.init()
 		
+		//NOTIFICATIONS
 		let parseNotifications = parsePrivateData["notifications"] as! Dictionary<String, Dictionary<String, Bool>>
 		self.notifications.posterApplication = SettingOption(email: parseNotifications["posterApplication"]!["email"]!)
 		self.notifications.posterRequestPayment = SettingOption(email: parseNotifications["posterRequestPayment"]!["email"]!)
@@ -26,9 +27,10 @@ class UserPrivateData: BaseModel {
 		self.notifications.nelperReceivedPayment = SettingOption(email: parseNotifications["nelperReceivedPayment"]!["email"]!)
 		self.notifications.newsletter = SettingOption(email: parseNotifications["newsletter"]!["email"]!)
 		
+		//LOCATIONS
 		let locations = parsePrivateData["locations"]! as! Array<Dictionary<String,AnyObject>>
 		for location in locations {
-			let oneLocation = Location()
+			let oneLocation = Location(parseLocation: location)
 			oneLocation.formattedAddress = location["formattedAddress"] as? String
 			oneLocation.name = location["name"] as? String
 			oneLocation.city = location["city"] as? String
@@ -40,6 +42,7 @@ class UserPrivateData: BaseModel {
 			self.locations.append(oneLocation)
 		}
 		
+		//INFORMATIONS
 		self.email = parsePrivateData["email"] as! String
 		self.phone = parsePrivateData["phone"] as? String
 	}

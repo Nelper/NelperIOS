@@ -230,6 +230,7 @@ class ApiHelper {
 		taskQuery.whereKey("user", equalTo: PFUser.currentUser()!)
 		taskQuery.whereKey("state", containedIn: [Task.State.Pending.rawValue, Task.State.Accepted.rawValue ])
 		taskQuery.orderByDescending("createdAt")
+		taskQuery.includeKey("privateData")
 		taskQuery.limit = 20
 		taskQuery.findObjectsInBackgroundWithBlock { (pfTasks, error) -> Void in
 			if error != nil {
