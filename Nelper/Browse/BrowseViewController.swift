@@ -12,7 +12,7 @@ import CoreLocation
 import GoogleMaps
 import Stripe
 
-class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, FilterSortViewControllerDelegate {
+class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, FilterSortViewControllerDelegate, MKMapViewDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var logoImage: UIImageView!
@@ -166,14 +166,47 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	}
 	
 	func createPins() {
+		self.mapView.delegate = self
+		
 		for task in self.nelpTasks {
 			let taskPin = MKPointAnnotation()
 			if(task.location != nil) {
 				let location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(task.location!.latitude, task.location!.longitude)
 				taskPin.coordinate = location
+				taskPin.title = task.category
 				self.mapView.addAnnotation(taskPin)
 			}
 		}
+	}
+	
+	//Custom pin icon
+	func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+		
+		if annotation is MKUserLocation {
+			return nil
+		}
+		
+		let reuseId = "taskPin"
+		
+		var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
+		if pinView == nil {
+			pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+			pinView!.canShowCallout = true
+			let image = UIImage(named: "pin-MK")
+			var resizeRect = CGRect()
+			resizeRect.size.height = 40
+			resizeRect.size.width = 40
+			UIGraphicsBeginImageContextWithOptions(resizeRect.size, false, 0.0)
+			image?.drawInRect(resizeRect)
+			let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+			UIGraphicsEndImageContext()
+			pinView!.image = resizedImage
+			pinView!.centerOffset = CGPointMake(0, -20)
+		} else {
+			pinView!.annotation = annotation
+		}
+		
+		return pinView
 	}
 	
 	func checkFilters(){

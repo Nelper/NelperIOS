@@ -868,22 +868,101 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	- parameter sender: Post Button
 	*/
 	func postButtonTapped(sender: UIButton) {
-		print(self.task.exactLocation)
+		DismissKeyboard()
+		
 		if self.arrayOfPictures.count != 0 {
 			self.convertImagesToData()
 		}
+		
 		self.task.state = .Pending
 		self.task.title = self.titleTextField!.text
-		if self.descriptionTextView!.text != nil{
+		
+		if self.descriptionTextView!.text != nil {
 			self.task.desc = self.descriptionTextView!.text
 		} else {
 			self.task.desc = ""
 		}
+		
 		self.task.priceOffered = Double(self.priceOffered!.text!)
+		
 		ApiHelper.addTask(self.task, block: { (task, error) -> Void in
 			self.delegate?.nelpTaskAdded(self.task)
-			self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-			self.dismissViewControllerAnimated(true, completion: nil)
+			
+			let saveConfirmationBlurView = FXBlurView(frame: self.view.bounds)
+			saveConfirmationBlurView.alpha = 0
+			saveConfirmationBlurView.tintColor = UIColor.clearColor()
+			saveConfirmationBlurView.updateInterval = 100
+			saveConfirmationBlurView.iterations = 2
+			saveConfirmationBlurView.blurRadius = 4
+			saveConfirmationBlurView.dynamic = false
+			saveConfirmationBlurView.underlyingView = self.view
+			self.view.addSubview(saveConfirmationBlurView)
+			
+			let saveConfirmationBackground = UIView()
+			saveConfirmationBlurView.addSubview(saveConfirmationBackground)
+			saveConfirmationBackground.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
+			saveConfirmationBackground.snp_makeConstraints { (make) -> Void in
+				make.edges.equalTo(saveConfirmationBlurView.snp_edges)
+			}
+			
+			let saveConfirmationContainer = UIView()
+			saveConfirmationBlurView.addSubview(saveConfirmationContainer)
+			saveConfirmationContainer.backgroundColor = whitePrimary
+			saveConfirmationContainer.snp_makeConstraints { (make) -> Void in
+				make.centerX.equalTo(self.view.snp_centerX)
+				make.centerY.equalTo(self.view.snp_centerY)
+				make.width.equalTo(self.view.snp_width).multipliedBy(0.7)
+				make.height.equalTo(0)
+			}
+			
+			let saveConfirmationLabel = UILabel()
+			saveConfirmationContainer.addSubview(saveConfirmationLabel)
+			saveConfirmationLabel.text = "Your task have been posted!"
+			saveConfirmationLabel.alpha = 0
+			saveConfirmationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+			saveConfirmationLabel.textColor = darkGrayText
+			saveConfirmationLabel.textAlignment = .Center
+			saveConfirmationLabel.snp_makeConstraints { (make) -> Void in
+				make.centerX.equalTo(saveConfirmationContainer.snp_centerX)
+				make.centerY.equalTo(saveConfirmationContainer.snp_centerY)
+			}
+			
+			saveConfirmationContainer.layoutIfNeeded()
+			
+			saveConfirmationContainer.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(100)
+			}
+			
+			UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				saveConfirmationBlurView.alpha = 1
+				saveConfirmationContainer.layoutIfNeeded()
+				}, completion: nil)
+			
+			UIView.animateWithDuration(0.4, delay: 0.2, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				saveConfirmationLabel.alpha = 1
+				}, completion: nil)
+			
+			saveConfirmationContainer.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(0)
+			}
+			
+			UIView.animateWithDuration(0.2, delay: 2.5, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				saveConfirmationLabel.alpha = 0
+				}, completion: nil)
+			
+			UIView.animateWithDuration(0.2, delay: 2.7, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				saveConfirmationBlurView.alpha = 0
+				saveConfirmationContainer.layoutIfNeeded()
+				}, completion: nil)
+			
+			_ = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "dismissVC", userInfo: nil, repeats: false)
 		})
+	}
+	
+	//TODO: MADE NEXT VIEW NELP CENTER MY TASKS
+	func dismissVC() {
+		//self.navigationController?.setViewControllers([NelpCenterViewController()], animated: true)
+		self.navigationController?.popViewControllerAnimated(false)
+		self.tabBarController?.selectedIndex = 1
 	}
 }
