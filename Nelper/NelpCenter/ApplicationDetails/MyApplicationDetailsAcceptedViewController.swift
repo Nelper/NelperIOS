@@ -10,11 +10,10 @@ import Foundation
 import Alamofire
 
 
-class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate{
+class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDelegate{
 	
 	var poster: User!
 	var application: TaskApplication!
-	let locationManager = CLLocationManager()
 	var picture:UIImageView!
 	var firstStar:UIImageView!
 	var secondStar:UIImageView!
@@ -39,6 +38,11 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 	var statusLabel:UILabel!
 	var cancelButton:UIButton!
 	
+	var phoneLabel: UILabel!
+	var emailLabel: UILabel!
+	var addressLabel: UILabel!
+	var mapView: MKMapView!
+	
 	
 	//MARK: Initialization
 	
@@ -52,6 +56,21 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		super.viewDidLoad()
 		self.createView()
 		self.setImages(self.poster)
+		
+		ApiHelper.getTaskPrivateDataWithId(self.application.task.id) { (taskPrivate) -> Void in
+			self.emailLabel.text = taskPrivate.email
+			self.phoneLabel.text = taskPrivate.phone
+			self.addressLabel.text = taskPrivate.location?.formattedTextLabel
+			
+			let taskLocation = CLLocationCoordinate2DMake((taskPrivate.location?.coords!["latitude"])!, (taskPrivate.location?.coords!["longitude"])!)
+			let span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+			let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(taskLocation, span)
+			self.mapView.setRegion(locationToZoom, animated: false)
+			self.mapView.setCenterCoordinate(taskLocation, animated: false)
+			let taskPin = MKPointAnnotation()
+			taskPin.coordinate = taskLocation
+			self.mapView.addAnnotation(taskPin)
+		}
 	}
 	
 	//MARK: View Creation
@@ -495,13 +514,14 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		
 		let emailLabel = UILabel()
 		infoContainer.addSubview(emailLabel)
-		emailLabel.text = "cvinette@nelper.ca"
+		emailLabel.text = ""
 		emailLabel.textColor = blackPrimary
 		emailLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		emailLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(infoContainer.snp_centerX).offset(15)
 			make.centerY.equalTo(infoContainer.snp_centerY).offset(-30)
 		}
+		self.emailLabel = emailLabel
 		
 		let emailIcon = UIImageView()
 		infoContainer.addSubview(emailIcon)
@@ -515,13 +535,14 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		
 		let phoneLabel = UILabel()
 		infoContainer.addSubview(phoneLabel)
-		phoneLabel.text = "000-000-000"
+		phoneLabel.text = ""
 		phoneLabel.textColor = blackPrimary
 		phoneLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		phoneLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(infoContainer.snp_centerX).offset(15)
 			make.top.equalTo(emailLabel.snp_bottom).offset(30)
 		}
+		self.phoneLabel = phoneLabel
 		
 		let phoneIcon = UIImageView()
 		infoContainer.addSubview(phoneIcon)
@@ -646,38 +667,18 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 			make.left.equalTo(pinIcon.snp_right).offset(4)
 		}
 		
-		let streetAddressLabel = UILabel()
-		locationContainer.addSubview(streetAddressLabel)
-		streetAddressLabel.text = "175 Forbin Janson"
-		streetAddressLabel.textColor = blackPrimary
-		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
-		streetAddressLabel.snp_makeConstraints { (make) -> Void in
+		let addressLabel = UILabel()
+		locationContainer.addSubview(addressLabel)
+		addressLabel.text = ""
+		addressLabel.textColor = blackPrimary
+		addressLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
+		addressLabel.numberOfLines = 0
+		addressLabel.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
 			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
 			make.top.equalTo(locationContainer.snp_top)
 		}
-		
-		let cityLabel = UILabel()
-		locationContainer.addSubview(cityLabel)
-		cityLabel.text = "Mont Saint-Hilaire"
-		cityLabel.textColor = blackPrimary
-		cityLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
-		cityLabel.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
-			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
-			make.top.equalTo(streetAddressLabel.snp_bottom)
-		}
-
-		let zipcodeLabel = UILabel()
-		locationContainer.addSubview(zipcodeLabel)
-		zipcodeLabel.text = "J3H5E5"
-		zipcodeLabel.textColor = blackPrimary
-		zipcodeLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
-		zipcodeLabel.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(locationContainer.snp_height).dividedBy(3)
-			make.left.equalTo(locationVerticalLine.snp_left).offset(4)
-			make.top.equalTo(cityLabel.snp_bottom)
-		}
+		self.addressLabel = addressLabel
 
 		let locationNoticeLabel = UILabel()
 		taskContainer.addSubview(locationNoticeLabel)
@@ -710,24 +711,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		mapView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(mapContainer.snp_edges)
 		}
-		
-		self.locationManager.delegate = self;
-		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-		self.locationManager.requestWhenInUseAuthorization()
-		self.locationManager.startUpdatingLocation()
-		self.locationManager.distanceFilter = 40
-		
-		_ = MKMapView()
-		
-		let taskLocation = CLLocationCoordinate2DMake(self.application.task.location!.latitude, self.application.task.location!.longitude)
-		let span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
-		let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(taskLocation, span)
-		mapView.setRegion(locationToZoom, animated: true)
-		mapView.setCenterCoordinate(taskLocation, animated: true)
-		let taskPin = MKPointAnnotation()
-		taskPin.coordinate = taskLocation
-		mapView.addAnnotation(taskPin)
-		
+		self.mapView = mapView
 		
 		//Chat Button
 		
@@ -800,16 +784,6 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, CLLocationMa
 		} else {
 			return MKCircleRenderer()
 		}
-	}
-	
-	//MARK: CLLocation Delegate Methods
-	
-	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		
-	}
-	
-	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-		
 	}
 	
 	//MARK: View Delegate Methods

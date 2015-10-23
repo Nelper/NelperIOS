@@ -29,6 +29,7 @@
 		199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FC1B37A0A500B25B07 /* Images.xcassets */; };
 		199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */; };
 		199EF20C1B37A0A500B25B07 /* NelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF20B1B37A0A500B25B07 /* NelperTests.swift */; };
+		19D6D6FF1BD9D88800AA4833 /* TaskPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6D6FE1BD9D88800AA4833 /* TaskPrivate.swift */; settings = {ASSET_TAGS = (); }; };
 		19DB24241BB61B6B00468E91 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24231BB61B6B00468E91 /* Location.swift */; settings = {ASSET_TAGS = (); }; };
 		19DB24391BB70E8000468E91 /* MyApplicationDetailsAcceptedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24271BB70E8000468E91 /* MyApplicationDetailsAcceptedViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		19DB243A1BB70E8000468E91 /* MyApplicationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24281BB70E8000468E91 /* MyApplicationDetailsView.swift */; settings = {ASSET_TAGS = (); }; };
@@ -218,6 +219,7 @@
 		199EF2051B37A0A500B25B07 /* NelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NelperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		199EF20A1B37A0A500B25B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		199EF20B1B37A0A500B25B07 /* NelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NelperTests.swift; sourceTree = "<group>"; };
+		19D6D6FE1BD9D88800AA4833 /* TaskPrivate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TaskPrivate.swift; path = Nelper/Model/TaskPrivate.swift; sourceTree = SOURCE_ROOT; };
 		19D8538E1B37A47E007AA3A8 /* Nelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nelper-Bridging-Header.h"; sourceTree = "<group>"; };
 		19DB24231BB61B6B00468E91 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Location.swift; path = Nelper/Model/Location.swift; sourceTree = SOURCE_ROOT; };
 		19DB24271BB70E8000468E91 /* MyApplicationDetailsAcceptedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyApplicationDetailsAcceptedViewController.swift; sourceTree = "<group>"; };
@@ -706,6 +708,7 @@
 				F7E8F9321B94F3A4007D44D8 /* PFUser+ATLParticipant.swift */,
 				19DB24231BB61B6B00468E91 /* Location.swift */,
 				F7E18C171BB6480C00160771 /* UserPrivateData.swift */,
+				19D6D6FE1BD9D88800AA4833 /* TaskPrivate.swift */,
 			);
 			name = Model;
 			path = ViewControllers/Offer;
@@ -1140,6 +1143,7 @@
 				19DB243D1BB70E8000468E91 /* NelpApplicationsTableViewCell.swift in Sources */,
 				F7067AB41B56001300F19745 /* FontHelper.swift in Sources */,
 				F7E18C181BB6480C00160771 /* UserPrivateData.swift in Sources */,
+				19D6D6FF1BD9D88800AA4833 /* TaskPrivate.swift in Sources */,
 				19DB245B1BB711AA00468E91 /* BrowseDetailsViewController.swift in Sources */,
 				C0BED39C1BCF461000CE3B63 /* TransactionsSettingsViewController.swift in Sources */,
 				F7E8F8E31B94E7CF007D44D8 /* ATLMessagingUtilities.m in Sources */,

@@ -10,7 +10,8 @@ import Foundation
 import Alamofire
 
 class GraphQLClient {
-	static private let endpoint = "https://www.nelper.ca/graphql"
+	static private let endpoint = "http://localhost:8080/graphql"
+	// static private let endpoint = "https://www.nelper.ca/graphql"
 	static private var headers = [
 		"Authorization": "",
 		"Content-Type": "application/json",
@@ -69,7 +70,12 @@ class GraphQLClient {
 		request(.POST, self.endpoint, parameters: parameters, encoding: .JSON, headers: self.headers)
 			.responseJSON { response in
 				if let block = block {
-					block(response.result.value, response.result.error)
+					if let error = response.result.error {
+						block(nil, error)
+						return
+					}
+					
+					block(response.result.value!["data"], nil)
 				}
 		}
 	}

@@ -290,6 +290,44 @@ class ApiHelper {
 		}
 	}
 	
+	static func getTaskPrivateDataWithId(taskId: String, block: (TaskPrivate) -> Void) {
+		GraphQLClient.query(
+			"{ node(id: \"\(taskId)\") {" +
+				"... on Task {" +
+					"userPrivate {" +
+						"phone," +
+						"email," +
+						"exactLocation {" +
+							"streetNumber," +
+							"route," +
+							"city," +
+							"province," +
+							"country," +
+							"postalCode," +
+							"coords {latitude, longitude}" +
+						"}" +
+					"}" +
+				"}" +
+			"}}",
+			variables: nil
+		) { (data, error) -> Void in
+			if let data = data {
+				let dataTaskPrivate = data["node"]!!["userPrivate"]!!
+				let taskPrivate = TaskPrivate()
+				taskPrivate.email = dataTaskPrivate["email"] as? String
+				taskPrivate.phone = dataTaskPrivate["phone"] as? String
+				if let exactLocation = dataTaskPrivate["exactLocation"]! {
+					taskPrivate.location = Location(parseLocation: exactLocation)
+				}
+				block(taskPrivate);
+			}
+		}
+	}
+	
+	static func getApplicantPrivateDataWithBlock(block: () -> Void, taskId: String) {
+		
+	}
+	
 	
 	/**
 	Create a new task and store it in parse
