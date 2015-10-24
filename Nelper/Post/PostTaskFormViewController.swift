@@ -917,7 +917,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			
 			let saveConfirmationLabel = UILabel()
 			saveConfirmationContainer.addSubview(saveConfirmationLabel)
-			saveConfirmationLabel.text = "Your task have been posted!"
+			saveConfirmationLabel.text = "Your task has been posted!"
 			saveConfirmationLabel.alpha = 0
 			saveConfirmationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 			saveConfirmationLabel.textColor = darkGrayText

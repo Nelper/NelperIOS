@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 import iCarousel
 
-class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, EditTaskViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, EditTaskViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, MKMapViewDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var container: UIView!
@@ -51,11 +51,12 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var thirdO: PageControllerOval!
 	var selectedAlpha: CGFloat = 1
 	var unselectedAlpha: CGFloat = 0.5
-	var selectedSize: CGFloat = 10
-	var unselectedSize: CGFloat = 8
+	var selectedSize: CGFloat = 8
+	var unselectedSize: CGFloat = 6
 	
 	var noPicturesLabel: UILabel!
 	
+	var locationManager = CLLocationManager()
 
 	let firstSwipeRecLeft = UISwipeGestureRecognizer()
 	let secondSwipeRecLeft = UISwipeGestureRecognizer()
@@ -240,34 +241,126 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.centerX.equalTo(secondContainer.snp_centerX)
 		}
 		
-		//TODO: LINK ADDRESS
+		//Map Container
+		
+		let mapContainer = UIView()
+		self.secondContainer.addSubview(mapContainer)
+		//mapContainer.layer.borderColor = grayDetails.CGColor
+		//mapContainer.layer.borderWidth = 1
+		mapContainer.backgroundColor = UIColor.clearColor()
+		mapContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(manageLocationsLabel.snp_bottom).offset(20)
+			make.left.equalTo(self.secondContainer.snp_left)
+			make.right.equalTo(self.secondContainer.snp_right)
+			make.bottom.equalTo(self.secondContainer.snp_bottom)
+		}
+		
+		self.locationManager.delegate = self;
+		self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+		self.locationManager.requestWhenInUseAuthorization()
+		self.locationManager.startUpdatingLocation()
+		self.locationManager.distanceFilter = 40
+		
+		let mapView = MKMapView()
+		mapView.delegate = self
+		mapView.scrollEnabled = false
+		mapView.zoomEnabled = false
+		mapView.userInteractionEnabled = false
+		mapContainer.addSubview(mapView)
+		mapView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(mapContainer.snp_edges)
+		}
+		
+		let taskLocation = CLLocationCoordinate2DMake(self.task.location!.latitude, self.task.location!.longitude)
+		let span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+		let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(taskLocation, span)
+		mapView.setRegion(locationToZoom, animated: true)
+		mapView.setCenterCoordinate(taskLocation, animated: true)
+		
+		//let circle = MKCircle(centerCoordinate: taskLocation, radius: 400)
+		//mapView.addOverlay(circle)
+		
+		//Label
+		
+		let blurEffect = UIBlurEffect(style: .ExtraLight)
+		let blurView = UIVisualEffectView(effect: blurEffect)
+		secondContainer.addSubview(blurView)
+		
+		let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
+		let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
+		blurView.contentView.addSubview(vibrancyView)
+		
 		let streetAddressLabel = UILabel()
-		streetAddressLabel.backgroundColor = whitePrimary
-		secondContainer.addSubview(streetAddressLabel)
+		streetAddressLabel.backgroundColor = UIColor.clearColor()
+		vibrancyView.contentView.addSubview(streetAddressLabel)
 		streetAddressLabel.text = self.task.exactLocation!.formattedTextLabel
 		streetAddressLabel.numberOfLines = 0
 		streetAddressLabel.textColor = blackPrimary
 		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		streetAddressLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(secondContainer.snp_centerX).offset(25)
-			make.centerY.equalTo(secondContainer.snp_centerY)
+			make.centerX.equalTo(secondContainer.snp_centerX).offset(30)
+			make.centerY.equalTo(mapContainer.snp_centerY)
+		}
+		let streetAddressLabel2 = UILabel()
+		streetAddressLabel2.backgroundColor = UIColor.clearColor()
+		blurView.contentView.addSubview(streetAddressLabel2)
+		streetAddressLabel2.text = streetAddressLabel.text
+		streetAddressLabel2.numberOfLines = 0
+		streetAddressLabel2.alpha = 0.4
+		streetAddressLabel2.textColor = blackPrimary
+		streetAddressLabel2.font = UIFont(name: "Lato-Regular", size: kText15)
+		streetAddressLabel2.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(secondContainer.snp_centerX).offset(30)
+			make.centerY.equalTo(mapContainer.snp_centerY)
 		}
 		
 		let pinIcon = UIImageView()
-		secondContainer.addSubview(pinIcon)
-		pinIcon.image = UIImage(named: "pin-map")
+		vibrancyView.contentView.addSubview(pinIcon)
+		pinIcon.image = UIImage(named: "pin-MK")
 		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		pinIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(45)
-			make.width.equalTo(45)
+			make.height.equalTo(40)
+			make.width.equalTo(40)
 			make.centerY.equalTo(streetAddressLabel.snp_centerY)
-			make.right.equalTo(streetAddressLabel.snp_left).offset(-20)
+			make.right.equalTo(streetAddressLabel.snp_left).offset(-30)
+		}
+		let pinIcon2 = UIImageView()
+		blurView.contentView.addSubview(pinIcon2)
+		pinIcon2.image = UIImage(named: "pin-MK")
+		pinIcon2.alpha = 0.4
+		pinIcon2.contentMode = UIViewContentMode.ScaleAspectFill
+		pinIcon2.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(40)
+			make.width.equalTo(40)
+			make.centerY.equalTo(streetAddressLabel.snp_centerY)
+			make.right.equalTo(streetAddressLabel.snp_left).offset(-30)
+		}
+		
+		let contentInsets = 15
+		blurView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(streetAddressLabel.snp_top).offset(-contentInsets)
+			make.bottom.equalTo(streetAddressLabel.snp_bottom).offset(contentInsets)
+			make.left.equalTo(pinIcon.snp_left).offset(-contentInsets + 4)
+			make.right.equalTo(streetAddressLabel.snp_right).offset(contentInsets)
+		}
+		vibrancyView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(blurView.snp_edges)
 		}
 		
 		let locationVerticalLine = UIView()
-		secondContainer.addSubview(locationVerticalLine)
+		vibrancyView.contentView.addSubview(locationVerticalLine)
 		locationVerticalLine.backgroundColor = darkGrayDetails
 		locationVerticalLine.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(streetAddressLabel.snp_top)
+			make.bottom.equalTo(streetAddressLabel.snp_bottom)
+			make.width.equalTo(0.5)
+			make.left.equalTo(pinIcon.snp_right).offset(12)
+		}
+		let locationVerticalLine2 = UIView()
+		blurView.contentView.addSubview(locationVerticalLine2)
+		locationVerticalLine2.backgroundColor = darkGrayDetails
+		locationVerticalLine2.alpha = 0.4
+		locationVerticalLine2.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(streetAddressLabel.snp_top)
 			make.bottom.equalTo(streetAddressLabel.snp_bottom)
 			make.width.equalTo(0.5)
@@ -751,7 +844,29 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.scrollView.contentSize = self.contentView.frame.size
 	}
 	
+	//MARK: MKMapView Delegate Methods
 	
+	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+		if overlay is MKCircle {
+			let circle = MKCircleRenderer(overlay: overlay)
+			circle.strokeColor = UIColor.redColor()
+			circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
+			circle.lineWidth = 1
+			return circle
+		} else {
+			return MKCircleRenderer()
+		}
+	}
+	
+	//MARK: CLLocation Delegate Methods
+	
+	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+		
+	}
+	
+	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+		
+	}
 	
 	//MARK: Tableview Delegate and Datasource
 	
