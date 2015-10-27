@@ -59,8 +59,8 @@ class NotificationsSettingsViewController: UIViewController {
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		self.scrollView.contentSize = CGSizeMake(self.contentView.frame.width, self.contentView.frame.height)
-		self.scrollView.alwaysBounceVertical = true
+		self.scrollView.contentSize = self.contentView.frame.size
+//		self.scrollView.alwaysBounceVertical = true
 	}
 	
 	func createView() {
@@ -146,17 +146,6 @@ class NotificationsSettingsViewController: UIViewController {
 			make.left.equalTo(self.t1Label.snp_left)
 		}
 		
-		let t1FirstEvent = UILabel()
-		self.t1FirstEvent = t1FirstEvent
-		self.emailNotContainer.contentView.addSubview(self.t1FirstEvent)
-		self.t1FirstEvent.text = "A Nelper applies for my task"
-		self.t1FirstEvent.font = UIFont(name: "Lato-Light", size: kText15)
-		self.t1FirstEvent.textColor = blackPrimary
-		self.t1FirstEvent.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.t1EmailMeWhen.snp_bottom).offset(kPadding)
-			make.left.equalTo(self.t1Label.snp_left)
-		}
-		
 		let t1FirstSwitch = UISwitch()
 		self.t1FirstSwitch = t1FirstSwitch
 		self.emailNotContainer.contentView.addSubview(self.t1FirstSwitch)
@@ -167,22 +156,20 @@ class NotificationsSettingsViewController: UIViewController {
 		self.t1FirstSwitch.addTarget(self, action: "t1FirstSwitchChanged:", forControlEvents: .ValueChanged)
 		self.t1FirstSwitch.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(self.emailNotContainer.snp_right).offset(-self.kPadding)
-			make.centerY.equalTo(self.t1FirstEvent.snp_centerY)
+			make.top.equalTo(self.t1EmailMeWhen.snp_bottom).offset(kPadding)
 		}
 		
+		let t1FirstEvent = UILabel()
+		t1FirstEvent.numberOfLines = 0
+		self.t1FirstEvent = t1FirstEvent
+		self.emailNotContainer.contentView.addSubview(self.t1FirstEvent)
+		self.t1FirstEvent.text = "A Nelper applies for my task"
+		self.t1FirstEvent.font = UIFont(name: "Lato-Light", size: kText15)
+		self.t1FirstEvent.textColor = blackPrimary
 		self.t1FirstEvent.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.t1EmailMeWhen.snp_bottom).offset(kPadding)
+			make.left.equalTo(self.t1Label.snp_left)
 			make.right.equalTo(self.t1FirstSwitch.snp_left).offset(-15)
-		}
-		
-		let t1SecondEvent = UILabel()
-		self.t1SecondEvent = t1SecondEvent
-		self.emailNotContainer.contentView.addSubview(self.t1SecondEvent)
-		self.t1SecondEvent.text = "My Nelper requests their payment"
-		self.t1SecondEvent.font = UIFont(name: "Lato-Light", size: kText15)
-		self.t1SecondEvent.textColor = blackPrimary
-		self.t1SecondEvent.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.t1FirstEvent.snp_bottom).offset(kPadding)
-			make.left.equalTo(self.t1FirstEvent.snp_left)
 		}
 		
 		let t1SecondSwitch = UISwitch()
@@ -195,11 +182,20 @@ class NotificationsSettingsViewController: UIViewController {
 		self.t1SecondSwitch.addTarget(self, action: "t1SecondSwitchChanged:", forControlEvents: .ValueChanged)
 		self.t1SecondSwitch.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(self.t1FirstSwitch.snp_right)
-			make.centerY.equalTo(self.t1SecondEvent.snp_centerY)
+			make.top.equalTo(self.t1FirstEvent.snp_bottom).offset(kPadding)
 		}
 		
+		let t1SecondEvent = UILabel()
+		self.t1SecondEvent = t1SecondEvent
+		t1SecondEvent.numberOfLines = 0
+		self.emailNotContainer.contentView.addSubview(self.t1SecondEvent)
+		self.t1SecondEvent.text = "My Nelper requests their payment"
+		self.t1SecondEvent.font = UIFont(name: "Lato-Light", size: kText15)
+		self.t1SecondEvent.textColor = blackPrimary
 		self.t1SecondEvent.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(self.t1FirstEvent.snp_right)
+			make.top.equalTo(self.t1FirstEvent.snp_bottom).offset(kPadding)
+			make.left.equalTo(self.t1FirstEvent.snp_left)
+			make.right.equalTo(t1SecondSwitch.snp_left).offset(-15)
 		}
 		
 		let t2SeparatorLine = UIView()
@@ -237,6 +233,7 @@ class NotificationsSettingsViewController: UIViewController {
 		}
 		
 		let t2FirstEvent = UILabel()
+		t2FirstEvent.numberOfLines = 0
 		self.t2FirstEvent = t2FirstEvent
 		self.emailNotContainer.contentView.addSubview(self.t2FirstEvent)
 		self.t2FirstEvent.text = "My task application status changes"
@@ -265,6 +262,7 @@ class NotificationsSettingsViewController: UIViewController {
 		}
 		
 		let t2SecondEvent = UILabel()
+		t2SecondEvent.numberOfLines = 0
 		self.t2SecondEvent = t2SecondEvent
 		self.emailNotContainer.contentView.addSubview(self.t2SecondEvent)
 		self.t2SecondEvent.text = "I receive a payment"
@@ -327,6 +325,7 @@ class NotificationsSettingsViewController: UIViewController {
 		}
 		
 		let t3FirstEvent = UILabel()
+		t3FirstEvent.numberOfLines = 0
 		self.t3FirstEvent = t3FirstEvent
 		self.emailNotContainer.contentView.addSubview(self.t3FirstEvent)
 		self.t3FirstEvent.text = "Newsletters introducing new features"
@@ -346,17 +345,20 @@ class NotificationsSettingsViewController: UIViewController {
 		self.t3FirstSwitch.thumbTintColor = whitePrimary
 		self.t3FirstSwitch.addTarget(self, action: "t3FirstSwitchChanged:", forControlEvents: .ValueChanged)
 		self.t3FirstSwitch.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(self.emailNotContainer.snp_right).offset(-self.kPadding)
+			make.right.equalTo(self.view.snp_right).offset(-15)
 			make.centerY.equalTo(self.t3FirstEvent.snp_centerY)
 		}
 		
 		self.t3FirstEvent.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(self.t3FirstSwitch.snp_left).offset(-15)
 		}
-
 		
 		self.emailNotContainer.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(self.t3FirstSwitch.snp_bottom).offset(self.kPadding)
+		}
+		
+		self.contentView.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(emailNotContainer.snp_bottom).offset(20)
 		}
 	}
 	

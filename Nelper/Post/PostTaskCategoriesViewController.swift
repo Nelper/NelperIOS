@@ -121,7 +121,6 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 			make.top.equalTo(selectCategoryLabel.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
 			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(240)
 		}
 		
 		//Business component
@@ -133,7 +132,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 			make.top.equalTo(technologyContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
 			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(240)
+			
 		}
 		
 		//Multimedia component
@@ -145,7 +144,6 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 			make.top.equalTo(businessContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
 			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(240)
 		}
 		
 		//Gardening component
@@ -157,7 +155,6 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 			make.top.equalTo(multimediaContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
 			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(240)
 		}
 		
 		//Handyman component
@@ -169,7 +166,6 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 			make.top.equalTo(gardeningContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
 			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(240)
 		}
 		
 		//Housecleaning component
@@ -181,7 +177,6 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 			make.top.equalTo(handymanContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(20)
 			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(240)
 		}
 		
 		//Other component
@@ -250,6 +245,8 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 	func moveToNextView(){
 		let nextScreenVC = PostTaskFormViewController(task: self.task)
 		nextScreenVC.delegate = self
+		nextScreenVC.hidesBottomBarWhenPushed = true
+
 		
 		dispatch_async(dispatch_get_main_queue()){
 			self.navigationController?.pushViewController(nextScreenVC, animated: true)

@@ -42,6 +42,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var fakeView: UIView!
 	var saveChangesButton: UIButton!
 	var picturesCollectionView: UICollectionView!
+	var pagingContainer:UIView!
 	
 	var firstContainer: UIView!
 	var secondContainer: UIView!
@@ -450,6 +451,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//PAGING CONTAINER
 		let pagingContainer = UIView()
+		self.pagingContainer = pagingContainer
 		self.contentView.addSubview(pagingContainer)
 		pagingContainer.backgroundColor = whitePrimary
 		pagingContainer.snp_makeConstraints { (make) -> Void in
@@ -846,7 +848,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 		activeApplicantsContainer.snp_updateConstraints { (make) -> Void in
-			make.top.equalTo(self.saveChangesButton.snp_bottom).offset(10)
+			make.top.equalTo(self.pagingContainer.snp_bottom).offset(10)
 			make.left.equalTo(self.contentView.snp_left)
 			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo((self.arrayOfApplicants.count*100)+65)
@@ -928,7 +930,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			nextVC.delegate = self
 			nextVC.previousVC = self
 			dispatch_async(dispatch_get_main_queue()){
-				self.presentViewController(nextVC, animated: true, completion: nil)
+				self.navigationController?.pushViewController(nextVC, animated: true)
 			}
 		}
 	}
