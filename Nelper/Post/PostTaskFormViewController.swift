@@ -694,7 +694,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		ApiHelper.updateUserLocations(self.userPrivateData.locations)
 		
 		self.locationTextField!.userInteractionEnabled = true
-		
+		self.scrollView.contentSize = self.contentView.frame.size
 	}
 	
 	//MARK: KEYBOARD VIEW MOVER, WITH viewDidDis/Appear AND textfielddelegate

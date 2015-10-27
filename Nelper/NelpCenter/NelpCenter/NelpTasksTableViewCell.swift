@@ -122,7 +122,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		cellView.addSubview(numberOfApplicantsIcon)
 		numberOfApplicantsIcon.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleLabel.snp_bottom).offset(6)
-			make.left.equalTo(cellView.snp_left).offset(self.frame.width * 0.1)
+			make.left.equalTo(cellView.snp_left).offset(10)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
 		}
@@ -156,7 +156,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(numberOfApplicants.snp_centerY)
-			make.right.equalTo(cellView.snp_right).offset(-self.frame.width * 0.1)
+			make.right.equalTo(cellView.snp_right).offset(-10)
 			make.width.equalTo(65)
 			make.height.equalTo(38)
 		}

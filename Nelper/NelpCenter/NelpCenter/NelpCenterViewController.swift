@@ -216,11 +216,13 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			if task.state == .Accepted {
 				let nextVC = MyTaskDetailsAcceptedViewController()
 				nextVC.task = task
+				nextVC.hidesBottomBarWhenPushed = true
 				dispatch_async(dispatch_get_main_queue()) {
 					self.navigationController?.pushViewController(nextVC, animated: true)
 				}
 			} else {
 			let nextVC = MyTaskDetailsViewController(findNelpTask: task)
+			nextVC.hidesBottomBarWhenPushed = true
 			dispatch_async(dispatch_get_main_queue()) {
 				self.navigationController?.pushViewController(nextVC, animated: true)
 			}
@@ -232,6 +234,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				let nextVC = MyApplicationDetailsAcceptedViewController()
 				nextVC.poster = application.task.user
 				nextVC.application = application
+				nextVC.hidesBottomBarWhenPushed = true
 				dispatch_async(dispatch_get_main_queue()) {
 					self.navigationController?.pushViewController(nextVC, animated: true)
 				}
@@ -239,7 +242,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			} else {
 			let nextVC = MyApplicationDetailsView(poster: application.task.user, application: application)
 			nextVC.delegate = self
-			
+				nextVC.hidesBottomBarWhenPushed = true
 			dispatch_async(dispatch_get_main_queue()) {
 				self.navigationController?.pushViewController(nextVC, animated: true)
 			}

@@ -201,11 +201,13 @@ class MoreViewController: UIViewController {
 	
 	func profileTapped(sender: UIButton) {
 		let nextVC = FullProfileViewController()
+		nextVC.hidesBottomBarWhenPushed = true
 		self.navigationController?.pushViewController(nextVC, animated: true)
 	}
 	
 	func settingsTapped(sender: UIButton) {
 		let nextVC = MainSettingsViewController()
+		nextVC.hidesBottomBarWhenPushed = true
 		self.navigationController?.pushViewController(nextVC, animated: true)
 	}
 	
