@@ -51,8 +51,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var thirdO: PageControllerOval!
 	var selectedAlpha: CGFloat = 1
 	var unselectedAlpha: CGFloat = 0.5
-	var selectedSize: CGFloat = 8
-	var unselectedSize: CGFloat = 6
+	var selectedSize: CGFloat = 9
+	var unselectedSize: CGFloat = 7
 	
 	var noPicturesLabel: UILabel!
 	
@@ -63,6 +63,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	let secondSwipeRecRight = UISwipeGestureRecognizer()
 	let thirdSwipeRecRight = UISwipeGestureRecognizer()
 	
+	var mapContainer: UIView!
+	var mapView: MKMapView!
 	
 	//MARK: Initialization
 	
@@ -83,7 +85,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		if self.task.pictures != nil {
 			self.pictures = self.task.pictures!
-			print(pictures.count)
 			self.getImagesFromParse()
 		}
 		
@@ -94,6 +95,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	override func viewDidAppear(animated: Bool) {
 		
+		setMapUI()
 	}
 	
 	convenience init(findNelpTask:FindNelpTask) {
@@ -244,9 +246,10 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		//Map Container
 		
 		let mapContainer = UIView()
+		self.mapContainer = mapContainer
 		self.secondContainer.addSubview(mapContainer)
-		//mapContainer.layer.borderColor = grayDetails.CGColor
-		//mapContainer.layer.borderWidth = 1
+		mapContainer.layer.borderColor = grayDetails.CGColor
+		mapContainer.layer.borderWidth = 0.5
 		mapContainer.backgroundColor = UIColor.clearColor()
 		mapContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(manageLocationsLabel.snp_bottom).offset(20)
@@ -262,6 +265,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.locationManager.distanceFilter = 40
 		
 		let mapView = MKMapView()
+		self.mapView = mapView
 		mapView.delegate = self
 		mapView.scrollEnabled = false
 		mapView.zoomEnabled = false
@@ -272,7 +276,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 		let taskLocation = CLLocationCoordinate2DMake(self.task.location!.latitude, self.task.location!.longitude)
-		let span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+		let span: MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
 		let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(taskLocation, span)
 		mapView.setRegion(locationToZoom, animated: true)
 		mapView.setCenterCoordinate(taskLocation, animated: true)
@@ -282,7 +286,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//Label
 		
-		let blurEffect = UIBlurEffect(style: .ExtraLight)
+		let blurEffect = UIBlurEffect(style: .Light)
 		let blurView = UIVisualEffectView(effect: blurEffect)
 		secondContainer.addSubview(blurView)
 		
@@ -327,7 +331,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let pinIcon2 = UIImageView()
 		blurView.contentView.addSubview(pinIcon2)
 		pinIcon2.image = UIImage(named: "pin-MK")
-		pinIcon2.alpha = 0.4
+		pinIcon2.alpha = 0.5
 		pinIcon2.contentMode = UIViewContentMode.ScaleAspectFill
 		pinIcon2.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(40)
@@ -340,7 +344,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		blurView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(streetAddressLabel.snp_top).offset(-contentInsets)
 			make.bottom.equalTo(streetAddressLabel.snp_bottom).offset(contentInsets)
-			make.left.equalTo(pinIcon.snp_left).offset(-contentInsets + 4)
+			make.left.equalTo(pinIcon.snp_left).offset(-contentInsets + 6)
 			make.right.equalTo(streetAddressLabel.snp_right).offset(contentInsets)
 		}
 		vibrancyView.snp_makeConstraints { (make) -> Void in
@@ -715,6 +719,13 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.navBar.deleteButton = deleteBtn
 		self.scrollView.backgroundColor = whiteBackground
 		self.navBar.setTitle("My Task")
+	}
+	
+	func setMapUI() {
+		
+		//Map Alpha
+		self.mapContainer.alpha = 1
+	
 	}
 	
 	/**

@@ -43,6 +43,8 @@ let grayBlue = hexStringToUIColor("5a6a7b")
 let navBarColor = redPrimary
 let tabBarColor = whitePrimary
 
+let mapKitBeigeBackground = hexStringToUIColor("f9f4ec")
+
 //IMAGES
 
 let tabBarSearch:UIImage = UIImage(named: "search_dark.png")!
