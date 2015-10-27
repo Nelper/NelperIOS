@@ -30,11 +30,6 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	var delegate:ApplicantProfileViewControllerDelegate?
 	var application: TaskApplication!
 	var picture:UIImageView!
-	var firstStar:UIImageView!
-	var secondStar:UIImageView!
-	var thirdStar:UIImageView!
-	var fourthStar:UIImageView!
-	var fifthStar:UIImageView!
 	var scrollView:UIScrollView!
 	var skillsLabel:UILabel!
 	var aboutLabel:UILabel!
@@ -559,9 +554,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	//MARK: Tableview delegate and datasource
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		if(tableView == skillsTableView){
+		if (tableView == skillsTableView) {
 			if self.applicant.skills != nil {
-				if self.applicant.skills.count == 0{
+				if self.applicant.skills.count == 0 {
 					self.skillsLabel.hidden = true
 					self.skillsBottomLine.hidden = true
 					self.skillsLabel.snp_updateConstraints(closure: { (make) -> Void in
@@ -575,7 +570,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 					})
 				}
 				return self.applicant.skills.count
-			}else{
+			} else {
 				self.skillsLabel.hidden = true
 				self.skillsLabel.snp_updateConstraints(closure: { (make) -> Void in
 					make.height.equalTo(0)
@@ -588,9 +583,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 				})
 				self.skillsBottomLine.hidden = true
 			}
-		}else if tableView == educationTableView{
-			if self.applicant.education != nil{
-				if self.applicant.education.count == 0{
+		} else if tableView == educationTableView {
+			if self.applicant.education != nil {
+				if self.applicant.education.count == 0 {
 					self.educationLabel.hidden = true
 					self.educationBottomLine.hidden = true
 					self.educationLabel.snp_updateConstraints(closure: { (make) -> Void in
@@ -604,7 +599,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 					})
 				}
 				return self.applicant.education.count
-			}else{
+			} else {
 				self.educationLabel.hidden = true
 				self.educationLabel.snp_updateConstraints(closure: { (make) -> Void in
 					make.height.equalTo(0)
@@ -617,9 +612,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 				})
 				self.educationBottomLine.hidden = true
 			}
-		}else if tableView == experienceTableView{
-			if self.applicant.experience != nil{
-				if self.applicant.experience.count == 0{
+		} else if tableView == experienceTableView {
+			if self.applicant.experience != nil {
+				if self.applicant.experience.count == 0 {
 					self.experienceLabel.hidden = true
 					self.experienceLabel.snp_updateConstraints(closure: { (make) -> Void in
 						make.height.equalTo(0)
@@ -632,7 +627,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 					})
 				}
 				return self.applicant.experience.count
-			}else{
+			} else {
 				self.experienceLabel.hidden = true
 				self.experienceLabel.snp_updateConstraints(closure: { (make) -> Void in
 					make.height.equalTo(0)
@@ -662,7 +657,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			
 			return skillCell
 			
-		}else if tableView == educationTableView{
+		} else if tableView == educationTableView{
 			
 			let educationCell = tableView.dequeueReusableCellWithIdentifier(SkillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! SkillsTableViewCell
 			
@@ -674,7 +669,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			
 			return educationCell
 			
-		}else if tableView == experienceTableView{
+		} else if tableView == experienceTableView{
 			let experienceCell = tableView.dequeueReusableCellWithIdentifier(SkillsTableViewCell.reuseIdentifier, forIndexPath: indexPath) as! SkillsTableViewCell
 			let experience = self.applicant.experience[indexPath.item]
 			experienceCell.sendCellType("experience")
@@ -734,11 +729,11 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	//MARK: Actions
 	
-	func backButtonTapped(sender:UIButton){
+	func backButtonTapped(sender:UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
-	func acceptButtonTapped(sender:UIButton){
+	func acceptButtonTapped(sender:UIButton) {
 		self.application.state = .Accepted
 		self.application.task.state = .Accepted
 		
@@ -749,7 +744,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		}
 	}
 	
-	func denyButtonTapped(sender:UIButton){
+	func denyButtonTapped(sender:UIButton) {
 		self.application.state = .Denied
 		ApiHelper.denyApplication(self.application) {
 			self.delegate!.didTapDenyButton(self.applicant)

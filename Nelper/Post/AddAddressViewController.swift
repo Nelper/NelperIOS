@@ -86,7 +86,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		
 		let backgroundImage = UIImageView(frame: self.view.frame)
 		self.backgroundImage = backgroundImage
-		self.backgroundImage.image = self.blurImage//.blurredImageWithRadius(3, iterations: 100, tintColor: nil)
+		self.backgroundImage.image = self.blurImage
 		self.view.addSubview(backgroundImage)
 		
 		let blurContainer = FXBlurView(frame: self.view.bounds)

@@ -22,9 +22,9 @@ class Location {
 	var formattedTextLabel: String {
 		get {
 			if self.streetNumber != nil {
-				return "\(self.streetNumber!) \(self.route!)\n\(self.city!), \(self.province!)\n\(self.country!)"
+				return "\(self.streetNumber!) \(self.route!)\n\(self.city!), \(self.province!)\n\(self.postalCode!)"
 			} else {
-				return "\(self.route!)\n\(self.city!), \(self.province!)\n\(self.country!)"
+				return "\(self.route!)\n\(self.city!), \(self.province!)\n\(self.postalCode!)"
 			}
 		}
 	}
@@ -38,6 +38,7 @@ class Location {
 		self.province = dict["province"] as? String
 		self.route = dict["route"] as? String
 		self.streetNumber = dict["streetNumber"] as? String
+		self.postalCode = dict["postalCode"] as? String
 		self.country = dict["country"] as? String
 		self.coords = dict["coords"] as? Dictionary<String, Double>
 	}

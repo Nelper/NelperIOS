@@ -567,6 +567,7 @@ class ApiHelper {
 				"province": location.province!,
 				"route": location.route!,
 				"streetNumber": location.streetNumber!,
+				"postalCode": location.postalCode!,
 				"country": location.country!,
 				"coords": location.coords!
 			]

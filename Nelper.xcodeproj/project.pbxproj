@@ -56,12 +56,12 @@
 		19DB245B1BB711AA00468E91 /* BrowseDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24561BB711AA00468E91 /* BrowseDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		19DB245C1BB711AA00468E91 /* BrowseTaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24571BB711AA00468E91 /* BrowseTaskViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		19DB245D1BB711AA00468E91 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24581BB711AA00468E91 /* BrowseViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB245E1BB711AA00468E91 /* BrowseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DB24591BB711AA00468E91 /* BrowseViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		19DB24631BB711B500468E91 /* FullProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24601BB711B500468E91 /* FullProfileViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		19DB24641BB711B500468E91 /* FullProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DB24611BB711B500468E91 /* FullProfileViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		19DB24651BB711B500468E91 /* SkillsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24621BB711B500468E91 /* SkillsTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		9FB9076C1CAA3EC7FCDFB9DE /* Pods_Nelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C0196C981BB5B49300901155 /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0196C971BB5B49300901155 /* SegmentController.swift */; settings = {ASSET_TAGS = (); }; };
+		C03B1B8A1BDF426B00AFD349 /* BrowseMKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B1B891BDF426B00AFD349 /* BrowseMKPointAnnotation.swift */; settings = {ASSET_TAGS = (); }; };
 		C04598CB1BCE035600AFA579 /* MainSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CA1BCE035500AFA579 /* MainSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C04598CD1BCE14FB00AFA579 /* MainSettingsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		C04FF0031BB86873001E204F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04FF0021BB86873001E204F /* Button.swift */; settings = {ASSET_TAGS = (); }; };
@@ -247,13 +247,13 @@
 		19DB24561BB711AA00468E91 /* BrowseDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseDetailsViewController.swift; sourceTree = "<group>"; };
 		19DB24571BB711AA00468E91 /* BrowseTaskViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseTaskViewCell.swift; sourceTree = "<group>"; };
 		19DB24581BB711AA00468E91 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
-		19DB24591BB711AA00468E91 /* BrowseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowseViewController.xib; sourceTree = "<group>"; };
 		19DB24601BB711B500468E91 /* FullProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullProfileViewController.swift; sourceTree = "<group>"; };
 		19DB24611BB711B500468E91 /* FullProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullProfileViewController.xib; sourceTree = "<group>"; };
 		19DB24621BB711B500468E91 /* SkillsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillsTableViewCell.swift; sourceTree = "<group>"; };
 		3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
 		81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0196C971BB5B49300901155 /* SegmentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegmentController.swift; path = Views/SegmentController.swift; sourceTree = "<group>"; };
+		C03B1B891BDF426B00AFD349 /* BrowseMKPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseMKPointAnnotation.swift; sourceTree = "<group>"; };
 		C04598CA1BCE035500AFA579 /* MainSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainSettingsViewController.swift; path = Nelper/MainSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainSettingsViewCell.swift; path = Nelper/MainSettingsViewCell.swift; sourceTree = SOURCE_ROOT; };
 		C04FF0021BB86873001E204F /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -595,7 +595,7 @@
 				19DB24561BB711AA00468E91 /* BrowseDetailsViewController.swift */,
 				19DB24571BB711AA00468E91 /* BrowseTaskViewCell.swift */,
 				19DB24581BB711AA00468E91 /* BrowseViewController.swift */,
-				19DB24591BB711AA00468E91 /* BrowseViewController.xib */,
+				C03B1B891BDF426B00AFD349 /* BrowseMKPointAnnotation.swift */,
 			);
 			path = Browse;
 			sourceTree = "<group>";
@@ -1000,7 +1000,6 @@
 				F7E8F9141B94E7DF007D44D8 /* chevron@3x.png in Resources */,
 				F7E8F9181B94E7DF007D44D8 /* layerLogo@3x.png in Resources */,
 				19DB24481BB70E8000468E91 /* MyTaskDetailsViewController.xib in Resources */,
-				19DB245E1BB711AA00468E91 /* BrowseViewController.xib in Resources */,
 				199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */,
 				F7E8F9161B94E7DF007D44D8 /* layerLogo.png in Resources */,
 				F7E8F91B1B94E7DF007D44D8 /* location_dark@3x.png in Resources */,
@@ -1075,6 +1074,7 @@
 				19DB24241BB61B6B00468E91 /* Location.swift in Sources */,
 				19DB24651BB711B500468E91 /* SkillsTableViewCell.swift in Sources */,
 				19DB24431BB70E8000468E91 /* ApplicantProfileViewController.swift in Sources */,
+				C03B1B8A1BDF426B00AFD349 /* BrowseMKPointAnnotation.swift in Sources */,
 				19761A1B1B687858001600E1 /* BaseTask.swift in Sources */,
 				F7E8F8EF1B94E7CF007D44D8 /* ATLIncomingMessageCollectionViewCell.m in Sources */,
 				F7E8F8E61B94E7CF007D44D8 /* ATLAddressBarTextView.m in Sources */,

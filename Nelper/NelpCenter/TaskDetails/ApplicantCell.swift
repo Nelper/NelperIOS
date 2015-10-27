@@ -170,8 +170,8 @@ class ApplicantCell: UITableViewCell{
 		self.rightButton.alpha = 1
 		self.rightButton.addTarget(self, action: "revertButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.rightButton.snp_updateConstraints{ (make) -> Void in
-			make.height.equalTo(50)
-			make.width.equalTo(50)
+			make.height.equalTo(40)
+			make.width.equalTo(40)
 			make.centerY.equalTo(self.cellView.snp_centerY)
 			make.right.equalTo(self.cellView.snp_right).offset(-8)
 		}

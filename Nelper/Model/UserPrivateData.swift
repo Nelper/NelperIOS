@@ -37,6 +37,7 @@ class UserPrivateData: BaseModel {
 			oneLocation.province = location["province"] as? String
 			oneLocation.route = location["route"] as? String
 			oneLocation.streetNumber = location["streetNumber"] as? String
+			oneLocation.postalCode = location["postalCode"] as? String
 			oneLocation.country = location["country"] as? String
 			oneLocation.coords = location["coords"] as? Dictionary<String,Double>
 			self.locations.append(oneLocation)
