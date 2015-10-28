@@ -19,7 +19,7 @@
 		190F62471B4F617D0091A1D1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62461B4F617D0091A1D1 /* libsqlite3.dylib */; };
 		190F62491B4F618C0091A1D1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62481B4F618C0091A1D1 /* SystemConfiguration.framework */; };
 		192635451B744D9C005597E3 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192635441B744D9C005597E3 /* NavBar.swift */; };
-		196176C51BCB0BF000F2AF5F /* GraphQLClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196176C41BCB0BF000F2AF5F /* GraphQLClient.swift */; settings = {ASSET_TAGS = (); }; };
+		196176C51BCB0BF000F2AF5F /* GraphQLClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196176C41BCB0BF000F2AF5F /* GraphQLClient.swift */; };
 		19761A131B684F41001600E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A121B684F41001600E1 /* User.swift */; };
 		19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A141B684FDB001600E1 /* GeoPoint.swift */; };
 		19761A171B6850C4001600E1 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A161B6850C4001600E1 /* BaseModel.swift */; };
@@ -29,54 +29,54 @@
 		199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FC1B37A0A500B25B07 /* Images.xcassets */; };
 		199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */; };
 		199EF20C1B37A0A500B25B07 /* NelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF20B1B37A0A500B25B07 /* NelperTests.swift */; };
-		19D6D6FF1BD9D88800AA4833 /* TaskPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6D6FE1BD9D88800AA4833 /* TaskPrivate.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24241BB61B6B00468E91 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24231BB61B6B00468E91 /* Location.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24391BB70E8000468E91 /* MyApplicationDetailsAcceptedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24271BB70E8000468E91 /* MyApplicationDetailsAcceptedViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB243A1BB70E8000468E91 /* MyApplicationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24281BB70E8000468E91 /* MyApplicationDetailsView.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB243B1BB70E8000468E91 /* MyApplicationDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DB24291BB70E8000468E91 /* MyApplicationDetailsView.xib */; settings = {ASSET_TAGS = (); }; };
-		19DB243C1BB70E8000468E91 /* PosterProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB242A1BB70E8000468E91 /* PosterProfileViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB243D1BB70E8000468E91 /* NelpApplicationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB242C1BB70E8000468E91 /* NelpApplicationsTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB243E1BB70E8000468E91 /* NelpCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB242D1BB70E8000468E91 /* NelpCenterViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB243F1BB70E8000468E91 /* NelpCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DB242E1BB70E8000468E91 /* NelpCenterViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		19DB24401BB70E8000468E91 /* NelpTasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB242F1BB70E8000468E91 /* NelpTasksTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24411BB70E8000468E91 /* ApplicantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24311BB70E8000468E91 /* ApplicantCell.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24421BB70E8000468E91 /* ApplicantChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24321BB70E8000468E91 /* ApplicantChatViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24431BB70E8000468E91 /* ApplicantProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24331BB70E8000468E91 /* ApplicantProfileViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24441BB70E8000468E91 /* ApplicantProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DB24341BB70E8000468E91 /* ApplicantProfileViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		19DB24451BB70E8000468E91 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24351BB70E8000468E91 /* EditTaskViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24461BB70E8000468E91 /* MyTaskDetailsAcceptedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24361BB70E8000468E91 /* MyTaskDetailsAcceptedViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24471BB70E8000468E91 /* MyTaskDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24371BB70E8000468E91 /* MyTaskDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24481BB70E8000468E91 /* MyTaskDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DB24381BB70E8000468E91 /* MyTaskDetailsViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		19DB244F1BB7119C00468E91 /* AddAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB244A1BB7119C00468E91 /* AddAddressViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24501BB7119C00468E91 /* AutocompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB244B1BB7119C00468E91 /* AutocompleteCell.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24511BB7119C00468E91 /* CategoryCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB244C1BB7119C00468E91 /* CategoryCardViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24521BB7119C00468E91 /* PostTaskCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB244D1BB7119C00468E91 /* PostTaskCategoriesViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24531BB7119C00468E91 /* PostTaskFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB244E1BB7119C00468E91 /* PostTaskFormViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB245A1BB711AA00468E91 /* FilterSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24551BB711AA00468E91 /* FilterSortViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB245B1BB711AA00468E91 /* BrowseDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24561BB711AA00468E91 /* BrowseDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB245C1BB711AA00468E91 /* BrowseTaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24571BB711AA00468E91 /* BrowseTaskViewCell.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB245D1BB711AA00468E91 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24581BB711AA00468E91 /* BrowseViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24631BB711B500468E91 /* FullProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24601BB711B500468E91 /* FullProfileViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		19DB24641BB711B500468E91 /* FullProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DB24611BB711B500468E91 /* FullProfileViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		19DB24651BB711B500468E91 /* SkillsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24621BB711B500468E91 /* SkillsTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		19D6D6FF1BD9D88800AA4833 /* TaskPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6D6FE1BD9D88800AA4833 /* TaskPrivate.swift */; };
+		19DB24241BB61B6B00468E91 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24231BB61B6B00468E91 /* Location.swift */; };
+		19DB24391BB70E8000468E91 /* MyApplicationDetailsAcceptedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24271BB70E8000468E91 /* MyApplicationDetailsAcceptedViewController.swift */; };
+		19DB243A1BB70E8000468E91 /* MyApplicationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24281BB70E8000468E91 /* MyApplicationDetailsView.swift */; };
+		19DB243B1BB70E8000468E91 /* MyApplicationDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DB24291BB70E8000468E91 /* MyApplicationDetailsView.xib */; };
+		19DB243C1BB70E8000468E91 /* PosterProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB242A1BB70E8000468E91 /* PosterProfileViewController.swift */; };
+		19DB243D1BB70E8000468E91 /* NelpApplicationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB242C1BB70E8000468E91 /* NelpApplicationsTableViewCell.swift */; };
+		19DB243E1BB70E8000468E91 /* NelpCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB242D1BB70E8000468E91 /* NelpCenterViewController.swift */; };
+		19DB243F1BB70E8000468E91 /* NelpCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DB242E1BB70E8000468E91 /* NelpCenterViewController.xib */; };
+		19DB24401BB70E8000468E91 /* NelpTasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB242F1BB70E8000468E91 /* NelpTasksTableViewCell.swift */; };
+		19DB24411BB70E8000468E91 /* ApplicantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24311BB70E8000468E91 /* ApplicantCell.swift */; };
+		19DB24421BB70E8000468E91 /* ApplicantChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24321BB70E8000468E91 /* ApplicantChatViewController.swift */; };
+		19DB24431BB70E8000468E91 /* ApplicantProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24331BB70E8000468E91 /* ApplicantProfileViewController.swift */; };
+		19DB24441BB70E8000468E91 /* ApplicantProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DB24341BB70E8000468E91 /* ApplicantProfileViewController.xib */; };
+		19DB24451BB70E8000468E91 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24351BB70E8000468E91 /* EditTaskViewController.swift */; };
+		19DB24461BB70E8000468E91 /* MyTaskDetailsAcceptedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24361BB70E8000468E91 /* MyTaskDetailsAcceptedViewController.swift */; };
+		19DB24471BB70E8000468E91 /* MyTaskDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24371BB70E8000468E91 /* MyTaskDetailsViewController.swift */; };
+		19DB24481BB70E8000468E91 /* MyTaskDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DB24381BB70E8000468E91 /* MyTaskDetailsViewController.xib */; };
+		19DB244F1BB7119C00468E91 /* AddAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB244A1BB7119C00468E91 /* AddAddressViewController.swift */; };
+		19DB24501BB7119C00468E91 /* AutocompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB244B1BB7119C00468E91 /* AutocompleteCell.swift */; };
+		19DB24511BB7119C00468E91 /* CategoryCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB244C1BB7119C00468E91 /* CategoryCardViewController.swift */; };
+		19DB24521BB7119C00468E91 /* PostTaskCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB244D1BB7119C00468E91 /* PostTaskCategoriesViewController.swift */; };
+		19DB24531BB7119C00468E91 /* PostTaskFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB244E1BB7119C00468E91 /* PostTaskFormViewController.swift */; };
+		19DB245A1BB711AA00468E91 /* FilterSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24551BB711AA00468E91 /* FilterSortViewController.swift */; };
+		19DB245B1BB711AA00468E91 /* BrowseDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24561BB711AA00468E91 /* BrowseDetailsViewController.swift */; };
+		19DB245C1BB711AA00468E91 /* BrowseTaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24571BB711AA00468E91 /* BrowseTaskViewCell.swift */; };
+		19DB245D1BB711AA00468E91 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24581BB711AA00468E91 /* BrowseViewController.swift */; };
+		19DB24631BB711B500468E91 /* FullProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24601BB711B500468E91 /* FullProfileViewController.swift */; };
+		19DB24641BB711B500468E91 /* FullProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DB24611BB711B500468E91 /* FullProfileViewController.xib */; };
+		19DB24651BB711B500468E91 /* SkillsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24621BB711B500468E91 /* SkillsTableViewCell.swift */; };
 		9FB9076C1CAA3EC7FCDFB9DE /* Pods_Nelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		C0196C981BB5B49300901155 /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0196C971BB5B49300901155 /* SegmentController.swift */; settings = {ASSET_TAGS = (); }; };
-		C03B1B8A1BDF426B00AFD349 /* BrowseMKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B1B891BDF426B00AFD349 /* BrowseMKPointAnnotation.swift */; settings = {ASSET_TAGS = (); }; };
-		C04598CB1BCE035600AFA579 /* MainSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CA1BCE035500AFA579 /* MainSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C04598CD1BCE14FB00AFA579 /* MainSettingsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */; settings = {ASSET_TAGS = (); }; };
-		C04FF0031BB86873001E204F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04FF0021BB86873001E204F /* Button.swift */; settings = {ASSET_TAGS = (); }; };
-		C087D8D91BB7199A00AA205B /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087D8D81BB7199A00AA205B /* Rating.swift */; settings = {ASSET_TAGS = (); }; };
-		C0ACB2001BD88C7300DFC3CB /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACB1FF1BD88C7300DFC3CB /* Shapes.swift */; settings = {ASSET_TAGS = (); }; };
-		C0BED3961BCF413800CE3B63 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3951BCF413800CE3B63 /* AccountSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C0BED3981BCF458600CE3B63 /* NotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3971BCF458600CE3B63 /* NotificationsSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C0BED39A1BCF45E900CE3B63 /* BankSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3991BCF45E900CE3B63 /* BankSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C0BED39C1BCF461000CE3B63 /* TransactionsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED39B1BCF461000CE3B63 /* TransactionsSettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C0BED39F1BCF4E3C00CE3B63 /* UIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED39E1BCF4E3C00CE3B63 /* UIElements.swift */; settings = {ASSET_TAGS = (); }; };
-		C0EB01B51BD19BFD00F24F43 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EB01B41BD19BFD00F24F43 /* Extensions.swift */; settings = {ASSET_TAGS = (); }; };
+		C0196C981BB5B49300901155 /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0196C971BB5B49300901155 /* SegmentController.swift */; };
+		C03B1B8A1BDF426B00AFD349 /* BrowseMKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B1B891BDF426B00AFD349 /* BrowseMKAnnotation.swift */; };
+		C04598CB1BCE035600AFA579 /* MainSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CA1BCE035500AFA579 /* MainSettingsViewController.swift */; };
+		C04598CD1BCE14FB00AFA579 /* MainSettingsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */; };
+		C04FF0031BB86873001E204F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04FF0021BB86873001E204F /* Button.swift */; };
+		C087D8D91BB7199A00AA205B /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087D8D81BB7199A00AA205B /* Rating.swift */; };
+		C0ACB2001BD88C7300DFC3CB /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACB1FF1BD88C7300DFC3CB /* Shapes.swift */; };
+		C0BED3961BCF413800CE3B63 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3951BCF413800CE3B63 /* AccountSettingsViewController.swift */; };
+		C0BED3981BCF458600CE3B63 /* NotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3971BCF458600CE3B63 /* NotificationsSettingsViewController.swift */; };
+		C0BED39A1BCF45E900CE3B63 /* BankSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3991BCF45E900CE3B63 /* BankSettingsViewController.swift */; };
+		C0BED39C1BCF461000CE3B63 /* TransactionsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED39B1BCF461000CE3B63 /* TransactionsSettingsViewController.swift */; };
+		C0BED39F1BCF4E3C00CE3B63 /* UIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED39E1BCF4E3C00CE3B63 /* UIElements.swift */; };
+		C0EB01B51BD19BFD00F24F43 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EB01B41BD19BFD00F24F43 /* Extensions.swift */; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
-		F72385DA1BBE1533000793B8 /* PicturesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72385D91BBE1533000793B8 /* PicturesCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
-		F72385E61BC5A624000793B8 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72385E41BC5A624000793B8 /* MoreViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F72385DA1BBE1533000793B8 /* PicturesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72385D91BBE1533000793B8 /* PicturesCollectionViewCell.swift */; };
+		F72385E61BC5A624000793B8 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72385E41BC5A624000793B8 /* MoreViewController.swift */; };
 		F72F27DC1B53224100CD3B0B /* TaskApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F27DB1B53224100CD3B0B /* TaskApplication.swift */; };
 		F72F284F1B53607C00CD3B0B /* ThemeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72F284E1B53607C00CD3B0B /* ThemeHelper.swift */; };
 		F73A45BE1B72F4B600FD8C79 /* MKPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73A45BD1B72F4B600FD8C79 /* MKPin.swift */; };
@@ -89,7 +89,7 @@
 		F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ApiHelper.swift */; };
 		F7AB48A21B75AE5C00B602C4 /* iCarousel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB48A11B75AE5C00B602C4 /* iCarousel.framework */; };
 		F7D94CB41B5AC41000380157 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CB31B5AC41000380157 /* MapKit.framework */; };
-		F7E18C181BB6480C00160771 /* UserPrivateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E18C171BB6480C00160771 /* UserPrivateData.swift */; settings = {ASSET_TAGS = (); }; };
+		F7E18C181BB6480C00160771 /* UserPrivateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E18C171BB6480C00160771 /* UserPrivateData.swift */; };
 		F7E8F8D41B94E7CF007D44D8 /* Atlas.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8831B94E7CF007D44D8 /* Atlas.m */; };
 		F7E8F8D51B94E7CF007D44D8 /* ATLAddressBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8861B94E7CF007D44D8 /* ATLAddressBarViewController.m */; };
 		F7E8F8D61B94E7CF007D44D8 /* ATLBaseConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E8F8881B94E7CF007D44D8 /* ATLBaseConversationViewController.m */; };
@@ -253,7 +253,7 @@
 		3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
 		81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0196C971BB5B49300901155 /* SegmentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegmentController.swift; path = Views/SegmentController.swift; sourceTree = "<group>"; };
-		C03B1B891BDF426B00AFD349 /* BrowseMKPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseMKPointAnnotation.swift; sourceTree = "<group>"; };
+		C03B1B891BDF426B00AFD349 /* BrowseMKAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseMKAnnotation.swift; sourceTree = "<group>"; };
 		C04598CA1BCE035500AFA579 /* MainSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainSettingsViewController.swift; path = Nelper/MainSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainSettingsViewCell.swift; path = Nelper/MainSettingsViewCell.swift; sourceTree = SOURCE_ROOT; };
 		C04FF0021BB86873001E204F /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -595,7 +595,7 @@
 				19DB24561BB711AA00468E91 /* BrowseDetailsViewController.swift */,
 				19DB24571BB711AA00468E91 /* BrowseTaskViewCell.swift */,
 				19DB24581BB711AA00468E91 /* BrowseViewController.swift */,
-				C03B1B891BDF426B00AFD349 /* BrowseMKPointAnnotation.swift */,
+				C03B1B891BDF426B00AFD349 /* BrowseMKAnnotation.swift */,
 			);
 			path = Browse;
 			sourceTree = "<group>";
@@ -1074,7 +1074,7 @@
 				19DB24241BB61B6B00468E91 /* Location.swift in Sources */,
 				19DB24651BB711B500468E91 /* SkillsTableViewCell.swift in Sources */,
 				19DB24431BB70E8000468E91 /* ApplicantProfileViewController.swift in Sources */,
-				C03B1B8A1BDF426B00AFD349 /* BrowseMKPointAnnotation.swift in Sources */,
+				C03B1B8A1BDF426B00AFD349 /* BrowseMKAnnotation.swift in Sources */,
 				19761A1B1B687858001600E1 /* BaseTask.swift in Sources */,
 				F7E8F8EF1B94E7CF007D44D8 /* ATLIncomingMessageCollectionViewCell.m in Sources */,
 				F7E8F8E61B94E7CF007D44D8 /* ATLAddressBarTextView.m in Sources */,

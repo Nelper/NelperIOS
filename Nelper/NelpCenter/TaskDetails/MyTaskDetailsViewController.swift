@@ -688,20 +688,17 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	func setMapUI() {
 		
-		self.mapView.alpha = 0.7
-		
 		let blurContainer = FXBlurView(frame: self.mapView.bounds)
 		blurContainer.tintColor = UIColor.clearColor()
 		blurContainer.updateInterval = 100
-		blurContainer.iterations = 1
-		blurContainer.blurRadius = 3
+		blurContainer.iterations = 2
+		blurContainer.blurRadius = 4
 		blurContainer.dynamic = false
 		blurContainer.underlyingView = nil
 		self.mapView.addSubview(blurContainer)
 		blurContainer.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.mapView.snp_edges)
 		}
-	
 	}
 	
 	/**
@@ -1277,7 +1274,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		nextVC.task = self.task
 		nextVC.delegate = self
 		dispatch_async(dispatch_get_main_queue()) {
-			self.presentViewController(nextVC, animated: true, completion: nil)
+			self.navigationController?.pushViewController(nextVC, animated: true)
 		}
 	}
 	

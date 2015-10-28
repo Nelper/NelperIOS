@@ -56,7 +56,7 @@ class BrowseTaskViewCell: UITableViewCell {
 		self.categoryPicture.clipsToBounds = true
 		
 		cellView.addSubview(categoryPicture)
-		
+	
 		categoryPicture.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(picture.snp_bottom)
 			make.left.equalTo(picture.snp_right).offset(-25)
@@ -72,6 +72,7 @@ class BrowseTaskViewCell: UITableViewCell {
 		title.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(picture.snp_top).offset(2)
 			make.left.equalTo(picture.snp_right).offset(12)
+			make.right.equalTo(cellView.snp_right).offset(-10)
 		}
 		
 		/*let authorIcon = UIImageView()
@@ -107,8 +108,8 @@ class BrowseTaskViewCell: UITableViewCell {
 		moneyContainer.backgroundColor = whiteBackground
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(cellView.snp_right).offset(-55)
-			make.bottom.equalTo(creationDate.snp_bottom).offset(-4)
+			make.right.equalTo(cellView.snp_right).offset(-20)
+			make.bottom.equalTo(creationDate.snp_bottom).offset(-2)
 			make.width.equalTo(55)
 			make.height.equalTo(35)
 		}
@@ -129,7 +130,7 @@ class BrowseTaskViewCell: UITableViewCell {
 			make.edges.equalTo(moneyContainer.snp_edges)
 		}
 		
-		let rightArrow = UIImageView()
+		/*let rightArrow = UIImageView()
 		cellView.addSubview(rightArrow)
 		rightArrow.image = UIImage(named: "arrow_applicant_cell")
 		rightArrow.alpha = 0.2
@@ -138,7 +139,7 @@ class BrowseTaskViewCell: UITableViewCell {
 			make.centerY.equalTo(cellView.snp_centerY)
 			make.width.equalTo(15)
 			make.height.equalTo(25)
-		}
+		}*/
 		
 		let separatorLine = UIView()
 		cellView.addSubview(separatorLine)
@@ -192,7 +193,7 @@ class BrowseTaskViewCell: UITableViewCell {
 		
 		let price = String(format: "%.0f", task.priceOffered!)
 		
-		self.price.text = "$"+price
+		self.price.text = price+"$"
 		
 		let dateHelper = DateHelper()
 		self.creationDate.text = "Posted \(dateHelper.timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
@@ -206,10 +207,10 @@ class BrowseTaskViewCell: UITableViewCell {
 	
 	- parameter task: Task
 	*/
-	func setImages(task:Task) {
-		if(task.user.profilePictureURL != nil){
+	func setImages(task: Task) {
+		if (task.user.profilePictureURL != nil) {
 			let fbProfilePicture = task.user.profilePictureURL
-			request(.GET,fbProfilePicture!).response(){
+			request(.GET,fbProfilePicture!).response() {
 				(_, _, data, _) in
 				let image = UIImage(data: data as NSData!)
 				self.picture.image = image

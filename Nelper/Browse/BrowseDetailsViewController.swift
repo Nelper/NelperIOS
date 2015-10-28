@@ -187,8 +187,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		taskNameLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(categoryIcon.snp_bottom).offset(14)
 			make.centerX.equalTo(taskContainer.snp_centerX)
-			make.left.equalTo(taskContainer.snp_left)
-			make.right.equalTo(taskContainer.snp_right)
+			make.left.equalTo(taskContainer.snp_left).offset(10)
+			make.right.equalTo(taskContainer.snp_right).offset(-10)
 		}
 		
 		let taskNameLabelUnderline = UIView()

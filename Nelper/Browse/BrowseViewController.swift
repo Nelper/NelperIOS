@@ -11,6 +11,7 @@ import MapKit
 import CoreLocation
 import GoogleMaps
 import Stripe
+import Alamofire
 
 class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, FilterSortViewControllerDelegate, MKMapViewDelegate {
 	
@@ -205,6 +206,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		
 		let mapView = MKMapView()
 		self.mapView = mapView
+		self.mapView.showsPointsOfInterest = false
 		self.mapContainer.addSubview(mapView)
 		self.mapView.showsUserLocation = true
 		
@@ -241,13 +243,25 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.mapView.delegate = self
 		
 		for task in self.nelpTasks {
-			let taskPin = MKPointAnnotation()
-			if(task.location != nil) {
-				let location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(task.location!.latitude, task.location!.longitude)
-				taskPin.coordinate = location
-				taskPin.title = task.category
-				//taskPin.taskTitle = task.title
-				//taskPin.category = task.category!
+			
+			if (task.location != nil) {
+				let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(task.location!.latitude, task.location!.longitude)
+				
+				//TODO: FIX PROFILE PIC
+				var pinImage: UIImage?
+				if (task.user.profilePictureURL != nil) {
+					let fbProfilePicture = task.user.profilePictureURL
+					request(.GET,fbProfilePicture!).response(){
+						(_, _, data, _) in
+						let image = UIImage(data: data as NSData!)
+						pinImage = image
+					}
+				}
+				
+				let image = UIImage(named: "noProfilePicture")
+				pinImage = image
+				
+				let taskPin: BrowseMKAnnotation = BrowseMKAnnotation(coordinate: location, task: task, image: pinImage!, title: task.title, category: task.category!, price: task.priceOffered!, poster: task.user.name, date: task.createdAt)
 				self.mapView.addAnnotation(taskPin)
 			}
 		}
@@ -267,49 +281,57 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		
 		if annotation is MKUserLocation {
 			return nil
+		} else if annotation is BrowseMKAnnotation {
+			
+			let reuseId = "taskPin"
+			var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
+			
+			if pinView == nil {
+				
+				pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+				pinView!.canShowCallout = false
+				let image = UIImage(named: "pin-MK")
+				var resizeRect = CGRect()
+				resizeRect.size.height = 40
+				resizeRect.size.width = 40
+				
+				UIGraphicsBeginImageContextWithOptions(resizeRect.size, false, 0.0)
+				image?.drawInRect(resizeRect)
+				let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+				UIGraphicsEndImageContext()
+				
+				pinView!.image = resizedImage
+				pinView!.layer.zPosition = -1
+				pinView!.centerOffset = CGPointMake(0, -20)
+				
+			} else {
+				pinView!.annotation = annotation
+			}
+			
+			return pinView
 		}
-		
-		let reuseId = "taskPin"
-		
-		var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
-		if pinView == nil {
-			pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-			pinView!.canShowCallout = true
-			let image = UIImage(named: "pin-MK")
-			var resizeRect = CGRect()
-			resizeRect.size.height = 40
-			resizeRect.size.width = 40
-			
-			UIGraphicsBeginImageContextWithOptions(resizeRect.size, false, 0.0)
-			image?.drawInRect(resizeRect)
-			let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-			UIGraphicsEndImageContext()
-			
-			pinView!.image = resizedImage
-			pinView!.layer.zPosition = -1
-			pinView!.centerOffset = CGPointMake(0, -20)
-			
-			
-			
-		} else {
-			pinView!.annotation = annotation
-		}
-		
-		return pinView
+		return nil
 	}
 	
 	func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
 		
-		if view.isKindOfClass(MKAnnotationView) {
+		if view.isKindOfClass(MKAnnotationView) && !(view.annotation!.isKindOfClass(MKUserLocation)) {
 			self.annotationIsSelected = true
 			view.layer.zPosition = 0
+			var center = view.annotation!.coordinate
+			
+			if self.mapExpanded {
+				center.latitude -= mapView.region.span.latitudeDelta * 0.10
+			}
+			
+			mapView.setCenterCoordinate(center, animated: true)
 			
 			setAnnotationInfo(view)
 		}
 	}
 	
 	func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
-		if view.isKindOfClass(MKAnnotationView) {
+		if view.isKindOfClass(MKAnnotationView) && !(view.annotation!.isKindOfClass(MKUserLocation)) {
 			self.annotationIsSelected = false
 			view.layer.zPosition = -1
 			
@@ -319,52 +341,136 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		}
 	}
 	
-	func setAnnotationInfo(annotation: MKAnnotationView) {
+	func setAnnotationInfo(view: MKAnnotationView) {
+		
+		let pinViewAnnotation = view.annotation as? BrowseMKAnnotation
+		
 		if self.mapExpanded {
 			
 			let blurEffect = UIBlurEffect(style: .ExtraLight)
 			let mapInfoBlurView = UIVisualEffectView(effect: blurEffect)
 			self.mapInfoBlurView = mapInfoBlurView
 			self.mapView.addSubview(mapInfoBlurView)
+			mapInfoBlurView.backgroundColor = whitePrimary.colorWithAlphaComponent(0)
 			mapInfoBlurView.snp_makeConstraints { (make) -> Void in
-				make.left.equalTo(self.mapView.snp_left).offset(20)
+				make.left.equalTo(self.mapView.snp_left).offset(10)
 				make.bottom.equalTo(self.mapView.snp_bottom).offset(200)
-				make.right.equalTo(self.mapView.snp_right).offset(-20)
+				make.right.equalTo(self.mapView.snp_right).offset(-10)
 			}
 			
 			mapInfoBlurView.layoutIfNeeded()
 			
-			let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
-			let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
-			vibrancyView.layer.borderWidth = 1
-			vibrancyView.layer.borderColor = grayDetails.CGColor
-			mapInfoBlurView.contentView.addSubview(vibrancyView)
-			vibrancyView.snp_makeConstraints { (make) -> Void in
+			let infoButton = mapTaskButton()
+			infoButton.layer.borderColor = grayDetails.CGColor
+			infoButton.layer.borderWidth = 1
+			infoButton.setBackgroundColor(grayDetails.colorWithAlphaComponent(0.4), forState: UIControlState.Highlighted)
+			infoButton.addTarget(self, action: "infoButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+			infoButton.selectedTask = pinViewAnnotation!.task
+			mapInfoBlurView.addSubview(infoButton)
+			infoButton.snp_makeConstraints { (make) -> Void in
 				make.edges.equalTo(mapInfoBlurView.snp_edges)
 			}
+			infoButton.layoutIfNeeded()
 			
-			/*TODO...
-			let applicantsLabel = UILabel()
-			vibrancyView.contentView.addSubview(applicantsLabel)
-			applicantsLabel.textAlignment = NSTextAlignment.Left
-			applicantsLabel.text = annotation.task
-			applicantsLabel.textColor = blackPrimary
-			applicantsLabel.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
-			applicantsLabel.snp_makeConstraints { (make) -> Void in
-				make.centerY.equalTo(pendingApplicantIcon.snp_centerY)
-				make.left.equalTo(pendingApplicantIcon.snp_right).offset(12)
-			}*/
+			let pictureSize: CGFloat = 70
+			let userPicture = UIImageView()
+			userPicture.image = pinViewAnnotation!.image
+			userPicture.layer.cornerRadius = pictureSize / 2
+			userPicture.layer.masksToBounds = true
+			userPicture.clipsToBounds = true
+			userPicture.contentMode = UIViewContentMode.ScaleAspectFill
+			infoButton.addSubview(userPicture)
+			userPicture.snp_makeConstraints { (make) -> Void in
+				make.left.equalTo(infoButton.snp_left).offset(10)
+				make.centerY.equalTo(infoButton.snp_centerY)
+				make.width.equalTo(pictureSize)
+				make.height.equalTo(pictureSize)
+			}
 			
-			//content
+			let taskCategoryImage = UIImageView()
+			taskCategoryImage.layer.cornerRadius = taskCategoryImage.frame.size.width / 2
+			taskCategoryImage.clipsToBounds = true
+			taskCategoryImage.image = UIImage(named: pinViewAnnotation!.category!)
+			infoButton.addSubview(taskCategoryImage)
+			taskCategoryImage.snp_makeConstraints { (make) -> Void in
+				make.bottom.equalTo(userPicture.snp_bottom)
+				make.left.equalTo(userPicture.snp_right).offset(-25)
+				make.width.equalTo(30)
+				make.height.equalTo(30)
+			}
+			
+			let taskTitleLabel = UILabel()
+			infoButton.addSubview(taskTitleLabel)
+			taskTitleLabel.textAlignment = NSTextAlignment.Left
+			taskTitleLabel.numberOfLines = 1
+			taskTitleLabel.text = pinViewAnnotation?.title
+			taskTitleLabel.textColor = blackPrimary.colorWithAlphaComponent(0.7)
+			taskTitleLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+			taskTitleLabel.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(userPicture.snp_top).offset(2)
+				make.left.equalTo(userPicture.snp_right).offset(12)
+				make.right.equalTo(infoButton.snp_right).offset(-10)
+			}
+			
+			let author = UILabel()
+			infoButton.addSubview(author)
+			author.font = UIFont(name: "Lato-Light", size: kText13)
+			author.textColor = blackTextColor
+			author.text = pinViewAnnotation!.poster
+
+			let dateHelper = DateHelper()
+			
+			let creationDate = UILabel()
+			creationDate.adjustsFontSizeToFitWidth = true
+			infoButton.addSubview(creationDate)
+			creationDate.text = "Posted \(dateHelper.timeAgoSinceDate(pinViewAnnotation!.date!, numericDates: true))"
+			creationDate.font = UIFont(name: "Lato-Light", size: kText13)
+			creationDate.textColor = blackTextColor
+			
+			let moneyContainer = UIView()
+			infoButton.addSubview(moneyContainer)
+			moneyContainer.backgroundColor = redPrimary
+			moneyContainer.layer.cornerRadius = 3
+			moneyContainer.snp_makeConstraints { (make) -> Void in
+				make.right.equalTo(mapInfoBlurView.snp_right).offset(-20)
+				make.bottom.equalTo(creationDate.snp_bottom).offset(-2)
+				make.width.equalTo(55)
+				make.height.equalTo(35)
+			}
+			
+			creationDate.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(author.snp_bottom).offset(7)
+				make.left.equalTo(author.snp_left)
+				make.right.equalTo(moneyContainer.snp_left).offset(6)
+			}
+			
+			author.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(taskTitleLabel.snp_bottom).offset(8)
+				make.left.equalTo(userPicture.snp_right).offset(22)
+				make.right.equalTo(moneyContainer.snp_left).offset(6)
+			}
+			
+			let price = String(format: "%.0f", pinViewAnnotation!.price!)
+			
+			let moneyLabel = UILabel()
+			moneyContainer.addSubview(moneyLabel)
+			moneyLabel.textAlignment = NSTextAlignment.Center
+			moneyLabel.textColor = whitePrimary
+			moneyLabel.text = price+"$"
+			moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
+			moneyLabel.snp_makeConstraints { (make) -> Void in
+				make.edges.equalTo(moneyContainer.snp_edges)
+			}
 			
 			mapInfoBlurView.snp_makeConstraints { (make) -> Void in
-				make.height.equalTo(100)
+				make.height.equalTo(95)
 			}
+			mapInfoBlurView.layoutIfNeeded()
 			
 			//Animate In
 			
 			mapInfoBlurView.snp_updateConstraints { (make) -> Void in
-				make.bottom.equalTo(self.mapView.snp_bottom).offset(-20)
+				make.bottom.equalTo(self.mapView.snp_bottom).offset(-40)
 			}
 			
 			UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
@@ -376,8 +482,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		}
 	}
 	
-	//TODO: FIX CRASH WHEN SELECTING FROM ONE TO ANOTHER
-	func removeAnnotationInfo(annotation: MKAnnotationView) {
+	func removeAnnotationInfo(view: MKAnnotationView) {
 		if self.mapInfoBlurView != nil {
 			
 			if self.mapExpanded {
@@ -388,9 +493,8 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 				
 				UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 					self.mapInfoBlurView.layoutIfNeeded()
-					}, completion: { finished in
-						self.mapInfoBlurView.removeFromSuperview()
-				})
+					self.mapInfoBlurView.removeFromSuperview()
+					}, completion: nil)
 			} else {
 				//TODO NOT EXPANDED MAP, TASK INFO
 			}
@@ -595,9 +699,16 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 					}, completion: nil)
 				
 				self.mapExpanded = false
-				print("map not exp")
 			}
 		}
+	}
+	
+	func infoButtonTapped(sender: mapTaskButton) {
+		let selectedTask = sender.selectedTask
+		let vc = BrowseDetailsViewController()
+		vc.hidesBottomBarWhenPushed = true
+		vc.task = selectedTask
+		self.navigationController?.pushViewController(vc, animated: true)
 	}
 }
 
