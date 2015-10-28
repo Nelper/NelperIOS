@@ -36,8 +36,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var autocompleteTableView: UITableView!
 	var titleStatus: UIImageView!
 	var priceStatus: UIImageView!
+	var locationContainer: UIView!
 	var deleteAddressButton: SecondaryActionButton!
-	var addLocationButton: PrimaryActionButton!
+	var addLocationButton: PrimaryBorderActionButton!
 	var locations: [Location]?
 	var locationsPickerView: UIPickerView?
 	var streetAddressLabel: UILabel!
@@ -45,8 +46,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var picturesCollectionView: UICollectionView!
 	var arrayOfPictures = Array<UIImage>()
 	
+	var taskFormContainer: UIView!
 	var backgroundView: UIView!
-	var picturesButton: PrimaryActionButton!
+	var picturesButton: PrimaryBorderActionButton!
 	var picturesContainer: UIView!
 	var collectionViewHeight = Int()
 	var createTaskButton: UIButton!
@@ -189,6 +191,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		}
 		
 		let taskFormContainer = UIView()
+		self.taskFormContainer = taskFormContainer
 		taskFormContainer.layer.borderWidth = 1
 		taskFormContainer.layer.borderColor = grayDetails.CGColor
 		self.contentView.addSubview(taskFormContainer)
@@ -199,12 +202,13 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.right.equalTo(contentView.snp_right).offset(1)
 		}
 		
-		
 		//Task Title Label + TextField
+		
+		let statusIconHeight = 20
 		
 		let taskTitleLabel = UILabel()
 		taskFormContainer.addSubview(taskTitleLabel)
-		taskTitleLabel.text = "Enter your Task Title"
+		taskTitleLabel.text = "Enter your task title"
 		taskTitleLabel.textColor = blackPrimary
 		taskTitleLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		
@@ -229,20 +233,20 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		taskTitleTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(taskTitleLabel.snp_bottom).offset(10)
-			make.right.equalTo(contentView.snp_right).offset(-50)
+			make.right.equalTo(contentView.snp_right).offset(-15)
 			make.height.equalTo(50)
 		}
 		
 		let titleStatus = UIImageView()
 		self.titleStatus = titleStatus
 		taskFormContainer.addSubview(titleStatus)
-		titleStatus.image = UIImage(named: "denied")
+		titleStatus.image = UIImage(named: "exclamation")
 		titleStatus.contentMode = UIViewContentMode.ScaleAspectFit
 		titleStatus.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(taskTitleTextField.snp_right).offset(2)
-			make.right.equalTo(contentView.snp_right).offset(-2)
-			make.centerY.equalTo(taskTitleTextField.snp_centerY)
-			make.height.equalTo(30)
+			make.right.equalTo(taskTitleTextField.snp_right)
+			make.centerY.equalTo(taskTitleLabel.snp_centerY)
+			make.height.equalTo(statusIconHeight)
+			make.width.equalTo(statusIconHeight)
 		}
 		
 		//Description Label + Textfield
@@ -272,20 +276,20 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(descriptionLabel.snp_bottom).offset(10)
-			make.right.equalTo(contentView.snp_right).offset(-50)
+			make.right.equalTo(titleTextField.snp_right)
 			make.height.equalTo(150)
 		}
 		
 		let descriptionStatus = UIImageView()
 		self.descriptionStatus = descriptionStatus
 		taskFormContainer.addSubview(descriptionStatus)
-		descriptionStatus.image = UIImage(named: "denied")
+		descriptionStatus.image = UIImage(named: "exclamation")
 		descriptionStatus.contentMode = UIViewContentMode.ScaleAspectFit
 		descriptionStatus.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(descriptionTextView.snp_right).offset(2)
-			make.right.equalTo(contentView.snp_right).offset(-2)
-			make.centerY.equalTo(descriptionTextView.snp_centerY)
-			make.height.equalTo(30)
+			make.right.equalTo(descriptionTextView.snp_right)
+			make.centerY.equalTo(descriptionLabel.snp_centerY)
+			make.height.equalTo(statusIconHeight)
+			make.width.equalTo(statusIconHeight)
 		}
 		
 		//Price Offered Label + TextField
@@ -317,111 +321,25 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		priceOfferedTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(priceOfferedLabel.snp_bottom).offset(10)
-			make.right.equalTo(contentView.snp_right).offset(-50)
+			make.right.equalTo(titleTextField.snp_right)
 			make.height.equalTo(50)
 		}
 		
 		let priceStatus = UIImageView()
 		self.priceStatus = priceStatus
 		taskFormContainer.addSubview(priceStatus)
-		priceStatus.image = UIImage(named: "denied")
+		priceStatus.image = UIImage(named: "exclamation")
 		priceStatus.contentMode = UIViewContentMode.ScaleAspectFit
 		priceStatus.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(priceOfferedTextField.snp_right).offset(2)
-			make.right.equalTo(contentView.snp_right).offset(-2)
-			make.centerY.equalTo(priceOfferedTextField.snp_centerY)
-			make.height.equalTo(30)
+			make.right.equalTo(priceOfferedTextField.snp_right)
+			make.centerY.equalTo(priceOfferedLabel.snp_centerY)
+			make.height.equalTo(statusIconHeight)
+			make.width.equalTo(statusIconHeight)
 		}
 		
-		//Location Label + TextField
-		let locationLabel = UILabel()
-		taskFormContainer.addSubview(locationLabel)
-		locationLabel.text = "Select your task's location"
-		locationLabel.textColor = blackPrimary
-		locationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		//Task Location
 		
-		locationLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(priceOfferedTextField.snp_bottom).offset(20)
-			make.left.equalTo(taskTitleTextField.snp_left)
-		}
-		let locationTextField = UITextField()
-		taskFormContainer.addSubview(locationTextField)
-		self.locationTextField = locationTextField
-		self.locationTextField!.delegate = self
-		
-		locationTextField.backgroundColor = whitePrimary
-		if !self.locations!.isEmpty{
-			locationTextField.text = self.locations!.first!.name!
-		}
-		
-		locationTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
-		locationTextField.font = UIFont(name: "Lato-Regular", size: kText15)
-		locationTextField.textColor = textFieldTextColor
-		locationTextField.textAlignment = NSTextAlignment.Center
-		locationTextField.delegate = self
-		
-		/// Picker view
-		
-		let locationsPickerView = UIPickerView()
-		self.locationsPickerView = locationsPickerView
-		locationsPickerView.delegate = self
-		
-		locationTextField.inputView = locationsPickerView
-		locationTextField.layer.borderColor = grayDetails.CGColor
-		locationTextField.layer.borderWidth = 1
-		locationTextField.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(taskTitleLabel.snp_left)
-			make.top.equalTo(locationLabel.snp_bottom).offset(10)
-			make.right.equalTo(self.contentView.snp_right).offset(-100)
-			make.height.equalTo(50)
-		}
-		
-		let addLocationButton = PrimaryActionButton()
-		taskFormContainer.addSubview(addLocationButton)
-		self.addLocationButton = addLocationButton
-		addLocationButton.addTarget(self, action: "didTapAddLocation:", forControlEvents: UIControlEvents.TouchUpInside)
-		addLocationButton.setTitle("Add", forState: UIControlState.Normal)
-		addLocationButton.width = 80
-		addLocationButton.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(locationTextField.snp_right).offset(10)
-			make.centerY.equalTo(locationTextField.snp_centerY)
-		}
-		
-		let streetAddressLabel = UILabel()
-		self.streetAddressLabel = streetAddressLabel
-		
-		if self.locations!.isEmpty{
-			locationTextField.userInteractionEnabled = false
-			locationTextField.text = ""
-			streetAddressLabel.text = "You haven't saved any adress yet!"
-		} else {
-			streetAddressLabel.text = self.locations?.first?.formattedTextLabel
-		
-		}
-		
-		taskFormContainer.addSubview(streetAddressLabel)
-		streetAddressLabel.numberOfLines = 0
-		streetAddressLabel.textColor = darkGrayDetails
-		streetAddressLabel.font = UIFont(name: "Lato-Light", size: kText15)
-		streetAddressLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(locationTextField.snp_bottom).offset(16)
-			make.left.equalTo(locationTextField.snp_left).offset(5)
-			make.right.equalTo(taskFormContainer.snp_right).offset(-25)
-		}
-		
-		let deleteAddressButton = SecondaryActionButton()
-		taskFormContainer.addSubview(deleteAddressButton)
-		self.deleteAddressButton = deleteAddressButton
-		deleteAddressButton.setTitle("Delete this address", forState: UIControlState.Normal)
-		deleteAddressButton.setTitle("Are you sure?", forState: UIControlState.Selected)
-		self.deleteAddressButton.addTarget(self, action: "didTapDeleteAddress:", forControlEvents: UIControlEvents.TouchUpInside)
-		deleteAddressButton.backgroundColor = whitePrimary
-		deleteAddressButton.width = 200
-		deleteAddressButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(streetAddressLabel.snp_bottom).offset(16)
-			make.left.equalTo(streetAddressLabel.snp_left)
-			make.bottom.equalTo(taskFormContainer.snp_bottom).offset(-16)
-		}
+		setLocations(false)
 		
 		//Pictures Container
 		
@@ -456,7 +374,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.right.equalTo(picturesContainer.snp_right).offset(-5)
 		}
 		
-		let picturesButton = PrimaryActionButton()
+		let picturesButton = PrimaryBorderActionButton()
 		self.picturesButton = picturesButton
 		picturesContainer.addSubview(picturesButton)
 		picturesButton.setTitle("Add pictures", forState: UIControlState.Normal)
@@ -478,24 +396,159 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let createTaskButton = UIButton()
 		self.createTaskButton = createTaskButton
 		self.contentView.addSubview(createTaskButton)
-		createTaskButton.setTitle("Post Task!", forState: UIControlState.Normal)
+		createTaskButton.setTitle("Post task!", forState: UIControlState.Normal)
 		createTaskButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
 		createTaskButton.backgroundColor = redPrimary
 		createTaskButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		createTaskButton.addTarget(self, action: "postButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		
 		createTaskButton.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(self.view.snp_left).offset(contentInset * 2)
-			make.right.equalTo(self.view.snp_right).offset(-contentInset * 2)
-			make.height.equalTo(50)
-			make.top.equalTo(picturesContainer.snp_bottom).offset(30)
+			make.left.equalTo(self.contentView.snp_left).offset(contentInset * 2)
+			make.right.equalTo(self.contentView.snp_right).offset(-contentInset * 2)
+			make.top.equalTo(picturesContainer.snp_bottom).offset(20)
+			make.height.equalTo(40)
 			make.centerX.equalTo(self.contentView.snp_centerX)
 			make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
 		}
 	}
 	
-	func adjustUI(){
+	func adjustUI() {
 		
+	}
+	
+	func setLocations(isUpdate: Bool) {
+		
+		if isUpdate {
+			self.locationContainer.removeFromSuperview()
+		}
+		
+		let locationContainer = UIView()
+		self.locationContainer = locationContainer
+		self.taskFormContainer.addSubview(locationContainer)
+		locationContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.priceOffered.snp_bottom).offset(20)
+			make.left.equalTo(self.titleTextField.snp_left)
+			make.right.equalTo(self.taskFormContainer.snp_right)
+		}
+		
+		if self.locations!.isEmpty {
+			
+			let locationLabel = UILabel()
+			locationContainer.addSubview(locationLabel)
+			locationLabel.text = "Select your task location"
+			locationLabel.textColor = blackPrimary
+			locationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+			locationLabel.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(locationContainer.snp_top)
+				make.left.equalTo(locationContainer.snp_left)
+			}
+			
+			let addLocationButton = PrimaryBorderActionButton()
+			locationContainer.addSubview(addLocationButton)
+			self.addLocationButton = addLocationButton
+			addLocationButton.addTarget(self, action: "didTapAddLocation:", forControlEvents: UIControlEvents.TouchUpInside)
+			addLocationButton.setTitle("Add new location", forState: UIControlState.Normal)
+			addLocationButton.snp_makeConstraints { (make) -> Void in
+				make.centerX.equalTo(self.taskFormContainer.snp_centerX)
+				make.top.equalTo(locationLabel.snp_bottom).offset(15)
+			}
+			
+			locationContainer.snp_makeConstraints { (make) -> Void in
+				make.bottom.equalTo(addLocationButton.snp_bottom)
+			}
+			
+		} else {
+			
+			//Location Label + TextField
+			let locationLabel = UILabel()
+			locationContainer.addSubview(locationLabel)
+			locationLabel.text = "Select your task location"
+			locationLabel.textColor = blackPrimary
+			locationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+			locationLabel.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(locationContainer.snp_top)
+				make.left.equalTo(locationContainer.snp_left)
+			}
+			
+			let locationTextField = UITextField()
+			self.locationTextField = locationTextField
+			locationTextField.delegate = self
+			locationContainer.addSubview(locationTextField)
+			locationTextField.backgroundColor = whitePrimary
+			locationTextField.text = self.locations!.first!.name!
+			locationTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: blackPrimary.colorWithAlphaComponent(0.75)])
+			locationTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+			locationTextField.textColor = textFieldTextColor
+			locationTextField.textAlignment = NSTextAlignment.Center
+			locationTextField.delegate = self
+			
+			//Picker view
+			
+			let locationsPickerView = UIPickerView()
+			self.locationsPickerView = locationsPickerView
+			locationsPickerView.delegate = self
+			locationTextField.inputView = locationsPickerView
+			locationTextField.layer.borderColor = grayDetails.CGColor
+			locationTextField.layer.borderWidth = 1
+			locationTextField.snp_makeConstraints { (make) -> Void in
+				make.left.equalTo(locationLabel.snp_left)
+				make.top.equalTo(locationLabel.snp_bottom).offset(10)
+				make.right.equalTo(self.contentView.snp_right).offset(-100)
+				make.height.equalTo(50)
+			}
+			
+			let addLocationButton = PrimaryBorderActionButton()
+			locationContainer.addSubview(addLocationButton)
+			self.addLocationButton = addLocationButton
+			addLocationButton.addTarget(self, action: "didTapAddLocation:", forControlEvents: UIControlEvents.TouchUpInside)
+			addLocationButton.setTitle("Add", forState: UIControlState.Normal)
+			addLocationButton.width = 80
+			addLocationButton.snp_makeConstraints { (make) -> Void in
+				make.left.equalTo(locationTextField.snp_right).offset(10)
+				make.centerY.equalTo(locationTextField.snp_centerY)
+			}
+			
+			let streetAddressLabel = UILabel()
+			self.streetAddressLabel = streetAddressLabel
+			streetAddressLabel.text = self.locations?.first?.formattedTextLabel
+			
+			locationContainer.addSubview(streetAddressLabel)
+			streetAddressLabel.numberOfLines = 0
+			streetAddressLabel.textColor = darkGrayDetails
+			streetAddressLabel.font = UIFont(name: "Lato-Light", size: kText15)
+			streetAddressLabel.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(locationTextField.snp_bottom).offset(16)
+				make.left.equalTo(locationTextField.snp_left).offset(5)
+				make.right.equalTo(taskFormContainer.snp_right).offset(-25)
+			}
+			
+			let deleteAddressButton = SecondaryActionButton()
+			locationContainer.addSubview(deleteAddressButton)
+			self.deleteAddressButton = deleteAddressButton
+			deleteAddressButton.setTitle("Delete this location", forState: UIControlState.Normal)
+			self.deleteAddressButton.addTarget(self, action: "didTapDeleteAddress:", forControlEvents: UIControlEvents.TouchUpInside)
+			deleteAddressButton.backgroundColor = whitePrimary
+			deleteAddressButton.width = 200
+			deleteAddressButton.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(streetAddressLabel.snp_bottom).offset(15)
+				make.left.equalTo(streetAddressLabel.snp_left)
+			}
+			
+			locationContainer.snp_makeConstraints { (make) -> Void in
+				make.bottom.equalTo(deleteAddressButton.snp_bottom)
+			}
+			
+		}
+		
+		self.locationContainer.layoutIfNeeded()
+		
+		self.taskFormContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(locationContainer.snp_bottom).offset(20)
+		}
+		
+		if isUpdate {
+			self.scrollView.contentSize = self.contentView.frame.size
+		}
 	}
 	
 	/**
@@ -554,13 +607,13 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	{
 		self.locationTextField!.text = self.locations?[row].name
 		
-		streetAddressLabel.text = self.locations?[row].formattedTextLabel
+		self.streetAddressLabel.text = self.locations?[row].formattedTextLabel
 		
 		
 		self.task.location = GeoPoint(latitude:Double(self.locations![row].coords!["latitude"]!),longitude: Double(self.locations![row].coords!["longitude"]!))
 		self.task.city = self.locations![row].city
 		self.task.exactLocation = self.locations![row]
-		view.endEditing(true)
+		//view.endEditing(true)
 	}
 	
 	//MARK: Picture Cell Delegate
@@ -628,7 +681,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			} else if NSEqualRanges(textFieldRange, range)	&& string.characters.count == 0 {
 				self.titleStatus.image = nil
 			} else {
-				self.titleStatus.image = UIImage(named: "denied")
+				self.titleStatus.image = UIImage(named: "exclamation")
 			}
 		} else if textField == self.priceOffered {
 			let textFieldRange:NSRange = NSMakeRange(0, textField.text!.characters.count)
@@ -638,7 +691,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			} else if (NSEqualRanges(textFieldRange, range) && string.characters.count == 0) {
 				self.priceStatus.image = nil
 			} else {
-				self.priceStatus.image = UIImage(named: "denied")
+				self.priceStatus.image = UIImage(named: "exclamation")
 			}
 		}
 		return true
@@ -654,7 +707,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			} else if NSEqualRanges(textViewRange, range)	&& string.characters.count == 0 {
 				self.descriptionStatus.image = nil
 			} else {
-				self.descriptionStatus.image = UIImage(named: "denied")
+				self.descriptionStatus.image = UIImage(named: "exclamation")
 			}
 		}
 		
@@ -685,6 +738,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.task.city = vc.address.city!
 		self.task.exactLocation = vc.address
 		self.locations?.append(vc.address)
+		
+		setLocations(true)
+		
 		self.locationsPickerView?.reloadAllComponents()
 		self.locationTextField?.text = vc.address.name
 		
@@ -693,7 +749,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.userPrivateData.locations.append(vc.address)
 		ApiHelper.updateUserLocations(self.userPrivateData.locations)
 		
-		self.locationTextField!.userInteractionEnabled = true
 		self.scrollView.contentSize = self.contentView.frame.size
 	}
 	
@@ -748,7 +803,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 				let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
 				
 				if self.activeField != nil {
-					if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
+					if !(CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
 						self.scrollView.scrollRectToVisible(frame, animated: true)
 					}
 				}
@@ -832,6 +887,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		PFUser.currentUser()!["privateData"]?.setValue(self.createDictionaries(self.locations!), forKey: "locations")
 		PFUser.currentUser()!.saveInBackground()
+		
+		setLocations(true)
 	}
 	
 	

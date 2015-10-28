@@ -69,6 +69,60 @@ class PrimaryActionButton: UIButton {
 	}
 }
 
+class PrimaryBorderActionButton: UIButton {
+	
+	private var buttonColor = UIColor.clearColor()
+	private var buttonColorSelected = redPrimary
+	private var buttonLabelColor = redPrimary
+	private var buttonLabelSelectedColor = whitePrimary
+	private var buttonBorderWidth: CGFloat = 1
+	private var buttonBorderColor = redPrimary
+	
+	var height = 40 {
+		didSet {
+			setSize()
+		}
+	}
+	
+	var width = 220 {
+		didSet {
+			setSize()
+		}
+	}
+	
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		createView()
+	}
+	
+	required init(coder: NSCoder) {
+		super.init(coder: coder)!
+		createView()
+	}
+	
+	func setSize() {
+		self.snp_updateConstraints { (make) -> Void in
+			make.height.equalTo(height)
+			make.width.equalTo(width)
+		}
+	}
+	
+	func createView() {
+		self.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.setBackgroundColor(buttonColor, forState: UIControlState.Normal)
+		self.setBackgroundColor(buttonColorSelected, forState: UIControlState.Highlighted)
+		self.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		self.setTitleColor(buttonLabelColor, forState: UIControlState.Normal)
+		self.setTitleColor(buttonLabelSelectedColor, forState: UIControlState.Highlighted)
+		self.layer.borderWidth = buttonBorderWidth
+		self.layer.borderColor = buttonBorderColor.CGColor
+		self.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(height)
+			make.width.equalTo(width)
+		}
+	}
+}
+
 class SecondaryActionButton: UIButton {
 	
 	private var buttonColor = whiteBackground
