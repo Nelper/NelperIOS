@@ -290,17 +290,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 				
 				pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
 				pinView!.canShowCallout = false
-				let image = UIImage(named: "pin-MK")
-				var resizeRect = CGRect()
-				resizeRect.size.height = 40
-				resizeRect.size.width = 40
-				
-				UIGraphicsBeginImageContextWithOptions(resizeRect.size, false, 0.0)
-				image?.drawInRect(resizeRect)
-				let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-				UIGraphicsEndImageContext()
-				
-				pinView!.image = resizedImage
+				pinView!.image = UIImage(named: "pin-MK")
 				pinView!.layer.zPosition = -1
 				pinView!.centerOffset = CGPointMake(0, -20)
 				
@@ -318,6 +308,8 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		if view.isKindOfClass(MKAnnotationView) && !(view.annotation!.isKindOfClass(MKUserLocation)) {
 			self.annotationIsSelected = true
 			view.layer.zPosition = 0
+			view.image = UIImage(named: "pinSelected-MK")
+			
 			var center = view.annotation!.coordinate
 			
 			if self.mapExpanded {
@@ -334,6 +326,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		if view.isKindOfClass(MKAnnotationView) && !(view.annotation!.isKindOfClass(MKUserLocation)) {
 			self.annotationIsSelected = false
 			view.layer.zPosition = -1
+			view.image = UIImage(named: "pin-MK")
 			
 			if self.mapExpanded {
 				removeAnnotationInfo(view)
