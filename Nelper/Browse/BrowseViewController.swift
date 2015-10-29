@@ -187,7 +187,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		}
 		
 		self.refreshView = refreshView
-		
 	}
 	
 	/**

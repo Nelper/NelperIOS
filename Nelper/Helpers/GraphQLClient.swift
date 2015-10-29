@@ -10,8 +10,7 @@ import Foundation
 import Alamofire
 
 class GraphQLClient {
-	static private let endpoint = "http://localhost:8080/graphql"
-	// static private let endpoint = "https://www.nelper.ca/graphql"
+	static private let endpoint = "https://www.nelper.ca/graphql"
 	static private var headers = [
 		"Authorization": "",
 		"Content-Type": "application/json",

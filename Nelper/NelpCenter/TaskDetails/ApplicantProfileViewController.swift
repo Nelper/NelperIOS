@@ -740,7 +740,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		ApiHelper.acceptApplication(self.application) {
 			// TODO: This should navigate to the accepted application view and not the my tasks list.
 			self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
-			self.dismissViewControllerAnimated(true, completion: nil)
+			self.navigationController?.popViewControllerAnimated(true)
 		}
 	}
 	
