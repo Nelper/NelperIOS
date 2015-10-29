@@ -174,3 +174,7 @@ class SecondaryActionButton: UIButton {
 		}
 	}
 }
+
+class AccountSettingsLocationButton: UIButton {
+	var assignedLocationIndex: Int!
+}

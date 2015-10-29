@@ -45,7 +45,7 @@ class DefaultContainerView: UIView {
 		let backgroundView = UIView()
 		self.backgroundView = backgroundView
 		self.addSubview(self.backgroundView)
-		self.backgroundView.backgroundColor = darkGrayDetails.colorWithAlphaComponent(0.8)
+		self.backgroundView.backgroundColor = grayDetails
 		self.backgroundView.layer.borderColor = grayDetails.CGColor
 		self.backgroundView.layer.borderWidth = 1
 		self.backgroundView.snp_makeConstraints { (make) -> Void in

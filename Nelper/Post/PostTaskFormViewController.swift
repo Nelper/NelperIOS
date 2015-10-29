@@ -44,7 +44,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var streetAddressLabel: UILabel!
 	var delegate: PostTaskFormViewControllerDelegate?
 	var picturesCollectionView: UICollectionView!
-	var arrayOfPictures = Array<UIImage>()
+	var arrayOfPictures = [UIImage]()
 	
 	var taskFormContainer: UIView!
 	var backgroundView: UIView!
@@ -868,7 +868,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	func didTapDeleteAddress(sender:UIButton){
-		if self.locations!.isEmpty == false{
+		if self.locations!.isEmpty == false {
 		self.locations?.removeAtIndex(self.locationsPickerView!.selectedRowInComponent(0))
 		}
 		self.locationsPickerView!.reloadAllComponents()
@@ -885,7 +885,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			self.task.exactLocation = nil
 		}
 		
-		PFUser.currentUser()!["privateData"]?.setValue(self.createDictionaries(self.locations!), forKey: "locations")
+		ApiHelper.updateUserLocations(self.locations!)
 		PFUser.currentUser()!.saveInBackground()
 		
 		setLocations(true)

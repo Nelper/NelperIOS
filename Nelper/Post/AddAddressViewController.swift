@@ -253,8 +253,8 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 			let latitude = res["geometry"]["location"]["lat"].doubleValue
 			let longitude =  res["geometry"]["location"]["lng"].doubleValue
 			
-			print(latitude)
-			print(longitude)
+			//print(latitude)
+			//print(longitude)
 			
 			let comps = res["address_components"]
 			self.address.streetNumber = self.getAddressComponent(comps, component: "street_number")["long_name"].string
@@ -268,7 +268,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 			self.address.coords = ["latitude":Double(latitude),"longitude":Double(longitude)]
 			
 			let point = GeoPoint(latitude: latitude, longitude:longitude)
-			print(point)
+			//print(point)
 			self.addressOk = true
 			self.location = point
 		}
@@ -337,7 +337,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 				self.autocompleteTableView.hidden = false
 				for result in results! {
 					if let result = result as? GMSAutocompletePrediction {
-						print("Result \(result.attributedFullText) with placeID \(result.placeID)")
+						//print("Result \(result.attributedFullText) with placeID \(result.placeID)")
 					}
 				}
 			}

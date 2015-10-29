@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import FXBlurView
+import SnapKit
 
 class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, AddAddressViewControllerDelegate {
 	
@@ -30,7 +31,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	var locationsContainer: DefaultContainerView!
 	var addLocationButton: UIButton!
 	var emptyLocationsLabel: UILabel!
-	var locationContainer: UIButton!
+	var locationContainer: AccountSettingsLocationButton!
 	var locationContainerLine: UIView!
 	var locationContainerArray = [UIButton]()
 	var locationNameLabel: UILabel!
@@ -75,14 +76,22 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	
 	var userPrivateData: UserPrivateData!
 	
+	var deleteLocationViewIsOpened = false
+	var locationBlurView: FXBlurView!
+	var locations: [Location]?
+	var locationsModified = false
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		//GET LOCATIONS
-		userPrivateData = ApiHelper.getUserPrivateData()
+		self.userPrivateData = ApiHelper.getUserPrivateData()
+		setLocations()
 		
 		//GET LOGIN PROVIDER
 		self.loginProvider = PFUser.currentUser()?.objectForKey("loginProvider") as? String
+		
+		//GET LOCATIONS
+		self.locations = self.userPrivateData.locations
 		
 		//GET USER INFO
 		self.userEmail = self.userPrivateData.email
@@ -117,12 +126,18 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
-	//MARK: UI
-	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
 	}
+	
+	//MARK: SET LOCATIONS
+	
+	func setLocations() {
+		self.locations = self.userPrivateData.locations
+	}
+	
+	//MARK: UI
 	
 	func setTextFields() {
 		self.emailTextField.text = self.userEmail
@@ -166,6 +181,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		
 		let scrollView = UIScrollView()
 		self.scrollView = scrollView
+		self.scrollView.alwaysBounceVertical = true
 		self.backgroundView.addSubview(self.scrollView)
 		self.scrollView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.backgroundView.snp_edges)
@@ -247,6 +263,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		}
 		
 		//LOCATIONS
+		
 		let locationsContainer = DefaultContainerView()
 		self.locationsContainer = locationsContainer
 		self.contentView.addSubview(self.locationsContainer)
@@ -275,53 +292,14 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			make.width.equalTo(80)
 		}
 		
-		let locations = self.userPrivateData.locations
+		setLocationView(false)
 		
-		if locations.isEmpty {
-			
-			let emptyLocationsLabel = UILabel()
-			self.emptyLocationsLabel = emptyLocationsLabel
-			self.locationsContainer.contentView.addSubview(self.emptyLocationsLabel)
-			self.emptyLocationsLabel.text = "No locations yet"
-			self.emptyLocationsLabel.font = UIFont(name: "Lato-Light", size: kText15)
-			self.emptyLocationsLabel.textColor = darkGrayDetails
-			self.emptyLocationsLabel.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.generalContainer.contentView.snp_top).offset(15)
-				make.left.equalTo(self.generalContainer.snp_left).offset(self.kPadding)
-			}
-			
-		} else {
-			
-			let locationNameLabel = UILabel()
-			self.locationNameLabel = locationNameLabel
-			self.locationsContainer.addSubview(self.locationNameLabel)
-			self.locationNameLabel.text = "Name"
-			self.locationNameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-			self.locationNameLabel.textColor = darkGrayText
-			self.locationNameLabel.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.locationsContainer.contentView.snp_top).offset(15)
-				make.left.equalTo(self.locationsContainer.snp_left).offset(self.kPadding)
-			}
-			
-			let locationAddressLabel = UILabel()
-			self.locationAddressLabel = locationAddressLabel
-			self.locationsContainer.addSubview(self.locationAddressLabel)
-			self.locationAddressLabel.text = "Address"
-			self.locationAddressLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-			self.locationAddressLabel.textColor = darkGrayText
-			self.locationAddressLabel.snp_makeConstraints { (make) -> Void in
-				make.centerY.equalTo(self.locationNameLabel.snp_centerY)
-				make.left.equalTo(self.locationNameLabel.snp_right).offset(50)
-			}
-			
-			createLocationView(true)
-		}
+		//PASSWORD
 		
 		if (self.loginProvider == "email") {
 			
 			self.willShowPassword = true
 			
-			//PASSWORD
 			let passwordContainer = DefaultContainerView()
 			self.passwordContainer = passwordContainer
 			self.contentView.addSubview(self.passwordContainer)
@@ -459,7 +437,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.deleteButton.backgroundColor = whitePrimary
 		self.deleteButton.setTitle("Delete my account", forState: UIControlState.Normal)
 		self.deleteButton.setTitleColor(darkGrayText, forState: UIControlState.Normal)
-		self.deleteButton.addTarget(self, action: "deleteButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.deleteButton.addTarget(self, action: "deleteAccountButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.deleteButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.deletionNoticeLabel.snp_bottom).offset(15)
 			make.left.equalTo(self.deleteContainer.snp_left).offset(self.kPadding)
@@ -477,100 +455,228 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	/**
 	creates/update the view for locations list
 	
-	- parameter isFirstCreation: true if the func is called for the first time
+	- parameter isUpdate: false only if we are creating the view for the first time
 	*/
-	func createLocationView(isFirstCreation: Bool) {
+	func setLocationView(isUpdate: Bool) {
 		
-		for locationCont in self.locationContainerArray {
-			locationCont.removeFromSuperview()
+		if isUpdate {
+			for subview in self.locationsContainer.contentView.subviews {
+				subview.removeFromSuperview()
+			}
+			
+			//for locationCont in self.locationContainerArray {
+			//	locationCont.removeFromSuperview()
+			//}
+			
+			self.locationContainerArray.removeAll()
 		}
 		
-		self.locationContainerArray.removeAll()
-		
-		let locations = self.userPrivateData.locations
-		self.locationContainerHeight = 0
-		
-		for i in 0...(locations.count - 1) {
+		if self.locations!.isEmpty {
 			
-			let locationContainer = UIButton()
-			self.locationContainer = locationContainer
-			self.locationsContainer.addSubview(self.locationContainer)
-			self.locationContainer.backgroundColor = whitePrimary
-			self.locationContainer.setBackgroundColor(grayDetails, forState: UIControlState.Highlighted)
-			self.locationContainer.addTarget(self, action: "locationContainerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-			self.locationContainer.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.locationNameLabel.snp_bottom).offset(20 + (i * (Int(locationContainerHeight) + 20)))
-				make.left.equalTo(self.locationsContainer.snp_left)
-				make.right.equalTo(self.locationsContainer.snp_right)
+			let emptyLocationsLabel = UILabel()
+			self.emptyLocationsLabel = emptyLocationsLabel
+			self.locationsContainer.contentView.addSubview(self.emptyLocationsLabel)
+			self.emptyLocationsLabel.text = "No locations yet"
+			self.emptyLocationsLabel.font = UIFont(name: "Lato-Light", size: kText15)
+			self.emptyLocationsLabel.textColor = darkGrayDetails
+			self.emptyLocationsLabel.sizeToFit()
+			self.emptyLocationsLabel.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(self.locationsContainer.contentView.snp_top).offset(15)
+				make.left.equalTo(self.generalContainer.snp_left).offset(self.kPadding)
 			}
 			
-			let locationName = UILabel()
-			self.locationName = locationName
-			self.locationContainer.addSubview(self.locationName)
-			self.locationName.text = locations[i].name
-			self.locationName.font = UIFont(name: "Lato-Light", size: kText15)
-			self.locationName.textColor = darkGrayText
-			self.locationName.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.locationContainer.snp_top)
-				make.left.equalTo(self.locationNameLabel.snp_left)
+			self.locationsContainer.snp_remakeConstraints { (make) -> Void in
+				make.top.equalTo(self.generalContainer.snp_bottom).offset(self.kPadding)
+				make.left.equalTo(self.contentView.snp_left)
+				make.right.equalTo(self.contentView.snp_right)
+				make.bottom.equalTo(self.emptyLocationsLabel.snp_bottom).offset(20)
 			}
 			
-			let locationAddress = UILabel()
-			self.locationAddress = locationAddress
-			self.locationContainer.addSubview(self.locationAddress)
-			self.locationAddress.text = locations[i].formattedTextLabel
-			self.locationAddress.numberOfLines = 0
-			self.locationAddress.font = UIFont(name: "Lato-Light", size: kText15)
-			self.locationAddress.textColor = darkGrayText
-			self.locationAddress.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.locationContainer.snp_top)
-				make.left.equalTo(self.locationAddressLabel.snp_left)
-				make.right.equalTo(self.locationContainer.snp_right)
-			}
+			self.deleteContainer.layoutIfNeeded()
+			self.contentView.layoutIfNeeded()
 			
-			let locationContainerLine = UIView()
-			self.locationContainerLine = locationContainerLine
-			self.locationContainer.addSubview(locationContainerLine)
-			self.locationContainerLine.backgroundColor = darkGrayDetails.colorWithAlphaComponent(0.5)
-			self.locationContainerLine.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.locationName.snp_top)
-				make.right.equalTo(self.locationName.snp_left).offset(-6)
-				make.width.equalTo(0.5)
-				make.bottom.equalTo(self.locationAddress.snp_bottom)
-			}
-			
-			self.locationName.snp_makeConstraints { (make) -> Void in
-				make.right.equalTo(self.locationAddress.snp_left)
-			}
-			
-			self.locationContainer.layoutIfNeeded()
-			
-			if self.locationContainerHeight == 0 {
-				self.locationContainerHeight = self.locationAddress.frame.maxY
-			}
-			
-			self.locationContainer.snp_updateConstraints { (make) -> Void in
-				make.height.equalTo(self.locationContainerHeight)
-			}
-			
-			self.locationContainerArray.append(self.locationContainer)
-		}
-		
-		if isFirstCreation {
-			self.locationsContainer.snp_makeConstraints { (make) -> Void in
-				make.bottom.equalTo(self.locationContainerArray[locations.count - 1].snp_bottom).offset(30)
-			}
 		} else {
-			self.locationsContainer.snp_updateConstraints { (make) -> Void in
-				make.bottom.equalTo(self.locationContainerArray[locations.count - 1].snp_bottom).offset(30)
+			
+			let locationNameLabel = UILabel()
+			self.locationNameLabel = locationNameLabel
+			self.locationsContainer.contentView.addSubview(self.locationNameLabel)
+			self.locationNameLabel.text = "Name"
+			self.locationNameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+			self.locationNameLabel.textColor = darkGrayText
+			self.locationNameLabel.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(self.locationsContainer.contentView.snp_top).offset(15)
+				make.left.equalTo(self.locationsContainer.snp_left).offset(self.kPadding)
 			}
+			
+			let locationAddressLabel = UILabel()
+			self.locationAddressLabel = locationAddressLabel
+			self.locationsContainer.contentView.addSubview(self.locationAddressLabel)
+			self.locationAddressLabel.text = "Address"
+			self.locationAddressLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+			self.locationAddressLabel.textColor = darkGrayText
+			self.locationAddressLabel.snp_makeConstraints { (make) -> Void in
+				make.centerY.equalTo(self.locationNameLabel.snp_centerY)
+				make.left.equalTo(self.locationNameLabel.snp_right).offset(50)
+			}
+			
+			self.locationContainerHeight = 0
+			
+			for i in 0...(self.locations!.count - 1) {
+				
+				let locationContainer = AccountSettingsLocationButton()
+				self.locationContainer = locationContainer
+				self.locationsContainer.contentView.addSubview(self.locationContainer)
+				self.locationContainer.backgroundColor = whitePrimary
+				self.locationContainer.assignedLocationIndex = i
+				print(i)
+				self.locationContainer.setBackgroundColor(grayDetails, forState: UIControlState.Highlighted)
+				self.locationContainer.addTarget(self, action: "locationContainerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+				
+				self.locationContainer.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(self.locationNameLabel.snp_bottom).offset(20 + (i * (Int(locationContainerHeight) + 20)))
+					make.left.equalTo(self.locationsContainer.snp_left)
+					make.right.equalTo(self.locationsContainer.snp_right)
+				}
+				
+				let locationName = UILabel()
+				self.locationName = locationName
+				self.locationContainer.addSubview(self.locationName)
+				self.locationName.text = self.locations![i].name
+				self.locationName.font = UIFont(name: "Lato-Light", size: kText15)
+				self.locationName.textColor = darkGrayText
+				self.locationName.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(self.locationContainer.snp_top)
+					make.left.equalTo(self.locationNameLabel.snp_left)
+				}
+				
+				let locationAddress = UILabel()
+				self.locationAddress = locationAddress
+				self.locationContainer.addSubview(self.locationAddress)
+				self.locationAddress.text = self.locations![i].formattedTextLabel
+				self.locationAddress.numberOfLines = 0
+				self.locationAddress.font = UIFont(name: "Lato-Light", size: kText15)
+				self.locationAddress.textColor = darkGrayText
+				self.locationAddress.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(self.locationContainer.snp_top)
+					make.left.equalTo(self.locationAddressLabel.snp_left)
+					make.right.equalTo(self.locationContainer.snp_right)
+				}
+				
+				let locationContainerLine = UIView()
+				self.locationContainerLine = locationContainerLine
+				self.locationContainer.addSubview(locationContainerLine)
+				self.locationContainerLine.backgroundColor = darkGrayDetails.colorWithAlphaComponent(0.5)
+				self.locationContainerLine.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(self.locationName.snp_top)
+					make.right.equalTo(self.locationName.snp_left).offset(-6)
+					make.width.equalTo(0.5)
+					make.bottom.equalTo(self.locationAddress.snp_bottom)
+				}
+				
+				self.locationName.snp_makeConstraints { (make) -> Void in
+					make.right.equalTo(self.locationAddress.snp_left)
+				}
+				
+				self.locationContainer.layoutIfNeeded()
+				
+				if self.locationContainerHeight == 0 {
+					self.locationContainerHeight = self.locationAddress.frame.maxY
+				}
+				
+				self.locationContainer.snp_updateConstraints { (make) -> Void in
+					make.height.equalTo(self.locationContainerHeight)
+				}
+				
+				self.locationContainerArray.append(self.locationContainer)
+			}
+			
+			self.locationsContainer.snp_remakeConstraints { (make) -> Void in
+				make.top.equalTo(self.generalContainer.snp_bottom).offset(self.kPadding)
+				make.left.equalTo(self.contentView.snp_left)
+				make.right.equalTo(self.contentView.snp_right)
+				make.bottom.equalTo(self.locationContainerArray[self.locations!.count - 1].snp_bottom).offset(30)
+			}
+			
+			self.locationsContainer.layoutIfNeeded()
+			self.contentView.layoutIfNeeded()
 		}
+		
+		self.scrollView.contentSize = self.contentView.frame.size
+	}
+	
+	func showLocationDelete(button: AccountSettingsLocationButton) {
+		
+		DismissKeyboard()
+		
+		if self.deleteLocationViewIsOpened {
+			self.locationBlurView.removeFromSuperview()
+		}
+		
+		self.deleteLocationViewIsOpened = true
+		
+		let locationBlurView = FXBlurView(frame: button.frame)
+		self.locationBlurView = locationBlurView
+		locationBlurView.tintColor = UIColor.clearColor()
+		locationBlurView.alpha = 0
+		locationBlurView.updateInterval = 100
+		locationBlurView.iterations = 2
+		locationBlurView.blurRadius = 4
+		locationBlurView.dynamic = false
+		locationBlurView.underlyingView = nil
+		self.locationsContainer.contentView.addSubview(locationBlurView)
+		locationBlurView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(button.snp_top).offset(-5)
+			make.left.equalTo(button.snp_left)
+			make.right.equalTo(button.snp_right)
+			make.bottom.equalTo(button.snp_bottom).offset(5)
+		}
+		
+		let deleteButton = AccountSettingsLocationButton()
+		locationBlurView.addSubview(deleteButton)
+		deleteButton.addTarget(self, action: "deleteLocationTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		deleteButton.setTitle("Delete", forState: .Normal)
+		deleteButton.layer.borderColor = redPrimary.CGColor
+		deleteButton.layer.borderWidth = 1
+		deleteButton.setTitleColor(redPrimary, forState: .Normal)
+		deleteButton.setTitleColor(darkGrayDetails.colorWithAlphaComponent(0.6), forState: .Highlighted)
+		deleteButton.assignedLocationIndex = button.assignedLocationIndex
+		print(button.assignedLocationIndex)
+		deleteButton.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(locationBlurView.snp_centerY)
+			make.right.equalTo(locationBlurView.snp_centerX).offset(-30)
+			make.height.equalTo(40)
+			make.width.equalTo(100)
+		}
+		
+		let cancelButton = UIButton()
+		locationBlurView.addSubview(cancelButton)
+		cancelButton.addTarget(self, action: "cancelLocationDeletionTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		cancelButton.setTitle("Cancel", forState: .Normal)
+		cancelButton.layer.borderColor = darkGrayDetails.CGColor
+		cancelButton.layer.borderWidth = 1
+		cancelButton.setTitleColor(darkGrayDetails, forState: .Normal)
+		cancelButton.setTitleColor(darkGrayDetails.colorWithAlphaComponent(0.6), forState: .Highlighted)
+		cancelButton.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(locationBlurView.snp_centerY)
+			make.left.equalTo(locationBlurView.snp_centerX).offset(30)
+			make.height.equalTo(40)
+			make.width.equalTo(100)
+		}
+		
+		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
+			locationBlurView.alpha = 1
+			}, completion: nil)
+		
 	}
 	
 	//MARK: KEYBOARD, WITH viewDidDis/Appear AND textfielddelegate
 	
 	func DismissKeyboard() {
 		view.endEditing(true)
+		
+		if self.deleteLocationViewIsOpened {
+			cancelLocationDeletionTapped(nil)
+		}
 	}
 	
 	func textFieldDidBeginEditing(textField: UITextField) {
@@ -598,9 +704,9 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			var aRect = self.view.frame
 			aRect.size.height -= keyboardFrame.height
 			
-			let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
-			
 			if self.activeField != nil {
+				let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
+				
 				if !(CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
 					self.scrollView.scrollRectToVisible(frame, animated: true)
 				}
@@ -621,19 +727,36 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	}
 	
 	func didAddLocation(vc:AddAddressViewController) {
-		self.userPrivateData.locations.append(vc.address)
+		self.locationsModified = true
 		
-		ApiHelper.updateUserLocations(self.userPrivateData.locations)
+		self.locations!.append(vc.address)
 		
-		createLocationView(false)
+		setLocationView(true)
 	}
 	
 	//MARK: ACTIONS
 	
+	func cancelLocationDeletionTapped(sender: UIButton?) {
+		self.locationBlurView.removeFromSuperview()
+		self.deleteLocationViewIsOpened = false
+	}
+	
+	func deleteLocationTapped(sender: AccountSettingsLocationButton) {
+		self.locationsModified = true
+		
+		let index = sender.assignedLocationIndex
+		
+		print(index)
+		self.locations!.removeAtIndex(index)
+		print(self.locations!)
+		
+		setLocationView(true)
+	}
+	
 	func backButtonTapped(sender: UIButton) {
 		
 		if (self.loginProvider == "email") {
-			if (self.emailTextField.text != self.userEmail) || (self.phoneTextField.text != userPhone) || (self.currentTextField?.text != "") || (self.newTextField?.text != "") || (self.confirmTextField?.text != "") {
+			if (self.emailTextField.text != self.userEmail) || (self.phoneTextField.text != self.userPhone) || (self.currentTextField?.text != "") || (self.newTextField?.text != "") || (self.confirmTextField?.text != "") || self.locationsModified {
 			
 				self.settingsWereEdited = true
 			
@@ -643,7 +766,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			}
 		} else {
 			
-			if (self.emailTextField.text != self.userEmail) || (self.phoneTextField.text != userPhone) {
+			if (self.emailTextField.text != self.userEmail) || (self.phoneTextField.text != self.userPhone) || self.locationsModified {
 				
 				self.settingsWereEdited = true
 				
@@ -654,15 +777,19 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		}
 		
 		if self.settingsWereEdited {
-			DismissKeyboard() // dismiss keyboard without delay
+			DismissKeyboard()
 			
 			let popup = UIAlertController(title: "Discard changes?", message: "Your changes will not be saved", preferredStyle: UIAlertControllerStyle.Alert)
 			let popupSubview = popup.view.subviews.first! as UIView
 			let popupContentView = popupSubview.subviews.first! as UIView
 			popupContentView.layer.cornerRadius = 0
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+				//Change the view and resets fields and locations
 				self.navigationController?.popViewControllerAnimated(true)
 				self.setTextFields()
+				self.setLocations()
+				self.locationsModified = false
+				self.setLocationView(true)
 			}))
 			popup.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action) -> Void in
 			}))
@@ -671,7 +798,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			
 		} else {
 			
-			DismissKeyboard() // dismiss keyboard without delay
+			DismissKeyboard()
 			self.navigationController?.popViewControllerAnimated(true)
 		}
 	}
@@ -681,6 +808,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.textFieldError = false
 		self.textFieldErrorMessages.removeAll()
 		
+		//TODO: LINK PARSE AND PASSWORDS
 		if self.newTextField?.text != self.confirmTextField?.text {
 			print("passwords dont match")
 			self.textFieldError = true
@@ -701,6 +829,8 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		}
 		
 		if self.textFieldError {
+			//There is an incorrect field
+			
 			var popupMessage = ""
 			
 			for i in 0...(self.textFieldErrorMessages.count - 1) {
@@ -719,6 +849,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.presentViewController(popup, animated: true, completion: nil)
 			
 		} else {
+			//Textfields are correct: save settings
 			
 			DismissKeyboard()
 			
@@ -794,7 +925,13 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			
 			_ = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "dismissVC", userInfo: nil, repeats: false)
 			
+			self.locationsModified = false
+			self.userEmail = self.emailTextField.text
+			self.userPhone = phoneTextField.text
+			
+			//Update Parse
 			ApiHelper.updateUserAccountSettings(self.emailTextField.text!, phone: self.phoneTextField.text)
+			ApiHelper.updateUserLocations(self.locations!)
 	 }
 	}
 	
@@ -807,7 +944,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
-	func locationContainerTapped(sender: UIButton) {
+	func locationContainerTapped(sender: AccountSettingsLocationButton) {
 		
 		if self.fieldEditing {
 			
@@ -815,7 +952,9 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			
 		} else {
 			
-			//self.popupShown = true
+			self.popupShown = true
+			
+			showLocationDelete(sender)
 		}
 	}
 	
@@ -838,14 +977,14 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.popupShown = true
 	}
 	
-	func deleteButtonTapped(sender: UIButton) {
+	func deleteAccountButtonTapped(sender: UIButton) {
 		if self.fieldEditing {
 			
 			DismissKeyboard()
 			
 		} else {
 			
-			//self.popupShown = true
+			self.popupShown = true
 		}
 	}
 }
