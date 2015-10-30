@@ -12,7 +12,7 @@ import Alamofire
 import iCarousel
 import FXBlurView
 
-class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, EditTaskViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, MKMapViewDelegate {
+class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, MKMapViewDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var container: UIView!
@@ -33,7 +33,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var deniedApplicantIcon:UIImageView!
 	var deniedApplicantsLabel:UILabel!
 	
-	var titleTextField: UITextField!
+	var titleTextField: UITextView!
 	var descriptionTextView: UITextView!
 	var deleteTaskButton: UIButton!
 	var pictures = [PFFile]()
@@ -69,6 +69,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var noPendingContainer: UIView!
 	var pagingContainer: UIView!
 	
+	var taskTitle: String!
+	var taskDescription: String!
+	
+	var picturesChanged = false
+	
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
@@ -91,9 +96,15 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			self.getImagesFromParse()
 		}
 		
+		self.taskTitle = self.task.title
+		self.taskDescription = self.task.desc
+		
 		self.createView()
 		
 		self.adjustUI()
+		
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		self.contentView.addGestureRecognizer(tap)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -169,34 +180,24 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		self.firstContainer.addGestureRecognizer(self.firstSwipeRecLeft)
 		
-		let categoryIcon = UIImageView()
-		firstContainer.addSubview(categoryIcon)
-		let iconSize:CGFloat = 60
-		categoryIcon.layer.cornerRadius = iconSize / 2
-		categoryIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		categoryIcon.image = UIImage(named: self.task.category!)
-		categoryIcon.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(firstContainer.snp_top).offset(16)
-			make.centerX.equalTo(firstContainer.snp_centerX)
-			make.width.equalTo(iconSize)
-			make.height.equalTo(iconSize)
-		}
-		
-		let titleTextField = UITextField()
+		let titleTextField = UITextView()
 		self.titleTextField = titleTextField
 		firstContainer.addSubview(titleTextField)
-		titleTextField.text = self.task.title
+		titleTextField.text = self.taskTitle
 		titleTextField.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		titleTextField.textColor = textFieldTextColor
+		titleTextField.textColor = blackPrimary
 		titleTextField.textAlignment = NSTextAlignment.Center
 		//titleTextField.layer.borderWidth = 1
 		//titleTextField.layer.borderColor = grayDetails.CGColor
 		titleTextField.backgroundColor = UIColor.clearColor()
+		//titleTextField.scrollEnabled = true
+		//titleTextField.alwaysBounceVertical = true
+		//titleTextField.autoresizesSubviews = true
 		titleTextField.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(categoryIcon.snp_bottom).offset(20)
+			make.top.equalTo(firstContainer.snp_top).offset(17)
 			make.left.equalTo(firstContainer.snp_left).offset(12)
 			make.right.equalTo(firstContainer.snp_right).offset(-12)
-			make.height.equalTo(40)
+			make.height.equalTo(60)
 		}
 		
 		let titleUnderline = UIView()
@@ -210,21 +211,37 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			
 		}
 		
+		let categoryIcon = UIImageView()
+		firstContainer.addSubview(categoryIcon)
+		let iconSize: CGFloat = 40
+		categoryIcon.layer.cornerRadius = iconSize / 2
+		categoryIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		categoryIcon.image = UIImage(named: self.task.category!)
+		categoryIcon.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(titleUnderline.snp_centerY)
+			make.centerX.equalTo(titleUnderline.snp_centerX)
+			make.width.equalTo(iconSize)
+			make.height.equalTo(iconSize)
+		}
+		
 		let descriptionTextView = UITextView()
 		self.descriptionTextView = descriptionTextView
 		firstContainer.addSubview(descriptionTextView)
-		descriptionTextView.text = self.task.desc
+		descriptionTextView.text = self.taskDescription
 		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText15)
 		descriptionTextView.textColor = textFieldTextColor
 		descriptionTextView.textAlignment = NSTextAlignment.Center
 		//descriptionTextView.layer.borderWidth = 1
 		//descriptionTextView.layer.borderColor = grayDetails.CGColor
 		descriptionTextView.backgroundColor = UIColor.clearColor()
-		descriptionTextView.scrollEnabled = false
+		descriptionTextView.scrollEnabled = true
+		descriptionTextView.alwaysBounceVertical = true
+		descriptionTextView.autoresizesSubviews = false
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(titleUnderline.snp_bottom).offset(20)
+			make.top.equalTo(titleUnderline.snp_bottom).offset(30)
 			make.width.equalTo(titleTextField.snp_width)
 			make.centerX.equalTo(firstContainer.snp_centerX)
+			make.bottom.equalTo(firstContainer.snp_bottom)
 		}
 		
 		/* needed?
@@ -424,7 +441,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		noPicturesLabel.textColor = darkGrayDetails
 		noPicturesLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		noPicturesLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(thirdContainer.snp_centerY).offset(-8)
+			make.centerY.equalTo(thirdContainer.snp_centerY).offset(-7)
 			make.centerX.equalTo(thirdContainer.snp_centerX)
 		}
 		
@@ -458,7 +475,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//Add pictures Button
 		
-		let picturesButton = PrimaryActionButton()
+		let picturesButton = PrimaryBorderActionButton()
 		thirdContainer.addSubview(picturesButton)
 		picturesButton.setTitle("Add Pictures", forState: UIControlState.Normal)
 		picturesButton.addTarget(self, action: "didTapAddImage:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -1060,6 +1077,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		} else {
 				self.noPicturesLabel.hidden = true
 		}
+		
+		self.picturesChanged = true
 	}
 	
 	
@@ -1077,6 +1096,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			self.picturesCollectionView.reloadData()
 			self.noPicturesLabel.hidden = true
 		}
+		
+		self.picturesChanged = true
 		
 		dismissViewControllerAnimated(true, completion: nil)
 	}
@@ -1157,7 +1178,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	//MARK: Applications Profile View Controller Delegate
 	
 	func didTapDenyButton(applicant:User){
-		var applicationToDeny:TaskApplication?
+		var applicationToDeny: TaskApplication?
 		self.makeDeniedApplicantsContainer()
 		self.deniedApplicantsContainer.layoutIfNeeded()
 		for application in self.arrayOfApplications{
@@ -1182,13 +1203,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
-	//MARK: Edit Task Delegate
-	
-	func didEditTask(task: FindNelpTask) {
-		self.task = task
-		self.createView()
-	}
-	
 	//MARK: Utilities
 	
 	/**
@@ -1207,6 +1221,10 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	//MARK: Actions
 	
+	func DismissKeyboard() {
+		view.endEditing(true)
+	}
+	
 	/**
 	Moves the view to the next horizontal container
 	
@@ -1217,6 +1235,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.width))
 		})
 		updateActivePage(2)
+		DismissKeyboard()
 		
 		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 			self.firstContainer.layoutIfNeeded()
@@ -1269,17 +1288,48 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			}, completion: nil)
 	}
 	
-	func editButtonTapped(sender: UIButton) {
-		let nextVC = EditTaskViewController()
-		nextVC.task = self.task
-		nextVC.delegate = self
-		dispatch_async(dispatch_get_main_queue()) {
-			self.navigationController?.pushViewController(nextVC, animated: true)
-		}
-	}
-	
 	func backButtonTapped(sender: UIButton) {
-		self.navigationController?.popViewControllerAnimated(true)
+		
+		DismissKeyboard()
+		
+		if (self.titleTextField.text != self.taskTitle) || (self.descriptionTextView.text != self.taskDescription) || (self.picturesChanged) {
+			
+			let popup = UIAlertController(title: "Your task was edited", message: "Do you want to save your changes to this task?", preferredStyle: UIAlertControllerStyle.Alert)
+			let popupSubview = popup.view.subviews.first! as UIView
+			let popupContentView = popupSubview.subviews.first! as UIView
+			popupContentView.layer.cornerRadius = 0
+			popup.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action) -> Void in
+				//Saves changes and changes the view
+				self.task.title = self.titleTextField.text
+				if !self.images.isEmpty {
+					self.task.pictures = ApiHelper.convertImagesToData(self.images)
+				}
+				self.task.desc = self.descriptionTextView.text
+				
+				ApiHelper.editTask(self.task)
+				
+				self.navigationController?.popViewControllerAnimated(true)
+			}))
+			popup.addAction(UIAlertAction(title: "No", style: .Default, handler: { (action) -> Void in
+				//Resets info and changes the view
+				if self.task.pictures != nil {
+					self.pictures = self.task.pictures!
+					self.getImagesFromParse()
+				} else {
+					self.pictures.removeAll()
+				}
+				
+				self.taskTitle = self.task.title
+				self.taskDescription = self.task.desc
+				
+				self.navigationController?.popViewControllerAnimated(true)
+			}))
+			
+			self.presentViewController(popup, animated: true, completion: nil)
+			
+		} else {
+			self.navigationController?.popViewControllerAnimated(true)
+		}
 	}
 	
 	func didTapAddImage(sender:UIButton){
@@ -1293,14 +1343,12 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 	func didTapSaveButton(sender:UIButton){
 		self.task.title = self.titleTextField.text
-		print(self.task.title, terminator: "")
 		if !self.images.isEmpty{
 			self.task.pictures = ApiHelper.convertImagesToData(self.images)
 		}
 		self.task.desc = self.descriptionTextView.text
 		
 		ApiHelper.editTask(self.task)
-		self.didEditTask(self.task)
 		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
