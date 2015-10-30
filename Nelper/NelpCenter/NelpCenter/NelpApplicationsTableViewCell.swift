@@ -105,7 +105,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		applicationStateIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		applicationStateIcon.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleLabel.snp_bottom).offset(6)
-			make.left.equalTo(cellView.snp_left).offset(10)
+			make.left.equalTo(cellView.snp_left).offset(30)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
 		}
@@ -139,7 +139,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(applicationLabel.snp_centerY)
-			make.right.equalTo(cellView.snp_right).offset(-10)
+			make.right.equalTo(cellView.snp_right).offset(-30)
 			make.width.equalTo(65)
 			make.height.equalTo(38)
 		}

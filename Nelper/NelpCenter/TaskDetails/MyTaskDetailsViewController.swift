@@ -1299,7 +1299,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			let popupContentView = popupSubview.subviews.first! as UIView
 			popupContentView.layer.cornerRadius = 0
 			popup.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action) -> Void in
-				//Saves changes and changes the view
+				//Saves info and changes the view
 				self.task.title = self.titleTextField.text
 				if !self.images.isEmpty {
 					self.task.pictures = ApiHelper.convertImagesToData(self.images)
@@ -1339,6 +1339,18 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	func deleteTaskButtonTapped(sender: UIButton) {
+		DismissKeyboard()
+		
+		let popup = UIAlertController(title: "Delete this task?", message: "This action is permanent.", preferredStyle: UIAlertControllerStyle.Alert)
+		popup.addAction(UIAlertAction(title: "Delete", style: .Destructive, handler: { (action) -> Void in
+			//Changes the view and delete the task
+			self.navigationController?.popViewControllerAnimated(true)
+			ApiHelper.deleteTask(self.task)
+		}))
+		popup.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action) -> Void in
+		}))
+		
+		self.presentViewController(popup, animated: true, completion: nil)
 	}
 		
 	func didTapSaveButton(sender:UIButton){
@@ -1353,14 +1365,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	func didTapDeleteButton(sender: UIButton) {
-		if sender.selected == false {
-			sender.selected = true
-			
-		}else if sender.selected == true{
-			ApiHelper.deleteTask(self.task)
-			self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-			self.dismissViewControllerAnimated(true, completion: nil)
-		}
+		
 	}
 	
 }

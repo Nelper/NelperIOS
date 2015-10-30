@@ -780,9 +780,6 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			DismissKeyboard()
 			
 			let popup = UIAlertController(title: "Discard changes?", message: "Your changes will not be saved", preferredStyle: UIAlertControllerStyle.Alert)
-			let popupSubview = popup.view.subviews.first! as UIView
-			let popupContentView = popupSubview.subviews.first! as UIView
-			popupContentView.layer.cornerRadius = 0
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 				//Change the view and resets fields and locations
 				self.navigationController?.popViewControllerAnimated(true)
