@@ -187,6 +187,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		let scrollView = UIScrollView()
 		self.scrollView = scrollView
 		self.view.addSubview(scrollView)
+		scrollView.alwaysBounceVertical = true
 		scrollView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(background.snp_edges)
 		}
@@ -286,7 +287,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 			make.height.equalTo(0.5)
 		}
 		
-		if self.applicant.about == nil || self.applicant.about.isEmpty{
+		if self.applicant.about == nil || self.applicant.about.isEmpty {
 			aboutLabel.hidden = true
 			aboutBottomLine.hidden = true
 			aboutLogo.hidden = true
@@ -695,7 +696,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		let contentSize = CGRectMake(0, 0, self.contentView.frame.width, self.contentView.frame.height + 20)
+		let contentSize = CGRectMake(0, 0, self.contentView.frame.width, self.contentView.frame.height)
 		self.scrollView.contentSize = contentSize.size
 		
 		let maskPath = UIBezierPath(roundedRect: chatButton.bounds, byRoundingCorners: UIRectCorner.TopLeft, cornerRadii: CGSizeMake(20.0, 20.0))

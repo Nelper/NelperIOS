@@ -86,7 +86,7 @@ class MoreViewController: UIViewController {
 			let sectionButton = UIButton()
 			self.sectionButton = sectionButton
 			self.sectionButton.setTitle(self.sections[index].title, forState: UIControlState.Normal)
-			self.sectionButton.setTitleColor(blackPrimary.colorWithAlphaComponent(0.6), forState: UIControlState.Normal)
+			self.sectionButton.setTitleColor(blackPrimary.colorWithAlphaComponent(0.8), forState: UIControlState.Normal)
 			self.sectionButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTextSize)
 			self.sectionButton.setBackgroundColor(whitePrimary.colorWithAlphaComponent(0.5), forState: UIControlState.Highlighted)
 			self.sectionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
@@ -223,7 +223,9 @@ class MoreViewController: UIViewController {
 	}
 	
 	func faqTapped(sender: UIButton) {
-		print("faq")
+		let nextVC = FaqViewController()
+		nextVC.hidesBottomBarWhenPushed = true
+		self.navigationController?.pushViewController(nextVC, animated: true)
 	}
 	
 	//MARK: Data

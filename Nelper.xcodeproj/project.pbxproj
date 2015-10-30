@@ -66,6 +66,7 @@
 		C04598CD1BCE14FB00AFA579 /* MainSettingsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */; };
 		C04FF0031BB86873001E204F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04FF0021BB86873001E204F /* Button.swift */; };
 		C087D8D91BB7199A00AA205B /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087D8D81BB7199A00AA205B /* Rating.swift */; };
+		C08D19B21BE40D2900B70DEE /* FaqViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D19B11BE40D2900B70DEE /* FaqViewController.swift */; };
 		C0ACB2001BD88C7300DFC3CB /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACB1FF1BD88C7300DFC3CB /* Shapes.swift */; };
 		C0BED3961BCF413800CE3B63 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3951BCF413800CE3B63 /* AccountSettingsViewController.swift */; };
 		C0BED3981BCF458600CE3B63 /* NotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3971BCF458600CE3B63 /* NotificationsSettingsViewController.swift */; };
@@ -258,6 +259,7 @@
 		C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainSettingsViewCell.swift; path = Nelper/MainSettingsViewCell.swift; sourceTree = SOURCE_ROOT; };
 		C04FF0021BB86873001E204F /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		C087D8D81BB7199A00AA205B /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
+		C08D19B11BE40D2900B70DEE /* FaqViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FaqViewController.swift; path = Nelper/FaqViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0ACB1FF1BD88C7300DFC3CB /* Shapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
 		C0BED3951BCF413800CE3B63 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountSettingsViewController.swift; path = Nelper/AccountSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0BED3971BCF458600CE3B63 /* NotificationsSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationsSettingsViewController.swift; path = Nelper/NotificationsSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -482,6 +484,7 @@
 			children = (
 				192635431B744C57005597E3 /* Views */,
 				C04598C91BCE02E400AFA579 /* Settings */,
+				C08D19B01BE40CB100B70DEE /* FAQ */,
 				19DB245F1BB711B500468E91 /* Profile */,
 				19DB24541BB711AA00468E91 /* Browse */,
 				19DB24491BB7119C00468E91 /* Post */,
@@ -627,6 +630,15 @@
 				C0BED39D1BCF478B00CE3B63 /* Sections */,
 			);
 			name = Settings;
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		C08D19B01BE40CB100B70DEE /* FAQ */ = {
+			isa = PBXGroup;
+			children = (
+				C08D19B11BE40D2900B70DEE /* FaqViewController.swift */,
+			);
+			name = FAQ;
 			path = Profile;
 			sourceTree = "<group>";
 		};
@@ -1138,6 +1150,7 @@
 				F7E8F8E01B94E7CF007D44D8 /* ATLErrors.m in Sources */,
 				19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */,
 				F7E8F9331B94F3A4007D44D8 /* PFUser+ATLParticipant.swift in Sources */,
+				C08D19B21BE40D2900B70DEE /* FaqViewController.swift in Sources */,
 				C0BED39A1BCF45E900CE3B63 /* BankSettingsViewController.swift in Sources */,
 				19DB243C1BB70E8000468E91 /* PosterProfileViewController.swift in Sources */,
 				19DB243D1BB70E8000468E91 /* NelpApplicationsTableViewCell.swift in Sources */,
