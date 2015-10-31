@@ -22,6 +22,7 @@ class BaseTask: BaseModel {
 		case Accepted = 0
 		case PaymentSent
 		case Completed
+		case PaymentRequested
 		case Rated
 	}
 	var id: String {

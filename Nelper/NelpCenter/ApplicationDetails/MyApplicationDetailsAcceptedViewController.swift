@@ -846,7 +846,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 	//MARK: Actions
 	
 	func backButtonTapped(sender:UIButton){
-		self.dismissViewControllerAnimated(true, completion: nil)
+		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
 	func didTapTaskCompleted(sender:UIButton){
