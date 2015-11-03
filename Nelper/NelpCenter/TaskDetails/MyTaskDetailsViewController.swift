@@ -43,6 +43,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var saveChangesButton: UIButton!
 	var picturesCollectionView: UICollectionView!
 	
+	var taskInfoContainer: UIView!
 	var firstContainer: UIView!
 	var secondContainer: UIView!
 	var thirdContainer: UIView!
@@ -104,7 +105,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.adjustUI()
 		
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
-		self.contentView.addGestureRecognizer(tap)
+		self.taskInfoContainer.addGestureRecognizer(tap)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -139,6 +140,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	func createView() {
 		
 		let containerHeight = 270
+		let pagingContainerHeight = 50
 		
 		//NavBar
 		
@@ -167,15 +169,25 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.width.equalTo(self.container.snp_width)
 		}
 		
+		let taskInfoContainer = UIView()
+		self.taskInfoContainer = taskInfoContainer
+		self.contentView.addSubview(taskInfoContainer)
+		taskInfoContainer.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(contentView.snp_left)
+			make.top.equalTo(contentView.snp_top).offset(20)
+			make.height.equalTo(containerHeight).offset(pagingContainerHeight)
+			make.width.equalTo(contentView.snp_width).multipliedBy(3)
+		}
+		
 		//FIRST CONTAINER
 		let firstContainer = UIView()
 		self.firstContainer = firstContainer
-		self.contentView.addSubview(firstContainer)
+		self.taskInfoContainer.addSubview(firstContainer)
 		self.firstContainer.backgroundColor = whitePrimary
 		self.firstContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(contentView.snp_top).offset(20)
-			make.left.equalTo(contentView.snp_left)
-			make.width.equalTo(self.contentView.snp_width)
+			make.top.equalTo(taskInfoContainer.snp_top)
+			make.left.equalTo(taskInfoContainer.snp_left)
+			make.width.equalTo(contentView.snp_width)
 			make.height.equalTo(containerHeight)
 		}
 		self.firstContainer.addGestureRecognizer(self.firstSwipeRecLeft)
@@ -256,7 +268,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		//SECOND CONTAINER
 		let secondContainer = UIView()
 		self.secondContainer = secondContainer
-		self.contentView.addSubview(secondContainer)
+		self.taskInfoContainer.addSubview(secondContainer)
 		secondContainer.backgroundColor = whitePrimary
 		secondContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(20)
@@ -409,7 +421,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		//THIRD CONTAINER
 		let thirdContainer = UIView()
 		self.thirdContainer = thirdContainer
-		self.contentView.addSubview(thirdContainer)
+		self.taskInfoContainer.addSubview(thirdContainer)
 		thirdContainer.backgroundColor = whitePrimary
 		thirdContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(20)
@@ -487,13 +499,13 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		//PAGING CONTAINER
 		let pagingContainer = UIView()
 		self.pagingContainer = pagingContainer
-		self.contentView.addSubview(pagingContainer)
+		self.taskInfoContainer.addSubview(pagingContainer)
 		pagingContainer.backgroundColor = whitePrimary
 		pagingContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(firstContainer.snp_bottom)
 			make.left.equalTo(contentView.snp_left)
 			make.right.equalTo(contentView.snp_right)
-			make.height.equalTo(50)
+			make.height.equalTo(pagingContainerHeight)
 		}
 		
 		let firstO = PageControllerOval()
@@ -919,7 +931,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	- parameter task: the task
 	*/
 	func setImages(task:FindNelpTask){
-		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2;
+		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2
 		self.categoryIcon.clipsToBounds = true
 		self.categoryIcon.image = UIImage(named: task.category!)
 	}
