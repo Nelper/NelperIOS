@@ -50,8 +50,8 @@ class MoreViewController: UIViewController {
 		
 		//SET LAYOUT K
 		self.iconHeight = 40
-		self.sectionHeight = 50
-		self.sectionPadding = 25
+		self.sectionHeight = 75
+		self.sectionPadding = 0
 		self.kTextSize = 19
 		
 		self.createView()
