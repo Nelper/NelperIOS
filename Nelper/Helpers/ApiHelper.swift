@@ -492,6 +492,22 @@ class ApiHelper {
 		)
 	}
 	
+	static func restoreApplication(application: TaskApplication, block: (() -> Void)?) {
+		GraphQLClient.mutation(
+			"SetApplicationState",
+			input: [
+				"taskId": application.task.id,
+				"applicationId": application.id,
+				"state": "PENDING",
+			],
+			block: {(data) -> Void in
+				if let block = block {
+					block()
+				}
+			}
+		)
+	}
+	
 	//Set task as viewed
 	static func setTaskViewed(task: FindNelpTask) {
 		let parseApplications = task.applications

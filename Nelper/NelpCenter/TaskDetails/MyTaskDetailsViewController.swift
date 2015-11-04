@@ -18,18 +18,17 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	@IBOutlet weak var container: UIView!
 	@IBOutlet weak var scrollView: UIScrollView!
 	
+	var task: FindNelpTask!
+	var applications: [TaskApplication]!
+	var pendingApplications: [TaskApplication]!
+	var deniedApplications: [TaskApplication]!
+	
 	var contentView: UIView!
 	var categoryIcon: UIImageView!
-	var task: FindNelpTask!
 	var applicantsTableView: UITableView!
-	var arrayOfApplicants: [User]!
 	var activeApplicantsContainer: DefaultContainerView!
 	var deniedApplicantsContainer: DefaultContainerView!
-	var arrayOfDeniedApplicants: [User]!
 	var deniedApplicantsTableView: UITableView!
-	var arrayOfApplications: [TaskApplication]!
-	var arrayOfAllApplicants: [User]!
-	var taskSectionContainer: UIView!
 	var deniedApplicantIcon:UIImageView!
 	var deniedApplicantsLabel:UILabel!
 	
@@ -39,7 +38,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var pictures = [PFFile]()
 	var images = [UIImage]()
 	var imagePicker = UIImagePickerController()
-	var fakeView: UIView!
 	var saveChangesButton: UIButton!
 	var picturesCollectionView: UICollectionView!
 	
@@ -72,6 +70,14 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var taskDescription: String!
 	
 	var picturesChanged = false
+	
+	convenience init(task:FindNelpTask) {
+		self.init(nibName: "MyTaskDetailsViewController", bundle: nil)
+		self.task = task
+		self.applications = task.applications
+		self.pendingApplications = self.applications.filter({ $0.state != .Denied })
+		self.deniedApplications = self.applications.filter({ $0.state == .Denied })
+	}
 	
 	//MARK: Initialization
 	
@@ -109,28 +115,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	override func viewDidAppear(animated: Bool) {
 		
 		setMapUI()
-	}
-	
-	convenience init(findNelpTask:FindNelpTask) {
-		self.init(nibName: "MyTaskDetailsViewController", bundle: nil)
-		self.task = findNelpTask
-		let arrayOfApplications = findNelpTask.applications
-		self.arrayOfApplications = arrayOfApplications
-		var arrayOfApplicants = [User]()
-		var arrayOfAllApplicants = [User]()
-		var arrayOfDeniedApplicants = [User]()
-		for application in arrayOfApplications {
-			if application.state == .Pending {
-				arrayOfApplicants.append(application.user)
-				arrayOfAllApplicants.append(application.user)
-			} else if application.state == .Denied {
-				arrayOfDeniedApplicants.append(application.user)
-				arrayOfAllApplicants.append(application.user)
-			}
-		}
-		self.arrayOfApplicants = arrayOfApplicants
-		self.arrayOfDeniedApplicants = arrayOfDeniedApplicants
-		self.arrayOfAllApplicants = arrayOfAllApplicants
 	}
 	
 	//MARK: View Creation
@@ -737,7 +721,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//Content
 		
-		if arrayOfApplicants.isEmpty {
+		if self.pendingApplications.isEmpty {
 			
 			let noPendingLabel = UILabel()
 			activeApplicantsContainer.contentView.addSubview(noPendingLabel)
@@ -756,7 +740,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		} else {
 			
 			activeApplicantsContainer.snp_updateConstraints(closure: { (make) -> Void in
-				make.bottom.equalTo(activeApplicantsContainer.titleView.snp_bottom).offset(self.arrayOfApplicants.count * 100)
+				make.bottom.equalTo(activeApplicantsContainer.titleView.snp_bottom).offset(self.pendingApplications.count * 100)
 			})
 		}
 		
@@ -806,7 +790,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 				make.top.equalTo(self.self.applicantsTableView.snp_bottom).offset(20)
 				make.left.equalTo(self.contentView.snp_left)
 				make.right.equalTo(self.contentView.snp_right)
-				make.bottom.equalTo(deniedApplicantsContainer.titleView.snp_bottom).offset(self.arrayOfDeniedApplicants.count * 100)
+				make.bottom.equalTo(deniedApplicantsContainer.titleView.snp_bottom).offset(self.deniedApplications.count * 100)
 			}
 			
 			let deniedApplicantIcon = UIImageView()
@@ -845,7 +829,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 				make.bottom.equalTo(deniedApplicantsContainer.snp_bottom)
 			}
 			
-			if self.arrayOfDeniedApplicants.isEmpty {
+			if self.deniedApplications.isEmpty {
 				self.contentView.snp_makeConstraints(closure: { (make) -> Void in
 					make.bottom.equalTo(self.activeApplicantsContainer.snp_bottom).offset(20)
 				})
@@ -856,7 +840,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			}
 			
 		} else {
-			if self.arrayOfDeniedApplicants.isEmpty {
+			if self.deniedApplications.isEmpty {
 				self.contentView.snp_updateConstraints(closure: { (make) -> Void in
 					make.bottom.equalTo(self.activeApplicantsContainer.snp_bottom).offset(20)
 				})
@@ -900,9 +884,9 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if tableView == self.applicantsTableView {
-			return self.arrayOfApplicants.count
+			return self.pendingApplications.count
 		} else if tableView == self.deniedApplicantsTableView {
-			return self.arrayOfDeniedApplicants.count
+			return self.deniedApplications.count
 		}
 		return 0
 	}
@@ -911,22 +895,15 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		if tableView == applicantsTableView {
 			
 			let pendingApplicantCell = tableView.dequeueReusableCellWithIdentifier(ApplicantCell.reuseIdentifier, forIndexPath: indexPath) as! ApplicantCell
-			let application = self.arrayOfApplicants[indexPath.row]
-			pendingApplicantCell.setApplicant(application)
-			let applicant = self.arrayOfApplications[indexPath.row]
-			pendingApplicantCell.setApplication(applicant)
+			let application = self.pendingApplications[indexPath.row]
+			pendingApplicantCell.setApplication(application)
 			return pendingApplicantCell
 			
 		} else if tableView == deniedApplicantsTableView {
 			
 			let deniedApplicantCell = tableView.dequeueReusableCellWithIdentifier(ApplicantCell.reuseIdentifier, forIndexPath: indexPath) as! ApplicantCell
-			let deniedApplicant = self.arrayOfDeniedApplicants[indexPath.row]
-			deniedApplicantCell.setApplicant(deniedApplicant)
-			for application in self.arrayOfApplications{
-				if application.user.objectId == deniedApplicant.objectId{
-					deniedApplicantCell.setApplication(application)
-				}
-			}
+			let deniedApplication = self.deniedApplications[indexPath.row]
+			deniedApplicantCell.setApplication(deniedApplication)
 			deniedApplicantCell.replaceArrowImage()
 			deniedApplicantCell.delegate = self
 			
@@ -939,9 +916,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if tableView == self.applicantsTableView {
-			let applicant = self.arrayOfAllApplicants[indexPath.row]
-			let application = self.arrayOfApplications[indexPath.row]
-			let nextVC = ApplicantProfileViewController(applicant: applicant, application: application)
+			let application = self.pendingApplications[indexPath.row]
+			let nextVC = ApplicantProfileViewController(applicant: application.user, application: application)
 			nextVC.delegate = self
 			dispatch_async(dispatch_get_main_queue()) {
 				self.navigationController?.pushViewController(nextVC, animated: true)
@@ -1052,64 +1028,25 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	//MARK: Cell delegate methods
 	
-	func didTapRevertButton(applicant:User) {
-		var applicationToRevert: TaskApplication!
+	func didTapRevertButton(application: TaskApplication) {
+
+		self.deniedApplications.removeAtIndex(self.deniedApplications.indexOf({$0 === application})!)
+		self.pendingApplications.append(application)
 		
-		for application in self.arrayOfApplications {
-			print(application.user.objectId)
-			print(applicant.objectId)
-			if application.user.objectId == applicant.objectId{
-				applicationToRevert = application
-				for (var i = 0 ; i < self.arrayOfDeniedApplicants.count ; i++) {
-					let applicantToChange = self.arrayOfDeniedApplicants[i]
-					if applicantToChange.objectId == applicant.objectId {
-						self.arrayOfDeniedApplicants.removeAtIndex(i)
-						self.arrayOfApplicants.append(applicantToChange)
-					}
-				}
-				
-			}
-		}
-		
-		applicationToRevert.state = .Pending
-		let query = PFQuery(className: "TaskApplication")
-		query.getObjectInBackgroundWithId(applicationToRevert.objectId, block: { (application, error) -> Void in
-			if error != nil{
-				print(error)
-			} else if let application = application{
-				application["state"] = applicationToRevert.state.rawValue
-				application.saveInBackground()
-			}
-		})
+		application.state = .Pending
+		ApiHelper.restoreApplication(application, block: nil)
 		
 		self.makeActiveApplicantsContainer(true)
-		if self.arrayOfDeniedApplicants.isEmpty{
-			self.fakeView.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.activeApplicantsContainer.snp_bottom)
-				make.bottom.equalTo(self.contentView.snp_bottom)
-			})
-			self.deniedApplicantsContainer.removeFromSuperview()
-		}
 	}
 	
 	
 	
 	//MARK: Applications Profile View Controller Delegate
 	
-	func didTapDenyButton(applicant: User) {
-		
-		for application in self.arrayOfApplications {
-			if application.user.objectId == applicant.objectId {
-				for (var i = 0 ; i < self.arrayOfApplicants.count ; i++) {
-					let applicantToChange = self.arrayOfApplicants[i]
-					if applicantToChange.objectId == applicant.objectId{
-						self.arrayOfApplicants.removeAtIndex(i)
-						self.arrayOfDeniedApplicants.append(applicantToChange)
-					}
-				}
-				
-			}
-		}
+	func didTapDenyButton(application: TaskApplication) {
+		self.pendingApplications.removeAtIndex(self.pendingApplications.indexOf({$0 === application})!)
+		self.deniedApplications.append(application)
+
 		self.makeActiveApplicantsContainer(true)
 		self.makeDeniedApplicantsContainer(true)
 		self.updateFrames()

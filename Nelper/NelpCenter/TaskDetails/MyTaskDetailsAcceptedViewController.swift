@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Alamofire
 
-class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileViewControllerDelegate, STRPPaymentViewControllerDelegate {
+class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewControllerDelegate {
 	
 	var contentView:UIView!
 	var scrollView:UIScrollView!
@@ -746,14 +746,6 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 		self.fakeButton.layer.mask = maskLayerFake
 	}
 	
-	//MARK:Applicant's profile delegate methods
-	
-	func didTapDenyButton(applicant: User) {
-	}
-	
-	func dismissVC(){
-	}
-	
 	//MARK:Actions
 	
 	func backButtonTapped(sender:UIButton){
@@ -784,12 +776,6 @@ class MyTaskDetailsAcceptedViewController: UIViewController, ApplicantProfileVie
 	}
 	
 	func didTapProfile(gesture:UITapGestureRecognizer){
-		var acceptedApplication: TaskApplication!
-		for application in self.task.applications {
-			if application.state == .Accepted{
-				acceptedApplication = application
-			}
-		}
 		let nextVC = PosterProfileViewController()
 		nextVC.poster = self.acceptedApplicant
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve

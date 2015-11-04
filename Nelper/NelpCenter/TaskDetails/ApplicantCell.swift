@@ -9,13 +9,13 @@
 import Foundation
 import Alamofire
 
-protocol ApplicantCellDelegate{
-	func didTapRevertButton(applicant:User)
+protocol ApplicantCellDelegate {
+	func didTapRevertButton(application: TaskApplication)
 }
 
-class ApplicantCell: UITableViewCell{
+class ApplicantCell: UITableViewCell {
 	
-	var applicant: User!
+	var application: TaskApplication!
 	var picture: UIImageView!
 	var name: UILabel!
 	var completedTasks: Int!
@@ -144,9 +144,6 @@ class ApplicantCell: UITableViewCell{
 		self.addSubview(cellView)
 	}
 	
-	
-	
-	
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
@@ -177,20 +174,9 @@ class ApplicantCell: UITableViewCell{
 		}
 	}
 	
-	func setApplicant(applicant: User) {
-		self.applicant = applicant
-		self.setImages(applicant)
-		self.name.text = applicant.name
-		self.ratingStarsView.userCompletedTasks = applicant.completedTasks
-		self.ratingStarsView.userRating = applicant.rating
-	}
-	
-	func setApplication(application: TaskApplication){
-		self.applicationPrice = application.price!
-		moneyLabel.text = "$\(applicationPrice)"
-	}
-	
-	func setImages(applicant:User) {
+	func setApplication(application: TaskApplication) {
+		self.application = application
+		let applicant = application.user
 		if(applicant.profilePictureURL != nil) {
 			let fbProfilePicture = applicant.profilePictureURL
 			request(.GET,fbProfilePicture!).response() {
@@ -199,9 +185,14 @@ class ApplicantCell: UITableViewCell{
 				self.picture.image = image
 			}
 		}
+		self.name.text = applicant.name
+		self.ratingStarsView.userCompletedTasks = applicant.completedTasks
+		self.ratingStarsView.userRating = applicant.rating
+		self.applicationPrice = application.price!
+		moneyLabel.text = "$\(applicationPrice)"
 	}
 	
-	func revertButtonTapped(sender:UIButton) {
-		self.delegate!.didTapRevertButton(self.applicant)
+	private func revertButtonTapped(sender:UIButton) {
+		self.delegate!.didTapRevertButton(self.application)
 	}
 }

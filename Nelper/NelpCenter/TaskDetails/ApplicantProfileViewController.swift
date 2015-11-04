@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 protocol ApplicantProfileViewControllerDelegate{
-	func didTapDenyButton(applicant:User)
+	func didTapDenyButton(application: TaskApplication)
 	func dismissVC()
 }
 
@@ -748,7 +748,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	func denyButtonTapped(sender:UIButton) {
 		self.application.state = .Denied
 		ApiHelper.denyApplication(self.application) {
-			self.delegate!.didTapDenyButton(self.applicant)
+			self.delegate!.didTapDenyButton(self.application)
 			self.navigationController?.popViewControllerAnimated(true)
 		}
 	}

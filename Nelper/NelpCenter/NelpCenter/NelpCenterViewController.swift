@@ -221,7 +221,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 					self.navigationController?.pushViewController(nextVC, animated: true)
 				}
 			} else {
-			let nextVC = MyTaskDetailsViewController(findNelpTask: task)
+			let nextVC = MyTaskDetailsViewController(task: task)
 			nextVC.hidesBottomBarWhenPushed = true
 			dispatch_async(dispatch_get_main_queue()) {
 				self.navigationController?.pushViewController(nextVC, animated: true)
