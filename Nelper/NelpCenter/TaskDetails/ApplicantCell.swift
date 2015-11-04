@@ -192,7 +192,7 @@ class ApplicantCell: UITableViewCell {
 		moneyLabel.text = "$\(applicationPrice)"
 	}
 	
-	private func revertButtonTapped(sender:UIButton) {
+	func revertButtonTapped(sender: UIButton) {
 		self.delegate!.didTapRevertButton(self.application)
 	}
 }

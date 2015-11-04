@@ -562,7 +562,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 					make.right.equalTo(self.locationContainer.snp_right)
 				}
 				
-				let locationContainerLine = UIView()
+				/*let locationContainerLine = UIView()
 				self.locationContainerLine = locationContainerLine
 				self.locationContainer.addSubview(locationContainerLine)
 				self.locationContainerLine.backgroundColor = darkGrayDetails.colorWithAlphaComponent(0.5)
@@ -571,7 +571,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 					make.right.equalTo(self.locationName.snp_left).offset(-6)
 					make.width.equalTo(0.5)
 					make.bottom.equalTo(self.locationAddress.snp_bottom)
-				}
+				}*/
 				
 				self.locationName.snp_makeConstraints { (make) -> Void in
 					make.right.equalTo(self.locationAddress.snp_left)
@@ -625,10 +625,17 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		locationBlurView.underlyingView = nil
 		self.locationsContainer.contentView.addSubview(locationBlurView)
 		locationBlurView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(button.snp_top).offset(-5)
+			make.top.equalTo(button.snp_top).offset(-8)
 			make.left.equalTo(button.snp_left)
 			make.right.equalTo(button.snp_right)
-			make.bottom.equalTo(button.snp_bottom).offset(5)
+			make.bottom.equalTo(button.snp_bottom).offset(8)
+		}
+		
+		let darken = UIView()
+		locationBlurView.addSubview(darken)
+		darken.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
+		darken.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(locationBlurView.snp_edges)
 		}
 		
 		let deleteButton = AccountSettingsLocationButton()
