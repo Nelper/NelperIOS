@@ -73,6 +73,10 @@ class GraphQLClient {
 						block(nil, error)
 						return
 					}
+					if let error = response.result.value!["errors"]! {
+						block(nil, NSError(domain: "Nelper", code: 999, userInfo: ["info": error]))
+						return
+					}
 					
 					block(response.result.value!["data"], nil)
 				}

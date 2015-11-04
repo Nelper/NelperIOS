@@ -88,8 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	
 	// LoginViewControllerDelegate
 	func onLogin() {
-		GraphQLClient.userId = PFUser.currentUser()?.objectId
-		GraphQLClient.sessionToken = PFUser.currentUser()?.sessionToken
 		let tabVC = initAppViewController()
 		self.loginLayer()
 		self.loginSupportKit()

@@ -13,7 +13,7 @@ protocol LoginViewControllerDelegate {
 }
 
 class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
-
+	
 	let permissions = ["public_profile"]
 	var delegate: LoginViewControllerDelegate?
 	var tap: UITapGestureRecognizer?
@@ -65,7 +65,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		super.viewDidLoad()
 		
 		self.view.backgroundColor = redPrimary
-	
+		
 		self.createView()
 		self.adjustUI()
 		
@@ -249,7 +249,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.top.equalTo(self.twitterButton.snp_top).offset(5)
 			make.bottom.equalTo(self.twitterButton.snp_bottom).offset(-5)
 		}
-
+		
 		
 		let emailButton = UIButton()
 		self.emailButton = emailButton
@@ -590,28 +590,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	//MARK: Actions
 	
 	func facebookLogin(sender: UIButton) {
-		
-		PFFacebookUtils.logInInBackgroundWithReadPermissions(self.permissions) { (user: PFUser?, error: NSError?) -> Void in
-			
-			if error != nil {
-				//TODO: handle login errors.
-				NSLog("\(error)")
-				return
-			}
-			
-			if user!.isNew {
-				NSLog("User signed up and logged in through Facebook!")
-				self.getFBUserInfo()
-				
-				PFUser.currentUser()!["loginProvider"] = "facebook"
-				PFUser.currentUser()!.saveInBackground()
-				
-			} else {
-				
-				NSLog("User logged in through Facebook! \(user!.username)")
-				self.getFBUserInfo()
-				
-			}
+		ApiHelper.loginWithFacebook { (err) -> Void in
+			self.loginCompleted()
 		}
 	}
 	
@@ -641,10 +621,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	}
 	
 	func emailLogin(sender: UIButton) {
-		ApiHelper.loginWithEmail(self.emailField.text!, password: self.passwordField.text!, block: { (user, error) -> Void in
-			if error != nil{
+		ApiHelper.loginWithEmail(self.emailField.text!, password: self.passwordField.text!, block: { (error) -> Void in
+			if error != nil {
 				print("\(error)")
-			}else{
+			} else {
 				self.loginCompleted()
 				self.getEmailInfo()
 			}
@@ -656,33 +636,32 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	}
 	
 	func createAccount(sender: UIButton) {
-		if self.emailFieldRegister.text?.characters.count >  0 && self.passwordFieldRegister.text?.characters.count > 0 && self.firstnameField.text?.characters.count > 0 && self.lastnameField.text?.characters.count > 0 {
+		if self.emailFieldRegister.text?.characters.count ==  0 || self.passwordFieldRegister.text?.characters.count == 0 || self.firstnameField.text?.characters.count == 0 || self.lastnameField.text?.characters.count == 0 {
+			return
+		}
+		
+		if self.passwordFieldRegister.text != self.passwordFieldConfirmRegister.text {
+			return
+		}
+		
+		ApiHelper.registerWithEmail(self.emailFieldRegister.text!, password: self.passwordFieldRegister.text!, firstName: self.firstnameField.text!, lastName: self.lastnameField.text!) { (error) -> Void in
 			
-			if self.passwordFieldRegister.text == self.passwordFieldConfirmRegister.text {
+			if error != nil {
+				print("\(error)")
 				
-				ApiHelper.registerWithEmail(self.emailFieldRegister.text!, password: self.passwordFieldRegister.text!, firstName: self.firstnameField.text!, lastName: self.lastnameField.text!) { (user, error) -> Void in
-					
-					PFUser.currentUser()!["loginProvider"] = "email"
-					PFUser.currentUser()!.saveInBackground()
+			} else {
+				
+				ApiHelper.loginWithEmail(self.emailFieldRegister.text!, password: self.passwordFieldRegister.text!, block: { (error) -> Void in
 					
 					if error != nil {
 						print("\(error)")
 						
 					} else {
 						
-						ApiHelper.loginWithEmail(self.emailFieldRegister.text!, password: self.passwordFieldRegister.text!, block: { (user, error) -> Void in
-							
-							if error != nil {
-								print("\(error)")
-								
-							} else {
-								
-								self.getEmailInfo()
-								self.loginCompleted()
-							}
-						})
+						self.getEmailInfo()
+						self.loginCompleted()
 					}
-				}
+				})
 			}
 		}
 	}
@@ -692,32 +671,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	}
 	
 	//Login
-	
-	func getFBUserInfo() {
-		
-		let request = FBSDKGraphRequest(graphPath: "me", parameters: nil)
-		request.startWithCompletionHandler { (conn:FBSDKGraphRequestConnection!, user:AnyObject!, error:NSError!) -> Void in
-			
-			if error != nil {
-				
-				self.loginCompleted()
-				
-			} else {
-				var results = user as! Dictionary<String, AnyObject>
-				
-				let currentUser = PFUser.currentUser()!
-				let fbID = results["id"] as AnyObject? as! String
-				let profilePictureURL : String = "https://graph.facebook.com/\(fbID)/picture?type=large&return_ssl_resources=1"
-				
-				currentUser.setValue(profilePictureURL, forKey: "pictureURL")
-				currentUser.setValue(user.valueForKey("name"), forKey: "name")
-				
-				PFUser.currentUser()!.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-					self.loginCompleted()
-				})
-			}
-		}
-	}
 	
 	func getTwitterUserInfo(){
 	}
@@ -750,7 +703,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				
 				self.firstContainer.alpha = 0
 				self.secondContainer.alpha = 1
-			}, completion: nil)
+				}, completion: nil)
 			
 			self.emailActive = true
 			DismissKeyboard()
@@ -772,7 +725,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				
 				self.firstContainer.alpha = 1
 				self.secondContainer.alpha = 0
-			}, completion: nil)
+				}, completion: nil)
 			
 			self.emailActive = false
 			DismissKeyboard()
@@ -795,11 +748,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				
 				self.secondContainer.alpha = 0
 				self.thirdContainer.alpha = 1
-			}, completion: nil)
+				}, completion: nil)
 			
 			self.registerActive = true
 			DismissKeyboard()
-		
+			
 		} else if self.fieldEditing {
 			
 			DismissKeyboard()
@@ -818,11 +771,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				self.secondContainer.alpha = 1
 				self.thirdContainer.alpha = 0
 				}, completion: nil)
-		
+			
 			self.registerActive = false
 			DismissKeyboard()
 		}
 	}
-
+	
 }
 

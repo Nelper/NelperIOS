@@ -24,14 +24,17 @@ class ApiHelper {
 	- parameter password: Password
 	- parameter block:    Block
 	*/
-	static func loginWithEmail(email: String, password: String, block: (User?, NSError?) -> Void) {
+	static func loginWithEmail(email: String, password: String, block: (NSError?) -> Void) {
 		PFUser.logInWithUsernameInBackground(email, password: password) { (user, error) -> Void in
 			if(error != nil) {
-				block(nil, error)
+				block(error)
 				return
 			}
 			
-			block(User(parseUser: user!), nil)
+			GraphQLClient.userId = user?.objectId
+			GraphQLClient.sessionToken = user?.sessionToken
+			
+			block(nil)
 		}
 	}
 	
@@ -45,30 +48,30 @@ class ApiHelper {
 	- parameter name:     Name of the user
 	- parameter block:    Block
 	*/
-	static func registerWithEmail(email: String, password: String, firstName: String, lastName: String, block: (User?, NSError?) -> Void) {
+	static func registerWithEmail(email: String, password: String, firstName: String, lastName: String, block: (NSError?) -> Void) {
 		let user = PFUser()
 		user.username = email
 		user.email = email
 		user.password = password
-		user["firstName"] = firstName
-		user["lastName"] = lastName
-		user["name"] = "\(firstName) \(lastName)"
-		user["skills"] = []
-		user["experience"] = []
-		user["education"] = []
-		let userPrivate = PFObject(className: "UserPrivateData")
-		userPrivate["email"] = email
-		userPrivate["locations"] = []
-		user["privateData"] = userPrivate
 		
 		user.signUpInBackgroundWithBlock { (ok, error) -> Void in
 			if error != nil {
-				block(nil, error)
+				block(error)
 			}
 			
-			if ok {
-				block(User(parseUser: user), nil)
-			} else {
+			GraphQLClient.userId = user.objectId
+			GraphQLClient.sessionToken = user.sessionToken
+			
+			GraphQLClient.mutation(
+				"CreateAccount",
+				input: [
+					"type": "email",
+					"email": email,
+					"firstName": firstName,
+					"lastName": lastName,
+				]
+			) { (data, err) -> Void in
+				block(err)
 			}
 		}
 	}
@@ -81,25 +84,42 @@ class ApiHelper {
 	
 	- parameter block: Block
 	*/
-	static func loginWithFacebook(block: (User?, NSError?) -> Void) {
-		PFFacebookUtils.logInInBackgroundWithReadPermissions(["public_profile"]) { (user: PFUser?, error: NSError?) -> Void in
+	static func loginWithFacebook(block: (NSError?) -> Void) {
+		PFFacebookUtils.logInInBackgroundWithReadPermissions(["public_profile", "email"]) { (user: PFUser?, error: NSError?) -> Void in
 			if error != nil {
-				block(nil, error)
+				block(error)
 				return
 			}
 			
-			self.getUserInfoFromFacebookWithBlock({ (fbUser, error) -> Void in
-				if error != nil {
-					block(nil, error)
-					return
-				}
-				
-				let fbID = user!["id"] as! String
-				let profilePictureURL = "https://graph.facebook.com/\(fbID)/picture?type=large&return_ssl_resources=1"
-				user!.setValue(profilePictureURL, forKey: "pictureURL")
-				user!.setValue(user!.valueForKey("name"), forKey: "name")
-				
-			})
+			GraphQLClient.userId = user?.objectId
+			GraphQLClient.sessionToken = user?.sessionToken
+			
+			if user!.isNew {
+				self.getUserInfoFromFacebookWithBlock({ (fbUser, error) -> Void in
+					if error != nil {
+						block(error)
+						return
+					}
+					
+					let fbID = user!["id"] as! String
+					let profilePictureURL = "https://graph.facebook.com/\(fbID)/picture?type=large&return_ssl_resources=1"
+					
+					GraphQLClient.mutation(
+						"CreateAccount",
+						input: [
+							"type": "email",
+							"email": fbUser!["email"]!!,
+							"firstName": fbUser!["firstName"]!!,
+							"lastName": fbUser!["lastName"]!!,
+							"pictureURL": profilePictureURL,
+						]
+						) { (data, err) -> Void in
+							block(err)
+					}
+				})
+			} else {
+				block(nil)
+			}
 		}
 	}
 	
@@ -501,6 +521,7 @@ class ApiHelper {
 				"state": "PENDING",
 			],
 			block: {(data) -> Void in
+				print(data)
 				if let block = block {
 					block()
 				}
