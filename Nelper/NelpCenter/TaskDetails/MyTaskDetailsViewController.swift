@@ -12,7 +12,7 @@ import Alamofire
 import iCarousel
 import FXBlurView
 
-class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, MKMapViewDelegate {
+class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var container: UIView!
@@ -23,8 +23,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var task: FindNelpTask!
 	var applicantsTableView: UITableView!
 	var arrayOfApplicants: [User]!
-	var activeApplicantsContainer: UIView!
-	var deniedApplicantsContainer: UIView!
+	var activeApplicantsContainer: DefaultContainerView!
+	var deniedApplicantsContainer: DefaultContainerView!
 	var arrayOfDeniedApplicants: [User]!
 	var deniedApplicantsTableView: UITableView!
 	var arrayOfApplications: [TaskApplication]!
@@ -56,8 +56,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var unselectedSize: CGFloat = 7
 	
 	var noPicturesLabel: UILabel!
-	
-	var locationManager = CLLocationManager()
 
 	let firstSwipeRecLeft = UISwipeGestureRecognizer()
 	let secondSwipeRecLeft = UISwipeGestureRecognizer()
@@ -165,7 +163,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.top.equalTo(self.scrollView.snp_top)
 			make.left.equalTo(self.scrollView.snp_left)
 			make.right.equalTo(self.scrollView.snp_right)
-			make.height.greaterThanOrEqualTo(self.container.snp_height)
 			make.width.equalTo(self.container.snp_width)
 		}
 		
@@ -304,12 +301,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.right.equalTo(self.secondContainer.snp_right)
 			make.bottom.equalTo(self.secondContainer.snp_bottom)
 		}
-		
-		self.locationManager.delegate = self;
-		self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-		self.locationManager.requestWhenInUseAuthorization()
-		self.locationManager.startUpdatingLocation()
-		self.locationManager.distanceFilter = 40
 		
 		let mapView = MKMapView()
 		self.mapView = mapView
@@ -564,52 +555,18 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.width.equalTo(self.contentView.snp_width)
 		}
 		
-		/*//Save button
-		
-		let saveChangesButton = UIButton()
-		self.saveChangesButton = saveChangesButton
-		contentView.addSubview(saveChangesButton)
-		saveChangesButton.setTitle("Save", forState: UIControlState.Normal)
-		saveChangesButton.setTitleColor(grayBlue, forState: UIControlState.Normal)
-		saveChangesButton.addTarget(self, action: "didTapSaveButton:", forControlEvents: UIControlEvents.TouchUpInside)
-		saveChangesButton.layer.borderWidth = 1
-		saveChangesButton.layer.borderColor = grayBlue.CGColor
-		saveChangesButton.backgroundColor = whitePrimary
-		saveChangesButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(firstContainer.snp_bottom).offset(10)
-			make.centerX.equalTo(firstContainer.snp_centerX)
-			make.height.equalTo(45)
-			make.width.equalTo(200)
-		}*/
-		
-		
 		//Active Applicants
 		
 		self.makeActiveApplicantsContainer(false)
 		
 		//Denied Applicants
 		
-		self.makeDeniedApplicantsContainer()
-		
-		let fakeView = UIView()
-		self.fakeView = fakeView
-		self.contentView.addSubview(fakeView)
-		fakeView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.deniedApplicantsContainer.snp_bottom)
-			make.bottom.equalTo(self.contentView.snp_bottom)
-		}
-	}
-	
-	//MARK: Refresh Tableview
-	func refreshTableView(){
-		self.applicantsTableView.reloadData()
-		self.deniedApplicantsTableView.reloadData()
-		self.updateFrames()
+		self.makeDeniedApplicantsContainer(false)
 	}
 	
 	func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {
 		var image: UIImage!
-		request(.GET,imageURL).response(){
+		request(.GET,imageURL).response() {
 			(_, _, data, error) in
 			if(error != nil){
 				print(error)
@@ -709,7 +666,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 	}
 	
-	func adjustUI(){
+	func adjustUI() {
 		self.container.backgroundColor = whiteBackground
 		
 		self.scrollView.backgroundColor = whiteBackground
@@ -738,191 +695,179 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	func makeActiveApplicantsContainer(isUpdate: Bool) {
 		
 		if isUpdate {
-			for subview in self.activeApplicantsContainer.subviews {
+			for subview in self.activeApplicantsContainer.contentView.subviews {
 				subview.removeFromSuperview()
 			}
 		}
 		
-		let activeApplicantsContainer = UIView()
-		self.activeApplicantsContainer = activeApplicantsContainer
-		self.contentView.addSubview(activeApplicantsContainer)
-		activeApplicantsContainer.backgroundColor = whitePrimary
-		activeApplicantsContainer.layer.borderWidth = 1
-		activeApplicantsContainer.layer.borderColor = grayDetails.CGColor
-		activeApplicantsContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(pagingContainer.snp_bottom).offset(20)
-			make.left.equalTo(self.contentView.snp_left)
-			make.right.equalTo(self.contentView.snp_right)
-			make.height.equalTo((self.arrayOfApplicants.count*100)+65)
-		}
-		
-		let pendingApplicantIcon = UIImageView()
-		activeApplicantsContainer.addSubview(pendingApplicantIcon)
-		pendingApplicantIcon.image = UIImage(named: "pending.png")
-		pendingApplicantIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		pendingApplicantIcon.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(activeApplicantsContainer.snp_top).offset(20)
-			make.left.equalTo(activeApplicantsContainer.snp_left).offset(20)
-			make.height.equalTo(30)
-			make.width.equalTo(30)
-		}
-		
-		let applicantsLabel = UILabel()
-		activeApplicantsContainer.addSubview(applicantsLabel)
-		applicantsLabel.textAlignment = NSTextAlignment.Left
-		applicantsLabel.text = "Nelpers"
-		applicantsLabel.textColor = blackPrimary
-		applicantsLabel.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
-		applicantsLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(pendingApplicantIcon.snp_centerY)
-			make.left.equalTo(pendingApplicantIcon.snp_right).offset(12)
-		}
-		
-		if arrayOfApplicants.isEmpty {
-			let noPendingContainer = UIView()
-			self.noPendingContainer = noPendingContainer
-			self.activeApplicantsContainer.addSubview(noPendingContainer)
-			noPendingContainer.layer.borderColor = grayDetails.CGColor
-			noPendingContainer.backgroundColor = whitePrimary
-			noPendingContainer.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(activeApplicantsContainer.snp_bottom)
+		if !isUpdate {
+			
+			//Container
+			
+			let activeApplicantsContainer = DefaultContainerView()
+			self.activeApplicantsContainer = activeApplicantsContainer
+			self.contentView.addSubview(activeApplicantsContainer)
+			activeApplicantsContainer.containerTitle = "Nelpers"
+			activeApplicantsContainer.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(self.pagingContainer.snp_bottom).offset(20)
 				make.left.equalTo(self.contentView.snp_left)
 				make.right.equalTo(self.contentView.snp_right)
-				make.height.equalTo(65)
 			}
 			
-			let noPendingBottomLine = UIView()
-			noPendingBottomLine.backgroundColor = grayDetails
-			activeApplicantsContainer.addSubview(noPendingBottomLine)
-			noPendingBottomLine.snp_makeConstraints { (make) -> Void in
-				make.bottom.equalTo(noPendingContainer.snp_bottom)
-				make.centerX.equalTo(activeApplicantsContainer.snp_centerX)
-				make.height.equalTo(1)
-				make.width.equalTo(noPendingContainer.snp_width)
+			let pendingApplicantIcon = UIImageView()
+			activeApplicantsContainer.titleView.addSubview(pendingApplicantIcon)
+			pendingApplicantIcon.image = UIImage(named: "pending.png")
+			pendingApplicantIcon.contentMode = UIViewContentMode.ScaleAspectFill
+			pendingApplicantIcon.snp_makeConstraints { (make) -> Void in
+				make.centerY.equalTo(activeApplicantsContainer.titleView.snp_centerY)
+				make.left.equalTo(activeApplicantsContainer.titleView.snp_left).offset(20)
+				make.height.equalTo(30)
+				make.width.equalTo(30)
 			}
+			
+			activeApplicantsContainer.titleLabel.snp_remakeConstraints { (make) -> Void in
+				make.centerY.equalTo(pendingApplicantIcon.snp_centerY)
+				make.left.equalTo(pendingApplicantIcon.snp_right).offset(12)
+			}
+			
+			activeApplicantsContainer.snp_makeConstraints { (make) -> Void in
+				make.bottom.equalTo(activeApplicantsContainer.titleView.snp_bottom).offset(20)
+			}
+		}
+		
+		//Content
+		
+		if arrayOfApplicants.isEmpty {
 			
 			let noPendingLabel = UILabel()
-			noPendingContainer.addSubview(noPendingLabel)
+			activeApplicantsContainer.contentView.addSubview(noPendingLabel)
 			noPendingLabel.text = "No pending applications"
 			noPendingLabel.textColor = darkGrayDetails
 			noPendingLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 			noPendingLabel.snp_makeConstraints { (make) -> Void in
-				make.centerX.equalTo(noPendingContainer.snp_centerX)
-				make.top.equalTo(noPendingContainer.snp_top).offset(20)
+				make.centerX.equalTo(activeApplicantsContainer.contentView.snp_centerX)
+				make.top.equalTo(activeApplicantsContainer.contentView.snp_top).offset(20)
+			}
+			
+			activeApplicantsContainer.snp_updateConstraints(closure: { (make) -> Void in
+				make.bottom.equalTo(noPendingLabel.snp_bottom).offset(20)
+			})
+			
+		} else {
+			
+			activeApplicantsContainer.snp_updateConstraints(closure: { (make) -> Void in
+				make.bottom.equalTo(activeApplicantsContainer.titleView.snp_bottom).offset(self.arrayOfApplicants.count * 100)
+			})
+		}
+		
+		if !isUpdate {
+			
+			//Applicants Table View
+			
+			let applicantsTableView = UITableView()
+			self.applicantsTableView = applicantsTableView
+			self.applicantsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+			applicantsTableView.registerClass(ApplicantCell.classForCoder(), forCellReuseIdentifier: ApplicantCell.reuseIdentifier)
+			self.applicantsTableView.scrollEnabled = false
+			self.applicantsTableView.dataSource = self
+			self.applicantsTableView.delegate = self
+			self.contentView.addSubview(applicantsTableView)
+			applicantsTableView.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(activeApplicantsContainer.contentView.snp_top)
+				make.left.equalTo(activeApplicantsContainer.contentView.snp_left)
+				make.right.equalTo(activeApplicantsContainer.contentView.snp_right)
+				make.bottom.equalTo(activeApplicantsContainer.snp_bottom)
 			}
 		} else {
-			let pendingBottomLine = UIView()
-			pendingBottomLine.backgroundColor = grayDetails
-			activeApplicantsContainer.addSubview(pendingBottomLine)
-			pendingBottomLine.snp_makeConstraints { (make) -> Void in
-				make.bottom.equalTo(activeApplicantsContainer.snp_top).offset(65)
-				make.centerX.equalTo(activeApplicantsContainer.snp_centerX)
-				make.height.equalTo(1)
-				make.width.equalTo(activeApplicantsContainer.snp_width)
-			}
+			self.applicantsTableView.reloadData()
 		}
-		
-		//Applicants Table View
-		
-		let applicantsTableView = UITableView()
-		self.applicantsTableView = applicantsTableView
-		self.applicantsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
-		applicantsTableView.registerClass(ApplicantCell.classForCoder(), forCellReuseIdentifier: ApplicantCell.reuseIdentifier)
-		self.applicantsTableView.scrollEnabled = false
-		self.applicantsTableView.dataSource = self
-		self.applicantsTableView.delegate = self
-		activeApplicantsContainer.addSubview(applicantsTableView)
-		applicantsTableView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(applicantsLabel.snp_bottom).offset(20)
-			make.left.equalTo(activeApplicantsContainer.snp_left)
-			make.right.equalTo(activeApplicantsContainer.snp_right)
-			make.bottom.equalTo(activeApplicantsContainer.snp_bottom)
-		}
-		
 	}
 	
 	/**
 	Make the Denied Applicants Container if needed.
 	*/
-	func makeDeniedApplicantsContainer() {
+	func makeDeniedApplicantsContainer(isUpdate: Bool) {
 		
-		let deniedApplicantsContainer = UIView()
-		self.deniedApplicantsContainer = deniedApplicantsContainer
-		self.contentView.addSubview(deniedApplicantsContainer)
-		deniedApplicantsContainer.backgroundColor = whitePrimary
-		deniedApplicantsContainer.layer.borderWidth = 1
-		deniedApplicantsContainer.layer.borderColor = grayDetails.CGColor
-		deniedApplicantsContainer.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(self.contentView.snp_left)
-			make.right.equalTo(self.contentView.snp_right)
-			make.height.equalTo((self.arrayOfDeniedApplicants.count*100)+65)
+		if isUpdate {
+			for subview in self.deniedApplicantsContainer.contentView.subviews {
+				subview.removeFromSuperview()
+			}
 		}
 		
-		if self.arrayOfApplicants.isEmpty {
-			deniedApplicantsContainer.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.noPendingContainer.snp_bottom).offset(20)
+		if !isUpdate {
+			
+			//Container
+			
+			let deniedApplicantsContainer = DefaultContainerView()
+			self.deniedApplicantsContainer = deniedApplicantsContainer
+			self.contentView.addSubview(deniedApplicantsContainer)
+			deniedApplicantsContainer.containerTitle = "Denied Nelpers"
+			deniedApplicantsContainer.snp_remakeConstraints { (make) -> Void in
+				make.top.equalTo(self.self.applicantsTableView.snp_bottom).offset(20)
+				make.left.equalTo(self.contentView.snp_left)
+				make.right.equalTo(self.contentView.snp_right)
+				make.bottom.equalTo(deniedApplicantsContainer.titleView.snp_bottom).offset(self.arrayOfDeniedApplicants.count * 100)
 			}
+			
+			let deniedApplicantIcon = UIImageView()
+			self.deniedApplicantIcon = deniedApplicantIcon
+			deniedApplicantsContainer.titleView.addSubview(deniedApplicantIcon)
+			deniedApplicantIcon.image = UIImage(named: "denied.png")
+			deniedApplicantIcon.contentMode = UIViewContentMode.ScaleAspectFill
+			deniedApplicantIcon.snp_makeConstraints { (make) -> Void in
+				make.centerY.equalTo(deniedApplicantsContainer.titleView.snp_centerY)
+				make.left.equalTo(deniedApplicantsContainer.titleView.snp_left).offset(20)
+				make.height.equalTo(30)
+				make.width.equalTo(30)
+			}
+			
+			deniedApplicantsContainer.titleLabel.snp_remakeConstraints { (make) -> Void in
+				make.centerY.equalTo(deniedApplicantIcon.snp_centerY)
+				make.left.equalTo(deniedApplicantIcon.snp_right).offset(12)
+			}
+			
+			deniedApplicantsContainer.layoutIfNeeded()
+			
+			//Applicants Table ViewNelperino
+			
+			let deniedApplicantsTableView = UITableView()
+			self.deniedApplicantsTableView = deniedApplicantsTableView
+			self.deniedApplicantsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+			deniedApplicantsTableView.registerClass(ApplicantCell.classForCoder(), forCellReuseIdentifier: ApplicantCell.reuseIdentifier)
+			self.deniedApplicantsTableView.scrollEnabled = false
+			self.deniedApplicantsTableView.dataSource = self
+			self.deniedApplicantsTableView.delegate = self
+			self.contentView.addSubview(deniedApplicantsTableView)
+			deniedApplicantsTableView.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(deniedApplicantsContainer.contentView.snp_top)
+				make.left.equalTo(deniedApplicantsContainer.snp_left)
+				make.right.equalTo(deniedApplicantsContainer.snp_right)
+				make.bottom.equalTo(deniedApplicantsContainer.snp_bottom)
+			}
+			
+			if self.arrayOfDeniedApplicants.isEmpty {
+				self.contentView.snp_makeConstraints(closure: { (make) -> Void in
+					make.bottom.equalTo(self.activeApplicantsContainer.snp_bottom).offset(20)
+				})
+			} else {
+				self.contentView.snp_makeConstraints(closure: { (make) -> Void in
+					make.bottom.equalTo(self.deniedApplicantsContainer.snp_bottom).offset(20)
+				})
+			}
+			
 		} else {
-			deniedApplicantsContainer.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.activeApplicantsContainer.snp_bottom).offset(20)
+			if self.arrayOfDeniedApplicants.isEmpty {
+				self.contentView.snp_updateConstraints(closure: { (make) -> Void in
+					make.bottom.equalTo(self.activeApplicantsContainer.snp_bottom).offset(20)
+				})
+			} else {
+				self.contentView.snp_updateConstraints(closure: { (make) -> Void in
+					make.bottom.equalTo(self.deniedApplicantsContainer.snp_bottom).offset(20)
+				})
 			}
+			
+			self.deniedApplicantsTableView.reloadData()
 		}
-		
-		let deniedApplicantIcon = UIImageView()
-		self.deniedApplicantIcon = deniedApplicantIcon
-		deniedApplicantsContainer.addSubview(deniedApplicantIcon)
-		deniedApplicantIcon.image = UIImage(named: "denied.png")
-		deniedApplicantIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		deniedApplicantIcon.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(deniedApplicantsContainer.snp_top).offset(20)
-			make.left.equalTo(deniedApplicantsContainer.snp_left).offset(20)
-			make.height.equalTo(30)
-			make.width.equalTo(30)
-		}
-		
-		let deniedApplicantsLabel = UILabel()
-		self.deniedApplicantsLabel = deniedApplicantsLabel
-		deniedApplicantsContainer.addSubview(deniedApplicantsLabel)
-		deniedApplicantsLabel.textAlignment = NSTextAlignment.Left
-		deniedApplicantsLabel.text = "Declined Nelpers"
-		deniedApplicantsLabel.textColor = blackPrimary
-		deniedApplicantsLabel.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
-		deniedApplicantsLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(deniedApplicantIcon.snp_centerY)
-			make.left.equalTo(deniedApplicantIcon.snp_right).offset(12)
-		}
-		
-		//Applicants Table View
-		
-		let deniedApplicantsTableView = UITableView()
-		self.deniedApplicantsTableView = deniedApplicantsTableView
-		self.deniedApplicantsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
-		deniedApplicantsTableView.registerClass(ApplicantCell.classForCoder(), forCellReuseIdentifier: ApplicantCell.reuseIdentifier)
-		self.deniedApplicantsTableView.scrollEnabled = false
-		self.deniedApplicantsTableView.dataSource = self
-		self.deniedApplicantsTableView.delegate = self
-		deniedApplicantsContainer.addSubview(deniedApplicantsTableView)
-		deniedApplicantsTableView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(deniedApplicantsLabel.snp_bottom).offset(20)
-			make.left.equalTo(deniedApplicantsContainer.snp_left)
-			make.right.equalTo(deniedApplicantsContainer.snp_right)
-			make.bottom.equalTo(deniedApplicantsContainer.snp_bottom)
-		}
-		
-		let deniedBottomLine = UIView()
-		deniedBottomLine.backgroundColor = grayDetails
-		deniedApplicantsContainer.addSubview(deniedBottomLine)
-		deniedBottomLine.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(deniedApplicantsTableView.snp_top)
-			make.centerX.equalTo(deniedApplicantsContainer.snp_centerX)
-			make.height.equalTo(1)
-			make.width.equalTo(deniedApplicantsContainer.snp_width)
-		}
-		if self.fakeView != nil{
-			self.fakeView.snp_remakeConstraints { (make) -> Void in
-				make.top.equalTo(self.deniedApplicantsContainer.snp_bottom)
-				make.bottom.equalTo(self.contentView.snp_bottom)
-			}}
 	}
 	
 	/**
@@ -930,38 +875,18 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	- parameter task: the task
 	*/
-	func setImages(task:FindNelpTask){
+	func setImages(task: FindNelpTask) {
 		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2
 		self.categoryIcon.clipsToBounds = true
 		self.categoryIcon.image = UIImage(named: task.category!)
 	}
 	
-	
 	/**
-	Redraws the tableviess
-	*/
-	func drawTableViewsSize(){
-		self.activeApplicantsContainer.snp_updateConstraints { (make) -> Void in
-			make.height.equalTo((self.arrayOfApplicants.count * 100)+70)
-		}
-		self.deniedApplicantsContainer.snp_updateConstraints { (make) -> Void in
-			make.height.equalTo((self.arrayOfDeniedApplicants.count * 100)+70)
-		}
-		
-		let numbersToMultiplyBy = self.arrayOfApplicants.count + self.arrayOfDeniedApplicants.count
-		let numbersToAdd:CGFloat = CGFloat(numbersToMultiplyBy * 100)
-		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + numbersToAdd)
-		self.contentView.snp_updateConstraints { (make) -> Void in
-			make.height.equalTo(self.scrollView.contentSize.height)
-		}
-	}
-	
-	/**
-	Update the frame sizes
+	Update the frames to new tableViews
 	*/
 	func updateFrames() {
 		
-		//TODO: MAKE ANIMATION AND SET SCROLLVIEW.CONTENT SIZE UPPON COMPLETION
+		//TODO: MAKE ANIMATION AND SET SCROLLVIEW.CONTENT SIZE UPON COMPLETION
 		
 		//UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 			self.activeApplicantsContainer.layoutIfNeeded()
@@ -969,16 +894,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			//}, completion: nil)
 		
 		self.scrollView.contentSize = self.contentView.frame.size
-	}
-	
-	//MARK: CLLocation Delegate Methods
-	
-	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		
-	}
-	
-	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-		
 	}
 	
 	//MARK: Tableview Delegate and Datasource
@@ -1124,21 +1039,13 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		
-		if self.arrayOfDeniedApplicants.isEmpty{
-			self.deniedApplicantsContainer.removeFromSuperview()
-			self.fakeView.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.activeApplicantsContainer.snp_bottom)
-				make.bottom.equalTo(self.contentView.snp_bottom)
-			})
-		}
-		let contentsize = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height)
-		self.scrollView.contentSize = contentsize.size
+		self.scrollView.contentSize = self.contentView.frame.size
 		
 	}
 	
 	//MARK: UIGesture Recognizer
 	
-	func dismissKeyboard(){
+	func dismissKeyboard() {
 		view.endEditing(true)
 	}
 	
@@ -1160,6 +1067,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 						self.arrayOfApplicants.append(applicantToChange)
 					}
 				}
+				
 			}
 		}
 		
@@ -1175,7 +1083,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		})
 		
 		self.makeActiveApplicantsContainer(true)
-		self.refreshTableView()
 		if self.arrayOfDeniedApplicants.isEmpty{
 			self.fakeView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.activeApplicantsContainer.snp_bottom)
@@ -1189,15 +1096,10 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	//MARK: Applications Profile View Controller Delegate
 	
-	func didTapDenyButton(applicant:User){
-		var applicationToDeny: TaskApplication?
-		self.makeDeniedApplicantsContainer()
-		self.deniedApplicantsContainer.layoutIfNeeded()
-		for application in self.arrayOfApplications{
-			print(application.user.objectId)
-			print(applicant.objectId)
-			if application.user.objectId == applicant.objectId{
-				applicationToDeny = application
+	func didTapDenyButton(applicant: User) {
+		
+		for application in self.arrayOfApplications {
+			if application.user.objectId == applicant.objectId {
 				for (var i = 0 ; i < self.arrayOfApplicants.count ; i++) {
 					let applicantToChange = self.arrayOfApplicants[i]
 					if applicantToChange.objectId == applicant.objectId{
@@ -1205,10 +1107,12 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 						self.arrayOfDeniedApplicants.append(applicantToChange)
 					}
 				}
+				
 			}
 		}
+		self.makeActiveApplicantsContainer(true)
+		self.makeDeniedApplicantsContainer(true)
 		self.updateFrames()
-		self.refreshTableView()
 	}
 	
 	func dismissVC(){
