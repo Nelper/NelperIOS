@@ -133,7 +133,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			make.top.equalTo(backgroundView.snp_top)
 			make.left.equalTo(backgroundView.snp_left)
 			make.right.equalTo(backgroundView.snp_right)
-			make.bottom.greaterThanOrEqualTo(backgroundView)
+			make.bottom.equalTo(backgroundView.snp_bottom)
 		}
 		
 		self.defaultMapHeight = 250
@@ -158,7 +158,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			make.top.equalTo(mapContainer.snp_bottom).offset(2)
 			make.right.equalTo(contentView.snp_right)
 			make.left.equalTo(contentView.snp_left)
-			make.height.equalTo(backgroundView.snp_height).offset(-defaultMapHeight)
+			make.bottom.equalTo(contentView.snp_bottom).offset(-49)
 		}
 	}
 	

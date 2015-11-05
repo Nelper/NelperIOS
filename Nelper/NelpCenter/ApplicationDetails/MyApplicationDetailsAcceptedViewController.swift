@@ -94,6 +94,11 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 			make.right.equalTo(self.containerView.snp_right)
 		}
 		
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.backButton = previousBtn
+		self.navBar.setTitle("Application Details")
+		
 		//Status Header
 		let statusContainer = UIView()
 		self.statusContainer = statusContainer
@@ -228,10 +233,6 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 		
 		
 		scrollView.backgroundColor = whiteBackground
-		let previousBtn = UIButton()
-		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.closeButton = previousBtn
-		self.navBar.setTitle("Application Details")
 		
 		let contentView = UIView()
 		self.contentView = contentView

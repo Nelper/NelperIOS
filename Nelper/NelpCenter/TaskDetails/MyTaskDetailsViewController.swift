@@ -234,6 +234,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 		let descriptionTextView = UITextView()
+		descriptionTextView.scrollEnabled = false
 		self.descriptionTextView = descriptionTextView
 		firstContainer.addSubview(descriptionTextView)
 		descriptionTextView.delegate = self
@@ -242,8 +243,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		descriptionTextView.textColor = textFieldTextColor
 		descriptionTextView.textAlignment = NSTextAlignment.Center
 		descriptionTextView.backgroundColor = UIColor.clearColor()
-		descriptionTextView.scrollEnabled = true
-		descriptionTextView.alwaysBounceVertical = true
 		descriptionTextView.autoresizesSubviews = false
 		descriptionTextView.alpha = 0
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
@@ -918,19 +917,20 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			self.descriptionIsEditing = true
 			
 			self.firstContainer.snp_updateConstraints { (make) -> Void in
-				make.height.equalTo(self.containerHeight + 1000)
+				make.height.equalTo(self.containerHeight + 60)
 			}
 			
-			self.firstContainer.layoutIfNeeded()
-			self.descriptionTextView.layoutIfNeeded()
+			UIView.animateWithDuration(0.3, animations: { () -> Void in
+				self.firstContainer.layoutIfNeeded()
+				self.pagingContainer.layoutIfNeeded()
+			})
 			
 			UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
 				self.descriptionTextView.contentInset.top = 0
 				}, completion: nil)
 			
 			
-			self.scrollView.contentSize = CGSizeMake(0, 0)
-			self.scrollView.layoutIfNeeded()
+			self.view.layoutIfNeeded()
 			
 		} else if textView == self.titleTextField {
 			
@@ -1103,8 +1103,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		
-		self.scrollView.contentSize = self.contentView.frame.size
+		if self.descriptionIsEditing{
+			self.scrollView.contentSize.height = UIScreen.mainScreen().bounds.height + 100
+		}else{
+			self.scrollView.contentSize = self.contentView.frame.size
+		}
 		
 	}
 	

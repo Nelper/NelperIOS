@@ -42,7 +42,6 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 		self.tabBar.translucent = false
 		let browseVC = UINavigationController(rootViewController: BrowseViewController())
 		browseVC.navigationBarHidden = true
-//		let browseVC = BrowseViewController()
 		let browseVCItem = UITabBarItem(title: "Browse tasks", image: UIImage(named: "browse_default"), selectedImage: UIImage(named: "browse_default"))
 		browseVC.tabBarItem = browseVCItem
 		

@@ -57,6 +57,9 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.backButton = previousBtn
 		self.navBar.setTitle("Application Details")
 		self.createView()
 		self.setImages(self.poster)
@@ -201,9 +204,6 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		
 		
 		scrollView.backgroundColor = whiteBackground
-		let previousBtn = UIButton()
-		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.closeButton = previousBtn
 		
 		let contentView = UIView()
 		self.contentView = contentView
