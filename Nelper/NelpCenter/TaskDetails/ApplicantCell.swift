@@ -35,10 +35,11 @@ class ApplicantCell: UITableViewCell {
 		
 		self.clipsToBounds = true
 		
-		let cellView = UIView(frame: self.bounds)
+		let cellView = UIView(frame: CGRectMake(self.bounds.minX, self.bounds.minY, UIScreen.mainScreen().bounds.width, 100))
+		
 		self.cellView = cellView
 		cellView.backgroundColor = whitePrimary
-		cellView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
+		//cellView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
 		
 		
 		//Profile Picture

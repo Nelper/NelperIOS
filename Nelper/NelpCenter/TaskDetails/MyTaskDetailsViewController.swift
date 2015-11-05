@@ -12,7 +12,7 @@ import Alamofire
 import iCarousel
 import FXBlurView
 
-class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate {
+class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate, UITextViewDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var container: UIView!
@@ -41,7 +41,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var saveChangesButton: UIButton!
 	var picturesCollectionView: UICollectionView!
 	
-	var taskInfoContainer: UIView!
 	var firstContainer: UIView!
 	var secondContainer: UIView!
 	var thirdContainer: UIView!
@@ -63,11 +62,14 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var mapContainer: UIView!
 	var mapView: MKMapView!
 	
+	var containerHeight: CGFloat!
 	var noPendingContainer: UIView!
 	var pagingContainer: UIView!
 	
 	var taskTitle: String!
 	var taskDescription: String!
+	
+	var descriptionIsEditing = false
 	
 	var picturesChanged = false
 	
@@ -109,19 +111,44 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.adjustUI()
 		
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
-		self.taskInfoContainer.addGestureRecognizer(tap)
+		self.firstContainer.addGestureRecognizer(tap)
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+	
 	}
 	
 	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		//force description textView to center its content (animated)
+		let textView = self.descriptionTextView
+		var topCorrect = (textView.bounds.size.height - textView.contentSize.height * textView.zoomScale) / 2
+		topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect
+		UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+			self.descriptionTextView.contentInset.top = topCorrect
+			self.descriptionTextView.alpha = 1
+			}, completion: nil)
+		
+		//title textView animation in
+		UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+			self.titleTextField.contentInset.top = 0
+			self.titleTextField.alpha = 1
+			}, completion: nil)
 		
 		setMapUI()
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
 	}
 	
 	//MARK: View Creation
 	
 	func createView() {
 		
-		let containerHeight = 270
+		self.containerHeight = 270
 		let pagingContainerHeight = 50
 		
 		//NavBar
@@ -150,24 +177,14 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.width.equalTo(self.container.snp_width)
 		}
 		
-		let taskInfoContainer = UIView()
-		self.taskInfoContainer = taskInfoContainer
-		self.contentView.addSubview(taskInfoContainer)
-		taskInfoContainer.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(contentView.snp_left)
-			make.top.equalTo(contentView.snp_top).offset(20)
-			make.height.equalTo(containerHeight).offset(pagingContainerHeight)
-			make.width.equalTo(contentView.snp_width).multipliedBy(3)
-		}
-		
 		//FIRST CONTAINER
 		let firstContainer = UIView()
 		self.firstContainer = firstContainer
-		self.taskInfoContainer.addSubview(firstContainer)
+		self.contentView.addSubview(firstContainer)
 		self.firstContainer.backgroundColor = whitePrimary
 		self.firstContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskInfoContainer.snp_top)
-			make.left.equalTo(taskInfoContainer.snp_left)
+			make.top.equalTo(contentView.snp_top).offset(20)
+			make.left.equalTo(contentView.snp_left)
 			make.width.equalTo(contentView.snp_width)
 			make.height.equalTo(containerHeight)
 		}
@@ -180,18 +197,17 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		titleTextField.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		titleTextField.textColor = blackPrimary
 		titleTextField.textAlignment = NSTextAlignment.Center
-		//titleTextField.layer.borderWidth = 1
-		//titleTextField.layer.borderColor = grayDetails.CGColor
+		titleTextField.delegate = self
 		titleTextField.backgroundColor = UIColor.clearColor()
-		//titleTextField.scrollEnabled = true
-		//titleTextField.alwaysBounceVertical = true
-		//titleTextField.autoresizesSubviews = true
+		titleTextField.alpha = 0
 		titleTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(firstContainer.snp_top).offset(17)
 			make.left.equalTo(firstContainer.snp_left).offset(12)
 			make.right.equalTo(firstContainer.snp_right).offset(-12)
 			make.height.equalTo(60)
 		}
+		titleTextField.contentInset.top = 40
+		titleTextField.layoutIfNeeded()
 		
 		let titleUnderline = UIView()
 		firstContainer.addSubview(titleUnderline)
@@ -220,16 +236,16 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let descriptionTextView = UITextView()
 		self.descriptionTextView = descriptionTextView
 		firstContainer.addSubview(descriptionTextView)
+		descriptionTextView.delegate = self
 		descriptionTextView.text = self.taskDescription
 		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText15)
 		descriptionTextView.textColor = textFieldTextColor
 		descriptionTextView.textAlignment = NSTextAlignment.Center
-		//descriptionTextView.layer.borderWidth = 1
-		//descriptionTextView.layer.borderColor = grayDetails.CGColor
 		descriptionTextView.backgroundColor = UIColor.clearColor()
 		descriptionTextView.scrollEnabled = true
 		descriptionTextView.alwaysBounceVertical = true
 		descriptionTextView.autoresizesSubviews = false
+		descriptionTextView.alpha = 0
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleUnderline.snp_bottom).offset(30)
 			make.width.equalTo(titleTextField.snp_width)
@@ -238,7 +254,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 		/* needed?
-		
 		let fixedWidth = descriptionTextView.frame.size.width
 		descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
 		let newSize = descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
@@ -249,7 +264,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		//SECOND CONTAINER
 		let secondContainer = UIView()
 		self.secondContainer = secondContainer
-		self.taskInfoContainer.addSubview(secondContainer)
+		self.contentView.addSubview(secondContainer)
 		secondContainer.backgroundColor = whitePrimary
 		secondContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(20)
@@ -396,7 +411,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		//THIRD CONTAINER
 		let thirdContainer = UIView()
 		self.thirdContainer = thirdContainer
-		self.taskInfoContainer.addSubview(thirdContainer)
+		self.contentView.addSubview(thirdContainer)
 		thirdContainer.backgroundColor = whitePrimary
 		thirdContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(20)
@@ -474,7 +489,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		//PAGING CONTAINER
 		let pagingContainer = UIView()
 		self.pagingContainer = pagingContainer
-		self.taskInfoContainer.addSubview(pagingContainer)
+		self.contentView.addSubview(pagingContainer)
 		pagingContainer.backgroundColor = whitePrimary
 		pagingContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(firstContainer.snp_bottom)
@@ -652,7 +667,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	func adjustUI() {
 		self.container.backgroundColor = whiteBackground
-		
 		self.scrollView.backgroundColor = whiteBackground
 	}
 	
@@ -662,7 +676,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		blurContainer.tintColor = UIColor.clearColor()
 		blurContainer.updateInterval = 100
 		blurContainer.iterations = 2
-		blurContainer.blurRadius = 4
+		blurContainer.blurRadius = 5
 		blurContainer.dynamic = false
 		blurContainer.underlyingView = nil
 		self.mapView.addSubview(blurContainer)
@@ -739,11 +753,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			noPendingLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 			noPendingLabel.snp_makeConstraints { (make) -> Void in
 				make.centerX.equalTo(activeApplicantsContainer.contentView.snp_centerX)
-				make.top.equalTo(activeApplicantsContainer.contentView.snp_top).offset(15)
+				make.top.equalTo(activeApplicantsContainer.contentView.snp_top).offset(20)
 			}
 			
 			self.activeApplicantsContainer.snp_makeConstraints { (make) -> Void in
-				make.bottom.equalTo(noPendingLabel.snp_bottom).offset(15)
+				make.bottom.equalTo(noPendingLabel.snp_bottom).offset(20)
 			}
 			
 			self.activeApplicantsContainer.layoutIfNeeded()
@@ -820,27 +834,25 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 		//TODO: FIX breaking constraints: Removing ApplicantCell Autoresize "fixes" it. Idea?
-		if self.deniedApplications.isEmpty {
-			
-			self.deniedApplicantsContainer.setNeedsLayout()
-			self.deniedApplicantsContainer.layoutIfNeeded()
-			self.deniedApplicantsContainer.hidden = true
-			self.contentView.snp_remakeConstraints { (make) -> Void in
-				make.top.equalTo(self.scrollView.snp_top)
-				make.left.equalTo(self.scrollView.snp_left)
-				make.right.equalTo(self.scrollView.snp_right)
-				make.width.equalTo(self.container.snp_width)
-				make.bottom.equalTo(self.activeApplicantsContainer.snp_bottom).offset(20)
-			}
-		} else {
-			self.deniedApplicantsContainer.setNeedsLayout()
-			self.deniedApplicantsContainer.layoutIfNeeded()
-			self.contentView.snp_remakeConstraints { (make) -> Void in
-				make.top.equalTo(self.scrollView.snp_top)
-				make.left.equalTo(self.scrollView.snp_left)
-				make.right.equalTo(self.scrollView.snp_right)
-				make.width.equalTo(self.container.snp_width)
-				make.bottom.equalTo(self.deniedApplicantsContainer.snp_bottom).offset(20)
+		
+		if !isUpdate {
+			if self.deniedApplications.isEmpty {
+				self.deniedApplicantsContainer.hidden = true
+				self.contentView.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(self.scrollView.snp_top)
+					make.left.equalTo(self.scrollView.snp_left)
+					make.right.equalTo(self.scrollView.snp_right)
+					make.width.equalTo(self.container.snp_width)
+					make.bottom.equalTo(self.activeApplicantsContainer.snp_bottom).offset(20)
+				}
+			} else {
+				self.contentView.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(self.scrollView.snp_top)
+					make.left.equalTo(self.scrollView.snp_left)
+					make.right.equalTo(self.scrollView.snp_right)
+					make.width.equalTo(self.container.snp_width)
+					make.bottom.equalTo(self.deniedApplicantsContainer.snp_bottom).offset(20)
+				}
 			}
 		}
 	}
@@ -861,14 +873,98 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	*/
 	func updateFrames() {
 		
-		//TODO: MAKE ANIMATION AND SET SCROLLVIEW.CONTENT SIZE UPON COMPLETION
+		//TODO: Animate?
 		
-		//UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
-			self.activeApplicantsContainer.layoutIfNeeded()
-			self.deniedApplicantsContainer.layoutIfNeeded()
-			//}, completion: nil)
+		self.activeApplicantsContainer.layoutIfNeeded()
+		self.deniedApplicantsContainer.layoutIfNeeded()
+		
+		if self.deniedApplications.isEmpty {
+			self.deniedApplicantsContainer.hidden = true
+			self.contentView.snp_remakeConstraints { (make) -> Void in
+				make.top.equalTo(self.scrollView.snp_top)
+				make.left.equalTo(self.scrollView.snp_left)
+				make.right.equalTo(self.scrollView.snp_right)
+				make.width.equalTo(self.container.snp_width)
+				make.bottom.equalTo(self.activeApplicantsContainer.snp_bottom).offset(20)
+			}
+		} else {
+			self.contentView.snp_remakeConstraints { (make) -> Void in
+				make.top.equalTo(self.scrollView.snp_top)
+				make.left.equalTo(self.scrollView.snp_left)
+				make.right.equalTo(self.scrollView.snp_right)
+				make.width.equalTo(self.container.snp_width)
+				make.bottom.equalTo(self.deniedApplicantsContainer.snp_bottom).offset(20)
+			}
+		}
 		
 		self.scrollView.contentSize = self.contentView.frame.size
+	}
+	
+	//MARK: TextView & TextField delegate
+	
+	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+		if textView == self.descriptionTextView {
+			return textView.text.characters.count + (text.characters.count - range.length) <= 600
+		} else if textView == self.titleTextField {
+			return textView.text.characters.count + (text.characters.count - range.length) <= 80
+		}
+		
+		return true
+	}
+	
+	func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+		
+		if textView == self.descriptionTextView {
+			self.descriptionIsEditing = true
+			
+			self.firstContainer.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(self.containerHeight + 1000)
+			}
+			
+			self.firstContainer.layoutIfNeeded()
+			self.descriptionTextView.layoutIfNeeded()
+			
+			UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				self.descriptionTextView.contentInset.top = 0
+				}, completion: nil)
+			
+			
+			self.scrollView.contentSize = CGSizeMake(0, 0)
+			self.scrollView.layoutIfNeeded()
+			
+		} else if textView == self.titleTextField {
+			
+		}
+		
+		return true
+	}
+	
+	func textViewShouldEndEditing(textView: UITextView) -> Bool {
+		
+		if textView == self.descriptionTextView {
+			self.descriptionIsEditing = false
+			
+			self.firstContainer.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(self.containerHeight)
+			}
+			self.firstContainer.layoutIfNeeded()
+			self.descriptionTextView.layoutIfNeeded()
+			
+			var topCorrect = (textView.bounds.size.height - textView.contentSize.height * textView.zoomScale) / 2
+			topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect
+			
+			UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				self.descriptionTextView.contentInset.top = topCorrect
+				}, completion: nil)
+			
+			self.contentView.layoutIfNeeded()
+			self.scrollView.contentSize = self.contentView.frame.size
+			
+		} else if textView == self.titleTextField {
+			
+		}
+		
+		return true
 	}
 	
 	//MARK: Tableview Delegate and Datasource
@@ -887,6 +983,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		if tableView == applicantsTableView {
 			
 			let pendingApplicantCell = tableView.dequeueReusableCellWithIdentifier(ApplicantCell.reuseIdentifier, forIndexPath: indexPath) as! ApplicantCell
+			
 			let application = self.pendingApplications[indexPath.row]
 			pendingApplicantCell.setApplication(application)
 			return pendingApplicantCell
@@ -1031,6 +1128,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.makeActiveApplicantsContainer(true)
 		self.makeDeniedApplicantsContainer(true)
 		self.updateFrames()
+		_ = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: "scrollToBottom", userInfo: nil, repeats: false)
 	}
 	
 	
@@ -1044,13 +1142,19 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.makeActiveApplicantsContainer(true)
 		self.makeDeniedApplicantsContainer(true)
 		self.updateFrames()
+		_ = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: "scrollToBottom", userInfo: nil, repeats: false)
 	}
 	
-	func dismissVC(){
+	func dismissVC() {
 		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
 	//MARK: Utilities
+	
+	func scrollToBottom() {
+		
+		self.scrollView.scrollRectToVisible(CGRectMake(self.scrollView.contentSize.width - 1, self.scrollView.contentSize.height - 1, 1, 1), animated: true)
+	}
 	
 	/**
 	Fetches the task images in order to edit them
@@ -1078,6 +1182,10 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	- parameter sender: condition left or right swipe for swipedSecondView
 	*/
 	func swipedFirstView(sender: UISwipeGestureRecognizer) {
+		if self.descriptionIsEditing == true {
+			return
+		}
+		
 		self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
 			make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.width))
 		})

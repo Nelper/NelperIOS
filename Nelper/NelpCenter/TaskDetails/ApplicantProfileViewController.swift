@@ -749,7 +749,9 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.application.state = .Denied
 		ApiHelper.denyApplication(self.application) {
 			self.delegate!.didTapDenyButton(self.application)
-			self.navigationController?.popViewControllerAnimated(true)
+			dispatch_async(dispatch_get_main_queue()) {
+				self.navigationController?.popViewControllerAnimated(true)
+			}
 		}
 	}
 	

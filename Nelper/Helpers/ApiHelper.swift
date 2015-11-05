@@ -71,7 +71,7 @@ class ApiHelper {
 					"lastName": lastName,
 				]
 			) { (data, err) -> Void in
-				block(err)
+				block(nil)
 			}
 		}
 	}
@@ -114,7 +114,7 @@ class ApiHelper {
 							"pictureURL": profilePictureURL,
 						]
 						) { (data, err) -> Void in
-							block(err)
+							block(nil)
 					}
 				})
 			} else {
@@ -473,7 +473,6 @@ class ApiHelper {
 	}
 	
 	static func cancelApplyForTaskWithApplication(application: TaskApplication) {
-		print(application.objectId, terminator: "")
 		let parseApplication = PFObject(withoutDataWithClassName:kParseTaskApplication, objectId:application.objectId)
 		parseApplication["state"] = TaskApplication.State.Canceled.rawValue
 		parseApplication.saveEventually()
@@ -490,7 +489,6 @@ class ApiHelper {
 				"state": "ACCEPTED",
 			],
 			block: {(data) -> Void in
-				print(data)
 				block()
 			}
 		)
