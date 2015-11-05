@@ -18,7 +18,7 @@ pod 'FXBlurView'
 pod 'ParkedTextField'
 pod 'SVProgressHUD'
 pod 'MGSwipeTableCell'
-pod 'Atlas', :head
+pod 'Atlas'
 
 end
 

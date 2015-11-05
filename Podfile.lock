@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (3.1.1)
-  - Atlas (HEAD based on 1.0.14):
+  - Atlas (1.0.14):
     - LayerKit (>= 0.17.0)
   - FXBlurView (1.6.4)
   - GoogleMaps (1.10.5)
@@ -18,7 +18,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
-  - Atlas (HEAD)
+  - Atlas
   - FXBlurView
   - GoogleMaps
   - iCarousel
