@@ -82,13 +82,17 @@ NSString *const ATLAddContactsButtonAccessibilityLabel = @"Add Contacts Button";
 {
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_addressBarTextView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_addressBarTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:ATLAddressBarTextViewPadding]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:_addressBarTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-ATLAddressBarTextViewPadding]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_addressBarTextView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_addContactsButton attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
+    NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:_addressBarTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-ATLAddressBarTextViewPadding];
+    bottomConstraint.priority = 800;
+    [self addConstraint:bottomConstraint];
 }
 
 - (void)configureAddContactsButtonConstraints
 {
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:_addContactsButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0 constant:ATLAddContactButtonRightPadding]];
+    NSLayoutConstraint *rightButtonConstraint = [NSLayoutConstraint constraintWithItem:_addContactsButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0 constant:ATLAddContactButtonRightPadding];
+    rightButtonConstraint.priority = 800;
+    [self addConstraint:rightButtonConstraint];
     self.addContactsButtonTopConstraint = [NSLayoutConstraint constraintWithItem:_addContactsButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
     self.addContactsButtonTopConstraint.priority = UILayoutPriorityRequired;
     [self addConstraint:self.addContactsButtonTopConstraint];

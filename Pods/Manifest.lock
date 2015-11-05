@@ -1,46 +1,48 @@
 PODS:
-  - Alamofire (3.0.0)
+  - Alamofire (3.1.1)
+  - Atlas (HEAD based on 1.0.14):
+    - LayerKit (>= 0.17.0)
   - FXBlurView (1.6.4)
-  - GoogleMaps (1.10.3)
+  - GoogleMaps (1.10.5)
   - iCarousel (1.8.2)
-  - LayerKit (0.16.0)
-  - SnapKit (0.15.0)
-  - Stripe (5.1.4):
-    - Stripe/Core (= 5.1.4)
-  - Stripe/Core (5.1.4)
-  - SupportKit (2.10.3)
-  - SwiftyJSON (2.2.1)
+  - LayerKit (0.17.0)
+  - MGSwipeTableCell (1.5.1)
+  - ParkedTextField (0.2.0)
+  - SnapKit (0.16.0)
+  - Stripe (6.0.1):
+    - Stripe/Core (= 6.0.1)
+  - Stripe/Core (6.0.1)
+  - SupportKit (2.11.1)
+  - SVProgressHUD (1.1.3)
+  - SwiftyJSON (2.3.1)
 
 DEPENDENCIES:
   - Alamofire
+  - Atlas (HEAD)
   - FXBlurView
-  - GoogleMaps (~> 1.10.2)
+  - GoogleMaps
   - iCarousel
-  - LayerKit
+  - MGSwipeTableCell
+  - ParkedTextField
   - SnapKit
   - Stripe
   - SupportKit
-  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`, branch `xcode7`)
-
-EXTERNAL SOURCES:
-  SwiftyJSON:
-    :branch: xcode7
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
-
-CHECKOUT OPTIONS:
-  SwiftyJSON:
-    :commit: 6eb4cda062fa09c4658e4184f92d822058f226e3
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+  - SVProgressHUD
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: b61782387f81bcc538a0284cf2bb5d7995cd0a80
+  Alamofire: 9b0a7188b961a03914a99304488bd226b0e46c0e
+  Atlas: cd700f467c9bffd1bcb61d77a1feff56def88405
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
-  GoogleMaps: 945e4ac3b74bcca3ddada51df256eb7beddb474d
+  GoogleMaps: da51c62c338c2d9c47cdad470a0d1e0e4b8544e4
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
-  LayerKit: 8976a2a4d5f73b808e6328a5c66732605a3c247a
-  SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
-  Stripe: 6864be95b09092f05526bc2e0a50804bc556aa0d
-  SupportKit: e170762069400f4742d8f1a9ba2d5c21f7c61b23
-  SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
+  LayerKit: 81d635966427859230deb8ede88dbc710dcac8fd
+  MGSwipeTableCell: a51fa670c01f0aa048f12af040acebf315223137
+  ParkedTextField: 4aea6fef17e7e2450be18653cfb1d4ef951cb1b3
+  SnapKit: ddac6b339d571f9d80dbb733585b172ee9eed3cb
+  Stripe: 04f215191702c268b89fe0cdf28dc24a9688a71b
+  SupportKit: 3372cf5d6090de7bd035bee21589b0efb9016fd6
+  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+  SwiftyJSON: 592b53bee5ef3dd9b3bebc6b9cb7ee35426ae8c3
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.39.0

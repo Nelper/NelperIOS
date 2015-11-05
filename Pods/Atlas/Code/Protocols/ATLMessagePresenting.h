@@ -20,7 +20,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ATLParticipant.h"
-#import <LayerKit/LayerKit.h>
+@import LayerKit;
 
 /**
  @abstract The `ATLMessagePresenting` protocol must be adopted by objects wishing to present

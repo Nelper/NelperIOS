@@ -11,6 +11,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import FXBlurView
+import GoogleMaps
 
 protocol AddAddressViewControllerDelegate {
 	func didClosePopup(vc:AddAddressViewController)

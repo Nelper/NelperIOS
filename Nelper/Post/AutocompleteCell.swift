@@ -11,6 +11,7 @@ import Foundation
 import UIKit
 import SnapKit
 import Alamofire
+import GoogleMaps
 
 class AutocompleteCell: UITableViewCell {
 	var prediction: GMSAutocompletePrediction!

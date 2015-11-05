@@ -23,6 +23,7 @@
 #import "ATLParticipantSectionHeaderView.h"
 #import "ATLConstants.h"
 #import "ATLAvatarImageView.h"
+#import "ATLMessagingUtilities.h"
 
 static NSString *const ATLParticipantTableSectionHeaderIdentifier = @"ATLParticipantTableSectionHeaderIdentifier";
 static NSString *const ATLParticipantCellIdentifier = @"ATLParticipantCellIdentifier";
@@ -45,6 +46,7 @@ static NSString *const ATLParticipantCellIdentifier = @"ATLParticipantCellIdenti
 @implementation ATLParticipantTableViewController
 
 NSString *const ATLParticipantTableViewAccessibilityIdentifier = @"Participant Table View Controller";
+NSString *const ATLParticipantTableViewControllerTitle = @"Participants";
 
 + (instancetype)participantTableViewControllerWithParticipants:(NSSet *)participants sortType:(ATLParticipantPickerSortType)sortType
 {
@@ -113,7 +115,7 @@ NSString *const ATLParticipantTableViewAccessibilityIdentifier = @"Participant T
     self.searchController.searchResultsDelegate = self;
     self.searchController.searchResultsDataSource = self;
 
-    self.title = @"Participants";
+    self.title = ATLLocalizedString(@"alt.participant.tableview.title.key", ATLParticipantTableViewControllerTitle, nil);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -243,7 +245,8 @@ NSString *const ATLParticipantTableViewAccessibilityIdentifier = @"Participant T
     id<ATLParticipant> participant = [self participantForTableView:tableView atIndexPath:indexPath];
     [cell presentParticipant:participant withSortType:self.sortType shouldShowAvatarItem:YES];
     if ([self.blockedParticipantIdentifiers containsObject:[participant participantIdentifier]]) {
-        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"AtlasResource.bundle/block"]];
+        NSBundle *resourcesBundle = ATLResourcesBundle();
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"block"  inBundle:resourcesBundle compatibleWithTraitCollection:nil]];
     }
 }
 

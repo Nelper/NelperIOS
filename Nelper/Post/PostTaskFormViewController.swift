@@ -11,6 +11,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import FXBlurView
+import GoogleMaps
 
 protocol PostTaskFormViewControllerDelegate {
 	func nelpTaskAdded(task: FindNelpTask) -> Void
