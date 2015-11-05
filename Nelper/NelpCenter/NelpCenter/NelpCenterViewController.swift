@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MyApplicationDetailsViewDelegate, SegmentControllerDelegate {
+class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MyApplicationDetailsViewDelegate, SegmentControllerDelegate, MyTaskDetailsViewControllerDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var containerView: UIView!
@@ -171,6 +171,12 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.myApplicationsTableView.reloadData()
 	}
 	
+	//MARK: My Task Details View Controller Delegate
+	
+	func didEditTask(task:FindNelpTask){
+		self.loadData()
+	}
+	
 	
 	//MARK: Tableview Delegate and Datasource
 	
@@ -222,6 +228,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				}
 			} else {
 			let nextVC = MyTaskDetailsViewController(task: task)
+			nextVC.delegate = self
 			nextVC.hidesBottomBarWhenPushed = true
 			dispatch_async(dispatch_get_main_queue()) {
 				self.navigationController?.pushViewController(nextVC, animated: true)

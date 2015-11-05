@@ -427,7 +427,7 @@ class ApiHelper {
 			}else if let taskFetched = taskFetched{
 				
 				taskFetched["title"] = task.title
-				taskFetched["description"] = task.desc
+				taskFetched["desc"] = task.desc
 				let location = PFGeoPoint(latitude: task.location!.latitude, longitude: task.location!.longitude)
 				taskFetched["location"] = location
 				if task.pictures == nil {

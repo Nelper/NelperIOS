@@ -528,10 +528,13 @@ class FilterSortViewController: UIViewController{
 		if self.previousSortBy != nil{
 			if previousSortBy == "createdAt"{
 				self.sortingSegmentControl.selectedSegmentIndex = 2
+				self.sortBy = "createdAt"
 			}else if previousSortBy == "distance"{
 				self.sortingSegmentControl.selectedSegmentIndex = 1
+				self.sortBy = "distance"
 			}else if previousSortBy == "priceOffered"{
 				self.sortingSegmentControl.selectedSegmentIndex = 0
+				self.sortBy = "priceOffered"
 			}
 		}else{
 			self.sortingSegmentControl.selectedSegmentIndex = 2

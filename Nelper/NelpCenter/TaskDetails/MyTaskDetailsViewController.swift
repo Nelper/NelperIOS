@@ -12,6 +12,10 @@ import Alamofire
 import iCarousel
 import FXBlurView
 
+protocol MyTaskDetailsViewControllerDelegate{
+	func didEditTask(task:FindNelpTask)
+}
+
 class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate, UITextViewDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
@@ -23,6 +27,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var pendingApplications: [TaskApplication]!
 	var deniedApplications: [TaskApplication]!
 	
+	var delegate:MyTaskDetailsViewControllerDelegate!
 	var contentView: UIView!
 	var categoryIcon: UIImageView!
 	var applicantsTableView: UITableView!
@@ -1264,8 +1269,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 				}
 				self.task.desc = self.descriptionTextView.text
 				
-				ApiHelper.editTask(self.task)
 				
+				print(self.task.desc)
+				
+				ApiHelper.editTask(self.task)
+				self.delegate.didEditTask(self.task)
 				self.navigationController?.popViewControllerAnimated(true)
 			}))
 			popup.addAction(UIAlertAction(title: "No", style: .Default, handler: { (action) -> Void in
