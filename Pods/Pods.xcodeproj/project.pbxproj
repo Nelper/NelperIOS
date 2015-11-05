@@ -8,206 +8,202 @@
 
 /* Begin PBXBuildFile section */
 		00B66748C88DA7FC50656A66707B3721 /* STPCardBrand.h in Headers */ = {isa = PBXBuildFile; fileRef = 6159A85BEF219F3D9D7C64C4A987FC90 /* STPCardBrand.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		01B8B3B5E3EF2E4B5DEB2472E35E0D7B /* ATLParticipantSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C185C86F43B8DE4F01416CA858DFBF92 /* ATLParticipantSectionHeaderView.m */; };
 		01E7EBCFBDB9E7B035991ACB16651156 /* ATLUIImageHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AE6CBD4BF357F91237661B876A3A513 /* ATLUIImageHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		036FF10C05BE972047CF63F6628BB373 /* ConstraintAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92BBCED0695248445C75D7C02A06704 /* ConstraintAttributes.swift */; };
-		03F494989CC1A8857B68A317D5D6860F /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF0DA4ADADE9A5A28AC11255E8C9D1F /* Response.swift */; };
-		0599D9B51FFE96AF6E54522621D5BC44 /* STPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7BF2EBC1DEA11A522689EC1CD256DF /* STPAPIClient.m */; };
+		04874602F693F5476D381BA32D64ED8E /* ATLLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B32D50F5CA32FC6C513E73B9EBA03B3 /* ATLLocationManager.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		065EEEAAEE109C0C6F5542EAABA0E8A0 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B984392761AE94CDB86DF28E5A10D92C /* Request.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		066F5619931CD8E56B86A7BD894AE0AE /* location_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAC46B190BC26ACB27DB9475307B9D73 /* location_dark@2x.png */; };
-		0681ADC8BAE2C3185F13487BAAB4D9DD /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6086B5D9922C420421D02074720F4B2 /* Upload.swift */; };
 		078862EAB1BB5D309E4AA6501FD3B28D /* stp_card_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = F91985D0D8FD1A6C44D234E41A203425 /* stp_card_placeholder.png */; };
 		0854DAF7C0149BA76B454232B6202601 /* layerLogo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A286FEB010E7A71F9C461D8D300C76B /* layerLogo@3x.png */; };
+		08F2BA185061D14A2BFA81F507121128 /* SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6248017802E7D475175A0A5A5648BBEB /* SVProgressHUD-dummy.m */; };
+		0A31E5430FA1294550BD6ED5558A5CAA /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4632832F228EE374FB764037522C44F8 /* Constraint.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0B3BBC42E287F80B6777BC306B858E27 /* ATLConversationListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C3786CD75DD5D3C0FF2FCEA123B61217 /* ATLConversationListViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0B8740AF00F903C2E274F0F7D97D121F /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A08AED030F1CDF8010C6441CC7D4310B /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0CA9AE5E1153963F9ADBA436460D76F5 /* plus@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5221E0702897B8F05D06F407F9BC474 /* plus@3x.png */; };
 		0CDBF0E383BE9DF132DA838BB6DB48DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6ED3EAB2FCB655F9434810D9B85B50 /* Foundation.framework */; };
 		0D50FD6F2364576F1F0D547F808F8A42 /* STPFormEncodable.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D46CF4AC89933754C0AF428B5C2DF8E /* STPFormEncodable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0DAD6CAB98CAA5E6EB59555C123ED508 /* stp_card_mastercard.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E901AEB5008DFF06FE9A7DDDBFE2C2A /* stp_card_mastercard.png */; };
 		0F00091D3A036389C789E155556654FE /* layerLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B278025630575AD2CDBE1D87740B29FA /* layerLogo@2x.png */; };
-		0F3162BB2F5E51B8266124A5DD4E0D68 /* ATLMessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F8A1899851210F300BF4B1A8C4862D0F /* ATLMessageCollectionViewCell.m */; };
 		0FF96930E5872536E88DE68FB1D7F3DE /* chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 498D5A73B709791FB4DB397CA6EAC9E1 /* chevron@2x.png */; };
-		10C86995D04A48756AE4797CFFEDD69A /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7DE602C83E000D295EA1343C718240 /* iCarousel.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		12281EB2AA77D969EE293122EFC7FCEC /* STPCheckoutOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = BD445099AA61B70A72A893BB0E03B086 /* STPCheckoutOptions.m */; };
-		157EFF3C682075717D58ECC0849873E9 /* STPToken.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7DD2E8E0583221CB0F85BEF609B641 /* STPToken.m */; };
-		16404CB8E37C7682661DC2C16F265C4B /* STPCardValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 77922FA1F717CEB4918E048720D67AF3 /* STPCardValidator.m */; };
+		11D51C98F640F4DD03F059DBFBE9E59D /* ATLConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D16234024D7704BCE8B59E99DC532D2 /* ATLConversationViewController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		14D8F6087DE7B743EF071E9862798E31 /* SnapKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 391EAF62AAC2F9FAFC31898660344070 /* SnapKit-dummy.m */; };
+		1862CE3A990D9FC3934CA3C84B33FADD /* Stripe+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4D3804EBE8335DF9D315C6140BF1B2 /* Stripe+ApplePay.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		19371E9270C1C9DCFC47A09774C1C3FF /* PKPayment+Stripe.h in Headers */ = {isa = PBXBuildFile; fileRef = AE35D568DC3FA0E17DCD85CD9A174F1C /* PKPayment+Stripe.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1958A4FB5F0C19938D79EE13D98A7651 /* stp_card_placeholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D68C9386F7508E4CA6A07E501A35963 /* stp_card_placeholder@3x.png */; };
+		19CD84CEB6D468F320546AA090E51D3D /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF0DA4ADADE9A5A28AC11255E8C9D1F /* Response.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		1AB108D592295CF907E9D22F6B7F909F /* ATLConversationCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7A4E93D7725C763A6C1729A9D2C640 /* ATLConversationCollectionView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		1AF3D8FB63A721159C1D99F76725E743 /* ATLMessageComposeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3994D46018063F0016B1DC7582F5DE /* ATLMessageComposeTextView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		1B70692D10FECB6ADABFBE2392B93B38 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F3BA532858E76C082C66A418D642C0 /* Security.framework */; };
+		1B931936401909E6DD0E2C882B75FDCB /* UIResponder+ATLFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = A35B9AB3420E929D7D3DB8BFD2DE6D5E /* UIResponder+ATLFirstResponder.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		1D54E6EC43B2B4250E1FE53B0C0A6662 /* MGSwipeTableCell-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BF8A32C37D46BB7533CB4ACE73D9FDA5 /* MGSwipeTableCell-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1F64C7302155CB11252385F34D5F279D /* ATLConversationView.h in Headers */ = {isa = PBXBuildFile; fileRef = C344813DDD04CB74826D05A58AEB97B5 /* ATLConversationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		20EFB46CBD7999AB85450C85A43BD1AF /* stp_card_diners@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDAE95F21BACB0F8FDF33A96547994A2 /* stp_card_diners@2x.png */; };
-		22759B02531B9DDEDC9CA46C40CB129E /* ATLAddressBarTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D41F0FAF1617275E73AAF7D37D22935C /* ATLAddressBarTextView.m */; };
-		22ED141480ADE83B01D787A070CB8A30 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3905252A5CA5806FA742754181E43267 /* FXBlurView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		24AFE74DD94508944487721669ED5C48 /* ATLPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9352EB4E84C330340E646F5FA868F2B6 /* ATLPlayView.m */; };
+		21413DB546C41CAA827D1A9B120549C1 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7DE602C83E000D295EA1343C718240 /* iCarousel.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		224677FE5D78F8902B3E5A1566054048 /* ATLAddressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EBAD3F6E444DB247B25380B9DEACA9 /* ATLAddressBarView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		23547F4BA60AEED44397B58B541C002C /* ViewController+SnapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D032DD3B74398C8EA5D7E7D37300409 /* ViewController+SnapKit.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		24DDA018200F33E58826A39B08EEC702 /* ATLMessageBubbleView.h in Headers */ = {isa = PBXBuildFile; fileRef = E5A8E09914DAE86CF9B311785C89B704 /* ATLMessageBubbleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		251F9BA1F644E4323A96E3678982299C /* STPCheckoutInternalUIWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B15A2C9EC1C41F39A2C7836A093FE285 /* STPCheckoutInternalUIWebViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		257632182F82DBFEF7816940DF3FBB9A /* STPAPIClient+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = BC78EC04F0F795212B090BF3108C67AF /* STPAPIClient+ApplePay.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		25BAFCC6768E296758552A2D7806AB15 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A62C85EC5550118B567485D08D7321E /* QuartzCore.framework */; };
-		269EDD3999988F923954F6A6BC027017 /* ATLParticipantTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B3309C4086680A3D4A6F1767F8AC05D /* ATLParticipantTableViewController.m */; };
 		280EF3593B2CE3CCF610FA07C2025FC7 /* ATLParticipantTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 74C8B1FC080AD39A4E6879238D4E3461 /* ATLParticipantTableViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2899214E45A26827E6AD7E44CEF3882E /* ATLProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = 28DE70202A9082094229846B189E72C6 /* ATLProgressView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2932541840B47B4E1EA76310E05F5CE0 /* STPAPIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 00A8E1678624FB50A82E33E287E6C4C8 /* STPAPIClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		293E8604DF544375D4ED529EC969A774 /* ATLConversationCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7A4E93D7725C763A6C1729A9D2C640 /* ATLConversationCollectionView.m */; };
-		2A992E0720CB01061478698E9D132D99 /* ATLConversationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA5D3092953315D008392D147D54E7C /* ATLConversationView.m */; };
+		2BB8898B23B85EAB3CE93E9A9FDCFA54 /* STPToken.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7DD2E8E0583221CB0F85BEF609B641 /* STPToken.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2C5450AC69398958CF6F7539EF7D99E5 /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F722297783971E8887937CDDA2CC08B8 /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2CAF5201CF509297A13EF470ABD5B3DB /* stp_card_discover@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181DFAAC217252597295B67B5C9C7A2E /* stp_card_discover@3x.png */; };
-		2D5A5B21567792D54E7B18D7D622B5E6 /* ATLConversationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0225889CE80F63FCC782862FFF1C2402 /* ATLConversationDataSource.m */; };
+		2CB863F8B919B1B8BFCB39D043E98F88 /* ConstraintItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01639C7AB53F8751B298B0493B209246 /* ConstraintItem.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2E8D975029F4668DD71AFD5B1CAE0FB4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A62C85EC5550118B567485D08D7321E /* QuartzCore.framework */; };
 		2F0D891A902047DC3F47405761139087 /* stp_card_mastercard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B476F9782570672C92CD056313330193 /* stp_card_mastercard@2x.png */; };
-		2F98D9CE1CDC2CF28267027BE84F292C /* ATLAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A46E198BA5816241FFDED7F844E2D8A /* ATLAvatarImageView.m */; };
 		2FDB7AAA8C835A1B9AA25AAD53850B52 /* ATLConversationPresenting.h in Headers */ = {isa = PBXBuildFile; fileRef = A2F457AFB3CB8E7F0E872DA424E01F7B /* ATLConversationPresenting.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30D39E853DFF1B44B10CBFF363E7DEDC /* stp_card_placeholder_template.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F04741476F9B18F2926204CE17EDC4C /* stp_card_placeholder_template.png */; };
-		3127DDC52E20FD77349FCA9BCDBA2F51 /* SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6248017802E7D475175A0A5A5648BBEB /* SVProgressHUD-dummy.m */; };
 		313897383882D17FE6179898045E3BB5 /* FABKitProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = A20904C69EFAB3F519D09E854A3EB5D4 /* FABKitProtocol.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		3403D8828BEF7C04BC16FE2EC72D3974 /* STPBankAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 50303081A2A888189B800ADE537EC22D /* STPBankAccount.m */; };
+		3156DDFB0B492F976FABFA13D0AC34E2 /* ATLBaseConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C353795EA7F8B16C9A60FE97C603104 /* ATLBaseConversationViewController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		330CA798FC43DDC6DD2D609365E0D96C /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D928E67B8F445B7ABB1827D22DFDFA8 /* ResponseSerialization.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		3439E45ED7C6306DCBB4180352F4B59C /* stp_card_diners.png in Resources */ = {isa = PBXBuildFile; fileRef = 246FC7328D40335540A90689BA53A4F4 /* stp_card_diners.png */; };
 		3513784F2BD286BA0BCC43E50E86468E /* SVProgressHUD-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E5A7687357F707FD0E8A4AF5DFB292B /* SVProgressHUD-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		35DD5C6BB5932148F38553F066F53CA1 /* NSDictionary+Stripe.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A9FE0FD6ECE25DAF8EFD25454B8E7 /* NSDictionary+Stripe.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		362FAE7C834C5869406908E174286910 /* AtlasResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A1D282ECB2A7F4434446C3C1F80A6694 /* AtlasResource.bundle */; };
-		3873B20CBAA7B6ACE4EAC4B761462A69 /* StripeError.m in Sources */ = {isa = PBXBuildFile; fileRef = D97F86C027909A54610693DEC254F690 /* StripeError.m */; };
-		3C1430B03CF4555CA2583DDF76CF8AD8 /* View+SnapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4286253E237C982182B31743564D67D /* View+SnapKit.swift */; };
-		3D52121262A193C22DB6589002EB7E92 /* ParkedTextField-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CB703DE09B91EEE8A86927C0F5859E /* ParkedTextField-dummy.m */; };
-		3DC9AFE37E69DEBF1A07307CC7E6960B /* STPCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC26A495AD4A303C9994CE7448487446 /* STPCheckoutViewController.m */; };
-		3F4AE8A4ED36C483A91E4E90A62F40F8 /* ParkedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20261DE570E50BB5A5945D5C687342F /* ParkedTextField.swift */; };
+		37C22373456065761FEE57AE4ACF8392 /* ATLParticipantSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C185C86F43B8DE4F01416CA858DFBF92 /* ATLParticipantSectionHeaderView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		3A2365DCD3403FA7D1EBB72E20363D31 /* Atlas-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7A143F7A40015839AFFFE080C39B3A /* Atlas-dummy.m */; };
+		3B486BB31BF907F4E256EBE05A8E8928 /* ConstraintAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92BBCED0695248445C75D7C02A06704 /* ConstraintAttributes.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		3C329B49B9587B74A12A60A285CBEC2B /* ATLParticipantTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B3309C4086680A3D4A6F1767F8AC05D /* ATLParticipantTableViewController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		3FF2A734314EAF0AFB3A8540165867AB /* ATLConversationCollectionViewMoreMessagesHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A83D15754C174CC410720051E4524B /* ATLConversationCollectionViewMoreMessagesHeader.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		4037CC537D5AAEBAB08BB3D4E4C574AE /* STPCheckoutOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = BD445099AA61B70A72A893BB0E03B086 /* STPCheckoutOptions.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		419DDEE449B4B366932851EF6AA077F8 /* FXBlurView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EF04999E5C3394C69D10DCE7C7DFB00 /* FXBlurView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		450F81B0A0B23443443CCC2F22E87248 /* STPIOSCheckoutWebViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8795B86774106FF7C43EFDA6BB6264C4 /* STPIOSCheckoutWebViewAdapter.m */; };
+		431D8D356FCE793AE0265989998C7027 /* ParkedTextField-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CB703DE09B91EEE8A86927C0F5859E /* ParkedTextField-dummy.m */; };
+		437519A278AE2B3E183F1D2FC2B59828 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C249F92ECA565AE1CBD36F81FD3F3 /* ServerTrustPolicy.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		4438384CF52B1838F19C89EB1AC1C215 /* ATLConversationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0225889CE80F63FCC782862FFF1C2402 /* ATLConversationDataSource.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		453B25EB617A6AD3B370AF39F3A065F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6ED3EAB2FCB655F9434810D9B85B50 /* Foundation.framework */; };
 		45917EAFA726BCA42487F78FBF5909E7 /* layerLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B681BE49B50B366B9D4DBFAA5D1DA02 /* layerLogo.png */; };
-		4661825C0C32E519DABA38ADBC1C3489 /* STPCardParams.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E93C3F8C346542714345BD88078EDA /* STPCardParams.m */; };
 		48055F99AC3B4F96D3C5AE270611944B /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CE9938E09D255F9BDFF4A6103A0935F3 /* SVProgressHUD.bundle */; };
+		48DA8D1B20888A371416D803746B1231 /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A77EA25F08960F2D4D032F9C25F857C7 /* Alamofire-dummy.m */; };
 		492027452320272ECB4CA8A4A3653BAA /* ATLMessagingUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B345971FE77CB3611513241B63E4E55 /* ATLMessagingUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49B36912F554DF8D6E5C1509154DB1BC /* ATLDataSourceChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EB4FFD6339DC4E472D2A98571A0F3E /* ATLDataSourceChange.m */; };
-		4A788610AC6F71F9BC89CD3DC3B17491 /* STPBankAccountParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 37968BEA22AAF7206695537CAF09F482 /* STPBankAccountParams.m */; };
+		49E7F9BF57D28307CF14C6F39A436A43 /* ATLMediaInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBFC939368213FF6B1C185020455ED0 /* ATLMediaInputStream.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		4AE45D412B03505AFEBBB2C4A8655B0A /* STPCardValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 77922FA1F717CEB4918E048720D67AF3 /* STPCardValidator.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		4C3848872F362638D492649F3DA072AE /* Atlas-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 52D8554243965069C76ECD53F52022FE /* Atlas-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C4DDF8D9183D2C9BC18E359200F0218 /* STPBankAccount.h in Headers */ = {isa = PBXBuildFile; fileRef = 219E2508EE975613678A65B1EB8F10F4 /* STPBankAccount.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D5720464538AB30E8C9DFD078420625 /* ATLMessageBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7626B3F5BF2C3FC719D82B38ED25C29 /* ATLMessageBubbleView.m */; };
-		4DE5FCC41D100B113B6645EA64410F16 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A30E63B5A7C6F970A1B499BADBCDC1 /* ParameterEncoding.swift */; };
 		4E83883FB3893B753D5737636F78D056 /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 53136277E2ADC9E7821759CE0CEB0439 /* SVProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FAA9D170B503F33E695D81DE1A977EA /* STPAPIClient+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 464FFF9A36767FD15F574FD8DB1F8081 /* STPAPIClient+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		5295E23DB8A4408E5F398C21565F06BB /* Fabric+FABKits.h in Headers */ = {isa = PBXBuildFile; fileRef = 109ACAF8CCFA5F6102D8936067F531ED /* Fabric+FABKits.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		529A574F978D8DBD8C05E64850A07FB0 /* ConstraintMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042AC4B627D7B7054432F48E84D3CA8C /* ConstraintMaker.swift */; };
-		52A91FAADCB60C24ECFBD27E977D2BB0 /* STPFormEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E63C4768A11986BD2646D87EFDBE0FFF /* STPFormEncoder.m */; };
 		53070E4E3D03BBF53AFDCEAC7CE32BC6 /* camera_dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA92959CC166BBBCF628ACCD4B810899 /* camera_dark@3x.png */; };
 		569D057F4C7A6F69AEA4AB0BD6D9900E /* MGSwipeTableCell-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6D5A62704CED9AE5477AAD92E3B03 /* MGSwipeTableCell-dummy.m */; };
 		56B12A715F2F08AC49DEFC792C7B93EF /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 53825D3CA5DE404214297F5C480632D7 /* Images */; };
 		56EE2A3C9341DFAEF99BC1A0A4FA6BC7 /* stp_card_jcb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02777F8D224BE44104841E7EF8CB2CA6 /* stp_card_jcb@2x.png */; };
-		5744B9632641EF3572637B543251E35A /* ATLOutgoingMessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C1B880195FFC2DEE36FD1781D6ECC4A /* ATLOutgoingMessageCollectionViewCell.m */; };
 		58905D840D908EB5BAC4CDC9961CA191 /* block@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 981884A7E7DFFCFC0AEAFCA1F46AE1C8 /* block@3x.png */; };
+		59BDD0605A645E7A557CA76076B50603 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622BE9E9E218EAD5D04676DEBEA58B48 /* Download.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5A9D3D48B182CC30C8EFBC078D89EA05 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6ED3EAB2FCB655F9434810D9B85B50 /* Foundation.framework */; };
 		5ABCE6BE5C7086596B7E7D9B2E05A9EF /* ATLLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 986BD5C68D70A71E71855E7DBACEDA9A /* ATLLocationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5ADDC3596E3B69B83961EFC489232EC4 /* ParkedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20261DE570E50BB5A5945D5C687342F /* ParkedTextField.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5B8A5A22F4C06D65413420B8D6903D19 /* STPCardParams.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E93C3F8C346542714345BD88078EDA /* STPCardParams.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5BE7C46501AA7E133B8D14907B93B43F /* ATLAddressBarTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = FFC64D09046BAF4A25A5A51B8DF03731 /* ATLAddressBarTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5D1D9E31EE241F1DD74BDC4E9A617965 /* ATLBaseConversationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = EBE12A7CDD7CD865454FFC1CE30018EE /* ATLBaseConversationViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E5FCDF2A8A4C52733DAC548B6EA23B3 /* ATLParticipantTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 2368D69416D6E3B0F842E61EDC280C8D /* ATLParticipantTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		613F81F738CF1E4C26D9F590CC05D1A1 /* Stripe+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4D3804EBE8335DF9D315C6140BF1B2 /* Stripe+ApplePay.m */; };
+		5EB7B6E4F42E9B72F35F98F9B3F37AEF /* ConstraintRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B50FC7BE986043E40028DF24FEF958 /* ConstraintRelation.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5ED9F23D550A3F8F39A672093592719B /* ATLMessageBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7626B3F5BF2C3FC719D82B38ED25C29 /* ATLMessageBubbleView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		63DC27806C23AFFC9B7115E5EEAB9CBF /* MGSwipeButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA98A26045B5B2AFF0029D65927354D /* MGSwipeButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		64830E5BB318C94C695E780D47A6C53F /* STPPaymentCardTextFieldViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C485A08E10A748BB42AAF1C3A4E07 /* STPPaymentCardTextFieldViewModel.m */; };
-		648344AB0A7F833F4F1CD4C9EC781C18 /* STPStrictURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2B49D3BE5BC516CF35EDF16363BC1 /* STPStrictURLProtocol.m */; };
+		63F238CB8EAAB0D4304C7505B79973D7 /* ATLConversationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA5D3092953315D008392D147D54E7C /* ATLConversationView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		64CCC61BAAFFB96CF70F5EA587E3DF7D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6ED3EAB2FCB655F9434810D9B85B50 /* Foundation.framework */; };
+		6541CD864AFCB728197DF9D80FA26F08 /* ATLMessageInputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E75F9EC40244633CE76FA731A101D41D /* ATLMessageInputToolbar.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		655F685D81816CF80E8646F0CF34CCFB /* ATLConversationCollectionViewHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 624CF0CF333656050F18AA48452AD42E /* ATLConversationCollectionViewHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6591C842441434198B2E01349B0B05AE /* ATLConversationCollectionViewMoreMessagesHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A83D15754C174CC410720051E4524B /* ATLConversationCollectionViewMoreMessagesHeader.m */; };
 		65D68838DD03B1F5B937085CBC178BCE /* ATLConversationCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 67F3FDDEEE1AE060686F08A8CA2FE4DB /* ATLConversationCollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		67558B72295110F846C2420C9540A52A /* MGSwipeTableCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 78EEE0C11A0AE5EE248384D364B68754 /* MGSwipeTableCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		675FEA5C9BDE3BA6D82B346B58ED2445 /* STPCard.m in Sources */ = {isa = PBXBuildFile; fileRef = CD81FB8D9937847FFFA8DA6EBDE35ECC /* STPCard.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		697F9F67501E5BAA39800EF544CA5230 /* stp_card_visa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92511A3382A1068F6253E2A2F109133B /* stp_card_visa@2x.png */; };
-		69817E485AF5F8F7EEEA499846D54890 /* STPCard.m in Sources */ = {isa = PBXBuildFile; fileRef = CD81FB8D9937847FFFA8DA6EBDE35ECC /* STPCard.m */; };
 		6A48322079E9B46E1E9EB9D54A760E19 /* layerbell.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5EDCDADB9EAE9292DAACF64EB87B4107 /* layerbell.caf */; };
-		6AB70EB641676CC50A186D18A7F9D213 /* ATLParticipantTableDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 828BB71F1D9A26767EAFC937A047364F /* ATLParticipantTableDataSet.m */; };
 		6B21F666FF2045B0F1F02659A3933005 /* STPCardValidationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 222C0344357159AAD367677874279D59 /* STPCardValidationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6BFA6ED8430F1CA4E321908F47DE5D73 /* STPPaymentCardTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 90E78D9FF1F50DF32623CD51369F8E20 /* STPPaymentCardTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6CA555B5871E12A3FB5C37DB765264D6 /* STPPaymentCardTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B30AA94FB48BA1A8AFEBCC35825968B /* STPPaymentCardTextField.m */; };
 		6D2C14FE4CC17A8964AE7A381E005A5E /* STPCardParams.h in Headers */ = {isa = PBXBuildFile; fileRef = 15387AC75AFD8069C8FCBD6E29DCBB11 /* STPCardParams.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6D6B4A8E5FC3734450FFDD0A3DE82FC2 /* ATLLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B32D50F5CA32FC6C513E73B9EBA03B3 /* ATLLocationManager.m */; };
 		6DA30986228EF4C4515E1F501086BD6C /* ATLMessageCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6360621DE60200620A7393869F6CBEDD /* ATLMessageCollectionViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6EADBD68C356A894016D4B3AED647E05 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46699855F978DC7D3AD417FBA0DD713E /* SwiftyJSON.swift */; };
 		6ECDF3A38F25D49506CAD3EF7872026B /* stp_card_cvc_amex.png in Resources */ = {isa = PBXBuildFile; fileRef = EB3816C77D34D07A67CFD1B03B0EFCEB /* stp_card_cvc_amex.png */; };
 		6EDF596EFBA4936C910A76B1872D1515 /* stp_card_discover.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C919CE34CFD2B2CD4A19F49C3C4116 /* stp_card_discover.png */; };
+		70410938E4778D0AA53197A71E99B587 /* Atlas.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC4B3106971558CEBE55FEE6C0A97AD /* Atlas.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		7076BA70573AD47607A4CC11465D5945 /* STPCategoryLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = D51A00DF59B2DEE68BCAC963B5407145 /* STPCategoryLoader.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		7080F4F98E2E8F580106EC693A8682C5 /* ATLMediaAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAFA46FEA72604092D677EC3433225F /* ATLMediaAttachment.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		7113F4D4211F33744A258462D824F599 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6ED3EAB2FCB655F9434810D9B85B50 /* Foundation.framework */; };
-		7191D476124F9C97ADF2DD16FCE7E5AE /* ATLConversationCollectionViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E751C14F1A4008DFE1E002551363CD2 /* ATLConversationCollectionViewFooter.m */; };
-		71BDF057C015CE324B8F10DE0427C185 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A08AED030F1CDF8010C6441CC7D4310B /* SVProgressHUD.m */; };
+		719D6B4FDB798555C2EBBCB12812A1BE /* ATLParticipantTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA940BF87B0CEF196CEB8901769B74D /* ATLParticipantTableViewCell.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		726994582ECF1D4F2BFEE5CA9B3E96AA /* stp_card_cvc.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F53EECF2F13B4270C2E98345305C14 /* stp_card_cvc.png */; };
 		73C7B8981C9BD9843F32FFD1C921131C /* Stripe.h in Headers */ = {isa = PBXBuildFile; fileRef = B704B12359BA608F0089AA45CF57CBFF /* Stripe.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		741F771FF1E2374749A040BFDC2C397E /* StripeError.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EE11CDF7A0ED411C8A6D40CBB897F2 /* StripeError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		74297F368F68AC63356FE945C4B69827 /* STPFormEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E63C4768A11986BD2646D87EFDBE0FFF /* STPFormEncoder.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		75046E45DFFB2DE963A76D6235279E82 /* stp_card_diners@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC751E3284A83C1ACED4F5130EF9FB4C /* stp_card_diners@3x.png */; };
+		7572E11DA46C072993144259BCD593A0 /* EdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E37E6A02EE1E3E813BD54405B19660 /* EdgeInsets.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		75DDC1CF309099193987636604542734 /* ATLUIImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C0AAE6FAF62038CB5F5B52FCD2F1D2 /* ATLUIImageHelper.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		75EED06FCBBD1F4156761DC0CE088E00 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6ED3EAB2FCB655F9434810D9B85B50 /* Foundation.framework */; };
 		76DDC9C2D853B49292A2CCF0CF7B5CC8 /* stp_card_mastercard@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8030D39C3D6A3DADEA9C60398D23BF4F /* stp_card_mastercard@3x.png */; };
-		78AE3061AAF2AAE10AC04F75E7B35BF8 /* ATLConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D16234024D7704BCE8B59E99DC532D2 /* ATLConversationViewController.m */; };
+		7782CE7375BB29D46C874948B23CF39E /* ATLDataSourceChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 24EB4FFD6339DC4E472D2A98571A0F3E /* ATLDataSourceChange.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		787942EE084A25BA375B03380E60C60A /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A6F5B54141F7C79C0D2DC8E727B9E /* Stream.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		78C9ED07C7E2BF3A26D549D72779CC8E /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A30E63B5A7C6F970A1B499BADBCDC1 /* ParameterEncoding.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		7903EB64A5D42509509117D0B10B8F31 /* stp_card_discover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EA45FBB0CAC903055CAC027A9848A21 /* stp_card_discover@2x.png */; };
+		7A0873AA652C5BEACFD10CCA1116D665 /* Stripe-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 377C1DE68918477FDBA3A5C33347BE3C /* Stripe-dummy.m */; };
+		7B01E037BD5A310074BCDDDB7C549D0B /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5BA4AA1FF6D8C74744574AF5331C6 /* Alamofire.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7B0E0FCAA5DF561581F1FBDC64DB13D4 /* ATLAddressBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D820150981616D3191D5A727C389D5F /* ATLAddressBarViewController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		7B1EDDA27AB882D708D70CC868CD65CF /* ATLPlayView.h in Headers */ = {isa = PBXBuildFile; fileRef = F05D2695541A8BEBCF8FEB91DF39E353 /* ATLPlayView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B22484E41F6601AD5E52FE12F893F59 /* ATLMessagingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA7451F734BCB3722847EAF8FE8D701 /* ATLMessagingUtilities.m */; };
 		7BEC9E86C34C1D77E390C567F003E5D0 /* stp_card_amex@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C6B8467D8C1CB7AF142F3517D1E243F5 /* stp_card_amex@3x.png */; };
 		7D5049C4B4FC778A0241AD1158C92124 /* Fabric.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CB6642C1FEF7EE0BB1F255910DA4923 /* Fabric.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		7E624B9BE90967E106B3F0CA5795A3DA /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB93688D6678F4200382250D653DB5 /* SwiftyJSON-dummy.m */; };
-		7F04F04AC3D49CE27C48C42A83E5E3D7 /* ATLConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A710B40B4D6B3D23AAA96915BA23A6 /* ATLConversationTableViewCell.m */; };
+		7F1D6554E5D432A65DDEA801E4FC3EFE /* STPAPIPostRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D32E35C770B557EA1D4A668A889A8E /* STPAPIPostRequest.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		7FD6F2D58C60591B5822D56DC5A547BC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A62C85EC5550118B567485D08D7321E /* QuartzCore.framework */; };
-		80F496237530D382A045A29654D8C11C /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C249F92ECA565AE1CBD36F81FD3F3 /* ServerTrustPolicy.swift */; };
-		817F185E7E4483BDCAC45024C8F6FF71 /* STPCheckoutInternalUIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1ABD9681857B726EEA12717A8DB648 /* STPCheckoutInternalUIWebViewController.m */; };
 		818E693F2770B5F0E15314D5EDC6C7D7 /* ATLConversationCollectionViewFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 276E685AB8EB506F48677F0A10A21D46 /* ATLConversationCollectionViewFooter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		81A1B6FD75ECA47F23099EB70F3CDEB1 /* ATLErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BEF7DB45A8554A80DC5C79B6F37D2A1 /* ATLErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		81ADFFA10628C968E82B582908B3BDAD /* ATLConversationDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B2D8CCFCE956393EA2D94967FCA2436B /* ATLConversationDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		82971968CBDAB224212EEB4607C9FB8D /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689060E651C7296AE0F152471A510DE5 /* Result.swift */; };
-		8384A75D8C3B4BE218ED264A7A372C4F /* STPColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FD595D1FDD7DF51CDE78C2FEC5E226 /* STPColorUtils.m */; };
-		8399DBEE3E2D98EB1F466132E476F4D9 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39563253ACD4DB089D97D3B607821F /* MultipartFormData.swift */; };
-		83D020F0D9FD6355FC10FE920E361A55 /* PKPayment+Stripe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED6A33A5947FA5FE430EDD47263F373 /* PKPayment+Stripe.m */; };
+		8265D63BFB4AF00076F9F75650465E9E /* ATLAvatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A46E198BA5816241FFDED7F844E2D8A /* ATLAvatarImageView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		84D677B5F073F12BD9EED13C1C0B1743 /* ATLAddressBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E8E90F108F0A9599AF9C8F88079079 /* ATLAddressBarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		853E359CE904DED88912412A9C1B6142 /* LayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565225144D727976FABD1E2BB577E4D6 /* LayoutConstraint.swift */; };
-		8641CB06F6925AA5260139278A4D3F0B /* ATLProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A39DB6382B5C6504DF241FF50311A7C7 /* ATLProgressView.m */; };
 		86488696FC819FD4592EB803938BEA13 /* stp_card_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4138D94358954260CF191D9924E99FA5 /* stp_card_placeholder@2x.png */; };
 		86A2861E32D36122BB96CBFDD17817F7 /* stp_card_visa@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FB81E934F80BC548C22596552B19C64 /* stp_card_visa@3x.png */; };
 		87037C88E69916ACCD69160FC48F1AA8 /* Pods-Nelper-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 85EE24A13F4CBBC9981B9C0B09F3C1D6 /* Pods-Nelper-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87615B90A24E64B2772376B5421DD0E3 /* block@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CA6D0F470BDAB81067A7B75C5FD1551 /* block@2x.png */; };
 		88D2980E7DDCE7BECD28FF1E9074D2AE /* iCarousel.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E06120195ACCFDE9C66702C8E1D5511 /* iCarousel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8A57A8D7E913AF49BDA39E743A7EB8A2 /* ATLParticipantTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA940BF87B0CEF196CEB8901769B74D /* ATLParticipantTableViewCell.m */; };
+		8A4487CCC044836AFD0FB4B752A5C15B /* ATLConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A710B40B4D6B3D23AAA96915BA23A6 /* ATLConversationTableViewCell.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8A83D6B06F0659CDB1D577AB0BB9B28F /* ParkedTextField-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C23C4ABB93018D1E2DEE1D64EC24D30 /* ParkedTextField-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8C277CD78A40AC35B3544DB33EFDE68A /* ATLMediaInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = DA6B40717769D12F80E28B6577978E1F /* ATLMediaInputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8D1EC7BB381AE98A642A4AD43DF73816 /* PKPayment+Stripe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED6A33A5947FA5FE430EDD47263F373 /* PKPayment+Stripe.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		8E4605D767E337FAEEFA6096E5FEC949 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93073DCC6518EE3FE3D6EA5C749A596F /* Error.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8F1D98DADE3A70EB59A4B626589A5359 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6ED3EAB2FCB655F9434810D9B85B50 /* Foundation.framework */; };
 		8F3E95C7554E87552B75FDB40902C532 /* ATLAddressBarContainerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 709EAFFD4CBB989F8FA7EA0CC149A91E /* ATLAddressBarContainerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		90EC5E3B222CE3B3B4F7468D27E359BD /* ATLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EC125EA1232F3255193338B1CB73F7D9 /* ATLConstants.m */; };
+		916B4F6A3C3AA87274DDB5EB4A59D536 /* ATLParticipantTableDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 828BB71F1D9A26767EAFC937A047364F /* ATLParticipantTableDataSet.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		924B0B4AA8BD59B673211528881EA3E4 /* STPAPIResponseDecodable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E22C33CDDAEA01CA0F3FF22854F69D6 /* STPAPIResponseDecodable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		925F1A56C83AEEA7B3D1E7E58EE11D89 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21306357318FDD996919897C7C9F567B /* Accelerate.framework */; };
-		95E41293E05A8ABB9866D6F3AED0CA10 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC85DAD6E3DD37E5B21F9AF075359E6 /* MGSwipeTableCell.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		96D7E7D779BB0622546705FF4CCEFCAF /* ATLConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8541449EFBFFD9FEAF1EE82F2BFCB295 /* ATLConversationListViewController.m */; };
+		9688D2F44785773A754EB281C0EE8747 /* StripeError.m in Sources */ = {isa = PBXBuildFile; fileRef = D97F86C027909A54610693DEC254F690 /* StripeError.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		96D99D0C2472535A169DED65CB231CD7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6ED3EAB2FCB655F9434810D9B85B50 /* Foundation.framework */; };
-		972998F09915455C31BAE9EDA1E52D2A /* Stripe-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 377C1DE68918477FDBA3A5C33347BE3C /* Stripe-dummy.m */; };
+		97256A75A09E62CBFFA8C8DD0F60360B /* ATLOutgoingMessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C1B880195FFC2DEE36FD1781D6ECC4A /* ATLOutgoingMessageCollectionViewCell.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		975250BC3D9F5B3EC6504247381AFD47 /* ATLConversationCollectionViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E751C14F1A4008DFE1E002551363CD2 /* ATLConversationCollectionViewFooter.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		98D401D5142860456E0CFEADC6A48E5B /* camera_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 53861BB960D736502134E0FFB9F4CD60 /* camera_dark.png */; };
+		98F487EC0E6252B991378AC63AA5001C /* ATLConversationCollectionViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 792F5DDBF93ABB97BC25D876538D3672 /* ATLConversationCollectionViewHeader.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		9919629AE22F758F5A790BD81624B057 /* location_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = EC7AEF627E700F1F50BE6EBED278723F /* location_dark.png */; };
 		9A3A3AF6B96258E3B7CEFFD8E1E135E8 /* location_dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C9FD58340668CE6A64CE02C43C4209 /* location_dark@3x.png */; };
 		9C30209BA7A2D3E59760A4B4ECB61D78 /* stp_card_amex@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC48C786363030A1EF3DE2254B8260AD /* stp_card_amex@2x.png */; };
 		9F7DE8A51C8589FA1229C936523F39AB /* ATLAvatarImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C138C7CEB53A9D22807E3079DBA8374B /* ATLAvatarImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A044C77C1347029C129CB5AADD334D8A /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C29708ECABCC8CC5305B9C071FBB1C /* SVIndefiniteAnimatedView.m */; };
 		A07033880AF1C5AF63DE6A0C8F1AEAEB /* STPPaymentCardTextFieldViewModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 20B42892C3D139E94CA90F31A9106DB1 /* STPPaymentCardTextFieldViewModel.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		A0DCC5610EBD9EC28B8514E731219F7B /* Debugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F05415D80EF2A968BB298421AC69F /* Debugging.swift */; };
-		A2C172FE407C0BC3478ADCA91A6C9CEC /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228637A72EA439CFB57AF50C1715DB5 /* Manager.swift */; };
-		A3505FA2FB3067D53847AD288AC04F03 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622BE9E9E218EAD5D04676DEBEA58B48 /* Download.swift */; };
+		A21EDBC42FBF96B0A3F8A9A208E65C71 /* ATLProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A39DB6382B5C6504DF241FF50311A7C7 /* ATLProgressView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A372676A85A31C103EA7B7205AD7520E /* ATLParticipantPresenting.h in Headers */ = {isa = PBXBuildFile; fileRef = 294BC7091E9056A5301626D1FBE66742 /* ATLParticipantPresenting.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A4158A01A8E9F811CEE450D63A9CCD82 /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 194EB38C35CD239900FB9638ED907866 /* SVIndefiniteAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A4D1B4B61B0BAF4DECE0E1CB958EC8CA /* ATLMediaInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBFC939368213FF6B1C185020455ED0 /* ATLMediaInputStream.m */; };
-		A4D8F8F9C0A13E8EC9B142499B99A6C6 /* STPCategoryLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA4887C21EC5D0451795E0F9FCDD5CA /* STPCategoryLoader.m */; };
+		A552643F7D159956200CAA729C5D2D53 /* STPBankAccountParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 37968BEA22AAF7206695537CAF09F482 /* STPBankAccountParams.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A5E850AD99A7D11B201B7C03890CF27A /* camera_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E36D514C126D16543032B9A625221F90 /* camera_dark@2x.png */; };
+		A61E02E55311841CAB6A438DF1BEA5D6 /* ATLAddressBarTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D41F0FAF1617275E73AAF7D37D22935C /* ATLAddressBarTextView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		AA101FE3D6970C164493F421FD1185EF /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C29708ECABCC8CC5305B9C071FBB1C /* SVIndefiniteAnimatedView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		AA409AEE58D8212089A04820781B54FB /* ATLMessageComposeTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 81EB61C52FF4BFD95888CA874F238A59 /* ATLMessageComposeTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AAA8FD6F0A22FFEBBC87DDA78E99DB6D /* SwiftyJSON-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B110FD7DB286BD3A6D1608A44CB54D97 /* SwiftyJSON-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AB5D2A60FA43156160A095A594DD5E25 /* STPIOSCheckoutWebViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8795B86774106FF7C43EFDA6BB6264C4 /* STPIOSCheckoutWebViewAdapter.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		AD2564973AE116985B147AD06EDFD3F6 /* STPCheckoutInternalUIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1ABD9681857B726EEA12717A8DB648 /* STPCheckoutInternalUIWebViewController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		AD7F3691E0216590EE1BB815A79ADA85 /* STPIOSCheckoutWebViewAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C6A1CC1E176C3CEC8125873824EB79F /* STPIOSCheckoutWebViewAdapter.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		ADA417A0E08499204C7C0578F57CA0CD /* ConstraintItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01639C7AB53F8751B298B0493B209246 /* ConstraintItem.swift */; };
-		ADB42B68914F8345CDA7DC09F407327F /* ATLIncomingMessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77FE6BFCF4D9FDD5D898C790C533A199 /* ATLIncomingMessageCollectionViewCell.m */; };
-		ADF054CA227BE7C5FD05341E5E56868D /* ATLTypingIndicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B22526D664146B61302915EC1C969E47 /* ATLTypingIndicatorViewController.m */; };
 		AF6EFA0EA98FBA142B627AB23EED6EAA /* chevron@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AD87B698D4217E99BDC3646AA50644 /* chevron@3x.png */; };
 		AF7234249F16EB7A7169D59CF4D20A69 /* STPCheckoutViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C01AF538B90ADE18074A72BDE2C45E1 /* STPCheckoutViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AF9681B12248D5C746CE9CA75E1CEE7B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D79A7DE7E0B3828FD72C58C8B5F95AE /* UIKit.framework */; };
-		B074EAD216CDADAC9AAFC6933AAE93F4 /* ATLAddressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EBAD3F6E444DB247B25380B9DEACA9 /* ATLAddressBarView.m */; };
 		B0CCDF9920DB5EE62B7228535C49BF3B /* NSDictionary+Stripe.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E1C9DBD59D4F0884877B3395201E6AA /* NSDictionary+Stripe.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B0E0320589D505B2625597CA7EAD28AA /* STPStrictURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = E4B94283470843B4A4DC39599AAA8A52 /* STPStrictURLProtocol.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		B0FB4B01682814B9E3D32F9DC4A5E762 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5BA4AA1FF6D8C74744574AF5331C6 /* Alamofire.swift */; };
 		B2AFCE19D748D78D216E90D4359F5DF5 /* STPCheckoutDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A9093B2B6EF1CD90C772CC517EB3E9B /* STPCheckoutDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B2C66FC1AB3F823A862573487751A4A3 /* ATLMessageInputToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 93169DAB777F28D73C3E3AD5E6E74502 /* ATLMessageInputToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B2CA037AD380839FD42391C3C4005939 /* STPAPIPostRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D32E35C770B557EA1D4A668A889A8E /* STPAPIPostRequest.m */; };
 		B4490CF1D8B8072355B77E77C5A91006 /* ATLDataSourceChange.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EBB46B7ABCF9E41E578B1446C03E487 /* ATLDataSourceChange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B4DC4FE2A059F448CB85929B4263C815 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46699855F978DC7D3AD417FBA0DD713E /* SwiftyJSON.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B5283ECB81B4B7924D807BFB8E982A84 /* ATLConversationTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 02F6B64DC82E5DEE1AF1962EBDE7DDA8 /* ATLConversationTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B6D2DC3E3DA44CD382B9B425F40E11C1 /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A77EA25F08960F2D4D032F9C25F857C7 /* Alamofire-dummy.m */; };
-		B8B5B7F7560D39DE81532F94065AF456 /* SnapKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 391EAF62AAC2F9FAFC31898660344070 /* SnapKit-dummy.m */; };
+		B56B61DFC74F98BD999F101BE9919B46 /* ConstraintDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C79704276E948BD4279D3A8778964E2 /* ConstraintDescription.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B602C22067836613FAE7DDF84C20EEA8 /* STPStrictURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2B49D3BE5BC516CF35EDF16363BC1 /* STPStrictURLProtocol.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B8F8F7343C665226B5AC95171825C4FB /* STPOSXCheckoutWebViewAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 95327CDA1B97244AFEF16FC57C7AE35B /* STPOSXCheckoutWebViewAdapter.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		BA09E82E542F9AE444229D3DA69AF464 /* ConstraintDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C79704276E948BD4279D3A8778964E2 /* ConstraintDescription.swift */; };
-		BB748350A05A3119F2DD3427E8CC54E2 /* STPOSXCheckoutWebViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3CCF4DF41492E0B2E334357F0704C0 /* STPOSXCheckoutWebViewAdapter.m */; };
 		BB9F5EA43864FEADD97B114637B9BD41 /* Pods-Nelper-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E870BD5DD1AB1F8A9DC47607C621E9 /* Pods-Nelper-dummy.m */; };
+		BBE2EE8C7C9C9AFB90E2F433E64B0069 /* ATLTypingIndicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B22526D664146B61302915EC1C969E47 /* ATLTypingIndicatorViewController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		BCAAACB62F13C09303B2ACA1D9E382E9 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F0F731055532245AB30A4D614F0848FB /* MGSwipeButton.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		BCDF0358298144666ACACA714BCD07C7 /* STPAPIPostRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DCFE1DFC9C66D9AAED66DB0EF7BAC1C /* STPAPIPostRequest.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BDF44DF6CCA361B1AFA64B7567B73C27 /* STPFormEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ADE501672D2BAD67B7FB7013AE1D22A /* STPFormEncoder.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		BEB1641A503BAC23EF6E9D35B35ADDAD /* ViewController+SnapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D032DD3B74398C8EA5D7E7D37300409 /* ViewController+SnapKit.swift */; };
 		BEDD4D3AD160BEE09B966DD854241E29 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6B4E58E36CF81BA6A7AD5FF540B8E5 /* CoreLocation.framework */; };
+		C19C2D7121BE7180AFA2F513E08B6E56 /* STPPaymentCardTextFieldViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 000C485A08E10A748BB42AAF1C3A4E07 /* STPPaymentCardTextFieldViewModel.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C23270234DC490562710AED3A6529ECE /* ATLConversationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 32ADD34BAB9D95CA1931771E4960E99B /* ATLConversationViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C237C72B91AFB724F7C4883103BF2C2A /* STPCheckoutOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = A376A6652131F5E2B42414F1A922324E /* STPCheckoutOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C28337DD2E94B98F7AEE739EF3674F02 /* iCarousel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 378BEDEC0F98F8E31A43F46F73FF4ABD /* iCarousel-dummy.m */; };
@@ -215,73 +211,77 @@
 		C316BB2845158863ED9DB89383D92C2C /* stp_card_jcb.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EAC420BE418BBDE6EC31C42CF1BA542 /* stp_card_jcb.png */; };
 		C35BF68BDC9634784185A57A64195F56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6ED3EAB2FCB655F9434810D9B85B50 /* Foundation.framework */; };
 		C58FA6C70CB60139ADEDC890B533F2E6 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = D5CAE86814CFC1D80A0F8F13A1F5A8F6 /* plus.png */; };
-		C75519F0450166A6F28126ECC7664E9C /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E81D6670155D0341DD05CE5CFEDA81 /* Validation.swift */; };
-		C76016A318265B15C6318DF51CBA8D67 /* ConstraintRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B50FC7BE986043E40028DF24FEF958 /* ConstraintRelation.swift */; };
-		C77A4C90087E3258CF11B7FF6A69829C /* ATLBaseConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C353795EA7F8B16C9A60FE97C603104 /* ATLBaseConversationViewController.m */; };
 		C868D8CE6C8F8F60F1A24A40F363040A /* STPBankAccountParams.h in Headers */ = {isa = PBXBuildFile; fileRef = 5772A294C3997F6436C0599FC1F78BFB /* STPBankAccountParams.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C8718D85F25945A1E08B02FB84872DED /* ATLConversationCollectionViewMoreMessagesHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = E5C8419FBCC0FE254886ED8B1E03E6D2 /* ATLConversationCollectionViewMoreMessagesHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C8FD669C32DE47E548CBB0153988C1E2 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F0F731055532245AB30A4D614F0848FB /* MGSwipeButton.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		CA4DA353802F5684E1FD6107FBA3E051 /* ATLIncomingMessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77FE6BFCF4D9FDD5D898C790C533A199 /* ATLIncomingMessageCollectionViewCell.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		CA8BB15AD061FABCC9D5B6F4D8F3D9BD /* STPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7BF2EBC1DEA11A522689EC1CD256DF /* STPAPIClient.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		CB10171CC6886E7729BE632375789F8F /* stp_card_placeholder_template@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3954EBDE1BB5C5F15B908E6B322C7384 /* stp_card_placeholder_template@3x.png */; };
-		CB609B2E739ECB886145E200C081BD09 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4632832F228EE374FB764037522C44F8 /* Constraint.swift */; };
+		CB660A8DD6EB2BBC44BF7331A2A096F4 /* STPFormTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A457D8B336FF6276D45ABA22C34652D /* STPFormTextField.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		CBCA5EF49C367A1DBD630D4D79DB36B1 /* ATLTypingIndicatorViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 13844AB27E60418B1E4E19CC18D34D21 /* ATLTypingIndicatorViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CC589531D250C97536AB13ADB79DCF90 /* stp_card_cvc_amex@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BB73CAA77C0DCD132324B5118DD6AA3 /* stp_card_cvc_amex@3x.png */; };
-		CCDE7C4159F006776CF3129F7C4AC0FF /* SnapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7161A1B6C5A163B58EB095BC7BD15D7C /* SnapKit.swift */; };
+		CC59BFA43178140D35236F88C677A9A8 /* STPPaymentCardTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B30AA94FB48BA1A8AFEBCC35825968B /* STPPaymentCardTextField.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		CDF160641ACD7754FCE8C868C90395FF /* ATLParticipantTableDataSet.h in Headers */ = {isa = PBXBuildFile; fileRef = DBA48E7E6FE473A0B35BF55C2BDAAC97 /* ATLParticipantTableDataSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CF87AC3F9507C0E1FC7FB4BBE412A235 /* Atlas.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC4B3106971558CEBE55FEE6C0A97AD /* Atlas.m */; };
-		D0F193A03D5863AF2FAECE88F6E0104F /* ATLUIImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C0AAE6FAF62038CB5F5B52FCD2F1D2 /* ATLUIImageHelper.m */; };
+		CEAE6F24FE097BE66C5CE3DEE1C7898B /* ATLAddressBarContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1EB1BCB8C1356D3C697A81893E82044 /* ATLAddressBarContainerView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D15327AF46067091FDBA8A3E538749AA /* Atlas.h in Headers */ = {isa = PBXBuildFile; fileRef = DCE6D9B11952974AC6A650A0BCDBDE0E /* Atlas.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1A1D6D690674AE4E46B571B738241FD /* FXBlurView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 306A20C099ADDDD49B7ECC748FB6A6F7 /* FXBlurView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D21B7325B3642887BFBE977E021F2D26 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D928E67B8F445B7ABB1827D22DFDFA8 /* ResponseSerialization.swift */; };
 		D2BDB14E36953A9C06ED1AF01394C313 /* ATLMediaAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 135F36A87C4B86114578E7AE3B91DAC5 /* ATLMediaAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D34F9410E9C022FE33E21DB3F7F8DE6A /* UIResponder+ATLFirstResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 6553D868CE83DC7317F6FC1F447680BC /* UIResponder+ATLFirstResponder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D383AF98D1C0C66FAD21C32BF8983E3D /* ATLErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 81EBDFD7010A43A3BB7E0898F636C111 /* ATLErrors.m */; };
+		D355ED0065817FCA74D4DCC250EF6FF9 /* STPOSXCheckoutWebViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3CCF4DF41492E0B2E334357F0704C0 /* STPOSXCheckoutWebViewAdapter.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D3C7BA5BC12759CF81FD9522DEBD18F5 /* ATLMessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F8A1899851210F300BF4B1A8C4862D0F /* ATLMessageCollectionViewCell.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D6064AF81DDE1CD4C82D330A0DA052A5 /* stp_card_cvc@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D8FC51E27F1EECE8B17FE79F391C9C8 /* stp_card_cvc@3x.png */; };
 		D70A56140EA019D87B9CEC291FF5C4C5 /* STPColorUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 64B41739086A6DCFCF0295CC3D232B7F /* STPColorUtils.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		D75CA395D510E08C404E55F5BDAE55CE /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93073DCC6518EE3FE3D6EA5C749A596F /* Error.swift */; };
+		D809694CEE0EEAAB183634CA3B15E2BF /* SnapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7161A1B6C5A163B58EB095BC7BD15D7C /* SnapKit.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D823DCADA13927B8734E5157B456C45E /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB93688D6678F4200382250D653DB5 /* SwiftyJSON-dummy.m */; };
 		D87349EE81BC69BC0C25D19953F7F77F /* stp_card_placeholder_template@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C71838F51DEA8AAD693669E30FF1E3B /* stp_card_placeholder_template@2x.png */; };
 		D882A16ABB83EF6CA8C5B5E9390A94A9 /* ATLAvatarItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 70422A8455D9A89F086EF8FA8684D5AC /* ATLAvatarItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA1E9D06D885EACE0EE2382C96292607 /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FC107143CC05C562C3B0D77CF7B98B9 /* plus@2x.png */; };
 		DB185DF5CE4FFBB99A6F558A4110AB3D /* STPCard.h in Headers */ = {isa = PBXBuildFile; fileRef = B1A8480D852A859714504AD22D0D04BD /* STPCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DCB7D095B87A5AA29F72200342059575 /* EdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E37E6A02EE1E3E813BD54405B19660 /* EdgeInsets.swift */; };
+		DBFF9BB8C347CA15D02CC684D653B597 /* View+SnapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4286253E237C982182B31743564D67D /* View+SnapKit.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		DD06BA208E39139AF974C9DCF7C81246 /* STPColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FD595D1FDD7DF51CDE78C2FEC5E226 /* STPColorUtils.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		DD6EF323677EF6BDC72E4584C78A3DDE /* STPBankAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 50303081A2A888189B800ADE537EC22D /* STPBankAccount.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		DDACDE6CBB881D314069CB3AAA8C045A /* STPFormTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 34A9C1222EA9594BDCFA3A7FFBD5B571 /* STPFormTextField.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		DE10EF812695270FB93A826648BFB960 /* Stripe+ApplePay.h in Headers */ = {isa = PBXBuildFile; fileRef = 812AFBFA212BB61DC39066EF6B82C7D3 /* Stripe+ApplePay.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE42831D31EF322C58576E18D14149FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6ED3EAB2FCB655F9434810D9B85B50 /* Foundation.framework */; };
+		DE42888C382D25E416529BD2419BA831 /* ConstraintMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042AC4B627D7B7054432F48E84D3CA8C /* ConstraintMaker.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		DE63A2CD582C8A5A131A4E24D91B82A4 /* ATLParticipantSectionHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 82F586C1851A3FB6FEE64AAC51CF026B /* ATLParticipantSectionHeaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E0A5C312987957FD6F3204D8776EA2FF /* ATLOutgoingMessageCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EEC2F7BF156E636FD8C05F4E551DF71 /* ATLOutgoingMessageCollectionViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E219D16B5A5980632EF0E1041311B0D3 /* FXBlurView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B17A28A3B8815A38CB5AAD4822BEF5E /* FXBlurView-dummy.m */; };
-		E3418AC417136A8165F8058F1D77D8C9 /* ATLMediaAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAFA46FEA72604092D677EC3433225F /* ATLMediaAttachment.m */; };
 		E49ACB1617A19999E9C6CF74F2389100 /* ATLConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A75D581BA00CDBE5C100605E5237C1F /* ATLConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E4AA286A30B43514F88E83416B2EF8CE /* ATLConversationCollectionViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 792F5DDBF93ABB97BC25D876538D3672 /* ATLConversationCollectionViewHeader.m */; };
 		E56488D813116ECA783ABCC9041E27A9 /* stp_card_amex.png in Resources */ = {isa = PBXBuildFile; fileRef = 33A408A1BD744221FEBDA3339342AFA3 /* stp_card_amex.png */; };
 		E632972C9E8AC3A88D9988B8E23DB656 /* ATLMessagePresenting.h in Headers */ = {isa = PBXBuildFile; fileRef = BC00693FF944DE27E803E6293AD791C1 /* ATLMessagePresenting.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E6B19C962D16AB1371DADFA122D126DE /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E81D6670155D0341DD05CE5CFEDA81 /* Validation.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E6BE231F917502169A2B3DFA84220924 /* stp_card_cvc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F988A9930627E991731BEA44D2817E8 /* stp_card_cvc@2x.png */; };
-		E91DECB532A757276216F562279A4F68 /* ATLAddressBarContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1EB1BCB8C1356D3C697A81893E82044 /* ATLAddressBarContainerView.m */; };
-		ED53A725208CC90A1AAD688825EAC381 /* ATLMessageInputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E75F9EC40244633CE76FA731A101D41D /* ATLMessageInputToolbar.m */; };
-		EF8CB3593F3D789D989935C62EC11015 /* STPFormTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A457D8B336FF6276D45ABA22C34652D /* STPFormTextField.m */; };
+		E954DB945666F1CC5C96A37E250DBC9F /* Debugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F05415D80EF2A968BB298421AC69F /* Debugging.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		E9977302C5B3A9C114EF12DAF948D960 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC85DAD6E3DD37E5B21F9AF075359E6 /* MGSwipeTableCell.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		EB5B61262FC089CBBFDB9D64DB48898B /* ATLErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 81EBDFD7010A43A3BB7E0898F636C111 /* ATLErrors.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		EE06443C3C2A50CBE3F397ED8A712D96 /* STPCategoryLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA4887C21EC5D0451795E0F9FCDD5CA /* STPCategoryLoader.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		EFA94A0C7F010E7EC1426F9AB99D735E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2019472341E19E58D45CB7686516B9D /* MobileCoreServices.framework */; };
 		F0454B9BDBF03E05766D2682A5644135 /* STPCardValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = D8FBD77F5BE1495383243F144E1E6765 /* STPCardValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0A4075E8EC62F3C9C05E6CB951D5AF9 /* iCarousel-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E67296D29FF08FE65590C2B55B5140B3 /* iCarousel-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F125EB099106D77F4A3FDDF8FF73F5C0 /* STPCheckoutWebViewAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C78113C1A56C82A81F193F577AD3614 /* STPCheckoutWebViewAdapter.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F1458D96EC10E8439C6505D4A5287B9B /* SnapKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E5B5FFBF9C40B777E5A8C967E93B6F12 /* SnapKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F181986B2609F33BC60C630133EEE784 /* UIResponder+ATLFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = A35B9AB3420E929D7D3DB8BFD2DE6D5E /* UIResponder+ATLFirstResponder.m */; };
-		F1F7F23F9B708CD1F0E7E999AEA8D80D /* ATLAddressBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D820150981616D3191D5A727C389D5F /* ATLAddressBarViewController.m */; };
-		F21D60CF36452F645D110631A06F2A47 /* ATLMessageComposeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3994D46018063F0016B1DC7582F5DE /* ATLMessageComposeTextView.m */; };
+		F29C88F2442FD681048BF648E922C590 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689060E651C7296AE0F152471A510DE5 /* Result.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F38F14DEFE0A158559855471FEE58AD7 /* LayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565225144D727976FABD1E2BB577E4D6 /* LayoutConstraint.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F3FB5E776C3D9DBB755B6151382DA2C3 /* Stripe-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E04C205BEA80E4797789D5A0F07974 /* Stripe-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F42368D44E7FC7A7ABEAE576CE6B48A9 /* stp_card_cvc_amex@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D59366CB607CF1EAE67E14BCC762639 /* stp_card_cvc_amex@2x.png */; };
 		F4D157412D6D69ED8A7FB634FB061B20 /* STPAPIClient+ApplePay.h in Headers */ = {isa = PBXBuildFile; fileRef = 731F64741340CF9666FF91ECCAEFCE5C /* STPAPIClient+ApplePay.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F51BB3953E5E3B696557A6C8D4214976 /* stp_card_visa.png in Resources */ = {isa = PBXBuildFile; fileRef = 40C360021BE258FA895DA1482922BEC4 /* stp_card_visa.png */; };
-		F6C420FA69BC9CB315C6117710785F15 /* Atlas-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7A143F7A40015839AFFFE080C39B3A /* Atlas-dummy.m */; };
+		F5408E91A78DE504DCE80D02A4F0AB42 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3905252A5CA5806FA742754181E43267 /* FXBlurView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F5466AB5187F836038F95DA160887D05 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39563253ACD4DB089D97D3B607821F /* MultipartFormData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F5E7D7D1EEA913694BC641A7138E9449 /* ATLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EC125EA1232F3255193338B1CB73F7D9 /* ATLConstants.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F85453DA901427D660F62A0EF3E6C839 /* ATLIncomingMessageCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 87FB15726F91E789B7AF6AF9231057BA /* ATLIncomingMessageCollectionViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F8C181B4597185971AAF4DA8E58487D3 /* ATLAddressBarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C3D22E74861383DAB835C939205FC9D /* ATLAddressBarViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAF7C51DF032216E57B76E16521624B1 /* ATLConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8541449EFBFFD9FEAF1EE82F2BFCB295 /* ATLConversationListViewController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		FBAC0C448640EBFA6069E8E37CE42A85 /* STPToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B9B3B736AD1D4319FB9CD987E3015FB /* STPToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FC14480CECE872865A9C6E584F886DA3 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B984392761AE94CDB86DF28E5A10D92C /* Request.swift */; };
+		FBBBA1FF1BDBC36401E4EF839E5023E9 /* STPCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC26A495AD4A303C9994CE7448487446 /* STPCheckoutViewController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		FC419A522EC86A0DAF20FAA90D451923 /* ATLParticipant.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F2DC878C6CB62B9BB11BB08825D7A9A /* ATLParticipant.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FCBF9ECCC783642F6E7B0F9D85931052 /* stp_card_jcb@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54A655DC968A6E268F39791D9631A01E /* stp_card_jcb@3x.png */; };
+		FCF136B11A94E05EFE2834F776DB9D76 /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6086B5D9922C420421D02074720F4B2 /* Upload.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		FD263517E3DA16FC5DB53EFCB894B5F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6ED3EAB2FCB655F9434810D9B85B50 /* Foundation.framework */; };
-		FD7664541A2D0A74E3054D9C5AD75CF9 /* NSDictionary+Stripe.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A9FE0FD6ECE25DAF8EFD25454B8E7 /* NSDictionary+Stripe.m */; };
+		FD827628BC36F9D907F700BE456BDE21 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228637A72EA439CFB57AF50C1715DB5 /* Manager.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		FD85A907B081936B27FC25C67C4E5AC8 /* ATLMessagingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA7451F734BCB3722847EAF8FE8D701 /* ATLMessagingUtilities.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		FE4D895876F78CEFD9C5366A97F202B2 /* block.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D0E9411AC84531C822427492F49047B /* block.png */; };
-		FEF0D7653948988B804226129471C1EC /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A6F5B54141F7C79C0D2DC8E727B9E /* Stream.swift */; };
-		FFE3A6D6CB230AF348DDF40D3077157F /* STPAPIClient+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = BC78EC04F0F795212B090BF3108C67AF /* STPAPIClient+ApplePay.m */; };
+		FE80FCE4BB33D93C019B79C4F872457E /* ATLPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9352EB4E84C330340E646F5FA868F2B6 /* ATLPlayView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1646,7 +1646,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8F1F2667E8C4937B1B0674ED009BAE63 /* Build configuration list for PBXNativeTarget "ParkedTextField" */;
 			buildPhases = (
-				8EE4BE2D355189DEE92392DE97CBD391 /* Sources */,
+				49529776AF5D477A7BAE92F7915ABFEA /* Sources */,
 				04A98FBAA83CBEA550221ED10737271E /* Frameworks */,
 				ADBE457AFBC104F1D10074812A716EBA /* Headers */,
 			);
@@ -1680,7 +1680,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B2B2DA2F7F80D41B1FDB5FACFA4B3DE /* Build configuration list for PBXNativeTarget "Alamofire" */;
 			buildPhases = (
-				EF659EFF40D426A3A32A82CDB98CC6EE /* Sources */,
+				DB4A906CAC9188ECBA8C02843B10E921 /* Sources */,
 				A5AE1D340C4A0691EC28EEA8241C9FCD /* Frameworks */,
 				5F7B61281F714E2A64A51E80A2C9C062 /* Headers */,
 			);
@@ -1714,7 +1714,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 53A422297C91CD4CA6B91180DF8BC7BA /* Build configuration list for PBXNativeTarget "SVProgressHUD" */;
 			buildPhases = (
-				066739516D9E974999E9219B59CB7A72 /* Sources */,
+				45775475F390F55FA2D7E149BA1685E4 /* Sources */,
 				54FEBBA7C53F87DA16A007606004D3F6 /* Frameworks */,
 				798FF5A0B4D49F0436876B8AD665389A /* Headers */,
 				44951EEE4BF0385C9A9E5D54E2EDA474 /* Resources */,
@@ -1732,7 +1732,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F884404E52301E87C21166FF95EA16A /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
 			buildPhases = (
-				F279E28775CE31AC5A3A27CFCFB17F8B /* Sources */,
+				2BF78707BE32A149908810DEE873EE36 /* Sources */,
 				A5AAE2CE401148A4DD09C5935FA78F21 /* Frameworks */,
 				3B3DD1B4316026FD0E33E233EEF6F593 /* Headers */,
 			);
@@ -1749,7 +1749,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E52395E101FF0B8C9FD67CB5F7975FFC /* Build configuration list for PBXNativeTarget "Atlas" */;
 			buildPhases = (
-				11D1BD6D40E1B7F383D8F0884BD896A6 /* Sources */,
+				E03643679F82D767DFC15E46362D5DC5 /* Sources */,
 				86E57AC60169821040E2BB0D1473DB00 /* Frameworks */,
 				58DDDB6230C10217811B5B18CA8E528F /* Resources */,
 				37B1B034F94671423D32E868F43F7963 /* Headers */,
@@ -1795,7 +1795,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB6A8FA9F328ECF86CAB584DEA5D110C /* Build configuration list for PBXNativeTarget "Stripe" */;
 			buildPhases = (
-				D1D324DB64F410816D0779B16ACDE551 /* Sources */,
+				9B7A66310371945BFC3F5DAD62A45158 /* Sources */,
 				D0C4052A5843591BF2DBE15084FE6BE1 /* Frameworks */,
 				A59F3349C156DD8351DE8D6DE6F21C0A /* Headers */,
 				6B00EB5906126F3288C96860FF209FF8 /* Resources */,
@@ -1847,7 +1847,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 31D545364862E44094E4DFE97B98B06C /* Build configuration list for PBXNativeTarget "SnapKit" */;
 			buildPhases = (
-				FF84D6E0FC5AEB78B3CAF9D8DCB32549 /* Sources */,
+				F0DC1AC9B15C2A2CA37A677814EB58EC /* Sources */,
 				B588392684827CBB5008F188D72C58C4 /* Frameworks */,
 				1E74200DA1C71E11AA90AEDDF075B2E1 /* Headers */,
 			);
@@ -1981,16 +1981,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		066739516D9E974999E9219B59CB7A72 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A044C77C1347029C129CB5AADD334D8A /* SVIndefiniteAnimatedView.m in Sources */,
-				3127DDC52E20FD77349FCA9BCDBA2F51 /* SVProgressHUD-dummy.m in Sources */,
-				71BDF057C015CE324B8F10DE0427C185 /* SVProgressHUD.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0B0F4238190B5B62920628BD946E95F1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1999,49 +1989,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		11D1BD6D40E1B7F383D8F0884BD896A6 /* Sources */ = {
+		2BF78707BE32A149908810DEE873EE36 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E91DECB532A757276216F562279A4F68 /* ATLAddressBarContainerView.m in Sources */,
-				22759B02531B9DDEDC9CA46C40CB129E /* ATLAddressBarTextView.m in Sources */,
-				B074EAD216CDADAC9AAFC6933AAE93F4 /* ATLAddressBarView.m in Sources */,
-				F1F7F23F9B708CD1F0E7E999AEA8D80D /* ATLAddressBarViewController.m in Sources */,
-				F6C420FA69BC9CB315C6117710785F15 /* Atlas-dummy.m in Sources */,
-				CF87AC3F9507C0E1FC7FB4BBE412A235 /* Atlas.m in Sources */,
-				2F98D9CE1CDC2CF28267027BE84F292C /* ATLAvatarImageView.m in Sources */,
-				C77A4C90087E3258CF11B7FF6A69829C /* ATLBaseConversationViewController.m in Sources */,
-				90EC5E3B222CE3B3B4F7468D27E359BD /* ATLConstants.m in Sources */,
-				293E8604DF544375D4ED529EC969A774 /* ATLConversationCollectionView.m in Sources */,
-				7191D476124F9C97ADF2DD16FCE7E5AE /* ATLConversationCollectionViewFooter.m in Sources */,
-				E4AA286A30B43514F88E83416B2EF8CE /* ATLConversationCollectionViewHeader.m in Sources */,
-				6591C842441434198B2E01349B0B05AE /* ATLConversationCollectionViewMoreMessagesHeader.m in Sources */,
-				2D5A5B21567792D54E7B18D7D622B5E6 /* ATLConversationDataSource.m in Sources */,
-				96D7E7D779BB0622546705FF4CCEFCAF /* ATLConversationListViewController.m in Sources */,
-				7F04F04AC3D49CE27C48C42A83E5E3D7 /* ATLConversationTableViewCell.m in Sources */,
-				2A992E0720CB01061478698E9D132D99 /* ATLConversationView.m in Sources */,
-				78AE3061AAF2AAE10AC04F75E7B35BF8 /* ATLConversationViewController.m in Sources */,
-				49B36912F554DF8D6E5C1509154DB1BC /* ATLDataSourceChange.m in Sources */,
-				D383AF98D1C0C66FAD21C32BF8983E3D /* ATLErrors.m in Sources */,
-				ADB42B68914F8345CDA7DC09F407327F /* ATLIncomingMessageCollectionViewCell.m in Sources */,
-				6D6B4A8E5FC3734450FFDD0A3DE82FC2 /* ATLLocationManager.m in Sources */,
-				E3418AC417136A8165F8058F1D77D8C9 /* ATLMediaAttachment.m in Sources */,
-				A4D1B4B61B0BAF4DECE0E1CB958EC8CA /* ATLMediaInputStream.m in Sources */,
-				4D5720464538AB30E8C9DFD078420625 /* ATLMessageBubbleView.m in Sources */,
-				0F3162BB2F5E51B8266124A5DD4E0D68 /* ATLMessageCollectionViewCell.m in Sources */,
-				F21D60CF36452F645D110631A06F2A47 /* ATLMessageComposeTextView.m in Sources */,
-				ED53A725208CC90A1AAD688825EAC381 /* ATLMessageInputToolbar.m in Sources */,
-				7B22484E41F6601AD5E52FE12F893F59 /* ATLMessagingUtilities.m in Sources */,
-				5744B9632641EF3572637B543251E35A /* ATLOutgoingMessageCollectionViewCell.m in Sources */,
-				01B8B3B5E3EF2E4B5DEB2472E35E0D7B /* ATLParticipantSectionHeaderView.m in Sources */,
-				6AB70EB641676CC50A186D18A7F9D213 /* ATLParticipantTableDataSet.m in Sources */,
-				8A57A8D7E913AF49BDA39E743A7EB8A2 /* ATLParticipantTableViewCell.m in Sources */,
-				269EDD3999988F923954F6A6BC027017 /* ATLParticipantTableViewController.m in Sources */,
-				24AFE74DD94508944487721669ED5C48 /* ATLPlayView.m in Sources */,
-				8641CB06F6925AA5260139278A4D3F0B /* ATLProgressView.m in Sources */,
-				ADF054CA227BE7C5FD05341E5E56868D /* ATLTypingIndicatorViewController.m in Sources */,
-				D0F193A03D5863AF2FAECE88F6E0104F /* ATLUIImageHelper.m in Sources */,
-				F181986B2609F33BC60C630133EEE784 /* UIResponder+ATLFirstResponder.m in Sources */,
+				D823DCADA13927B8734E5157B456C45E /* SwiftyJSON-dummy.m in Sources */,
+				B4DC4FE2A059F448CB85929B4263C815 /* SwiftyJSON.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45775475F390F55FA2D7E149BA1685E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA101FE3D6970C164493F421FD1185EF /* SVIndefiniteAnimatedView.m in Sources */,
+				08F2BA185061D14A2BFA81F507121128 /* SVProgressHUD-dummy.m in Sources */,
+				0B8740AF00F903C2E274F0F7D97D121F /* SVProgressHUD.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49529776AF5D477A7BAE92F7915ABFEA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				431D8D356FCE793AE0265989998C7027 /* ParkedTextField-dummy.m in Sources */,
+				5ADDC3596E3B69B83961EFC489232EC4 /* ParkedTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2050,16 +2022,40 @@
 			buildActionMask = 2147483647;
 			files = (
 				E219D16B5A5980632EF0E1041311B0D3 /* FXBlurView-dummy.m in Sources */,
-				22ED141480ADE83B01D787A070CB8A30 /* FXBlurView.m in Sources */,
+				F5408E91A78DE504DCE80D02A4F0AB42 /* FXBlurView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8EE4BE2D355189DEE92392DE97CBD391 /* Sources */ = {
+		9B7A66310371945BFC3F5DAD62A45158 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D52121262A193C22DB6589002EB7E92 /* ParkedTextField-dummy.m in Sources */,
-				3F4AE8A4ED36C483A91E4E90A62F40F8 /* ParkedTextField.swift in Sources */,
+				35DD5C6BB5932148F38553F066F53CA1 /* NSDictionary+Stripe.m in Sources */,
+				8D1EC7BB381AE98A642A4AD43DF73816 /* PKPayment+Stripe.m in Sources */,
+				257632182F82DBFEF7816940DF3FBB9A /* STPAPIClient+ApplePay.m in Sources */,
+				CA8BB15AD061FABCC9D5B6F4D8F3D9BD /* STPAPIClient.m in Sources */,
+				7F1D6554E5D432A65DDEA801E4FC3EFE /* STPAPIPostRequest.m in Sources */,
+				DD6EF323677EF6BDC72E4584C78A3DDE /* STPBankAccount.m in Sources */,
+				A552643F7D159956200CAA729C5D2D53 /* STPBankAccountParams.m in Sources */,
+				675FEA5C9BDE3BA6D82B346B58ED2445 /* STPCard.m in Sources */,
+				5B8A5A22F4C06D65413420B8D6903D19 /* STPCardParams.m in Sources */,
+				4AE45D412B03505AFEBBB2C4A8655B0A /* STPCardValidator.m in Sources */,
+				EE06443C3C2A50CBE3F397ED8A712D96 /* STPCategoryLoader.m in Sources */,
+				AD2564973AE116985B147AD06EDFD3F6 /* STPCheckoutInternalUIWebViewController.m in Sources */,
+				4037CC537D5AAEBAB08BB3D4E4C574AE /* STPCheckoutOptions.m in Sources */,
+				FBBBA1FF1BDBC36401E4EF839E5023E9 /* STPCheckoutViewController.m in Sources */,
+				DD06BA208E39139AF974C9DCF7C81246 /* STPColorUtils.m in Sources */,
+				74297F368F68AC63356FE945C4B69827 /* STPFormEncoder.m in Sources */,
+				CB660A8DD6EB2BBC44BF7331A2A096F4 /* STPFormTextField.m in Sources */,
+				AB5D2A60FA43156160A095A594DD5E25 /* STPIOSCheckoutWebViewAdapter.m in Sources */,
+				D355ED0065817FCA74D4DCC250EF6FF9 /* STPOSXCheckoutWebViewAdapter.m in Sources */,
+				CC59BFA43178140D35236F88C677A9A8 /* STPPaymentCardTextField.m in Sources */,
+				C19C2D7121BE7180AFA2F513E08B6E56 /* STPPaymentCardTextFieldViewModel.m in Sources */,
+				B602C22067836613FAE7DDF84C20EEA8 /* STPStrictURLProtocol.m in Sources */,
+				2BB8898B23B85EAB3CE93E9A9FDCFA54 /* STPToken.m in Sources */,
+				1862CE3A990D9FC3934CA3C84B33FADD /* Stripe+ApplePay.m in Sources */,
+				7A0873AA652C5BEACFD10CCA1116D665 /* Stripe-dummy.m in Sources */,
+				9688D2F44785773A754EB281C0EE8747 /* StripeError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2075,7 +2071,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C28337DD2E94B98F7AEE739EF3674F02 /* iCarousel-dummy.m in Sources */,
-				10C86995D04A48756AE4797CFFEDD69A /* iCarousel.m in Sources */,
+				21413DB546C41CAA827D1A9B120549C1 /* iCarousel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2083,93 +2079,97 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8FD669C32DE47E548CBB0153988C1E2 /* MGSwipeButton.m in Sources */,
+				BCAAACB62F13C09303B2ACA1D9E382E9 /* MGSwipeButton.m in Sources */,
 				569D057F4C7A6F69AEA4AB0BD6D9900E /* MGSwipeTableCell-dummy.m in Sources */,
-				95E41293E05A8ABB9866D6F3AED0CA10 /* MGSwipeTableCell.m in Sources */,
+				E9977302C5B3A9C114EF12DAF948D960 /* MGSwipeTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D1D324DB64F410816D0779B16ACDE551 /* Sources */ = {
+		DB4A906CAC9188ECBA8C02843B10E921 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD7664541A2D0A74E3054D9C5AD75CF9 /* NSDictionary+Stripe.m in Sources */,
-				83D020F0D9FD6355FC10FE920E361A55 /* PKPayment+Stripe.m in Sources */,
-				FFE3A6D6CB230AF348DDF40D3077157F /* STPAPIClient+ApplePay.m in Sources */,
-				0599D9B51FFE96AF6E54522621D5BC44 /* STPAPIClient.m in Sources */,
-				B2CA037AD380839FD42391C3C4005939 /* STPAPIPostRequest.m in Sources */,
-				3403D8828BEF7C04BC16FE2EC72D3974 /* STPBankAccount.m in Sources */,
-				4A788610AC6F71F9BC89CD3DC3B17491 /* STPBankAccountParams.m in Sources */,
-				69817E485AF5F8F7EEEA499846D54890 /* STPCard.m in Sources */,
-				4661825C0C32E519DABA38ADBC1C3489 /* STPCardParams.m in Sources */,
-				16404CB8E37C7682661DC2C16F265C4B /* STPCardValidator.m in Sources */,
-				A4D8F8F9C0A13E8EC9B142499B99A6C6 /* STPCategoryLoader.m in Sources */,
-				817F185E7E4483BDCAC45024C8F6FF71 /* STPCheckoutInternalUIWebViewController.m in Sources */,
-				12281EB2AA77D969EE293122EFC7FCEC /* STPCheckoutOptions.m in Sources */,
-				3DC9AFE37E69DEBF1A07307CC7E6960B /* STPCheckoutViewController.m in Sources */,
-				8384A75D8C3B4BE218ED264A7A372C4F /* STPColorUtils.m in Sources */,
-				52A91FAADCB60C24ECFBD27E977D2BB0 /* STPFormEncoder.m in Sources */,
-				EF8CB3593F3D789D989935C62EC11015 /* STPFormTextField.m in Sources */,
-				450F81B0A0B23443443CCC2F22E87248 /* STPIOSCheckoutWebViewAdapter.m in Sources */,
-				BB748350A05A3119F2DD3427E8CC54E2 /* STPOSXCheckoutWebViewAdapter.m in Sources */,
-				6CA555B5871E12A3FB5C37DB765264D6 /* STPPaymentCardTextField.m in Sources */,
-				64830E5BB318C94C695E780D47A6C53F /* STPPaymentCardTextFieldViewModel.m in Sources */,
-				648344AB0A7F833F4F1CD4C9EC781C18 /* STPStrictURLProtocol.m in Sources */,
-				157EFF3C682075717D58ECC0849873E9 /* STPToken.m in Sources */,
-				613F81F738CF1E4C26D9F590CC05D1A1 /* Stripe+ApplePay.m in Sources */,
-				972998F09915455C31BAE9EDA1E52D2A /* Stripe-dummy.m in Sources */,
-				3873B20CBAA7B6ACE4EAC4B761462A69 /* StripeError.m in Sources */,
+				48DA8D1B20888A371416D803746B1231 /* Alamofire-dummy.m in Sources */,
+				7B01E037BD5A310074BCDDDB7C549D0B /* Alamofire.swift in Sources */,
+				59BDD0605A645E7A557CA76076B50603 /* Download.swift in Sources */,
+				8E4605D767E337FAEEFA6096E5FEC949 /* Error.swift in Sources */,
+				FD827628BC36F9D907F700BE456BDE21 /* Manager.swift in Sources */,
+				F5466AB5187F836038F95DA160887D05 /* MultipartFormData.swift in Sources */,
+				78C9ED07C7E2BF3A26D549D72779CC8E /* ParameterEncoding.swift in Sources */,
+				065EEEAAEE109C0C6F5542EAABA0E8A0 /* Request.swift in Sources */,
+				19CD84CEB6D468F320546AA090E51D3D /* Response.swift in Sources */,
+				330CA798FC43DDC6DD2D609365E0D96C /* ResponseSerialization.swift in Sources */,
+				F29C88F2442FD681048BF648E922C590 /* Result.swift in Sources */,
+				437519A278AE2B3E183F1D2FC2B59828 /* ServerTrustPolicy.swift in Sources */,
+				787942EE084A25BA375B03380E60C60A /* Stream.swift in Sources */,
+				FCF136B11A94E05EFE2834F776DB9D76 /* Upload.swift in Sources */,
+				E6B19C962D16AB1371DADFA122D126DE /* Validation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EF659EFF40D426A3A32A82CDB98CC6EE /* Sources */ = {
+		E03643679F82D767DFC15E46362D5DC5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6D2DC3E3DA44CD382B9B425F40E11C1 /* Alamofire-dummy.m in Sources */,
-				B0FB4B01682814B9E3D32F9DC4A5E762 /* Alamofire.swift in Sources */,
-				A3505FA2FB3067D53847AD288AC04F03 /* Download.swift in Sources */,
-				D75CA395D510E08C404E55F5BDAE55CE /* Error.swift in Sources */,
-				A2C172FE407C0BC3478ADCA91A6C9CEC /* Manager.swift in Sources */,
-				8399DBEE3E2D98EB1F466132E476F4D9 /* MultipartFormData.swift in Sources */,
-				4DE5FCC41D100B113B6645EA64410F16 /* ParameterEncoding.swift in Sources */,
-				FC14480CECE872865A9C6E584F886DA3 /* Request.swift in Sources */,
-				03F494989CC1A8857B68A317D5D6860F /* Response.swift in Sources */,
-				D21B7325B3642887BFBE977E021F2D26 /* ResponseSerialization.swift in Sources */,
-				82971968CBDAB224212EEB4607C9FB8D /* Result.swift in Sources */,
-				80F496237530D382A045A29654D8C11C /* ServerTrustPolicy.swift in Sources */,
-				FEF0D7653948988B804226129471C1EC /* Stream.swift in Sources */,
-				0681ADC8BAE2C3185F13487BAAB4D9DD /* Upload.swift in Sources */,
-				C75519F0450166A6F28126ECC7664E9C /* Validation.swift in Sources */,
+				CEAE6F24FE097BE66C5CE3DEE1C7898B /* ATLAddressBarContainerView.m in Sources */,
+				A61E02E55311841CAB6A438DF1BEA5D6 /* ATLAddressBarTextView.m in Sources */,
+				224677FE5D78F8902B3E5A1566054048 /* ATLAddressBarView.m in Sources */,
+				7B0E0FCAA5DF561581F1FBDC64DB13D4 /* ATLAddressBarViewController.m in Sources */,
+				3A2365DCD3403FA7D1EBB72E20363D31 /* Atlas-dummy.m in Sources */,
+				70410938E4778D0AA53197A71E99B587 /* Atlas.m in Sources */,
+				8265D63BFB4AF00076F9F75650465E9E /* ATLAvatarImageView.m in Sources */,
+				3156DDFB0B492F976FABFA13D0AC34E2 /* ATLBaseConversationViewController.m in Sources */,
+				F5E7D7D1EEA913694BC641A7138E9449 /* ATLConstants.m in Sources */,
+				1AB108D592295CF907E9D22F6B7F909F /* ATLConversationCollectionView.m in Sources */,
+				975250BC3D9F5B3EC6504247381AFD47 /* ATLConversationCollectionViewFooter.m in Sources */,
+				98F487EC0E6252B991378AC63AA5001C /* ATLConversationCollectionViewHeader.m in Sources */,
+				3FF2A734314EAF0AFB3A8540165867AB /* ATLConversationCollectionViewMoreMessagesHeader.m in Sources */,
+				4438384CF52B1838F19C89EB1AC1C215 /* ATLConversationDataSource.m in Sources */,
+				FAF7C51DF032216E57B76E16521624B1 /* ATLConversationListViewController.m in Sources */,
+				8A4487CCC044836AFD0FB4B752A5C15B /* ATLConversationTableViewCell.m in Sources */,
+				63F238CB8EAAB0D4304C7505B79973D7 /* ATLConversationView.m in Sources */,
+				11D51C98F640F4DD03F059DBFBE9E59D /* ATLConversationViewController.m in Sources */,
+				7782CE7375BB29D46C874948B23CF39E /* ATLDataSourceChange.m in Sources */,
+				EB5B61262FC089CBBFDB9D64DB48898B /* ATLErrors.m in Sources */,
+				CA4DA353802F5684E1FD6107FBA3E051 /* ATLIncomingMessageCollectionViewCell.m in Sources */,
+				04874602F693F5476D381BA32D64ED8E /* ATLLocationManager.m in Sources */,
+				7080F4F98E2E8F580106EC693A8682C5 /* ATLMediaAttachment.m in Sources */,
+				49E7F9BF57D28307CF14C6F39A436A43 /* ATLMediaInputStream.m in Sources */,
+				5ED9F23D550A3F8F39A672093592719B /* ATLMessageBubbleView.m in Sources */,
+				D3C7BA5BC12759CF81FD9522DEBD18F5 /* ATLMessageCollectionViewCell.m in Sources */,
+				1AF3D8FB63A721159C1D99F76725E743 /* ATLMessageComposeTextView.m in Sources */,
+				6541CD864AFCB728197DF9D80FA26F08 /* ATLMessageInputToolbar.m in Sources */,
+				FD85A907B081936B27FC25C67C4E5AC8 /* ATLMessagingUtilities.m in Sources */,
+				97256A75A09E62CBFFA8C8DD0F60360B /* ATLOutgoingMessageCollectionViewCell.m in Sources */,
+				37C22373456065761FEE57AE4ACF8392 /* ATLParticipantSectionHeaderView.m in Sources */,
+				916B4F6A3C3AA87274DDB5EB4A59D536 /* ATLParticipantTableDataSet.m in Sources */,
+				719D6B4FDB798555C2EBBCB12812A1BE /* ATLParticipantTableViewCell.m in Sources */,
+				3C329B49B9587B74A12A60A285CBEC2B /* ATLParticipantTableViewController.m in Sources */,
+				FE80FCE4BB33D93C019B79C4F872457E /* ATLPlayView.m in Sources */,
+				A21EDBC42FBF96B0A3F8A9A208E65C71 /* ATLProgressView.m in Sources */,
+				BBE2EE8C7C9C9AFB90E2F433E64B0069 /* ATLTypingIndicatorViewController.m in Sources */,
+				75DDC1CF309099193987636604542734 /* ATLUIImageHelper.m in Sources */,
+				1B931936401909E6DD0E2C882B75FDCB /* UIResponder+ATLFirstResponder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F279E28775CE31AC5A3A27CFCFB17F8B /* Sources */ = {
+		F0DC1AC9B15C2A2CA37A677814EB58EC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E624B9BE90967E106B3F0CA5795A3DA /* SwiftyJSON-dummy.m in Sources */,
-				6EADBD68C356A894016D4B3AED647E05 /* SwiftyJSON.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FF84D6E0FC5AEB78B3CAF9D8DCB32549 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CB609B2E739ECB886145E200C081BD09 /* Constraint.swift in Sources */,
-				036FF10C05BE972047CF63F6628BB373 /* ConstraintAttributes.swift in Sources */,
-				BA09E82E542F9AE444229D3DA69AF464 /* ConstraintDescription.swift in Sources */,
-				ADA417A0E08499204C7C0578F57CA0CD /* ConstraintItem.swift in Sources */,
-				529A574F978D8DBD8C05E64850A07FB0 /* ConstraintMaker.swift in Sources */,
-				C76016A318265B15C6318DF51CBA8D67 /* ConstraintRelation.swift in Sources */,
-				A0DCC5610EBD9EC28B8514E731219F7B /* Debugging.swift in Sources */,
-				DCB7D095B87A5AA29F72200342059575 /* EdgeInsets.swift in Sources */,
-				853E359CE904DED88912412A9C1B6142 /* LayoutConstraint.swift in Sources */,
-				B8B5B7F7560D39DE81532F94065AF456 /* SnapKit-dummy.m in Sources */,
-				CCDE7C4159F006776CF3129F7C4AC0FF /* SnapKit.swift in Sources */,
-				3C1430B03CF4555CA2583DDF76CF8AD8 /* View+SnapKit.swift in Sources */,
-				BEB1641A503BAC23EF6E9D35B35ADDAD /* ViewController+SnapKit.swift in Sources */,
+				0A31E5430FA1294550BD6ED5558A5CAA /* Constraint.swift in Sources */,
+				3B486BB31BF907F4E256EBE05A8E8928 /* ConstraintAttributes.swift in Sources */,
+				B56B61DFC74F98BD999F101BE9919B46 /* ConstraintDescription.swift in Sources */,
+				2CB863F8B919B1B8BFCB39D043E98F88 /* ConstraintItem.swift in Sources */,
+				DE42888C382D25E416529BD2419BA831 /* ConstraintMaker.swift in Sources */,
+				5EB7B6E4F42E9B72F35F98F9B3F37AEF /* ConstraintRelation.swift in Sources */,
+				E954DB945666F1CC5C96A37E250DBC9F /* Debugging.swift in Sources */,
+				7572E11DA46C072993144259BCD593A0 /* EdgeInsets.swift in Sources */,
+				F38F14DEFE0A158559855471FEE58AD7 /* LayoutConstraint.swift in Sources */,
+				14D8F6087DE7B743EF071E9862798E31 /* SnapKit-dummy.m in Sources */,
+				D809694CEE0EEAAB183634CA3B15E2BF /* SnapKit.swift in Sources */,
+				DBFF9BB8C347CA15D02CC684D653B597 /* View+SnapKit.swift in Sources */,
+				23547F4BA60AEED44397B58B541C002C /* ViewController+SnapKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
