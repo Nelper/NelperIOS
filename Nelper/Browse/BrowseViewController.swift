@@ -56,9 +56,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		let rootvc: TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
-		rootvc.presentedVC = self
-		
 		placesClient = GMSPlacesClient()
 		
 		self.createView()
@@ -75,6 +72,9 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
 			self.loadData()
 		}
+		
+		let rootvc: TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
+		rootvc.presentedVC = self
 	}
 	
 	//MARK: Creating the View
