@@ -158,7 +158,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			make.top.equalTo(mapContainer.snp_bottom).offset(2)
 			make.right.equalTo(contentView.snp_right)
 			make.left.equalTo(contentView.snp_left)
-			make.bottom.equalTo(contentView.snp_bottom).offset(-49)
+			make.bottom.equalTo(contentView.snp_bottom)
 		}
 	}
 	
@@ -288,10 +288,17 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			if pinView == nil {
 				
 				pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+				let customPinAnnotation = pinView!.annotation as? BrowseMKAnnotation
+				
 				pinView!.canShowCallout = false
-				pinView!.image = UIImage(named: "pin-MK")
+				
+				//print("\(customPinAnnotation!.title!) of category \(customPinAnnotation!.category!) created")
+				let pinCategory = customPinAnnotation!.category
+				pinView!.image = UIImage(named: "\(pinCategory!)-pin")
 				pinView!.layer.zPosition = -1
-				pinView!.centerOffset = CGPointMake(0, -20)
+				pinView!.centerOffset = CGPointMake(0, -25)
+				
+				
 				
 			} else {
 				pinView!.annotation = annotation
@@ -302,20 +309,44 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		return nil
 	}
 	
+	func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+		//Might cause perfomance issue, TBD
+		for view in views {
+			if view.annotation is BrowseMKAnnotation {
+				let customPinAnnotation = view.annotation as? BrowseMKAnnotation
+				let pinCategory = customPinAnnotation!.category
+				view.image = UIImage(named: "\(pinCategory!)-pin")
+			}
+		}
+	}
+	
 	func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
 		
 		if view.isKindOfClass(MKAnnotationView) && !(view.annotation!.isKindOfClass(MKUserLocation)) {
 			self.annotationIsSelected = true
 			view.layer.zPosition = 0
-			view.image = UIImage(named: "pinSelected-MK")
 			
-			var center = view.annotation!.coordinate
+			let pinViewAnnotation = view.annotation as? BrowseMKAnnotation
+			let pinCategory = pinViewAnnotation!.category
 			
-			if self.mapExpanded {
+			view.image = UIImage(named: "\(pinCategory!)-pin-sel")
+			
+			let center = view.annotation!.coordinate
+			
+			/*if self.mapExpanded {
 				center.latitude -= mapView.region.span.latitudeDelta * 0.10
 			}
+			mapView.setCenterCoordinate(center, animated: true)*/
 			
-			mapView.setCenterCoordinate(center, animated: true)
+			let zoomSpan = MKCoordinateSpanMake(0.012, 0.012)
+			let zoomedRegion = MKCoordinateRegionMake(center, zoomSpan)
+			let currentSpan = mapView.region.span
+			
+			if mapView.region.span.longitudeDelta > zoomSpan.longitudeDelta {
+				mapView.setRegion(zoomedRegion, animated: true)
+			} else {
+				mapView.setRegion(MKCoordinateRegionMake(center, currentSpan), animated: true)
+			}
 			
 			setAnnotationInfo(view)
 		}
@@ -325,7 +356,11 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		if view.isKindOfClass(MKAnnotationView) && !(view.annotation!.isKindOfClass(MKUserLocation)) {
 			self.annotationIsSelected = false
 			view.layer.zPosition = -1
-			view.image = UIImage(named: "pin-MK")
+			
+			let pinViewAnnotation = view.annotation as? BrowseMKAnnotation
+			let pinCategory = pinViewAnnotation!.category
+			
+			view.image = UIImage(named: "\(pinCategory!)-pin")
 			
 			if self.mapExpanded {
 				removeAnnotationInfo(view)
