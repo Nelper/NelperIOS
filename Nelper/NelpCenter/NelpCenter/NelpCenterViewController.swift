@@ -174,7 +174,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	//MARK: My Task Details View Controller Delegate
 	
 	func didEditTask(task:FindNelpTask){
-		self.loadData()
 	}
 	
 	
