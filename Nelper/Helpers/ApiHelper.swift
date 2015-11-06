@@ -433,9 +433,10 @@ class ApiHelper {
 				if task.pictures == nil {
 					taskFetched["pictures"] = []
 				} else {
-					taskFetched["pictures"] = task.pictures
+					print(task.pictures!.count)
+					taskFetched["pictures"] = task.pictures!
 				}
-				taskFetched.saveInBackground()
+				taskFetched.save()
 			}
 		})
 	}

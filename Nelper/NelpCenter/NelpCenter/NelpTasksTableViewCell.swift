@@ -203,6 +203,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 
 		if(task.pictures != nil){
 		if(!task.pictures!.isEmpty){
+			print(task.pictures![0].url)
 		ApiHelper.getPictures(task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
 			self.topContainer.image = imageReturned.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
 		})}}else{

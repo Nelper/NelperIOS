@@ -1265,7 +1265,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 				//Saves info and changes the view
 				self.task.title = self.titleTextField.text
 				if !self.images.isEmpty {
-					self.task.pictures = ApiHelper.convertImagesToData(self.images)
+					self.convertImagesToData()
 				}
 				self.task.desc = self.descriptionTextView.text
 				
@@ -1295,6 +1295,18 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			
 		} else {
 			self.navigationController?.popViewControllerAnimated(true)
+		}
+	}
+	
+	/**
+	Converts the attached task pictures to Data in order to save them in parse.
+	*/
+	func convertImagesToData() {
+		self.task.pictures = Array()
+		for image in self.images{
+			let imageData = UIImageJPEGRepresentation(image , 0.50)
+			let imageFile = PFFile(name:"image.png", data:imageData!)
+			self.task.pictures!.append(imageFile)
 		}
 	}
 	
