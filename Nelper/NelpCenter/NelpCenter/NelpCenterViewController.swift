@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SVProgressHUD
 
 class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MyApplicationDetailsViewDelegate, SegmentControllerDelegate, MyTaskDetailsViewControllerDelegate {
 	
@@ -34,18 +35,30 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		loadData()
-		createView()
-		createMyTasksTableView()
-		createMyApplicationsTableView()
-		adjustUI()
+			
+			self.loadData()
+			self.createView()
+			self.createMyTasksTableView()
+			self.createMyApplicationsTableView()
+			self.adjustUI()
+		
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		self.myTasksTableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
+		self.myApplicationsTableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
 		self.loadData()
 		let rootvc:TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
 		rootvc.presentedVC = self
-
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
 	}
 	
 	//MARK: View Creation
@@ -90,7 +103,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 
 		let tableView = UITableView()
 		tableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
-		tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0)
 		
 		tableView.delegate = self
 		tableView.dataSource = self
@@ -102,6 +115,8 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			make.edges.equalTo(self.tasksContainer.snp_edges)
 		}
 		self.myTasksTableView = tableView
+		self.myTasksTableView.alpha = 0
+		self.myTasksTableView.transform = CGAffineTransformMakeTranslation(-500, 0)
 		self.myTasksTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 	}
 	
@@ -113,7 +128,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tableViewApplications.dataSource = self
 		tableViewApplications.registerClass(NelpApplicationsTableViewCell.classForCoder(), forCellReuseIdentifier: NelpApplicationsTableViewCell.reuseIdentifier)
 		tableViewApplications.backgroundColor = whiteBackground
-		tableViewApplications.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		tableViewApplications.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0)
 
 		self.tasksContainer.addSubview(tableViewApplications)
 		tableViewApplications.snp_makeConstraints { (make) -> Void in
@@ -121,6 +136,8 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		}
 		
 		self.myApplicationsTableView = tableViewApplications
+		self.myApplicationsTableView.alpha = 0
+		self.myApplicationsTableView.transform = CGAffineTransformMakeTranslation(500, 0)
 		self.myApplicationsTableView.hidden = true
 		self.myApplicationsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 	}
@@ -134,7 +151,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	}
 	
 	//MARK: DATA
-	
 	
 	func onPullToRefresh() {
 		loadData()
@@ -214,6 +230,17 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		return cell
 	}
 	
+	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+		if (indexPath.row == tableView.indexPathsForVisibleRows!.last!.row) {
+			SVProgressHUD.dismiss()
+			
+			UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				self.myTasksTableView.alpha = 1
+				self.myTasksTableView.transform = CGAffineTransformMakeTranslation(0, 0)
+				}, completion: nil)
+		}
+	}
+	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if(tableView == myTasksTableView) {
 			let task = nelpTasks[indexPath.row]
@@ -291,11 +318,31 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	func onIndexChange(index: Int) {
 		if index == 0 {
-			self.myApplicationsTableView.hidden = true
 			self.myTasksTableView.hidden = false
+			
+			UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				self.myTasksTableView.alpha = 1
+				self.myTasksTableView.transform = CGAffineTransformMakeTranslation(0, 0)
+				
+				self.myApplicationsTableView.alpha = 0
+				
+				}, completion: { (complete: Bool) in
+					self.myApplicationsTableView.transform = CGAffineTransformMakeTranslation(500, 0)
+					self.myApplicationsTableView.hidden = true
+			})
 		} else if index == 1 {
 			self.myApplicationsTableView.hidden = false
-			self.myTasksTableView.hidden = true
+			
+			UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				self.myApplicationsTableView.alpha = 1
+				self.myApplicationsTableView.transform = CGAffineTransformMakeTranslation(0, 0)
+				
+				self.myTasksTableView.alpha = 0
+				
+				}, completion: { (complete: Bool) in
+					self.myTasksTableView.transform = CGAffineTransformMakeTranslation(-500, 0)
+					self.myTasksTableView.hidden = true
+			})
 		}
 	}
 }

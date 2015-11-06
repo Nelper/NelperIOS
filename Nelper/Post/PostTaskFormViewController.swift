@@ -171,7 +171,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		let headerPicture = UIImageView()
 		contentView.addSubview(headerPicture)
-		headerPicture.image = UIImage(named: "square_\(self.task.category!)")!.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
+		headerPicture.image = UIImage(named: "\(self.task.category!)-nc-bg")
 		headerPicture.contentMode = UIViewContentMode.ScaleAspectFill
 		headerPicture.clipsToBounds = true
 		headerPicture.layer.borderWidth = 1
@@ -181,6 +181,13 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
 			make.height.equalTo(100)
+		}
+		
+		let darkenView = UIView()
+		headerPicture.addSubview(darkenView)
+		darkenView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.05)
+		darkenView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(headerPicture.snp_edges)
 		}
 		
 		let headerPictureLogo = UIImageView()

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 protocol LoginViewControllerDelegate {
 	func onLogin() -> Void
@@ -590,6 +591,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	//MARK: Actions
 	
 	func facebookLogin(sender: UIButton) {
+		
 		ApiHelper.loginWithFacebook { (err) -> Void in
 			self.loginCompleted()
 		}
@@ -603,14 +605,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				
 			}else{
 				
-				if user!.isNew{
+				if user!.isNew   {
 					print("User signed up and logged in through Twitta!")
 					self.getTwitterUserInfo()
 					
 					PFUser.currentUser()!["loginProvider"] = "twitter"
 					PFUser.currentUser()!.saveInBackground()
 					
-				}else{
+				} else {
 					
 					print("User logged in through Twitta")
 					self.getTwitterUserInfo()
@@ -683,7 +685,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	
 	func loginCompleted() {
 		ApiHelper.getCurrentUserPrivateInfo()
-		delegate?.onLogin()
+		self.delegate?.onLogin()
 	}
 	
 	//MARK: ANIMATE FIRST <-> SECOND VIEW

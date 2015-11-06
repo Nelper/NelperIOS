@@ -66,6 +66,13 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		}
 		topContainer.backgroundColor = whitePrimary
 		
+		let darkenView = UIView()
+		topContainer.addSubview(darkenView)
+		darkenView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.05)
+		darkenView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(topContainer.snp_edges)
+		}
+		
 		//Category Icon
 		let categoryIcon = UIImageView()
 		self.categoryIcon = categoryIcon
@@ -185,9 +192,10 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		if(nelpApplication.task.pictures != nil) {
 			if(!nelpApplication.task.pictures!.isEmpty){
 				getPictures(nelpApplication.task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
-					self.topContainer.image = imageReturned.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
+					//self.topContainer.image = imageReturned.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
+					self.topContainer.image = UIImage(named: "\(nelpApplication.task.category!)-nc-bg")
 				})}} else {
-			self.topContainer.image = UIImage(named: "square_\(nelpApplication.task.category!)")!.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
+			self.topContainer.image = UIImage(named: "\(nelpApplication.task.category!)-nc-bg")
 		}
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true

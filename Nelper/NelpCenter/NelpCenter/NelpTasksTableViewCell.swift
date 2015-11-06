@@ -69,6 +69,12 @@ class NelpTasksTableViewCell: UITableViewCell {
 		}
 		topContainer.backgroundColor = whitePrimary
 
+		let darkenView = UIView()
+		topContainer.addSubview(darkenView)
+		darkenView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.05)
+		darkenView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(topContainer.snp_edges)
+		}
 		
 		//Category Icon
 		let categoryIcon = UIImageView()
@@ -193,22 +199,21 @@ class NelpTasksTableViewCell: UITableViewCell {
 	
 	- parameter task: <#task description#>
 	*/
-	func setImages(task:FindNelpTask){
-		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2;
+	func setImages(task:FindNelpTask) {
+		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2
 		self.categoryIcon.clipsToBounds = true
 		self.categoryIcon.image = UIImage(named: task.category!)
-		self.notificationIcon.layer.cornerRadius = self.notificationIcon.frame.size.width / 2;
+		self.notificationIcon.layer.cornerRadius = self.notificationIcon.frame.size.width / 2
 		self.notificationIcon.clipsToBounds = true
 		self.setNotification(task)
-
-		if(task.pictures != nil){
-		if(!task.pictures!.isEmpty){
-			print(task.pictures![0].url)
-		ApiHelper.getPictures(task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
-			self.topContainer.image = imageReturned.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
-		})}}else{
-			
-			self.topContainer.image = UIImage(named: "square_\(task.category!)")!.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
+		
+		if(task.pictures != nil) {
+			if(!task.pictures!.isEmpty) {
+				ApiHelper.getPictures(task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
+					//self.topContainer.image = imageReturned.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
+					self.topContainer.image = UIImage(named: "\(task.category!)-nc-bg")
+				})}} else {
+			self.topContainer.image = UIImage(named: "\(task.category!)-nc-bg")
 		}
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true

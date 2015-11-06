@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import SVProgressHUD
 private let kParseTask = "Task"
 private let kParseTaskPrivate = "TaskPrivate"
 private let kParseTaskApplication = "TaskApplication"
@@ -86,6 +87,11 @@ class ApiHelper {
 	*/
 	static func loginWithFacebook(block: (NSError?) -> Void) {
 		PFFacebookUtils.logInInBackgroundWithReadPermissions(["public_profile", "email"]) { (user: PFUser?, error: NSError?) -> Void in
+			
+			SVProgressHUD.setBackgroundColor(whitePrimary)
+			SVProgressHUD.setForegroundColor(redPrimary)
+			SVProgressHUD.show()
+			
 			if error != nil {
 				block(error)
 				return

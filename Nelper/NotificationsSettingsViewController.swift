@@ -60,7 +60,7 @@ class NotificationsSettingsViewController: UIViewController {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
-//		self.scrollView.alwaysBounceVertical = true
+		self.scrollView.alwaysBounceVertical = true
 	}
 	
 	func createView() {

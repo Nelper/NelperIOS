@@ -13,14 +13,16 @@ import Alamofire
 
 class BrowseTaskViewCell: UITableViewCell {
 	
+	var cellView: UIView!
 	var title: UILabel!
-	var author:UILabel!
+	var author: UILabel!
 	var price: UILabel!
 	var picture: UIImageView!
 	var categoryPicture: UIImageView!
 	var creationDate: UILabel!
 	var moneyBackground: UIView!
 	var task: Task!
+	var cellIndexPath: NSIndexPath!
 	
 	//MARK: Initialization
 	
@@ -30,6 +32,7 @@ class BrowseTaskViewCell: UITableViewCell {
 		self.clipsToBounds = true
 		
 		let cellView = UIView(frame: self.bounds)
+		self.cellView = cellView
 		cellView.backgroundColor = whitePrimary
 		cellView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
 		
@@ -219,6 +222,14 @@ class BrowseTaskViewCell: UITableViewCell {
 		
 		let image = UIImage(named: "noProfilePicture")
 		self.picture.image = image
+	}
+	
+	func cellSelected() {
+		self.cellView.backgroundColor = redPrimarySelected
+	}
+	
+	func cellDeselected() {
+		self.cellView.backgroundColor = whitePrimary
 	}
 	
 }

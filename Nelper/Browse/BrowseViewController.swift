@@ -49,10 +49,15 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	var mapInfoBlurView: UIVisualEffectView!
 	var isFirstExpandExec: Bool = true
 	
+	var selectedCell: BrowseTaskViewCell?
+	
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		let rootvc: TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
+		rootvc.presentedVC = self
 		
 		placesClient = GMSPlacesClient()
 		
@@ -70,9 +75,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
 			self.loadData()
 		}
-		
-		let rootvc: TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
-		rootvc.presentedVC = self
 	}
 	
 	//MARK: Creating the View
@@ -175,6 +177,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		tableView.registerClass(BrowseTaskViewCell.classForCoder(), forCellReuseIdentifier: BrowseTaskViewCell.reuseIdentifier)
 		self.tableView.backgroundColor = whiteBackground
 		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+		self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.tabBarController!.tabBar.bounds.height, right: 0)
 		
 		self.tableViewContainer.addSubview(tableView)
 		
@@ -348,6 +351,33 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 				mapView.setRegion(MKCoordinateRegionMake(center, currentSpan), animated: true)
 			}
 			
+			if !(self.mapExpanded) {
+				
+				/*let cells = NSMutableArray()
+				for var j = 0; j < self.tableView.numberOfSections; ++j {
+					for var i = 0; i < self.tableView.numberOfRowsInSection(j); ++i {
+						cells.addObject(self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: j))!)
+					}
+				}*/
+				
+				for view in self.tableView.subviews {
+					for tableViewCell in view.subviews {
+						if tableViewCell is BrowseTaskViewCell {
+							let selectedCell = tableViewCell as? BrowseTaskViewCell
+							
+							if selectedCell!.task.objectId == pinViewAnnotation!.task.objectId {
+								let index = selectedCell!.cellIndexPath
+								selectedCell!.cellSelected()
+								self.selectedCell = selectedCell
+								self.tableView.scrollToRowAtIndexPath(index, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+								
+							}
+						}
+					}
+				}
+			
+			}
+			
 			setAnnotationInfo(view)
 		}
 	}
@@ -364,6 +394,8 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			
 			if self.mapExpanded {
 				removeAnnotationInfo(view)
+			} else {
+				self.selectedCell?.cellDeselected()
 			}
 		}
 	}
@@ -606,6 +638,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		let task = self.nelpTasks[indexPath.item]
 		cell.setNelpTask(task)
 		cell.setImages(task)
+		cell.cellIndexPath = indexPath
 		
 		return cell
 	}

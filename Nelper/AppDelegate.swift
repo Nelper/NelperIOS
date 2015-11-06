@@ -11,6 +11,7 @@ import MapKit
 import GoogleMaps
 import Stripe
 import ParseCrashReporting
+import SVProgressHUD
 
 @UIApplicationMain
 
@@ -88,10 +89,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	
 	// LoginViewControllerDelegate
 	func onLogin() {
-		let tabVC = initAppViewController()
-		self.loginLayer()
-		self.loginSupportKit()
-		self.window?.rootViewController = tabVC
+		
+		let tabVC = self.initAppViewController()
+		
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+			
+			self.loginLayer()
+			self.loginSupportKit()
+			self.window?.rootViewController = tabVC
+			
+			dispatch_async(dispatch_get_main_queue(), {
+				SVProgressHUD.dismiss()
+			})
+		})
+		
 		self.window?.rootViewController?.presentViewController(tabVC, animated: true, completion: nil)
 	}
 	

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import SVProgressHUD
 
 class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	
@@ -45,17 +46,17 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 		let browseVCItem = UITabBarItem(title: "Browse tasks", image: UIImage(named: "browse_default"), selectedImage: UIImage(named: "browse_default"))
 		browseVC.tabBarItem = browseVCItem
 		
-		let nelpCenterVC = UINavigationController(rootViewController:NelpCenterViewController())
+		let nelpCenterVC = UINavigationController(rootViewController: NelpCenterViewController())
 		nelpCenterVC.navigationBarHidden = true
 		let nelpCenterVCItem = UITabBarItem(title: "Nelp Center", image: UIImage(named: "nelpcenter_default"), selectedImage: UIImage(named: "nelpcenter_default"))
 		nelpCenterVC.tabBarItem = nelpCenterVCItem
 		
-		let postVC = UINavigationController(rootViewController:PostTaskCategoriesViewController())
+		let postVC = UINavigationController(rootViewController: PostTaskCategoriesViewController())
 		postVC.navigationBarHidden = true
 		let postVCItem = UITabBarItem(title: "Post a task", image: UIImage(named: "post_task"), selectedImage: UIImage(named: "post_task"))
 		postVC.tabBarItem = postVCItem
 		
-		//		let moreVC = MoreViewController(menuViewController: UIViewController(), contentViewController: MoreMenuTableViewController())
+		//let moreVC = MoreViewController(menuViewController: UIViewController(), contentViewController: MoreMenuTableViewController())
 		let moreVC = UINavigationController(rootViewController: MoreViewController())
 		moreVC.navigationBarHidden = true
 		let moreVCItem = UITabBarItem(title: "More", image: UIImage(named: "menu"), selectedImage: UIImage(named: "more"))
@@ -71,6 +72,12 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
 		if viewController != self.viewControllers![3] {
 			self.viewIsCreated = false
+			
+			if !(self.selectedViewController == viewController) && viewController == self.viewControllers![1] {
+				SVProgressHUD.setBackgroundColor(redPrimary)
+				SVProgressHUD.setForegroundColor(whitePrimary)
+				SVProgressHUD.show()
+			}
 		}
 		
 		if viewController == self.viewControllers![3] {
