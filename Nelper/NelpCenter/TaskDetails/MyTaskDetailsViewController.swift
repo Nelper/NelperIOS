@@ -1284,15 +1284,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 				} else {
 					self.pictures.removeAll()
 				}
-				
 				self.taskTitle = self.task.title
 				self.taskDescription = self.task.desc
-				
 				self.navigationController?.popViewControllerAnimated(true)
 			}))
-			
 			self.presentViewController(popup, animated: true, completion: nil)
-			
 		} else {
 			self.navigationController?.popViewControllerAnimated(true)
 		}
