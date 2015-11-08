@@ -575,7 +575,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	//MARK: Filters
 	
 	func checkFilters() {
-		if self.arrayOfFilters.isEmpty && self.minPrice == nil && self.maxDistance == nil {
+		if self.arrayOfFilters.isEmpty/* && self.minPrice == nil && self.maxDistance == nil*/ {
 			//inactive
 		} else {
 			//active filtersButton
@@ -589,10 +589,10 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	*/
 	
 	func onPullToRefresh() {
-		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
+		if self.arrayOfFilters.isEmpty && self.sortBy == nil /*&& self.minPrice == nil && self.maxDistance == nil*/ {
 			self.loadData()
 		} else {
-			self.loadDataWithFilters(self.arrayOfFilters, sort: self.sortBy, minPrice: self.minPrice, maxDistance: self.maxDistance)
+			self.loadDataWithFilters(self.arrayOfFilters, sort: self.sortBy/*, minPrice: self.minPrice, maxDistance: self.maxDistance*/)
 		}
 	}
 	
@@ -600,7 +600,20 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	Fetches the required date from Backend
 	*/
 	func loadData() {
-		ApiHelper.listNelpTasksWithBlock(nil, sortBy: nil, minPrice: nil, maxDistance: nil, block: {(nelpTasks: [Task]?, error: NSError?) -> Void in
+		var distance: String?
+		
+		if CLLocationManager.locationServicesEnabled() {
+			switch (CLLocationManager.authorizationStatus()) {
+			case .NotDetermined, .Restricted, .Denied:
+				distance = nil
+			case .AuthorizedAlways, .AuthorizedWhenInUse:
+				distance = "distance"
+			}
+		} else {
+			distance = nil
+		}
+		
+		ApiHelper.listNelpTasksWithBlock(nil, sortBy: distance/*, minPrice: nil, maxDistance: nil*/, block: {(nelpTasks: [Task]?, error: NSError?) -> Void in
 			if error != nil {
 				
 			} else {
@@ -621,8 +634,8 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	- parameter maxDistance: Maximum Distance Filter Value
 	*/
 	
-	func loadDataWithFilters(filters:Array<String>?, sort:String?, minPrice:Double?, maxDistance:Double?){
-		ApiHelper.listNelpTasksWithBlock(filters, sortBy: sort,minPrice:minPrice, maxDistance:maxDistance, block: {(nelpTasks: [Task]?, error: NSError?) -> Void in
+	func loadDataWithFilters(filters:Array<String>?, sort:String?/*, minPrice:Double?, maxDistance:Double?*/) {
+		ApiHelper.listNelpTasksWithBlock(filters, sortBy: sort/*, minPrice:minPrice, maxDistance:maxDistance*/, block: {(nelpTasks: [Task]?, error: NSError?) -> Void in
 			if error != nil {
 				print(error)
 			} else {
@@ -663,10 +676,19 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let selectedTask = self.nelpTasks[indexPath.row]
-		let vc = BrowseDetailsViewController()
-		vc.hidesBottomBarWhenPushed = true
-		vc.task = selectedTask
-		self.navigationController?.pushViewController(vc, animated: true)
+		
+		if selectedTask.application != nil && selectedTask.application!.state != .Canceled {
+			let nextVC = MyApplicationDetailsView(poster: selectedTask.application!.task.user, application: selectedTask.application!)
+			nextVC.hidesBottomBarWhenPushed = true
+			dispatch_async(dispatch_get_main_queue()) {
+				self.navigationController?.pushViewController(nextVC, animated: true)
+			}
+		} else {
+			let vc = BrowseDetailsViewController()
+			vc.hidesBottomBarWhenPushed = true
+			vc.task = selectedTask
+			self.navigationController?.pushViewController(vc, animated: true)
+		}
 	}
 	
 	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -735,12 +757,12 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	- parameter maxDistance: Maximum Distance filter value
 	*/
 	
-	func didTapAddFilters(filters: Array<String>?, sort: String?, minPrice:Double?, maxDistance:Double?){
+	func didTapAddFilters(filters: Array<String>?, sort: String?/*, minPrice:Double?, maxDistance:Double?*/){
 		self.arrayOfFilters = filters!
 		self.sortBy = sort
-		self.minPrice = minPrice
-		self.maxDistance = maxDistance
-		self.loadDataWithFilters(filters, sort: sort, minPrice: minPrice, maxDistance: maxDistance)
+		//self.minPrice = minPrice
+		//self.maxDistance = maxDistance
+		self.loadDataWithFilters(filters, sort: sort/*, minPrice: minPrice, maxDistance: maxDistance*/)
 		self.checkFilters()
 	}
 	
@@ -755,8 +777,8 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		nextVC.arrayOfFiltersFromPrevious = self.arrayOfFilters
 		nextVC.previousSortBy = self.sortBy
 		nextVC.delegate = self
-		nextVC.previousMinPrice = self.minPrice
-		nextVC.previousMaxDistance = self.maxDistance
+		//nextVC.previousMinPrice = self.minPrice
+		//nextVC.previousMaxDistance = self.maxDistance
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	

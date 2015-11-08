@@ -492,7 +492,6 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				make.bottom.equalTo(self.emptyLocationsLabel.snp_bottom).offset(20)
 			}
 			
-			self.deleteContainer.layoutIfNeeded()
 			self.contentView.layoutIfNeeded()
 			
 		} else {

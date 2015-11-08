@@ -744,7 +744,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.popupShown = false
 	}
 	
-	func didAddLocation(vc:AddAddressViewController) {
+	func didAddLocation(vc: AddAddressViewController) {
 		self.task.location = vc.location
 		self.task.city = vc.address.city!
 		self.task.exactLocation = vc.address

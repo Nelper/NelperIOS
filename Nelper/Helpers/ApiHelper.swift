@@ -175,20 +175,20 @@ class ApiHelper {
 	- parameter maxDistance:    maximum distance filter
 	- parameter block:          block
 	*/
-	static func listNelpTasksWithBlock(arrayOfFilters:Array<String>?, sortBy: String?,minPrice: Double?, maxDistance: Double?,block: ([Task]?, NSError?) -> Void) {
+	static func listNelpTasksWithBlock(arrayOfFilters:Array<String>?, sortBy: String?/*, minPrice: Double?, maxDistance: Double?*/, block: ([Task]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
-		if let arrayOfFilters = arrayOfFilters{
-			if arrayOfFilters.count != 0{
+		if let arrayOfFilters = arrayOfFilters {
+			if arrayOfFilters.count != 0 {
 			print(arrayOfFilters.count, terminator: "")
 			var filters = Array<String>()
-			for filter in arrayOfFilters{
+			for filter in arrayOfFilters {
 				filters.append(filter)
 				print(filter, terminator: "")
 			}
 			taskQuery.whereKey("category", containedIn:filters)
 			}}
 		
-		if let minPrice = minPrice {
+		/*if let minPrice = minPrice {
 		 taskQuery.whereKey("priceOffered", greaterThanOrEqualTo: minPrice)
 		}
 		
@@ -197,15 +197,17 @@ class ApiHelper {
 			print(maxDistance, terminator: "")
 			let distance:Double = maxDistance
 			taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation!, withinKilometers: distance)
-		}
+		}*/
+
 		print(sortBy)
 		if let sortBy = sortBy {
-			if sortBy == "distance" && maxDistance == nil{
-					taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation)
-			}else if sortBy == "priceOffered"{
-			taskQuery.orderByDescending(sortBy)
+			if sortBy == "distance"/* && maxDistance == nil*/ {
+				taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation)
+			} else if sortBy == "priceOffered" {
+				taskQuery.orderByDescending(sortBy)
+				//Set to Distance in BrowseTaskViewController if we have userLocation
 			}
-		}else{
+		} else {
 			taskQuery.orderByDescending("createdAt")
 		}
 		taskQuery.includeKey("user")

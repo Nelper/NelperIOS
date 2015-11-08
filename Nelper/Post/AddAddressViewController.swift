@@ -14,8 +14,8 @@ import FXBlurView
 import GoogleMaps
 
 protocol AddAddressViewControllerDelegate {
-	func didClosePopup(vc:AddAddressViewController)
-	func didAddLocation(vc:AddAddressViewController)
+	func didClosePopup(vc: AddAddressViewController)
+	func didAddLocation(vc: AddAddressViewController)
 }
 
 class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
@@ -317,11 +317,11 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	
 	- parameter text: User text (constantly updated)
 	*/
-	func placeAutocomplete(text:String) {
+	func placeAutocomplete(text: String) {
 		let filter = GMSAutocompleteFilter()
-		filter.type = GMSPlacesAutocompleteTypeFilter.Address
+		filter.type = .Address
 		
-		var bounds:GMSCoordinateBounds?
+		var bounds: GMSCoordinateBounds?
 		
 		if LocationHelper.sharedInstance.currentCLLocation != nil{
 			bounds = GMSCoordinateBounds(coordinate: LocationHelper.sharedInstance.currentCLLocation, coordinate: LocationHelper.sharedInstance.currentCLLocation)
@@ -332,15 +332,22 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 				print("Autocomplete error \(error)")
 			}
 			
-			if(results != nil){
+			if (results != nil) {
 				self.autocompleteArray = results as! [GMSAutocompletePrediction]
+				//TODO: FILTER COUNTRY AND KEEP ONLY CANADA
+				/*for result in self.autocompleteArray {
+					let string = result.attributedFullText.string
+					if string.lowercaseString.rangeOfString("canada") == nil {
+						self.autocompleteArray.removeAtIndex(self.autocompleteArray.indexOf(result)!)
+					}
+				}*/
 				self.autocompleteTableView.reloadData()
 				self.autocompleteTableView.hidden = false
-				for result in results! {
+				/*for result in results! {
 					if let result = result as? GMSAutocompletePrediction {
-						//print("Result \(result.attributedFullText) with placeID \(result.placeID)")
+						print("Result \(result.attributedFullText) with placeID \(result.placeID)")
 					}
-				}
+				}*/
 			}
 		})
 	}
@@ -429,12 +436,24 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		DismissKeyboard()
 		
 		if self.addressOk == true && self.nameTextField.text?.characters.count > 0 {
-			self.address.name = self.nameTextField.text!
-			self.delegate?.didAddLocation(self)
-			self.dismissViewControllerAnimated(true, completion: nil)
-			self.delegate?.didClosePopup(self)
+			if self.address.country == nil || self.address.country! != "Canada" {
+				let popup = UIAlertController(title: "Invalid address", message: "You must select a valid Canadian address", preferredStyle: UIAlertControllerStyle.Alert)
+				popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+				}))
+				self.presentViewController(popup, animated: true, completion: nil)
+			} else if self.address.postalCode == nil {
+				let popup = UIAlertController(title: "Invalid address", message: "You must select an address with a valid Postal Code", preferredStyle: UIAlertControllerStyle.Alert)
+				popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+				}))
+				self.presentViewController(popup, animated: true, completion: nil)
+			} else {
+				self.address.name = self.nameTextField.text!
+				self.delegate?.didAddLocation(self)
+				self.dismissViewControllerAnimated(true, completion: nil)
+				self.delegate?.didClosePopup(self)
+			}
 		} else {
-			let popup = UIAlertController(title: "Missing information", message: "You must enter a name and select a valid address!", preferredStyle: UIAlertControllerStyle.Alert)
+			let popup = UIAlertController(title: "Missing information", message: "You must enter a name and select a valid address", preferredStyle: UIAlertControllerStyle.Alert)
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 			}))
 			self.presentViewController(popup, animated: true, completion: nil)

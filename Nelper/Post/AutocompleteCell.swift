@@ -60,7 +60,7 @@ class AutocompleteCell: UITableViewCell {
 		}
 	}
 	
-	func setAddress(prediction:GMSAutocompletePrediction){
+	func setAddress(prediction: GMSAutocompletePrediction) {
 		self.prediction = prediction
 		let predictionText = prediction.attributedFullText
 		self.suggestedAddress.text = predictionText.string
