@@ -218,10 +218,24 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true
 		
-		if task.state == .Accepted {
+		if task.state == .Accepted && task.completionState == .Accepted {
 			self.numberOfApplicantsIcon.image = UIImage(named: "accepted")
 			self.numberOfApplicantsLabel.text = "Nelper accepted"
+		}else if task.completionState == .PaymentSent{
+			self.numberOfApplicantsIcon.image = UIImage(named: "payment-sent")
+			self.numberOfApplicantsLabel.text = "Payment sent"
+		}else if task.completionState == .Completed{
+			self.numberOfApplicantsIcon.image = UIImage(named: "give-feedback")
+			self.numberOfApplicantsLabel.text = "Rating & Feedback"
+		}else if task.completionState == .PaymentRequested{
+			self.numberOfApplicantsIcon.image = UIImage(named: "payment-request")
+			self.numberOfApplicantsLabel.text = "Payment release requested"
+		}else if task.completionState == .Rated{
+			self.numberOfApplicantsIcon.image = UIImage(named: "accepted")
+			self.numberOfApplicantsLabel.text = "Completed"
 		}
+		
+		
 	}
 	
 	
