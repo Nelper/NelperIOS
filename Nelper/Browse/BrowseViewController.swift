@@ -481,13 +481,13 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			moneyContainer.layer.cornerRadius = 3
 			moneyContainer.snp_makeConstraints { (make) -> Void in
 				make.right.equalTo(mapInfoBlurView.snp_right).offset(-20)
-				make.bottom.equalTo(creationDate.snp_bottom).offset(-2)
+				make.centerY.equalTo(userPicture.snp_centerY).offset(pictureSize / 5)
 				make.width.equalTo(55)
 				make.height.equalTo(35)
 			}
 			
 			creationDate.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(author.snp_bottom).offset(7)
+				make.top.equalTo(author.snp_bottom).offset(4)
 				make.left.equalTo(author.snp_left)
 				make.right.equalTo(moneyContainer.snp_left).offset(6)
 			}
@@ -508,6 +508,29 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
 			moneyLabel.snp_makeConstraints { (make) -> Void in
 				make.edges.equalTo(moneyContainer.snp_edges)
+			}
+			
+			let appliedNotice = UILabel()
+			infoButton.addSubview(appliedNotice)
+			appliedNotice.text = "Applied"
+			appliedNotice.font = UIFont(name: "Lato-Regular", size: kText15)
+			appliedNotice.textColor = redPrimary
+			appliedNotice.snp_makeConstraints { (make) -> Void in
+				make.centerX.equalTo(moneyContainer.snp_centerX)
+				make.centerY.equalTo(taskTitleLabel.snp_centerY)
+			}
+			
+			let task = pinViewAnnotation!.task
+			
+			if task.application != nil && task.application!.state != .Canceled {
+				appliedNotice.hidden = false
+				taskTitleLabel.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(userPicture.snp_top).offset(2)
+					make.left.equalTo(userPicture.snp_right).offset(18)
+					make.right.equalTo(appliedNotice.snp_left).offset(-10)
+				})
+			} else {
+				appliedNotice.hidden = true
 			}
 			
 			mapInfoBlurView.snp_makeConstraints { (make) -> Void in
@@ -621,7 +644,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
 		let cell = self.tableView.dequeueReusableCellWithIdentifier(BrowseTaskViewCell.reuseIdentifier, forIndexPath: indexPath) as! BrowseTaskViewCell
-		cell.alpha = 0
 		
 		if self.sortBy == "priceOffered" {
 			cell.moneyContainer.backgroundColor = redPrimary

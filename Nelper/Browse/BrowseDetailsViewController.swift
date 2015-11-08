@@ -31,7 +31,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	var	myOfferStepper: UIStepper!
 	var myOffer: Double!
 	var applyButton: PrimaryActionButton!
-	var ratingStarsView: RatingStars!
 	var offerContainer: UIView!
 	
 	//MARK: Initialization
@@ -42,7 +41,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		self.setImages(self.task.user!)
 		self.createView()
 		self.adjustUI()
-		self.startButtonConfig()
 	}
 	
 	//MARK: View Creation
@@ -145,13 +143,14 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		}
 		
 		let ratingStarsView = RatingStars()
-		self.ratingStarsView = ratingStarsView
 		ratingStarsView.style = "dark"
 		ratingStarsView.starHeight = 15
 		ratingStarsView.starWidth = 15
 		ratingStarsView.starPadding = 5
 		ratingStarsView.textSize = kText15
 		profileContainer.addSubview(ratingStarsView)
+		ratingStarsView.userRating = self.task.user.rating
+		ratingStarsView.userCompletedTasks = self.task.user.completedTasks
 		ratingStarsView.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(nameLabel.snp_left)
 			make.top.equalTo(picture.snp_centerY).offset(spacing)
@@ -417,20 +416,20 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			offerContainer.addSubview(applicationNoticeLabel)
 			applicationNoticeLabel.text = "You have applied for this task"
 			applicationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-			applicationNoticeLabel.textColor = grayDetails
+			applicationNoticeLabel.textColor = darkGrayDetails
 			applicationNoticeLabel.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(offerContainer.snp_top).offset(30)
 				make.centerX.equalTo(offerContainer.snp_centerX)
 			}
 			
-			let applyButton = PrimaryActionButton()
-			self.applyButton = applyButton
-			offerContainer.addSubview(applyButton)
-			applyButton.setTitle("View my application", forState: .Normal)
-			applyButton.addTarget(self, action: "viewApplicationTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-			applyButton.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(applicationNoticeLabel.snp_bottom).offset(30)
+			let viewApplicationButton = PrimaryActionButton()
+			offerContainer.addSubview(viewApplicationButton)
+			viewApplicationButton.setTitle("View my application", forState: .Normal)
+			viewApplicationButton.addTarget(self, action: "viewApplicationTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+			viewApplicationButton.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(applicationNoticeLabel.snp_bottom).offset(20)
 				make.centerX.equalTo(offerContainer.snp_centerX)
+				make.bottom.equalTo(offerContainer.snp_bottom).offset(-20)
 			}
 			
 		} else {
@@ -527,13 +526,13 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 				make.left.equalTo(myOfferLabel.snp_right).offset(15)
 				make.bottom.equalTo(offerContainer.snp_bottom).offset(-20)
 			}
-			
 		}
+		
+		offerContainer.layoutIfNeeded()
 	}
 	
 	func adjustUI() {
-		self.ratingStarsView.userRating = self.task.user.rating
-		self.ratingStarsView.userCompletedTasks = self.task.user.completedTasks
+		
 	}
 	
 	//MARK: DATA
@@ -625,15 +624,16 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		if sender.selected == false {
 			sender.selected = true
-			}else if sender.selected == true{
+			} else if sender.selected == true {
 			ApiHelper.applyForTask(self.task, price: Int(self.myOfferStepper.value))
-			self.updateButton()
+			self.createOfferContainer(true)
 		}
 	}
 	
 	func backButtonTapped(sender: UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
-		view.endEditing(true) // dissmiss keyboard without delay
+	
+		view.endEditing(true)
 	}
 	
 	/**
@@ -642,7 +642,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	- parameter sender: My Offer Stepper
 	*/
 	
-	func didTapMyOfferStepper(sender:UIStepper) {
+	func didTapMyOfferStepper(sender: UIStepper) {
 		self.myOffer = myOfferStepper.value
 		
 		self.applyButton.setTitle("Apply for $\(Int(sender.value))!", forState: UIControlState.Normal)
@@ -674,24 +674,5 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	}
 	
 	//MARK: Utilities
-	
-	/**
-	Little hack to make the Apply Bottom act right :D
-	*/
-	func startButtonConfig(){
-		if self.task.application != nil && self.task.application!.state != .Canceled {
-			self.updateButton()
-		}
-	}
-	
-	/**
-	Updates the button appearance
-	*/
-	
-	func updateButton(){
-		self.applyButton.setTitle("Applied", forState: UIControlState.Normal)
-		self.applyButton.setTitle("Applied", forState: UIControlState.Selected)
-		self.applyButton.enabled = false
-	}
-}
 
+}
