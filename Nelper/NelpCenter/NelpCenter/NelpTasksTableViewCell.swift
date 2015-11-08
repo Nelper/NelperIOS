@@ -117,8 +117,8 @@ class NelpTasksTableViewCell: UITableViewCell {
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_bottom).offset(4)
-			make.left.equalTo(cellView.snp_left).offset(12)
-			make.right.equalTo(cellView.snp_right).offset(-12)
+			make.left.equalTo(cellView.snp_left).offset(15)
+			make.right.equalTo(cellView.snp_right).offset(-15)
 			make.height.equalTo(40)
 		}
 		
@@ -129,7 +129,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		cellView.addSubview(numberOfApplicantsIcon)
 		numberOfApplicantsIcon.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleLabel.snp_bottom).offset(6)
-			make.left.equalTo(cellView.snp_left).offset(40)
+			make.left.equalTo(cellView.snp_left).offset(30)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
 		}
@@ -163,7 +163,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(numberOfApplicants.snp_centerY)
-			make.right.equalTo(cellView.snp_right).offset(-40)
+			make.right.equalTo(cellView.snp_right).offset(-30)
 			make.width.equalTo(65)
 			make.height.equalTo(38)
 		}
@@ -220,7 +220,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		if task.state == .Accepted {
 			self.numberOfApplicantsIcon.image = UIImage(named: "accepted")
-			self.numberOfApplicantsLabel.text = "Nelper Accepted"
+			self.numberOfApplicantsLabel.text = "Nelper accepted"
 		}
 	}
 	
@@ -260,7 +260,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 //		self.categoryLabel.text = task.category!.uppercaseString
 		self.titleLabel.text = task.title
 		let price = String(format: "%.0f", task.priceOffered!)
-		self.price.text = "$"+price
+		self.price.text = price+"$"
 
 	}
 

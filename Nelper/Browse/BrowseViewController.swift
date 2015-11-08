@@ -90,25 +90,16 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		let navBar = NavBar()
 		self.navBar = navBar
 		self.view.addSubview(self.navBar)
+		
+		let filtersBtn = UIButton()
+		filtersBtn.addTarget(self, action: "didTapFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.filtersButton = filtersBtn
 		self.navBar.setTitle("Browse Tasks")
 		self.navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
 			make.left.equalTo(self.view.snp_left)
 			make.height.equalTo(64)
-		}
-		
-		let filtersButton = UIButton()
-		self.navBar.addSubview(filtersButton)
-		self.filtersButton = filtersButton
-		filtersButton.setImage(UIImage(named: "filters-inactive"), forState: UIControlState.Normal)
-		filtersButton.imageEdgeInsets = UIEdgeInsetsMake(13, 16, 8, 18)
-		filtersButton.addTarget(self, action: "didTapFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
-		filtersButton.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(navBar.snp_right)
-			make.bottom.equalTo(navBar.snp_bottom)
-			make.height.equalTo(50)
-			make.width.equalTo(60)
 		}
 		
 		self.navBar.layoutIfNeeded()
@@ -300,8 +291,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 				pinView!.image = UIImage(named: "\(pinCategory!)-pin")
 				pinView!.layer.zPosition = -1
 				pinView!.centerOffset = CGPointMake(0, -25)
-				
-				
 				
 			} else {
 				pinView!.annotation = annotation
@@ -564,11 +553,9 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	
 	func checkFilters() {
 		if self.arrayOfFilters.isEmpty && self.minPrice == nil && self.maxDistance == nil {
-			self.filtersButton.setImage(UIImage(named: "filters-inactive"), forState: UIControlState.Normal)
-			
-			self.filtersButton.imageEdgeInsets = UIEdgeInsetsMake(13, 16, 8, 18)
+			//inactive
 		} else {
-			self.filtersButton.setImage(UIImage(named: "filters-active"), forState: UIControlState.Normal)
+			//active filtersButton
 		}
 	}
 	
@@ -634,6 +621,15 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
 		let cell = self.tableView.dequeueReusableCellWithIdentifier(BrowseTaskViewCell.reuseIdentifier, forIndexPath: indexPath) as! BrowseTaskViewCell
+		cell.alpha = 0
+		
+		if self.sortBy == "priceOffered" {
+			cell.moneyContainer.backgroundColor = redPrimary
+			cell.price.textColor = whitePrimary
+		} else {
+			cell.moneyContainer.backgroundColor = whiteBackground
+			cell.price.textColor = blackPrimary
+		}
 		
 		let task = self.nelpTasks[indexPath.item]
 		cell.setNelpTask(task)
@@ -651,6 +647,19 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.navigationController?.pushViewController(vc, animated: true)
 	}
 	
+	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+		
+		UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+			cell.alpha = 1
+			}, completion: nil)
+		
+		/*if (indexPath.row == tableView.indexPathsForVisibleRows!.last!.row) {
+			
+			UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				cell.alpha = 1
+				}, completion: nil)
+		}*/
+	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return 85
@@ -707,7 +716,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	func didTapAddFilters(filters: Array<String>?, sort: String?, minPrice:Double?, maxDistance:Double?){
 		self.arrayOfFilters = filters!
 		self.sortBy = sort
-		print(filters!, terminator: "")
 		self.minPrice = minPrice
 		self.maxDistance = maxDistance
 		self.loadDataWithFilters(filters, sort: sort, minPrice: minPrice, maxDistance: maxDistance)
@@ -720,7 +728,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		
 	}
 	
-	func didTapFiltersButton(sender:UIButton){
+	func didTapFiltersButton(sender: UIButton){
 		let nextVC =  FilterSortViewController()
 		nextVC.arrayOfFiltersFromPrevious = self.arrayOfFilters
 		nextVC.previousSortBy = self.sortBy

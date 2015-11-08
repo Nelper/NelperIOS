@@ -222,7 +222,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.width.equalTo(firstContainer.snp_width).dividedBy(1.4)
 			make.height.equalTo(0.5)
 			make.centerX.equalTo(firstContainer.snp_centerX)
-			
 		}
 		
 		let categoryIcon = UIImageView()
@@ -233,16 +232,38 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		categoryIcon.image = UIImage(named: self.task.category!)
 		categoryIcon.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(titleUnderline.snp_centerY)
-			make.centerX.equalTo(titleUnderline.snp_centerX)
+			make.left.equalTo(titleUnderline.snp_left).offset(45)
 			make.width.equalTo(iconSize)
 			make.height.equalTo(iconSize)
 		}
 		
+		let moneyContainer = UIView()
+		firstContainer.addSubview(moneyContainer)
+		moneyContainer.backgroundColor = whiteBackground
+		moneyContainer.layer.cornerRadius = 3
+		moneyContainer.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(titleUnderline.snp_right).offset(-45)
+			make.centerY.equalTo(titleUnderline.snp_centerY)
+			make.width.equalTo(55)
+			make.height.equalTo(35)
+		}
+		
+		let moneyLabel = UILabel()
+		moneyContainer.addSubview(moneyLabel)
+		moneyLabel.textAlignment = NSTextAlignment.Center
+		moneyLabel.textColor = blackPrimary
+		let price = String(format: "%.0f", self.task.priceOffered!)
+		moneyLabel.text = price+"$"
+		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
+		moneyLabel.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(moneyContainer.snp_edges)
+		}
+		
 		let descriptionTextView = UITextView()
-		descriptionTextView.scrollEnabled = false
 		self.descriptionTextView = descriptionTextView
 		firstContainer.addSubview(descriptionTextView)
 		descriptionTextView.delegate = self
+		descriptionTextView.scrollEnabled = true
 		descriptionTextView.text = self.taskDescription
 		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText15)
 		descriptionTextView.textColor = textFieldTextColor
@@ -361,7 +382,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		let pinIcon = UIImageView()
 		vibrancyView.contentView.addSubview(pinIcon)
-		pinIcon.image = UIImage(named: "pin-MK")
+		pinIcon.image = UIImage(named: "\(self.task.category!)-pin")
 		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		pinIcon.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(40)
@@ -371,7 +392,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		let pinIcon2 = UIImageView()
 		blurView.contentView.addSubview(pinIcon2)
-		pinIcon2.image = UIImage(named: "pin-MK")
+		pinIcon2.image = UIImage(named: "\(self.task.category!)-pin")
 		pinIcon2.alpha = 0.8
 		pinIcon2.contentMode = UIViewContentMode.ScaleAspectFill
 		pinIcon2.snp_makeConstraints { (make) -> Void in
@@ -837,8 +858,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.bottom.equalTo(self.deniedApplicantsTableView.snp_bottom)
 		}
 		
-		//TODO: FIX breaking constraints: Removing ApplicantCell Autoresize "fixes" it. Idea?
-		
 		if !isUpdate {
 			if self.deniedApplications.isEmpty {
 				self.deniedApplicantsContainer.hidden = true
@@ -1257,11 +1276,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		if (self.titleTextField.text != self.taskTitle) || (self.descriptionTextView.text != self.taskDescription) || (self.picturesChanged) {
 			
-			let popup = UIAlertController(title: "Your task was edited", message: "Do you want to save your changes to this task?", preferredStyle: UIAlertControllerStyle.Alert)
+			let popup = UIAlertController(title: "Your task was edited", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
 			let popupSubview = popup.view.subviews.first! as UIView
 			let popupContentView = popupSubview.subviews.first! as UIView
 			popupContentView.layer.cornerRadius = 0
-			popup.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action) -> Void in
+			popup.addAction(UIAlertAction(title: "Save changes", style: .Default, handler: { (action) -> Void in
 				//Saves info and changes the view
 				self.task.title = self.titleTextField.text
 				if !self.images.isEmpty {
@@ -1276,7 +1295,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 				self.delegate.didEditTask(self.task)
 				self.navigationController?.popViewControllerAnimated(true)
 			}))
-			popup.addAction(UIAlertAction(title: "No", style: .Default, handler: { (action) -> Void in
+			popup.addAction(UIAlertAction(title: "Discard changes", style: .Default, handler: { (action) -> Void in
 				//Resets info and changes the view
 				if self.task.pictures != nil {
 					self.pictures = self.task.pictures!

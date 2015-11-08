@@ -205,6 +205,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		
 		if(tableView == myTasksTableView) {
 			if (!self.nelpTasks.isEmpty) {
 				let cellTask = NelpTasksTableViewCell()
@@ -231,6 +232,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	}
 	
 	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+		
 		if (indexPath.row == tableView.indexPathsForVisibleRows!.last!.row) {
 			SVProgressHUD.dismiss()
 			

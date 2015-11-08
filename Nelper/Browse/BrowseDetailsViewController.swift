@@ -29,9 +29,10 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	var picture: UIImageView!
 	var taskContainer: UIView!
 	var	myOfferStepper: UIStepper!
-	var myOfferValueLabel: UILabel!
 	var myOffer: Double!
 	var applyButton: PrimaryActionButton!
+	var ratingStarsView: RatingStars!
+	var offerContainer: UIView!
 	
 	//MARK: Initialization
 	
@@ -40,6 +41,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		self.pictures = self.task.pictures
 		self.setImages(self.task.user!)
 		self.createView()
+		self.adjustUI()
 		self.startButtonConfig()
 	}
 	
@@ -102,24 +104,24 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		//Profile Container
 		
-		let profileContainer = UIView()
-		let profileTapAction = UITapGestureRecognizer(target: self, action: "didTapProfile:")
-		profileContainer.addGestureRecognizer(profileTapAction)
+		let profileContainer = UIButton()
+		profileContainer.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
 		contentView.addSubview(profileContainer)
 		profileContainer.layer.borderColor = grayDetails.CGColor
 		profileContainer.layer.borderWidth = 1
 		profileContainer.backgroundColor = whitePrimary
+		profileContainer.setBackgroundColor(grayDetails, forState: .Highlighted)
 		profileContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
-			make.height.equalTo(100)
+			make.height.equalTo(90)
 		}
 		
 		let profilePicture = UIImageView()
 		self.picture = profilePicture
 		profileContainer.addSubview(profilePicture)
-		let pictureSize:CGFloat = 80
+		let pictureSize:CGFloat = 70
 		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
 		profilePicture.layer.cornerRadius = pictureSize / 2
 		profilePicture.clipsToBounds = true
@@ -130,25 +132,43 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.width.equalTo(pictureSize)
 		}
 		
+		let spacing = 6
+		
 		let nameLabel = UILabel()
 		profileContainer.addSubview(nameLabel)
 		nameLabel.text = self.task.user.name
 		nameLabel.textColor = blackPrimary
 		nameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		nameLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(profilePicture.snp_centerY)
-			make.left.equalTo(profilePicture.snp_right).offset(15)
+			make.bottom.equalTo(profilePicture.snp_centerY).offset(-spacing)
+			make.left.equalTo(profilePicture.snp_right).offset(18)
+		}
+		
+		let ratingStarsView = RatingStars()
+		self.ratingStarsView = ratingStarsView
+		ratingStarsView.style = "dark"
+		ratingStarsView.starHeight = 15
+		ratingStarsView.starWidth = 15
+		ratingStarsView.starPadding = 5
+		ratingStarsView.textSize = kText15
+		profileContainer.addSubview(ratingStarsView)
+		ratingStarsView.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(nameLabel.snp_left)
+			make.top.equalTo(picture.snp_centerY).offset(spacing)
+			make.width.equalTo((ratingStarsView.starWidth + ratingStarsView.starPadding) * 6)
+			make.height.equalTo(ratingStarsView.starHeight)
 		}
 		
 		let arrow = UIImageView()
 		profileContainer.addSubview(arrow)
 		arrow.image = UIImage(named: "arrow_applicant_cell")
+		arrow.contentMode = .ScaleAspectFit
 		arrow.alpha = 0.3
 		arrow.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(profileContainer.snp_right).offset(-20)
 			make.centerY.equalTo(profileContainer.snp_centerY)
-			make.height.equalTo(35)
-			make.width.equalTo(20)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
 		}
 		
 		//Task Container
@@ -165,73 +185,53 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.right.equalTo(self.contentView.snp_right).offset(1)
 		}
 		
-		let categoryIcon = UIImageView()
-		taskContainer.addSubview(categoryIcon)
-		categoryIcon.image = UIImage(named:self.task.category!)
-		let categoryIconSize:CGFloat = 60
-		categoryIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		categoryIcon.layer.cornerRadius = categoryIconSize / 2
-		categoryIcon.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(taskContainer.snp_centerX)
-			make.top.equalTo(taskContainer.snp_top).offset(14)
-			make.height.equalTo(categoryIconSize)
-			make.width.equalTo(categoryIconSize)
-		}
-		
 		let taskNameLabel = UILabel()
 		taskContainer.addSubview(taskNameLabel)
 		taskNameLabel.text = self.task.title!
 		taskNameLabel.textAlignment = NSTextAlignment.Center
 		taskNameLabel.textColor = blackPrimary
+		taskNameLabel.numberOfLines = 0
 		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		taskNameLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(categoryIcon.snp_bottom).offset(14)
+			make.top.equalTo(taskContainer.snp_top).offset(25)
 			make.centerX.equalTo(taskContainer.snp_centerX)
-			make.left.equalTo(taskContainer.snp_left).offset(10)
-			make.right.equalTo(taskContainer.snp_right).offset(-10)
+			make.left.equalTo(taskContainer.snp_left).offset(12)
+			make.right.equalTo(taskContainer.snp_right).offset(-12)
 		}
 		
 		let taskNameLabelUnderline = UIView()
 		taskContainer.addSubview(taskNameLabelUnderline)
 		taskNameLabelUnderline.backgroundColor = grayDetails
 		taskNameLabelUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskNameLabel.snp_bottom).offset(15)
+			make.top.equalTo(taskNameLabel.snp_bottom).offset(40)
 			make.centerX.equalTo(taskContainer.snp_centerX)
 			make.width.equalTo(taskContainer.snp_width).dividedBy(1.4)
 			make.height.equalTo(0.5)
 		}
 		
-		let descriptionTextView = UITextView()
-		taskContainer.addSubview(descriptionTextView)
-		descriptionTextView.backgroundColor = whitePrimary
-		descriptionTextView.text = self.task.desc!
-		descriptionTextView.textColor = blackPrimary
-		descriptionTextView.scrollEnabled = false
-		descriptionTextView.editable = false
-		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText15)
-		descriptionTextView.textAlignment = NSTextAlignment.Center
-		descriptionTextView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskNameLabelUnderline.snp_bottom).offset(10)
-			make.left.equalTo(taskContainer.snp_left).offset(10)
-			make.right.equalTo(taskContainer.snp_right).offset(-10)
+		let categoryIcon = UIImageView()
+		taskContainer.addSubview(categoryIcon)
+		categoryIcon.image = UIImage(named:self.task.category!)
+		let categoryIconSize:CGFloat = 40
+		categoryIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		categoryIcon.layer.cornerRadius = categoryIconSize / 2
+		categoryIcon.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(taskContainer.snp_centerX)
+			make.centerY.equalTo(taskNameLabelUnderline.snp_centerY)
+			make.height.equalTo(categoryIconSize)
+			make.width.equalTo(categoryIconSize)
 		}
 		
-		let fixedWidth = descriptionTextView.frame.size.width
-		descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-		let newSize = descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-		var newFrame = descriptionTextView.frame
-		newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-		descriptionTextView.frame = newFrame;
-		
-		
-		let descriptionUnderline = UIView()
-		taskContainer.addSubview(descriptionUnderline)
-		descriptionUnderline.backgroundColor = grayDetails
-		descriptionUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(descriptionTextView.snp_bottom).offset(10)
-			make.centerX.equalTo(taskContainer.snp_centerX)
-			make.width.equalTo(taskContainer.snp_width).dividedBy(1.4)
-			make.height.equalTo(0.5)
+		let descriptionLabel = UILabel()
+		taskContainer.addSubview(descriptionLabel)
+		descriptionLabel.text = self.task.desc!
+		descriptionLabel.textColor = blackPrimary
+		descriptionLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		descriptionLabel.textAlignment = NSTextAlignment.Center
+		descriptionLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(taskNameLabelUnderline.snp_bottom).offset(40)
+			make.left.equalTo(taskContainer.snp_left).offset(12)
+			make.right.equalTo(taskContainer.snp_right).offset(-12)
 		}
 		
 		let postDateLabel = UILabel()
@@ -242,8 +242,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		postDateLabel.textColor = darkGrayDetails
 		postDateLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		postDateLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(descriptionUnderline.snp_bottom).offset(40)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(22)
+			make.top.equalTo(descriptionLabel.snp_bottom).offset(40)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(21)
 		}
 		
 		let postedIcon = UIImageView()
@@ -287,10 +287,10 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		mapContainer.layer.borderWidth = 1
 		mapContainer.backgroundColor = whitePrimary
 		mapContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(pinIcon.snp_bottom).offset(42)
+			make.top.equalTo(pinIcon.snp_bottom).offset(45)
 			make.left.equalTo(self.contentView.snp_left).offset(-1)
 			make.right.equalTo(self.contentView.snp_right).offset(1)
-			make.height.equalTo(250)
+			make.height.equalTo(180)
 		}
 		
 		taskContainer.snp_makeConstraints { (make) -> Void in
@@ -389,7 +389,17 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		//Offer Container
 		
+		self.createOfferContainer(false)
+	}
+	
+	func createOfferContainer(isUpdate: Bool) {
+		
+		if isUpdate {
+			self.offerContainer.removeFromSuperview()
+		}
+		
 		let offerContainer = UIView()
+		self.offerContainer = offerContainer
 		contentView.addSubview(offerContainer)
 		offerContainer.layer.borderColor = grayDetails.CGColor
 		offerContainer.layer.borderWidth = 1
@@ -401,109 +411,129 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
 		}
 		
-		let offerLabelContainer = UIView()
-		offerContainer.addSubview(offerLabelContainer)
-		offerLabelContainer.sizeToFit()
-		
-		let posterNameOffer = UILabel()
-		offerLabelContainer.addSubview(posterNameOffer)
-		posterNameOffer.textColor = darkGrayDetails
-		posterNameOffer.font = UIFont(name: "Lato-Regular", size: kText15)
-		posterNameOffer.text = "\(self.task.user.name) is offering"
-		posterNameOffer.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(offerLabelContainer.snp_left)
-			make.top.equalTo(offerContainer.snp_top).offset(28)
+		if self.task.application != nil && self.task.application!.state != .Canceled {
+			
+			let applicationNoticeLabel = UILabel()
+			offerContainer.addSubview(applicationNoticeLabel)
+			applicationNoticeLabel.text = "You have applied for this task"
+			applicationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+			applicationNoticeLabel.textColor = grayDetails
+			applicationNoticeLabel.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(offerContainer.snp_top).offset(30)
+				make.centerX.equalTo(offerContainer.snp_centerX)
+			}
+			
+			let applyButton = PrimaryActionButton()
+			self.applyButton = applyButton
+			offerContainer.addSubview(applyButton)
+			applyButton.setTitle("View my application", forState: .Normal)
+			applyButton.addTarget(self, action: "viewApplicationTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+			applyButton.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(applicationNoticeLabel.snp_bottom).offset(30)
+				make.centerX.equalTo(offerContainer.snp_centerX)
+			}
+			
+		} else {
+			
+			let offerLabelContainer = UIView()
+			offerContainer.addSubview(offerLabelContainer)
+			offerLabelContainer.sizeToFit()
+			
+			let posterNameOffer = UILabel()
+			offerLabelContainer.addSubview(posterNameOffer)
+			posterNameOffer.textColor = darkGrayDetails
+			posterNameOffer.font = UIFont(name: "Lato-Regular", size: kText15)
+			posterNameOffer.text = "\(self.task.user.name) is offering"
+			posterNameOffer.snp_makeConstraints { (make) -> Void in
+				make.left.equalTo(offerLabelContainer.snp_left)
+				make.top.equalTo(offerContainer.snp_top).offset(28)
+			}
+			
+			let moneyContainer = UIView()
+			offerLabelContainer.addSubview(moneyContainer)
+			moneyContainer.backgroundColor = whiteBackground
+			moneyContainer.layer.cornerRadius = 3
+			moneyContainer.snp_makeConstraints { (make) -> Void in
+				make.centerY.equalTo(posterNameOffer.snp_centerY)
+				make.left.equalTo(posterNameOffer.snp_right).offset(12)
+				make.width.equalTo(55)
+				make.height.equalTo(35)
+			}
+			
+			let moneyLabel = UILabel()
+			moneyContainer.addSubview(moneyLabel)
+			moneyLabel.textAlignment = NSTextAlignment.Center
+			moneyLabel.textColor = blackPrimary
+			let price = String(format: "%.0f", self.task.priceOffered!)
+			moneyLabel.text = price+"$"
+			moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
+			moneyLabel.snp_makeConstraints { (make) -> Void in
+				make.edges.equalTo(moneyContainer.snp_edges)
+			}
+			
+			offerLabelContainer.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(offerContainer.snp_top)
+				make.left.equalTo(posterNameOffer.snp_left)
+				make.right.equalTo(moneyContainer.snp_right)
+				make.centerX.equalTo(offerContainer.snp_centerX)
+			}
+			
+			let taskPosterOfferUnderline = UIView()
+			offerContainer.addSubview(taskPosterOfferUnderline)
+			taskPosterOfferUnderline.backgroundColor = grayDetails
+			taskPosterOfferUnderline.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(posterNameOffer.snp_bottom).offset(30)
+				make.centerX.equalTo(offerContainer.snp_centerX)
+				make.width.equalTo(offerContainer.snp_width).dividedBy(1.4)
+				make.height.equalTo(0.5)
+			}
+			
+			//Apply Button
+			
+			let applyButton = PrimaryActionButton()
+			self.applyButton = applyButton
+			offerContainer.addSubview(applyButton)
+			applyButton.setTitle("Confirm Application", forState: UIControlState.Selected)
+			applyButton.setBackgroundColor(redPrimarySelected, forState: .Selected)
+			applyButton.setTitle("Apply for $\(Int(self.task.priceOffered!))!", forState: UIControlState.Normal)
+			applyButton.addTarget(self, action: "applyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+			applyButton.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(taskPosterOfferUnderline.snp_bottom).offset(30)
+				make.centerX.equalTo(offerContainer.snp_centerX)
+			}
+			
+			let myOfferLabel = UILabel()
+			offerContainer.addSubview(myOfferLabel)
+			myOfferLabel.text = "My offer"
+			myOfferLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+			myOfferLabel.textColor = blackPrimary
+			myOfferLabel.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(applyButton.snp_bottom).offset(25)
+				make.right.equalTo(applyButton.snp_centerX).offset(-22)
+			}
+			
+			let myOfferStepper = UIStepper()
+			self.myOfferStepper = myOfferStepper
+			self.myOfferStepper.minimumValue = 10
+			self.myOfferStepper.maximumValue = 200
+			self.myOfferStepper.value = self.task.priceOffered!
+			self.myOfferStepper.stepValue = 1
+			myOfferStepper.continuous = true
+			myOfferStepper.addTarget(self, action: "didTapMyOfferStepper:", forControlEvents: UIControlEvents.ValueChanged)
+			offerContainer.addSubview(myOfferStepper)
+			myOfferStepper.tintColor = redPrimary
+			myOfferStepper.snp_makeConstraints { (make) -> Void in
+				make.centerY.equalTo(myOfferLabel.snp_centerY)
+				make.left.equalTo(myOfferLabel.snp_right).offset(15)
+				make.bottom.equalTo(offerContainer.snp_bottom).offset(-20)
+			}
+			
 		}
-		
-		let moneyTagPoster = UIImageView()
-		offerLabelContainer.addSubview(moneyTagPoster)
-		moneyTagPoster.image = UIImage(named: "moneytag")
-		moneyTagPoster.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(posterNameOffer.snp_centerY)
-			make.left.equalTo(posterNameOffer.snp_right).offset(12)
-			make.width.equalTo(60)
-			make.height.equalTo(30)
-		}
-		
-		offerLabelContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(offerContainer.snp_top)
-			make.left.equalTo(posterNameOffer.snp_left)
-			make.right.equalTo(moneyTagPoster.snp_right)
-			make.centerX.equalTo(offerContainer.snp_centerX)
-		}
-		
-		let moneyLabelPoster = UILabel()
-		moneyTagPoster.addSubview(moneyLabelPoster)
-		moneyLabelPoster.textAlignment = NSTextAlignment.Center
-		moneyLabelPoster.text = "$\(Int(self.task.priceOffered!))"
-		moneyLabelPoster.textColor = whitePrimary
-		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kText15)
-		moneyLabelPoster.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(moneyTagPoster.snp_edges)
-		}
-		
-		let taskPosterOfferUnderline = UIView()
-		offerContainer.addSubview(taskPosterOfferUnderline)
-		taskPosterOfferUnderline.backgroundColor = grayDetails
-		taskPosterOfferUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(posterNameOffer.snp_bottom).offset(30)
-			make.centerX.equalTo(offerContainer.snp_centerX)
-			make.width.equalTo(offerContainer.snp_width).dividedBy(1.4)
-			make.height.equalTo(0.5)
-		}
-		
-		let myOfferLabel = UILabel()
-		offerContainer.addSubview(myOfferLabel)
-		myOfferLabel.textColor = darkGrayDetails
-		myOfferLabel.font = UIFont(name: "Lato-Regular", size: kText14)
-		myOfferLabel.text = "My Offer"
-		myOfferLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskPosterOfferUnderline.snp_bottom).offset(30)
-			make.right.equalTo(offerContainer.snp_centerX).offset(-60)
-		}
-		
-		let myOfferValueLabel = UILabel()
-		self.myOfferValueLabel = myOfferValueLabel
-		offerContainer.addSubview(myOfferValueLabel)
-		myOfferValueLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		myOfferValueLabel.textColor = blackPrimary
-		myOfferValueLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(myOfferLabel.snp_centerY)
-			make.left.equalTo(myOfferLabel.snp_right).offset(22)
-		}
-		
-		let myOfferStepper = UIStepper()
-		self.myOfferStepper = myOfferStepper
-		self.myOfferStepper.minimumValue = 5
-		self.myOfferStepper.maximumValue = 999
-		self.myOfferStepper.value = self.task.priceOffered!
-		self.myOfferStepper.stepValue = 1
-		myOfferStepper.continuous = true
-		myOfferStepper.addTarget(self, action: "didTapMyOfferStepper:", forControlEvents: UIControlEvents.ValueChanged)
-		offerContainer.addSubview(myOfferStepper)
-		myOfferStepper.tintColor = redPrimary
-		myOfferStepper.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(30)
-			make.width.equalTo(60)
-			make.centerY.equalTo(myOfferValueLabel.snp_centerY)
-			make.left.equalTo(myOfferValueLabel.snp_right).offset(28)
-		}
-		
-		myOfferValueLabel.text = "$\(Int(self.myOfferStepper.value))"
-		
-		//Apply Button
-		
-		let applyButton = PrimaryActionButton()
-		self.applyButton = applyButton
-		offerContainer.addSubview(applyButton)
-		applyButton.setTitle("Sure?", forState: UIControlState.Selected)
-		applyButton.setTitle("Apply for $\(Int(self.task.priceOffered!))!", forState: UIControlState.Normal)
-		applyButton.addTarget(self, action: "applyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		applyButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(myOfferStepper.snp_bottom).offset(20)
-			make.centerX.equalTo(offerContainer.snp_centerX)
-			make.bottom.equalTo(offerContainer.snp_bottom).offset(-20)
-		}
+	}
+	
+	func adjustUI() {
+		self.ratingStarsView.userRating = self.task.user.rating
+		self.ratingStarsView.userCompletedTasks = self.task.user.completedTasks
 	}
 	
 	//MARK: DATA
@@ -612,8 +642,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	- parameter sender: My Offer Stepper
 	*/
 	
-	func didTapMyOfferStepper(sender:UIStepper){
-		self.myOfferValueLabel.text = "$\(Int(sender.value))"
+	func didTapMyOfferStepper(sender:UIStepper) {
 		self.myOffer = myOfferStepper.value
 		
 		self.applyButton.setTitle("Apply for $\(Int(sender.value))!", forState: UIControlState.Normal)
@@ -625,12 +654,23 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	- parameter sender: Poster Profile View
 	*/
 	
-	func didTapProfile(sender:UIView){
+	func didTapProfile(sender: UIButton) {
 		let nextVC = PosterProfileViewController()
 		nextVC.removeChatButton()
 		nextVC.poster = self.task.user
 		nextVC.hidesBottomBarWhenPushed = true
 		self.navigationController?.pushViewController(nextVC, animated: true)
+	}
+	
+	func viewApplicationTapped(sender: UIButton) {
+		let application = self.task.application
+		let nextVC = MyApplicationDetailsAcceptedViewController()
+		nextVC.poster = application!.task.user
+		nextVC.application = application
+		nextVC.hidesBottomBarWhenPushed = true
+		dispatch_async(dispatch_get_main_queue()) {
+			self.navigationController?.pushViewController(nextVC, animated: true)
+		}
 	}
 	
 	//MARK: Utilities

@@ -23,6 +23,7 @@ class BrowseTaskViewCell: UITableViewCell {
 	var moneyBackground: UIView!
 	var task: Task!
 	var cellIndexPath: NSIndexPath!
+	var moneyContainer: UIView!
 	
 	//MARK: Initialization
 	
@@ -69,12 +70,10 @@ class BrowseTaskViewCell: UITableViewCell {
 		
 		let title = UILabel()
 		self.title = title
-		
 		cellView.addSubview(title)
-		
 		title.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(picture.snp_top).offset(2)
-			make.left.equalTo(picture.snp_right).offset(12)
+			make.left.equalTo(picture.snp_right).offset(18)
 			make.right.equalTo(cellView.snp_right).offset(-10)
 		}
 		
@@ -94,19 +93,19 @@ class BrowseTaskViewCell: UITableViewCell {
 		
 		author.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(title.snp_bottom).offset(8)
-			make.left.equalTo(picture.snp_right).offset(22)
+			make.left.equalTo(title.snp_left)
 		}
 		
 		let creationDate = UILabel()
 		creationDate.adjustsFontSizeToFitWidth = true
 		self.creationDate = creationDate
 		cellView.addSubview(creationDate)
-		
 		self.creationDate.font = UIFont(name: "Lato-Light", size: kText13)
 		self.creationDate.textColor = blackTextColor
 		
 		
 		let moneyContainer = UIView()
+		self.moneyContainer = moneyContainer
 		cellView.addSubview(moneyContainer)
 		moneyContainer.backgroundColor = whiteBackground
 		moneyContainer.layer.cornerRadius = 3
@@ -118,7 +117,7 @@ class BrowseTaskViewCell: UITableViewCell {
 		}
 		
 		creationDate.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(author.snp_bottom).offset(7)
+			make.top.equalTo(author.snp_bottom).offset(5)
 			make.left.equalTo(author.snp_left)
 			make.right.equalTo(moneyContainer.snp_left).offset(6)
 		}

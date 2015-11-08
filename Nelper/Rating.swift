@@ -28,7 +28,11 @@ class RatingStars: UIView {
 			setRatingView()
 		}
 	}
-	var userCompletedTasks = Int()
+	var userCompletedTasks = Int() {
+		didSet {
+			setRatingView()
+		}
+	}
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)

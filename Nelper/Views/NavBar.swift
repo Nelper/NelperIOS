@@ -17,6 +17,7 @@ class NavBar: UINavigationBar {
 	private var backButtonView: UIButton?
 	private var closeButtonView: UIButton?
 	private var saveButtonView: UIButton?
+	private var filtersButtonView: UIButton?
 	private var deleteButtonView: UIButton?
 	private var backArrow:UIImageView!
 	private var closeX:UIImageView!
@@ -72,6 +73,29 @@ class NavBar: UINavigationBar {
 				self.saveButtonView?.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 				self.container.addSubview(self.saveButtonView!)
 				self.saveButtonView?.snp_makeConstraints { (make) -> Void in
+					make.centerY.equalTo(self.container.snp_centerY).offset(9)
+					make.right.equalTo(self.self.container.snp_right)
+					make.height.equalTo(70)
+					make.width.equalTo(100)
+				}
+			}
+		}
+	}
+	
+	var filtersButton: UIButton? {
+		didSet {
+			if let value = filtersButton {
+				self.filtersButtonView?.removeFromSuperview()
+				self.filtersButtonView = value
+				self.filtersButtonView?.backgroundColor = whitePrimary.colorWithAlphaComponent(0)
+				self.filtersButtonView?.setTitle("Filters", forState: UIControlState.Normal)
+				self.filtersButtonView?.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+				self.filtersButtonView?.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+				self.filtersButtonView?.setTitleColor(darkGrayDetails, forState: UIControlState.Highlighted)
+				self.filtersButtonView?.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+				self.filtersButtonView?.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
+				self.container.addSubview(self.filtersButtonView!)
+				self.filtersButtonView?.snp_makeConstraints { (make) -> Void in
 					make.centerY.equalTo(self.container.snp_centerY).offset(9)
 					make.right.equalTo(self.self.container.snp_right)
 					make.height.equalTo(70)

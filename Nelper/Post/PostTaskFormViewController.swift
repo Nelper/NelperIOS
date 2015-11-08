@@ -12,6 +12,7 @@ import Alamofire
 import SwiftyJSON
 import FXBlurView
 import GoogleMaps
+import ParkedTextField
 
 protocol PostTaskFormViewControllerDelegate {
 	func nelpTaskAdded(task: FindNelpTask) -> Void
@@ -28,7 +29,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var titleTextField: UITextField!
 	var descriptionTextView: UITextView!
 	var descriptionStatus: UIImageView!
-	var priceOffered: UITextField!
+	var priceOffered: ParkedTextField!
 	var autocompleteArray = [GMSAutocompletePrediction]()
 	var tap: UITapGestureRecognizer?
 	var contentView: UIView!
@@ -308,25 +309,26 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		priceOfferedLabel.text = "How much are you offering?"
 		priceOfferedLabel.textColor = blackPrimary
 		priceOfferedLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		
 		priceOfferedLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(descriptionTextView.snp_bottom).offset(20)
 			make.left.equalTo(taskTitleTextField.snp_left)
 		}
-		let priceOfferedTextField = UITextField()
+		
+		let priceOfferedTextField = ParkedTextField()
 		priceOfferedTextField.delegate = self
 		self.priceOffered = priceOfferedTextField
 		taskFormContainer.addSubview(priceOfferedTextField)
 		priceOfferedTextField.backgroundColor = whitePrimary
-		priceOfferedTextField.attributedPlaceholder = NSAttributedString(string: "$", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
 		priceOfferedTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+		priceOfferedTextField.parkedText = " $"
+		priceOfferedTextField.parkedTextFont = UIFont(name: "Lato-Regular", size: kText15)
+		priceOfferedTextField.parkedTextColor = textFieldTextColor
 		priceOfferedTextField.textColor = textFieldTextColor
 		priceOfferedTextField.textAlignment = NSTextAlignment.Left
 		priceOfferedTextField.layer.borderColor = grayDetails.CGColor
 		priceOfferedTextField.layer.borderWidth = 1
 		priceOfferedTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		priceOfferedTextField.keyboardType = UIKeyboardType.NumberPad
-		
 		priceOfferedTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(priceOfferedLabel.snp_bottom).offset(10)
@@ -758,6 +760,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.userPrivateData.locations.append(vc.address)
 		ApiHelper.updateUserLocations(self.userPrivateData.locations)
 		
+		self.contentView.layoutIfNeeded()
 		self.scrollView.contentSize = self.contentView.frame.size
 	}
 	
@@ -949,7 +952,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			self.task.desc = ""
 		}
 		
-		self.task.priceOffered = Double(self.priceOffered!.text!)
+		self.task.priceOffered = Double(self.priceOffered!.typedText)
 		
 		ApiHelper.addTask(self.task, block: { (task, error) -> Void in
 			self.delegate?.nelpTaskAdded(self.task)
@@ -1025,10 +1028,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		})
 	}
 	
-	//TODO: MADE NEXT VIEW NELP CENTER MY TASKS
+	//TODO: FIX NEXT VIEW NELP CENTER MY TASKS
 	func dismissVC() {
-		//self.navigationController?.setViewControllers([NelpCenterViewController()], animated: true)
-		self.navigationController?.popViewControllerAnimated(false)
-		self.tabBarController?.selectedIndex = 1
+		self.navigationController!.setViewControllers([NelpCenterViewController()], animated: true)
+		self.navigationController!.popViewControllerAnimated(false)
 	}
 }

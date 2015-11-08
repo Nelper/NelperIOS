@@ -199,7 +199,7 @@ class ApiHelper {
 			taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation!, withinKilometers: distance)
 		}
 		print(sortBy)
-		if let sortBy = sortBy{
+		if let sortBy = sortBy {
 			if sortBy == "distance" && maxDistance == nil{
 					taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation)
 			}else if sortBy == "priceOffered"{

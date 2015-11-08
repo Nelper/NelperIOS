@@ -101,8 +101,8 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_bottom).offset(4)
-			make.left.equalTo(cellView.snp_left).offset(12)
-			make.right.equalTo(cellView.snp_right).offset(-12)
+			make.left.equalTo(cellView.snp_left).offset(15)
+			make.right.equalTo(cellView.snp_right).offset(-15)
 			make.height.equalTo(40)
 		}
 		
@@ -113,7 +113,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		applicationStateIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		applicationStateIcon.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleLabel.snp_bottom).offset(6)
-			make.left.equalTo(cellView.snp_left).offset(40)
+			make.left.equalTo(cellView.snp_left).offset(30)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
 		}
@@ -147,7 +147,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(applicationLabel.snp_centerY)
-			make.right.equalTo(cellView.snp_right).offset(-40)
+			make.right.equalTo(cellView.snp_right).offset(-30)
 			make.width.equalTo(65)
 			make.height.equalTo(38)
 		}
@@ -231,10 +231,9 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 	
 	func setNelpApplication(nelpApplication: TaskApplication) {
 		self.nelpApplication = nelpApplication
-		//		self.categoryLabel.text = task.category!.uppercaseString
+		//self.categoryLabel.text = task.category!.uppercaseString
 		self.titleLabel.text = nelpApplication.task.title
-		let price = String(format: "%.0f", nelpApplication.task.priceOffered!)
-		self.price.text = "$"+price
+		self.price.text = "\(nelpApplication.price!)$"
 	}
 }
 	
