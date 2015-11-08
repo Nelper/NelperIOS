@@ -9,7 +9,7 @@
 import Foundation
 
 protocol FilterSortViewControllerDelegate{
-	func didTapAddFilters(filters:Array<String>?, sort: String?/*, minPrice:Double?, maxDistance:Double?*/)
+	func didTapAddFilters(filters:Array<String>?, sort: String?)
 }
 
 class FilterSortViewController: UIViewController{
@@ -24,22 +24,12 @@ class FilterSortViewController: UIViewController{
 	var handyworkButton: UIButton!
 	var multimediaButton: UIButton!
 	var allButton:UIButton!
-	/*var distanceCheckBox: UIButton!
-	var priceCheckBox: UIButton!
-	var distanceStepper: UIStepper!
-	var priceStepper: UIStepper!
-	var priceValueLabel: UILabel!
-	var distanceValueLabel: UILabel!*/
 	var delegate: FilterSortViewControllerDelegate!
 	var sortBy: String?
 	var arrayOfFilters = Array<String>()
-	//var minPrice: Double?
-	//var maxDistance: Double?
 	var arrayOfFiltersFromPrevious = Array<String>()
 	var previousSortBy: String?
 	var sortingSegmentControl: UISegmentedControl!
-	//var previousMinPrice: Double?
-	//var previousMaxDistance: Double?
 	var scrollView: UIScrollView!
 	var contentView: UIView!
 	var lastFilterWasAll: Bool = false
@@ -318,122 +308,6 @@ class FilterSortViewController: UIViewController{
 		allButton.layer.borderColor = darkGrayDetails.CGColor
 		allButton.layer.borderWidth = 0
 		
-		/*
-		//Distance Filter
-		
-		let distanceCheckBox = UIButton()
-		distanceCheckBox.addTarget(self, action: "didTapDistanceCheckBox:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.distanceCheckBox = distanceCheckBox
-		filtersContainer.addSubview(distanceCheckBox)
-		distanceCheckBox.setBackgroundImage(UIImage(named: "empty_check"), forState: UIControlState.Normal)
-		distanceCheckBox.setBackgroundImage(UIImage(named: "checked_box"), forState: UIControlState.Selected)
-		distanceCheckBox.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(filtersContainer.snp_left).offset(25)
-			make.top.equalTo(allButton.snp_bottom).offset(45)
-			make.height.equalTo(30)
-			make.width.equalTo(30)
-		}
-		
-		let distanceLabel = UILabel()
-		filtersContainer.addSubview(distanceLabel)
-		distanceLabel.text = "Distance within"
-		distanceLabel.textColor = blackPrimary
-		distanceLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		distanceLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(distanceCheckBox.snp_right).offset(15)
-			make.centerY.equalTo(distanceCheckBox.snp_centerY)
-		}
-		
-		let distanceStepper = UIStepper()
-		self.distanceStepper = distanceStepper
-		self.distanceStepper.minimumValue = 1
-		self.distanceStepper.maximumValue = 999
-		self.distanceStepper.stepValue = 1
-		distanceStepper.continuous = true
-		distanceStepper.addTarget(self, action: "didTapDistanceStepper:", forControlEvents: UIControlEvents.ValueChanged)
-		distanceStepper.enabled = false
-		distanceStepper.alpha = 0.3
-		filtersContainer.addSubview(distanceStepper)
-		distanceStepper.tintColor = redPrimary
-		distanceStepper.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(30)
-			make.width.equalTo(60)
-			make.right.equalTo(filtersContainer.snp_right).offset(-55)
-			make.centerY.equalTo(distanceLabel.snp_centerY)
-		}
-		
-		let distanceValueLabel = UILabel()
-		self.distanceValueLabel = distanceValueLabel
-		distanceValueLabel.alpha = 0.3
-		filtersContainer.addSubview(distanceValueLabel)
-		distanceValueLabel.text = "\(Int(self.distanceStepper.value))km"
-		distanceValueLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		distanceValueLabel.textColor = blackPrimary
-		distanceValueLabel.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(distanceStepper.snp_left).offset(-20)
-			make.centerY.equalTo(distanceStepper.snp_centerY)
-		}
-		
-		//Price Filter
-		
-		let priceCheckBox = UIButton()
-		priceCheckBox.addTarget(self, action: "didTapPriceCheckBox:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.priceCheckBox = priceCheckBox
-		filtersContainer.addSubview(priceCheckBox)
-		priceCheckBox.setBackgroundImage(UIImage(named: "empty_check"), forState: UIControlState.Normal)
-		priceCheckBox.setBackgroundImage(UIImage(named: "checked_box"), forState: UIControlState.Selected)
-		priceCheckBox.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(filtersContainer.snp_left).offset(25)
-			make.top.equalTo(distanceCheckBox.snp_bottom).offset(20)
-			make.height.equalTo(30)
-			make.width.equalTo(30)
-		}
-		
-		let priceLabel = UILabel()
-		filtersContainer.addSubview(priceLabel)
-		priceLabel.text = "Minimum Price"
-		priceLabel.textColor = blackPrimary
-		priceLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		priceLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(priceCheckBox.snp_right).offset(15)
-			make.centerY.equalTo(priceCheckBox.snp_centerY)
-		}
-		
-		let priceStepper = UIStepper()
-		self.priceStepper = priceStepper
-		priceStepper.minimumValue = 10
-		priceStepper.maximumValue = 200
-		priceStepper.addTarget(self, action: "didTapPriceStepper:", forControlEvents: UIControlEvents.ValueChanged)
-		priceStepper.continuous = true
-		priceStepper.stepValue = 5
-		priceStepper.alpha = 0.3
-		priceStepper.enabled = false
-		filtersContainer.addSubview(priceStepper)
-		priceStepper.tintColor = redPrimary
-		priceStepper.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(30)
-			make.width.equalTo(60)
-			make.right.equalTo(filtersContainer.snp_right).offset(-55)
-			make.centerY.equalTo(priceLabel.snp_centerY)
-		}
-		
-		let priceValueLabel = UILabel()
-		self.priceValueLabel = priceValueLabel
-		priceValueLabel.alpha = 0.3
-		filtersContainer.addSubview(priceValueLabel)
-		priceValueLabel.text = "\(Int(self.priceStepper.value))$"
-		priceValueLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		priceValueLabel.textColor = blackPrimary
-		priceValueLabel.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(priceStepper.snp_left).offset(-20)
-			make.centerY.equalTo(priceStepper.snp_centerY)
-		}
-		
-		filtersContainer.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(priceValueLabel.snp_bottom).offset(30)
-		}
-		*/
-		
 		//Add filters Container and button
 		
 		let addFiltersContainer = UIView()
@@ -502,27 +376,6 @@ class FilterSortViewController: UIViewController{
 				self.didTapHandywork(nil)
 			}
 		}
-		
-		/*if self.previousMinPrice != nil {
-			self.priceCheckBox.selected = true
-			self.priceStepper.value = previousMinPrice!
-			self.minPrice = previousMinPrice!
-			self.priceStepper.alpha = 1
-			self.priceStepper.enabled = true
-			self.priceValueLabel.alpha = 1
-			self.priceValueLabel.text = "\(Int(self.priceStepper.value))$"
-		}
-		
-		if self.previousMaxDistance != nil{
-			self.distanceCheckBox.selected = true
-			self.distanceStepper.value = previousMaxDistance!
-			self.maxDistance = previousMaxDistance!
-			self.distanceStepper.enabled = true
-			self.distanceStepper.alpha = 1
-			self.distanceValueLabel.alpha = 1
-			self.distanceValueLabel.text = "\(Int(self.distanceStepper.value))km"
-			
-		}*/
 	}
 	
 	/**
@@ -571,76 +424,14 @@ class FilterSortViewController: UIViewController{
 	
 	//MARK: Actions
 	
-	func backButtonTapped(sender:UIButton){
+	func backButtonTapped(sender: UIButton) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	func didTapAddFiltersButton(sender:UIButton){
-//		if self.arrayOfFilters.isEmpty == false || self.sortBy != nil || minPrice != nil || self.maxDistance != nil{
-			self.delegate.didTapAddFilters(self.arrayOfFilters, sort: self.sortBy)
-			self.dismissViewControllerAnimated(true, completion: nil)
-//		}
+	func didTapAddFiltersButton(sender:UIButton) {
+		self.delegate.didTapAddFilters(self.arrayOfFilters, sort: self.sortBy)
+		self.dismissViewControllerAnimated(true, completion: nil)
 	}
-	
-	/**
-	Activates and enable the Maximum Distance Filter
-	
-	- parameter sender: Button
-	*/
-	/*func didTapDistanceCheckBox(sender:UIButton){
-		self.distanceCheckBox.selected = !self.distanceCheckBox.selected
-		if self.distanceCheckBox.selected {
-			self.distanceStepper.enabled = true
-			self.maxDistance = distanceStepper.value
-			self.distanceStepper.alpha = 1
-			self.distanceValueLabel.alpha = 1
-		}else{
-			self.distanceStepper.enabled = false
-			self.maxDistance = nil
-			self.distanceStepper.alpha = 0.3
-			self.distanceValueLabel.alpha = 0.3
-		}
-	}
-	
-	/**
-	Activates and enable the Minimum Price
-	
-	- parameter sender: Button
-	*/
-	func didTapPriceCheckBox(sender:UIButton!){
-		self.priceCheckBox.selected = !self.priceCheckBox.selected
-		if self.priceCheckBox.selected{
-			self.priceStepper.enabled = true
-			self.priceStepper.alpha = 1
-			self.minPrice = priceStepper.value
-			self.priceValueLabel.alpha = 1
-		}else {
-			self.priceStepper.enabled = false
-			self.priceStepper.alpha = 0.3
-			self.minPrice = nil
-			self.priceValueLabel.alpha = 0.3
-		}
-	}
-	
-	/**
-	Distance Stepper Control
-	
-	- parameter sender: Distance Stepper
-	*/
-	func didTapDistanceStepper(sender:UIStepper){
-		self.distanceValueLabel.text = "\(Int(sender.value))km"
-		self.maxDistance = distanceStepper.value
-	}
-	
-	/**
-	Price stepper control
-	
-	- parameter sender: Price Stepper
-	*/
-	func didTapPriceStepper(sender:UIStepper){
-		self.priceValueLabel.text = "\(Int(sender.value))$"
-		self.minPrice = priceStepper.value
-	}*/
 	
 	/**
 	Sorting selection

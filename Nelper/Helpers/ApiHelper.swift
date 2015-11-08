@@ -175,7 +175,7 @@ class ApiHelper {
 	- parameter maxDistance:    maximum distance filter
 	- parameter block:          block
 	*/
-	static func listNelpTasksWithBlock(arrayOfFilters:Array<String>?, sortBy: String?/*, minPrice: Double?, maxDistance: Double?*/, block: ([Task]?, NSError?) -> Void) {
+	static func listNelpTasksWithBlock(arrayOfFilters:Array<String>?, sortBy: String?, block: ([Task]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		if let arrayOfFilters = arrayOfFilters {
 			if arrayOfFilters.count != 0 {
@@ -187,21 +187,10 @@ class ApiHelper {
 			}
 			taskQuery.whereKey("category", containedIn:filters)
 			}}
-		
-		/*if let minPrice = minPrice {
-		 taskQuery.whereKey("priceOffered", greaterThanOrEqualTo: minPrice)
-		}
-		
-		if let maxDistance = maxDistance {
-			print(LocationHelper.sharedInstance.currentLocation!, terminator: "")
-			print(maxDistance, terminator: "")
-			let distance:Double = maxDistance
-			taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation!, withinKilometers: distance)
-		}*/
 
 		print(sortBy)
 		if let sortBy = sortBy {
-			if sortBy == "distance"/* && maxDistance == nil*/ {
+			if sortBy == "distance" {
 				taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation)
 			} else if sortBy == "priceOffered" {
 				taskQuery.orderByDescending(sortBy)
