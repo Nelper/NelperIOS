@@ -214,6 +214,21 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			self.applicationStateLabel.text = "Denied"
 		}
 		
+		if nelpApplication.state == .Accepted{
+			if nelpApplication.task.completionState == .PaymentSent{
+				self.applicationStateIcon.image = UIImage(named: "payment-sent")
+				self.applicationStateLabel.text = "Payment sent"
+			}else if nelpApplication.task.completionState == .Completed{
+				self.applicationStateIcon.image = UIImage(named: "give-feedback")
+				self.applicationStateLabel.text = "Rating & Feedback"
+			}else if nelpApplication.task.completionState == .PaymentRequested{
+				self.applicationStateIcon.image = UIImage(named: "payment-request")
+				self.applicationStateLabel.text = "Payment release requested"
+			}else if nelpApplication.task.completionState == .Rated{
+				self.applicationStateIcon.image = UIImage(named: "accepted")
+				self.applicationStateLabel.text = "Completed"
+			}
+		}
 	}
 	
 	func getPictures(imageURL: String, block: (UIImage) -> Void) -> Void {

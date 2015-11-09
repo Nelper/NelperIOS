@@ -16,6 +16,14 @@ class TaskApplication: BaseModel {
 		case Denied
 	}
 	
+	enum CompletionState: Int{
+		case Accepted = 0
+		case PaymentSent
+		case Completed
+		case PaymentRequested
+		case Rated
+	}
+	
 	var id: String {
 		get {
 			return GraphQLClient.toGlobalId("TaskApplication", id: self.objectId)
