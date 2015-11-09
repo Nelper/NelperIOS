@@ -11,7 +11,7 @@ pod 'Alamofire'
 pod 'SnapKit'
 pod 'SwiftyJSON'
 pod 'iCarousel'
-
+pod 'SDWebImage'
 pod 'Stripe'
 pod 'SupportKit'
 pod 'FXBlurView'
