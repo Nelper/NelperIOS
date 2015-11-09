@@ -61,6 +61,7 @@
 		19DB24651BB711B500468E91 /* SkillsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24621BB711B500468E91 /* SkillsTableViewCell.swift */; };
 		9FB9076C1CAA3EC7FCDFB9DE /* Pods_Nelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */; };
 		C0196C981BB5B49300901155 /* SegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0196C971BB5B49300901155 /* SegmentController.swift */; };
+		C02C74901BF0109B008251F7 /* CategoryFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C748F1BF0109B008251F7 /* CategoryFilters.swift */; };
 		C03B1B8A1BDF426B00AFD349 /* BrowseMKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B1B891BDF426B00AFD349 /* BrowseMKAnnotation.swift */; };
 		C04598CB1BCE035600AFA579 /* MainSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CA1BCE035500AFA579 /* MainSettingsViewController.swift */; };
 		C04598CD1BCE14FB00AFA579 /* MainSettingsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */; };
@@ -199,6 +200,7 @@
 		3B270E8836963EF33AD092DC /* Pods-Nelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nelper/Pods-Nelper.release.xcconfig"; sourceTree = "<group>"; };
 		81B22C69A0E6D9DAF50A99C0 /* Pods_Nelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0196C971BB5B49300901155 /* SegmentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegmentController.swift; path = Views/SegmentController.swift; sourceTree = "<group>"; };
+		C02C748F1BF0109B008251F7 /* CategoryFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryFilters.swift; sourceTree = "<group>"; };
 		C03B1B891BDF426B00AFD349 /* BrowseMKAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseMKAnnotation.swift; sourceTree = "<group>"; };
 		C04598CA1BCE035500AFA579 /* MainSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainSettingsViewController.swift; path = Nelper/MainSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainSettingsViewCell.swift; path = Nelper/MainSettingsViewCell.swift; sourceTree = SOURCE_ROOT; };
@@ -443,6 +445,7 @@
 			isa = PBXGroup;
 			children = (
 				19DB24551BB711AA00468E91 /* FilterSortViewController.swift */,
+				C02C748F1BF0109B008251F7 /* CategoryFilters.swift */,
 				19DB24561BB711AA00468E91 /* BrowseDetailsViewController.swift */,
 				19DB24571BB711AA00468E91 /* BrowseTaskViewCell.swift */,
 				19DB24581BB711AA00468E91 /* BrowseViewController.swift */,
@@ -757,6 +760,7 @@
 				C03B1B8A1BDF426B00AFD349 /* BrowseMKAnnotation.swift in Sources */,
 				19761A1B1B687858001600E1 /* BaseTask.swift in Sources */,
 				19DB24521BB7119C00468E91 /* PostTaskCategoriesViewController.swift in Sources */,
+				C02C74901BF0109B008251F7 /* CategoryFilters.swift in Sources */,
 				F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */,
 				C0BED39F1BCF4E3C00CE3B63 /* UIElements.swift in Sources */,
 				C0ACB2001BD88C7300DFC3CB /* Shapes.swift in Sources */,
