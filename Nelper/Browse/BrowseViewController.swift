@@ -56,6 +56,13 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		for family: String in UIFont.familyNames() {
+			print("\(family)")
+			for names: String in UIFont.fontNamesForFamilyName(family) {
+				print("== \(names)")
+			}
+		}
+		
 		placesClient = GMSPlacesClient()
 		
 		self.createView()
@@ -576,9 +583,10 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	
 	func checkFilters() {
 		if self.arrayOfFilters.isEmpty {
-			//inactive
+			self.navBar.filtersButtonView!.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		} else {
-			//active filtersButton
+			print("bold")
+			self.navBar.filtersButtonView!.titleLabel!.font = UIFont(name: "Lato-Black", size: kTitle17)
 		}
 	}
 	

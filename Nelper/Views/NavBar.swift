@@ -17,7 +17,7 @@ class NavBar: UINavigationBar {
 	private var backButtonView: UIButton?
 	private var closeButtonView: UIButton?
 	private var saveButtonView: UIButton?
-	private var filtersButtonView: UIButton?
+	var filtersButtonView: UIButton?
 	private var deleteButtonView: UIButton?
 	private var backArrow:UIImageView!
 	private var closeX:UIImageView!

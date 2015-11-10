@@ -56,6 +56,8 @@
 	<string>We need your location in order to find tasks near you!</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Lato-Black.tff</string>
+		<string>Lato-Bold.tff</string>
 		<string>Lato-Light.ttf</string>
 		<string>Lato-Regular.ttf</string>
 	</array>

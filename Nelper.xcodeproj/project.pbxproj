@@ -66,6 +66,8 @@
 		C04598CB1BCE035600AFA579 /* MainSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CA1BCE035500AFA579 /* MainSettingsViewController.swift */; };
 		C04598CD1BCE14FB00AFA579 /* MainSettingsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */; };
 		C04FF0031BB86873001E204F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04FF0021BB86873001E204F /* Button.swift */; };
+		C059CB681BF1ABB100AD2730 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C059CB671BF1ABB100AD2730 /* Lato-Bold.ttf */; };
+		C059CB6A1BF1AEA000AD2730 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C059CB691BF1AEA000AD2730 /* Lato-Black.ttf */; };
 		C087D8D91BB7199A00AA205B /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087D8D81BB7199A00AA205B /* Rating.swift */; };
 		C08D19B21BE40D2900B70DEE /* FaqViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D19B11BE40D2900B70DEE /* FaqViewController.swift */; };
 		C0ACB2001BD88C7300DFC3CB /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACB1FF1BD88C7300DFC3CB /* Shapes.swift */; };
@@ -205,6 +207,8 @@
 		C04598CA1BCE035500AFA579 /* MainSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainSettingsViewController.swift; path = Nelper/MainSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		C04598CC1BCE14FB00AFA579 /* MainSettingsViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainSettingsViewCell.swift; path = Nelper/MainSettingsViewCell.swift; sourceTree = SOURCE_ROOT; };
 		C04FF0021BB86873001E204F /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		C059CB671BF1ABB100AD2730 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		C059CB691BF1AEA000AD2730 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		C087D8D81BB7199A00AA205B /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		C08D19B11BE40D2900B70DEE /* FaqViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FaqViewController.swift; path = Nelper/FaqViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0ACB1FF1BD88C7300DFC3CB /* Shapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
@@ -359,6 +363,8 @@
 				199EF1F21B37A0A500B25B07 /* Info.plist */,
 				F7F5209B1BA9CAC6005A2A76 /* Lato-Regular.ttf */,
 				F7F5209A1BA9CABD005A2A76 /* Lato-Light.ttf */,
+				C059CB671BF1ABB100AD2730 /* Lato-Bold.ttf */,
+				C059CB691BF1AEA000AD2730 /* Lato-Black.ttf */,
 				F7EE46B71B6D219C005ECFCA /* Podfile */,
 			);
 			name = "Supporting Files";
@@ -678,9 +684,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C059CB681BF1ABB100AD2730 /* Lato-Bold.ttf in Resources */,
 				F7F5209C1BA9CB54005A2A76 /* Lato-Regular.ttf in Resources */,
 				F7F5209D1BA9CB54005A2A76 /* Lato-Light.ttf in Resources */,
 				19DB24641BB711B500468E91 /* FullProfileViewController.xib in Resources */,
+				C059CB6A1BF1AEA000AD2730 /* Lato-Black.ttf in Resources */,
 				F7EE46B81B6D219C005ECFCA /* Podfile in Resources */,
 				19DB243B1BB70E8000468E91 /* MyApplicationDetailsView.xib in Resources */,
 				19DB243F1BB70E8000468E91 /* NelpCenterViewController.xib in Resources */,
