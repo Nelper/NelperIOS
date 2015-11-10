@@ -282,7 +282,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	
 	//MARK: DISMISS KEYBOARD
 	
-	func DismissKeyboard() {
+	func dismissKeyboard() {
 		view.endEditing(true)
 	}
 	
@@ -308,6 +308,20 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 			return true
 		}
 		return true
+	}
+	
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		dismissKeyboard()
+		textField.resignFirstResponder()
+		
+		switch (textField) {
+		case self.nameTextField:
+			self.addressTextField.becomeFirstResponder()
+		default:
+			return false
+		}
+		
+		return false
 	}
 	
 	//MARK: Google Places Autocomplete
@@ -369,7 +383,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 				self.autocompleteTableView.hidden == true
 			}
 		} else {
-			DismissKeyboard()
+			dismissKeyboard()
 			self.dismissViewControllerAnimated(true, completion: nil)
 			self.delegate?.didClosePopup(self)
 		}
@@ -433,7 +447,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	}
 	
 	func didTapAddLocationButton(sender:UIButton!) {
-		DismissKeyboard()
+		dismissKeyboard()
 		
 		if self.addressOk == true && self.nameTextField.text?.characters.count > 0 {
 			if self.address.country == nil || self.address.country! != "Canada" {

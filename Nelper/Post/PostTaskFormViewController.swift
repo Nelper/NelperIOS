@@ -90,7 +90,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.createView()
 		self.adjustUI()
 		
-		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 		self.tap = tap
 		contentView.addGestureRecognizer(tap)
 		
@@ -234,12 +234,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		taskTitleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
 		taskTitleTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		taskTitleTextField.textColor = blackPrimary
-		taskTitleTextField.textAlignment = NSTextAlignment.Left
-		taskTitleTextField.autocorrectionType = UITextAutocorrectionType.No
+		taskTitleTextField.textAlignment = .Left
+		taskTitleTextField.autocorrectionType = .No
 		taskTitleTextField.layer.borderColor = grayDetails.CGColor
 		taskTitleTextField.layer.borderWidth = 1
 		taskTitleTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		
+		taskTitleTextField.returnKeyType = .Next
 		taskTitleTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(taskTitleLabel.snp_bottom).offset(10)
@@ -283,6 +283,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		descriptionTextView.layer.borderWidth = 1
 		descriptionTextView.layer.sublayerTransform = CATransform3DMakeTranslation(6, 0, 0)
 		descriptionTextView.text = "Description   "
+		descriptionTextView.returnKeyType = .Next
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(descriptionLabel.snp_bottom).offset(10)
@@ -328,7 +329,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		priceOfferedTextField.layer.borderColor = grayDetails.CGColor
 		priceOfferedTextField.layer.borderWidth = 1
 		priceOfferedTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		priceOfferedTextField.keyboardType = UIKeyboardType.NumberPad
+		priceOfferedTextField.keyboardType = .NumbersAndPunctuation
+		priceOfferedTextField.returnKeyType = .Done
+		priceOfferedTextField.autocorrectionType = .No
 		priceOfferedTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(priceOfferedLabel.snp_bottom).offset(10)
@@ -677,10 +680,11 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	//MARK: Textfield and Textview Delegate
-	//TODO: FIX THIS SHIT I CAN'T :D
 	
 	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
 		
+		//Textfield validations
+		//TODO!!
 		if textField == self.locationTextField {
 			return textField != self.locationTextField
 		} else if textField == self.titleTextField {
@@ -705,26 +709,55 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 				self.priceStatus.image = UIImage(named: "exclamation")
 			}
 		}
+		
+		//Restrict to numbers
+		if textField == self.priceOffered {
+			let nonDigits = NSCharacterSet(charactersInString: "0123456789").invertedSet
+			let compSepByCharInSet = string.componentsSeparatedByCharactersInSet(nonDigits)
+			let numberFiltered = compSepByCharInSet.joinWithSeparator("")
+			return string == numberFiltered
+		}
+		
 		return true
 	}
 	
-	func textView(textView: UITextView, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-		
+	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+		//TextView validations
+		//TODO!!
 		if textView == self.descriptionTextView {
 			let textViewRange: NSRange = NSMakeRange(0, textView.text!.characters.count)
 			
-			if NSEqualRanges(textViewRange, range) && string.characters.count >= 6 {
+			if NSEqualRanges(textViewRange, range) && text.characters.count >= 6 {
 				self.descriptionStatus.image = UIImage(named: "accepted")
-			} else if NSEqualRanges(textViewRange, range)	&& string.characters.count == 0 {
+			} else if NSEqualRanges(textViewRange, range)	&& text.characters.count == 0 {
 				self.descriptionStatus.image = nil
 			} else {
 				self.descriptionStatus.image = UIImage(named: "exclamation")
 			}
 		}
 		
+		//textViewShouldReturn hack
+		let resultRange = text.rangeOfCharacterFromSet(NSCharacterSet.newlineCharacterSet(), options: .BackwardsSearch)
+		if resultRange != nil {
+			self.descriptionTextView.resignFirstResponder()
+			self.priceOffered.becomeFirstResponder()
+			return false
+		}
+		
 		return true
 	}
+	
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		dismissKeyboard()
+		textField.resignFirstResponder()
+		if textField == self.titleTextField {
+			self.descriptionTextView.becomeFirstResponder()
+		}
+		
+		return false
+	}
 
+	//Image picker, TODO: relocate this
 	
 	func imagePickerControllerDidCancel(picker: UIImagePickerController) {
 		dismissViewControllerAnimated(true, completion: nil)
@@ -837,7 +870,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	- parameter sender: Add pictures button
 	*/
 	func attachPicturesButtonTapped(sender: UIButton){
-		DismissKeyboard()
+		dismissKeyboard()
 		imagePicker.allowsEditing = false
 		imagePicker.sourceType = .PhotoLibrary
 		presentViewController(imagePicker, animated: true, completion: nil)
@@ -846,13 +879,13 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	/**
 	Dismiss Keyboard
 	*/
-	func DismissKeyboard() {
+	func dismissKeyboard() {
 		view.endEditing(true)
 	}
 	
 	func backButtonTapped(sender: UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
-		view.endEditing(true) // dissmiss keyboard without delay
+		view.endEditing(true) // dismiss keyboard without delay
 	}
 	
 	/**
@@ -861,7 +894,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	- parameter sender: Add Address Button
 	*/
 	func didTapAddLocation(sender:UIButton) {
-		DismissKeyboard()
+		dismissKeyboard()
 		
 		UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false, UIScreen.mainScreen().scale)
 		self.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
@@ -937,7 +970,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	- parameter sender: Post Button
 	*/
 	func postButtonTapped(sender: UIButton) {
-		DismissKeyboard()
+		dismissKeyboard()
 		
 		if self.arrayOfPictures.count != 0 {
 			self.convertImagesToData()

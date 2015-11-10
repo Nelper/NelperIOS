@@ -102,7 +102,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		setTextFields()
 		
 		//KEYBOARD
-		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 		self.tap = tap
 		self.view.addGestureRecognizer(tap)
 		self.emailTextField.delegate = self
@@ -605,7 +605,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	
 	func showLocationDelete(button: AccountSettingsLocationButton) {
 		
-		DismissKeyboard()
+		dismissKeyboard()
 		
 		if self.deleteLocationViewIsOpened {
 			self.locationBlurView.removeFromSuperview()
@@ -677,7 +677,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	
 	//MARK: KEYBOARD, WITH viewDidDis/Appear AND textfielddelegate
 	
-	func DismissKeyboard() {
+	func dismissKeyboard() {
 		view.endEditing(true)
 		
 		if self.deleteLocationViewIsOpened {
@@ -783,7 +783,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		}
 		
 		if self.settingsWereEdited {
-			DismissKeyboard()
+			dismissKeyboard()
 			
 			let popup = UIAlertController(title: "Discard changes?", message: "Your changes will not be saved", preferredStyle: UIAlertControllerStyle.Alert)
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
@@ -801,7 +801,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			
 		} else {
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			self.navigationController?.popViewControllerAnimated(true)
 		}
 	}
@@ -844,7 +844,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				}
 			}
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			
 			let popup = UIAlertController(title: "Incorrect fields", message: popupMessage, preferredStyle: UIAlertControllerStyle.Alert)
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
@@ -854,7 +854,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		} else {
 			//Textfields are correct: save settings
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			
 			let saveConfirmationBlurView = FXBlurView(frame: self.view.bounds)
 			self.saveConfirmationBlurView = saveConfirmationBlurView
@@ -951,7 +951,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		
 		if self.fieldEditing {
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			
 		} else {
 			
@@ -962,7 +962,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	}
 	
 	func addTapped(sender: UIButton) {
-		DismissKeyboard()
+		dismissKeyboard()
 		
 		UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false, UIScreen.mainScreen().scale)
 		self.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
@@ -983,7 +983,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	func deleteAccountButtonTapped(sender: UIButton) {
 		if self.fieldEditing {
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			
 		} else {
 			

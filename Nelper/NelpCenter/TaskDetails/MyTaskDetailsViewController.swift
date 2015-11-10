@@ -37,7 +37,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var deniedApplicantIcon:UIImageView!
 	var deniedApplicantsLabel:UILabel!
 	
-	var titleTextField: UITextView!
+	var titleTextView: UITextView!
 	var descriptionTextView: UITextView!
 	var deleteTaskButton: UIButton!
 	var pictures = [PFFile]()
@@ -115,7 +115,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		self.adjustUI()
 		
-		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 		self.firstContainer.addGestureRecognizer(tap)
 	}
 	
@@ -138,8 +138,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//title textView animation in
 		UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
-			self.titleTextField.contentInset.top = 0
-			self.titleTextField.alpha = 1
+			self.titleTextView.contentInset.top = 0
+			self.titleTextView.alpha = 1
 			}, completion: nil)
 		
 		setMapUI()
@@ -195,30 +195,32 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		self.firstContainer.addGestureRecognizer(self.firstSwipeRecLeft)
 		
-		let titleTextField = UITextView()
-		self.titleTextField = titleTextField
-		firstContainer.addSubview(titleTextField)
-		titleTextField.text = self.taskTitle
-		titleTextField.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		titleTextField.textColor = blackPrimary
-		titleTextField.textAlignment = NSTextAlignment.Center
-		titleTextField.delegate = self
-		titleTextField.backgroundColor = UIColor.clearColor()
-		titleTextField.alpha = 0
-		titleTextField.snp_makeConstraints { (make) -> Void in
+		let titleTextView = UITextView()
+		self.titleTextView = titleTextView
+		firstContainer.addSubview(titleTextView)
+		titleTextView.text = self.taskTitle
+		titleTextView.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		titleTextView.textColor = blackPrimary
+		titleTextView.textAlignment = NSTextAlignment.Center
+		titleTextView.delegate = self
+		titleTextView.backgroundColor = UIColor.clearColor()
+		titleTextView.alpha = 0
+		titleTextView.returnKeyType = .Done
+		titleTextView.delegate = self
+		titleTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(firstContainer.snp_top).offset(17)
 			make.left.equalTo(firstContainer.snp_left).offset(12)
 			make.right.equalTo(firstContainer.snp_right).offset(-12)
 			make.height.equalTo(60)
 		}
-		titleTextField.contentInset.top = 40
-		titleTextField.layoutIfNeeded()
+		titleTextView.contentInset.top = 40
+		titleTextView.layoutIfNeeded()
 		
 		let titleUnderline = UIView()
 		firstContainer.addSubview(titleUnderline)
 		titleUnderline.backgroundColor = grayDetails
 		titleUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(titleTextField.snp_bottom).offset(20)
+			make.top.equalTo(titleTextView.snp_bottom).offset(20)
 			make.width.equalTo(firstContainer.snp_width).dividedBy(1.4)
 			make.height.equalTo(0.5)
 			make.centerX.equalTo(firstContainer.snp_centerX)
@@ -262,7 +264,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let descriptionTextView = UITextView()
 		self.descriptionTextView = descriptionTextView
 		firstContainer.addSubview(descriptionTextView)
-		descriptionTextView.delegate = self
 		descriptionTextView.scrollEnabled = true
 		descriptionTextView.text = self.taskDescription
 		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText15)
@@ -271,9 +272,11 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		descriptionTextView.backgroundColor = UIColor.clearColor()
 		descriptionTextView.autoresizesSubviews = false
 		descriptionTextView.alpha = 0
+		descriptionTextView.returnKeyType = .Done
+		descriptionTextView.delegate = self
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleUnderline.snp_bottom).offset(30)
-			make.width.equalTo(titleTextField.snp_width)
+			make.width.equalTo(titleTextView.snp_width)
 			make.centerX.equalTo(firstContainer.snp_centerX)
 			make.bottom.equalTo(firstContainer.snp_bottom)
 		}
@@ -926,9 +929,14 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	//MARK: TextView & TextField delegate
 	
 	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-		if textView == self.descriptionTextView {
+		//textViewShouldReturn hack
+		let resultRange = text.rangeOfCharacterFromSet(NSCharacterSet.newlineCharacterSet(), options: .BackwardsSearch)
+		if resultRange != nil {
+			textView.resignFirstResponder()
+			return false
+		} else if textView == self.descriptionTextView {
 			return textView.text.characters.count + (text.characters.count - range.length) <= 600
-		} else if textView == self.titleTextField {
+		} else if textView == self.titleTextView {
 			return textView.text.characters.count + (text.characters.count - range.length) <= 80
 		}
 		
@@ -956,7 +964,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			
 			self.view.layoutIfNeeded()
 			
-		} else if textView == self.titleTextField {
+		} else if textView == self.titleTextView {
 			
 		}
 		
@@ -984,7 +992,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			self.contentView.layoutIfNeeded()
 			self.scrollView.contentSize = self.contentView.frame.size
 			
-		} else if textView == self.titleTextField {
+		} else if textView == self.titleTextView {
 			
 		}
 		
@@ -1122,7 +1130,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	
 	//MARK: View delegate Methods
 	
 	override func viewDidLayoutSubviews() {
@@ -1134,13 +1141,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 		
 	}
-	
-	//MARK: UIGesture Recognizer
-	
-	func dismissKeyboard() {
-		view.endEditing(true)
-	}
-	
 	
 	//MARK: Cell delegate methods
 	
@@ -1157,8 +1157,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.updateFrames()
 		_ = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: "scrollToBottom", userInfo: nil, repeats: false)
 	}
-	
-	
 	
 	//MARK: Applications Profile View Controller Delegate
 	
@@ -1199,7 +1197,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	//MARK: Actions
 	
-	func DismissKeyboard() {
+	func dismissKeyboard() {
 		view.endEditing(true)
 	}
 	
@@ -1217,7 +1215,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.width))
 		})
 		updateActivePage(2)
-		DismissKeyboard()
+		dismissKeyboard()
 		
 		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 			self.firstContainer.layoutIfNeeded()
@@ -1272,9 +1270,9 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	
 	func backButtonTapped(sender: UIButton) {
 		
-		DismissKeyboard()
+		dismissKeyboard()
 		
-		if (self.titleTextField.text != self.taskTitle) || (self.descriptionTextView.text != self.taskDescription) || (self.picturesChanged) {
+		if (self.titleTextView.text != self.taskTitle) || (self.descriptionTextView.text != self.taskDescription) || (self.picturesChanged) {
 			
 			let popup = UIAlertController(title: "Your task was edited", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
 			let popupSubview = popup.view.subviews.first! as UIView
@@ -1282,7 +1280,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			popupContentView.layer.cornerRadius = 0
 			popup.addAction(UIAlertAction(title: "Save changes", style: .Default, handler: { (action) -> Void in
 				//Saves info and changes the view
-				self.task.title = self.titleTextField.text
+				self.task.title = self.titleTextView.text
 				if !self.images.isEmpty {
 					self.convertImagesToData()
 				}
@@ -1332,7 +1330,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	func deleteTaskButtonTapped(sender: UIButton) {
-		DismissKeyboard()
+		dismissKeyboard()
 		
 		let popup = UIAlertController(title: "Delete this task?", message: "This action is permanent.", preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addAction(UIAlertAction(title: "Delete", style: .Destructive, handler: { (action) -> Void in
@@ -1347,7 +1345,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 		
 	func didTapSaveButton(sender:UIButton){
-		self.task.title = self.titleTextField.text
+		self.task.title = self.titleTextView.text
 		if !self.images.isEmpty{
 			self.task.pictures = ApiHelper.convertImagesToData(self.images)
 		}

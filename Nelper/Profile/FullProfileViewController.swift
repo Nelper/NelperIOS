@@ -53,7 +53,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		setProfilePicture()
 		
 		// looks for tap (keyboard dismiss)
-		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 		self.tap = tap
 		contentView.addGestureRecognizer(tap)
 	}
@@ -535,7 +535,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	/**
 	Dismiss Keyboard when screen is tapped
 	*/
-	func DismissKeyboard() {
+	func dismissKeyboard() {
 		view.endEditing(true)
 		if(self.aboutTextView.editable == true){
 			self.aboutTextView.editable = false

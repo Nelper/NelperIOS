@@ -618,9 +618,9 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 //	case Completed
 //	case Rated
 	
-	func setCompletionState(){
+	func setCompletionState() {
 		
-		switch (self.task!.completionState){
+		switch (self.task!.completionState) {
 		case .Accepted:
 			self.setAccepted()
 		case .PaymentSent:

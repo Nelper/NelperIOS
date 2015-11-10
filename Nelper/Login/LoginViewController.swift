@@ -71,7 +71,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.adjustUI()
 		
 		// KEYBOARD DISMISS
-		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 		self.tap = tap
 		self.view.addGestureRecognizer(tap)
 		
@@ -110,7 +110,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	}
 	
 	// KEYBOARD DISMISS
-	func DismissKeyboard() {
+	func dismissKeyboard() {
 		view.endEditing(true)
 	}
 	
@@ -294,6 +294,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.emailField.autocapitalizationType = UITextAutocapitalizationType.None
 		self.emailField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.emailField.backgroundColor = whitePrimary
+		self.emailField.returnKeyType = .Next
 		self.emailField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.firstContainer.snp_top)
 			make.left.equalTo(self.secondContainer.snp_left).offset(24)
@@ -323,6 +324,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.passwordField.autocapitalizationType = UITextAutocapitalizationType.None
 		self.passwordField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.passwordField.backgroundColor = whitePrimary
+		self.passwordField.returnKeyType = .Done
 		self.passwordField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.emailField.snp_bottom).offset(1)
 			make.left.equalTo(self.secondContainer.snp_left).offset(24)
@@ -413,6 +415,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.firstnameField.autocorrectionType = UITextAutocorrectionType.No
 		self.firstnameField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.firstnameField.backgroundColor = whitePrimary
+		self.firstnameField.returnKeyType = .Next
 		self.firstnameField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.firstContainer.snp_top)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
@@ -440,6 +443,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.lastnameField.autocorrectionType = UITextAutocorrectionType.No
 		self.lastnameField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.lastnameField.backgroundColor = whitePrimary
+		self.lastnameField.returnKeyType = .Next
 		self.lastnameField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.firstnameField.snp_bottom).offset(1)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
@@ -458,6 +462,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.emailFieldRegister.autocapitalizationType = UITextAutocapitalizationType.None
 		self.emailFieldRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.emailFieldRegister.backgroundColor = whitePrimary
+		self.emailFieldRegister.returnKeyType = .Next
 		self.emailFieldRegister.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.lastnameField.snp_bottom).offset(10)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
@@ -476,6 +481,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.passwordFieldRegister.autocapitalizationType = UITextAutocapitalizationType.None
 		self.passwordFieldRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.passwordFieldRegister.backgroundColor = whitePrimary
+		self.passwordFieldRegister.returnKeyType = .Next
 		self.passwordFieldRegister.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.emailFieldRegister.snp_bottom).offset(10)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
@@ -505,6 +511,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.passwordFieldConfirmRegister.autocapitalizationType = UITextAutocapitalizationType.None
 		self.passwordFieldConfirmRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		self.passwordFieldConfirmRegister.backgroundColor = whitePrimary
+		self.passwordFieldConfirmRegister.returnKeyType = .Done
 		self.passwordFieldConfirmRegister.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.passwordFieldRegister.snp_bottom).offset(1)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
@@ -547,6 +554,31 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		
 	}
 	
+	//MARK: TextField delegates
+	
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		
+		dismissKeyboard()
+		textField.resignFirstResponder()
+		
+		switch (textField) {
+		case self.emailField:
+			self.passwordField.becomeFirstResponder()
+		case self.firstnameField:
+			self.lastnameField.becomeFirstResponder()
+		case self.lastnameField:
+			self.emailFieldRegister.becomeFirstResponder()
+		case self.emailFieldRegister:
+			self.passwordFieldRegister.becomeFirstResponder()
+		case self.passwordFieldRegister:
+			self.passwordFieldConfirmRegister.becomeFirstResponder()
+		default:
+			return false
+		}
+		
+		return false
+	}
+	
 	//MARK: KEYBOARD VIEW MOVER, WITH viewDidDis/Appear AND textfielddelegate
 	
 	func textFieldDidBeginEditing(textField: UITextField) {
@@ -573,11 +605,13 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		var aRect = self.view.frame
 		aRect.size.height -= keyboardFrame.height
 		
-		let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
-		
-		if self.activeField != nil {
-			if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
-				self.scrollView.scrollRectToVisible(frame, animated: true)
+		if activeField != nil {
+			let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
+			
+			if self.activeField != nil {
+				if !(CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
+					self.scrollView.scrollRectToVisible(frame, animated: true)
+				}
 			}
 		}
 	}
@@ -623,6 +657,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	}
 	
 	func emailLogin(sender: UIButton) {
+		dismissKeyboard()
 		ApiHelper.loginWithEmail(self.emailField.text!, password: self.passwordField.text!, block: { (error) -> Void in
 			if error != nil {
 				print("\(error)")
@@ -638,6 +673,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	}
 	
 	func createAccount(sender: UIButton) {
+		dismissKeyboard()
 		if self.emailFieldRegister.text?.characters.count ==  0 || self.passwordFieldRegister.text?.characters.count == 0 || self.firstnameField.text?.characters.count == 0 || self.lastnameField.text?.characters.count == 0 {
 			return
 		}
@@ -669,21 +705,23 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	}
 	
 	func skipLogin(sender: AnyObject) {
+		dismissKeyboard()
 		self.loginCompleted()
 	}
 	
 	//Login
 	
-	func getTwitterUserInfo(){
+	func getTwitterUserInfo() {
 	}
 	
-	func getEmailInfo(){
+	func getEmailInfo() {
 		PFUser.currentUser()!.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
 			self.loginCompleted()
 		})
 	}
 	
 	func loginCompleted() {
+		dismissKeyboard()
 		ApiHelper.getCurrentUserPrivateInfo()
 		self.delegate?.onLogin()
 	}
@@ -708,11 +746,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				}, completion: nil)
 			
 			self.emailActive = true
-			DismissKeyboard()
+			dismissKeyboard()
 			
 		} else if self.fieldEditing {
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			
 		} else {
 			
@@ -730,7 +768,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				}, completion: nil)
 			
 			self.emailActive = false
-			DismissKeyboard()
+			dismissKeyboard()
 		}
 	}
 	
@@ -753,11 +791,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				}, completion: nil)
 			
 			self.registerActive = true
-			DismissKeyboard()
+			dismissKeyboard()
 			
 		} else if self.fieldEditing {
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			
 		} else {
 			
@@ -775,7 +813,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				}, completion: nil)
 			
 			self.registerActive = false
-			DismissKeyboard()
+			dismissKeyboard()
 		}
 	}
 	

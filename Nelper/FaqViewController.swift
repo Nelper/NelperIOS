@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 class FaqViewController: UIViewController {
 	
@@ -49,7 +50,7 @@ class FaqViewController: UIViewController {
 			make.bottom.equalTo(self.view.snp_bottom)
 		}
 		
-		let webView = UIWebView()
+		let webView = WKWebView()
 		self.contentView.addSubview(webView)
 		webView.loadRequest(NSURLRequest(URL: NSURL(string: "https://www.nelper.ca/faq")!))
 		webView.snp_makeConstraints { (make) -> Void in
@@ -65,6 +66,6 @@ class FaqViewController: UIViewController {
 	//MARK: ACTIONS
 	func backButtonTapped(sender: UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
-		view.endEditing(true) // dissmiss keyboard without delay
+		view.endEditing(true) // dismiss keyboard without delay
 	}
 }
