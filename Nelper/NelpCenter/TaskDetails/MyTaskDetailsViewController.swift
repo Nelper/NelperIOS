@@ -16,7 +16,7 @@ protocol MyTaskDetailsViewControllerDelegate{
 	func didEditTask(task:FindNelpTask)
 }
 
-class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MKMapViewDelegate, UITextViewDelegate {
+class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var container: UIView!
@@ -63,9 +63,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	let secondSwipeRecLeft = UISwipeGestureRecognizer()
 	let secondSwipeRecRight = UISwipeGestureRecognizer()
 	let thirdSwipeRecRight = UISwipeGestureRecognizer()
-	
-	var mapContainer: UIView!
-	var mapView: MKMapView!
 	
 	var containerHeight: CGFloat!
 	var noPendingContainer: UIView!
@@ -141,8 +138,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			self.titleTextView.contentInset.top = 0
 			self.titleTextView.alpha = 1
 			}, completion: nil)
-		
-		setMapUI()
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
@@ -180,6 +175,16 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.left.equalTo(self.scrollView.snp_left)
 			make.right.equalTo(self.scrollView.snp_right)
 			make.width.equalTo(self.container.snp_width)
+		}
+		
+		let backgroundContainer = UIView()
+		self.contentView.addSubview(backgroundContainer)
+		backgroundContainer.backgroundColor = whitePrimary
+		backgroundContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(contentView.snp_top).offset(20)
+			make.left.equalTo(contentView.snp_left)
+			make.right.equalTo(contentView.snp_right)
+			make.height.equalTo(containerHeight)
 		}
 		
 		//FIRST CONTAINER
@@ -234,31 +239,9 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		categoryIcon.image = UIImage(named: self.task.category!)
 		categoryIcon.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(titleUnderline.snp_centerY)
-			make.left.equalTo(titleUnderline.snp_left).offset(45)
+			make.centerX.equalTo(titleUnderline.snp_centerX)
 			make.width.equalTo(iconSize)
 			make.height.equalTo(iconSize)
-		}
-		
-		let moneyContainer = UIView()
-		firstContainer.addSubview(moneyContainer)
-		moneyContainer.backgroundColor = whiteBackground
-		moneyContainer.layer.cornerRadius = 3
-		moneyContainer.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(titleUnderline.snp_right).offset(-45)
-			make.centerY.equalTo(titleUnderline.snp_centerY)
-			make.width.equalTo(55)
-			make.height.equalTo(35)
-		}
-		
-		let moneyLabel = UILabel()
-		moneyContainer.addSubview(moneyLabel)
-		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = blackPrimary
-		let price = String(format: "%.0f", self.task.priceOffered!)
-		moneyLabel.text = price+"$"
-		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
-		moneyLabel.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(moneyContainer.snp_edges)
 		}
 		
 		let descriptionTextView = UITextView()
@@ -304,136 +287,92 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.secondContainer.addGestureRecognizer(self.secondSwipeRecRight)
 		self.secondContainer.alpha = 0
 		
-		let manageLocationsLabel = UILabel()
-		secondContainer.addSubview(manageLocationsLabel)
-		manageLocationsLabel.text = "Task Location"
-		manageLocationsLabel.textColor = blackPrimary
-		manageLocationsLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		manageLocationsLabel.snp_makeConstraints { (make) -> Void in
+		let detailsLabel = UILabel()
+		secondContainer.addSubview(detailsLabel)
+		detailsLabel.text = "Details"
+		detailsLabel.textColor = blackPrimary
+		detailsLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		detailsLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(secondContainer.snp_top).offset(20)
 			make.centerX.equalTo(secondContainer.snp_centerX)
 		}
 		
-		//Map Container
-		
-		let mapContainer = UIView()
-		self.mapContainer = mapContainer
-		self.secondContainer.addSubview(mapContainer)
-		mapContainer.layer.borderColor = grayDetails.CGColor
-		mapContainer.layer.borderWidth = 0.5
-		mapContainer.backgroundColor = UIColor.clearColor()
-		mapContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(manageLocationsLabel.snp_bottom).offset(20)
-			make.left.equalTo(self.secondContainer.snp_left)
-			make.right.equalTo(self.secondContainer.snp_right)
-			make.bottom.equalTo(self.secondContainer.snp_bottom)
-		}
-		
-		let mapView = MKMapView()
-		self.mapView = mapView
-		mapView.delegate = self
-		mapView.scrollEnabled = false
-		mapView.zoomEnabled = false
-		mapView.userInteractionEnabled = false
-		mapView.showsPointsOfInterest = false
-		mapContainer.addSubview(mapView)
-		mapView.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(mapContainer.snp_edges)
-		}
-		
-		let taskLocation = CLLocationCoordinate2DMake(self.task.location!.latitude, self.task.location!.longitude)
-		let span: MKCoordinateSpan = MKCoordinateSpanMake(0.025 , 0.025)
-		let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(taskLocation, span)
-		mapView.setRegion(locationToZoom, animated: true)
-		mapView.setCenterCoordinate(taskLocation, animated: true)
-		
-		//Label
-		
-		let blurEffect = UIBlurEffect(style: .ExtraLight)
-		let blurView = UIVisualEffectView(effect: blurEffect)
-		secondContainer.addSubview(blurView)
-		
-		let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
-		let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
-		vibrancyView.layer.borderWidth = 1
-		vibrancyView.layer.borderColor = grayDetails.CGColor
-		blurView.contentView.addSubview(vibrancyView)
-		
 		let streetAddressLabel = UILabel()
 		streetAddressLabel.backgroundColor = UIColor.clearColor()
-		vibrancyView.contentView.addSubview(streetAddressLabel)
-		streetAddressLabel.text = self.task.exactLocation!.formattedTextLabel
+		secondContainer.addSubview(streetAddressLabel)
+		streetAddressLabel.text = self.task.exactLocation!.formattedTextLabelNoPostal
 		streetAddressLabel.numberOfLines = 0
-		streetAddressLabel.textColor = blackPrimary
+		streetAddressLabel.textColor = darkGrayDetails
 		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		streetAddressLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(secondContainer.snp_centerX).offset(30)
-			make.centerY.equalTo(mapContainer.snp_centerY)
-		}
-		let streetAddressLabel2 = UILabel()
-		streetAddressLabel2.backgroundColor = UIColor.clearColor()
-		blurView.contentView.addSubview(streetAddressLabel2)
-		streetAddressLabel2.text = streetAddressLabel.text
-		streetAddressLabel2.numberOfLines = 0
-		streetAddressLabel2.alpha = 0.4
-		streetAddressLabel2.textColor = blackPrimary
-		streetAddressLabel2.font = UIFont(name: "Lato-Regular", size: kText15)
-		streetAddressLabel2.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(secondContainer.snp_centerX).offset(30)
-			make.centerY.equalTo(mapContainer.snp_centerY)
+			make.centerX.equalTo(secondContainer.snp_centerX).offset(16)
+			make.bottom.equalTo(secondContainer.snp_centerY).offset(-30)
 		}
 		
 		let pinIcon = UIImageView()
-		vibrancyView.contentView.addSubview(pinIcon)
-		pinIcon.image = UIImage(named: "\(self.task.category!)-pin")
-		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
+		secondContainer.addSubview(pinIcon)
+		pinIcon.image = UIImage(named: "pin")
+		pinIcon.contentMode = UIViewContentMode.ScaleAspectFit
 		pinIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(40)
-			make.width.equalTo(40)
+			make.height.equalTo(35)
+			make.width.equalTo(35)
 			make.centerY.equalTo(streetAddressLabel.snp_centerY)
-			make.right.equalTo(streetAddressLabel.snp_left).offset(-30)
-		}
-		let pinIcon2 = UIImageView()
-		blurView.contentView.addSubview(pinIcon2)
-		pinIcon2.image = UIImage(named: "\(self.task.category!)-pin")
-		pinIcon2.alpha = 0.8
-		pinIcon2.contentMode = UIViewContentMode.ScaleAspectFill
-		pinIcon2.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(40)
-			make.width.equalTo(40)
-			make.centerY.equalTo(streetAddressLabel.snp_centerY)
-			make.right.equalTo(streetAddressLabel.snp_left).offset(-30)
+			make.right.equalTo(streetAddressLabel.snp_left).offset(-10)
 		}
 		
-		let contentInsets = 15
-		blurView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(streetAddressLabel.snp_top).offset(-contentInsets)
-			make.bottom.equalTo(streetAddressLabel.snp_bottom).offset(contentInsets)
-			make.left.equalTo(pinIcon.snp_left).offset(-contentInsets + 6)
-			make.right.equalTo(streetAddressLabel.snp_right).offset(contentInsets)
-		}
-		vibrancyView.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(blurView.snp_edges)
+		let dateLabel = UILabel()
+		dateLabel.backgroundColor = UIColor.clearColor()
+		secondContainer.addSubview(dateLabel)
+		dateLabel.text = "3 hours ago"
+		dateLabel.textColor = darkGrayDetails
+		dateLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		dateLabel.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(secondContainer.snp_centerX).offset(15)
+			make.centerY.equalTo(secondContainer.snp_centerY).offset(10)
 		}
 		
-		let locationVerticalLine = UIView()
-		vibrancyView.contentView.addSubview(locationVerticalLine)
-		locationVerticalLine.backgroundColor = darkGrayDetails
-		locationVerticalLine.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(streetAddressLabel.snp_top)
-			make.bottom.equalTo(streetAddressLabel.snp_bottom)
-			make.width.equalTo(0.5)
-			make.left.equalTo(pinIcon.snp_right).offset(12)
+		let dateIcon = UIImageView()
+		secondContainer.addSubview(dateIcon)
+		dateIcon.image = UIImage(named: "pin")
+		dateIcon.contentMode = UIViewContentMode.ScaleAspectFit
+		dateIcon.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(35)
+			make.width.equalTo(35)
+			make.centerY.equalTo(dateLabel.snp_centerY)
+			make.right.equalTo(dateLabel.snp_left).offset(-10)
 		}
-		let locationVerticalLine2 = UIView()
-		blurView.contentView.addSubview(locationVerticalLine2)
-		locationVerticalLine2.backgroundColor = grayDetails
-		locationVerticalLine2.alpha = 0.5
-		locationVerticalLine2.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(streetAddressLabel.snp_top)
-			make.bottom.equalTo(streetAddressLabel.snp_bottom)
-			make.width.equalTo(0.5)
-			make.left.equalTo(pinIcon.snp_right).offset(12)
+		
+		let myOfferLabel = UILabel()
+		myOfferLabel.backgroundColor = UIColor.clearColor()
+		secondContainer.addSubview(myOfferLabel)
+		myOfferLabel.text = "My Offer"
+		myOfferLabel.textColor = darkGrayDetails
+		myOfferLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		myOfferLabel.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(secondContainer.snp_centerX)
+			make.top.equalTo(secondContainer.snp_centerY).offset(50)
+		}
+		
+		let moneyContainer = UIView()
+		secondContainer.addSubview(moneyContainer)
+		moneyContainer.backgroundColor = whiteBackground
+		moneyContainer.layer.cornerRadius = 3
+		moneyContainer.snp_makeConstraints { (make) -> Void in
+			make.centerX.equalTo(secondContainer.snp_centerX)
+			make.top.equalTo(myOfferLabel.snp_bottom).offset(5)
+			make.width.equalTo(55)
+			make.height.equalTo(35)
+		}
+		
+		let moneyLabel = UILabel()
+		moneyContainer.addSubview(moneyLabel)
+		moneyLabel.textAlignment = NSTextAlignment.Center
+		moneyLabel.textColor = blackPrimary
+		let price = String(format: "%.0f", self.task.priceOffered!)
+		moneyLabel.text = price+"$"
+		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
+		moneyLabel.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(moneyContainer.snp_edges)
 		}
 		
 		//THIRD CONTAINER
@@ -696,21 +635,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	func adjustUI() {
 		self.container.backgroundColor = whiteBackground
 		self.scrollView.backgroundColor = whiteBackground
-	}
-	
-	func setMapUI() {
-		
-		let blurContainer = FXBlurView(frame: self.mapView.bounds)
-		blurContainer.tintColor = UIColor.clearColor()
-		blurContainer.updateInterval = 100
-		blurContainer.iterations = 2
-		blurContainer.blurRadius = 5
-		blurContainer.dynamic = false
-		blurContainer.underlyingView = nil
-		self.mapView.addSubview(blurContainer)
-		blurContainer.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(self.mapView.snp_edges)
-		}
 	}
 	
 	/**

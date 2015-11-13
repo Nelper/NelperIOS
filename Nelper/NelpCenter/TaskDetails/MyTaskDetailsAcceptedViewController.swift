@@ -12,26 +12,26 @@ import Alamofire
 
 class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewControllerDelegate {
 	
-	var contentView:UIView!
-	var scrollView:UIScrollView!
-	var task:FindNelpTask!
-	var acceptedApplicant:User!
+	var contentView: UIView!
+	var scrollView: UIScrollView!
+	var task: FindNelpTask!
+	var acceptedApplicant: User!
 	var applicationPrice: Int!
-	var acceptedApplication:TaskApplication!
-	var picture:UIImageView!
+	var acceptedApplication: TaskApplication!
+	var picture: UIImageView!
 	var ratingStarsView: RatingStars!
-	var chatButton:UIButton!
-	var conversationController:UINavigationController?
-	var tempVC:UIViewController!
-	var fakeButton:UIButton!
-	var navBar:NavBar!
-	var leaveFeedbackLine:UIView!
-	var leaveFeedbackImageView:UIImageView!
-	var paymentImageView:UIImageView!
-	var paymentLine:UIView!
-	var approvedTaskImageView:UIImageView!
-	var approvedTaskLine:UIView!
-	var progressButton:UIButton!
+	var chatButton: UIButton!
+	var conversationController: UINavigationController?
+	var tempVC: UIViewController!
+	var fakeButton: UIButton!
+	var navBar: NavBar!
+	var leaveFeedbackLine: UIView!
+	var leaveFeedbackImageView: UIImageView!
+	var paymentImageView: UIImageView!
+	var paymentLine: UIView!
+	var approvedTaskImageView: UIImageView!
+	var approvedTaskLine: UIView!
+	var progressButton: UIButton!
 	
 	//MARK: Initialization
 	
@@ -44,7 +44,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	
 	//MARK:Creating the View
 
-	func createView(){
+	func createView() {
 		
 		let navBar = NavBar()
 		self.navBar = navBar

@@ -1064,6 +1064,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	//TODO: FIX NEXT VIEW NELP CENTER MY TASKS
 	func dismissVC() {
 		self.navigationController!.setViewControllers([NelpCenterViewController()], animated: true)
-		self.navigationController!.popViewControllerAnimated(false)
+		self.navigationController?.popViewControllerAnimated(false)
 	}
 }

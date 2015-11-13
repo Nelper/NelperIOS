@@ -147,6 +147,8 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	func adjustUI() {
 		self.extendedLayoutIncludesOpaqueBars = true
 		self.navBar.setTitle("Nelp Center")
+		self.navBar.layer.zPosition = 5
+		self.segmentControllerView.layer.zPosition = 4
 		
 	}
 	
