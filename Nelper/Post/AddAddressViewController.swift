@@ -380,7 +380,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		if self.addressTextField.editing == true || self.nameTextField.editing == true {
 			self.view.endEditing(true)
 			if self.autocompleteTableView.hidden == false {
-				self.autocompleteTableView.hidden == true
+				self.autocompleteTableView.hidden = true
 			}
 		} else {
 			dismissKeyboard()

@@ -16,22 +16,26 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 	
 	var delegate: PostTaskCategoriesViewControllerDelegate?
 	var task: FindNelpTask!
-	var technologyButton: UIButton!
-	var multimediaButton: UIButton!
-	var handyworkButton: UIButton!
-	var gardeningButton: UIButton!
-	var businessButton: UIButton!
-	var cleaningButton: UIButton!
-	var otherButton: UIButton!
-	var scrollView:UIScrollView!
-	var contentView:UIView!
+	var scrollView: UIScrollView!
+	var contentView: UIView!
 	
-	var kCategoryIconSize:CGFloat = 60
+	let categories = [
+		"technology",
+		"business",
+		"multimedia",
+		"gardening",
+		"handywork",
+		"housecleaning",
+		"other"
+	]
+	
+	var categoryContainers = [CategoryCardViewController]()
 	
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
 		self.task = FindNelpTask()
 		self.createView()
 	}
@@ -104,94 +108,41 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 		
 		//Tap Gesture Recognizer for Categories
 		
-		let technologyTapAction = UITapGestureRecognizer(target: self, action: "didTapTechnology:")
-		let businessTapAction = UITapGestureRecognizer(target: self, action: "didTapBusiness:")
-		let multimediaTapAction = UITapGestureRecognizer(target: self, action: "didTapMultimedia:")
-		let gardeningTapAction = UITapGestureRecognizer(target: self, action: "didTapGardening:")
-		let handymanTapAction = UITapGestureRecognizer(target: self, action: "didTapHandyman:")
-		let housecleaningTapAction = UITapGestureRecognizer(target: self, action: "didTapCleaning:")
-		let otherTapAction = UITapGestureRecognizer(target: self, action: "didTapOther:")
+		let topPadding = 20
+		let sidePadding = 20
 		
-		//Electronics component
-		
-		let technologyContainer = CategoryCardViewController(frame: CGRectZero, category: "technology")
-		contentView.addSubview(technologyContainer)
-		technologyContainer.addGestureRecognizer(technologyTapAction)
-		technologyContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(selectCategoryLabel.snp_bottom).offset(20)
-			make.left.equalTo(contentView.snp_left).offset(20)
-			make.right.equalTo(contentView.snp_right).offset(-20)
-		}
-		
-		//Business component
-		
-		let businessContainer = CategoryCardViewController(frame: CGRectZero, category: "business")
-		businessContainer.addGestureRecognizer(businessTapAction)
-		contentView.addSubview(businessContainer)
-		businessContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(technologyContainer.snp_bottom).offset(20)
-			make.left.equalTo(contentView.snp_left).offset(20)
-			make.right.equalTo(contentView.snp_right).offset(-20)
+		for i in 0...self.categories.count - 1 {
 			
+			let categoryContainer = CategoryCardViewController(frame: CGRectZero, category: self.categories[i])
+			contentView.addSubview(categoryContainer)
+			categoryContainer.tag = i
+			categoryContainer.addTarget(self, action: "didTapCategory:", forControlEvents: .TouchUpInside)
+			
+			if i == 0 {
+				categoryContainer.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(selectCategoryLabel.snp_bottom).offset(topPadding)
+					make.left.equalTo(contentView.snp_left).offset(sidePadding)
+					make.right.equalTo(contentView.snp_right).offset(-sidePadding)
+				}
+			} else if i == self.categories.indexOf("other") {
+				categoryContainer.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(self.categoryContainers[i-1].snp_bottom).offset(topPadding)
+					make.left.equalTo(contentView.snp_left).offset(sidePadding)
+					make.right.equalTo(contentView.snp_right).offset(-sidePadding)
+					make.height.equalTo(110)
+					make.bottom.equalTo(contentView.snp_bottom).offset(-topPadding)
+				}
+			} else {
+				categoryContainer.snp_makeConstraints { (make) -> Void in
+					make.top.equalTo(self.categoryContainers[i-1].snp_bottom).offset(topPadding)
+					make.left.equalTo(contentView.snp_left).offset(sidePadding)
+					make.right.equalTo(contentView.snp_right).offset(-sidePadding)
+				}
+			}
+			
+			categoryContainer.layoutIfNeeded()
+			self.categoryContainers.append(categoryContainer)
 		}
-		
-		//Multimedia component
-		
-		let multimediaContainer = CategoryCardViewController(frame: CGRectZero, category: "multimedia")
-		multimediaContainer.addGestureRecognizer(multimediaTapAction)
-		contentView.addSubview(multimediaContainer)
-		multimediaContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(businessContainer.snp_bottom).offset(20)
-			make.left.equalTo(contentView.snp_left).offset(20)
-			make.right.equalTo(contentView.snp_right).offset(-20)
-		}
-		
-		//Gardening component
-		
-		let gardeningContainer = CategoryCardViewController(frame: CGRectZero, category: "gardening")
-		gardeningContainer.addGestureRecognizer(gardeningTapAction)
-		contentView.addSubview(gardeningContainer)
-		gardeningContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(multimediaContainer.snp_bottom).offset(20)
-			make.left.equalTo(contentView.snp_left).offset(20)
-			make.right.equalTo(contentView.snp_right).offset(-20)
-		}
-		
-		//Handyman component
-		
-		let handymanContainer = CategoryCardViewController(frame: CGRectZero, category: "handywork")
-		handymanContainer.addGestureRecognizer(handymanTapAction)
-		contentView.addSubview(handymanContainer)
-		handymanContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(gardeningContainer.snp_bottom).offset(20)
-			make.left.equalTo(contentView.snp_left).offset(20)
-			make.right.equalTo(contentView.snp_right).offset(-20)
-		}
-		
-		//Housecleaning component
-		
-		let housecleaningContainer = CategoryCardViewController(frame: CGRectZero, category: "housecleaning")
-		housecleaningContainer.addGestureRecognizer(housecleaningTapAction)
-		contentView.addSubview(housecleaningContainer)
-		housecleaningContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(handymanContainer.snp_bottom).offset(20)
-			make.left.equalTo(contentView.snp_left).offset(20)
-			make.right.equalTo(contentView.snp_right).offset(-20)
-		}
-		
-		//Other component
-		
-		let otherContainer = CategoryCardViewController(frame: CGRectZero, category: "other")
-		otherContainer.addGestureRecognizer(otherTapAction)
-		contentView.addSubview(otherContainer)
-		otherContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(housecleaningContainer.snp_bottom).offset(20)
-			make.left.equalTo(contentView.snp_left).offset(20)
-			make.right.equalTo(contentView.snp_right).offset(-20)
-			make.height.equalTo(110)
-			make.bottom.equalTo(contentView.snp_bottom).offset(-20)
-		}
-		
 	}
 	
 	//MARK:View Delegate Method
@@ -201,54 +152,17 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 		self.scrollView.contentSize = self.contentView.frame.size
 	}
 	
-	
-	func technologyButtonTapped(sender:UIButton){
-		self.task.category = "technology"
+	func didTapCategory(sender: CategoryCardViewController) {
+		self.task.category = self.categories[sender.tag]
 		self.moveToNextView()
 	}
 	
-	func didTapTechnology(sender:UIView){
-		self.task.category = "technology"
-		self.moveToNextView()
-	}
-	
-	func didTapBusiness(sender:UIView){
-		self.task.category = "business"
-		self.moveToNextView()
-	}
-	
-	func didTapMultimedia(sender:UIView){
-		self.task.category = "multimedia"
-		self.moveToNextView()
-	}
-	
-	func didTapGardening(sender:UIView){
-		self.task.category = "gardening"
-		self.moveToNextView()
-	}
-	
-	func didTapHandyman(sender:UIView){
-		self.task.category = "handywork"
-		self.moveToNextView()
-	}
-	
-	func didTapCleaning(sender:UIView){
-		self.task.category = "housecleaning"
-		self.moveToNextView()
-	}
-	
-	func didTapOther(sender:UIView){
-		self.task.category = "other"
-		self.moveToNextView()
-	}
-	
-	func moveToNextView(){
+	func moveToNextView() {
 		let nextScreenVC = PostTaskFormViewController(task: self.task)
 		nextScreenVC.delegate = self
 		nextScreenVC.hidesBottomBarWhenPushed = true
-
 		
-		dispatch_async(dispatch_get_main_queue()){
+		dispatch_async(dispatch_get_main_queue()) {
 			self.navigationController?.pushViewController(nextScreenVC, animated: true)
 		}
 	}

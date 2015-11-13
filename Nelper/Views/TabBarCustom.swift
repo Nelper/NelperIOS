@@ -115,8 +115,8 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 					
 					let backgroundDark = UIView()
 					self.backgroundDark = backgroundDark
-					presentedVC.view.addSubview(backgroundDark)
-					self.backgroundDark.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+					self.presentedVC.view.addSubview(backgroundDark)
+					self.backgroundDark.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
 					self.backgroundDark.alpha = 0
 					self.backgroundDark.snp_makeConstraints(closure: { (make) -> Void in
 						make.edges.equalTo(presentedVC.view.snp_edges)
@@ -127,10 +127,9 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 					
 					let nextVC = MoreViewController()
 					self.nextVC = nextVC
-					presentedVC.addChildViewController(nextVC)
-					presentedVC.view.addSubview(nextVC.view)
+					self.presentedVC.addChildViewController(nextVC)
+					self.presentedVC.view.addSubview(nextVC.view)
 					nextVC.didMoveToParentViewController(presentedVC)
-					
 					nextVC.fullView = presentedVC
 					
 					nextVC.view.snp_makeConstraints(closure: { (make) -> Void in

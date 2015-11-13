@@ -26,8 +26,8 @@ class MoreViewController: UIViewController {
 	
 	private var numberOfSections: Int!
 	private var iconHeight: Int!
-	private var sectionHeight: Int!
-	private var sectionPadding: Int!
+	private var sectionHeight: CGFloat!
+	private var sectionPadding: CGFloat!
 	
 	private var sectionIcons = [UIImageView]()
 	private var sectionButtons = [UIButton]()
@@ -93,7 +93,7 @@ class MoreViewController: UIViewController {
 			self.sectionButton.addTarget(self, action: self.sections[index].action, forControlEvents: UIControlEvents.TouchUpInside)
 			self.sectionContainer.addSubview(sectionButton)
 			self.sectionButton.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.sectionContainer.snp_top).offset(index * (self.sectionHeight + self.sectionPadding))
+				make.top.equalTo(self.sectionContainer.snp_top).offset(CGFloat(index) * (self.sectionHeight + self.sectionPadding))
 				make.left.equalTo(self.sectionContainer.snp_right)
 				make.width.equalTo(self.sectionContainer.snp_width)
 				make.height.equalTo(self.sectionHeight)

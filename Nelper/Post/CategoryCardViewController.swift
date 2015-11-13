@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-class CategoryCardViewController:UIView{
+class CategoryCardViewController: UIButton {
 	
 	var category:String?
 	var kCategoryIconSize:CGFloat = 70
 	var kCardHeight:CGFloat = 240
 	
-	init(frame:CGRect,category:String){
+	init(frame:CGRect,category:String) {
 			super.init(frame: frame)
 			self.category = category
 			self.createView()
@@ -25,7 +25,7 @@ class CategoryCardViewController:UIView{
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	func createView(){
+	func createView() {
 		self.layer.borderColor = grayDetails.CGColor
 		self.layer.borderWidth = 1
 		self.backgroundColor = whitePrimary
@@ -39,36 +39,33 @@ class CategoryCardViewController:UIView{
 			make.width.equalTo(kCategoryIconSize)
 			make.height.equalTo(kCategoryIconSize)
 		}
-	
+		
 		if self.category != "other" {
-		let title = UILabel()
-		title.textColor = blackPrimary
-		title.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		title.text = self.getTitle()
-		self.addSubview(title)
-		title.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(categoryIcon.snp_bottom).offset(10)
-			make.centerX.equalTo(self.snp_centerX)
+			let title = UILabel()
+			title.textColor = blackPrimary
+			title.font = UIFont(name: "Lato-Regular", size: kTitle17)
+			title.text = self.getTitle()
+			self.addSubview(title)
+			title.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(categoryIcon.snp_bottom).offset(10)
+				make.centerX.equalTo(self.snp_centerX)
+			}
+			
+			let examples = UILabel()
+			self.addSubview(examples)
+			examples.backgroundColor = whitePrimary
+			examples.font = UIFont(name: "Lato-Light", size: kText15)
+			examples.textColor = blackPrimary
+			examples.numberOfLines = 0
+			examples.textAlignment = NSTextAlignment.Center
+			examples.text = self.getExamples()
+			examples.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(title.snp_bottom).offset(12)
+				make.left.equalTo(self.snp_left).offset(20)
+				make.right.equalTo(self.snp_right).offset(-20)
+				make.bottom.equalTo(self.snp_bottom).offset(-20)
+			}
 		}
-		
-		let examples = UITextView()
-		self.addSubview(examples)
-		examples.editable = false
-		examples.selectable = false
-		examples.scrollEnabled = false
-		examples.backgroundColor = whitePrimary
-		examples.font = UIFont(name: "Lato-Light", size: kText15)
-		examples.textColor = blackPrimary
-		examples.textAlignment = NSTextAlignment.Center
-		examples.text = self.getExamples()
-		examples.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(title.snp_bottom).offset(10)
-			make.left.equalTo(self.snp_left).offset(20)
-			make.right.equalTo(self.snp_right).offset(-20)
-			make.bottom.equalTo(self.snp_bottom).offset(-10)
-		}
-		}
-		
 	}
 	
 	//MARK: Utilities

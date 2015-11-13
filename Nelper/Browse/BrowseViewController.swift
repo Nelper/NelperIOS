@@ -158,7 +158,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			make.top.equalTo(mapContainer.snp_bottom).offset(2)
 			make.right.equalTo(contentView.snp_right)
 			make.left.equalTo(contentView.snp_left)
-			make.bottom.equalTo(contentView.snp_bottom)
+			make.bottom.equalTo(contentView.snp_bottom).inset(self.tabBarController!.tabBar.bounds.height)
 		}
 	}
 	
@@ -175,7 +175,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		tableView.registerClass(BrowseTaskViewCell.classForCoder(), forCellReuseIdentifier: BrowseTaskViewCell.reuseIdentifier)
 		self.tableView.backgroundColor = whiteBackground
 		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-		self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.tabBarController!.tabBar.bounds.height, right: 0)
 		
 		self.tableViewContainer.addSubview(tableView)
 		

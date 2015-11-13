@@ -51,10 +51,10 @@ class SegmentController: UIControl {
 	}
 	
 	func adjustUI() {
-		layer.borderColor = grayDetails.CGColor
-		layer.borderWidth = 1
-		backgroundColor = whitePrimary
-		insertSubview(thumbLine, atIndex: 0)
+		//layer.borderColor = grayDetails.CGColor
+		//layer.borderWidth = 1
+		self.backgroundColor = whitePrimary
+		self.insertSubview(thumbLine, atIndex: 0)
 		//insertSubview(thumbView, atIndex: 0)
 	}
 	
@@ -107,6 +107,10 @@ class SegmentController: UIControl {
 			let xPosition = CGFloat(index) * labelWidth
 			label.frame = CGRectMake(xPosition, 0, labelWidth, labelHeight)
 		}
+		
+		let bottomLine = UIView(frame: CGRect(x: 0, y: self.frame.maxY, width: self.frame.width, height: 1))
+		self.addSubview(bottomLine)
+		bottomLine.backgroundColor = grayDetails
 	}
 	
 	override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
@@ -128,7 +132,7 @@ class SegmentController: UIControl {
 	}
 	
 	func displayNewSelectIndex() {
-		var label = labels[selectedIndex]
+		let label = labels[selectedIndex]
 		label.textColor = redPrimary
 		
 		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {

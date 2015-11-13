@@ -116,7 +116,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		}
 		self.myTasksTableView = tableView
 		self.myTasksTableView.alpha = 0
-		self.myTasksTableView.transform = CGAffineTransformMakeTranslation(-500, 0)
+		//self.myTasksTableView.transform = CGAffineTransformMakeTranslation(-500, 0)
 		self.myTasksTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 	}
 	
@@ -147,8 +147,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	func adjustUI() {
 		self.extendedLayoutIncludesOpaqueBars = true
 		self.navBar.setTitle("Nelp Center")
-		self.navBar.layer.zPosition = 5
-		self.segmentControllerView.layer.zPosition = 4
 		
 	}
 	
@@ -240,7 +238,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			
 			UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
 				self.myTasksTableView.alpha = 1
-				self.myTasksTableView.transform = CGAffineTransformMakeTranslation(0, 0)
+				//self.myTasksTableView.transform = CGAffineTransformMakeTranslation(0, 0)
 				}, completion: nil)
 		}
 	}
@@ -323,6 +321,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	func onIndexChange(index: Int) {
 		if index == 0 {
 			self.myTasksTableView.hidden = false
+			self.segmentControllerView.userInteractionEnabled = false
 			
 			UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
 				self.myTasksTableView.alpha = 1
@@ -331,11 +330,13 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				self.myApplicationsTableView.alpha = 0
 				
 				}, completion: { (complete: Bool) in
-					self.myApplicationsTableView.transform = CGAffineTransformMakeTranslation(500, 0)
+					self.myApplicationsTableView.transform = CGAffineTransformMakeTranslation(200, 0)
 					self.myApplicationsTableView.hidden = true
+					self.segmentControllerView.userInteractionEnabled = true
 			})
 		} else if index == 1 {
 			self.myApplicationsTableView.hidden = false
+			self.segmentControllerView.userInteractionEnabled = false
 			
 			UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
 				self.myApplicationsTableView.alpha = 1
@@ -344,8 +345,9 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				self.myTasksTableView.alpha = 0
 				
 				}, completion: { (complete: Bool) in
-					self.myTasksTableView.transform = CGAffineTransformMakeTranslation(-500, 0)
+					self.myTasksTableView.transform = CGAffineTransformMakeTranslation(-200, 0)
 					self.myTasksTableView.hidden = true
+					self.segmentControllerView.userInteractionEnabled = true
 			})
 		}
 	}

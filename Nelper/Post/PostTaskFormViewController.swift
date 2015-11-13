@@ -179,7 +179,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		headerPicture.layer.borderColor = grayDetails.CGColor
 		headerPicture.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(-1)
-			make.left.equalTo(contentView.snp_left).offset(-1)
+			make.left.equalTo(contentView.snp_left).offset(-2)
 			make.right.equalTo(contentView.snp_right).offset(1)
 			make.height.equalTo(100)
 		}
