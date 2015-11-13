@@ -388,14 +388,11 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		//Offer Container
 		
-		self.createOfferContainer(false)
+		self.createOfferContainer()
 	}
 	
-	func createOfferContainer(isUpdate: Bool) {
+	func createOfferContainer() {
 		
-		if isUpdate {
-			self.offerContainer.removeFromSuperview()
-		}
 		
 		let offerContainer = UIView()
 		self.offerContainer = offerContainer
@@ -410,125 +407,98 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
 		}
 		
-		if self.task.application != nil && self.task.application!.state != .Canceled {
-			
-			let applicationNoticeLabel = UILabel()
-			offerContainer.addSubview(applicationNoticeLabel)
-			applicationNoticeLabel.text = "You have applied for this task"
-			applicationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-			applicationNoticeLabel.textColor = darkGrayDetails
-			applicationNoticeLabel.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(offerContainer.snp_top).offset(30)
-				make.centerX.equalTo(offerContainer.snp_centerX)
-			}
-			
-			let viewApplicationButton = PrimaryActionButton()
-			offerContainer.addSubview(viewApplicationButton)
-			viewApplicationButton.setTitle("View my application", forState: .Normal)
-			viewApplicationButton.addTarget(self, action: "viewApplicationTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-			viewApplicationButton.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(applicationNoticeLabel.snp_bottom).offset(20)
-				make.centerX.equalTo(offerContainer.snp_centerX)
-				make.bottom.equalTo(offerContainer.snp_bottom).offset(-20)
-			}
-			
-		} else {
-			
-			let offerLabelContainer = UIView()
-			offerContainer.addSubview(offerLabelContainer)
-			offerLabelContainer.sizeToFit()
-			
-			let posterNameOffer = UILabel()
-			offerLabelContainer.addSubview(posterNameOffer)
-			posterNameOffer.textColor = darkGrayDetails
-			posterNameOffer.font = UIFont(name: "Lato-Regular", size: kText15)
-			posterNameOffer.text = "\(self.task.user.firstName)'s offer:"
-			posterNameOffer.snp_makeConstraints { (make) -> Void in
-				make.left.equalTo(offerLabelContainer.snp_left)
-				make.top.equalTo(offerContainer.snp_top).offset(28)
-			}
-			
-			let moneyContainer = UIView()
-			offerLabelContainer.addSubview(moneyContainer)
-			moneyContainer.backgroundColor = whiteBackground
-			moneyContainer.layer.cornerRadius = 3
-			moneyContainer.snp_makeConstraints { (make) -> Void in
-				make.centerY.equalTo(posterNameOffer.snp_centerY)
-				make.left.equalTo(posterNameOffer.snp_right).offset(12)
-				make.width.equalTo(55)
-				make.height.equalTo(35)
-			}
-			
-			let moneyLabel = UILabel()
-			moneyContainer.addSubview(moneyLabel)
-			moneyLabel.textAlignment = NSTextAlignment.Center
-			moneyLabel.textColor = blackPrimary
-			let price = String(format: "%.0f", self.task.priceOffered!)
-			moneyLabel.text = price+"$"
-			moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
-			moneyLabel.snp_makeConstraints { (make) -> Void in
-				make.edges.equalTo(moneyContainer.snp_edges)
-			}
-			
-			offerLabelContainer.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(offerContainer.snp_top)
-				make.left.equalTo(posterNameOffer.snp_left)
-				make.right.equalTo(moneyContainer.snp_right)
-				make.centerX.equalTo(offerContainer.snp_centerX)
-			}
-			
-			let taskPosterOfferUnderline = UIView()
-			offerContainer.addSubview(taskPosterOfferUnderline)
-			taskPosterOfferUnderline.backgroundColor = grayDetails
-			taskPosterOfferUnderline.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(posterNameOffer.snp_bottom).offset(30)
-				make.centerX.equalTo(offerContainer.snp_centerX)
-				make.width.equalTo(offerContainer.snp_width).dividedBy(1.4)
-				make.height.equalTo(0.5)
-			}
-			
-			//Apply Button
-			
-			let applyButton = PrimaryActionButton()
-			self.applyButton = applyButton
-			offerContainer.addSubview(applyButton)
-			applyButton.setTitle("Confirm Application", forState: UIControlState.Selected)
-			applyButton.setBackgroundColor(redPrimarySelected, forState: .Selected)
-			applyButton.setTitle("Apply for $\(Int(self.task.priceOffered!))!", forState: UIControlState.Normal)
-			applyButton.addTarget(self, action: "applyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-			applyButton.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(taskPosterOfferUnderline.snp_bottom).offset(30)
-				make.centerX.equalTo(offerContainer.snp_centerX)
-			}
-			
-			let myOfferLabel = UILabel()
-			offerContainer.addSubview(myOfferLabel)
-			myOfferLabel.text = "My offer"
-			myOfferLabel.textColor = darkGrayDetails
-			myOfferLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-			myOfferLabel.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(applyButton.snp_bottom).offset(25)
-				make.right.equalTo(applyButton.snp_centerX).offset(-22)
-			}
-			
-			let myOfferStepper = UIStepper()
-			self.myOfferStepper = myOfferStepper
-			self.myOfferStepper.minimumValue = 10
-			self.myOfferStepper.maximumValue = 200
-			self.myOfferStepper.value = self.task.priceOffered!
-			self.myOfferStepper.stepValue = 1
-			myOfferStepper.continuous = true
-			myOfferStepper.addTarget(self, action: "didTapMyOfferStepper:", forControlEvents: UIControlEvents.ValueChanged)
-			offerContainer.addSubview(myOfferStepper)
-			myOfferStepper.tintColor = redPrimary
-			myOfferStepper.snp_makeConstraints { (make) -> Void in
-				make.centerY.equalTo(myOfferLabel.snp_centerY)
-				make.left.equalTo(myOfferLabel.snp_right).offset(15)
-				make.bottom.equalTo(offerContainer.snp_bottom).offset(-20)
-			}
+		let offerLabelContainer = UIView()
+		offerContainer.addSubview(offerLabelContainer)
+		offerLabelContainer.sizeToFit()
+		
+		let posterNameOffer = UILabel()
+		offerLabelContainer.addSubview(posterNameOffer)
+		posterNameOffer.textColor = darkGrayDetails
+		posterNameOffer.font = UIFont(name: "Lato-Regular", size: kText15)
+		posterNameOffer.text = "\(self.task.user.firstName)'s offer"
+		posterNameOffer.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(offerLabelContainer.snp_left)
+			make.top.equalTo(offerContainer.snp_top).offset(28)
 		}
 		
-		offerContainer.layoutIfNeeded()
+		let moneyContainer = UIView()
+		offerLabelContainer.addSubview(moneyContainer)
+		moneyContainer.backgroundColor = whiteBackground
+		moneyContainer.layer.cornerRadius = 3
+		moneyContainer.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(posterNameOffer.snp_centerY)
+			make.left.equalTo(posterNameOffer.snp_right).offset(12)
+			make.width.equalTo(55)
+			make.height.equalTo(35)
+		}
+		
+		let moneyLabel = UILabel()
+		moneyContainer.addSubview(moneyLabel)
+		moneyLabel.textAlignment = NSTextAlignment.Center
+		moneyLabel.textColor = blackPrimary
+		let price = String(format: "%.0f", self.task.priceOffered!)
+		moneyLabel.text = price+"$"
+		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
+		moneyLabel.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(moneyContainer.snp_edges)
+		}
+		
+		offerLabelContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(offerContainer.snp_top)
+			make.left.equalTo(posterNameOffer.snp_left)
+			make.right.equalTo(moneyContainer.snp_right)
+			make.centerX.equalTo(offerContainer.snp_centerX)
+		}
+		
+		let taskPosterOfferUnderline = UIView()
+		offerContainer.addSubview(taskPosterOfferUnderline)
+		taskPosterOfferUnderline.backgroundColor = grayDetails
+		taskPosterOfferUnderline.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(posterNameOffer.snp_bottom).offset(30)
+			make.centerX.equalTo(offerContainer.snp_centerX)
+			make.width.equalTo(offerContainer.snp_width).dividedBy(1.4)
+			make.height.equalTo(0.5)
+		}
+		
+		//Apply Button
+		
+		let applyButton = PrimaryActionButton()
+		self.applyButton = applyButton
+		offerContainer.addSubview(applyButton)
+		applyButton.setTitle("Confirm Application", forState: UIControlState.Selected)
+		applyButton.setBackgroundColor(redPrimarySelected, forState: .Selected)
+		applyButton.setTitle("Apply for \(Int(self.task.priceOffered!))$ !", forState: UIControlState.Normal)
+		applyButton.addTarget(self, action: "applyButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		applyButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(taskPosterOfferUnderline.snp_bottom).offset(30)
+			make.centerX.equalTo(offerContainer.snp_centerX)
+		}
+		
+		let myOfferLabel = UILabel()
+		offerContainer.addSubview(myOfferLabel)
+		myOfferLabel.text = "My offer"
+		myOfferLabel.textColor = darkGrayDetails
+		myOfferLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		myOfferLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(applyButton.snp_bottom).offset(25)
+			make.right.equalTo(applyButton.snp_centerX).offset(-22)
+		}
+		
+		let myOfferStepper = UIStepper()
+		self.myOfferStepper = myOfferStepper
+		self.myOfferStepper.minimumValue = 10
+		self.myOfferStepper.maximumValue = 200
+		self.myOfferStepper.value = self.task.priceOffered!
+		self.myOfferStepper.stepValue = 1
+		myOfferStepper.continuous = true
+		myOfferStepper.addTarget(self, action: "didTapMyOfferStepper:", forControlEvents: UIControlEvents.ValueChanged)
+		offerContainer.addSubview(myOfferStepper)
+		myOfferStepper.tintColor = redPrimary
+		myOfferStepper.snp_makeConstraints { (make) -> Void in
+			make.centerY.equalTo(myOfferLabel.snp_centerY)
+			make.left.equalTo(myOfferLabel.snp_right).offset(15)
+			make.bottom.equalTo(offerContainer.snp_bottom).offset(-20)
+		}
 	}
 	
 	func adjustUI() {
@@ -602,16 +572,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		}
 	}
 	
-	//MARK: CLLocation Delegate Methods
-	
-	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		
-	}
-	
-	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-		
-	}
-	
 	//MARK: Actions
 	
 	//	/**
@@ -622,12 +582,17 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	
 	func applyButtonTapped(sender: UIButton) {
 		
-		if sender.selected == false {
-			sender.selected = true
-			} else if sender.selected == true {
+		let popup = UIAlertController(title: "Apply for \(Int(self.myOfferStepper.value))$ ?", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+		
+		popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+			//Saves info and changes the view
 			ApiHelper.applyForTask(self.task, price: Int(self.myOfferStepper.value))
-			self.createOfferContainer(true)
-		}
+			self.navigationController?.popViewControllerAnimated(true)
+		}))
+		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+		}))
+		self.presentViewController(popup, animated: true, completion: nil)
+		popup.view.tintColor = redPrimary
 	}
 	
 	func backButtonTapped(sender: UIButton) {
@@ -644,7 +609,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	
 	func didTapMyOfferStepper(sender: UIStepper) {
 		self.myOffer = myOfferStepper.value
-		
 		self.applyButton.setTitle("Apply for $\(Int(sender.value))!", forState: UIControlState.Normal)
 	}
 	

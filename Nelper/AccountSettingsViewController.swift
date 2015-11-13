@@ -794,10 +794,11 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				self.locationsModified = false
 				self.setLocationView(true)
 			}))
-			popup.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action) -> Void in
+			popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
 			}))
 			
 			self.presentViewController(popup, animated: true, completion: nil)
+			popup.view.tintColor = redPrimary
 			
 		} else {
 			

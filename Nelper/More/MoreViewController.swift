@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import SnapKit
 import Alamofire
+import SVProgressHUD
 
 class MoreViewController: UIViewController {
 	
@@ -66,6 +67,16 @@ class MoreViewController: UIViewController {
 		self.view.addSubview(blurEffectView)
 		self.blurEffectView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.view.snp_edges)
+		}
+		
+		let verticalLine = UIView()
+		blurEffectView.addSubview(verticalLine)
+		verticalLine.backgroundColor = blackPrimary.colorWithAlphaComponent(0.7)
+		verticalLine.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(blurEffectView.snp_left)
+			make.width.equalTo(0.5)
+			make.height.equalTo(blurEffectView.snp_height)
+			make.top.equalTo(blurEffectView.snp_top)
 		}
 		
 		//CONTAINER
@@ -139,7 +150,7 @@ class MoreViewController: UIViewController {
 					self.sectionIcon!.layer.cornerRadius = 0
 				}
 				
-				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, ((CGFloat(iconHeight) * 2) + 10), 0, 0)
+				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, ((CGFloat(iconHeight) * 2) + 15), 0, 0)
 				
 				self.sectionIcons.append(self.sectionIcon!)
 				
@@ -212,10 +223,30 @@ class MoreViewController: UIViewController {
 	}
 	
 	func logoutTapped(sender: UIButton) {
-		ApiHelper.logout()
+		SVProgressHUD.setBackgroundColor(whitePrimary)
+		SVProgressHUD.setForegroundColor(redPrimary)
+		SVProgressHUD.showWithStatus("Logging out")
 		
+		self.blurEffectView.snp_remakeConstraints { (make) -> Void in
+			make.edges.equalTo(self.view.snp_edges).inset(UIEdgeInsetsMake(0, self.view.bounds.width, 0, 0))
+		}
+		self.closingAnimation()
+		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+		UIView.animateWithDuration(0.4, animations: { () -> Void in
+			self.blurEffectView.layoutIfNeeded()
+		})
+		
+		_ = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: "logoutUser", userInfo: nil, repeats: false)
+	}
+	
+	func logoutUser() {
+			
+		ApiHelper.logout()
+			
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		appDelegate.showLogin(true)
+		
+		SVProgressHUD.dismiss()
 	}
 	
 	func supportTapped(sender: UIButton) {

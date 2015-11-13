@@ -524,7 +524,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			
 			let streetAddressLabel = UILabel()
 			self.streetAddressLabel = streetAddressLabel
-			streetAddressLabel.text = self.locations?.first?.formattedTextLabel
+			streetAddressLabel.text = self.locations?.first?.formattedTextLabelNoPostal
 			
 			locationContainer.addSubview(streetAddressLabel)
 			streetAddressLabel.numberOfLines = 0
@@ -621,7 +621,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	{
 		self.locationTextField!.text = self.locations?[row].name
 		
-		self.streetAddressLabel.text = self.locations?[row].formattedTextLabel
+		self.streetAddressLabel.text = self.locations?[row].formattedTextLabelNoPostal
 		
 		
 		self.task.location = GeoPoint(latitude:Double(self.locations![row].coords!["latitude"]!),longitude: Double(self.locations![row].coords!["longitude"]!))
@@ -788,7 +788,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.locationsPickerView?.reloadAllComponents()
 		self.locationTextField?.text = vc.address.name
 		
-		self.streetAddressLabel.text = vc.address.formattedTextLabel
+		self.streetAddressLabel.text = vc.address.formattedTextLabelNoPostal
 		
 		self.userPrivateData.locations.append(vc.address)
 		ApiHelper.updateUserLocations(self.userPrivateData.locations)
@@ -940,7 +940,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	func updateLocationInfoToFirstComponent(){
 		self.locationTextField!.text = self.locations?[0].name
 		
-		self.streetAddressLabel.text = self.locations?[0].formattedTextLabel
+		self.streetAddressLabel.text = self.locations?[0].formattedTextLabelNoPostal
 		
 		self.locations?[0].formattedAddress
 		self.task.location = GeoPoint(latitude:Double(self.locations![0].coords!["latitude"]!),longitude: Double(self.locations![0].coords!["longitude"]!))

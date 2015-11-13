@@ -79,6 +79,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 				SVProgressHUD.show()
 			}
 			
+			//Animation
 			let tabViewControllers = tabBarController.viewControllers
 			let fromView = tabBarController.selectedViewController!.view
 			let toView = viewController.view
@@ -110,6 +111,10 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 		
 		if viewController == self.viewControllers![3] {
 			if self.moreIsOpen == false {
+				
+				self.tabBar.userInteractionEnabled = false
+				
+				UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Slide)
 				
 				if self.viewIsCreated == false {
 					
@@ -155,6 +160,8 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 				UIView.animateWithDuration(0.4, animations: { () -> Void in
 					self.nextVC.view.layoutIfNeeded()
 					self.backgroundDark.alpha = 1
+					}, completion: { (finished: Bool) in
+						self.tabBar.userInteractionEnabled = true
 				})
 				
 				swipeRec.addTarget(self, action: "swipedView")
@@ -183,6 +190,9 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	}
 	
 	func closeMoreMenu() {
+		self.tabBar.userInteractionEnabled = false
+		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+		
 		nextVC.view.snp_remakeConstraints(closure: { (make) -> Void in
 			make.top.equalTo(presentedVC.view.snp_top)
 			make.bottom.equalTo(presentedVC.view.snp_bottom)
@@ -196,6 +206,8 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 		UIView.animateWithDuration(0.4, animations: { () -> Void in
 			self.nextVC.view.layoutIfNeeded()
 			self.backgroundDark.alpha = 0
+			}, completion: { (finished: Bool) in
+				self.tabBar.userInteractionEnabled = true
 		})
 		
 		nextVC.closingAnimation()

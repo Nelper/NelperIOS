@@ -21,12 +21,12 @@ class User : BaseModel {
 	var lastName: String!
 	var location: GeoPoint?
 	var createdAt: NSDate!
-	var profilePictureURL:String?
-	var skills:[Dictionary<String,String>]!
-	var education:[Dictionary<String,String>]!
-	var experience:[Dictionary<String,String>]!
-	var about:String!
-	var privateData:UserPrivateData?
+	var profilePictureURL: String?
+	var skills: [Dictionary<String,String>]!
+	var education: [Dictionary<String,String>]!
+	var experience: [Dictionary<String,String>]!
+	var about: String!
+	var privateData: UserPrivateData?
 	
 	init(parseUser: PFUser) {
 		super.init()
@@ -42,16 +42,16 @@ class User : BaseModel {
 		lastName = parseUser["lastName"] as! String
 		location = parseUser["location"] as? GeoPoint
 		createdAt = parseUser.createdAt!
-		if parseUser["skills"] != nil{
+		if parseUser["skills"] != nil {
 			skills = parseUser["skills"] as! [Dictionary<String,String>]
 		}
-		if parseUser["education"] != nil{
+		if parseUser["education"] != nil {
 			education = parseUser["education"] as! [Dictionary<String,String>]
 		}
-		if parseUser["experience"] != nil{
+		if parseUser["experience"] != nil {
 			experience = parseUser["experience"] as! [Dictionary<String,String>]
 		}
-		if parseUser["about"] != nil{
+		if parseUser["about"] != nil {
 			about = parseUser["about"] as! String
 		}
 		if let pic = parseUser["customPicture"] as? PFFile {

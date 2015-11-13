@@ -406,6 +406,7 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 					popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 					}))
 					self.presentViewController(popup, animated: true, completion: nil)
+					popup.view.tintColor = redPrimary
 				} else {
 					self.sortBy = "distance"
 				}

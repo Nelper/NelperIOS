@@ -455,11 +455,13 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 				popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 				}))
 				self.presentViewController(popup, animated: true, completion: nil)
+				popup.view.tintColor = redPrimary
 			} else if self.address.postalCode == nil {
 				let popup = UIAlertController(title: "Invalid address", message: "You must select an address with a valid Postal Code", preferredStyle: UIAlertControllerStyle.Alert)
 				popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 				}))
 				self.presentViewController(popup, animated: true, completion: nil)
+				popup.view.tintColor = redPrimary
 			} else {
 				self.address.name = self.nameTextField.text!
 				self.delegate?.didAddLocation(self)
@@ -471,6 +473,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 			}))
 			self.presentViewController(popup, animated: true, completion: nil)
+			popup.view.tintColor = redPrimary
 		}
 	}
 	

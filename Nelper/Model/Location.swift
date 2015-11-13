@@ -22,9 +22,9 @@ class Location {
 	var formattedTextLabel: String {
 		get {
 			if self.streetNumber != nil {
-				return "\(self.streetNumber!) \(self.route!)\n\(self.city!), \(self.province!)\n\(self.postalCode)"
+				return "\(self.streetNumber!) \(self.route!)\n\(self.city!), \(self.province!)\n\(self.postalCode!)"
 			} else {
-				return "\(self.route!)\n\(self.city!), \(self.province!)\n\(self.postalCode)"
+				return "\(self.route!)\n\(self.city!), \(self.province!)\n\(self.postalCode!)"
 			}
 		}
 	}

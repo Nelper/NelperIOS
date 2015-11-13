@@ -180,7 +180,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.fbButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.fbButton.addTarget(self, action: "facebookLogin:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.fbButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.firstContainer.snp_top)
+			make.top.equalTo(self.firstContainer.snp_top).offset(20)
 			make.left.equalTo(self.firstContainer.snp_left).offset(24)
 			make.right.equalTo(self.firstContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
@@ -210,7 +210,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.bottom.equalTo(fbButton.snp_bottom).offset(-5)
 		}
 		
-		let twitterButton = UIButton()
+		/*let twitterButton = UIButton()
 		self.twitterButton = twitterButton
 		self.firstContainer.addSubview(self.twitterButton)
 		self.twitterButton.setBackgroundColor(blueTwitter, forState: UIControlState.Normal)
@@ -249,7 +249,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.width.equalTo(1)
 			make.top.equalTo(self.twitterButton.snp_top).offset(5)
 			make.bottom.equalTo(self.twitterButton.snp_bottom).offset(-5)
-		}
+		}*/
 		
 		
 		let emailButton = UIButton()
@@ -264,7 +264,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.emailButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.emailButton.addTarget(self, action: "didTapEmailButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.emailButton.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.contentView.snp_bottom).offset(-30)
+			make.bottom.equalTo(self.firstContainer.snp_bottom).offset(-55)
 			make.left.equalTo(self.firstContainer.snp_left).offset(24)
 			make.right.equalTo(self.firstContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
@@ -631,7 +631,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		}
 	}
 	
-	func twitterLogin(sender: UIButton) {
+	//removed 13-11-15
+	/*func twitterLogin(sender: UIButton) {
 		
 		PFTwitterUtils.logInWithBlock { (user, error) -> Void in
 			if error != nil{
@@ -653,8 +654,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				}
 			}
 		}
-		
-	}
+	}*/
 	
 	func emailLogin(sender: UIButton) {
 		dismissKeyboard()

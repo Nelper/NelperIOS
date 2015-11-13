@@ -1230,6 +1230,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 				self.navigationController?.popViewControllerAnimated(true)
 			}))
 			self.presentViewController(popup, animated: true, completion: nil)
+			popup.view.tintColor = redPrimary
 		} else {
 			self.navigationController?.popViewControllerAnimated(true)
 		}
@@ -1266,6 +1267,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}))
 		
 		self.presentViewController(popup, animated: true, completion: nil)
+		popup.view.tintColor = redPrimary
 	}
 		
 	func didTapSaveButton(sender:UIButton){

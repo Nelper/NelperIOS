@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 			self.window?.rootViewController = tabVC
 		}
 		
-		//		NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveLayerObjectsDidChangeNotification:", name: LYRClientObjectsDidChangeNotification, object: layerClient)
+		//NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveLayerObjectsDidChangeNotification:", name: LYRClientObjectsDidChangeNotification, object: layerClient)
 		
 		return true
 	}
@@ -79,8 +79,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	func showLogin(animated: Bool) {
 		let loginVC = LoginViewController()
 		loginVC.delegate = self
-		if animated && false {
-			self.window?.rootViewController?.presentViewController(loginVC, animated: true, completion: nil)
+		if animated {
+			UIView.transitionWithView(self.window!, duration: 0.3, options: .TransitionCrossDissolve, animations: { () -> Void in
+				self.window!.rootViewController = loginVC
+				}, completion: nil)
+			
 		} else {
 			self.window!.rootViewController = loginVC
 		}
@@ -260,23 +263,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	}
 	
 	
-	//	func didReceiveTypingIndicator(notification:NSNotification){
-	//
-	//		var participantID : AnyObject = notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]!
-	//		notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]! = "Your neighbor" as AnyObject
-	//
-	//		if notification.userInfo![LYRTypingIndicatorValueUserInfoKey] != nil{
-	//			var typingIndicator: UInt = notification.userInfo![LYRTypingIndicatorValueUserInfoKey] as! UInt
-	//			if typingIndicator == 0{
-	//			notification.object!.sendTypingIndicator(LYRTypingIndicator.DidBegin)
-	//			}else if typingIndicator == 1 {
-	//				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidFinish)
-	//
-	//			}else if typingIndicator == 2{
-	//				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidPause)
-	//			}
-	//		}
-	//	}
+	/*func didReceiveTypingIndicator(notification:NSNotification){
+		
+		var participantID : AnyObject = notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]!
+		notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]! = "Your neighbor" as AnyObject
+		
+		if notification.userInfo![LYRTypingIndicatorValueUserInfoKey] != nil{
+			var typingIndicator: UInt = notification.userInfo![LYRTypingIndicatorValueUserInfoKey] as! UInt
+			if typingIndicator == 0{
+				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidBegin)
+			}else if typingIndicator == 1 {
+				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidFinish)
+				
+			}else if typingIndicator == 2{
+				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidPause)
+			}
+		}
+	}*/
 	
 	func applicationDidFinishLaunching(application: UIApplication) {
 		UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent

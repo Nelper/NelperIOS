@@ -549,58 +549,63 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	- parameter sender: Skill edit button
 	*/
-	func addSkillButtonTapped(sender:UIButton){
+	func addSkillButtonTapped(sender:UIButton) {
+		var skillsTextField: UITextField?
+		
 		let popup = UIAlertController(title: "Add a Skill", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
-        }
-		
+			skillsTextField = textField
+		}
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
-			let skillTitle: String = (popup.textFields!.first?.text!)!
-			self.arrayOfSkills.append(["title":skillTitle])
+			let skillTitle = skillsTextField!.text
+			self.arrayOfSkills.append(["title": skillTitle!])
 			self.refreshTableView()
 		}))
-		
 		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
 		}))
-		
 		presentViewController(popup, animated: true, completion: nil)
+		popup.view.tintColor = redPrimary
     }
 	
 	
 	//Add Education Button
-	func addEducationButtonTapped(sender:UIButton){
+	func addEducationButtonTapped(sender:UIButton) {
+		var educationTextField: UITextField?
+		
 		let popup = UIAlertController(title: "Add Education", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
+			educationTextField = textField
 		}
-		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
-			let educationTitle: String = (popup.textFields!.first?.text!)!
-			self.arrayOfEducation.append(["title":educationTitle])
+			let educationTitle = educationTextField!.text
+			self.arrayOfEducation.append(["title": educationTitle!])
 			self.refreshTableView()
 		}))
-		
 		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
 		}))
 		
 		presentViewController(popup, animated: true, completion: nil)
+		popup.view.tintColor = redPrimary
 	}
 	
 	//Add Experience Button
-	func addExperienceButtonTapped(sender:UIButton){
+	func addExperienceButtonTapped(sender:UIButton) {
+		var experienceTextField: UITextField?
+		
 		let popup = UIAlertController(title: "Add Experience", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
+			experienceTextField = textField
 		}
-		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
-			let experienceTitle: String = (popup.textFields!.first?.text!)!
-			self.arrayOfExperience.append(["title":experienceTitle])
+			let experienceTitle = experienceTextField!.text
+			self.arrayOfExperience.append(["title": experienceTitle!])
 			self.refreshTableView()
 		}))
-		
 		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
 		}))
 		
 		presentViewController(popup, animated: true, completion: nil)
+		popup.view.tintColor = redPrimary
 	}
 
 	
