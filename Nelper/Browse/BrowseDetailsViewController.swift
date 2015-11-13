@@ -304,7 +304,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		let locationNoticeLabel = UILabel()
 		taskContainer.addSubview(locationNoticeLabel)
-		locationNoticeLabel.text = "Task location within 400m"
+		locationNoticeLabel.text = "Exact location in this 400m area"
 		locationNoticeLabel.textColor = darkGrayDetails
 		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kText13)
 		locationNoticeLabel.snp_makeConstraints { (make) -> Void in
@@ -442,7 +442,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			offerLabelContainer.addSubview(posterNameOffer)
 			posterNameOffer.textColor = darkGrayDetails
 			posterNameOffer.font = UIFont(name: "Lato-Regular", size: kText15)
-			posterNameOffer.text = "\(self.task.user.name) is offering"
+			posterNameOffer.text = "\(self.task.user.firstName)'s offer:"
 			posterNameOffer.snp_makeConstraints { (make) -> Void in
 				make.left.equalTo(offerLabelContainer.snp_left)
 				make.top.equalTo(offerContainer.snp_top).offset(28)
@@ -504,8 +504,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			let myOfferLabel = UILabel()
 			offerContainer.addSubview(myOfferLabel)
 			myOfferLabel.text = "My offer"
-			myOfferLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-			myOfferLabel.textColor = blackPrimary
+			myOfferLabel.textColor = darkGrayDetails
+			myOfferLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 			myOfferLabel.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(applyButton.snp_bottom).offset(25)
 				make.right.equalTo(applyButton.snp_centerX).offset(-22)

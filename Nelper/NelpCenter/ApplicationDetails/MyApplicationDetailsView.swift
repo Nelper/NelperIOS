@@ -60,7 +60,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.backButton = previousBtn
-		self.navBar.setTitle("Application Details")
+		self.navBar.setTitle("My Application")
 		self.createView()
 		self.setImages(self.poster)
 	}
@@ -95,9 +95,10 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			make.centerY.equalTo(statusContainer.snp_centerY).offset(-20)
 		}
 		
-		let moneyTag = UIImageView()
+		let moneyTag = UIView()
 		statusContainer.addSubview(moneyTag)
-		moneyTag.image = UIImage(named: "moneytag")
+		moneyTag.backgroundColor = whiteBackground
+		moneyTag.layer.cornerRadius = 3
 		moneyTag.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(yourOfferLabel.snp_centerY).offset(32)
 			make.centerX.equalTo(statusContainer.snp_centerX)
@@ -109,7 +110,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		moneyTag.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
 		moneyLabel.text = "$\(self.application.price!)"
-		moneyLabel.textColor = whiteBackground
+		moneyLabel.textColor = blackPrimary
 		moneyLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTag.snp_edges)
@@ -356,7 +357,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		
 		let taskPosterOffer = UILabel()
 		taskContainer.addSubview(taskPosterOffer)
-		taskPosterOffer.text = "Task poster is offering"
+		taskPosterOffer.text = "\(self.application.task.user.firstName)'s offer:"
 		taskPosterOffer.textColor = darkGrayDetails
 		taskPosterOffer.font = UIFont(name: "Lato-Regular", size: kText14)
 		taskPosterOffer.snp_makeConstraints { (make) -> Void in
@@ -364,9 +365,10 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			make.centerX.equalTo(taskContainer.snp_centerX).offset(-40)
 		}
 		
-		let moneyTagPoster = UIImageView()
+		let moneyTagPoster = UIView()
 		taskContainer.addSubview(moneyTagPoster)
-		moneyTagPoster.image = UIImage(named: "moneytag")
+		moneyTagPoster.backgroundColor = whiteBackground
+		moneyTagPoster.layer.cornerRadius = 3
 		moneyTagPoster.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(taskPosterOffer.snp_centerY)
 			make.left.equalTo(taskPosterOffer.snp_right).offset(15)
@@ -378,7 +380,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		moneyTagPoster.addSubview(moneyLabelPoster)
 		moneyLabelPoster.textAlignment = NSTextAlignment.Center
 		moneyLabelPoster.text = "$\(Int(self.application.task.priceOffered!))"
-		moneyLabelPoster.textColor = whitePrimary
+		moneyLabelPoster.textColor = blackPrimary
 		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kText15)
 		moneyLabelPoster.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTagPoster.snp_edges)
@@ -465,7 +467,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		
 		let locationNoticeLabel = UILabel()
 		taskContainer.addSubview(locationNoticeLabel)
-		locationNoticeLabel.text = "Task location within 400m"
+		locationNoticeLabel.text = "Exact location in this 400m area"
 		locationNoticeLabel.textColor = darkGrayDetails
 		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kText13)
 		locationNoticeLabel.snp_makeConstraints { (make) -> Void in

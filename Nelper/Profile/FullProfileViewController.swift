@@ -230,7 +230,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		let aboutLabel = UILabel()
 		self.whiteContainer.addSubview(aboutLabel)
 		aboutLabel.textColor = blackPrimary
-		aboutLabel.text = "About"
+		aboutLabel.text = "About me"
 		aboutLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		aboutLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(profilePicture.snp_left)

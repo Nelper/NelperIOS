@@ -223,7 +223,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		self.aboutLabel = aboutLabel
 		self.whiteContainer.addSubview(aboutLabel)
 		aboutLabel.textColor = blackPrimary
-		aboutLabel.text = "About"
+		aboutLabel.text = "About \(self.application.task.user.firstName)"
 		aboutLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		aboutLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(aboutLogo.snp_right).offset(15)

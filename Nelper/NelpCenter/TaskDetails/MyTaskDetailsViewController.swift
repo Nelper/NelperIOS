@@ -738,7 +738,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let deniedApplicantsContainer = DefaultContainerView()
 		self.deniedApplicantsContainer = deniedApplicantsContainer
 		self.contentView.addSubview(deniedApplicantsContainer)
-		deniedApplicantsContainer.containerTitle = "Denied Nelpers"
+		deniedApplicantsContainer.containerTitle = "Declined Nelpers"
 		deniedApplicantsContainer.snp_remakeConstraints { (make) -> Void in
 			make.top.equalTo(self.activeApplicantsContainer.snp_bottom).offset(20)
 			make.left.equalTo(self.contentView.snp_left)

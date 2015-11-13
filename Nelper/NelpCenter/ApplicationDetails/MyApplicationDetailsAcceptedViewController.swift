@@ -97,7 +97,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.backButton = previousBtn
-		self.navBar.setTitle("Application Details")
+		self.navBar.setTitle("My Application")
 		
 		//Status Header
 		let statusContainer = UIView()
