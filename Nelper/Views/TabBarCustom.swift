@@ -78,6 +78,34 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 				SVProgressHUD.setForegroundColor(whitePrimary)
 				SVProgressHUD.show()
 			}
+			
+			let tabViewControllers = tabBarController.viewControllers
+			let fromView = tabBarController.selectedViewController!.view
+			let toView = viewController.view
+			if (fromView == toView) {
+				return false
+			}
+			
+			let toIndex = tabViewControllers?.indexOf(viewController)
+			
+			let offScreenRight = CGAffineTransformMakeTranslation(toView.frame.width / 3, 0)
+			
+			toView.transform = offScreenRight
+			
+			toView.alpha = 0
+			fromView.layer.zPosition = -1
+			self.view.addSubview(fromView)
+			
+			self.view.userInteractionEnabled = false
+			
+			UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseOut, animations:  {
+				toView.transform = CGAffineTransformIdentity
+				toView.alpha = 1
+				}, completion:  { finished in
+					fromView.removeFromSuperview()
+					tabBarController.selectedIndex = toIndex!
+					self.view.userInteractionEnabled = true
+			})
 		}
 		
 		if viewController == self.viewControllers![3] {
