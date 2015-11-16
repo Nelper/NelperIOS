@@ -32,15 +32,15 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		self.clipsToBounds = true
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
-		backView.backgroundColor = whiteBackground
+		backView.backgroundColor = Color.whiteBackground
 		backView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
 		
 		//CellContainer (hackForSpacing)
 		let cellView = UIView()
-		cellView.backgroundColor = whitePrimary
+		cellView.backgroundColor = Color.whitePrimary
 		backView.addSubview(cellView)
 		cellView.layer.borderWidth = 1
-		cellView.layer.borderColor = grayDetails.CGColor
+		cellView.layer.borderColor = Color.grayDetails.CGColor
 		cellView.layer.masksToBounds = true
 		cellView.clipsToBounds = true
 		cellView.snp_makeConstraints { (make) -> Void in
@@ -56,7 +56,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		self.topContainer.clipsToBounds = true
 		self.topContainer.layer.masksToBounds = true
 		topContainer.layer.borderWidth = 1
-		topContainer.layer.borderColor = grayDetails.CGColor
+		topContainer.layer.borderColor = Color.grayDetails.CGColor
 		cellView.addSubview(topContainer)
 		topContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cellView.snp_top)
@@ -64,7 +64,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			make.left.equalTo(cellView.snp_left)
 			make.height.equalTo(85)
 		}
-		topContainer.backgroundColor = whitePrimary
+		topContainer.backgroundColor = Color.whitePrimary
 		
 		let darkenView = UIView()
 		topContainer.addSubview(darkenView)
@@ -85,7 +85,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		
 		//		var categoryLabel = UILabel()
 		//		self.categoryLabel = categoryLabel
-		//		categoryLabel.textColor = blackPrimary
+		//		categoryLabel.textColor = Color.blackPrimary
 		//		categoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kText15)
 		//		topContainer.addSubview(categoryLabel)
 		//		categoryLabel.snp_makeConstraints { (make) -> Void in
@@ -96,7 +96,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		//Title Label
 		let titleLabel = UILabel()
 		self.titleLabel = titleLabel
-		titleLabel.textColor = blackPrimary
+		titleLabel.textColor = Color.blackPrimary
 		titleLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
@@ -122,7 +122,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		self.applicationStateLabel = applicationLabel
 		cellView.addSubview(applicationLabel)
 		applicationLabel.font = UIFont(name: "Lato-Light", size: kText14)
-		applicationLabel.textColor = blackPrimary
+		applicationLabel.textColor = Color.blackPrimary
 		
 		applicationLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(applicationStateIcon.snp_right).offset(10)
@@ -143,7 +143,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		
 		let moneyContainer = UIView()
 		cellView.addSubview(moneyContainer)
-		moneyContainer.backgroundColor = whiteBackground
+		moneyContainer.backgroundColor = Color.whiteBackground
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(applicationLabel.snp_centerY)
@@ -156,7 +156,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		self.price = moneyLabel
 		moneyContainer.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = blackPrimary
+		moneyLabel.textColor = Color.blackPrimary
 		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyContainer.snp_edges)
@@ -193,7 +193,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			if(!nelpApplication.task.pictures!.isEmpty){
 				getPictures(nelpApplication.task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
 					//self.topContainer.image = imageReturned.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
-					self.topContainer.image = UIImage(named: "\(nelpApplication.task.category!)-nc-bg")
+					self.topContainer.sd_setImageWithURL(NSURL(string:nelpApplication.task.pictures![0].url!), placeholderImage:UIImage(named: "\(nelpApplication.task.category!)-nc-bg") )
 				})}} else {
 			self.topContainer.image = UIImage(named: "\(nelpApplication.task.category!)-nc-bg")
 		}
@@ -211,7 +211,7 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 			self.applicationStateLabel.text = "Accepted"
 		} else if nelpApplication.state.rawValue == 3 {
 			self.applicationStateIcon.image = UIImage(named: "denied.png")!
-			self.applicationStateLabel.text = "Denied"
+			self.applicationStateLabel.text = "Declined"
 		}
 		
 		if nelpApplication.state == .Accepted{

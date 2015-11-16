@@ -31,7 +31,7 @@ class SkillsTableViewCell: UITableViewCell {
 		
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
-		backView.backgroundColor = whitePrimary
+		backView.backgroundColor = Color.whitePrimary
 		backView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
 		
 		//Check image
@@ -64,7 +64,7 @@ class SkillsTableViewCell: UITableViewCell {
 		let skillName = UILabel()
 		self.skillName = skillName
 		backView.addSubview(skillName)
-		skillName.textColor = blackPrimary
+		skillName.textColor = Color.blackPrimary
 		skillName.font = UIFont(name: "Lato-Light", size: kText15)
 		skillName.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(checkImage.snp_right).offset(10)

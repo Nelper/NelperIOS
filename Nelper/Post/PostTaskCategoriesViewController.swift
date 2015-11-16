@@ -65,7 +65,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 		//ScrollView + ContentView
 		
 		let backgroundView = UIView()
-		backgroundView.backgroundColor = whiteBackground
+		backgroundView.backgroundColor = Color.whiteBackground
 		self.view.addSubview(backgroundView)
 		backgroundView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(navBar.snp_bottom)
@@ -84,7 +84,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 		let contentView = UIView()
 		self.contentView = contentView
 		scrollView.addSubview(contentView)
-		contentView.backgroundColor = whiteBackground
+		contentView.backgroundColor = Color.whiteBackground
 		contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(scrollView.snp_top)
 			make.left.equalTo(scrollView.snp_left)
@@ -98,7 +98,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 		let selectCategoryLabel = UILabel()
 		contentView.addSubview(selectCategoryLabel);
 		selectCategoryLabel.text = "Select a Category"
-		selectCategoryLabel.textColor = blackPrimary
+		selectCategoryLabel.textColor = Color.blackPrimary
 		selectCategoryLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		
 		selectCategoryLabel.snp_makeConstraints { (make) -> Void in

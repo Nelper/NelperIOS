@@ -26,9 +26,9 @@ class CategoryCardViewController: UIButton {
 	}
 	
 	func createView() {
-		self.layer.borderColor = grayDetails.CGColor
+		self.layer.borderColor = Color.grayDetails.CGColor
 		self.layer.borderWidth = 1
-		self.backgroundColor = whitePrimary
+		self.backgroundColor = Color.whitePrimary
 		let categoryIcon = UIImageView()
 		self.addSubview(categoryIcon)
 		categoryIcon.image = UIImage(named: self.category!)
@@ -42,7 +42,7 @@ class CategoryCardViewController: UIButton {
 		
 		if self.category != "other" {
 			let title = UILabel()
-			title.textColor = blackPrimary
+			title.textColor = Color.blackPrimary
 			title.font = UIFont(name: "Lato-Regular", size: kTitle17)
 			title.text = self.getTitle()
 			self.addSubview(title)
@@ -53,9 +53,9 @@ class CategoryCardViewController: UIButton {
 			
 			let examples = UILabel()
 			self.addSubview(examples)
-			examples.backgroundColor = whitePrimary
+			examples.backgroundColor = Color.whitePrimary
 			examples.font = UIFont(name: "Lato-Light", size: kText15)
-			examples.textColor = blackPrimary
+			examples.textColor = Color.blackPrimary
 			examples.numberOfLines = 0
 			examples.textAlignment = NSTextAlignment.Center
 			examples.text = self.getExamples()

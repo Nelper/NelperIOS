@@ -113,7 +113,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		
 		let scrollView = UIScrollView()
 		self.scrollView = scrollView
-		self.scrollView.backgroundColor = blackPrimary.colorWithAlphaComponent(0.4)
+		self.scrollView.backgroundColor = Color.blackPrimary.colorWithAlphaComponent(0.4)
 		self.blurContainer.addSubview(self.scrollView)
 		self.scrollView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.blurContainer.snp_edges)
@@ -143,7 +143,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		self.titleLabel = titleLabel
 		popupContainer.addSubview(titleLabel)
 		titleLabel.text	= "Add a location"
-		titleLabel.textColor = whitePrimary
+		titleLabel.textColor = Color.whitePrimary
 		titleLabel.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(popupContainer.snp_top)
@@ -153,7 +153,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		let nameTextField = DefaultTextFieldView()
 		self.nameTextField = nameTextField
 		popupContainer.addSubview(nameTextField)
-		nameTextField.attributedPlaceholder = NSAttributedString(string: "Name (home, office, etc.)", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		nameTextField.attributedPlaceholder = NSAttributedString(string: "Name (home, office, etc.)", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		nameTextField.autocorrectionType = UITextAutocorrectionType.No
 		nameTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleLabel.snp_bottom).offset(15)
@@ -165,7 +165,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		self.addressTextField = addressTextField
 		addressTextField.delegate = self
 		popupContainer.addSubview(addressTextField)
-		addressTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		addressTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		addressTextField.keyboardType = UIKeyboardType.NumbersAndPunctuation
 		addressTextField.autocorrectionType = UITextAutocorrectionType.No
 		addressTextField.snp_makeConstraints { (make) -> Void in
@@ -198,9 +198,9 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		self.autocompleteTableView.dataSource = self
 		self.autocompleteTableView.registerClass(AutocompleteCell.classForCoder(), forCellReuseIdentifier: AutocompleteCell.reuseIdentifier)
 		self.autocompleteTableView.hidden = true
-		self.autocompleteTableView.layer.borderColor = darkGrayDetails.CGColor
+		self.autocompleteTableView.layer.borderColor = Color.darkGrayDetails.CGColor
 		self.autocompleteTableView.layer.borderWidth = 0.5
-		self.autocompleteTableView.backgroundColor = whitePrimary.colorWithAlphaComponent(0.6)
+		self.autocompleteTableView.backgroundColor = Color.whitePrimary.colorWithAlphaComponent(0.6)
 		self.autocompleteTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(addressTextField.snp_bottom)
 			make.left.equalTo(addressTextField.snp_left)
@@ -439,13 +439,13 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 				popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 				}))
 				self.presentViewController(popup, animated: true, completion: nil)
-				popup.view.tintColor = redPrimary
+				popup.view.tintColor = Color.redPrimary
 			} else if self.address.postalCode == nil {
 				let popup = UIAlertController(title: "Invalid address", message: "You must select an address with a valid Postal Code", preferredStyle: UIAlertControllerStyle.Alert)
 				popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 				}))
 				self.presentViewController(popup, animated: true, completion: nil)
-				popup.view.tintColor = redPrimary
+				popup.view.tintColor = Color.redPrimary
 			} else {
 				self.address.name = self.nameTextField.text!
 				self.delegate?.didAddLocation(self)
@@ -457,7 +457,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 			}))
 			self.presentViewController(popup, animated: true, completion: nil)
-			popup.view.tintColor = redPrimary
+			popup.view.tintColor = Color.redPrimary
 		}
 	}
 	

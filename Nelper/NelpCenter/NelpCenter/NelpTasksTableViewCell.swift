@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import FXBlurView
+import SDWebImage
 
 class NelpTasksTableViewCell: UITableViewCell {
   
@@ -35,15 +36,15 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
-		backView.backgroundColor = whiteBackground
+		backView.backgroundColor = Color.whiteBackground
 		backView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
 		
 		//CellContainer (hackForSpacing)
 		let cellView = UIView()
-		cellView.backgroundColor = whitePrimary
+		cellView.backgroundColor = Color.whitePrimary
 		backView.addSubview(cellView)
 		cellView.layer.borderWidth = 1
-		cellView.layer.borderColor = grayDetails.CGColor
+		cellView.layer.borderColor = Color.grayDetails.CGColor
 		cellView.layer.masksToBounds = true
 		cellView.clipsToBounds = true
 		cellView.snp_makeConstraints { (make) -> Void in
@@ -59,7 +60,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.topContainer.clipsToBounds = true
 		self.topContainer.layer.masksToBounds = true
 		topContainer.layer.borderWidth = 1
-		topContainer.layer.borderColor = grayDetails.CGColor
+		topContainer.layer.borderColor = Color.grayDetails.CGColor
 		cellView.addSubview(topContainer)
 		topContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cellView.snp_top)
@@ -67,7 +68,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.left.equalTo(cellView.snp_left)
 			make.height.equalTo(85)
 		}
-		topContainer.backgroundColor = whitePrimary
+		topContainer.backgroundColor = Color.whitePrimary
 
 		let darkenView = UIView()
 		topContainer.addSubview(darkenView)
@@ -88,7 +89,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 //		var categoryLabel = UILabel()
 //		self.categoryLabel = categoryLabel
-//		categoryLabel.textColor = blackPrimary
+//		categoryLabel.textColor = Color.blackPrimary
 //		categoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kText15)
 //		topContainer.addSubview(categoryLabel)
 //		categoryLabel.snp_makeConstraints { (make) -> Void in
@@ -112,7 +113,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		//Title Label
 		let titleLabel = UILabel()
 		self.titleLabel = titleLabel
-		titleLabel.textColor = blackPrimary
+		titleLabel.textColor = Color.blackPrimary
 		titleLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
@@ -138,7 +139,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.numberOfApplicantsLabel = numberOfApplicants
 		self.numberOfApplicants = numberOfApplicants
 		self.numberOfApplicants.font = UIFont(name: "Lato-Light", size: kText14)
-		self.numberOfApplicants.textColor = blackPrimary
+		self.numberOfApplicants.textColor = Color.blackPrimary
 		cellView.addSubview(numberOfApplicants)
 		numberOfApplicants.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(numberOfApplicantsIcon.snp_right).offset(10)
@@ -159,7 +160,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		let moneyContainer = UIView()
 		cellView.addSubview(moneyContainer)
-		moneyContainer.backgroundColor = whiteBackground
+		moneyContainer.backgroundColor = Color.whiteBackground
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(numberOfApplicants.snp_centerY)
@@ -172,7 +173,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.price = moneyLabel
 		moneyContainer.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = blackPrimary
+		moneyLabel.textColor = Color.blackPrimary
 		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyContainer.snp_edges)
@@ -209,10 +210,10 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		if(task.pictures != nil) {
 			if(!task.pictures!.isEmpty) {
-				ApiHelper.getPictures(task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
-					//self.topContainer.image = imageReturned.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
-					self.topContainer.image = UIImage(named: "\(task.category!)-nc-bg")
-				})}} else {
+//				ApiHelper.getPictures(task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
+				self.topContainer.sd_setImageWithURL(NSURL(string:task.pictures![0].url!), placeholderImage:UIImage(named: "\(task.category!)-nc-bg") )
+				
+				}} else {
 			self.topContainer.image = UIImage(named: "\(task.category!)-nc-bg")
 		}
 		self.topContainer.contentMode = .ScaleAspectFill

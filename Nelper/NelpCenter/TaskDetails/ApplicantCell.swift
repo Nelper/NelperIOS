@@ -38,7 +38,7 @@ class ApplicantCell: UITableViewCell {
 		let cellView = UIView(frame: CGRectMake(self.bounds.minX, self.bounds.minY, UIScreen.mainScreen().bounds.width, 100))
 		
 		self.cellView = cellView
-		cellView.backgroundColor = whitePrimary
+		cellView.backgroundColor = Color.whitePrimary
 		//cellView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
 		
 		
@@ -65,7 +65,7 @@ class ApplicantCell: UITableViewCell {
 		let name = UILabel()
 		self.name = name
 		cellView.addSubview(name)
-		name.textColor = blackPrimary
+		name.textColor = Color.blackPrimary
 		name.textAlignment = NSTextAlignment.Left
 		name.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		name.snp_makeConstraints { (make) -> Void in
@@ -95,7 +95,7 @@ class ApplicantCell: UITableViewCell {
 		
 		let moneyView = UIView()
 		moneyView.contentMode = UIViewContentMode.ScaleAspectFill
-		moneyView.backgroundColor = whiteBackground
+		moneyView.backgroundColor = Color.whiteBackground
 		moneyView.layer.cornerRadius = 3
 		cellView.addSubview(moneyView)
 		moneyView.snp_makeConstraints { (make) -> Void in
@@ -111,7 +111,7 @@ class ApplicantCell: UITableViewCell {
 		self.moneyLabel = moneyLabel
 		moneyView.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = blackPrimary
+		moneyLabel.textColor = Color.blackPrimary
 		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyView.snp_edges)
@@ -134,7 +134,7 @@ class ApplicantCell: UITableViewCell {
 		
 		let separatorLine = UIView()
 		cellView.addSubview(separatorLine)
-		separatorLine.backgroundColor = grayDetails
+		separatorLine.backgroundColor = Color.grayDetails
 		separatorLine.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(cellView.snp_right)
 			make.left.equalTo(cellView.snp_left)

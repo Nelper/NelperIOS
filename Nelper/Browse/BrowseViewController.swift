@@ -13,6 +13,7 @@ import GoogleMaps
 import Stripe
 import Alamofire
 import SVProgressHUD
+import SDWebImage
 
 class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, FilterSortViewControllerDelegate, MKMapViewDelegate {
 	
@@ -73,19 +74,19 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.createTaskTableView()
 		self.loadData()
 		self.extendedLayoutIncludesOpaqueBars = true
-		
 		self.adjustUI()
+		
+		//Checks for Localization Permission
+		PermissionHelper.sharedInstance.checkLocationStatus()
 	}
 	
 	override func viewDidAppear(animated: Bool) {
 		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
 			self.loadData()
 		}
-		
 		let rootvc: TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
 		rootvc.presentedVC = self
-		
-		//SVProgressHUD.dismiss()
+		SVProgressHUD.dismiss()
 	}
 	
 	//MARK: Creating the View
@@ -132,7 +133,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		let contentView = UIView()
 		self.contentView = contentView
 		backgroundView.addSubview(contentView)
-		contentView.backgroundColor = whiteBackground
+		contentView.backgroundColor = Color.whiteBackground
 		contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(backgroundView.snp_top)
 			make.left.equalTo(backgroundView.snp_left)
@@ -177,7 +178,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.tableView.dataSource = self
 		tableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
 		tableView.registerClass(BrowseTaskViewCell.classForCoder(), forCellReuseIdentifier: BrowseTaskViewCell.reuseIdentifier)
-		self.tableView.backgroundColor = whiteBackground
+		self.tableView.backgroundColor = Color.whiteBackground
 		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		
 		self.tableViewContainer.addSubview(tableView)
@@ -217,6 +218,9 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			let userLocation: CLLocation = self.locationManager.location!
 			self.currentLocation = userLocation
 			LocationHelper.sharedInstance.currentLocation = PFGeoPoint(latitude:userLocation.coordinate.latitude, longitude:userLocation.coordinate.longitude)
+			
+			LocationHelper.sharedInstance.currentCLLocation = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude,longitude: userLocation.coordinate.longitude)
+			
 			let userLocationForCenter = userLocation.coordinate
 			let span: MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
 			let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
@@ -409,7 +413,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			let mapInfoBlurView = UIVisualEffectView(effect: blurEffect)
 			self.mapInfoBlurView = mapInfoBlurView
 			self.mapView.addSubview(mapInfoBlurView)
-			mapInfoBlurView.backgroundColor = whitePrimary.colorWithAlphaComponent(0)
+			mapInfoBlurView.backgroundColor = Color.whitePrimary.colorWithAlphaComponent(0)
 			mapInfoBlurView.snp_makeConstraints { (make) -> Void in
 				make.left.equalTo(self.mapView.snp_left).offset(10)
 				make.bottom.equalTo(self.mapView.snp_bottom).offset(200)
@@ -419,9 +423,9 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			mapInfoBlurView.layoutIfNeeded()
 			
 			let infoButton = mapTaskButton()
-			infoButton.layer.borderColor = grayDetails.CGColor
+			infoButton.layer.borderColor = Color.grayDetails.CGColor
 			infoButton.layer.borderWidth = 1
-			infoButton.setBackgroundColor(grayDetails.colorWithAlphaComponent(0.4), forState: UIControlState.Highlighted)
+			infoButton.setBackgroundColor(Color.grayDetails.colorWithAlphaComponent(0.4), forState: UIControlState.Highlighted)
 			infoButton.addTarget(self, action: "infoButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 			infoButton.selectedTask = pinViewAnnotation!.task
 			mapInfoBlurView.addSubview(infoButton)
@@ -462,18 +466,18 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			taskTitleLabel.textAlignment = NSTextAlignment.Left
 			taskTitleLabel.numberOfLines = 1
 			taskTitleLabel.text = pinViewAnnotation?.title
-			taskTitleLabel.textColor = blackPrimary.colorWithAlphaComponent(0.7)
+			taskTitleLabel.textColor = Color.blackPrimary
 			taskTitleLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 			taskTitleLabel.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(userPicture.snp_top).offset(2)
-				make.left.equalTo(userPicture.snp_right).offset(12)
+				make.left.equalTo(userPicture.snp_right).offset(18)
 				make.right.equalTo(infoButton.snp_right).offset(-10)
 			}
 			
 			let author = UILabel()
 			infoButton.addSubview(author)
 			author.font = UIFont(name: "Lato-Light", size: kText13)
-			author.textColor = blackTextColor
+			author.textColor = Color.blackTextColor
 			author.text = pinViewAnnotation!.poster
 
 			let dateHelper = DateHelper()
@@ -483,11 +487,11 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			infoButton.addSubview(creationDate)
 			creationDate.text = "Posted \(dateHelper.timeAgoSinceDate(pinViewAnnotation!.date!, numericDates: true))"
 			creationDate.font = UIFont(name: "Lato-Light", size: kText13)
-			creationDate.textColor = blackTextColor
+			creationDate.textColor = Color.blackTextColor
 			
 			let moneyContainer = UIView()
 			infoButton.addSubview(moneyContainer)
-			moneyContainer.backgroundColor = redPrimary
+			moneyContainer.backgroundColor = Color.whiteBackground
 			moneyContainer.layer.cornerRadius = 3
 			moneyContainer.snp_makeConstraints { (make) -> Void in
 				make.right.equalTo(mapInfoBlurView.snp_right).offset(-20)
@@ -504,7 +508,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			
 			author.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(taskTitleLabel.snp_bottom).offset(8)
-				make.left.equalTo(userPicture.snp_right).offset(22)
+				make.left.equalTo(taskTitleLabel)
 				make.right.equalTo(moneyContainer.snp_left).offset(6)
 			}
 			
@@ -513,9 +517,9 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			let moneyLabel = UILabel()
 			moneyContainer.addSubview(moneyLabel)
 			moneyLabel.textAlignment = NSTextAlignment.Center
-			moneyLabel.textColor = whitePrimary
+			moneyLabel.textColor = Color.blackPrimary
 			moneyLabel.text = price+"$"
-			moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
+			moneyLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 			moneyLabel.snp_makeConstraints { (make) -> Void in
 				make.edges.equalTo(moneyContainer.snp_edges)
 			}
@@ -524,7 +528,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			infoButton.addSubview(appliedNotice)
 			appliedNotice.text = "Applied"
 			appliedNotice.font = UIFont(name: "Lato-Regular", size: kText15)
-			appliedNotice.textColor = redPrimary
+			appliedNotice.textColor = Color.redPrimary
 			appliedNotice.snp_makeConstraints { (make) -> Void in
 				make.centerX.equalTo(moneyContainer.snp_centerX)
 				make.centerY.equalTo(taskTitleLabel.snp_centerY)
@@ -632,6 +636,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 				self.createPins()
 				self.refreshView?.endRefreshing()
 				self.tableView?.reloadData()
+				self.sortBy = "distance"
 			}
 		})
 	}
@@ -670,16 +675,23 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		let cell = self.tableView.dequeueReusableCellWithIdentifier(BrowseTaskViewCell.reuseIdentifier, forIndexPath: indexPath) as! BrowseTaskViewCell
 		
 		if self.sortBy == "priceOffered" {
-			cell.moneyContainer.backgroundColor = redPrimary
-			cell.price.textColor = whitePrimary
+			cell.moneyContainer.backgroundColor = Color.redPrimary
+			cell.price.textColor = Color.whitePrimary
 		} else {
-			cell.moneyContainer.backgroundColor = whiteBackground
-			cell.price.textColor = blackPrimary
+			cell.moneyContainer.backgroundColor = Color.whiteBackground
+			cell.price.textColor = Color.blackPrimary
 		}
 		
 		let task = self.nelpTasks[indexPath.item]
 		cell.setNelpTask(task)
-		cell.setImages(task)
+		if (self.sortBy == "distance" || self.sortBy == "priceOffered") && LocationHelper.sharedInstance.currentCLLocation != nil{
+			cell.setLocation()
+		}
+		if task.user.profilePictureURL != nil{
+		cell.picture.sd_setImageWithURL(NSURL(string: task.user.profilePictureURL!), placeholderImage: UIImage(named: "noProfilePicture"))
+		}else{
+			cell.picture.image = UIImage(named:"noProfilePicture")
+		}
 		cell.cellIndexPath = indexPath
 		
 		return cell

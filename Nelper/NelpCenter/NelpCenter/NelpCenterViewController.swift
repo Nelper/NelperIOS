@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SVProgressHUD
+import SDWebImage
 
 class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MyApplicationDetailsViewDelegate, SegmentControllerDelegate, MyTaskDetailsViewControllerDelegate {
 	
@@ -91,7 +92,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		let tasksContainer = UIView()
 		containerView.addSubview(tasksContainer)
 		self.tasksContainer = tasksContainer
-		tasksContainer.backgroundColor = whiteBackground
+		tasksContainer.backgroundColor = Color.whiteBackground
 		tasksContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(segmentControllerView.snp_bottom)
 			make.width.equalTo(self.view.snp_width)
@@ -108,7 +109,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.registerClass(NelpTasksTableViewCell.classForCoder(), forCellReuseIdentifier: NelpTasksTableViewCell.reuseIdentifier)
-		tableView.backgroundColor = whiteBackground
+		tableView.backgroundColor = Color.whiteBackground
 		
 		self.tasksContainer.addSubview(tableView)
 		tableView.snp_makeConstraints { (make) -> Void in
@@ -127,7 +128,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tableViewApplications.delegate = self
 		tableViewApplications.dataSource = self
 		tableViewApplications.registerClass(NelpApplicationsTableViewCell.classForCoder(), forCellReuseIdentifier: NelpApplicationsTableViewCell.reuseIdentifier)
-		tableViewApplications.backgroundColor = whiteBackground
+		tableViewApplications.backgroundColor = Color.whiteBackground
 		tableViewApplications.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0)
 
 		self.tasksContainer.addSubview(tableViewApplications)

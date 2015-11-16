@@ -91,6 +91,7 @@
 		F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F775C0C61B803E9600F7525B /* TabBarCustom.swift */; };
 		F777FBAD1BA1245B00328709 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F777FBAC1BA1245B00328709 /* DateHelper.swift */; };
 		F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ApiHelper.swift */; };
+		F7A003B91BF974FA00D0B568 /* PermissionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A003B81BF974FA00D0B568 /* PermissionHelper.swift */; };
 		F7AB48A21B75AE5C00B602C4 /* iCarousel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB48A11B75AE5C00B602C4 /* iCarousel.framework */; };
 		F7D94CB41B5AC41000380157 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CB31B5AC41000380157 /* MapKit.framework */; };
 		F7E18C181BB6480C00160771 /* UserPrivateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E18C171BB6480C00160771 /* UserPrivateData.swift */; };
@@ -232,6 +233,7 @@
 		F775C0C61B803E9600F7525B /* TabBarCustom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarCustom.swift; path = Views/TabBarCustom.swift; sourceTree = "<group>"; };
 		F777FBAC1BA1245B00328709 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateHelper.swift; path = Nelper/Helpers/DateHelper.swift; sourceTree = SOURCE_ROOT; };
 		F782A6281B6567E100C78470 /* ApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHelper.swift; path = Nelper/Helpers/ApiHelper.swift; sourceTree = SOURCE_ROOT; };
+		F7A003B81BF974FA00D0B568 /* PermissionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PermissionHelper.swift; path = Nelper/Helpers/PermissionHelper.swift; sourceTree = SOURCE_ROOT; };
 		F7AB48A11B75AE5C00B602C4 /* iCarousel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iCarousel.framework; path = "Pods/../build/Debug-iphoneos/iCarousel.framework"; sourceTree = "<group>"; };
 		F7D94CB31B5AC41000380157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F7E18C171BB6480C00160771 /* UserPrivateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserPrivateData.swift; path = Nelper/Model/UserPrivateData.swift; sourceTree = SOURCE_ROOT; };
@@ -558,6 +560,7 @@
 				F7E8F9341B953A57007D44D8 /* LayerManager.swift */,
 				F777FBAC1BA1245B00328709 /* DateHelper.swift */,
 				196176C41BCB0BF000F2AF5F /* GraphQLClient.swift */,
+				F7A003B81BF974FA00D0B568 /* PermissionHelper.swift */,
 			);
 			name = Helpers;
 			path = ViewControllers/Offer;
@@ -768,6 +771,7 @@
 				C03B1B8A1BDF426B00AFD349 /* BrowseMKAnnotation.swift in Sources */,
 				19761A1B1B687858001600E1 /* BaseTask.swift in Sources */,
 				19DB24521BB7119C00468E91 /* PostTaskCategoriesViewController.swift in Sources */,
+				F7A003B91BF974FA00D0B568 /* PermissionHelper.swift in Sources */,
 				C02C74901BF0109B008251F7 /* CategoryFilters.swift in Sources */,
 				F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */,
 				C0BED39F1BCF4E3C00CE3B63 /* UIElements.swift in Sources */,

@@ -65,7 +65,7 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 		
 		let background = UIView()
 		self.view.addSubview(background)
-		background.backgroundColor = whiteBackground
+		background.backgroundColor = Color.whiteBackground
 		background.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(navBar.snp_bottom)
 			make.left.equalTo(self.view.snp_left)
@@ -83,7 +83,7 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 		let contentView = UIView()
 		self.contentView = contentView
 		self.scrollView.addSubview(contentView)
-		contentView.backgroundColor = whiteBackground
+		contentView.backgroundColor = Color.whiteBackground
 		contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(scrollView.snp_top)
 			make.left.equalTo(scrollView.snp_left)
@@ -97,7 +97,7 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 		let filtersContainer = UIView()
 		self.filtersContainer = filtersContainer
 		contentView.addSubview(filtersContainer)
-		filtersContainer.backgroundColor = whitePrimary
+		filtersContainer.backgroundColor = Color.whitePrimary
 		filtersContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top)
 			make.left.equalTo(contentView.snp_left)
@@ -107,7 +107,7 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 		let sortingLabel = UILabel()
 		filtersContainer.addSubview(sortingLabel)
 		sortingLabel.text = "Sort task list by"
-		sortingLabel.textColor = blackTextColor
+		sortingLabel.textColor = Color.blackTextColor
 		sortingLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		sortingLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(filtersContainer.snp_centerX)
@@ -122,7 +122,7 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 		sortingSegmentControl.insertSegmentWithTitle("Price", atIndex: 0, animated: false)
 		sortingSegmentControl.insertSegmentWithTitle("Distance", atIndex: 1, animated: false)
 		sortingSegmentControl.insertSegmentWithTitle("Date", atIndex: 2, animated: false)
-		sortingSegmentControl.tintColor = redPrimary
+		sortingSegmentControl.tintColor = Color.redPrimary
 		sortingSegmentControl.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(sortingLabel.snp_bottom).offset(30)
 			make.centerX.equalTo(filtersContainer.snp_centerX)
@@ -136,7 +136,7 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 		
 		let sortingUnderline = UIView()
 		filtersContainer.addSubview(sortingUnderline)
-		sortingUnderline.backgroundColor = grayDetails
+		sortingUnderline.backgroundColor = Color.grayDetails
 		sortingUnderline.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(sortingSegmentControl.snp_bottom).offset(50)
 			make.width.equalTo(filtersContainer.snp_width).dividedBy(1.5)
@@ -148,7 +148,7 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 		self.filtersLabel = filtersLabel
 		filtersContainer.addSubview(filtersLabel)
 		filtersLabel.text = "Category filters"
-		filtersLabel.textColor = blackTextColor
+		filtersLabel.textColor = Color.blackTextColor
 		filtersLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		filtersLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(filtersContainer.snp_centerX)
@@ -186,8 +186,8 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 		cancelButton.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		addFiltersContainer.addSubview(cancelButton)
 		cancelButton.setTitle("Cancel", forState: UIControlState.Normal)
-		cancelButton.backgroundColor = darkGrayDetails
-		cancelButton.setTitleColor(whiteBackground, forState: UIControlState.Normal)
+		cancelButton.backgroundColor = Color.darkGrayDetails
+		cancelButton.setTitleColor(Color.whiteBackground, forState: UIControlState.Normal)
 		cancelButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		cancelButton.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(addFiltersContainer.snp_width).dividedBy(2)
@@ -200,8 +200,8 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 		confirmButton.addTarget(self, action: "didTapAddFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		addFiltersContainer.addSubview(confirmButton)
 		confirmButton.setTitle("Confirm", forState: UIControlState.Normal)
-		confirmButton.backgroundColor = redPrimary
-		confirmButton.setTitleColor(whiteBackground, forState: UIControlState.Normal)
+		confirmButton.backgroundColor = Color.redPrimary
+		confirmButton.setTitleColor(Color.whiteBackground, forState: UIControlState.Normal)
 		confirmButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		confirmButton.snp_makeConstraints { (make) -> Void in
 			make.width.equalTo(addFiltersContainer.snp_width).dividedBy(2)
@@ -406,7 +406,7 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 					popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 					}))
 					self.presentViewController(popup, animated: true, completion: nil)
-					popup.view.tintColor = redPrimary
+					popup.view.tintColor = Color.redPrimary
 				} else {
 					self.sortBy = "distance"
 				}

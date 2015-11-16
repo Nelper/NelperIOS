@@ -64,7 +64,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		let popupContainer = UIView()
 		self.popupContainer = popupContainer
 		
-		popupContainer.backgroundColor = whiteBackground
+		popupContainer.backgroundColor = Color.whiteBackground
 		blurContainer.addSubview(popupContainer)
 		popupContainer.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(300)
@@ -87,7 +87,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		self.titleLabel = titleLabel
 		popupContainer.addSubview(titleLabel)
 		titleLabel.text = "Payment"
-		titleLabel.textColor = blackPrimary
+		titleLabel.textColor = Color.blackPrimary
 		titleLabel.font = UIFont(name: "Lato-Light", size: 32)
 		titleLabel.textAlignment = NSTextAlignment.Center
 		titleLabel.snp_makeConstraints { (make) -> Void in
@@ -99,7 +99,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		
 		let whiteContainer = UIView()
 		self.popupContainer.addSubview(whiteContainer)
-		whiteContainer.backgroundColor = whitePrimary
+		whiteContainer.backgroundColor = Color.whitePrimary
 		whiteContainer.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(220)
 			make.left.equalTo(popupContainer.snp_left)
@@ -109,7 +109,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		
 		let grayLine = UIView()
 		whiteContainer.addSubview(grayLine)
-		grayLine.backgroundColor = darkGrayDetails
+		grayLine.backgroundColor = Color.darkGrayDetails
 		grayLine.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(whiteContainer.snp_top)
 			make.left.equalTo(whiteContainer.snp_left)
@@ -121,12 +121,12 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		self.nameTextField = userNameTextField
 		userNameTextField.text = PFUser.currentUser()?.objectForKey("name") as? String
 		whiteContainer.addSubview(userNameTextField)
-		userNameTextField.layer.borderColor = darkGrayDetails.CGColor
+		userNameTextField.layer.borderColor = Color.darkGrayDetails.CGColor
 		userNameTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		userNameTextField.layer.borderWidth = 0.9
-		userNameTextField.attributedPlaceholder = NSAttributedString(string: "Cardholder name", attributes: [NSForegroundColorAttributeName:textFieldPlaceholderColor])
+		userNameTextField.attributedPlaceholder = NSAttributedString(string: "Cardholder name", attributes: [NSForegroundColorAttributeName:Color.textFieldPlaceholderColor])
 		userNameTextField.textColor = UIColor.blackColor()
-		userNameTextField.tintColor = darkGrayDetails
+		userNameTextField.tintColor = Color.darkGrayDetails
 		
 		userNameTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(whiteContainer.snp_top).offset(20)
@@ -139,7 +139,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		self.cardTextField = STPPaymentCardTextField()
 		cardTextField.layer.cornerRadius = 0
 		self.cardTextField.delegate = self
-		self.cardTextField.tintColor = darkGrayDetails
+		self.cardTextField.tintColor = Color.darkGrayDetails
 		whiteContainer.addSubview(self.cardTextField)
 		self.cardTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(userNameTextField.snp_bottom).offset(10)
@@ -154,7 +154,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		whiteContainer.addSubview(saveButton)
 		self.saveButton.addTarget(self, action: "didTapSaveButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.saveButton.setTitle("Pay $\(Int(self.task.priceOffered!))", forState: UIControlState.Normal)
-		self.saveButton.backgroundColor = redPrimary.colorWithAlphaComponent(0.5)
+		self.saveButton.backgroundColor = Color.redPrimary.colorWithAlphaComponent(0.5)
 		self.saveButton.enabled = false
 		saveButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cardTextField.snp_bottom).offset(20)
@@ -170,10 +170,10 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 		
 		if textField.valid {
 			self.saveButton.enabled = true
-			self.saveButton.backgroundColor = redPrimary.colorWithAlphaComponent(1.0)
+			self.saveButton.backgroundColor = Color.redPrimary.colorWithAlphaComponent(1.0)
 		}else{
 			self.saveButton.enabled = false
-			self.saveButton.backgroundColor = redPrimary.colorWithAlphaComponent(0.5)
+			self.saveButton.backgroundColor = Color.redPrimary.colorWithAlphaComponent(0.5)
 		}
 	}
 	

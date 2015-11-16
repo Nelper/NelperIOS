@@ -93,7 +93,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.width.equalTo(self.view.snp_width)
 			make.bottom.equalTo(self.view.snp_bottom)
 		}
-		contentView.backgroundColor = whiteBackground
+		contentView.backgroundColor = Color.whiteBackground
 		
 		self.setImages(self.poster)
 		
@@ -108,7 +108,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.right.equalTo(self.contentView.snp_right)
 			make.height.equalTo(125)
 		}
-		profileContainer.backgroundColor = redPrimary
+		profileContainer.backgroundColor = Color.redPrimary
 		
 		//Profile Picture
 		
@@ -173,7 +173,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.edges.equalTo(background.snp_edges)
 		}
 		
-		scrollView.backgroundColor = whiteBackground
+		scrollView.backgroundColor = Color.whiteBackground
 		
 		let containerView = UIView()
 		self.containerView = containerView
@@ -185,8 +185,8 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 			make.height.greaterThanOrEqualTo(background.snp_height)
 			make.width.equalTo(background.snp_width)
 		}
-		self.containerView.backgroundColor = whiteBackground
-		background.backgroundColor = whiteBackground
+		self.containerView.backgroundColor = Color.whiteBackground
+		background.backgroundColor = Color.whiteBackground
 		
 		
 		//White Container
@@ -194,9 +194,9 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		let whiteContainer = UIView()
 		self.containerView.addSubview(whiteContainer)
 		self.whiteContainer = whiteContainer
-		whiteContainer.layer.borderColor = grayDetails.CGColor
+		whiteContainer.layer.borderColor = Color.grayDetails.CGColor
 		whiteContainer.layer.borderWidth = 1
-		whiteContainer.backgroundColor = whitePrimary
+		whiteContainer.backgroundColor = Color.whitePrimary
 		whiteContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(containerView.snp_top).offset(20)
 			make.left.equalTo(containerView.snp_left)
@@ -222,8 +222,12 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		let aboutLabel = UILabel()
 		self.aboutLabel = aboutLabel
 		self.whiteContainer.addSubview(aboutLabel)
-		aboutLabel.textColor = blackPrimary
+		aboutLabel.textColor = Color.blackPrimary
+		if self.application.task.user.firstName != nil{
 		aboutLabel.text = "About \(self.application.task.user.firstName)"
+		}else{
+			aboutLabel.text = "Offer:"
+		}
 		aboutLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		aboutLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(aboutLogo.snp_right).offset(15)
@@ -235,8 +239,8 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		self.whiteContainer.addSubview(aboutTextView)
 		self.aboutTextView = aboutTextView
 		aboutTextView.scrollEnabled = false
-		aboutTextView.textColor = blackPrimary
-		aboutTextView.backgroundColor = whitePrimary
+		aboutTextView.textColor = Color.blackPrimary
+		aboutTextView.backgroundColor = Color.whitePrimary
 		aboutTextView.editable = false
 		aboutTextView.text = self.poster.about
 		aboutTextView.font = UIFont(name: "Lato-Light", size: kText15)
@@ -254,7 +258,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		aboutTextView.frame = newFrame;
 		
 		let aboutBottomLine = UIView()
-		aboutBottomLine.backgroundColor = grayDetails
+		aboutBottomLine.backgroundColor = Color.grayDetails
 		whiteContainer.addSubview(aboutBottomLine)
 		aboutBottomLine.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(aboutTextView.snp_bottom).offset(6)
@@ -296,7 +300,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		let skillsLabel = UILabel()
 		self.skillsLabel = skillsLabel
 		self.whiteContainer.addSubview(skillsLabel)
-		skillsLabel.textColor = blackPrimary
+		skillsLabel.textColor = Color.blackPrimary
 		skillsLabel.text = "Skills"
 		skillsLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		skillsLabel.snp_makeConstraints { (make) -> Void in
@@ -313,7 +317,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		skillsTableView.delegate = self
 		skillsTableView.dataSource = self
 		skillsTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
-		skillsTableView.backgroundColor = whitePrimary
+		skillsTableView.backgroundColor = Color.whitePrimary
 		skillsTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left).offset(-26)
@@ -325,7 +329,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		let skillsBottomLine = UIView()
 		self.skillsBottomLine = skillsBottomLine
-		skillsBottomLine.backgroundColor = grayDetails
+		skillsBottomLine.backgroundColor = Color.grayDetails
 		whiteContainer.addSubview(skillsBottomLine)
 		skillsBottomLine.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsTableView.snp_bottom).offset(6)
@@ -351,7 +355,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		let educationLabel = UILabel()
 		self.educationLabel = educationLabel
 		self.whiteContainer.addSubview(educationLabel)
-		educationLabel.textColor = blackPrimary
+		educationLabel.textColor = Color.blackPrimary
 		educationLabel.text = "Education"
 		educationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		educationLabel.snp_makeConstraints { (make) -> Void in
@@ -368,7 +372,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		educationTableView.delegate = self
 		educationTableView.dataSource = self
 		educationTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
-		educationTableView.backgroundColor = whitePrimary
+		educationTableView.backgroundColor = Color.whitePrimary
 		educationTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left).offset(-26)
@@ -380,7 +384,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		
 		let educationBottomLine = UIView()
 		self.educationBottomLine = educationBottomLine
-		educationBottomLine.backgroundColor = grayDetails
+		educationBottomLine.backgroundColor = Color.grayDetails
 		whiteContainer.addSubview(educationBottomLine)
 		educationBottomLine.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationTableView.snp_bottom).offset(6)
@@ -406,7 +410,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		let experienceLabel = UILabel()
 		self.experienceLabel = experienceLabel
 		self.whiteContainer.addSubview(experienceLabel)
-		experienceLabel.textColor = blackPrimary
+		experienceLabel.textColor = Color.blackPrimary
 		experienceLabel.text = "Work experience"
 		experienceLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		experienceLabel.snp_makeConstraints { (make) -> Void in
@@ -423,7 +427,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		experienceTableView.delegate = self
 		experienceTableView.dataSource = self
 		experienceTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
-		experienceTableView.backgroundColor = whitePrimary
+		experienceTableView.backgroundColor = Color.whitePrimary
 		experienceTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(experienceLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutLabel.snp_left).offset(-26)
@@ -448,7 +452,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		let chatButton = UIButton()
 		self.chatButton = chatButton
 		self.view.addSubview(chatButton)
-		chatButton.backgroundColor = grayBlue
+		chatButton.backgroundColor = Color.grayBlue
 		chatButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
 		chatButton.setImage(UIImage(named: "down_arrow"), forState: UIControlState.Selected)
 		chatButton.addTarget(self, action: "chatButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -467,7 +471,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		let fakeButton = UIButton()
 		self.fakeButton = fakeButton
 		self.view.addSubview(fakeButton)
-		fakeButton.backgroundColor = grayBlue
+		fakeButton.backgroundColor = Color.grayBlue
 		fakeButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
 		fakeButton.setImage(UIImage(named: "collapse_chat"), forState: UIControlState.Selected)
 		fakeButton.imageView!.contentMode = UIViewContentMode.Center

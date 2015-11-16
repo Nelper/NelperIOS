@@ -12,38 +12,46 @@ import UIKit
 
 //COLORS
 
-let whiteBackground = hexStringToUIColor("eaeaea")
-let blackPrimary = hexStringToUIColor("2c2c2c")
-let redPrimary = hexStringToUIColor("ed4b4e")
+struct Color{
+	
+static let whiteBackground = hexStringToUIColor("eaeaea")
+static let blackPrimary = hexStringToUIColor("2c2c2c")
+static let redPrimary = hexStringToUIColor("ed4b4e")
 
-let redPrimarySelected = hexStringToUIColor("f16f71")
+static let redPrimarySelected = hexStringToUIColor("f16f71")
 
-let whitePrimary = hexStringToUIColor("f7f7f7")
-let grayDetails = hexStringToUIColor("e1e1e1")
-let darkGrayDetails = hexStringToUIColor("979797")
-let darkGrayText = hexStringToUIColor("3d3d3d")
+static let whitePrimary = hexStringToUIColor("f7f7f7")
+static let grayDetails = hexStringToUIColor("e1e1e1")
+static let darkGrayDetails = hexStringToUIColor("979797")
+static let darkGrayText = hexStringToUIColor("3d3d3d")
 
-let textFieldTextColor = darkGrayText.colorWithAlphaComponent(0.8)
-let textFieldPlaceholderColor = darkGrayText.colorWithAlphaComponent(0.5)
+static let textFieldTextColor = Color.darkGrayText.colorWithAlphaComponent(0.8)
+static let textFieldPlaceholderColor = Color.darkGrayText.colorWithAlphaComponent(0.5)
 
-let progressGreen = hexStringToUIColor("29B473")
-let pendingYellow = hexStringToUIColor("F7CC39")
+static let progressGreen = hexStringToUIColor("29B473")
+static let pendingYellow = hexStringToUIColor("F7CC39")
 
-let greenProfile = hexStringToUIColor("29b48f")
+static let greenProfile = hexStringToUIColor("29b48f")
 
-let blueFacebook = hexStringToUIColor("3b5998")
-let blueFacebookSelected = hexStringToUIColor("4f6aa2")
-let blueTwitter = hexStringToUIColor("55acee")
-let blueTwitterSelected = hexStringToUIColor("77bdf1")
+static let blueFacebook = hexStringToUIColor("3b5998")
+static let blueFacebookSelected = hexStringToUIColor("4f6aa2")
+static let blueTwitter = hexStringToUIColor("55acee")
+static let blueTwitterSelected = hexStringToUIColor("77bdf1")
 
-let greenPriceButton = hexStringToUIColor("80bf62")
+static let greenPriceButton = hexStringToUIColor("80bf62")
 
-let grayBlue = hexStringToUIColor("5a6a7b")
+static let grayBlue = hexStringToUIColor("5a6a7b")
 
-let navBarColor = redPrimary
-let tabBarColor = whitePrimary
+static let navBarColor = Color.redPrimary
+static let tabBarColor = Color.whitePrimary
 
-let mapKitBeigeBackground = hexStringToUIColor("f9f4ec")
+static let mapKitBeigeBackground = hexStringToUIColor("f9f4ec")
+	
+//TEXT
+	
+static let blackTextColor = hexStringToUIColor("3d3d3d")
+	
+}
 
 //IMAGES
 
@@ -55,9 +63,7 @@ let tabBarSearchSelected:UIImage = UIImage(named: "search_orange.png")!
 let tabBarNelpSelected:UIImage = UIImage(named: "help_orange.png")!
 let tabBarProfileSelected:UIImage = UIImage(named: "profile_orange.png")!
 
-//TEXT
 
-let blackTextColor = hexStringToUIColor("3d3d3d")
 
 
 /**

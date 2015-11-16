@@ -65,7 +65,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 		let controllersArray = [browseVC, nelpCenterVC, postVC, moreVC]
 		
 		self.viewControllers = controllersArray
-		self.tabBar.tintColor = redPrimary
+		self.tabBar.tintColor = Color.redPrimary
 		
 	}
 	
@@ -74,8 +74,8 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 			self.viewIsCreated = false
 			
 			if !(self.selectedViewController == viewController) && viewController == self.viewControllers![1] {
-				SVProgressHUD.setBackgroundColor(redPrimary)
-				SVProgressHUD.setForegroundColor(whitePrimary)
+				SVProgressHUD.setBackgroundColor(Color.redPrimary)
+				SVProgressHUD.setForegroundColor(Color.whitePrimary)
 				SVProgressHUD.show()
 			}
 			

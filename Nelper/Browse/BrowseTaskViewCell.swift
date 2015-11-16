@@ -35,7 +35,7 @@ class BrowseTaskViewCell: UITableViewCell {
 		
 		let cellView = UIView(frame: self.bounds)
 		self.cellView = cellView
-		cellView.backgroundColor = whitePrimary
+		cellView.backgroundColor = Color.whitePrimary
 		cellView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
 		
 		let pictureSize: CGFloat = 70
@@ -87,12 +87,12 @@ class BrowseTaskViewCell: UITableViewCell {
 		self.creationDate = creationDate
 		cellView.addSubview(creationDate)
 		self.creationDate.font = UIFont(name: "Lato-Light", size: kText13)
-		self.creationDate.textColor = blackTextColor
+		self.creationDate.textColor = Color.blackTextColor
 		
 		let moneyContainer = UIView()
 		self.moneyContainer = moneyContainer
 		cellView.addSubview(moneyContainer)
-		moneyContainer.backgroundColor = whiteBackground
+		moneyContainer.backgroundColor = Color.whiteBackground
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(cellView.snp_right).offset(-20)
@@ -111,7 +111,7 @@ class BrowseTaskViewCell: UITableViewCell {
 		self.price = moneyLabel
 		moneyContainer.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = blackPrimary
+		moneyLabel.textColor = Color.blackPrimary
 		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyContainer.snp_edges)
@@ -122,7 +122,7 @@ class BrowseTaskViewCell: UITableViewCell {
 		cellView.addSubview(appliedNotice)
 		appliedNotice.text = "Applied"
 		appliedNotice.font = UIFont(name: "Lato-Regular", size: kText15)
-		appliedNotice.textColor = redPrimary
+		appliedNotice.textColor = Color.redPrimary
 		appliedNotice.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(moneyContainer.snp_centerX)
 			make.centerY.equalTo(title.snp_centerY)
@@ -133,15 +133,15 @@ class BrowseTaskViewCell: UITableViewCell {
 		rightArrow.image = UIImage(named: "arrow_applicant_cell")
 		rightArrow.alpha = 0.2
 		rightArrow.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(moneyContainer.snp_right).offset(24)
-			make.centerY.equalTo(cellView.snp_centerY)
-			make.width.equalTo(15)
-			make.height.equalTo(25)
+		make.left.equalTo(moneyContainer.snp_right).offset(24)
+		make.centerY.equalTo(cellView.snp_centerY)
+		make.width.equalTo(15)
+		make.height.equalTo(25)
 		}*/
 		
 		let separatorLine = UIView()
 		cellView.addSubview(separatorLine)
-		separatorLine.backgroundColor = grayDetails
+		separatorLine.backgroundColor = Color.grayDetails
 		separatorLine.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(cellView.snp_right)
 			make.left.equalTo(cellView.snp_left)
@@ -180,15 +180,15 @@ class BrowseTaskViewCell: UITableViewCell {
 		self.task = task
 		self.title.text = task.title
 		self.title.font = UIFont(name: "Lato-Regular", size: kText15)
-		self.title.textColor = blackTextColor
+		self.title.textColor = Color.blackTextColor
 		
 		let price = String(format: "%.0f", task.priceOffered!)
-		
+		self.price.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.price.text = price+"$"
 		
 		self.author.text = "\(task.user.name)"
 		self.author.font = UIFont(name: "Lato-Light", size: kText13)
-		self.author.textColor = blackTextColor
+		self.author.textColor = Color.blackTextColor
 		
 		let dateHelper = DateHelper()
 		self.creationDate.text = "Posted \(dateHelper.timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
@@ -226,12 +226,18 @@ class BrowseTaskViewCell: UITableViewCell {
 		self.picture.image = image
 	}
 	
+	func setLocation(){
+		let taskLocation = CLLocation(latitude: self.task.location!.latitude, longitude: self.task.location!.longitude)
+		let userLocation = CLLocation(latitude: LocationHelper.sharedInstance.currentCLLocation.latitude, longitude: LocationHelper.sharedInstance.currentCLLocation.longitude)
+		self.creationDate.text = LocationHelper().calculateDistanceBetweenTwoLocations(userLocation, destination: taskLocation)
+	}
+	
 	func cellSelected() {
-		self.cellView.backgroundColor = redPrimarySelected
+		self.cellView.backgroundColor = Color.redPrimarySelected
 	}
 	
 	func cellDeselected() {
-		self.cellView.backgroundColor = whitePrimary
+		self.cellView.backgroundColor = Color.whitePrimary
 	}
 	
 }

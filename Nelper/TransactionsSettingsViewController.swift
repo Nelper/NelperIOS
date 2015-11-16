@@ -41,7 +41,7 @@ class TransactionsSettingsViewController: UIViewController {
 		let contentView = UIView()
 		self.contentView = contentView
 		self.view.addSubview(contentView)
-		self.contentView.backgroundColor = whiteBackground
+		self.contentView.backgroundColor = Color.whiteBackground
 		self.contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.navBar.snp_bottom)
 			make.left.equalTo(self.view.snp_left)

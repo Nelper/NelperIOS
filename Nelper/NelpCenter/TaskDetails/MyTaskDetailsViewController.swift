@@ -179,7 +179,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		let backgroundContainer = UIView()
 		self.contentView.addSubview(backgroundContainer)
-		backgroundContainer.backgroundColor = whitePrimary
+		backgroundContainer.backgroundColor = Color.whitePrimary
 		backgroundContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left)
@@ -191,7 +191,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let firstContainer = UIView()
 		self.firstContainer = firstContainer
 		self.contentView.addSubview(firstContainer)
-		self.firstContainer.backgroundColor = whitePrimary
+		self.firstContainer.backgroundColor = Color.whitePrimary
 		self.firstContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left)
@@ -205,7 +205,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		firstContainer.addSubview(titleTextView)
 		titleTextView.text = self.taskTitle
 		titleTextView.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		titleTextView.textColor = blackPrimary
+		titleTextView.textColor = Color.blackPrimary
 		titleTextView.textAlignment = NSTextAlignment.Center
 		titleTextView.delegate = self
 		titleTextView.backgroundColor = UIColor.clearColor()
@@ -223,7 +223,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		let titleUnderline = UIView()
 		firstContainer.addSubview(titleUnderline)
-		titleUnderline.backgroundColor = grayDetails
+		titleUnderline.backgroundColor = Color.grayDetails
 		titleUnderline.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleTextView.snp_bottom).offset(20)
 			make.width.equalTo(firstContainer.snp_width).dividedBy(1.4)
@@ -250,7 +250,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		descriptionTextView.scrollEnabled = true
 		descriptionTextView.text = self.taskDescription
 		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText15)
-		descriptionTextView.textColor = textFieldTextColor
+		descriptionTextView.textColor = Color.textFieldTextColor
 		descriptionTextView.textAlignment = NSTextAlignment.Center
 		descriptionTextView.backgroundColor = UIColor.clearColor()
 		descriptionTextView.autoresizesSubviews = false
@@ -276,7 +276,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let secondContainer = UIView()
 		self.secondContainer = secondContainer
 		self.contentView.addSubview(secondContainer)
-		secondContainer.backgroundColor = whitePrimary
+		secondContainer.backgroundColor = Color.whitePrimary
 		secondContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(20)
 			make.left.equalTo(self.firstContainer.snp_right)
@@ -290,7 +290,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let detailsLabel = UILabel()
 		secondContainer.addSubview(detailsLabel)
 		detailsLabel.text = "Details"
-		detailsLabel.textColor = blackPrimary
+		detailsLabel.textColor = Color.blackPrimary
 		detailsLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		detailsLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(secondContainer.snp_top).offset(20)
@@ -302,7 +302,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		secondContainer.addSubview(streetAddressLabel)
 		streetAddressLabel.text = self.task.exactLocation!.formattedTextLabelNoPostal
 		streetAddressLabel.numberOfLines = 0
-		streetAddressLabel.textColor = darkGrayDetails
+		streetAddressLabel.textColor = Color.darkGrayDetails
 		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		streetAddressLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(secondContainer.snp_centerX).offset(16)
@@ -324,7 +324,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		dateLabel.backgroundColor = UIColor.clearColor()
 		secondContainer.addSubview(dateLabel)
 		dateLabel.text = "3 hours ago"
-		dateLabel.textColor = darkGrayDetails
+		dateLabel.textColor = Color.darkGrayDetails
 		dateLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		dateLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(secondContainer.snp_centerX).offset(15)
@@ -346,7 +346,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		myOfferLabel.backgroundColor = UIColor.clearColor()
 		secondContainer.addSubview(myOfferLabel)
 		myOfferLabel.text = "My Offer"
-		myOfferLabel.textColor = darkGrayDetails
+		myOfferLabel.textColor = Color.darkGrayDetails
 		myOfferLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		myOfferLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(secondContainer.snp_centerX)
@@ -355,7 +355,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		let moneyContainer = UIView()
 		secondContainer.addSubview(moneyContainer)
-		moneyContainer.backgroundColor = whiteBackground
+		moneyContainer.backgroundColor = Color.whiteBackground
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(secondContainer.snp_centerX)
@@ -367,7 +367,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let moneyLabel = UILabel()
 		moneyContainer.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = blackPrimary
+		moneyLabel.textColor = Color.blackPrimary
 		let price = String(format: "%.0f", self.task.priceOffered!)
 		moneyLabel.text = price+"$"
 		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
@@ -379,7 +379,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let thirdContainer = UIView()
 		self.thirdContainer = thirdContainer
 		self.contentView.addSubview(thirdContainer)
-		thirdContainer.backgroundColor = whitePrimary
+		thirdContainer.backgroundColor = Color.whitePrimary
 		thirdContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(20)
 			make.left.equalTo(secondContainer.snp_right)
@@ -394,7 +394,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let managePicturesLabel = UILabel()
 		thirdContainer.addSubview(managePicturesLabel)
 		managePicturesLabel.text = "Manage Pictures"
-		managePicturesLabel.textColor = blackPrimary
+		managePicturesLabel.textColor = Color.blackPrimary
 		managePicturesLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		managePicturesLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(thirdContainer.snp_top).offset(20)
@@ -407,7 +407,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.noPicturesLabel = noPicturesLabel
 		thirdContainer.addSubview(noPicturesLabel)
 		noPicturesLabel.text = "You have not added any pictures for this task"
-		noPicturesLabel.textColor = darkGrayDetails
+		noPicturesLabel.textColor = Color.darkGrayDetails
 		noPicturesLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		noPicturesLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(thirdContainer.snp_centerY).offset(-7)
@@ -457,7 +457,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		let pagingContainer = UIView()
 		self.pagingContainer = pagingContainer
 		self.contentView.addSubview(pagingContainer)
-		pagingContainer.backgroundColor = whitePrimary
+		pagingContainer.backgroundColor = Color.whitePrimary
 		pagingContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(firstContainer.snp_bottom)
 			make.left.equalTo(contentView.snp_left)
@@ -505,7 +505,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		let topBorder = UIView()
 		self.contentView.addSubview(topBorder)
-		topBorder.backgroundColor = grayDetails
+		topBorder.backgroundColor = Color.grayDetails
 		topBorder.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(firstContainer.snp_top)
 			make.height.equalTo(1)
@@ -514,7 +514,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		let botBorder = UIView()
 		self.contentView.addSubview(botBorder)
-		botBorder.backgroundColor = grayDetails
+		botBorder.backgroundColor = Color.grayDetails
 		botBorder.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(pagingContainer.snp_bottom)
 			make.height.equalTo(1)
@@ -633,8 +633,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	}
 	
 	func adjustUI() {
-		self.container.backgroundColor = whiteBackground
-		self.scrollView.backgroundColor = whiteBackground
+		self.container.backgroundColor = Color.whiteBackground
+		self.scrollView.backgroundColor = Color.whiteBackground
 	}
 	
 	/**
@@ -701,7 +701,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			let noPendingLabel = UILabel()
 			activeApplicantsContainer.contentView.addSubview(noPendingLabel)
 			noPendingLabel.text = "No pending applications"
-			noPendingLabel.textColor = darkGrayDetails
+			noPendingLabel.textColor = Color.darkGrayDetails
 			noPendingLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 			noPendingLabel.snp_makeConstraints { (make) -> Void in
 				make.centerX.equalTo(activeApplicantsContainer.contentView.snp_centerX)
@@ -1230,7 +1230,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 				self.navigationController?.popViewControllerAnimated(true)
 			}))
 			self.presentViewController(popup, animated: true, completion: nil)
-			popup.view.tintColor = redPrimary
+			popup.view.tintColor = Color.redPrimary
 		} else {
 			self.navigationController?.popViewControllerAnimated(true)
 		}
@@ -1267,7 +1267,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}))
 		
 		self.presentViewController(popup, animated: true, completion: nil)
-		popup.view.tintColor = redPrimary
+		popup.view.tintColor = Color.redPrimary
 	}
 		
 	func didTapSaveButton(sender:UIButton){

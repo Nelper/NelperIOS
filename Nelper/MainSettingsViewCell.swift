@@ -42,14 +42,14 @@ class MainSettingsViewCell: UITableViewCell {
 	func createView() {
 		let cellView = UIView(frame: self.bounds)
 		self.cellView = cellView
-		self.cellView.layer.borderColor = grayDetails.CGColor
+		self.cellView.layer.borderColor = Color.grayDetails.CGColor
 		self.cellView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
 		
 		let sectionLabel = UILabel()
 		self.sectionLabel = sectionLabel
 		self.cellView.addSubview(sectionLabel)
 		self.sectionLabel.text = "#error loading sections"
-		self.sectionLabel.textColor = darkGrayDetails
+		self.sectionLabel.textColor = Color.darkGrayDetails
 		self.sectionLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.sectionLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(self.cellView.snp_centerY)
@@ -71,7 +71,7 @@ class MainSettingsViewCell: UITableViewCell {
 		let separatorLine = UIView()
 		self.separatorLine = separatorLine
 		self.cellView.addSubview(separatorLine)
-		self.separatorLine.backgroundColor = grayDetails
+		self.separatorLine.backgroundColor = Color.grayDetails
 		self.separatorLine.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(self.cellView.snp_right)
 			make.left.equalTo(self.cellView.snp_left).offset(20)

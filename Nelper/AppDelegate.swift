@@ -129,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	
 	func loginSupportKit(){
 		let supportKitSettings = (SKTSettings(appToken: "9x5o1paxgfpjzzsgodj80yti3"))
-		supportKitSettings.conversationAccentColor = redPrimary
+		supportKitSettings.conversationAccentColor = Color.redPrimary
 		SKTUser.currentUser().firstName = PFUser.currentUser()?.objectForKey("name") as? String
 		SupportKit.initWithSettings(supportKitSettings)
 		SupportKit.login(PFUser.currentUser()!.objectId, jwt: nil)

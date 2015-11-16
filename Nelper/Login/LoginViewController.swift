@@ -65,7 +65,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.view.backgroundColor = redPrimary
+		self.view.backgroundColor = Color.redPrimary
 		
 		self.createView()
 		self.adjustUI()
@@ -135,7 +135,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let contentView = UIView()
 		self.contentView = contentView
 		self.scrollView.addSubview(self.contentView)
-		self.contentView.backgroundColor = redPrimary
+		self.contentView.backgroundColor = Color.redPrimary
 		self.contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(scrollView.snp_top)
 			make.left.equalTo(scrollView.snp_left)
@@ -172,10 +172,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.fbButton = fbButton
 		self.firstContainer.addSubview(self.fbButton)
 		self.fbButton.clipsToBounds = true
-		self.fbButton.setBackgroundColor(blueFacebook, forState: UIControlState.Normal)
-		self.fbButton.setBackgroundColor(blueFacebookSelected, forState: UIControlState.Highlighted)
+		self.fbButton.setBackgroundColor(Color.blueFacebook, forState: UIControlState.Normal)
+		self.fbButton.setBackgroundColor(Color.blueFacebookSelected, forState: UIControlState.Highlighted)
 		self.fbButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
-		self.fbButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.fbButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
 		self.fbButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 0)
 		self.fbButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.fbButton.addTarget(self, action: "facebookLogin:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -201,7 +201,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let fbLine = UIView()
 		self.fbLine = fbLine
 		self.fbButton.addSubview(fbLine)
-		self.fbLine.backgroundColor = blackPrimary
+		self.fbLine.backgroundColor = Color.blackPrimary
 		self.fbLine.alpha = 0.2
 		self.fbLine.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.fbLogo.snp_right).offset(10)
@@ -213,10 +213,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		/*let twitterButton = UIButton()
 		self.twitterButton = twitterButton
 		self.firstContainer.addSubview(self.twitterButton)
-		self.twitterButton.setBackgroundColor(blueTwitter, forState: UIControlState.Normal)
+		self.twitterButton.setBackgroundColor(Color.blueTwitter, forState: UIControlState.Normal)
 		self.twitterButton.setBackgroundColor(blueTwitterSelected, forState: UIControlState.Highlighted)
 		self.twitterButton.setTitle("Sign in with Twitter", forState: UIControlState.Normal)
-		self.twitterButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.twitterButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
 		self.twitterButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
 		self.twitterButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.twitterButton.addTarget(self, action: "twitterLogin:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -242,7 +242,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let twitterLine = UIView()
 		self.twitterLine = twitterLine
 		self.twitterButton.addSubview(self.twitterLine)
-		self.twitterLine.backgroundColor = blackPrimary
+		self.twitterLine.backgroundColor = Color.blackPrimary
 		self.twitterLine.alpha = 0.2
 		self.twitterLine.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.twitterLogo.snp_right).offset(10)
@@ -255,12 +255,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let emailButton = UIButton()
 		self.emailButton = emailButton
 		self.firstContainer.addSubview(self.emailButton)
-		self.emailButton.layer.borderColor = whitePrimary.CGColor
+		self.emailButton.layer.borderColor = Color.whitePrimary.CGColor
 		self.emailButton.layer.borderWidth = 1
-		self.emailButton.setBackgroundColor(redPrimary, forState: UIControlState.Normal)
-		self.emailButton.setBackgroundColor(redPrimarySelected, forState: UIControlState.Highlighted)
+		self.emailButton.setBackgroundColor(Color.redPrimary, forState: UIControlState.Normal)
+		self.emailButton.setBackgroundColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
 		self.emailButton.setTitle("Email sign in", forState: UIControlState.Normal)
-		self.emailButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.emailButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
 		self.emailButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.emailButton.addTarget(self, action: "didTapEmailButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.emailButton.snp_makeConstraints { (make) -> Void in
@@ -286,7 +286,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let emailField = DefaultTextFieldView()
 		self.emailField = emailField
 		self.secondContainer.addSubview(emailField)
-		self.emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.emailField.keyboardType = UIKeyboardType.EmailAddress
 		self.emailField.autocapitalizationType = UITextAutocapitalizationType.None
 		self.emailField.returnKeyType = .Next
@@ -299,7 +299,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let textfieldUnderline = UIView()
 		self.textfieldUnderline = textfieldUnderline
 		self.secondContainer.addSubview(textfieldUnderline)
-		self.textfieldUnderline.backgroundColor = grayDetails
+		self.textfieldUnderline.backgroundColor = Color.grayDetails
 		self.textfieldUnderline.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.emailField.snp_bottom)
 			make.centerX.equalTo(self.emailField.snp_centerX)
@@ -311,7 +311,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.passwordField = passwordField
 		self.secondContainer.addSubview(passwordField)
 		self.passwordField.secureTextEntry = true
-		self.passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.passwordField.autocapitalizationType = UITextAutocapitalizationType.None
 		self.passwordField.returnKeyType = .Done
 		self.passwordField.snp_makeConstraints { (make) -> Void in
@@ -324,8 +324,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.loginButton = loginButton
 		self.secondContainer.addSubview(self.loginButton)
 		self.loginButton.setTitle("Login", forState: UIControlState.Normal)
-		self.loginButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-		self.loginButton.setTitleColor(redPrimarySelected, forState: UIControlState.Highlighted)
+		self.loginButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
+		self.loginButton.setTitleColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
 		self.loginButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.loginButton.addTarget(self, action: "emailLogin:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.loginButton.snp_makeConstraints { (make) -> Void in
@@ -351,12 +351,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let registerButton = UIButton()
 		self.registerButton = registerButton
 		self.secondContainer.addSubview(self.registerButton)
-		self.registerButton.layer.borderColor = whitePrimary.CGColor
+		self.registerButton.layer.borderColor = Color.whitePrimary.CGColor
 		self.registerButton.layer.borderWidth = 1
-		self.registerButton.setBackgroundColor(redPrimary, forState: UIControlState.Normal)
-		self.registerButton.setBackgroundColor(redPrimarySelected, forState: UIControlState.Highlighted)
+		self.registerButton.setBackgroundColor(Color.redPrimary, forState: UIControlState.Normal)
+		self.registerButton.setBackgroundColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
 		self.registerButton.setTitle("Register new account", forState: UIControlState.Normal)
-		self.registerButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.registerButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
 		self.registerButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.registerButton.addTarget(self, action: "didTapRegisterButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.registerButton.snp_makeConstraints { (make) -> Void in
@@ -370,8 +370,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.forgotPassButton = forgotPassButton
 		self.secondContainer.addSubview(self.forgotPassButton)
 		self.forgotPassButton.setTitle("I forgot my password", forState: UIControlState.Normal)
-		self.forgotPassButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-		self.forgotPassButton.setTitleColor(redPrimarySelected, forState: UIControlState.Highlighted)
+		self.forgotPassButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
+		self.forgotPassButton.setTitleColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
 		self.forgotPassButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.forgotPassButton.addTarget(self, action: "forgotPassword:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.forgotPassButton.snp_makeConstraints { (make) -> Void in
@@ -397,7 +397,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let firstnameField = DefaultTextFieldView()
 		self.firstnameField = firstnameField
 		self.thirdContainer.addSubview(firstnameField)
-		self.firstnameField.attributedPlaceholder = NSAttributedString(string: "First name", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.firstnameField.attributedPlaceholder = NSAttributedString(string: "First name", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.firstnameField.autocorrectionType = UITextAutocorrectionType.No
 		self.firstnameField.returnKeyType = .Next
 		self.firstnameField.snp_makeConstraints { (make) -> Void in
@@ -409,7 +409,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let firstnameUnderlineRegister = UIView()
 		self.firstnameUnderlineRegister = firstnameUnderlineRegister
 		self.thirdContainer.addSubview(firstnameUnderlineRegister)
-		self.firstnameUnderlineRegister.backgroundColor = grayDetails
+		self.firstnameUnderlineRegister.backgroundColor = Color.grayDetails
 		self.firstnameUnderlineRegister.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.firstnameField.snp_bottom)
 			make.centerX.equalTo(self.firstnameField.snp_centerX)
@@ -420,7 +420,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let lastnameField = DefaultTextFieldView()
 		self.lastnameField = lastnameField
 		self.thirdContainer.addSubview(lastnameField)
-		self.lastnameField.attributedPlaceholder = NSAttributedString(string: "Last name", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.lastnameField.attributedPlaceholder = NSAttributedString(string: "Last name", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.lastnameField.autocorrectionType = UITextAutocorrectionType.No
 		self.lastnameField.returnKeyType = .Next
 		self.lastnameField.snp_makeConstraints { (make) -> Void in
@@ -432,7 +432,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let emailFieldRegister = DefaultTextFieldView()
 		self.emailFieldRegister = emailFieldRegister
 		self.thirdContainer.addSubview(emailFieldRegister)
-		self.emailFieldRegister.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.emailFieldRegister.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.emailFieldRegister.keyboardType = UIKeyboardType.EmailAddress
 		self.emailFieldRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.emailFieldRegister.autocapitalizationType = UITextAutocapitalizationType.None
@@ -447,7 +447,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.passwordFieldRegister = passwordFieldRegister
 		self.thirdContainer.addSubview(passwordFieldRegister)
 		self.passwordFieldRegister.secureTextEntry = true
-		self.passwordFieldRegister.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.passwordFieldRegister.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.passwordFieldRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.passwordFieldRegister.autocapitalizationType = UITextAutocapitalizationType.None
 		self.passwordFieldRegister.returnKeyType = .Next
@@ -460,7 +460,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let passwordfieldUnderlineRegister = UIView()
 		self.passwordfieldUnderlineRegister = passwordfieldUnderlineRegister
 		self.thirdContainer.addSubview(passwordfieldUnderlineRegister)
-		self.passwordfieldUnderlineRegister.backgroundColor = grayDetails
+		self.passwordfieldUnderlineRegister.backgroundColor = Color.grayDetails
 		self.passwordfieldUnderlineRegister.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.passwordFieldRegister.snp_bottom)
 			make.centerX.equalTo(self.passwordFieldRegister.snp_centerX)
@@ -472,7 +472,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.passwordFieldConfirmRegister = passwordFieldConfirmRegister
 		self.passwordFieldConfirmRegister.secureTextEntry = true
 		self.thirdContainer.addSubview(passwordFieldConfirmRegister)
-		self.passwordFieldConfirmRegister.attributedPlaceholder = NSAttributedString(string: "Confirm password", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.passwordFieldConfirmRegister.attributedPlaceholder = NSAttributedString(string: "Confirm password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.passwordFieldConfirmRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.passwordFieldConfirmRegister.autocapitalizationType = UITextAutocapitalizationType.None
 		self.passwordFieldConfirmRegister.returnKeyType = .Done
@@ -486,10 +486,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.registerAccountButton = registerAccountButton
 		self.thirdContainer.addSubview(self.registerAccountButton)
 		self.registerAccountButton.setTitle("Sign up", forState: UIControlState.Normal)
-		self.registerAccountButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.registerAccountButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
 		self.registerAccountButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		self.registerAccountButton.setBackgroundColor(redPrimary, forState: UIControlState.Normal)
-		self.registerAccountButton.setBackgroundColor(redPrimarySelected, forState: UIControlState.Highlighted)
+		self.registerAccountButton.setBackgroundColor(Color.redPrimary, forState: UIControlState.Normal)
+		self.registerAccountButton.setBackgroundColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
 		self.registerAccountButton.addTarget(self, action: "createAccount:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.registerAccountButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.passwordFieldConfirmRegister.snp_bottom)
@@ -638,7 +638,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			}))
 			
 			self.presentViewController(popup, animated: true, completion: nil)
-			popup.view.tintColor = redPrimary
+			popup.view.tintColor = Color.redPrimary
 			
 			return
 		}
@@ -662,7 +662,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				}))
 				
 				self.presentViewController(popup, animated: true, completion: nil)
-				popup.view.tintColor = redPrimary
+				popup.view.tintColor = Color.redPrimary
 			} else {
 				self.loginCompleted()
 				self.getEmailInfo()
@@ -701,7 +701,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			}))
 			
 			self.presentViewController(popup, animated: true, completion: nil)
-			popup.view.tintColor = redPrimary
+			popup.view.tintColor = Color.redPrimary
 			
 			return
 		}
@@ -722,7 +722,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				}))
 				
 				self.presentViewController(popup, animated: true, completion: nil)
-				popup.view.tintColor = redPrimary
+				popup.view.tintColor = Color.redPrimary
 				
 			} else {
 				

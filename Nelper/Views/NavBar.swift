@@ -64,11 +64,11 @@ class NavBar: UINavigationBar {
 			if let value = saveButton {
 				self.saveButtonView?.removeFromSuperview()
 				self.saveButtonView = value
-				self.saveButtonView?.backgroundColor = whitePrimary.colorWithAlphaComponent(0)
+				self.saveButtonView?.backgroundColor = Color.whitePrimary.colorWithAlphaComponent(0)
 				self.saveButtonView?.setTitle("Save", forState: UIControlState.Normal)
 				self.saveButtonView?.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-				self.saveButtonView?.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-				self.saveButtonView?.setTitleColor(darkGrayDetails, forState: UIControlState.Highlighted)
+				self.saveButtonView?.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
+				self.saveButtonView?.setTitleColor(Color.darkGrayDetails, forState: UIControlState.Highlighted)
 				self.saveButtonView?.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
 				self.saveButtonView?.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 				self.container.addSubview(self.saveButtonView!)
@@ -87,11 +87,11 @@ class NavBar: UINavigationBar {
 			if let value = filtersButton {
 				self.filtersButtonView?.removeFromSuperview()
 				self.filtersButtonView = value
-				self.filtersButtonView?.backgroundColor = whitePrimary.colorWithAlphaComponent(0)
+				self.filtersButtonView?.backgroundColor = Color.whitePrimary.colorWithAlphaComponent(0)
 				self.filtersButtonView?.setTitle("Filters", forState: UIControlState.Normal)
 				self.filtersButtonView?.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-				self.filtersButtonView?.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-				self.filtersButtonView?.setTitleColor(darkGrayDetails, forState: UIControlState.Highlighted)
+				self.filtersButtonView?.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
+				self.filtersButtonView?.setTitleColor(Color.darkGrayDetails, forState: UIControlState.Highlighted)
 				self.filtersButtonView?.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
 				self.filtersButtonView?.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 				self.container.addSubview(self.filtersButtonView!)
@@ -136,7 +136,7 @@ class NavBar: UINavigationBar {
 	func adjustUI() {
 		
 		self.container = UIView()
-		self.container.backgroundColor = navBarColor
+		self.container.backgroundColor = Color.navBarColor
 		self.addSubview(self.container)
 		self.container.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self)
@@ -144,7 +144,7 @@ class NavBar: UINavigationBar {
 		
 		self.titleView = UILabel()
 		self.titleView.font = UIFont(name: "Lato-Regular", size: 17)
-		self.titleView.textColor = whitePrimary
+		self.titleView.textColor = Color.whitePrimary
 		self.titleView.sizeToFit()
 		
 		self.container.addSubview(self.titleView)

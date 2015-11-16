@@ -50,6 +50,11 @@ class ApiHelper {
 	- parameter block:    Block
 	*/
 	static func registerWithEmail(email: String, password: String, firstName: String, lastName: String, block: (NSError?) -> Void) {
+		
+		
+		SVProgressHUD.setBackgroundColor(Color.whitePrimary)
+		SVProgressHUD.setForegroundColor(Color.redPrimary)
+		SVProgressHUD.show()
 		let user = PFUser()
 		user.username = email
 		user.email = email
@@ -71,8 +76,8 @@ class ApiHelper {
 					"firstName": firstName,
 					"lastName": lastName,
 				]
-			) { (data, err) -> Void in
-				block(nil)
+				) { (data, err) -> Void in
+					block(nil)
 			}
 		}
 	}
@@ -88,8 +93,8 @@ class ApiHelper {
 	static func loginWithFacebook(block: (NSError?) -> Void) {
 		PFFacebookUtils.logInInBackgroundWithReadPermissions(["public_profile", "email"]) { (user: PFUser?, error: NSError?) -> Void in
 			
-			SVProgressHUD.setBackgroundColor(whitePrimary)
-			SVProgressHUD.setForegroundColor(redPrimary)
+			SVProgressHUD.setBackgroundColor(Color.whitePrimary)
+			SVProgressHUD.setForegroundColor(Color.redPrimary)
 			SVProgressHUD.show()
 			
 			if error != nil {
@@ -179,15 +184,15 @@ class ApiHelper {
 		let taskQuery = PFQuery(className: kParseTask)
 		if let arrayOfFilters = arrayOfFilters {
 			if arrayOfFilters.count != 0 {
-			print(arrayOfFilters.count, terminator: "")
-			var filters = Array<String>()
-			for filter in arrayOfFilters {
-				filters.append(filter)
-				print(filter, terminator: "")
-			}
-			taskQuery.whereKey("category", containedIn:filters)
+				print(arrayOfFilters.count, terminator: "")
+				var filters = Array<String>()
+				for filter in arrayOfFilters {
+					filters.append(filter)
+					print(filter, terminator: "")
+				}
+				taskQuery.whereKey("category", containedIn:filters)
 			}}
-
+		
 		print(sortBy)
 		if let sortBy = sortBy {
 			if sortBy == "distance" && LocationHelper.sharedInstance.currentLocation != nil {
@@ -300,8 +305,8 @@ class ApiHelper {
 				return
 			}
 			let applications = pfTaskApplications!.map({ (pfTaskApplication) -> TaskApplication in
-			let application = TaskApplication(parseApplication: pfTaskApplication as! PFObject)
-			return application
+				let application = TaskApplication(parseApplication: pfTaskApplication as! PFObject)
+				return application
 			})
 			block(applications, nil)
 		}
@@ -311,33 +316,33 @@ class ApiHelper {
 		GraphQLClient.query(
 			"{ node(id: \"\(taskId)\") {" +
 				"... on Task {" +
-					"userPrivate {" +
-						"phone," +
-						"email," +
-						"exactLocation {" +
-							"streetNumber," +
-							"route," +
-							"city," +
-							"province," +
-							"country," +
-							"postalCode," +
-							"coords {latitude, longitude}" +
-						"}" +
-					"}" +
+				"userPrivate {" +
+				"phone," +
+				"email," +
+				"exactLocation {" +
+				"streetNumber," +
+				"route," +
+				"city," +
+				"province," +
+				"country," +
+				"postalCode," +
+				"coords {latitude, longitude}" +
+				"}" +
+				"}" +
 				"}" +
 			"}}",
 			variables: nil
-		) { (data, error) -> Void in
-			if let data = data {
-				let dataTaskPrivate = data["node"]!!["userPrivate"]!!
-				let taskPrivate = TaskPrivate()
-				taskPrivate.email = dataTaskPrivate["email"] as? String
-				taskPrivate.phone = dataTaskPrivate["phone"] as? String
-				if let exactLocation = dataTaskPrivate["exactLocation"]! {
-					taskPrivate.location = Location(parseLocation: exactLocation)
+			) { (data, error) -> Void in
+				if let data = data {
+					let dataTaskPrivate = data["node"]!!["userPrivate"]!!
+					let taskPrivate = TaskPrivate()
+					taskPrivate.email = dataTaskPrivate["email"] as? String
+					taskPrivate.phone = dataTaskPrivate["phone"] as? String
+					if let exactLocation = dataTaskPrivate["exactLocation"]! {
+						taskPrivate.location = Location(parseLocation: exactLocation)
+					}
+					block(taskPrivate);
 				}
-				block(taskPrivate);
-			}
 		}
 	}
 	
@@ -475,7 +480,7 @@ class ApiHelper {
 		parseApplication["state"] = TaskApplication.State.Canceled.rawValue
 		parseApplication.saveEventually()
 	}
-		
+	
 	//Accept applicant
 	
 	static func acceptApplication(application: TaskApplication, block: () -> Void) {
@@ -620,4 +625,5 @@ class ApiHelper {
 		userPrivateData["phone"] = phone
 		userPrivateData.saveEventually()
 	}
+
 }

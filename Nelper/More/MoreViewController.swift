@@ -71,7 +71,7 @@ class MoreViewController: UIViewController {
 		
 		let verticalLine = UIView()
 		blurEffectView.addSubview(verticalLine)
-		verticalLine.backgroundColor = blackPrimary.colorWithAlphaComponent(0.7)
+		verticalLine.backgroundColor = Color.blackPrimary.colorWithAlphaComponent(0.7)
 		verticalLine.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(blurEffectView.snp_left)
 			make.width.equalTo(0.5)
@@ -97,9 +97,9 @@ class MoreViewController: UIViewController {
 			let sectionButton = UIButton()
 			self.sectionButton = sectionButton
 			self.sectionButton.setTitle(self.sections[index].title, forState: UIControlState.Normal)
-			self.sectionButton.setTitleColor(blackPrimary.colorWithAlphaComponent(0.8), forState: UIControlState.Normal)
+			self.sectionButton.setTitleColor(Color.blackPrimary.colorWithAlphaComponent(0.8), forState: UIControlState.Normal)
 			self.sectionButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTextSize)
-			self.sectionButton.setBackgroundColor(whitePrimary.colorWithAlphaComponent(0.5), forState: UIControlState.Highlighted)
+			self.sectionButton.setBackgroundColor(Color.whitePrimary.colorWithAlphaComponent(0.5), forState: UIControlState.Highlighted)
 			self.sectionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
 			self.sectionButton.addTarget(self, action: "sectionTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 			self.sectionButton.tag = index
@@ -117,7 +117,7 @@ class MoreViewController: UIViewController {
 				let separatorLine = UIView()
 				self.separatorLine = separatorLine
 				self.sectionButton.addSubview(separatorLine)
-				self.separatorLine.backgroundColor = blackPrimary.colorWithAlphaComponent(0.2)
+				self.separatorLine.backgroundColor = Color.blackPrimary.colorWithAlphaComponent(0.2)
 				self.separatorLine.alpha = 0.5
 				self.separatorLine.snp_updateConstraints { (make) -> Void in
 					make.height.equalTo(0.5)
@@ -226,8 +226,8 @@ class MoreViewController: UIViewController {
 		case "faq":
 			nextVC = FaqViewController()
 		case "logout":
-			SVProgressHUD.setBackgroundColor(whitePrimary)
-			SVProgressHUD.setForegroundColor(redPrimary)
+			SVProgressHUD.setBackgroundColor(Color.whitePrimary)
+			SVProgressHUD.setForegroundColor(Color.redPrimary)
 			SVProgressHUD.showWithStatus("Logging out")
 			
 			self.blurEffectView.snp_remakeConstraints { (make) -> Void in

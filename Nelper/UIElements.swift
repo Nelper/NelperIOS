@@ -46,8 +46,8 @@ class DefaultContainerView: UIView {
 		let backgroundView = UIView()
 		self.backgroundView = backgroundView
 		self.addSubview(self.backgroundView)
-		self.backgroundView.backgroundColor = grayDetails
-		self.backgroundView.layer.borderColor = grayDetails.CGColor
+		self.backgroundView.backgroundColor = Color.grayDetails
+		self.backgroundView.layer.borderColor = Color.grayDetails.CGColor
 		self.backgroundView.layer.borderWidth = 1
 		self.backgroundView.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.snp_left).offset(-1)
@@ -59,7 +59,7 @@ class DefaultContainerView: UIView {
 		let titleView = UIView()
 		self.titleView = titleView
 		self.backgroundView.addSubview(self.titleView)
-		self.titleView.backgroundColor = whitePrimary
+		self.titleView.backgroundColor = Color.whitePrimary
 		self.titleView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.backgroundView.snp_top)
 			make.left.equalTo(self.backgroundView.snp_left)
@@ -72,7 +72,7 @@ class DefaultContainerView: UIView {
 		self.titleView.addSubview(self.titleLabel)
 		self.titleLabel.text = containerTitle
 		self.titleLabel.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
-		self.titleLabel.textColor = blackPrimary
+		self.titleLabel.textColor = Color.blackPrimary
 		self.titleLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(self.titleView.snp_centerY)
 			make.left.equalTo(self.titleView.snp_left).offset(20)
@@ -81,7 +81,7 @@ class DefaultContainerView: UIView {
 		let contentView = UIView()
 		self.contentView = contentView
 		self.backgroundView.addSubview(self.contentView)
-		self.contentView.backgroundColor = whitePrimary
+		self.contentView.backgroundColor = Color.whitePrimary
 		self.contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.titleView.snp_bottom).offset(0.5)
 			make.left.equalTo(self.backgroundView.snp_left)
@@ -93,7 +93,7 @@ class DefaultContainerView: UIView {
 		let contentView = UIView()
 		self.contentView = contentView
 		self.backgroundView.addSubview(self.contentView)
-		self.contentView.backgroundColor = whitePrimary
+		self.contentView.backgroundColor = Color.whitePrimary
 		self.contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.backgroundView.snp_top)
 			make.left.equalTo(self.backgroundView.snp_left)
@@ -118,17 +118,17 @@ class DefaultTextFieldView: UITextField {
 	}
 	
 	func createView() {
-		self.backgroundColor = whitePrimary
+		self.backgroundColor = Color.whitePrimary
 		
 		self.clearButtonMode = .WhileEditing
 		
 		self.textAlignment = .Left
 		self.font = UIFont(name: "Lato-Regular", size: kText15)
-		self.textColor = textFieldTextColor
+		self.textColor = Color.textFieldTextColor
 		self.autocorrectionType = .No
 		
 		self.layer.borderWidth = 1
-		self.layer.borderColor = grayDetails.CGColor
+		self.layer.borderColor = Color.grayDetails.CGColor
 		
 		
 		self.snp_makeConstraints { (make) -> Void in
