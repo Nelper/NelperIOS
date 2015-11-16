@@ -665,7 +665,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				popup.view.tintColor = Color.redPrimary
 			} else {
 				self.loginCompleted()
-				self.getEmailInfo()
 			}
 		})
 	}
@@ -725,17 +724,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				popup.view.tintColor = Color.redPrimary
 				
 			} else {
-				
-				ApiHelper.loginWithEmail(self.emailFieldRegister.text!, password: self.passwordFieldRegister.text!, block: { (error) -> Void in
-					
-					if error != nil {
-						print("\(error)")
-					} else {
-						//SVProgressHUD.showInfoWithStatus("Signin in")
-						self.getEmailInfo()
-						self.loginCompleted()
-					}
-				})
+				self.loginCompleted()
 			}
 		}
 	}
@@ -748,12 +737,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	//Login
 	
 	func getTwitterUserInfo() {
-	}
-	
-	func getEmailInfo() {
-		PFUser.currentUser()!.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-			self.loginCompleted()
-		})
 	}
 	
 	func loginCompleted() {
