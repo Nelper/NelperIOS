@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import ParkedTextField
 
 class DefaultContainerView: UIView {
 	
@@ -117,15 +118,62 @@ class DefaultTextFieldView: UITextField {
 	}
 	
 	func createView() {
-		self.font = UIFont(name: "Lato-Regular", size: kText15)
-		self.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.textColor = textFieldTextColor
 		self.backgroundColor = whitePrimary
+		
+		self.clearButtonMode = .WhileEditing
+		
+		self.textAlignment = .Left
+		self.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.textColor = textFieldTextColor
+		self.autocorrectionType = .No
+		
 		self.layer.borderWidth = 1
 		self.layer.borderColor = grayDetails.CGColor
+		
+		
 		self.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(50)
 		}
+		
+		let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.size.height))
+		leftView.backgroundColor = self.backgroundColor
+		self.leftView = leftView
+		self.leftViewMode = .Always
+	}
+}
+
+extension ParkedTextField {
+	func addLeftView(inset: CGFloat) {
+		let leftView = UIView(frame: CGRect(x: 0, y: 0, width: inset, height: self.frame.size.height))
+		leftView.backgroundColor = self.backgroundColor
+		self.leftView = leftView
+		self.leftViewMode = .Always
+	}
+}
+
+class ShowPasswordButton: UIButton {
+	
+	var assignedTextField: UITextField?
+	
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		
+		createView()
 	}
 	
+	required init(coder: NSCoder) {
+		super.init(coder: coder)!
+		
+		createView()
+	}
+	
+	func createView() {
+		self.setImage(UIImage(named: "show"), forState: .Normal)
+		self.contentMode = .ScaleAspectFit
+		self.snp_makeConstraints { (make) -> Void in
+			make.width.equalTo(35)
+			make.height.equalTo(35)
+		}
+
+	}
 }

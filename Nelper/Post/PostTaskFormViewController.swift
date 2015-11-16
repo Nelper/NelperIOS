@@ -226,25 +226,16 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.top.equalTo(taskFormContainer.snp_top).offset(15)
 			make.left.equalTo(contentView.snp_left).offset(contentInset)
 		}
-		let taskTitleTextField = UITextField()
+		let taskTitleTextField = DefaultTextFieldView()
 		taskTitleTextField.delegate = self
 		self.titleTextField = taskTitleTextField
 		taskFormContainer.addSubview(taskTitleTextField)
-		taskTitleTextField.backgroundColor = whitePrimary
 		taskTitleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		taskTitleTextField.font = UIFont(name: "Lato-Regular", size: kText15)
-		taskTitleTextField.textColor = blackPrimary
-		taskTitleTextField.textAlignment = .Left
-		taskTitleTextField.autocorrectionType = .No
-		taskTitleTextField.layer.borderColor = grayDetails.CGColor
-		taskTitleTextField.layer.borderWidth = 1
-		taskTitleTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		taskTitleTextField.returnKeyType = .Next
 		taskTitleTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(taskTitleLabel.snp_bottom).offset(10)
 			make.right.equalTo(contentView.snp_right).offset(-15)
-			make.height.equalTo(50)
 		}
 		
 		let titleStatus = UIImageView()
@@ -325,13 +316,14 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		priceOfferedTextField.parkedTextFont = UIFont(name: "Lato-Regular", size: kText15)
 		priceOfferedTextField.parkedTextColor = textFieldTextColor
 		priceOfferedTextField.textColor = textFieldTextColor
+		priceOfferedTextField.clearButtonMode = .WhileEditing
 		priceOfferedTextField.textAlignment = NSTextAlignment.Left
 		priceOfferedTextField.layer.borderColor = grayDetails.CGColor
 		priceOfferedTextField.layer.borderWidth = 1
-		priceOfferedTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		priceOfferedTextField.keyboardType = .NumbersAndPunctuation
 		priceOfferedTextField.returnKeyType = .Done
 		priceOfferedTextField.autocorrectionType = .No
+		priceOfferedTextField.addLeftView(10)
 		priceOfferedTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(priceOfferedLabel.snp_bottom).offset(10)

@@ -150,44 +150,28 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 			make.centerX.equalTo(popupContainer.snp_centerX)
 		}
 		
-		let nameTextField = UITextField()
+		let nameTextField = DefaultTextFieldView()
 		self.nameTextField = nameTextField
 		popupContainer.addSubview(nameTextField)
-		nameTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.70)
 		nameTextField.attributedPlaceholder = NSAttributedString(string: "Name (home, office, etc.)", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		nameTextField.font = UIFont(name: "Lato-Regular", size: kText15)
-		nameTextField.textColor = textFieldTextColor
-		nameTextField.textAlignment = NSTextAlignment.Left
 		nameTextField.autocorrectionType = UITextAutocorrectionType.No
-		let paddingViewLocationName = UIView(frame: CGRectMake(0, 0, 10, 0))
-		nameTextField.leftView = paddingViewLocationName
-		nameTextField.leftViewMode = UITextFieldViewMode.Always
 		nameTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleLabel.snp_bottom).offset(15)
 			make.left.equalTo(popupContainer.snp_left).offset(8)
 			make.right.equalTo(popupContainer.snp_right).offset(-8)
-			make.height.equalTo(50)
 		}
 		
-		let addressTextField = UITextField()
+		let addressTextField = DefaultTextFieldView()
 		self.addressTextField = addressTextField
 		addressTextField.delegate = self
 		popupContainer.addSubview(addressTextField)
-		addressTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.70)
 		addressTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		addressTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 		addressTextField.keyboardType = UIKeyboardType.NumbersAndPunctuation
 		addressTextField.autocorrectionType = UITextAutocorrectionType.No
-		addressTextField.textColor = textFieldTextColor
-		addressTextField.textAlignment = NSTextAlignment.Left
-		let paddingViewLocation = UIView(frame: CGRectMake(0, 0, 10, 0))
-		addressTextField.leftView = paddingViewLocation
-		addressTextField.leftViewMode = UITextFieldViewMode.Always
 		addressTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(nameTextField.snp_bottom).offset(10)
 			make.left.equalTo(popupContainer.snp_left).offset(8)
 			make.right.equalTo(popupContainer.snp_right).offset(-8)
-			make.height.equalTo(50)
 		}
 		
 		let addLocationButton = PrimaryActionButton()

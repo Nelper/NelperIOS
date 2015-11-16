@@ -283,23 +283,17 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.bottom.equalTo(contentView.snp_bottom)
 		}
 		
-		let emailField = UITextField()
+		let emailField = DefaultTextFieldView()
 		self.emailField = emailField
 		self.secondContainer.addSubview(emailField)
 		self.emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.emailField.textColor = textFieldTextColor
-		self.emailField.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.emailField.keyboardType = UIKeyboardType.EmailAddress
-		self.emailField.autocorrectionType = UITextAutocorrectionType.No
 		self.emailField.autocapitalizationType = UITextAutocapitalizationType.None
-		self.emailField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.emailField.backgroundColor = whitePrimary
 		self.emailField.returnKeyType = .Next
 		self.emailField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.firstContainer.snp_top)
 			make.left.equalTo(self.secondContainer.snp_left).offset(24)
 			make.right.equalTo(self.secondContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
 		let textfieldUnderline = UIView()
@@ -313,23 +307,17 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.height.equalTo(1)
 		}
 		
-		let passwordField = UITextField()
+		let passwordField = DefaultTextFieldView()
 		self.passwordField = passwordField
 		self.secondContainer.addSubview(passwordField)
 		self.passwordField.secureTextEntry = true
 		self.passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.passwordField.textColor = textFieldTextColor
-		self.passwordField.font = UIFont(name: "Lato-Regular", size: kText15)
-		self.passwordField.autocorrectionType = UITextAutocorrectionType.No
 		self.passwordField.autocapitalizationType = UITextAutocapitalizationType.None
-		self.passwordField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.passwordField.backgroundColor = whitePrimary
 		self.passwordField.returnKeyType = .Done
 		self.passwordField.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.emailField.snp_bottom).offset(1)
+			make.top.equalTo(self.emailField.snp_bottom).offset(-1)
 			make.left.equalTo(self.secondContainer.snp_left).offset(24)
 			make.right.equalTo(self.secondContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
 		let loginButton = UIButton()
@@ -406,21 +394,16 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.bottom.equalTo(self.contentView.snp_bottom)
 		}
 		
-		let firstnameField = UITextField()
+		let firstnameField = DefaultTextFieldView()
 		self.firstnameField = firstnameField
 		self.thirdContainer.addSubview(firstnameField)
 		self.firstnameField.attributedPlaceholder = NSAttributedString(string: "First name", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.firstnameField.textColor = textFieldTextColor
-		self.firstnameField.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.firstnameField.autocorrectionType = UITextAutocorrectionType.No
-		self.firstnameField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.firstnameField.backgroundColor = whitePrimary
 		self.firstnameField.returnKeyType = .Next
 		self.firstnameField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.firstContainer.snp_top)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
 		let firstnameUnderlineRegister = UIView()
@@ -434,59 +417,44 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.height.equalTo(1)
 		}
 		
-		let lastnameField = UITextField()
+		let lastnameField = DefaultTextFieldView()
 		self.lastnameField = lastnameField
 		self.thirdContainer.addSubview(lastnameField)
 		self.lastnameField.attributedPlaceholder = NSAttributedString(string: "Last name", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.lastnameField.textColor = textFieldTextColor
-		self.lastnameField.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.lastnameField.autocorrectionType = UITextAutocorrectionType.No
-		self.lastnameField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.lastnameField.backgroundColor = whitePrimary
 		self.lastnameField.returnKeyType = .Next
 		self.lastnameField.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.firstnameField.snp_bottom).offset(1)
+			make.top.equalTo(self.firstnameField.snp_bottom).offset(-1)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
-		let emailFieldRegister = UITextField()
+		let emailFieldRegister = DefaultTextFieldView()
 		self.emailFieldRegister = emailFieldRegister
 		self.thirdContainer.addSubview(emailFieldRegister)
 		self.emailFieldRegister.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.emailFieldRegister.textColor = textFieldTextColor
-		self.emailFieldRegister.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.emailFieldRegister.keyboardType = UIKeyboardType.EmailAddress
 		self.emailFieldRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.emailFieldRegister.autocapitalizationType = UITextAutocapitalizationType.None
-		self.emailFieldRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.emailFieldRegister.backgroundColor = whitePrimary
 		self.emailFieldRegister.returnKeyType = .Next
 		self.emailFieldRegister.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.lastnameField.snp_bottom).offset(10)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
-		let passwordFieldRegister = UITextField()
+		let passwordFieldRegister = DefaultTextFieldView()
 		self.passwordFieldRegister = passwordFieldRegister
 		self.thirdContainer.addSubview(passwordFieldRegister)
 		self.passwordFieldRegister.secureTextEntry = true
 		self.passwordFieldRegister.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.passwordFieldRegister.textColor = textFieldTextColor
-		self.passwordFieldRegister.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.passwordFieldRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.passwordFieldRegister.autocapitalizationType = UITextAutocapitalizationType.None
-		self.passwordFieldRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.passwordFieldRegister.backgroundColor = whitePrimary
 		self.passwordFieldRegister.returnKeyType = .Next
 		self.passwordFieldRegister.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.emailFieldRegister.snp_bottom).offset(10)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
 		let passwordfieldUnderlineRegister = UIView()
@@ -500,23 +468,18 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.height.equalTo(1)
 		}
 		
-		let passwordFieldConfirmRegister = UITextField()
+		let passwordFieldConfirmRegister = DefaultTextFieldView()
 		self.passwordFieldConfirmRegister = passwordFieldConfirmRegister
 		self.passwordFieldConfirmRegister.secureTextEntry = true
 		self.thirdContainer.addSubview(passwordFieldConfirmRegister)
 		self.passwordFieldConfirmRegister.attributedPlaceholder = NSAttributedString(string: "Confirm password", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.passwordFieldConfirmRegister.textColor = textFieldTextColor
-		self.passwordFieldConfirmRegister.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.passwordFieldConfirmRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.passwordFieldConfirmRegister.autocapitalizationType = UITextAutocapitalizationType.None
-		self.passwordFieldConfirmRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.passwordFieldConfirmRegister.backgroundColor = whitePrimary
 		self.passwordFieldConfirmRegister.returnKeyType = .Done
 		self.passwordFieldConfirmRegister.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.passwordFieldRegister.snp_bottom).offset(1)
+			make.top.equalTo(self.passwordFieldRegister.snp_bottom).offset(-1)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
 		let registerAccountButton = UIButton()
@@ -524,7 +487,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.thirdContainer.addSubview(self.registerAccountButton)
 		self.registerAccountButton.setTitle("Sign up", forState: UIControlState.Normal)
 		self.registerAccountButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-		self.registerAccountButton.setTitleColor(redPrimarySelected, forState: UIControlState.Highlighted)
 		self.registerAccountButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.registerAccountButton.setBackgroundColor(redPrimary, forState: UIControlState.Normal)
 		self.registerAccountButton.setBackgroundColor(redPrimarySelected, forState: UIControlState.Highlighted)
@@ -658,9 +620,49 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	
 	func emailLogin(sender: UIButton) {
 		dismissKeyboard()
+		var errorMsg: String?
+		var openAlert = false
+		
+		
+		if self.emailField.text == "" || self.passwordField.text == "" {
+			errorMsg = "Please enter your email address and password"
+			openAlert = true
+		} else if !(self.emailField.text!.isEmail()) {
+			errorMsg = "Please enter a valid email address"
+			openAlert = true
+		}
+		
+		if openAlert {
+			let popup = UIAlertController(title: errorMsg!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+			}))
+			
+			self.presentViewController(popup, animated: true, completion: nil)
+			popup.view.tintColor = redPrimary
+			
+			return
+		}
+		
+		
 		ApiHelper.loginWithEmail(self.emailField.text!, password: self.passwordField.text!, block: { (error) -> Void in
 			if error != nil {
 				print("\(error)")
+				
+				if error!.code == 100 {
+					errorMsg = "No internet connection"
+				} else if error!.code == 101 {
+					errorMsg = "Invalid email address or password"
+				} else {
+					errorMsg = "Error code: \(error!.code)"
+				}
+				
+				
+				let popup = UIAlertController(title: errorMsg, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+				popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+				}))
+				
+				self.presentViewController(popup, animated: true, completion: nil)
+				popup.view.tintColor = redPrimary
 			} else {
 				self.loginCompleted()
 				self.getEmailInfo()
@@ -674,18 +676,53 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	
 	func createAccount(sender: UIButton) {
 		dismissKeyboard()
-		if self.emailFieldRegister.text?.characters.count ==  0 || self.passwordFieldRegister.text?.characters.count == 0 || self.firstnameField.text?.characters.count == 0 || self.lastnameField.text?.characters.count == 0 {
-			return
+		
+		var errorMsg: String?
+		var openAlert = false
+		
+		
+		if self.emailFieldRegister.text == "" || self.passwordFieldRegister.text == "" || self.firstnameField.text == "" || self.lastnameField.text == "" || self.passwordFieldRegister.text == "" || self.passwordFieldConfirmRegister.text == "" {
+			errorMsg = "Please fill in all the required fields"
+			openAlert = true
+		} else if !(self.emailFieldRegister.text!.isEmail()) {
+			errorMsg = "Please enter a valid email address"
+			openAlert = true
+		} else if self.passwordFieldRegister.text != self.passwordFieldConfirmRegister.text {
+			errorMsg = "Passwords don't match"
+			openAlert = true
+			
+			self.passwordFieldRegister.text = ""
+			self.passwordFieldConfirmRegister.text = ""
 		}
 		
-		if self.passwordFieldRegister.text != self.passwordFieldConfirmRegister.text {
+		if openAlert {
+			let popup = UIAlertController(title: errorMsg!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+			}))
+			
+			self.presentViewController(popup, animated: true, completion: nil)
+			popup.view.tintColor = redPrimary
+			
 			return
 		}
 		
 		ApiHelper.registerWithEmail(self.emailFieldRegister.text!, password: self.passwordFieldRegister.text!, firstName: self.firstnameField.text!, lastName: self.lastnameField.text!) { (error) -> Void in
 			
 			if error != nil {
-				print("\(error)")
+				if error!.code == 100 {
+					errorMsg = "No internet connection"
+				} else if error!.code == 202 || error!.code == 203 {
+					errorMsg = "This email is already registered"
+				} else {
+					errorMsg = "Error code: \(error!.code)"
+				}
+				
+				let popup = UIAlertController(title: errorMsg, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+				popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+				}))
+				
+				self.presentViewController(popup, animated: true, completion: nil)
+				popup.view.tintColor = redPrimary
 				
 			} else {
 				
@@ -693,9 +730,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 					
 					if error != nil {
 						print("\(error)")
-						
 					} else {
-						
+						//SVProgressHUD.showInfoWithStatus("Signin in")
 						self.getEmailInfo()
 						self.loginCompleted()
 					}

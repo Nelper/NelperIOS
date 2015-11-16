@@ -12,6 +12,7 @@ import CoreLocation
 import GoogleMaps
 import Stripe
 import Alamofire
+import SVProgressHUD
 
 class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, FilterSortViewControllerDelegate, MKMapViewDelegate {
 	
@@ -56,12 +57,13 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		for family: String in UIFont.familyNames() {
+		//Print all fonts to test installation
+		/*for family: String in UIFont.familyNames() {
 			print("\(family)")
 			for names: String in UIFont.fontNamesForFamilyName(family) {
 				print("== \(names)")
 			}
-		}
+		}*/
 		
 		placesClient = GMSPlacesClient()
 		
@@ -82,6 +84,8 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		
 		let rootvc: TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
 		rootvc.presentedVC = self
+		
+		//SVProgressHUD.dismiss()
 	}
 	
 	//MARK: Creating the View

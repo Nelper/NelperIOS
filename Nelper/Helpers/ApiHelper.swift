@@ -201,7 +201,7 @@ class ApiHelper {
 		}
 		taskQuery.includeKey("user")
 		taskQuery.whereKey("state", equalTo: Task.State.Pending.rawValue)
-		taskQuery.limit = 20
+		taskQuery.limit = 100
 		taskQuery.findObjectsInBackgroundWithBlock { (pfTasks, error) -> Void in
 			if error != nil {
 				block(nil, error)
