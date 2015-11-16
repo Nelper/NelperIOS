@@ -198,7 +198,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 	/**
 	Set images for cell (Category,header image)
 	
-	- parameter task: <#task description#>
+	- parameter task: task
 	*/
 	func setImages(task:FindNelpTask) {
 		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2
@@ -243,9 +243,9 @@ class NelpTasksTableViewCell: UITableViewCell {
 	/**
 	Sets the number of applicants and new application notification icon
 	
-	- parameter task: <#task description#>
+	- parameter task: task
 	*/
-	func setNotification(task:FindNelpTask) {
+	func setNotification(task: FindNelpTask) {
 		
 		if (task.applications.count == 0) {
 			self.numberOfApplicants.text = "0 Nelper"

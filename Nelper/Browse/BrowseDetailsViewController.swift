@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 import iCarousel
 
-class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouselDelegate, CLLocationManagerDelegate, MKMapViewDelegate {
+class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouselDelegate, MKMapViewDelegate {
 	
 	
 	var task: Task!
@@ -23,7 +23,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	var postDateLabel: UILabel!
 	var cityLabel: UILabel!
 	var carousel: iCarousel!
-	var locationManager = CLLocationManager()
 	var taskImageContainer: UIView!
 	var carouselContainer: UIView!
 	var picture: UIImageView!
@@ -296,12 +295,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.bottom.equalTo(mapContainer.snp_bottom)
 		}
 		
-		self.locationManager.delegate = self;
-		self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-		self.locationManager.requestWhenInUseAuthorization()
-		self.locationManager.startUpdatingLocation()
-		self.locationManager.distanceFilter = 40
-		
 		let locationNoticeLabel = UILabel()
 		taskContainer.addSubview(locationNoticeLabel)
 		locationNoticeLabel.text = "Exact location in this 400m area"
@@ -365,7 +358,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 					make.top.equalTo(taskImageContainer.snp_top).offset(20)
 					make.centerX.equalTo(taskImageContainer.snp_centerX)
 					make.height.equalTo(300)
-					make.width.equalTo(self.contentView.snp_width)
+					make.width.equalTo(self.contentView.snp_width).offset(-30)
 				}
 				
 				self.carouselContainer.addSubview(carousel)
@@ -547,19 +540,18 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		return 0
 	}
 	
-	
- func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
-	
-	let picture = UIImageView(frame: self.carousel.frame)
-	picture.clipsToBounds = true
-	let imageURL = self.task.pictures![index].url!
-	
-	ApiHelper.getPictures(imageURL, block: { (imageReturned:UIImage) -> Void in
-		picture.image = imageReturned
-	})
-	
-	picture.contentMode = .ScaleAspectFit
-	return picture
+	func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
+		
+		let picture = UIImageView(frame: self.carousel.frame)
+		picture.clipsToBounds = true
+		let imageURL = self.task.pictures![index].url!
+		
+		ApiHelper.getPictures(imageURL, block: { (imageReturned:UIImage) -> Void in
+			picture.image = imageReturned
+		})
+		
+		picture.contentMode = .ScaleAspectFit
+		return picture
 	}
 	
 	//MARK: MKMapView Delegate Methods
