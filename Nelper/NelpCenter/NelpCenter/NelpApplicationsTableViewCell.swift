@@ -191,16 +191,15 @@ class NelpApplicationsTableViewCell: UITableViewCell {
 		
 		if(nelpApplication.task.pictures != nil) {
 			if(!nelpApplication.task.pictures!.isEmpty){
-				getPictures(nelpApplication.task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
 					//self.topContainer.image = imageReturned.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
 					self.topContainer.sd_setImageWithURL(NSURL(string:nelpApplication.task.pictures![0].url!), placeholderImage:UIImage(named: "\(nelpApplication.task.category!)-nc-bg") )
-				})}} else {
+			} else {
 			self.topContainer.image = UIImage(named: "\(nelpApplication.task.category!)-nc-bg")
 		}
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true
+		}
 	}
-	
 	func setStateInformation(nelpApplication:TaskApplication) {
 		
 		if nelpApplication.state.rawValue == 0 {

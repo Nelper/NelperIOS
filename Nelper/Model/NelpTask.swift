@@ -12,5 +12,6 @@ import Foundation
 class Task: BaseTask {
   
   var application: TaskApplication?
+	var applications = [TaskApplication]()
 
 }

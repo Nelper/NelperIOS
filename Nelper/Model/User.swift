@@ -17,8 +17,8 @@ class User : BaseModel {
 	var name: String!
 	var loginProvider: String?
 	var authData: String?
-	var firstName: String!
-	var lastName: String!
+	var firstName: String?
+	var lastName: String?
 	var location: GeoPoint?
 	var createdAt: NSDate!
 	var profilePictureURL: String?

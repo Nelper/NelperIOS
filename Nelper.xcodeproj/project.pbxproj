@@ -93,6 +93,7 @@
 		F777FBAD1BA1245B00328709 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F777FBAC1BA1245B00328709 /* DateHelper.swift */; };
 		F782A6291B6567E100C78470 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F782A6281B6567E100C78470 /* ApiHelper.swift */; };
 		F7A003B91BF974FA00D0B568 /* PermissionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A003B81BF974FA00D0B568 /* PermissionHelper.swift */; };
+		F7A003BB1BF9A8C600D0B568 /* ProfileCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A003BA1BF9A8C600D0B568 /* ProfileCellView.swift */; };
 		F7AB48A21B75AE5C00B602C4 /* iCarousel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB48A11B75AE5C00B602C4 /* iCarousel.framework */; };
 		F7D94CB41B5AC41000380157 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D94CB31B5AC41000380157 /* MapKit.framework */; };
 		F7E18C181BB6480C00160771 /* UserPrivateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E18C171BB6480C00160771 /* UserPrivateData.swift */; };
@@ -236,6 +237,7 @@
 		F777FBAC1BA1245B00328709 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateHelper.swift; path = Nelper/Helpers/DateHelper.swift; sourceTree = SOURCE_ROOT; };
 		F782A6281B6567E100C78470 /* ApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiHelper.swift; path = Nelper/Helpers/ApiHelper.swift; sourceTree = SOURCE_ROOT; };
 		F7A003B81BF974FA00D0B568 /* PermissionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PermissionHelper.swift; path = Nelper/Helpers/PermissionHelper.swift; sourceTree = SOURCE_ROOT; };
+		F7A003BA1BF9A8C600D0B568 /* ProfileCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileCellView.swift; path = Views/ProfileCellView.swift; sourceTree = "<group>"; };
 		F7AB48A11B75AE5C00B602C4 /* iCarousel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iCarousel.framework; path = "Pods/../build/Debug-iphoneos/iCarousel.framework"; sourceTree = "<group>"; };
 		F7D94CB31B5AC41000380157 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F7E18C171BB6480C00160771 /* UserPrivateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserPrivateData.swift; path = Nelper/Model/UserPrivateData.swift; sourceTree = SOURCE_ROOT; };
@@ -305,6 +307,7 @@
 				F775C0C61B803E9600F7525B /* TabBarCustom.swift */,
 				C04FF0021BB86873001E204F /* Button.swift */,
 				C0B2A99B1BF9739D00A999AA /* Timer.swift */,
+				F7A003BA1BF9A8C600D0B568 /* ProfileCellView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -784,6 +787,7 @@
 				19761A171B6850C4001600E1 /* BaseModel.swift in Sources */,
 				19DB24461BB70E8000468E91 /* MyTaskDetailsAcceptedViewController.swift in Sources */,
 				196176C51BCB0BF000F2AF5F /* GraphQLClient.swift in Sources */,
+				F7A003BB1BF9A8C600D0B568 /* ProfileCellView.swift in Sources */,
 				19DB24401BB70E8000468E91 /* NelpTasksTableViewCell.swift in Sources */,
 				C0BED3981BCF458600CE3B63 /* NotificationsSettingsViewController.swift in Sources */,
 				F72F27DC1B53224100CD3B0B /* TaskApplication.swift in Sources */,

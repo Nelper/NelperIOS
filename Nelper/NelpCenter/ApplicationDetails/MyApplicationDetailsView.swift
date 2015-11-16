@@ -223,55 +223,17 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		
 		//Profile Container
 		
-		let profileContainer = UIView()
-		let profileTapAction = UITapGestureRecognizer(target: self, action: "didTapProfile:")
-		profileContainer.addGestureRecognizer(profileTapAction)
-	  contentView.addSubview(profileContainer)
-		profileContainer.layer.borderColor = Color.grayDetails.CGColor
-		profileContainer.layer.borderWidth = 1
-		profileContainer.backgroundColor = Color.whitePrimary
+		let profileContainer = ProfileCellView(task:self.application.task)
+		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
+		self.picture = profileContainer.picture
+		self.contentView.addSubview(profileContainer)
 		profileContainer.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(90)
 			make.top.equalTo(self.contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
-			make.height.equalTo(100)
 		}
-		
-		let profilePicture = UIImageView()
-		profileContainer.addSubview(profilePicture)
-		self.picture = profilePicture
-		let pictureSize:CGFloat = 80
-		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
-		profilePicture.layer.cornerRadius = pictureSize / 2
-		profilePicture.clipsToBounds = true
-		profilePicture.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(profileContainer.snp_centerY)
-			make.left.equalTo(20)
-			make.height.equalTo(pictureSize)
-			make.width.equalTo(pictureSize)
-		}
-		
-		let nameLabel = UILabel()
-		profileContainer.addSubview(nameLabel)
-		nameLabel.text = self.poster.name!
-		nameLabel.textColor = Color.blackPrimary
-		nameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		nameLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(profilePicture.snp_centerY)
-			make.left.equalTo(profilePicture.snp_right).offset(15)
-		}
-		
-		let arrow = UIButton()
-		profileContainer.addSubview(arrow)
-		arrow.setBackgroundImage(UIImage(named: "arrow_applicant_cell.png"), forState: UIControlState.Normal)
-		arrow.contentMode = UIViewContentMode.ScaleAspectFill
-		arrow.alpha = 0.3
-		arrow.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(profileContainer.snp_right).offset(-20)
-			make.centerY.equalTo(profileContainer.snp_centerY)
-			make.height.equalTo(35)
-			make.width.equalTo(20)
-		}
+	
 		
 		//Task Container
 		
