@@ -71,6 +71,7 @@
 		C087D8D91BB7199A00AA205B /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087D8D81BB7199A00AA205B /* Rating.swift */; };
 		C08D19B21BE40D2900B70DEE /* FaqViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D19B11BE40D2900B70DEE /* FaqViewController.swift */; };
 		C0ACB2001BD88C7300DFC3CB /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACB1FF1BD88C7300DFC3CB /* Shapes.swift */; };
+		C0B2A99C1BF9739D00A999AA /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2A99B1BF9739D00A999AA /* Timer.swift */; };
 		C0BED3961BCF413800CE3B63 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3951BCF413800CE3B63 /* AccountSettingsViewController.swift */; };
 		C0BED3981BCF458600CE3B63 /* NotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3971BCF458600CE3B63 /* NotificationsSettingsViewController.swift */; };
 		C0BED39A1BCF45E900CE3B63 /* BankSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3991BCF45E900CE3B63 /* BankSettingsViewController.swift */; };
@@ -212,6 +213,7 @@
 		C087D8D81BB7199A00AA205B /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		C08D19B11BE40D2900B70DEE /* FaqViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FaqViewController.swift; path = Nelper/FaqViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0ACB1FF1BD88C7300DFC3CB /* Shapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
+		C0B2A99B1BF9739D00A999AA /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		C0BED3951BCF413800CE3B63 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountSettingsViewController.swift; path = Nelper/AccountSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0BED3971BCF458600CE3B63 /* NotificationsSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationsSettingsViewController.swift; path = Nelper/NotificationsSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0BED3991BCF45E900CE3B63 /* BankSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BankSettingsViewController.swift; path = Nelper/BankSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -300,6 +302,7 @@
 				C0196C971BB5B49300901155 /* SegmentController.swift */,
 				F775C0C61B803E9600F7525B /* TabBarCustom.swift */,
 				C04FF0021BB86873001E204F /* Button.swift */,
+				C0B2A99B1BF9739D00A999AA /* Timer.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -804,6 +807,7 @@
 				F73A45C01B72FEA400FD8C79 /* LocationHelper.swift in Sources */,
 				19DB24451BB70E8000468E91 /* EditTaskViewController.swift in Sources */,
 				19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */,
+				C0B2A99C1BF9739D00A999AA /* Timer.swift in Sources */,
 				F7E8F9331B94F3A4007D44D8 /* PFUser+ATLParticipant.swift in Sources */,
 				C08D19B21BE40D2900B70DEE /* FaqViewController.swift in Sources */,
 				C0BED39A1BCF45E900CE3B63 /* BankSettingsViewController.swift in Sources */,
