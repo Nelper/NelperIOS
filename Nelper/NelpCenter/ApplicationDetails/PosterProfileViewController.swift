@@ -223,8 +223,8 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		self.aboutLabel = aboutLabel
 		self.whiteContainer.addSubview(aboutLabel)
 		aboutLabel.textColor = Color.blackPrimary
-		if self.application.task.user.firstName != nil{
-		aboutLabel.text = "About \(self.application.task.user.firstName)"
+		if self.poster.firstName != nil{
+		aboutLabel.text = "About \(self.poster.firstName!)"
 		}else{
 			aboutLabel.text = "Offer:"
 		}
@@ -774,6 +774,10 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 					self.fakeButton.hidden = true
 			}
 		}
+	}
+	
+	func setUser(user:User){
+		
 	}
 	/**
 	Fake segment Control actions

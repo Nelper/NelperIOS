@@ -247,7 +247,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.aboutLabel = aboutLabel
 		self.whiteContainer.addSubview(aboutLabel)
 		aboutLabel.textColor = Color.blackPrimary
-		aboutLabel.text = "About \(self.application.task.user.firstName)"
+		aboutLabel.text = "About \(self.applicant.firstName!)"
 		aboutLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		aboutLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(aboutLogo.snp_right).offset(4)

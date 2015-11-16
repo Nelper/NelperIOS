@@ -222,17 +222,16 @@ class MyApplicationDetailsView: UIViewController, MKMapViewDelegate, iCarouselDa
 		
 		//Profile Container
 		
-		let profileContainer = UIView()
-		let profileTapAction = UITapGestureRecognizer(target: self, action: "didTapProfile:")
-		profileContainer.addGestureRecognizer(profileTapAction)
-	  contentView.addSubview(profileContainer)
-		profileContainer.layer.borderColor = Color.grayDetails.CGColor
-		profileContainer.layer.borderWidth = 1
-		profileContainer.backgroundColor = Color.whitePrimary
+		let profileContainer = ProfileCellView(task:self.application.task)
+		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
+		self.picture = profileContainer.picture
+		self.contentView.addSubview(profileContainer)
 		profileContainer.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(90)
 			make.top.equalTo(self.contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
+<<<<<<< HEAD
 			make.height.equalTo(90)
 		}
 		
@@ -288,7 +287,10 @@ class MyApplicationDetailsView: UIViewController, MKMapViewDelegate, iCarouselDa
 			make.centerY.equalTo(profileContainer.snp_centerY)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
+=======
+>>>>>>> 8d9a2dc31dc52bb4f82cb23b7fd88f326e31abb5
 		}
+	
 		
 		//Task Container
 		
