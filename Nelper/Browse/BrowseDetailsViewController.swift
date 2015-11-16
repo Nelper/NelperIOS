@@ -100,6 +100,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		background.backgroundColor = Color.whiteBackground
 		
 		//Profile Container
+		
 		let profileContainer = ProfileCellView(task:self.task)
 		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
 		self.picture = profileContainer.picture
@@ -110,8 +111,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
 		}
-		
-
 		
 		//Task Container
 		
