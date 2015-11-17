@@ -410,7 +410,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		
 		//Applicant
 		
-		let profileContainer = ProfileCellView(user: self.acceptedApplicant, price: self.acceptedApplication.price!)
+		let profileContainer = ProfileCellView(user: self.acceptedApplicant)
 		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
 		self.picture = profileContainer.picture
 		self.contentView.addSubview(profileContainer)

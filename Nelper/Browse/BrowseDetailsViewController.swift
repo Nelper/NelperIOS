@@ -101,7 +101,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		//Profile Container
 		
-		let profileContainer = ProfileCellView(user: self.task.user, price: nil)
+		let profileContainer = ProfileCellView(user: self.task.user)
 		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
 		self.picture = profileContainer.picture
 		self.contentView.addSubview(profileContainer)

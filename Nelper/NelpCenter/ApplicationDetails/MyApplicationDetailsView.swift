@@ -214,7 +214,7 @@ class MyApplicationDetailsView: UIViewController {
 		
 		//Profile Container
 		
-		let profileContainer = ProfileCellView(user: self.application.task.user, price: nil)
+		let profileContainer = ProfileCellView(user: self.application.task.user)
 		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
 		self.picture = profileContainer.picture
 		self.contentView.addSubview(profileContainer)

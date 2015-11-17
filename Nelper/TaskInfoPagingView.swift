@@ -9,7 +9,11 @@
 import Foundation
 import UIKit
 
-class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
+protocol TaskInfoPagingViewDelegate {
+	func didChangeView()
+}
+
+class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PicturesCollectionViewCellDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, UINavigationControllerDelegate {
 	
 	let firstSwipeRecLeft = UISwipeGestureRecognizer()
 	let secondSwipeRecLeft = UISwipeGestureRecognizer()
@@ -18,6 +22,8 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	
 	var task: FindNelpTask!
 	
+	var delegate: TaskInfoPagingViewDelegate!
+	
 	var taskTitle: String!
 	var taskDescription: String!
 	
@@ -25,20 +31,22 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	
 	var pictures = [PFFile]()
 	
-	var containerHeight: CGFloat = 270
-	
 	var firstContainer: UIView!
 	var secondContainer: UIView!
 	var thirdContainer: UIView!
 	var firstO: PageControllerOval!
 	var secondO: PageControllerOval!
 	var thirdO: PageControllerOval!
-	var width:CGFloat!
+	
+	var height: CGFloat!
+	
 	var selectedAlpha: CGFloat = 1
 	var unselectedAlpha: CGFloat = 0.5
 	var selectedSize: CGFloat = 9
 	var unselectedSize: CGFloat = 7
+	
 	var contentView:UIView!
+	
 	var noPicturesLabel: UILabel!
 	var picturesCollectionView: UICollectionView!
 	var pagingContainer: UIView!
@@ -50,12 +58,13 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	var titleTextView: UITextView!
 	var descriptionTextView: UITextView!
 	
-	convenience init(task: FindNelpTask, width:CGFloat) {
+	convenience init(task: FindNelpTask, height: CGFloat) {
 		self.init()
-		self.width = width
+		
+		self.height = height
 		self.task = task
 		
-		//self.imagePicker.delegate = self
+		self.imagePicker.delegate = self
 		
 		firstSwipeRecLeft.addTarget(self, action: "swipedFirstView:")
 		firstSwipeRecLeft.direction = UISwipeGestureRecognizerDirection.Left
@@ -74,7 +83,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		self.taskTitle = self.task.title
 		self.taskDescription = self.task.desc
 		
-		self.createView(width)
+		self.createView()
 		
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 		self.firstContainer.addGestureRecognizer(tap)
@@ -90,7 +99,9 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
 			self.descriptionTextView.contentInset.top = topCorrect
 			self.descriptionTextView.alpha = 1
-			}, completion: nil)
+			}, completion: { (finished) in
+				self.descriptionTextView.scrollEnabled = false
+		})
 		
 		//title textView animation in
 		UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
@@ -99,13 +110,15 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 			}, completion: nil)
 	}
 	
-	func createView(width:CGFloat) {
+	func createView() {
 		
 		let pagingContainerHeight = 50
+		
 		let contentView = UIView()
 		self.contentView = contentView
 		self.view.addSubview(contentView)
-		self.contentView.snp_makeConstraints { (make) -> Void in
+		contentView.backgroundColor = Color.whitePrimary
+		contentView.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.view)
 			make.top.equalTo(self.view)
 			make.bottom.equalTo(self.view)
@@ -118,10 +131,10 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		contentView.addSubview(firstContainer)
 		self.firstContainer.backgroundColor = Color.whitePrimary
 		self.firstContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.view.snp_top)
-			make.left.equalTo(self.view.snp_left)
-			make.width.equalTo(width)
-			make.height.equalTo(containerHeight)
+			make.top.equalTo(contentView.snp_top)
+			make.left.equalTo(contentView.snp_left)
+			make.width.equalTo(contentView.snp_width)
+			make.height.equalTo(self.height)
 		}
 		self.firstContainer.addGestureRecognizer(self.firstSwipeRecLeft)
 		
@@ -195,10 +208,10 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		contentView.addSubview(secondContainer)
 		secondContainer.backgroundColor = Color.whitePrimary
 		secondContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.view.snp_top)
-			make.left.equalTo(self.firstContainer.snp_right)
-			make.width.equalTo(width)
-			make.height.equalTo(self.firstContainer.snp_height)
+			make.top.equalTo(firstContainer.snp_top)
+			make.left.equalTo(firstContainer.snp_right)
+			make.width.equalTo(firstContainer.snp_width)
+			make.height.equalTo(firstContainer.snp_height)
 		}
 		self.secondContainer.addGestureRecognizer(self.secondSwipeRecLeft)
 		self.secondContainer.addGestureRecognizer(self.secondSwipeRecRight)
@@ -298,10 +311,10 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		contentView.addSubview(thirdContainer)
 		thirdContainer.backgroundColor = Color.whitePrimary
 		thirdContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.view.snp_top)
+			make.top.equalTo(firstContainer.snp_top)
 			make.left.equalTo(secondContainer.snp_right)
-			make.width.equalTo(width)
-			make.height.equalTo(self.firstContainer.snp_height)
+			make.width.equalTo(firstContainer.snp_width)
+			make.height.equalTo(firstContainer.snp_height)
 		}
 		self.thirdContainer.addGestureRecognizer(self.thirdSwipeRecRight)
 		self.thirdContainer.alpha = 0
@@ -426,7 +439,8 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		topBorder.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(firstContainer.snp_top)
 			make.height.equalTo(1)
-			make.width.equalTo(width)
+			make.width.equalTo(self.contentView.snp_width)
+			make.centerX.equalTo(self.contentView.snp_centerX)
 		}
 		
 		let botBorder = UIView()
@@ -435,7 +449,8 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		botBorder.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(pagingContainer.snp_bottom)
 			make.height.equalTo(1)
-			make.width.equalTo(width)
+			make.width.equalTo(self.contentView.snp_width)
+			make.centerX.equalTo(self.contentView.snp_centerX)
 		}
 		
 	}
@@ -462,7 +477,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		}
 		
 		self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
-			make.left.equalTo(self.contentView.snp_left).offset(-(width))
+			make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.width))
 		})
 		updateActivePage(2)
 		dismissKeyboard()
@@ -479,7 +494,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		switch sender.direction {
 		case UISwipeGestureRecognizerDirection.Left:
 			self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
-				make.left.equalTo(self.contentView.snp_left).offset(-2 * (width))
+				make.left.equalTo(self.contentView.snp_left).offset(-2 * (self.contentView.frame.width))
 			})
 			updateActivePage(3)
 			
@@ -507,7 +522,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	func swipedThirdView(sender: UISwipeGestureRecognizer) {
 		
 		self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
-			make.left.equalTo(self.contentView.snp_left).offset(-(width))
+			make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.width))
 		})
 		updateActivePage(2)
 		
@@ -627,9 +642,10 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		
 		if textView == self.descriptionTextView {
 			self.descriptionIsEditing = true
+			self.descriptionTextView.scrollEnabled = true
 			
 			self.firstContainer.snp_updateConstraints { (make) -> Void in
-				make.height.equalTo(self.containerHeight + 60)
+				make.height.equalTo(self.height + 140)
 			}
 			
 			UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -641,8 +657,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 				self.descriptionTextView.contentInset.top = 0
 				}, completion: nil)
 			
-			
-			self.view.layoutIfNeeded()
+			self.delegate.didChangeView()
 			
 		} else if textView == self.titleTextView {
 			
@@ -657,7 +672,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 			self.descriptionIsEditing = false
 			
 			self.firstContainer.snp_updateConstraints { (make) -> Void in
-				make.height.equalTo(self.containerHeight)
+				make.height.equalTo(self.height)
 			}
 			self.firstContainer.layoutIfNeeded()
 			self.descriptionTextView.layoutIfNeeded()
@@ -667,10 +682,11 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 			
 			UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
 				self.descriptionTextView.contentInset.top = topCorrect
-				}, completion: nil)
+				}, completion: { (finished) in
+					self.descriptionTextView.scrollEnabled = false
+			})
 			
-			self.contentView.layoutIfNeeded()
-			//self.parentVC.scrollView.contentSize = self.contentView.frame.size
+			self.delegate.didChangeView()
 			
 		} else if textView == self.titleTextView {
 			

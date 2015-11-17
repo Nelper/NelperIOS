@@ -499,7 +499,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 		
 		//Profile Container
 		
-		let profileContainer = ProfileCellView(user: self.application.task.user, price: nil)
+		let profileContainer = ProfileCellView(user: self.application.task.user)
 		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
 		self.picture = profileContainer.picture
 		posterContainer.addSubview(profileContainer)

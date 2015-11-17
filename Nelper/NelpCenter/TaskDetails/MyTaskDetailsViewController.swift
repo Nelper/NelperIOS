@@ -13,10 +13,10 @@ import iCarousel
 import FXBlurView
 
 protocol MyTaskDetailsViewControllerDelegate {
-	func didEditTask(task:FindNelpTask)
+	func didEditTask(task: FindNelpTask)
 }
 
-class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, UINavigationControllerDelegate {
+class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, UINavigationControllerDelegate, TaskInfoPagingViewDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var container: UIView!
@@ -105,20 +105,23 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.right.equalTo(self.scrollView.snp_right)
 			make.width.equalTo(self.container.snp_width)
 		}
+		contentView.layoutIfNeeded()
 		
 		//Task info
+		let containerHeight: CGFloat = 270
 		
-		let taskInfoPagingView = TaskInfoPagingView(task: self.task,width: contentView.frame.width)
+		let taskInfoPagingView = TaskInfoPagingView(task: self.task, height: containerHeight)
 		self.taskInfoPagingView = taskInfoPagingView
-		//taskInfoPagingView.view.frame = CGRect(x: 0, y: 0, width: contentView.bounds.width * 3, height: taskInfoPagingView.containerHeight)
+		taskInfoPagingView.delegate = self
+		taskInfoPagingView.view.layer.zPosition = 10
 		self.addChildViewController(taskInfoPagingView)
 		taskInfoPagingView.didMoveToParentViewController(self)
 		contentView.addSubview(taskInfoPagingView.view)
 		taskInfoPagingView.view.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left)
-			make.width.equalTo(contentView.bounds.width * 3)
-			make.centerX.equalTo(contentView)
+			make.right.equalTo(contentView.snp_right)
+			make.height.equalTo(containerHeight + 50)
 		}
 		
 		//Active Applicants
@@ -285,7 +288,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.deniedApplicantsTableView.scrollEnabled = false
 		self.deniedApplicantsTableView.dataSource = self
 		self.deniedApplicantsTableView.delegate = self
-		self.contentView.addSubview(deniedApplicantsTableView)
+		deniedApplicantsContainer.contentView.addSubview(deniedApplicantsTableView)
 		deniedApplicantsTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(deniedApplicantsContainer.contentView.snp_top)
 			make.left.equalTo(deniedApplicantsContainer.snp_left)
@@ -353,6 +356,28 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		self.scrollView.contentSize = self.contentView.frame.size
 	}
 	
+	//TaskInfoPadingView Delegate
+	
+	func didChangeView() {
+		
+		self.view.setNeedsLayout()
+		UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+			self.view.layoutIfNeeded()
+			}, completion: { (finished) in
+				if self.taskInfoPagingView.descriptionIsEditing {
+					UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+						self.activeApplicantsContainer.alpha = 0
+						self.deniedApplicantsContainer.alpha = 0
+						}, completion: nil)
+				} else {
+					UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+						self.activeApplicantsContainer.alpha = 1
+						self.deniedApplicantsContainer.alpha = 1
+						}, completion: nil)
+				}
+		})
+	}
+	
 	//MARK: Tableview Delegate and Datasource
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -404,21 +429,15 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		return 100
 	}
 	
-	
-	
-	
-	
-	
 	//MARK: View delegate Methods
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		if taskInfoPagingView.descriptionIsEditing {
+		if self.taskInfoPagingView.descriptionIsEditing {
 			self.scrollView.contentSize.height = UIScreen.mainScreen().bounds.height + 100
-		}else{
+		} else {
 			self.scrollView.contentSize = self.contentView.frame.size
 		}
-		
 	}
 	
 	//MARK: Cell delegate methods
@@ -456,20 +475,14 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	//MARK: Utilities
 	
 	func scrollToBottom() {
-		
 		self.scrollView.scrollRectToVisible(CGRectMake(self.scrollView.contentSize.width - 1, self.scrollView.contentSize.height - 1, 1, 1), animated: true)
 	}
-	
-	
-	
 	
 	//MARK: Actions
 	
 	func dismissKeyboard() {
 		view.endEditing(true)
 	}
-	
-	
 	
 	func backButtonTapped(sender: UIButton) {
 		
@@ -488,9 +501,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 					self.convertImagesToData()
 				}
 				self.task.desc = self.taskInfoPagingView.descriptionTextView.text
-				
-				
-				print(self.task.desc)
 				
 				ApiHelper.editTask(self.task)
 				self.delegate.didEditTask(self.task)
@@ -527,8 +537,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		}
 	}
 	
-	
-	
 	func deleteTaskButtonTapped(sender: UIButton) {
 		dismissKeyboard()
 		
@@ -554,10 +562,6 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		ApiHelper.editTask(self.task)
 		self.navigationController?.popViewControllerAnimated(true)
-	}
-	
-	func didTapDeleteButton(sender: UIButton) {
-		
 	}
 	
 }

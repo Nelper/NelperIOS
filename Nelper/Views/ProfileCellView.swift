@@ -14,21 +14,20 @@ class ProfileCellView: UIView {
 	var button: UIButton!
 	
 	var userName: String!
-	var applicationPrice: Int?
 	var rating: Double!
 	var completedTasks: Int!
 
-	init(user: User, price: Int?) {
+	init(user: User) {
 		super.init(frame: CGRectZero)
 
-		self.createView(user, price: price)
+		self.createView(user)
 	}
 
 	required init?(coder aDecoder: NSCoder) {
 	    fatalError("init(coder:) has not been implemented")
 	}
 	
-	func createView(user: User, price: Int?) {
+	func createView(user: User) {
 		
 		let profileContainer = UIButton()
 		self.button = profileContainer
@@ -83,40 +82,16 @@ class ProfileCellView: UIView {
 			make.height.equalTo(ratingStarsView.starHeight)
 		}
 		
-		if price != nil {
-			let moneyView = UIView()
-			moneyView.contentMode = UIViewContentMode.ScaleAspectFill
-			moneyView.backgroundColor = Color.whiteBackground
-			moneyView.layer.cornerRadius = 3
-			profileContainer.addSubview(moneyView)
-			moneyView.snp_makeConstraints { (make) -> Void in
-				make.right.equalTo(profileContainer.snp_right).offset(-20)
-				make.centerY.equalTo(ratingStarsView.snp_centerY)
-				make.height.equalTo(35)
-				make.width.equalTo(55)
-			}
-			
-			let moneyLabel = UILabel()
-			profileContainer.addSubview(moneyLabel)
-			moneyLabel.textAlignment = NSTextAlignment.Center
-			moneyLabel.textColor = Color.blackPrimary
-			moneyLabel.text = "$\(price!)"
-			moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
-			moneyLabel.snp_makeConstraints { (make) -> Void in
-				make.edges.equalTo(moneyView.snp_edges)
-			}
-		} else {
-			let arrow = UIImageView()
-			profileContainer.addSubview(arrow)
-			arrow.image = UIImage(named: "arrow_applicant_cell")
-			arrow.contentMode = .ScaleAspectFit
-			arrow.alpha = 0.3
-			arrow.snp_makeConstraints { (make) -> Void in
-				make.right.equalTo(profileContainer.snp_right).offset(-20)
-				make.centerY.equalTo(profileContainer.snp_centerY)
-				make.height.equalTo(30)
-				make.width.equalTo(30)
-			}
+		let arrow = UIImageView()
+		profileContainer.addSubview(arrow)
+		arrow.image = UIImage(named: "arrow_applicant_cell")
+		arrow.contentMode = .ScaleAspectFit
+		arrow.alpha = 0.3
+		arrow.snp_makeConstraints { (make) -> Void in
+			make.right.equalTo(profileContainer.snp_right).offset(-20)
+			make.centerY.equalTo(profileContainer.snp_centerY)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
 		}
 	}
 }
