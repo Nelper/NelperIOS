@@ -27,20 +27,18 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	
 	var containerHeight: CGFloat = 270
 	
-	var contentView: UIView!
-	
 	var firstContainer: UIView!
 	var secondContainer: UIView!
 	var thirdContainer: UIView!
 	var firstO: PageControllerOval!
 	var secondO: PageControllerOval!
 	var thirdO: PageControllerOval!
-	
+	var width:CGFloat!
 	var selectedAlpha: CGFloat = 1
 	var unselectedAlpha: CGFloat = 0.5
 	var selectedSize: CGFloat = 9
 	var unselectedSize: CGFloat = 7
-	
+	var contentView:UIView!
 	var noPicturesLabel: UILabel!
 	var picturesCollectionView: UICollectionView!
 	var pagingContainer: UIView!
@@ -52,11 +50,10 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	var titleTextView: UITextView!
 	var descriptionTextView: UITextView!
 	
-	convenience init(task: FindNelpTask, contentView: UIView, parentVC: AnyObject) {
+	convenience init(task: FindNelpTask, width:CGFloat) {
 		self.init()
-		
+		self.width = width
 		self.task = task
-		self.contentView = contentView
 		
 		//self.imagePicker.delegate = self
 		
@@ -77,7 +74,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		self.taskTitle = self.task.title
 		self.taskDescription = self.task.desc
 		
-		self.createView()
+		self.createView(width)
 		
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 		self.firstContainer.addGestureRecognizer(tap)
@@ -102,19 +99,28 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 			}, completion: nil)
 	}
 	
-	func createView() {
+	func createView(width:CGFloat) {
 		
 		let pagingContainerHeight = 50
+		let contentView = UIView()
+		self.contentView = contentView
+		self.view.addSubview(contentView)
+		self.contentView.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(self.view)
+			make.top.equalTo(self.view)
+			make.bottom.equalTo(self.view)
+			make.right.equalTo(self.view)
+		}
 		
 		//FIRST CONTAINER
 		let firstContainer = UIView()
 		self.firstContainer = firstContainer
-		self.view.addSubview(firstContainer)
+		contentView.addSubview(firstContainer)
 		self.firstContainer.backgroundColor = Color.whitePrimary
 		self.firstContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.left.equalTo(self.view.snp_left)
-			make.width.equalTo(self.contentView.snp_width)
+			make.width.equalTo(width)
 			make.height.equalTo(containerHeight)
 		}
 		self.firstContainer.addGestureRecognizer(self.firstSwipeRecLeft)
@@ -186,12 +192,12 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		//SECOND CONTAINER
 		let secondContainer = UIView()
 		self.secondContainer = secondContainer
-		self.view.addSubview(secondContainer)
+		contentView.addSubview(secondContainer)
 		secondContainer.backgroundColor = Color.whitePrimary
 		secondContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.left.equalTo(self.firstContainer.snp_right)
-			make.width.equalTo(self.contentView.snp_width)
+			make.width.equalTo(width)
 			make.height.equalTo(self.firstContainer.snp_height)
 		}
 		self.secondContainer.addGestureRecognizer(self.secondSwipeRecLeft)
@@ -289,12 +295,12 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		//THIRD CONTAINER
 		let thirdContainer = UIView()
 		self.thirdContainer = thirdContainer
-		self.view.addSubview(thirdContainer)
+		contentView.addSubview(thirdContainer)
 		thirdContainer.backgroundColor = Color.whitePrimary
 		thirdContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.left.equalTo(secondContainer.snp_right)
-			make.width.equalTo(self.contentView.snp_width)
+			make.width.equalTo(width)
 			make.height.equalTo(self.firstContainer.snp_height)
 		}
 		self.thirdContainer.addGestureRecognizer(self.thirdSwipeRecRight)
@@ -420,7 +426,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		topBorder.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(firstContainer.snp_top)
 			make.height.equalTo(1)
-			make.width.equalTo(self.contentView.snp_width)
+			make.width.equalTo(width)
 		}
 		
 		let botBorder = UIView()
@@ -429,7 +435,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		botBorder.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(pagingContainer.snp_bottom)
 			make.height.equalTo(1)
-			make.width.equalTo(self.contentView.snp_width)
+			make.width.equalTo(width)
 		}
 		
 	}
@@ -456,7 +462,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		}
 		
 		self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
-			make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.width))
+			make.left.equalTo(self.contentView.snp_left).offset(-(width))
 		})
 		updateActivePage(2)
 		dismissKeyboard()
@@ -473,7 +479,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		switch sender.direction {
 		case UISwipeGestureRecognizerDirection.Left:
 			self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
-				make.left.equalTo(self.contentView.snp_left).offset(-2 * (self.contentView.frame.width))
+				make.left.equalTo(self.contentView.snp_left).offset(-2 * (width))
 			})
 			updateActivePage(3)
 			
@@ -501,7 +507,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	func swipedThirdView(sender: UISwipeGestureRecognizer) {
 		
 		self.firstContainer.snp_updateConstraints(closure: { (make) -> Void in
-			make.left.equalTo(self.contentView.snp_left).offset(-(self.contentView.frame.width))
+			make.left.equalTo(self.contentView.snp_left).offset(-(width))
 		})
 		updateActivePage(2)
 		

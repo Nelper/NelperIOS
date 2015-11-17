@@ -108,7 +108,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		
 		//Task info
 		
-		let taskInfoPagingView = TaskInfoPagingView(task: self.task, contentView: contentView, parentVC: self)
+		let taskInfoPagingView = TaskInfoPagingView(task: self.task,width: contentView.frame.width)
 		self.taskInfoPagingView = taskInfoPagingView
 		//taskInfoPagingView.view.frame = CGRect(x: 0, y: 0, width: contentView.bounds.width * 3, height: taskInfoPagingView.containerHeight)
 		self.addChildViewController(taskInfoPagingView)
@@ -118,6 +118,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.top.equalTo(contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left)
 			make.width.equalTo(contentView.bounds.width * 3)
+			make.centerX.equalTo(contentView)
 		}
 		
 		//Active Applicants
