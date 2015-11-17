@@ -16,43 +16,43 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	var segmentControllerView: SegmentController!
 	var ratingStarsView: RatingStars!
 	
-	var navBar:NavBar!
+	var navBar: NavBar!
 	var poster: User!
-	var hideChatButton:Bool?
+	var hideChatButton: Bool?
 	var application: TaskApplication!
-	var picture:UIImageView!
-	var scrollView:UIScrollView!
-	var skillsLabel:UILabel!
-	var aboutLabel:UILabel!
-	var educationLabel:UILabel!
-	var experienceLabel:UILabel!
+	var picture: UIImageView!
+	var scrollView: UIScrollView!
+	var skillsLabel: UILabel!
+	var aboutLabel: UILabel!
+	var educationLabel: UILabel!
+	var experienceLabel: UILabel!
 	
-	var contentView:UIView!
-	var containerView:UIView!
-	var profileSegmentButton:UIButton!
-	var reviewSegmentButton:UIButton!
-	var bottomFeedbackBorder:UIView!
-	var bottomProfileBorder:UIView!
-	var whiteContainer:UIView!
-	var aboutTextView:UITextView!
-	var skillsTableView:UITableView!
-	var educationTableView:UITableView!
-	var experienceTableView:UITableView!
+	var contentView: UIView!
+	var containerView: UIView!
+	var profileSegmentButton: UIButton!
+	var reviewSegmentButton: UIButton!
+	var bottomFeedbackBorder: UIView!
+	var bottomProfileBorder: UIView!
+	var whiteContainer: UIView!
+	var aboutTextView: UITextView!
+	var skillsTableView: UITableView!
+	var educationTableView: UITableView!
+	var experienceTableView: UITableView!
 	var arrayOfSkills = [Dictionary<String,String>]()
 	var arrayOfExperience = [Dictionary<String,String>]()
 	var arrayOfEducation = [Dictionary<String,String>]()
-	var skillsBottomLine:UIView!
-	var experienceBottomLine:UIView!
-	var educationBottomLine:UIView!
-	var profileContainer:UIView!
-	var chatButton:UIButton!
-	var conversationController:UINavigationController?
-	var tempVC:UIViewController!
-	var fakeButton:UIButton!
-	var aboutLogo:UIImageView!
-	var experienceLogo:UIImageView!
-	var educationLogo:UIImageView!
-	var skillsLogo:UIImageView!
+	var skillsBottomLine: UIView!
+	var experienceBottomLine: UIView!
+	var educationBottomLine: UIView!
+	var profileContainer: UIView!
+	var chatButton: UIButton!
+	var conversationController: UINavigationController?
+	var tempVC: UIViewController!
+	var fakeButton: UIButton!
+	var aboutLogo: UIImageView!
+	var experienceLogo: UIImageView!
+	var educationLogo: UIImageView!
+	var skillsLogo: UIImageView!
 	
 	
 	//MARK: Initialization
@@ -169,6 +169,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 		let scrollView = UIScrollView()
 		self.scrollView = scrollView
 		self.contentView.addSubview(scrollView)
+		scrollView.alwaysBounceVertical = true
 		scrollView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(background.snp_edges)
 		}
@@ -650,7 +651,7 @@ class PosterProfileViewController: UIViewController, UITableViewDelegate, UITabl
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		let contentSize = CGRectMake(0, 0, self.containerView.frame.width, self.containerView.frame.height + 20)
+		let contentSize = CGRectMake(0, 0, self.containerView.frame.width, self.containerView.frame.height)
 		self.scrollView.contentSize = contentSize.size
 		
 		if self.chatButton != nil {

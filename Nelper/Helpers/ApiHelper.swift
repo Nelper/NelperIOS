@@ -341,7 +341,7 @@ class ApiHelper {
 					if let exactLocation = dataTaskPrivate["exactLocation"]! {
 						taskPrivate.location = Location(parseLocation: exactLocation)
 					}
-					block(taskPrivate);
+					block(taskPrivate)
 				}
 		}
 	}

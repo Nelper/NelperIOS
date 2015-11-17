@@ -134,7 +134,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		nelperAcceptedLabel.textColor = Color.blackPrimary
 		nelperAcceptedLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		nelperAcceptedLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(progressContainer.snp_top).offset(20)
+			make.top.equalTo(progressContainer.snp_top).offset(30)
 			make.left.equalTo(progressContainer.snp_left).offset(12)
 		}
 		
@@ -303,7 +303,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		progressContainer.addSubview(nelperPayLine)
 		nelperPayLine.backgroundColor = Color.grayDetails
 		nelperPayLine.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(paymentLabel.snp_bottom).offset(40)
+			make.top.equalTo(paymentLabel.snp_bottom).offset(60)
 			make.centerX.equalTo(progressContainer.snp_centerX)
 			make.width.equalTo(progressContainer.snp_width).dividedBy(1.2)
 			make.height.equalTo(1)
@@ -328,8 +328,8 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		paymentButton.setTitle("Proceed to Payment", forState: UIControlState.Normal)
 		paymentButton.addTarget(self, action: "didTapPaymentButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		paymentButton.snp_makeConstraints { (make) -> Void in
-		make.top.equalTo(nelperPayLine.snp_bottom).offset(40)
-		make.centerX.equalTo(progressContainer.snp_centerX)
+			make.top.equalTo(nelperPayLine.snp_bottom).offset(60)
+			make.centerX.equalTo(progressContainer.snp_centerX)
 		}
 		
 		//About Nelper Pay
@@ -342,7 +342,6 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		aboutNelperPayLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		aboutNelperPayLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(paymentButton.snp_bottom).offset(20)
-			make.bottom.equalTo(progressContainer.snp_bottom).offset(-20)
 			make.centerX.equalTo(progressContainer.snp_centerX).offset(10)
 		}
 		
@@ -354,6 +353,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 			make.right.equalTo(aboutNelperPayLabel.snp_left).offset(-2)
 			make.height.equalTo(20)
 			make.width.equalTo(20)
+		}
+		
+		progressContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(aboutNelperPayButton.snp_bottom).offset(20)
 		}
 		
 		self.setCompletionState()
@@ -368,33 +371,31 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		applicantContainer.layer.borderWidth = 1
 		applicantContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(progressContainer.snp_bottom).offset(20)
-			make.width.equalTo(contentView.snp_width)
-			make.height.equalTo(backgroundView.snp_height).dividedBy(2)
-			make.bottom.equalTo(contentView.snp_bottom).offset(-20)
+			make.left.equalTo(contentView.snp_left).offset(-1)
+			make.right.equalTo(contentView.snp_right).offset(1)
 		}
 		
-		//Header
+		//Title header
 		
 		let headerContainer = UIView()
 		applicantContainer.addSubview(headerContainer)
 		headerContainer.backgroundColor = Color.whitePrimary
-		headerContainer.layer.borderWidth = 1
-		headerContainer.layer.borderColor = Color.grayDetails.CGColor
 		headerContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(applicantContainer.snp_top)
-			make.width.equalTo(applicantContainer.snp_width)
-			make.height.equalTo(applicantContainer.snp_height).dividedBy(5)
+			make.left.equalTo(applicantContainer.snp_left)
+			make.right.equalTo(applicantContainer.snp_right)
+			make.height.equalTo(50)
 		}
 		
 		let acceptedIcon = UIImageView()
 		headerContainer.addSubview(acceptedIcon)
-		acceptedIcon.image = UIImage(named: "accepted")
+		acceptedIcon.image = UIImage(named: "profile-red")
 		acceptedIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		acceptedIcon.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(headerContainer.snp_centerY)
+			make.centerY.equalTo(headerContainer.snp_centerY).offset(1)
 			make.left.equalTo(headerContainer.snp_left).offset(20)
-			make.width.equalTo(30)
-			make.height.equalTo(30)
+			make.width.equalTo(25)
+			make.height.equalTo(25)
 		}
 		
 		let acceptedApplicantLabel = UILabel()
@@ -409,135 +410,36 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		
 		//Applicant
 		
-		let profileContainer = UIView()
-		applicantContainer.addSubview(profileContainer)
-		applicantContainer.backgroundColor = Color.whitePrimary
-		applicantContainer.layer.borderColor = Color.grayDetails.CGColor
-		applicantContainer.layer.borderWidth = 1
+		let profileContainer = ProfileCellView(user: self.acceptedApplicant, price: self.acceptedApplication.price!)
+		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
+		self.picture = profileContainer.picture
+		self.contentView.addSubview(profileContainer)
 		profileContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(headerContainer.snp_bottom)
-			make.width.equalTo(applicantContainer.snp_width)
-			make.height.equalTo(applicantContainer.snp_height).dividedBy(3)
+			make.left.equalTo(applicantContainer.snp_left)
+			make.right.equalTo(applicantContainer.snp_right)
+			make.height.equalTo(90)
 		}
 		
-		//Profile picture
-		
-		let profilePicture = UIImageView()
-		self.picture = profilePicture
-		profileContainer.addSubview(profilePicture)
-		let pictureSize: CGFloat = 70
-		profilePicture.layer.cornerRadius = pictureSize / 2
-		profilePicture.clipsToBounds = true
-		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
-		profilePicture.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(profileContainer.snp_left).offset(16)
-			make.centerY.equalTo(profileContainer.snp_centerY)
-			make.height.equalTo(pictureSize)
-			make.width.equalTo(pictureSize)
-		}
-		
-		//Name
-		
-		let applicantName = UILabel()
-		profileContainer.addSubview(applicantName)
-		applicantName.text = self.acceptedApplicant.name
-		applicantName.textColor = Color.blackPrimary
-		applicantName.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		applicantName.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(profilePicture.snp_centerY).offset(-15)
-			make.left.equalTo(profilePicture.snp_right).offset(15)
-			make.right.equalTo(profileContainer.snp_right).offset(-10)
-		}
-		
-		//Rating
-		
-		let ratingStarsView = RatingStars()
-		self.ratingStarsView = ratingStarsView
-		self.ratingStarsView.style = "dark"
-		self.ratingStarsView.starHeight = 15
-		self.ratingStarsView.starWidth = 15
-		self.ratingStarsView.starPadding = 5
-		self.ratingStarsView.textSize = kText15
-		self.ratingStarsView.userCompletedTasks = acceptedApplicant.completedTasks
-		self.ratingStarsView.userRating = acceptedApplicant.rating
-		profileContainer.addSubview(ratingStarsView)
-		ratingStarsView.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(applicantName.snp_left)
-			make.centerY.equalTo(profilePicture.snp_centerY).offset(15)
-			make.width.equalTo((ratingStarsView.starWidth + ratingStarsView.starPadding) * 6)
-			make.height.equalTo(ratingStarsView.starHeight)
-		}
-		
-		//Money View
-		
-		let moneyView = UIView()
-		moneyView.contentMode = UIViewContentMode.ScaleAspectFill
-		moneyView.backgroundColor = Color.whiteBackground
-		moneyView.layer.cornerRadius = 3
-		profileContainer.addSubview(moneyView)
-		moneyView.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(ratingStarsView.snp_right).offset(28)
-			make.centerY.equalTo(ratingStarsView.snp_centerY)
-			make.height.equalTo(35)
-			make.width.equalTo(55)
-		}
-		
-		//Money Label
-		
-		let moneyLabel = UILabel()
-		profileContainer.addSubview(moneyLabel)
-		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = Color.blackPrimary
-		moneyLabel.text = "$\(applicationPrice)"
-		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
-		moneyLabel.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(moneyView.snp_edges)
-		}
-		
-		//Arrow
-		
-		let arrow = UIButton()
-		profileContainer.addSubview(arrow)
-		arrow.setBackgroundImage(UIImage(named: "arrow_applicant_cell.png"), forState: UIControlState.Normal)
-		arrow.alpha = 0.2
-		arrow.contentMode = UIViewContentMode.ScaleAspectFill
-		arrow.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(profileContainer.snp_right).offset(-18)
-			make.centerY.equalTo(profileContainer.snp_centerY)
-			make.height.equalTo(25)
-			make.width.equalTo(15)
-		}
-		
-		let profileUnderline = UIView()
-		applicantContainer.addSubview(profileUnderline)
-		profileUnderline.backgroundColor = Color.grayDetails
-		profileUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileContainer.snp_bottom)
-			make.width.equalTo(applicantContainer.snp_width)
-			make.centerX.equalTo(applicantContainer.snp_centerX)
-			make.height.equalTo(0.5)
-		}
-		
-		let profileTapAction = UITapGestureRecognizer(target: self, action: "didTapProfile:")
-		profileContainer.addGestureRecognizer(profileTapAction)
+		//Nelper info Container
 		
 		let informationContainer = UIView()
 		applicantContainer.addSubview(informationContainer)
 		informationContainer.backgroundColor = Color.whitePrimary
 		informationContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileUnderline.snp_bottom)
-			make.bottom.equalTo(applicantContainer.snp_bottom)
-			make.width.equalTo(applicantContainer.snp_width)
+			make.top.equalTo(profileContainer.snp_bottom)
+			make.left.equalTo(applicantContainer.snp_left)
+			make.right.equalTo(applicantContainer.snp_right)
 		}
 		
 		let emailLabel = UILabel()
 		informationContainer.addSubview(emailLabel)
 		emailLabel.text = "cvinette@nelper.ca"
-		emailLabel.textColor = Color.blackPrimary
+		emailLabel.textColor = Color.darkGrayDetails
 		emailLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		emailLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
-			make.centerY.equalTo(informationContainer.snp_centerY).offset(-30)
+			make.top.equalTo(informationContainer.snp_top).offset(20)
 		}
 	
 		let emailIcon = UIImageView()
@@ -546,14 +448,14 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		emailIcon.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(emailLabel.snp_left).offset(-15)
 			make.centerY.equalTo(emailLabel.snp_centerY)
-			make.height.equalTo(30)
-			make.width.equalTo(30)
+			make.height.equalTo(25)
+			make.width.equalTo(25)
 		}
 		
 		let phoneLabel = UILabel()
 		informationContainer.addSubview(phoneLabel)
-		phoneLabel.text = "000-000-000"
-		phoneLabel.textColor = Color.blackPrimary
+		phoneLabel.text = "000-000-0000"
+		phoneLabel.textColor = Color.darkGrayDetails
 		phoneLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		phoneLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
@@ -566,8 +468,20 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		phoneIcon.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(phoneLabel.snp_left).offset(-15)
 			make.centerY.equalTo(phoneLabel.snp_centerY)
-			make.height.equalTo(30)
-			make.width.equalTo(30)
+			make.height.equalTo(25)
+			make.width.equalTo(25)
+		}
+		
+		informationContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(phoneIcon.snp_bottom).offset(20)
+		}
+		
+		applicantContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(informationContainer.snp_bottom)
+		}
+		
+		contentView.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(applicantContainer.snp_bottom).offset(50)
 		}
 		
 		//Chat Button
@@ -690,10 +604,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	- parameter applicant: The Applicant
 	*/
 	
-	func setImages(applicant:User){
-		if(applicant.profilePictureURL != nil){
+	func setImages(applicant:User) {
+		if(applicant.profilePictureURL != nil) {
 			let fbProfilePicture = applicant.profilePictureURL
-			request(.GET,fbProfilePicture!).response(){
+			request(.GET,fbProfilePicture!).response() {
 				(_, _, data, _) in
 				let image = UIImage(data: data as NSData!)
 				self.picture.image = image
@@ -703,7 +617,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	
 	// MARK: Setters
 	func setApplicant(){
-		for application in self.task.applications{
+		for application in self.task.applications {
 			if application.state == .Accepted {
 				self.acceptedApplicant = application.user!
 				self.acceptedApplication = application

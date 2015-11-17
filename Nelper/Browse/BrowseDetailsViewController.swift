@@ -101,15 +101,15 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		//Profile Container
 		
-		let profileContainer = ProfileCellView(task:self.task)
+		let profileContainer = ProfileCellView(user: self.task.user, price: nil)
 		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
 		self.picture = profileContainer.picture
 		self.contentView.addSubview(profileContainer)
 		profileContainer.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(90)
 			make.top.equalTo(self.contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
+			make.height.equalTo(90)
 		}
 		
 		//Task Container
@@ -167,6 +167,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		taskContainer.addSubview(descriptionLabel)
 		descriptionLabel.text = self.task.desc!
 		descriptionLabel.textColor = Color.blackPrimary
+		descriptionLabel.numberOfLines = 0
 		descriptionLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		descriptionLabel.textAlignment = NSTextAlignment.Center
 		descriptionLabel.snp_makeConstraints { (make) -> Void in
@@ -329,7 +330,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	
 	func createOfferContainer() {
 		
-		
 		let offerContainer = UIView()
 		self.offerContainer = offerContainer
 		contentView.addSubview(offerContainer)
@@ -352,9 +352,9 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		posterNameOffer.textColor = Color.darkGrayDetails
 		posterNameOffer.font = UIFont(name: "Lato-Regular", size: kText15)
 		if self.task.user.firstName != nil {
-		posterNameOffer.text = "\(self.task.user.firstName)'s offer"
-		}else{
-			posterNameOffer.text = "Offer:"
+			posterNameOffer.text = "\(self.task.user.firstName!)'s offer"
+		} else {
+			posterNameOffer.text = "Offer"
 		}
 		posterNameOffer.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(offerLabelContainer.snp_left)

@@ -10,19 +10,26 @@ import UIKit
 
 class ProfileCellView: UIView {
 	
-	var picture:UIImageView!
-	var button:UIButton!
+	var picture: UIImageView!
+	var button: UIButton!
+	
+	var userName: String!
+	var applicationPrice: Int?
+	var rating: Double!
+	var completedTasks: Int!
 
-	init(task: Task) {
+	init(user: User, price: Int?) {
 		super.init(frame: CGRectZero)
-		self.createView(task)
+
+		self.createView(user, price: price)
 	}
 
 	required init?(coder aDecoder: NSCoder) {
 	    fatalError("init(coder:) has not been implemented")
 	}
 	
-	func createView(task: Task) {
+	func createView(user: User, price: Int?) {
+		
 		let profileContainer = UIButton()
 		self.button = profileContainer
 		self.addSubview(profileContainer)
@@ -52,7 +59,7 @@ class ProfileCellView: UIView {
 		
 		let nameLabel = UILabel()
 		profileContainer.addSubview(nameLabel)
-		nameLabel.text = task.user.name
+		nameLabel.text = user.name
 		nameLabel.textColor = Color.blackPrimary
 		nameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		nameLabel.snp_makeConstraints { (make) -> Void in
@@ -67,8 +74,8 @@ class ProfileCellView: UIView {
 		ratingStarsView.starPadding = 5
 		ratingStarsView.textSize = kText15
 		profileContainer.addSubview(ratingStarsView)
-		ratingStarsView.userRating = task.user.rating
-		ratingStarsView.userCompletedTasks = task.user.completedTasks
+		ratingStarsView.userRating = user.rating
+		ratingStarsView.userCompletedTasks = user.completedTasks
 		ratingStarsView.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(nameLabel.snp_left)
 			make.top.equalTo(picture.snp_centerY).offset(spacing)
@@ -76,16 +83,40 @@ class ProfileCellView: UIView {
 			make.height.equalTo(ratingStarsView.starHeight)
 		}
 		
-		let arrow = UIImageView()
-		profileContainer.addSubview(arrow)
-		arrow.image = UIImage(named: "arrow_applicant_cell")
-		arrow.contentMode = .ScaleAspectFit
-		arrow.alpha = 0.3
-		arrow.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(profileContainer.snp_right).offset(-20)
-			make.centerY.equalTo(profileContainer.snp_centerY)
-			make.height.equalTo(30)
-			make.width.equalTo(30)
+		if price != nil {
+			let moneyView = UIView()
+			moneyView.contentMode = UIViewContentMode.ScaleAspectFill
+			moneyView.backgroundColor = Color.whiteBackground
+			moneyView.layer.cornerRadius = 3
+			profileContainer.addSubview(moneyView)
+			moneyView.snp_makeConstraints { (make) -> Void in
+				make.right.equalTo(profileContainer.snp_right).offset(-20)
+				make.centerY.equalTo(ratingStarsView.snp_centerY)
+				make.height.equalTo(35)
+				make.width.equalTo(55)
+			}
+			
+			let moneyLabel = UILabel()
+			profileContainer.addSubview(moneyLabel)
+			moneyLabel.textAlignment = NSTextAlignment.Center
+			moneyLabel.textColor = Color.blackPrimary
+			moneyLabel.text = "$\(price!)"
+			moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
+			moneyLabel.snp_makeConstraints { (make) -> Void in
+				make.edges.equalTo(moneyView.snp_edges)
+			}
+		} else {
+			let arrow = UIImageView()
+			profileContainer.addSubview(arrow)
+			arrow.image = UIImage(named: "arrow_applicant_cell")
+			arrow.contentMode = .ScaleAspectFit
+			arrow.alpha = 0.3
+			arrow.snp_makeConstraints { (make) -> Void in
+				make.right.equalTo(profileContainer.snp_right).offset(-20)
+				make.centerY.equalTo(profileContainer.snp_centerY)
+				make.height.equalTo(30)
+				make.width.equalTo(30)
+			}
 		}
 	}
 }

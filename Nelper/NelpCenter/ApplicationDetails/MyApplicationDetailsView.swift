@@ -10,11 +10,11 @@ import Foundation
 import Alamofire
 import iCarousel
 
-protocol MyApplicationDetailsViewDelegate{
+protocol MyApplicationDetailsViewDelegate {
 	func didCancelApplication(application:TaskApplication)
 }
 
-class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, iCarouselDataSource, iCarouselDelegate {
+class MyApplicationDetailsView: UIViewController {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var containerView: UIView!
@@ -23,9 +23,6 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	
 	var poster: User!
 	var application: TaskApplication!
-	var pictures: NSArray?
-	var carousel: iCarousel!
-	let locationManager = CLLocationManager()
 	var picture: UIImageView!
 	var scrollView: UIScrollView!
 	var delegate: MyApplicationDetailsViewDelegate!
@@ -41,8 +38,6 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	var postDateLabel: UILabel!
 	var applicationStatusIcon: UIImageView!
 	var statusLabel: UILabel!
-	var taskImageContainer: UIView!
-	var carouselContainer: UIView!
 	var cancelButton: SecondaryActionButton!
 	
 	
@@ -52,7 +47,6 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		self.init(nibName: "MyApplicationDetailsView", bundle: nil)
 		self.poster = poster
 		self.application = application
-		self.pictures = self.application.task.pictures
 	}
 	
 	override func viewDidLoad() {
@@ -69,7 +63,8 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	
 	func createView(){
 		
-		//Status Header
+		//Header
+		
 		let statusContainer = UIView()
 		self.statusContainer = statusContainer
 		self.statusContainer.layer.borderColor = Color.grayDetails.CGColor
@@ -114,7 +109,6 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		moneyLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTag.snp_edges)
-			make.centerX.equalTo(moneyTag.snp_centerY).offset(1)
 		}
 		
 		//Status
@@ -134,7 +128,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		statusLabel.text = self.fetchStatusText()
 		statusContainer.addSubview(statusLabel)
 		statusLabel.textColor = Color.blackPrimary
-		statusLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
+		statusLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		statusLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(moneyTag.snp_centerY)
 			make.centerX.equalTo(applicationStatusLabel.snp_centerX).offset(16)
@@ -169,7 +163,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		appliedXDaysAgoLabel.text = "\(dateHelpah.timeAgoSinceDate(self.application.createdAt!, numericDates: true))"
 		appliedXDaysAgoLabel.textAlignment = NSTextAlignment.Right
 		appliedXDaysAgoLabel.textColor = Color.blackPrimary
-		appliedXDaysAgoLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
+		appliedXDaysAgoLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		appliedXDaysAgoLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(appliedDate.snp_centerX).offset(10)
 			make.centerY.equalTo(moneyTag.snp_centerY)
@@ -212,7 +206,6 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			make.top.equalTo(scrollView.snp_top)
 			make.left.equalTo(scrollView.snp_left)
 			make.right.equalTo(scrollView.snp_right)
-			//make.bottom.equalTo(self.scrollView.snp_bottom)
 			make.height.greaterThanOrEqualTo(background.snp_height)
 			make.width.equalTo(background.snp_width)
 		}
@@ -221,285 +214,25 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		
 		//Profile Container
 		
-		let profileContainer = ProfileCellView(task:self.application.task)
+		let profileContainer = ProfileCellView(user: self.application.task.user, price: nil)
 		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
 		self.picture = profileContainer.picture
 		self.contentView.addSubview(profileContainer)
 		profileContainer.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(90)
 			make.top.equalTo(self.contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
+			make.height.equalTo(90)
 		}
 		
-		//Task Container
+		//Task info container
 		
-		let taskContainer = UIView()
-		self.contentView.addSubview(taskContainer)
-		taskContainer.layer.borderWidth = 1
-		taskContainer.layer.borderColor = Color.grayDetails.CGColor
-		taskContainer.backgroundColor = Color.whitePrimary
-		taskContainer.snp_makeConstraints { (make) -> Void in
+		let taskInfoContainer = TaskInfoView(application: self.application, accepted: false)
+		contentView.addSubview(taskInfoContainer)
+		taskInfoContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(profileContainer.snp_bottom).offset(20)
-			make.left.equalTo(self.contentView.snp_left).offset(-1)
-			make.right.equalTo(self.contentView.snp_right).offset(1)
-		}
-		
-		let taskNameLabel = UILabel()
-		taskContainer.addSubview(taskNameLabel)
-		taskNameLabel.text = self.application.task.title
-		taskNameLabel.textAlignment = NSTextAlignment.Center
-		taskNameLabel.numberOfLines = 0
-		taskNameLabel.textColor = Color.blackPrimary
-		taskNameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		taskNameLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskContainer).offset(20)
-			make.centerX.equalTo(taskContainer.snp_centerX)
-			make.left.equalTo(taskContainer.snp_left)
-			make.right.equalTo(taskContainer.snp_right)
-		}
-		
-		let taskNameLabelUnderline = UIView()
-		taskContainer.addSubview(taskNameLabelUnderline)
-		taskNameLabelUnderline.backgroundColor = Color.grayDetails
-		taskNameLabelUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskNameLabel.snp_bottom).offset(40)
-			make.centerX.equalTo(taskContainer.snp_centerX)
-			make.width.equalTo(taskContainer.snp_width).dividedBy(1.4)
-			make.height.equalTo(0.5)
-		}
-		
-		let categoryIcon = UIImageView()
-		taskContainer.addSubview(categoryIcon)
-		categoryIcon.image = UIImage(named:self.application.task.category!)
-		let categoryIconSize:CGFloat = 40
-		categoryIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		categoryIcon.layer.cornerRadius = categoryIconSize / 2
-		categoryIcon.snp_makeConstraints { (make) -> Void in
-			make.center.equalTo(taskNameLabelUnderline)
-			make.height.equalTo(categoryIconSize)
-			make.width.equalTo(categoryIconSize)
-		}
-		
-		let descriptionTextView = UITextView()
-		taskContainer.addSubview(descriptionTextView)
-		descriptionTextView.backgroundColor = Color.whitePrimary
-		descriptionTextView.text = self.application.task.desc!
-		descriptionTextView.textColor = Color.blackPrimary
-		descriptionTextView.scrollEnabled = false
-		descriptionTextView.editable = false
-		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText14)
-		descriptionTextView.textAlignment = NSTextAlignment.Center
-		descriptionTextView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskNameLabelUnderline.snp_bottom).offset(40)
-			make.left.equalTo(taskContainer.snp_left).offset(10)
-			make.right.equalTo(taskContainer.snp_right).offset(-10)
-		}
-		
-		let fixedWidth = descriptionTextView.frame.size.width
-		descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-		let newSize = descriptionTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-		var newFrame = descriptionTextView.frame
-		newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-		descriptionTextView.frame = newFrame;
-		
-		
-		let descriptionUnderline = UIView()
-		taskContainer.addSubview(descriptionUnderline)
-		descriptionUnderline.backgroundColor = Color.grayDetails
-		descriptionUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(descriptionTextView.snp_bottom).offset(10)
-			make.centerX.equalTo(taskContainer.snp_centerX)
-			make.width.equalTo(taskContainer.snp_width).dividedBy(1.4)
-			make.height.equalTo(0.5)
-		}
-		
-		let taskPosterOffer = UILabel()
-		taskContainer.addSubview(taskPosterOffer)
-		if self.application.task.user.firstName != nil{
-			taskPosterOffer.text = "\(self.application.task.user.firstName)'s offer"
-		}else{
-			taskPosterOffer.text = "Offer:"
-		}
-		taskPosterOffer.textColor = Color.darkGrayDetails
-		taskPosterOffer.font = UIFont(name: "Lato-Regular", size: kText14)
-		taskPosterOffer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(descriptionUnderline.snp_bottom).offset(40)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(-40)
-		}
-		
-		let moneyTagPoster = UIView()
-		taskContainer.addSubview(moneyTagPoster)
-		moneyTagPoster.backgroundColor = Color.whiteBackground
-		moneyTagPoster.layer.cornerRadius = 3
-		moneyTagPoster.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(taskPosterOffer.snp_centerY)
-			make.left.equalTo(taskPosterOffer.snp_right).offset(15)
-			make.width.equalTo(60)
-			make.height.equalTo(30)
-		}
-		
-		let moneyLabelPoster = UILabel()
-		moneyTagPoster.addSubview(moneyLabelPoster)
-		moneyLabelPoster.textAlignment = NSTextAlignment.Center
-		moneyLabelPoster.text = "$\(Int(self.application.task.priceOffered!))"
-		moneyLabelPoster.textColor = Color.blackPrimary
-		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kText15)
-		moneyLabelPoster.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(moneyTagPoster.snp_edges)
-		}
-		
-		let postDateLabel = UILabel()
-		taskContainer.addSubview(postDateLabel)
-		self.postDateLabel = postDateLabel
-		let dateHelper = DateHelper()
-		postDateLabel.text = "Posted \(dateHelper.timeAgoSinceDate(self.application.task.createdAt!, numericDates: true))"
-		postDateLabel.textColor = Color.darkGrayDetails
-		postDateLabel.font = UIFont(name: "Lato-Regular", size: kText14)
-		postDateLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(moneyTagPoster.snp_bottom).offset(30)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(22)
-		}
-		
-		let postedIcon = UIImageView()
-		taskContainer.addSubview(postedIcon)
-		postedIcon.image = UIImage(named:"calendar")
-		postedIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		postedIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(35)
-			make.width.equalTo(35)
-			make.centerY.equalTo(postDateLabel.snp_centerY)
-			make.right.equalTo(postDateLabel.snp_left).offset(-14)
-		}
-		
-		let cityLabel = UILabel()
-		taskContainer.addSubview(cityLabel)
-		self.cityLabel = cityLabel
-		cityLabel.font = UIFont(name: "Lato-Regular", size: kText14)
-		cityLabel.text = self.application.task.city!
-		cityLabel.textColor = Color.darkGrayDetails
-		cityLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(postedIcon.snp_bottom).offset(30)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(15)
-		}
-		
-		let pinIcon = UIImageView()
-		taskContainer.addSubview(pinIcon)
-		pinIcon.image = UIImage(named: "pin")
-		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		pinIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(35)
-			make.width.equalTo(35)
-			make.centerY.equalTo(cityLabel.snp_centerY)
-			make.right.equalTo(cityLabel.snp_left).offset(-7)
-		}
-		
-		//Map Container
-		
-		let mapContainer = UIView()
-		self.contentView.addSubview(mapContainer)
-		mapContainer.layer.borderColor = Color.grayDetails.CGColor
-		mapContainer.layer.borderWidth = 1
-		mapContainer.backgroundColor = Color.whitePrimary
-		mapContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(pinIcon.snp_bottom).offset(42)
-			make.left.equalTo(self.contentView.snp_left).offset(-1)
-			make.right.equalTo(self.contentView.snp_right).offset(1)
-			make.height.equalTo(250)
-		}
-		
-		taskContainer.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(mapContainer.snp_bottom)
-		}
-		
-		let mapView = MKMapView()
-		mapView.delegate = self
-		mapView.scrollEnabled = false
-		mapView.zoomEnabled = false
-		mapView.userInteractionEnabled = false
-		mapContainer.addSubview(mapView)
-		mapView.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(mapContainer.snp_edges)
-		}
-		
-		self.locationManager.delegate = self
-		self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-		self.locationManager.requestWhenInUseAuthorization()
-		self.locationManager.startUpdatingLocation()
-		self.locationManager.distanceFilter = 40
-		
-		let locationNoticeLabel = UILabel()
-		taskContainer.addSubview(locationNoticeLabel)
-		locationNoticeLabel.text = "Exact location in this 400m area"
-		locationNoticeLabel.textColor = Color.darkGrayDetails
-		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kText13)
-		locationNoticeLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(taskContainer.snp_left).offset(8)
-			make.bottom.equalTo(mapContainer.snp_top).offset(-2)
-		}
-		
-		let taskLocation = CLLocationCoordinate2DMake(self.application.task.location!.latitude, self.application.task.location!.longitude)
-		let span: MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
-		let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(taskLocation, span)
-		mapView.setRegion(locationToZoom, animated: true)
-		mapView.setCenterCoordinate(taskLocation, animated: true)
-		
-		let circle = MKCircle(centerCoordinate: taskLocation, radius: 400)
-		mapView.addOverlay(circle)
-		
-		//Task Image Container
-		
-		let taskImageContainer = UIView()
-		self.taskImageContainer = taskImageContainer
-		contentView.addSubview(taskImageContainer)
-		
-		if self.application.task.pictures != nil {
-			if self.pictures!.count > 0 {
-				
-				taskImageContainer.backgroundColor = Color.whitePrimary
-				taskImageContainer.layer.borderWidth = 1
-				taskImageContainer.layer.borderColor = Color.grayDetails.CGColor
-				taskImageContainer.snp_makeConstraints { (make) -> Void in
-					make.top.equalTo(taskContainer.snp_bottom).offset(20)
-					make.left.equalTo(self.contentView.snp_left).offset(-1)
-					make.right.equalTo(self.contentView.snp_right).offset(1)
-				}
-				
-				let carousel = iCarousel()
-				self.carousel = carousel
-				self.carousel.delegate = self
-				self.carousel.clipsToBounds = true
-				self.carousel.type = .Linear
-				self.carousel.bounces = false
-				self.carousel.dataSource = self
-				
-				let carouselContainer = UIView()
-				self.carouselContainer = carouselContainer
-				taskImageContainer.addSubview(carouselContainer)
-				carouselContainer.backgroundColor = Color.whitePrimary
-				carouselContainer.snp_makeConstraints { (make) -> Void in
-					make.top.equalTo(taskImageContainer.snp_top).offset(20)
-					make.centerX.equalTo(taskImageContainer.snp_centerX)
-					make.height.equalTo(300)
-					make.width.equalTo(self.contentView.snp_width)
-				}
-				
-				self.carouselContainer.addSubview(carousel)
-				self.carousel.snp_makeConstraints(closure: { (make) -> Void in
-					make.edges.equalTo(carouselContainer.snp_edges)
-				})
-				
-				taskImageContainer.snp_updateConstraints(closure: { (make) -> Void in
-					make.bottom.equalTo(carouselContainer.snp_bottom).offset(20)
-				})
-				
-			}} else {
-			
-			taskImageContainer.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(taskContainer.snp_bottom)
-				make.bottom.equalTo(taskContainer.snp_bottom)
-			}
-			
+			make.left.equalTo(contentView.snp_left).offset(-1)
+			make.right.equalTo(contentView.snp_right).offset(1)
 		}
 		
 		//Cancel
@@ -507,7 +240,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		let cancelContainer = UIView()
 		contentView.addSubview(cancelContainer)
 		cancelContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskImageContainer.snp_bottom).offset(30)
+			make.top.equalTo(taskInfoContainer.snp_bottom).offset(30)
 			make.width.equalTo(self.contentView.snp_width)
 			make.height.equalTo(120)
 			make.bottom.equalTo(self.contentView.snp_bottom)
@@ -567,40 +300,16 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 	
 	- parameter applicant: Task Poster
 	*/
-	func setImages(applicant:User){
-		if(applicant.profilePictureURL != nil){
+	func setImages(applicant:User) {
+		if(applicant.profilePictureURL != nil) {
 			let fbProfilePicture = applicant.profilePictureURL
-			request(.GET,fbProfilePicture!).response(){
+			request(.GET,fbProfilePicture!).response() {
 				(_, _, data, _) in
 				let image = UIImage(data: data as NSData!)
 				self.picture.image = image
 			}
 		}
 		self.applicationStatusIcon.image = self.fetchStatusIcon()
-	}
-	
-	//MARK: MKMapView Delegate Methods
-	
-	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-		if overlay is MKCircle {
-			let circle = MKCircleRenderer(overlay: overlay)
-			circle.strokeColor = UIColor.redColor()
-			circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
-			circle.lineWidth = 1
-			return circle
-		} else {
-			return MKCircleRenderer()
-		}
-	}
-	
-	//MARK: CLLocation Delegate Methods
-	
-	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		
-	}
-	
-	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-		
 	}
 	
 	//MARK: View Delegate Methods
@@ -660,33 +369,6 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 		}
 	}
 	
-	//MARK: iCarousel Delegate
-	
-	func numberOfItemsInCarousel(carousel: iCarousel) -> Int {
-		if self.application.task.pictures != nil {
-			if self.pictures?.count == 1 {
-				self.carousel.scrollEnabled = false
-			}
-			return self.pictures!.count
-		}
-		return 0
-	}
-	
-	
- func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
-	
-	let picture = UIImageView(frame: self.carousel.frame)
-	picture.clipsToBounds = true
-	let imageURL = self.application.task.pictures![index].url!
-	
-	ApiHelper.getPictures(imageURL, block: { (imageReturned:UIImage) -> Void in
-		picture.image = imageReturned
-	})
-	
-	picture.contentMode = .ScaleAspectFit
-	return picture
-	}
-	
 	//MARK: Actions
 	
 	func backButtonTapped(sender:UIButton){
@@ -737,7 +419,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			
 			let conversation = try? LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.poster.objectId]), options: nil)
 			
-			//		var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
+			//	var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
 			let nextVC = ApplicantChatViewController(layerClient: LayerManager.sharedInstance.layerClient)
 			nextVC.displaysAddressBar = false
 			if conversation != nil{
@@ -759,7 +441,7 @@ class MyApplicationDetailsView: UIViewController, CLLocationManagerDelegate, MKM
 			self.tempVC = tempVC
 			self.addChildViewController(tempVC)
 			self.view.addSubview(tempVC.view)
-			//		tempVC.view.backgroundColor = UIColor.yellowColor()
+			//tempVC.view.backgroundColor = UIColor.yellowColor()
 			tempVC.didMoveToParentViewController(self)
 			tempVC.view.backgroundColor = UIColor.clearColor()
 			tempVC.view.snp_makeConstraints { (make) -> Void in
