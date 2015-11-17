@@ -86,7 +86,7 @@ class TaskInfoView: UIView, MKMapViewDelegate, iCarouselDataSource, iCarouselDel
 		let descriptionLabel = UILabel()
 		taskContainer.addSubview(descriptionLabel)
 		descriptionLabel.text = application.task.desc!
-		descriptionLabel.textColor = Color.blackPrimary
+		descriptionLabel.textColor = Color.textFieldTextColor
 		descriptionLabel.numberOfLines = 0
 		descriptionLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		descriptionLabel.textAlignment = NSTextAlignment.Center
@@ -143,13 +143,13 @@ class TaskInfoView: UIView, MKMapViewDelegate, iCarouselDataSource, iCarouselDel
 			taskPosterOffer.hidden = false
 			postDateLabel.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(moneyTagPoster.snp_bottom).offset(30)
-				make.centerX.equalTo(taskContainer.snp_centerX).offset(20)
+				make.centerX.equalTo(taskContainer.snp_centerX).offset(19)
 			}
 		} else {
 			taskPosterOffer.hidden = true
 			postDateLabel.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(descriptionLabel.snp_bottom).offset(30)
-				make.centerX.equalTo(taskContainer.snp_centerX).offset(20)
+				make.centerX.equalTo(taskContainer.snp_centerX).offset(19)
 			}
 		}
 		
@@ -158,8 +158,8 @@ class TaskInfoView: UIView, MKMapViewDelegate, iCarouselDataSource, iCarouselDel
 		postedIcon.image = UIImage(named:"calendar")
 		postedIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		postedIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(25)
-			make.width.equalTo(25)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
 			make.centerY.equalTo(postDateLabel.snp_centerY)
 			make.right.equalTo(postDateLabel.snp_left).offset(-14)
 		}
@@ -179,8 +179,8 @@ class TaskInfoView: UIView, MKMapViewDelegate, iCarouselDataSource, iCarouselDel
 		pinIcon.image = UIImage(named: "pin")
 		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		pinIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(25)
-			make.width.equalTo(25)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
 			make.centerY.equalTo(cityLabel.snp_centerY)
 			make.right.equalTo(cityLabel.snp_left).offset(-7)
 		}

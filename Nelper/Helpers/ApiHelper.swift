@@ -52,7 +52,7 @@ class ApiHelper {
 	static func registerWithEmail(email: String, password: String, firstName: String, lastName: String, block: (NSError?) -> Void) {
 		
 		
-		SVProgressHUD.setBackgroundColor(Color.whitePrimary)
+		SVProgressHUD.setBackgroundColor(UIColor.whiteColor())
 		SVProgressHUD.setForegroundColor(Color.redPrimary)
 		SVProgressHUD.show()
 		let user = PFUser()
@@ -93,7 +93,7 @@ class ApiHelper {
 	static func loginWithFacebook(block: (NSError?) -> Void) {
 		PFFacebookUtils.logInInBackgroundWithReadPermissions(["public_profile", "email"]) { (user: PFUser?, error: NSError?) -> Void in
 			
-			SVProgressHUD.setBackgroundColor(Color.whitePrimary)
+			SVProgressHUD.setBackgroundColor(UIColor.whiteColor())
 			SVProgressHUD.setForegroundColor(Color.redPrimary)
 			SVProgressHUD.show()
 			

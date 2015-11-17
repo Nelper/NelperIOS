@@ -226,7 +226,7 @@ class MoreViewController: UIViewController {
 		case "faq":
 			nextVC = FaqViewController()
 		case "logout":
-			SVProgressHUD.setBackgroundColor(Color.whitePrimary)
+			SVProgressHUD.setBackgroundColor(UIColor.whiteColor())
 			SVProgressHUD.setForegroundColor(Color.redPrimary)
 			SVProgressHUD.showWithStatus("Logging out")
 			

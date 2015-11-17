@@ -166,7 +166,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		let descriptionLabel = UILabel()
 		taskContainer.addSubview(descriptionLabel)
 		descriptionLabel.text = self.task.desc!
-		descriptionLabel.textColor = Color.blackPrimary
+		descriptionLabel.textColor = Color.textFieldTextColor
 		descriptionLabel.numberOfLines = 0
 		descriptionLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		descriptionLabel.textAlignment = NSTextAlignment.Center
@@ -185,7 +185,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		postDateLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		postDateLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(descriptionLabel.snp_bottom).offset(40)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(21)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(19)
 		}
 		
 		let postedIcon = UIImageView()
@@ -193,8 +193,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		postedIcon.image = UIImage(named:"calendar")
 		postedIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		postedIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(35)
-			make.width.equalTo(35)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
 			make.centerY.equalTo(postDateLabel.snp_centerY)
 			make.right.equalTo(postDateLabel.snp_left).offset(-14)
 		}
@@ -207,7 +207,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		cityLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		cityLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(postedIcon.snp_bottom).offset(30)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(15)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(13)
 		}
 		
 		let pinIcon = UIImageView()
@@ -215,8 +215,8 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		pinIcon.image = UIImage(named: "pin")
 		pinIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		pinIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(35)
-			make.width.equalTo(35)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
 			make.centerY.equalTo(cityLabel.snp_centerY)
 			make.right.equalTo(cityLabel.snp_left).offset(-7)
 		}
@@ -421,7 +421,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		myOfferLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		myOfferLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(applyButton.snp_bottom).offset(25)
-			make.right.equalTo(applyButton.snp_centerX).offset(-22)
+			make.right.equalTo(applyButton.snp_centerX).offset(-26)
 		}
 		
 		let myOfferStepper = UIStepper()

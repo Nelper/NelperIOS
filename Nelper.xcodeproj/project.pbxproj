@@ -79,6 +79,7 @@
 		C0BED39A1BCF45E900CE3B63 /* BankSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3991BCF45E900CE3B63 /* BankSettingsViewController.swift */; };
 		C0BED39C1BCF461000CE3B63 /* TransactionsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED39B1BCF461000CE3B63 /* TransactionsSettingsViewController.swift */; };
 		C0BED39F1BCF4E3C00CE3B63 /* UIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED39E1BCF4E3C00CE3B63 /* UIElements.swift */; };
+		C0C6EFDA1BFBDDF50042ACBF /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6EFD91BFBDDF40042ACBF /* TabBar.swift */; };
 		C0EB01B51BD19BFD00F24F43 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EB01B41BD19BFD00F24F43 /* Extensions.swift */; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
@@ -225,6 +226,7 @@
 		C0BED3991BCF45E900CE3B63 /* BankSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BankSettingsViewController.swift; path = Nelper/BankSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0BED39B1BCF461000CE3B63 /* TransactionsSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionsSettingsViewController.swift; path = Nelper/TransactionsSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0BED39E1BCF4E3C00CE3B63 /* UIElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIElements.swift; sourceTree = "<group>"; };
+		C0C6EFD91BFBDDF40042ACBF /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		C0EB01B41BD19BFD00F24F43 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Nelper/Extensions.swift; sourceTree = SOURCE_ROOT; };
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
 		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -309,6 +311,7 @@
 				192635441B744D9C005597E3 /* NavBar.swift */,
 				C0196C971BB5B49300901155 /* SegmentController.swift */,
 				F775C0C61B803E9600F7525B /* TabBarCustom.swift */,
+				C0C6EFD91BFBDDF40042ACBF /* TabBar.swift */,
 				C04FF0021BB86873001E204F /* Button.swift */,
 				C0B2A99B1BF9739D00A999AA /* Timer.swift */,
 				F7A003BA1BF9A8C600D0B568 /* ProfileCellView.swift */,
@@ -845,6 +848,7 @@
 				C04598CD1BCE14FB00AFA579 /* MainSettingsViewCell.swift in Sources */,
 				C0EB01B51BD19BFD00F24F43 /* Extensions.swift in Sources */,
 				19DB24471BB70E8000468E91 /* MyTaskDetailsViewController.swift in Sources */,
+				C0C6EFDA1BFBDDF50042ACBF /* TabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

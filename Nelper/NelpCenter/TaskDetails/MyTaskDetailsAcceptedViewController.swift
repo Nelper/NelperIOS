@@ -18,6 +18,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	var acceptedApplicant: User!
 	var applicationPrice: Int!
 	var acceptedApplication: TaskApplication!
+	var taskInfoPagingView: TaskInfoPagingView!
 	var picture: UIImageView!
 	var ratingStarsView: RatingStars!
 	var chatButton: UIButton!
@@ -88,26 +89,18 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		}
 		contentView.backgroundColor = Color.whiteBackground
 		
-		let taskLabelContainer = UIView()
-		self.contentView.addSubview(taskLabelContainer)
-		taskLabelContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(contentView.snp_top)
-			make.width.equalTo(contentView.snp_width)
-			make.height.equalTo(65)
-		}
+		//Task info
 		
-		let taskLabel = UILabel()
-		taskLabel.textAlignment = NSTextAlignment.Center
-		taskLabel.numberOfLines = 0
-		taskLabel.text = self.task.title
-		taskLabelContainer.addSubview(taskLabel)
-		taskLabel.textColor = Color.darkGrayDetails
-		taskLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		taskLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskLabelContainer.snp_top).offset(4)
-			make.bottom.equalTo(taskLabelContainer.snp_bottom).offset(-4)
-			make.left.equalTo(taskLabelContainer.snp_left).offset(8)
-			make.right.equalTo(taskLabelContainer.snp_right).offset(-8)
+		let taskInfoPagingView = TaskInfoPagingView(task: self.task, acceptedApplication: self.acceptedApplication)
+		self.taskInfoPagingView = taskInfoPagingView
+		self.addChildViewController(taskInfoPagingView)
+		taskInfoPagingView.didMoveToParentViewController(self)
+		contentView.addSubview(taskInfoPagingView.view)
+		taskInfoPagingView.view.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(contentView.snp_top).offset(20)
+			make.left.equalTo(contentView.snp_left)
+			make.right.equalTo(contentView.snp_right)
+			make.height.equalTo(taskInfoPagingView.height + taskInfoPagingView.pagingContainerHeight)
 		}
 		
 		//Progress + Payment Container
@@ -118,7 +111,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		progressContainer.layer.borderWidth = 1
 		progressContainer.backgroundColor = Color.whitePrimary
 		progressContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskLabelContainer.snp_bottom)
+			make.top.equalTo(taskInfoPagingView.view.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left)
 			make.right.equalTo(contentView.snp_right)
 		}
@@ -319,6 +312,15 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 			make.height.equalTo(60)
 		}
 
+		let priceLabel = UILabel()
+		progressContainer.addSubview(priceLabel)
+		priceLabel.text = "\(self.applicationPrice!)$"
+		priceLabel.textColor = Color.blackPrimary
+		priceLabel.font = UIFont(name: "Lato-Light", size: 30)
+		priceLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(nelperPayLogo.snp_bottom).offset(20)
+			make.centerX.equalTo(progressContainer.snp_centerX)
+		}
 		
 		//Payment Button
 		
@@ -328,7 +330,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		paymentButton.setTitle("Proceed to Payment", forState: UIControlState.Normal)
 		paymentButton.addTarget(self, action: "didTapPaymentButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		paymentButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(nelperPayLine.snp_bottom).offset(60)
+			make.top.equalTo(priceLabel.snp_bottom).offset(15)
 			make.centerX.equalTo(progressContainer.snp_centerX)
 		}
 		
@@ -489,7 +491,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		let chatButton = UIButton()
 		self.chatButton = chatButton
 		self.view.addSubview(chatButton)
-		chatButton.backgroundColor = Color.grayBlue
+		chatButton.backgroundColor = Color.redPrimary
 		chatButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
 		chatButton.setImage(UIImage(named: "down_arrow"), forState: UIControlState.Selected)
 		chatButton.addTarget(self, action: "chatButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)

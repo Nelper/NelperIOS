@@ -443,7 +443,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 		completedTaskButton.setTitle("I have completed the task!", forState: UIControlState.Normal)
 		completedTaskButton.addTarget(self, action: "didTapTaskCompleted:", forControlEvents: UIControlEvents.TouchUpInside)
 		completedTaskButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(separationLine.snp_bottom).offset(20)
+			make.top.equalTo(separationLine.snp_bottom).offset(30)
 			make.centerX.equalTo(progressContainer.snp_centerX)
 		}
 

@@ -21,6 +21,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	let thirdSwipeRecRight = UISwipeGestureRecognizer()
 	
 	var task: FindNelpTask!
+	var acceptedApplication: TaskApplication?
 	
 	var delegate: TaskInfoPagingViewDelegate!
 	
@@ -38,7 +39,8 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	var secondO: PageControllerOval!
 	var thirdO: PageControllerOval!
 	
-	var height: CGFloat!
+	var height: CGFloat = 270
+	var pagingContainerHeight: CGFloat = 50
 	
 	var selectedAlpha: CGFloat = 1
 	var unselectedAlpha: CGFloat = 0.5
@@ -58,11 +60,11 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	var titleTextView: UITextView!
 	var descriptionTextView: UITextView!
 	
-	convenience init(task: FindNelpTask, height: CGFloat) {
+	convenience init(task: FindNelpTask, acceptedApplication: TaskApplication?) {
 		self.init()
 		
-		self.height = height
 		self.task = task
+		self.acceptedApplication = acceptedApplication
 		
 		self.imagePicker.delegate = self
 		
@@ -112,8 +114,6 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	
 	func createView() {
 		
-		let pagingContainerHeight = 50
-		
 		let contentView = UIView()
 		self.contentView = contentView
 		self.view.addSubview(contentView)
@@ -154,7 +154,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 			make.top.equalTo(firstContainer.snp_top).offset(17)
 			make.left.equalTo(firstContainer.snp_left).offset(12)
 			make.right.equalTo(firstContainer.snp_right).offset(-12)
-			make.height.equalTo(60)
+			make.height.equalTo(65)
 		}
 		titleTextView.contentInset.top = 40
 		titleTextView.layoutIfNeeded()
@@ -202,6 +202,11 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 			make.bottom.equalTo(firstContainer.snp_bottom)
 		}
 		
+		if self.acceptedApplication != nil {
+			titleTextView.editable = false
+			descriptionTextView.editable = false
+		}
+		
 		//SECOND CONTAINER
 		let secondContainer = UIView()
 		self.secondContainer = secondContainer
@@ -227,6 +232,18 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 			make.centerX.equalTo(secondContainer.snp_centerX)
 		}
 		
+		//Set strings
+		var offerLabel: String
+		var price: String
+		
+		if acceptedApplication != nil {
+			offerLabel = "Agreed price"
+			price = "\(self.acceptedApplication!.price!)"
+		} else {
+			offerLabel = "My offer"
+			price = String(format: "%.0f", self.task.priceOffered!)
+		}
+		
 		let streetAddressLabel = UILabel()
 		streetAddressLabel.backgroundColor = UIColor.clearColor()
 		secondContainer.addSubview(streetAddressLabel)
@@ -235,7 +252,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		streetAddressLabel.textColor = Color.darkGrayDetails
 		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		streetAddressLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(secondContainer.snp_centerX).offset(16)
+			make.centerX.equalTo(secondContainer.snp_centerX).offset(14)
 			make.bottom.equalTo(secondContainer.snp_centerY).offset(-30)
 		}
 		
@@ -244,8 +261,8 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		pinIcon.image = UIImage(named: "pin")
 		pinIcon.contentMode = UIViewContentMode.ScaleAspectFit
 		pinIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(35)
-			make.width.equalTo(35)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
 			make.centerY.equalTo(streetAddressLabel.snp_centerY)
 			make.right.equalTo(streetAddressLabel.snp_left).offset(-10)
 		}
@@ -257,7 +274,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		dateLabel.textColor = Color.darkGrayDetails
 		dateLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		dateLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(secondContainer.snp_centerX).offset(15)
+			make.centerX.equalTo(secondContainer.snp_centerX).offset(13)
 			make.centerY.equalTo(secondContainer.snp_centerY).offset(10)
 		}
 		
@@ -266,8 +283,8 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		dateIcon.image = UIImage(named: "pin")
 		dateIcon.contentMode = UIViewContentMode.ScaleAspectFit
 		dateIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(35)
-			make.width.equalTo(35)
+			make.height.equalTo(30)
+			make.width.equalTo(30)
 			make.centerY.equalTo(dateLabel.snp_centerY)
 			make.right.equalTo(dateLabel.snp_left).offset(-10)
 		}
@@ -275,12 +292,12 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		let myOfferLabel = UILabel()
 		myOfferLabel.backgroundColor = UIColor.clearColor()
 		secondContainer.addSubview(myOfferLabel)
-		myOfferLabel.text = "My Offer"
+		myOfferLabel.text = offerLabel
 		myOfferLabel.textColor = Color.darkGrayDetails
 		myOfferLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		myOfferLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(secondContainer.snp_centerX)
-			make.top.equalTo(secondContainer.snp_centerY).offset(50)
+			make.centerX.equalTo(secondContainer.snp_centerX).offset(-28)
+			make.top.equalTo(secondContainer.snp_centerY).offset(60)
 		}
 		
 		let moneyContainer = UIView()
@@ -288,8 +305,8 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		moneyContainer.backgroundColor = Color.whiteBackground
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(secondContainer.snp_centerX)
-			make.top.equalTo(myOfferLabel.snp_bottom).offset(5)
+			make.left.equalTo(myOfferLabel.snp_right).offset(12)
+			make.centerY.equalTo(myOfferLabel.snp_centerY)
 			make.width.equalTo(55)
 			make.height.equalTo(35)
 		}
@@ -298,7 +315,6 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		moneyContainer.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
 		moneyLabel.textColor = Color.blackPrimary
-		let price = String(format: "%.0f", self.task.priceOffered!)
 		moneyLabel.text = price+"$"
 		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
@@ -392,7 +408,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 			make.top.equalTo(firstContainer.snp_bottom)
 			make.left.equalTo(self.view.snp_left)
 			make.right.equalTo(self.view.snp_right)
-			make.height.equalTo(pagingContainerHeight)
+			make.height.equalTo(self.pagingContainerHeight)
 		}
 		
 		let firstO = PageControllerOval()

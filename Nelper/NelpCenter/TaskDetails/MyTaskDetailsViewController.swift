@@ -108,9 +108,8 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 		contentView.layoutIfNeeded()
 		
 		//Task info
-		let containerHeight: CGFloat = 270
 		
-		let taskInfoPagingView = TaskInfoPagingView(task: self.task, height: containerHeight)
+		let taskInfoPagingView = TaskInfoPagingView(task: self.task, acceptedApplication: nil)
 		self.taskInfoPagingView = taskInfoPagingView
 		taskInfoPagingView.delegate = self
 		taskInfoPagingView.view.layer.zPosition = 10
@@ -121,7 +120,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 			make.top.equalTo(contentView.snp_top).offset(20)
 			make.left.equalTo(contentView.snp_left)
 			make.right.equalTo(contentView.snp_right)
-			make.height.equalTo(containerHeight + 50)
+			make.height.equalTo(taskInfoPagingView.height + taskInfoPagingView.pagingContainerHeight)
 		}
 		
 		//Active Applicants
