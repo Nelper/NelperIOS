@@ -39,6 +39,7 @@ class MyApplicationDetailsView: UIViewController {
 	var applicationStatusIcon: UIImageView!
 	var statusLabel: UILabel!
 	var cancelButton: SecondaryActionButton!
+	var whiteView:UIView!
 	
 	
 	//MARK: Initialization
@@ -427,8 +428,8 @@ class MyApplicationDetailsView: UIViewController {
 			} else {
 				let query:LYRQuery = LYRQuery(queryableClass: LYRConversation.self)
 				query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
-				let result = try? LayerManager.sharedInstance.layerClient.executeQuery(query)
-				nextVC.conversation = result!.firstObject as! LYRConversation
+				let result = try! LayerManager.sharedInstance.layerClient.executeQuery(query)
+				nextVC.conversation = result.firstObject as! LYRConversation
 			}
 			let conversationNavController = UINavigationController(rootViewController: nextVC)
 			self.conversationController = conversationNavController
@@ -449,6 +450,19 @@ class MyApplicationDetailsView: UIViewController {
 				make.bottom.equalTo(self.view.snp_bottom)
 				make.width.equalTo(self.view.snp_width)
 			}
+			//Temporary hack for Atlas bug
+			
+			let whiteView = UIView()
+			self.whiteView = whiteView
+			whiteView.alpha = 0
+			whiteView.backgroundColor = UIColor.whiteColor()
+			tempVC.view.addSubview(whiteView)
+			whiteView.snp_makeConstraints(closure: { (make) -> Void in
+				make.bottom.equalTo(tempVC.view)
+				make.width.equalTo(tempVC.view)
+				make.height.equalTo(80)
+			})
+			
 			
 			tempVC.addChildViewController(self.conversationController!)
 			_ = UIScreen.mainScreen().bounds.height -  (UIScreen.mainScreen().bounds.height - self.statusContainer.frame.height)
@@ -474,13 +488,14 @@ class MyApplicationDetailsView: UIViewController {
 						make.width.equalTo(100)
 						make.height.equalTo(40)
 					})
+					whiteView.alpha = 1
 					self.conversationController!.didMoveToParentViewController(tempVC)
 			}
 		}else{
 			
 			
 			UIView.animateWithDuration(0.5, animations: { () -> Void in
-				
+				self.whiteView.alpha = 0
 				self.conversationController!.view.addSubview(self.chatButton)
 				self.chatButton.snp_remakeConstraints(closure: { (make) -> Void in
 					make.right.equalTo(self.view.snp_right).offset(2)

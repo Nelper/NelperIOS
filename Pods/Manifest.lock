@@ -1,17 +1,17 @@
 PODS:
-  - Alamofire (3.1.1)
-  - Atlas (1.0.14):
-    - LayerKit (>= 0.17.0)
+  - Alamofire (3.1.2)
+  - Atlas (1.0.15):
+    - LayerKit (>= 0.17.1)
   - FXBlurView (1.6.4)
   - GoogleMaps (1.10.5)
   - iCarousel (1.8.2)
-  - LayerKit (0.17.0)
-  - MGSwipeTableCell (1.5.1)
+  - LayerKit (0.17.2)
+  - MGSwipeTableCell (1.5.3)
   - ParkedTextField (0.2.0)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
-  - SnapKit (0.16.0)
+  - SnapKit (0.18.0)
   - Stripe (6.0.1):
     - Stripe/Core (= 6.0.1)
   - Stripe/Core (6.0.1)
@@ -35,16 +35,16 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: 9b0a7188b961a03914a99304488bd226b0e46c0e
-  Atlas: cd700f467c9bffd1bcb61d77a1feff56def88405
+  Alamofire: 7c16ca65f3c7e681fd925fd7f2dec7747ff96855
+  Atlas: bd66c5b17719857a6b9e22299f76527245e06e88
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
   GoogleMaps: da51c62c338c2d9c47cdad470a0d1e0e4b8544e4
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
-  LayerKit: 81d635966427859230deb8ede88dbc710dcac8fd
-  MGSwipeTableCell: a51fa670c01f0aa048f12af040acebf315223137
+  LayerKit: 60f1f23923e2718992eba22c6e9a8ef92b6344bc
+  MGSwipeTableCell: 5ae3b9a15efda26b201adc8676b24040febe6ff6
   ParkedTextField: 4aea6fef17e7e2450be18653cfb1d4ef951cb1b3
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
-  SnapKit: ddac6b339d571f9d80dbb733585b172ee9eed3cb
+  SnapKit: e1f090a6d47b1dd4bd89b73f72b6746a7835ef3c
   Stripe: 04f215191702c268b89fe0cdf28dc24a9688a71b
   SupportKit: 3372cf5d6090de7bd035bee21589b0efb9016fd6
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1

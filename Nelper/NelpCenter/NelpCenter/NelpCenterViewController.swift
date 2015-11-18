@@ -44,7 +44,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-			SVProgressHUD.dismiss()
 			self.loadData()
 			self.createView()
 			self.createMyTasksTableView()
@@ -60,6 +59,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	}
 	
 	override func viewDidAppear(animated: Bool) {
+		SVProgressHUD.dismiss()
 		super.viewDidAppear(animated)
 		self.loadData()
 		let rootvc:TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
@@ -223,6 +223,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			if error != nil {
 				print(error, terminator: "")
 			} else {
+				print(nelpApplications?.count)
 				self.nelpApplications = nelpApplications!
 				if self.nelpApplications.count == 0{
 					self.noActiveApplications = true
