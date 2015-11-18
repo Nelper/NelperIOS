@@ -13,7 +13,7 @@
 		190F62371B4F5BC80091A1D1 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62311B4F5BC80091A1D1 /* Parse.framework */; };
 		190F62381B4F5BC80091A1D1 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62321B4F5BC80091A1D1 /* ParseCrashReporting.framework */; };
 		190F62391B4F5BC80091A1D1 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62331B4F5BC80091A1D1 /* ParseFacebookUtilsV4.framework */; };
-		190F623E1B4F5CAB0091A1D1 /* NelpTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190F623A1B4F5CAB0091A1D1 /* NelpTask.swift */; };
+		190F623E1B4F5CAB0091A1D1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190F623A1B4F5CAB0091A1D1 /* Task.swift */; };
 		190F62431B4F614A0091A1D1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62421B4F614A0091A1D1 /* AudioToolbox.framework */; };
 		190F62451B4F616A0091A1D1 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62441B4F616A0091A1D1 /* libstdc++.6.dylib */; };
 		190F62471B4F617D0091A1D1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 190F62461B4F617D0091A1D1 /* libsqlite3.dylib */; };
@@ -23,8 +23,6 @@
 		19761A131B684F41001600E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A121B684F41001600E1 /* User.swift */; };
 		19761A151B684FDB001600E1 /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A141B684FDB001600E1 /* GeoPoint.swift */; };
 		19761A171B6850C4001600E1 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A161B6850C4001600E1 /* BaseModel.swift */; };
-		19761A191B6877FB001600E1 /* FindNelpTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A181B6877FB001600E1 /* FindNelpTask.swift */; };
-		19761A1B1B687858001600E1 /* BaseTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19761A1A1B687858001600E1 /* BaseTask.swift */; };
 		199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199EF1F31B37A0A500B25B07 /* AppDelegate.swift */; };
 		199EF1FD1B37A0A500B25B07 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FC1B37A0A500B25B07 /* Images.xcassets */; };
 		199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199EF1FE1B37A0A500B25B07 /* LaunchScreen.xib */; };
@@ -154,7 +152,7 @@
 		190F62311B4F5BC80091A1D1 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Nelper/Frameworks/Parse.framework; sourceTree = "<group>"; };
 		190F62321B4F5BC80091A1D1 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = Nelper/Frameworks/ParseCrashReporting.framework; sourceTree = "<group>"; };
 		190F62331B4F5BC80091A1D1 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtilsV4.framework; path = Nelper/Frameworks/ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
-		190F623A1B4F5CAB0091A1D1 /* NelpTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NelpTask.swift; path = Nelper/Model/NelpTask.swift; sourceTree = SOURCE_ROOT; };
+		190F623A1B4F5CAB0091A1D1 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Task.swift; path = Nelper/Model/Task.swift; sourceTree = SOURCE_ROOT; };
 		190F62421B4F614A0091A1D1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		190F62441B4F616A0091A1D1 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		190F62461B4F617D0091A1D1 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -164,8 +162,6 @@
 		19761A121B684F41001600E1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Nelper/Model/User.swift; sourceTree = SOURCE_ROOT; };
 		19761A141B684FDB001600E1 /* GeoPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeoPoint.swift; path = Nelper/Model/GeoPoint.swift; sourceTree = SOURCE_ROOT; };
 		19761A161B6850C4001600E1 /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseModel.swift; path = Nelper/Model/BaseModel.swift; sourceTree = SOURCE_ROOT; };
-		19761A181B6877FB001600E1 /* FindNelpTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FindNelpTask.swift; path = Nelper/Model/FindNelpTask.swift; sourceTree = SOURCE_ROOT; };
-		19761A1A1B687858001600E1 /* BaseTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTask.swift; path = Nelper/Model/BaseTask.swift; sourceTree = SOURCE_ROOT; };
 		199EF1EE1B37A0A500B25B07 /* Nelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		199EF1F21B37A0A500B25B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		199EF1F31B37A0A500B25B07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -584,13 +580,11 @@
 		F762CFFD1B4B591D00812235 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				190F623A1B4F5CAB0091A1D1 /* NelpTask.swift */,
+				190F623A1B4F5CAB0091A1D1 /* Task.swift */,
 				F72F27DB1B53224100CD3B0B /* TaskApplication.swift */,
 				19761A121B684F41001600E1 /* User.swift */,
 				19761A141B684FDB001600E1 /* GeoPoint.swift */,
 				19761A161B6850C4001600E1 /* BaseModel.swift */,
-				19761A181B6877FB001600E1 /* FindNelpTask.swift */,
-				19761A1A1B687858001600E1 /* BaseTask.swift */,
 				F73A45BD1B72F4B600FD8C79 /* MKPin.swift */,
 				F7E8F9321B94F3A4007D44D8 /* PFUser+ATLParticipant.swift */,
 				19DB24231BB61B6B00468E91 /* Location.swift */,
@@ -784,7 +778,6 @@
 				19DB24651BB711B500468E91 /* SkillsTableViewCell.swift in Sources */,
 				19DB24431BB70E8000468E91 /* ApplicantProfileViewController.swift in Sources */,
 				C03B1B8A1BDF426B00AFD349 /* BrowseMKAnnotation.swift in Sources */,
-				19761A1B1B687858001600E1 /* BaseTask.swift in Sources */,
 				19DB24521BB7119C00468E91 /* PostTaskCategoriesViewController.swift in Sources */,
 				F7A003B91BF974FA00D0B568 /* PermissionHelper.swift in Sources */,
 				C02C74901BF0109B008251F7 /* CategoryFilters.swift in Sources */,
@@ -801,7 +794,6 @@
 				C042A0F21BFAC08F00BB6E10 /* TaskInfoPagingView.swift in Sources */,
 				C0BED3981BCF458600CE3B63 /* NotificationsSettingsViewController.swift in Sources */,
 				F72F27DC1B53224100CD3B0B /* TaskApplication.swift in Sources */,
-				19761A191B6877FB001600E1 /* FindNelpTask.swift in Sources */,
 				19DB24411BB70E8000468E91 /* ApplicantCell.swift in Sources */,
 				C0BED3961BCF413800CE3B63 /* AccountSettingsViewController.swift in Sources */,
 				19DB245C1BB711AA00468E91 /* BrowseTaskViewCell.swift in Sources */,
@@ -818,7 +810,7 @@
 				19DB245A1BB711AA00468E91 /* FilterSortViewController.swift in Sources */,
 				19DB24511BB7119C00468E91 /* CategoryCardViewController.swift in Sources */,
 				F72F284F1B53607C00CD3B0B /* ThemeHelper.swift in Sources */,
-				190F623E1B4F5CAB0091A1D1 /* NelpTask.swift in Sources */,
+				190F623E1B4F5CAB0091A1D1 /* Task.swift in Sources */,
 				C087D8D91BB7199A00AA205B /* Rating.swift in Sources */,
 				F7E8F9351B953A57007D44D8 /* LayerManager.swift in Sources */,
 				C04FF0031BB86873001E204F /* Button.swift in Sources */,

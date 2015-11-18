@@ -14,7 +14,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	
 	var contentView: UIView!
 	var scrollView: UIScrollView!
-	var task: FindNelpTask!
+	var task: Task!
 	var acceptedApplicant: User!
 	var applicationPrice: Int!
 	var acceptedApplication: TaskApplication!

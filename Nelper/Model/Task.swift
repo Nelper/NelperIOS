@@ -1,15 +1,31 @@
 //
-//  BaseTask.swift
+//  Nelp.swift
 //  Nelper
 //
-//  Created by Janic Duplessis on 2015-07-28.
+//  Created by Janic Duplessis on 2015-07-03.
 //  Copyright (c) 2015 Nelper. All rights reserved.
 //
 
 import Foundation
 import Alamofire
 
-class BaseTask: BaseModel {
+
+class Task: BaseModel {
+	
+	var applications = [TaskApplication]()
+	var application:TaskApplication?
+	var title: String!
+	var desc: String!
+	var user: User!
+	var location : GeoPoint?
+	var exactLocation: Location?
+	var city: String?
+	var priceOffered: Double?
+	var category: String?
+	var pictures: Array<PFFile>?
+	var state: State = .Pending
+	var completionState: CompletionState = .Accepted
+	var createdAt: NSDate!
 	
 	enum State: Int {
 		case Pending = 0
@@ -30,18 +46,6 @@ class BaseTask: BaseModel {
 			return GraphQLClient.toGlobalId("Task", id: self.objectId)
 		}
 	}
-	var title: String!
-	var desc: String!
-	var user: User!
-	var location : GeoPoint?
-	var exactLocation: Location?
-	var city: String?
-	var priceOffered: Double?
-	var category: String?
-	var pictures: Array<PFFile>?
-	var state: State = .Pending
-	var completionState: CompletionState = .Accepted
-	var createdAt: NSDate!
 	
 	override init() {
 		super.init()

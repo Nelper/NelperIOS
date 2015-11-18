@@ -247,7 +247,7 @@ class ApiHelper {
 	
 	- parameter block: block
 	*/
-	static func listMyNelpTasksWithBlock(block: ([FindNelpTask]?, NSError?) -> Void) {
+	static func listMyNelpTasksWithBlock(block: ([Task]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		taskQuery.whereKey("user", equalTo: PFUser.currentUser()!)
 		taskQuery.whereKey("state", containedIn: [Task.State.Pending.rawValue, Task.State.Accepted.rawValue ])
@@ -270,8 +270,8 @@ class ApiHelper {
 					return
 				}
 				
-				let tasks = pfTasks!.map({ (pfTask) -> FindNelpTask in
-					let task = FindNelpTask(parseTask: pfTask as! PFObject)
+				let tasks = pfTasks!.map({ (pfTask) -> Task in
+					let task = Task(parseTask: pfTask as! PFObject)
 					let applications = pfApplications!
 						.filter({ ($0["task"] as! PFObject).objectId == task.objectId })
 						.map({ TaskApplication(parseApplication: $0 as! PFObject) })
@@ -358,7 +358,7 @@ class ApiHelper {
 	- parameter block: block
 	*/
 	
-	static func addTask(task: FindNelpTask, block: (FindNelpTask?, NSError?) -> Void) {
+	static func addTask(task: Task, block: (Task?, NSError?) -> Void) {
 		let user = PFUser.currentUser()!
 		
 		let parseTask = PFObject(className: kParseTask)
@@ -420,7 +420,7 @@ class ApiHelper {
 	- parameter task: task
 	*/
 	
-	static func editTask(task: FindNelpTask) {
+	static func editTask(task: Task) {
 		
 		let query = PFQuery(className: "Task")
 		query.getObjectInBackgroundWithId(task.objectId, block: { (taskFetched , error) -> Void in
@@ -444,10 +444,10 @@ class ApiHelper {
 	}
 	
 	//Delete the task
-	static func deleteTask(task: FindNelpTask) {
+	static func deleteTask(task: Task) {
 		let parseTask = PFObject(className: kParseTask)
 		parseTask.objectId = task.objectId
-		parseTask["state"] = FindNelpTask.State.Deleted.rawValue
+		parseTask["state"] = Task.State.Deleted.rawValue
 		parseTask.saveEventually()
 	}
 	
@@ -531,7 +531,7 @@ class ApiHelper {
 	}
 	
 	//Set task as viewed
-	static func setTaskViewed(task: FindNelpTask) {
+	static func setTaskViewed(task: Task) {
 		let parseApplications = task.applications
 			.filter({ $0.isNew })
 			.map({ (a: TaskApplication) -> PFObject in

@@ -20,7 +20,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	let secondSwipeRecRight = UISwipeGestureRecognizer()
 	let thirdSwipeRecRight = UISwipeGestureRecognizer()
 	
-	var task: FindNelpTask!
+	var task: Task!
 	var acceptedApplication: TaskApplication?
 	
 	var delegate: TaskInfoPagingViewDelegate!
@@ -60,7 +60,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	var titleTextView: UITextView!
 	var descriptionTextView: UITextView!
 	
-	convenience init(task: FindNelpTask, acceptedApplication: TaskApplication?) {
+	convenience init(task: Task, acceptedApplication: TaskApplication?) {
 		self.init()
 		
 		self.task = task
@@ -476,7 +476,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	
 	- parameter task: the task
 	*/
-	func setImages(task: FindNelpTask) {
+	func setImages(task: Task) {
 		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2
 		self.categoryIcon.clipsToBounds = true
 		self.categoryIcon.image = UIImage(named: task.category!)

@@ -15,7 +15,7 @@ import GoogleMaps
 import ParkedTextField
 
 protocol PostTaskFormViewControllerDelegate {
-	func nelpTaskAdded(task: FindNelpTask) -> Void
+	func nelpTaskAdded(task: Task) -> Void
 	func dismiss()
 }
 
@@ -23,7 +23,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	let kGoogleAPIKey = "AIzaSyC4IkGUD1uY53E1aihYxDvav3SbdCDfzq8"
 	let imagePicker = UIImagePickerController()
-	var task: FindNelpTask!
+	var task: Task!
 	var placesClient: GMSPlacesClient?
 	var locationTextField: UITextField?
 	var titleTextField: UITextField!
@@ -64,7 +64,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	//MARK: Initialization
 	
-	init(task: FindNelpTask) {
+	init(task: Task) {
 		super.init(nibName: nil, bundle: nil)
 		self.task = task
 		self.placesClient = GMSPlacesClient()

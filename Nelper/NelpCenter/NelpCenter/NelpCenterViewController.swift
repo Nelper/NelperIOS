@@ -21,7 +21,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	var profilePicture:UIImageView!
 	var tasksContainer:UIView!
-	var nelpTasks = [FindNelpTask]()
+	var nelpTasks = [Task]()
 	var nelpApplications = [TaskApplication]()
 	var myTasksTableView: UITableView!
 	var myApplicationsTableView:UITableView!
@@ -162,7 +162,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	Load User's Task and Applications
 	*/
 	func loadData() {
-		ApiHelper.listMyNelpTasksWithBlock { (nelpTasks: [FindNelpTask]?, error: NSError?) -> Void in
+		ApiHelper.listMyNelpTasksWithBlock { (nelpTasks: [Task]?, error: NSError?) -> Void in
 			if error != nil {
 				print(error, terminator: "")
 			} else {
@@ -190,7 +190,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	//MARK: My Task Details View Controller Delegate
 	
-	func didEditTask(task:FindNelpTask){
+	func didEditTask(task:Task){
 	}
 	
 	

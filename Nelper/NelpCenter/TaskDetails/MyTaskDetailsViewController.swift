@@ -13,7 +13,7 @@ import iCarousel
 import FXBlurView
 
 protocol MyTaskDetailsViewControllerDelegate {
-	func didEditTask(task: FindNelpTask)
+	func didEditTask(task: Task)
 }
 
 class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ApplicantCellDelegate, ApplicantProfileViewControllerDelegate, UINavigationControllerDelegate, TaskInfoPagingViewDelegate {
@@ -22,7 +22,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	@IBOutlet weak var container: UIView!
 	@IBOutlet weak var scrollView: UIScrollView!
 	
-	var task: FindNelpTask!
+	var task: Task!
 	var applications: [TaskApplication]!
 	var pendingApplications: [TaskApplication]!
 	var deniedApplications: [TaskApplication]!
@@ -48,7 +48,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 	var taskTitle: String!
 	var taskDescription: String!
 	
-	convenience init(task:FindNelpTask) {
+	convenience init(task:Task) {
 		self.init(nibName: "MyTaskDetailsViewController", bundle: nil)
 		self.task = task
 		self.applications = task.applications
