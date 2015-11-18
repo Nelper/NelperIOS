@@ -29,7 +29,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	var filtersButton:UIButton!
 	
 	var nelpTasks = [Task]()
-	var findNelpTasks = [FindNelpTask]()
+	var findNelpTasks = [Task]()
 	
 	var mapView: MKMapView!
 	var currentLocation: CLLocation?

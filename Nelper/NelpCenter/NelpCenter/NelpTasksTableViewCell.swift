@@ -25,7 +25,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 	var numberOfApplicantsIcon:UIImageView!
 	var numberOfApplicantsLabel:UILabel!
 	
-	var task:FindNelpTask!
+	var task:Task!
 	
 	//MARK: Initialization
 	
@@ -200,7 +200,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 	
 	- parameter task: task
 	*/
-	func setImages(task:FindNelpTask) {
+	func setImages(task:Task) {
 		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2
 		self.categoryIcon.clipsToBounds = true
 		self.categoryIcon.image = UIImage(named: task.category!)
@@ -245,7 +245,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 	
 	- parameter task: task
 	*/
-	func setNotification(task: FindNelpTask) {
+	func setNotification(task: Task) {
 		
 		if (task.applications.count == 0) {
 			self.numberOfApplicants.text = "0 Nelper"
@@ -271,7 +271,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 	
 	- parameter task: Nelp Task
 	*/
-	func setNelpTask(task: FindNelpTask) {
+	func setNelpTask(task: Task) {
 //		self.categoryLabel.text = task.category!.uppercaseString
 		self.titleLabel.text = task.title
 		let price = String(format: "%.0f", task.priceOffered!)

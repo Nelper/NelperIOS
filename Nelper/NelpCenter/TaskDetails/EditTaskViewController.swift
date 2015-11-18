@@ -11,13 +11,13 @@ import UIKit
 import iCarousel
 
 protocol EditTaskViewControllerDelegate{
-	func didEditTask(task:FindNelpTask)
+	func didEditTask(task:Task)
 }
 
 class EditTaskViewController:UIViewController,iCarouselDataSource,iCarouselDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UIGestureRecognizerDelegate {
 	
 	let imagePicker = UIImagePickerController()
-	var task:FindNelpTask!
+	var task:Task!
 	var titleTextField:UITextField!
 	var delegate: EditTaskViewControllerDelegate?
 	var descriptionTextView:UITextView!

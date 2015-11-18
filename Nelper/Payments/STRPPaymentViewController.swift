@@ -24,7 +24,7 @@ class STRPPaymentViewController:UIViewController, STPPaymentCardTextFieldDelegat
 	var titleLabel: UILabel!
 	var tap: UITapGestureRecognizer!
 	var blurContainer:UIVisualEffectView!
-	var task:FindNelpTask!
+	var task:Task!
 	var keyboardShowing:Bool!
 	
 	

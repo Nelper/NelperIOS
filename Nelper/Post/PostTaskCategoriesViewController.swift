@@ -9,13 +9,13 @@
 import UIKit
 
 protocol PostTaskCategoriesViewControllerDelegate {
-	func nelpTaskAdded(task: FindNelpTask) -> Void
+	func nelpTaskAdded(task: Task) -> Void
 }
 
 class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, PostTaskFormViewControllerDelegate {
 	
 	var delegate: PostTaskCategoriesViewControllerDelegate?
-	var task: FindNelpTask!
+	var task: Task!
 	var scrollView: UIScrollView!
 	var contentView: UIView!
 	
@@ -36,7 +36,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.task = FindNelpTask()
+		self.task = Task()
 		self.createView()
 	}
 	
@@ -54,7 +54,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 		
 		let navBar = NavBar()
 		self.view.addSubview(navBar)
-		navBar.setTitle("Post a task")
+		navBar.setTitle("Post a Task")
 		navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
@@ -175,7 +175,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 	
 	- parameter task: The newly created task
 	*/
-	func nelpTaskAdded(task: FindNelpTask) {
+	func nelpTaskAdded(task: Task) {
 		delegate?.nelpTaskAdded(task)
 	}
 	
