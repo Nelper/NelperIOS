@@ -54,7 +54,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 		
 		let navBar = NavBar()
 		self.view.addSubview(navBar)
-		navBar.setTitle("Post a task")
+		navBar.setTitle("Post a Task")
 		navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
