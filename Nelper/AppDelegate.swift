@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 			self.loginLayer()
 			self.loginSupportKit()
 			ApiHelper.getCurrentUserPrivateInfo()
-			let tabVC = initAppViewController()
+			let tabVC = initAppViewController(BrowseViewController())
 			self.window?.rootViewController = tabVC
 		}
 		
@@ -93,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	// LoginViewControllerDelegate
 	func onLogin() {
 		
-		let tabVC = self.initAppViewController()
+		let tabVC = self.initAppViewController(LoginViewController())
 		
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
 			
@@ -110,9 +110,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	}
 	
 	// Init the main app tab view controller
-	func initAppViewController() -> UITabBarController {
+	func initAppViewController(vc: UIViewController?) -> UIViewController {
 		
-		let tabBar = TabBarCustom(nibName: nil, bundle: nil)
+		let tabBar = TabBarViewController(vc: vc)
 		
 		return tabBar
 	}
