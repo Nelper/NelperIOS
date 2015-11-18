@@ -527,7 +527,6 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				self.locationsContainer.contentView.addSubview(self.locationContainer)
 				self.locationContainer.backgroundColor = Color.whitePrimary
 				self.locationContainer.assignedLocationIndex = i
-				print(i)
 				self.locationContainer.setBackgroundColor(Color.grayDetails, forState: UIControlState.Highlighted)
 				self.locationContainer.addTarget(self, action: "locationContainerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 				
@@ -646,7 +645,6 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		deleteButton.setTitleColor(Color.redPrimary, forState: .Normal)
 		deleteButton.setTitleColor(Color.darkGrayDetails.colorWithAlphaComponent(0.6), forState: .Highlighted)
 		deleteButton.assignedLocationIndex = button.assignedLocationIndex
-		print(button.assignedLocationIndex)
 		deleteButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(locationBlurView.snp_centerY)
 			make.right.equalTo(locationBlurView.snp_centerX).offset(-30)
@@ -752,9 +750,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		
 		let index = sender.assignedLocationIndex
 		
-		print(index)
 		self.locations!.removeAtIndex(index)
-		print(self.locations!)
 		
 		setLocationView(true)
 	}

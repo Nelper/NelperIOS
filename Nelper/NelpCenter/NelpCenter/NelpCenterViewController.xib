@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9059"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9060"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NelpCenterViewController" customModule="Nelper" customModuleProvider="target">
             <connections>
                 <outlet property="containerView" destination="gIK-z9-u8s" id="6Z2-Mc-syQ"/>
                 <outlet property="navBar" destination="ToR-Oc-Whs" id="Jhc-O6-QSZ"/>
-                <outlet property="tabBarView" destination="hcB-ub-1p0" id="z83-xk-4Mk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gIK-z9-u8s">
-                    <rect key="frame" x="0.0" y="64" width="344" height="445"/>
+                    <rect key="frame" x="0.0" y="64" width="344" height="490"/>
                     <animations/>
                     <color key="backgroundColor" red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
@@ -30,29 +29,18 @@
                         <constraint firstAttribute="height" constant="64" id="e0i-sA-Zp5"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcB-ub-1p0" userLabel="TabBar">
-                    <rect key="frame" x="0.0" y="509" width="344" height="45"/>
-                    <animations/>
-                    <color key="backgroundColor" red="0.93852588383838387" green="0.93236494046776119" blue="0.93500149725698989" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="45" id="r73-yK-j3q"/>
-                    </constraints>
-                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="hcB-ub-1p0" firstAttribute="top" secondItem="gIK-z9-u8s" secondAttribute="bottom" id="03n-Eu-hwJ"/>
-                <constraint firstAttribute="bottom" secondItem="hcB-ub-1p0" secondAttribute="bottom" id="4Mm-ds-zB4"/>
                 <constraint firstAttribute="bottom" secondItem="gIK-z9-u8s" secondAttribute="bottom" id="50s-iC-MDq"/>
-                <constraint firstAttribute="trailing" secondItem="hcB-ub-1p0" secondAttribute="trailing" id="KEO-qv-jmN"/>
                 <constraint firstItem="gIK-z9-u8s" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Mpg-Eo-lRJ"/>
+                <constraint firstAttribute="bottom" secondItem="gIK-z9-u8s" secondAttribute="bottom" id="PKo-0a-iS0"/>
                 <constraint firstItem="ToR-Oc-Whs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="QcX-oo-W7o"/>
                 <constraint firstAttribute="trailing" secondItem="gIK-z9-u8s" secondAttribute="trailing" id="Qqt-VU-kQ8"/>
                 <constraint firstItem="gIK-z9-u8s" firstAttribute="top" secondItem="ToR-Oc-Whs" secondAttribute="bottom" id="aGg-On-MyB"/>
                 <constraint firstItem="ToR-Oc-Whs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="eZv-Sj-Vfa"/>
                 <constraint firstAttribute="trailing" secondItem="ToR-Oc-Whs" secondAttribute="trailing" id="lQj-KK-q8w"/>
-                <constraint firstItem="hcB-ub-1p0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="t2G-jb-aU2"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">

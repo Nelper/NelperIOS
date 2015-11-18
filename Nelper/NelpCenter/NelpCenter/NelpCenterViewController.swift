@@ -15,7 +15,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var containerView: UIView!
-	@IBOutlet weak var tabBarView: UIView!
 	
 	var segmentControllerView: SegmentController!
 	
@@ -62,8 +61,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		SVProgressHUD.dismiss()
 		super.viewDidAppear(animated)
 		self.loadData()
-		let rootvc:TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
-		rootvc.presentedVC = self
 	}
 	
 	override func viewDidLayoutSubviews() {
@@ -104,7 +101,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tasksContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(segmentControllerView.snp_bottom)
 			make.width.equalTo(self.view.snp_width)
-			make.bottom.equalTo(self.tabBarView.snp_top)
+			make.bottom.equalTo(self.view.snp_bottom)
 		}
 		
 		//Empty Applications/Tasks warning label
@@ -130,7 +127,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tasksContainer.addSubview(goToButton)
 		goToButton.setBackgroundColor(Color.redPrimary, forState: UIControlState.Normal)
 		goToButton.setTitleColor(Color.whitePrimary, forState: .Normal)
-		goToButton.setTitle("Go post a task!", forState: .Normal)
+		goToButton.setTitle("Post a Task", forState: .Normal)
 		goToButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(emptyTableViewWarning.snp_bottom).offset(20)
 			make.centerX.equalTo(tasksContainer)
@@ -223,7 +220,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			if error != nil {
 				print(error, terminator: "")
 			} else {
-				print(nelpApplications?.count)
 				self.nelpApplications = nelpApplications!
 				if self.nelpApplications.count == 0{
 					self.noActiveApplications = true

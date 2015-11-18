@@ -98,9 +98,9 @@ class TabBarControl: UIControl {
 			
 			let label = UILabel()
 			label.text = items[i].title
-			label.font = UIFont(name: "Lato-Light", size: 11)
+			label.font = UIFont(name: "HelveticaNeue", size: 11)
 			label.textAlignment = .Center
-			label.textColor = Color.blackPrimary.colorWithAlphaComponent(0.9)
+			label.textColor = Color.darkGrayDetails
 			label.sizeToFit()
 			label.userInteractionEnabled = false
 			itemView.addSubview(label)
@@ -134,6 +134,9 @@ class TabBarControl: UIControl {
 			image.center = CGPointMake(itemView.frame.width / 2, (itemView.frame.height / 2) - 5)
 			label.center = CGPointMake(itemView.frame.width / 2, (itemView.frame.height / 2) + 15)
 		}
+		
+		self.images[0].tintColor = Color.redPrimary
+		self.labels[0].textColor = Color.redPrimary
 	}
 	
 	override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
@@ -163,7 +166,7 @@ class TabBarControl: UIControl {
 		self.images[self.lastIndex].tintColor = Color.darkGrayDetails
 		
 		self.labels[index].textColor = Color.redPrimary
-		self.labels[self.lastIndex].textColor = Color.blackPrimary
+		self.labels[self.lastIndex].textColor = Color.darkGrayDetails
 		
 		self.lastIndex = index
 		

@@ -84,8 +84,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
 			self.loadData()
 		}
-		let rootvc: TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
-		rootvc.presentedVC = self
+		
 		SVProgressHUD.dismiss()
 	}
 	
@@ -115,7 +114,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		}
 		
 		self.navBar.layoutIfNeeded()
-		self.tabBarController!.tabBar.layoutIfNeeded()
 		
 		//CONTAINERS
 		
@@ -142,7 +140,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		}
 		
 		self.defaultMapHeight = 250
-		self.expandedMapHeight = self.view.frame.height - self.navBar.frame.height - self.tabBarController!.tabBar.frame.height
+		self.expandedMapHeight = self.view.frame.height - self.navBar.frame.height// - self.tabBarController!.tabBar.frame.height
 		
 		let mapContainer = UIView()
 		self.mapContainer = mapContainer
@@ -163,7 +161,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			make.top.equalTo(mapContainer.snp_bottom).offset(2)
 			make.right.equalTo(contentView.snp_right)
 			make.left.equalTo(contentView.snp_left)
-			make.bottom.equalTo(contentView.snp_bottom).inset(self.tabBarController!.tabBar.bounds.height)
+			make.bottom.equalTo(contentView.snp_bottom)
 		}
 	}
 	

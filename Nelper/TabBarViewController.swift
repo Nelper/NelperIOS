@@ -52,49 +52,47 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	//TabBarControl delegate
 	
 	func selectedIndex(index: Int) {
-		print("called")
 		self.createVC(self.viewControllers[index], animated:  true)
 	}
 	
 	//Create VC
 	
 	func createVC(vc: UIViewController!, animated: Bool) {
-		if self.contentView != nil {
-			self.contentView!.view.removeFromSuperview()
-			self.contentView!.removeFromParentViewController()
-		}
+		
+		let viewNavigationController = UINavigationController(rootViewController: vc)
+		viewNavigationController.navigationBarHidden = true
 		
 		if !(animated) {
-			let contentView = vc
+			
+			let contentView = viewNavigationController
 			self.contentView = contentView
 			self.view.addSubview(contentView.view)
 			contentView.view.snp_makeConstraints { (make) -> Void in
 				make.edges.equalTo(self.view.snp_edges).inset(UIEdgeInsetsMake(0, 0, 49, 0))
 			}
+			
 		} else {
-			//Animation
-			//let tabViewControllers = self.viewControllers
-			let fromView = self.selectedViewController!.view
-			let toView = vc.view
-			
-			if (fromView == toView) {
-				return
-			}
-			
-			fromView.layer.zPosition = -1
+			let fromView = self.selectedViewController.view
 			self.view.addSubview(fromView)
 			
-			//let toIndex = tabViewControllers.indexOf(vc)
+			self.contentView!.view.removeFromSuperview()
 			
-			let offScreenRight = CGAffineTransformMakeTranslation(toView.frame.width / 3, 0)
-			toView.transform = offScreenRight
-			toView.alpha = 0
+			let contentView = viewNavigationController
+			self.contentView = contentView
+			self.view.addSubview(contentView.view)
+			contentView.view.snp_makeConstraints { (make) -> Void in
+				make.edges.equalTo(self.view.snp_edges).inset(UIEdgeInsetsMake(0, 0, 49, 0))
+			}
+			
+			let offScreenRight = CGAffineTransformMakeTranslation(contentView.view.frame.width / 3, 0)
+			contentView.view.transform = offScreenRight
+			contentView.view.alpha = 0
 			
 			self.view.userInteractionEnabled = false
 			
 			UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseOut, animations:  {
-				toView.transform = CGAffineTransformIdentity
-				toView.alpha = 1
+				contentView.view.transform = CGAffineTransformIdentity
+				contentView.view.alpha = 1
 				}, completion:  { finished in
 					fromView.removeFromSuperview()
 					self.view.userInteractionEnabled = true

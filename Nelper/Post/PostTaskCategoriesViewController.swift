@@ -42,8 +42,6 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 	
 	override func viewDidAppear(animated: Bool) {
 		self.scrollView.contentSize = self.contentView.frame.size
-		let rootvc:TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
-		rootvc.presentedVC = self
 	}
 	
 	//MARK: UI
