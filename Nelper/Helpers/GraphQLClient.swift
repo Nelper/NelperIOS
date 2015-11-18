@@ -34,12 +34,12 @@ class GraphQLClient {
 	}
 	
 
-	static func mutation(name: String, var input: Dictionary<String, AnyObject>, block: ((AnyObject?, ErrorType?) -> Void)?) {
+	static func mutation(name: String, var input: Dictionary<String, AnyObject>, query:String? = nil, block: ((AnyObject?, ErrorType?) -> Void)? = nil) {
 		// The mutation is the name of the mutation with the first letter as lowercase.
 		var mutation = String(name)
 		mutation.replaceRange(name.startIndex...name.startIndex, with: String(name[name.startIndex]).lowercaseString)
 		// Build the mutation query string.
-		let query = "mutation \(name)($input: \(name)Input!){\(mutation)(input:$input){clientMutationId}}"
+		let query = "mutation \(name)($input: \(name)Input!){\(mutation)(input:$input)\(query == nil ? "{clientMutationId}" : query!)}"
 		// Add the clientMutationId.
 		input["clientMutationId"] = self.getClientMutationId()
 		let variables = ["input": input]

@@ -359,59 +359,49 @@ class ApiHelper {
 	- parameter block: block
 	*/
 	
-	static func addTask(task: Task, block: (Task?, NSError?) -> Void) {
-		let user = PFUser.currentUser()!
-		
-		let parseTask = PFObject(className: kParseTask)
-		parseTask["title"] = task.title
-		parseTask["desc"] = task.desc
-		parseTask["user"] = PFUser.currentUser()!
-		parseTask["state"] = task.state.rawValue
-		parseTask["completionState"] = task.completionState.rawValue
-		parseTask["priceOffered"] = task.priceOffered
-		parseTask["category"] = task.category
-		let lat = task.location?.latitude
-		let lng = task.location?.longitude
-		if lat != nil && lng != nil {
-			let location = PFGeoPoint(latitude: lat!, longitude: lng!)
-			parseTask["location"] = location
-		}
-		parseTask["city"] = task.city
-		if task.pictures == nil {
-			parseTask["pictures"] = []
-		} else {
-			parseTask["pictures"] = task.pictures
-		}
-		
-		let acl = PFACL(user: user)
-		acl.setPublicReadAccess(true)
-		acl.setPublicWriteAccess(false)
-		parseTask.ACL = acl
-		
-		let taskPrivate = PFObject(className: kParseTaskPrivate)
-		if let exactLocation = task.exactLocation {
-			var locationDict = exactLocation.createDictionary()
-			// Remove the keys we dont care about.
-			locationDict.removeValueForKey("name")
-			locationDict.removeValueForKey("formattedAddress")
-			taskPrivate["location"] = locationDict
-		}
-		let privateACL = PFACL(user: user)
-		taskPrivate.ACL = privateACL
-		
-		parseTask["privateData"] = taskPrivate
-		
-		parseTask.saveInBackgroundWithBlock { (ok, error) -> Void in
+	static func addTask(task: Task, block: (Task?, ErrorType?) -> Void) {
+		uploadPictures(task.pictures) { (error) -> Void in
 			if error != nil {
 				block(nil, error)
 				return
 			}
-			if ok {
-				task.objectId = parseTask.objectId!
-				block(task, nil)
-			} else {
-				//TODO(janic): Handle this.
+			var input: Dictionary<String, AnyObject> = [
+				"title": task.title,
+				"category": task.category!,
+				"desc": task.desc,
+				"priceOffered": task.priceOffered!,
+				"location": task.exactLocation!.createDictionary(),
+			];
+			let pictures = task.pictures?.map({ (p: PFFile) -> Dictionary<String, String> in
+				return [
+					"name": p.name,
+					"url": p.url!,
+				]
+			})
+			if let pictures = pictures {
+				input["pictures"] = pictures
 			}
+			GraphQLClient.mutation(
+				"PostTask",
+				input: input,
+				query: "{newTaskEdge{node{objectId}}}") { (res, error) -> Void in
+					if error != nil {
+						block(nil, error)
+						return
+					}
+					task.objectId = res!["postTask"]!!["newTaskEdge"]!!["node"]!!["objectId"]!! as! String
+					block(task, nil)
+			}
+		}
+	}
+	
+	private static func uploadPictures(pictures: [PFFile]?, block: (NSError?) -> Void) {
+		if let pictures = pictures {
+			PFObject.saveAllInBackground(pictures, block: { (ok, error) -> Void in
+				block(error)
+			})
+		} else {
+			block(nil)
 		}
 	}
 	
@@ -626,5 +616,5 @@ class ApiHelper {
 		userPrivateData["phone"] = phone
 		userPrivateData.saveEventually()
 	}
-
+	
 }
