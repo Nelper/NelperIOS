@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 protocol LoginViewControllerDelegate {
 	func onLogin() -> Void
@@ -64,13 +65,13 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.view.backgroundColor = redPrimary
+		self.view.backgroundColor = Color.redPrimary
 		
 		self.createView()
 		self.adjustUI()
 		
 		// KEYBOARD DISMISS
-		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 		self.tap = tap
 		self.view.addGestureRecognizer(tap)
 		
@@ -109,7 +110,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	}
 	
 	// KEYBOARD DISMISS
-	func DismissKeyboard() {
+	func dismissKeyboard() {
 		view.endEditing(true)
 	}
 	
@@ -134,7 +135,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let contentView = UIView()
 		self.contentView = contentView
 		self.scrollView.addSubview(self.contentView)
-		self.contentView.backgroundColor = redPrimary
+		self.contentView.backgroundColor = Color.redPrimary
 		self.contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(scrollView.snp_top)
 			make.left.equalTo(scrollView.snp_left)
@@ -171,15 +172,15 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.fbButton = fbButton
 		self.firstContainer.addSubview(self.fbButton)
 		self.fbButton.clipsToBounds = true
-		self.fbButton.setBackgroundColor(blueFacebook, forState: UIControlState.Normal)
-		self.fbButton.setBackgroundColor(blueFacebookSelected, forState: UIControlState.Highlighted)
+		self.fbButton.setBackgroundColor(Color.blueFacebook, forState: UIControlState.Normal)
+		self.fbButton.setBackgroundColor(Color.blueFacebookSelected, forState: UIControlState.Highlighted)
 		self.fbButton.setTitle("Sign in with Facebook", forState: UIControlState.Normal)
-		self.fbButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.fbButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
 		self.fbButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 0)
 		self.fbButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.fbButton.addTarget(self, action: "facebookLogin:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.fbButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.firstContainer.snp_top)
+			make.top.equalTo(self.firstContainer.snp_top).offset(20)
 			make.left.equalTo(self.firstContainer.snp_left).offset(24)
 			make.right.equalTo(self.firstContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
@@ -200,7 +201,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let fbLine = UIView()
 		self.fbLine = fbLine
 		self.fbButton.addSubview(fbLine)
-		self.fbLine.backgroundColor = blackPrimary
+		self.fbLine.backgroundColor = Color.blackPrimary
 		self.fbLine.alpha = 0.2
 		self.fbLine.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.fbLogo.snp_right).offset(10)
@@ -209,13 +210,13 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.bottom.equalTo(fbButton.snp_bottom).offset(-5)
 		}
 		
-		let twitterButton = UIButton()
+		/*let twitterButton = UIButton()
 		self.twitterButton = twitterButton
 		self.firstContainer.addSubview(self.twitterButton)
-		self.twitterButton.setBackgroundColor(blueTwitter, forState: UIControlState.Normal)
+		self.twitterButton.setBackgroundColor(Color.blueTwitter, forState: UIControlState.Normal)
 		self.twitterButton.setBackgroundColor(blueTwitterSelected, forState: UIControlState.Highlighted)
 		self.twitterButton.setTitle("Sign in with Twitter", forState: UIControlState.Normal)
-		self.twitterButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.twitterButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
 		self.twitterButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
 		self.twitterButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.twitterButton.addTarget(self, action: "twitterLogin:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -241,29 +242,29 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let twitterLine = UIView()
 		self.twitterLine = twitterLine
 		self.twitterButton.addSubview(self.twitterLine)
-		self.twitterLine.backgroundColor = blackPrimary
+		self.twitterLine.backgroundColor = Color.blackPrimary
 		self.twitterLine.alpha = 0.2
 		self.twitterLine.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.twitterLogo.snp_right).offset(10)
 			make.width.equalTo(1)
 			make.top.equalTo(self.twitterButton.snp_top).offset(5)
 			make.bottom.equalTo(self.twitterButton.snp_bottom).offset(-5)
-		}
+		}*/
 		
 		
 		let emailButton = UIButton()
 		self.emailButton = emailButton
 		self.firstContainer.addSubview(self.emailButton)
-		self.emailButton.layer.borderColor = whitePrimary.CGColor
+		self.emailButton.layer.borderColor = Color.whitePrimary.CGColor
 		self.emailButton.layer.borderWidth = 1
-		self.emailButton.setBackgroundColor(redPrimary, forState: UIControlState.Normal)
-		self.emailButton.setBackgroundColor(redPrimarySelected, forState: UIControlState.Highlighted)
+		self.emailButton.setBackgroundColor(Color.redPrimary, forState: UIControlState.Normal)
+		self.emailButton.setBackgroundColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
 		self.emailButton.setTitle("Email sign in", forState: UIControlState.Normal)
-		self.emailButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.emailButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
 		self.emailButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.emailButton.addTarget(self, action: "didTapEmailButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.emailButton.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.contentView.snp_bottom).offset(-30)
+			make.bottom.equalTo(self.firstContainer.snp_bottom).offset(-55)
 			make.left.equalTo(self.firstContainer.snp_left).offset(24)
 			make.right.equalTo(self.firstContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
@@ -282,28 +283,23 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.bottom.equalTo(contentView.snp_bottom)
 		}
 		
-		let emailField = UITextField()
+		let emailField = DefaultTextFieldView()
 		self.emailField = emailField
 		self.secondContainer.addSubview(emailField)
-		self.emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.emailField.textColor = textFieldTextColor
-		self.emailField.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.emailField.keyboardType = UIKeyboardType.EmailAddress
-		self.emailField.autocorrectionType = UITextAutocorrectionType.No
 		self.emailField.autocapitalizationType = UITextAutocapitalizationType.None
-		self.emailField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.emailField.backgroundColor = whitePrimary
+		self.emailField.returnKeyType = .Next
 		self.emailField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.firstContainer.snp_top)
 			make.left.equalTo(self.secondContainer.snp_left).offset(24)
 			make.right.equalTo(self.secondContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
 		let textfieldUnderline = UIView()
 		self.textfieldUnderline = textfieldUnderline
 		self.secondContainer.addSubview(textfieldUnderline)
-		self.textfieldUnderline.backgroundColor = grayDetails
+		self.textfieldUnderline.backgroundColor = Color.grayDetails
 		self.textfieldUnderline.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.emailField.snp_bottom)
 			make.centerX.equalTo(self.emailField.snp_centerX)
@@ -311,30 +307,25 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.height.equalTo(1)
 		}
 		
-		let passwordField = UITextField()
+		let passwordField = DefaultTextFieldView()
 		self.passwordField = passwordField
 		self.secondContainer.addSubview(passwordField)
 		self.passwordField.secureTextEntry = true
-		self.passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.passwordField.textColor = textFieldTextColor
-		self.passwordField.font = UIFont(name: "Lato-Regular", size: kText15)
-		self.passwordField.autocorrectionType = UITextAutocorrectionType.No
+		self.passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.passwordField.autocapitalizationType = UITextAutocapitalizationType.None
-		self.passwordField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.passwordField.backgroundColor = whitePrimary
+		self.passwordField.returnKeyType = .Done
 		self.passwordField.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.emailField.snp_bottom).offset(1)
+			make.top.equalTo(self.emailField.snp_bottom).offset(-1)
 			make.left.equalTo(self.secondContainer.snp_left).offset(24)
 			make.right.equalTo(self.secondContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
 		let loginButton = UIButton()
 		self.loginButton = loginButton
 		self.secondContainer.addSubview(self.loginButton)
 		self.loginButton.setTitle("Login", forState: UIControlState.Normal)
-		self.loginButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-		self.loginButton.setTitleColor(redPrimarySelected, forState: UIControlState.Highlighted)
+		self.loginButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
+		self.loginButton.setTitleColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
 		self.loginButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.loginButton.addTarget(self, action: "emailLogin:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.loginButton.snp_makeConstraints { (make) -> Void in
@@ -360,12 +351,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let registerButton = UIButton()
 		self.registerButton = registerButton
 		self.secondContainer.addSubview(self.registerButton)
-		self.registerButton.layer.borderColor = whitePrimary.CGColor
+		self.registerButton.layer.borderColor = Color.whitePrimary.CGColor
 		self.registerButton.layer.borderWidth = 1
-		self.registerButton.setBackgroundColor(redPrimary, forState: UIControlState.Normal)
-		self.registerButton.setBackgroundColor(redPrimarySelected, forState: UIControlState.Highlighted)
+		self.registerButton.setBackgroundColor(Color.redPrimary, forState: UIControlState.Normal)
+		self.registerButton.setBackgroundColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
 		self.registerButton.setTitle("Register new account", forState: UIControlState.Normal)
-		self.registerButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.registerButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
 		self.registerButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.registerButton.addTarget(self, action: "didTapRegisterButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.registerButton.snp_makeConstraints { (make) -> Void in
@@ -379,8 +370,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.forgotPassButton = forgotPassButton
 		self.secondContainer.addSubview(self.forgotPassButton)
 		self.forgotPassButton.setTitle("I forgot my password", forState: UIControlState.Normal)
-		self.forgotPassButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-		self.forgotPassButton.setTitleColor(redPrimarySelected, forState: UIControlState.Highlighted)
+		self.forgotPassButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
+		self.forgotPassButton.setTitleColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
 		self.forgotPassButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kText15)
 		self.forgotPassButton.addTarget(self, action: "forgotPassword:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.forgotPassButton.snp_makeConstraints { (make) -> Void in
@@ -403,26 +394,22 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.bottom.equalTo(self.contentView.snp_bottom)
 		}
 		
-		let firstnameField = UITextField()
+		let firstnameField = DefaultTextFieldView()
 		self.firstnameField = firstnameField
 		self.thirdContainer.addSubview(firstnameField)
-		self.firstnameField.attributedPlaceholder = NSAttributedString(string: "First name", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.firstnameField.textColor = textFieldTextColor
-		self.firstnameField.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.firstnameField.attributedPlaceholder = NSAttributedString(string: "First name", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.firstnameField.autocorrectionType = UITextAutocorrectionType.No
-		self.firstnameField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.firstnameField.backgroundColor = whitePrimary
+		self.firstnameField.returnKeyType = .Next
 		self.firstnameField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.firstContainer.snp_top)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
 		let firstnameUnderlineRegister = UIView()
 		self.firstnameUnderlineRegister = firstnameUnderlineRegister
 		self.thirdContainer.addSubview(firstnameUnderlineRegister)
-		self.firstnameUnderlineRegister.backgroundColor = grayDetails
+		self.firstnameUnderlineRegister.backgroundColor = Color.grayDetails
 		self.firstnameUnderlineRegister.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.firstnameField.snp_bottom)
 			make.centerX.equalTo(self.firstnameField.snp_centerX)
@@ -430,62 +417,50 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.height.equalTo(1)
 		}
 		
-		let lastnameField = UITextField()
+		let lastnameField = DefaultTextFieldView()
 		self.lastnameField = lastnameField
 		self.thirdContainer.addSubview(lastnameField)
-		self.lastnameField.attributedPlaceholder = NSAttributedString(string: "Last name", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.lastnameField.textColor = textFieldTextColor
-		self.lastnameField.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.lastnameField.attributedPlaceholder = NSAttributedString(string: "Last name", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.lastnameField.autocorrectionType = UITextAutocorrectionType.No
-		self.lastnameField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.lastnameField.backgroundColor = whitePrimary
+		self.lastnameField.returnKeyType = .Next
 		self.lastnameField.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.firstnameField.snp_bottom).offset(1)
+			make.top.equalTo(self.firstnameField.snp_bottom).offset(-1)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
-		let emailFieldRegister = UITextField()
+		let emailFieldRegister = DefaultTextFieldView()
 		self.emailFieldRegister = emailFieldRegister
 		self.thirdContainer.addSubview(emailFieldRegister)
-		self.emailFieldRegister.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.emailFieldRegister.textColor = textFieldTextColor
-		self.emailFieldRegister.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.emailFieldRegister.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.emailFieldRegister.keyboardType = UIKeyboardType.EmailAddress
 		self.emailFieldRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.emailFieldRegister.autocapitalizationType = UITextAutocapitalizationType.None
-		self.emailFieldRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.emailFieldRegister.backgroundColor = whitePrimary
+		self.emailFieldRegister.returnKeyType = .Next
 		self.emailFieldRegister.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.lastnameField.snp_bottom).offset(10)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
-		let passwordFieldRegister = UITextField()
+		let passwordFieldRegister = DefaultTextFieldView()
 		self.passwordFieldRegister = passwordFieldRegister
 		self.thirdContainer.addSubview(passwordFieldRegister)
 		self.passwordFieldRegister.secureTextEntry = true
-		self.passwordFieldRegister.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.passwordFieldRegister.textColor = textFieldTextColor
-		self.passwordFieldRegister.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.passwordFieldRegister.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.passwordFieldRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.passwordFieldRegister.autocapitalizationType = UITextAutocapitalizationType.None
-		self.passwordFieldRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.passwordFieldRegister.backgroundColor = whitePrimary
+		self.passwordFieldRegister.returnKeyType = .Next
 		self.passwordFieldRegister.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.emailFieldRegister.snp_bottom).offset(10)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
 		let passwordfieldUnderlineRegister = UIView()
 		self.passwordfieldUnderlineRegister = passwordfieldUnderlineRegister
 		self.thirdContainer.addSubview(passwordfieldUnderlineRegister)
-		self.passwordfieldUnderlineRegister.backgroundColor = grayDetails
+		self.passwordfieldUnderlineRegister.backgroundColor = Color.grayDetails
 		self.passwordfieldUnderlineRegister.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.passwordFieldRegister.snp_bottom)
 			make.centerX.equalTo(self.passwordFieldRegister.snp_centerX)
@@ -493,33 +468,28 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.height.equalTo(1)
 		}
 		
-		let passwordFieldConfirmRegister = UITextField()
+		let passwordFieldConfirmRegister = DefaultTextFieldView()
 		self.passwordFieldConfirmRegister = passwordFieldConfirmRegister
 		self.passwordFieldConfirmRegister.secureTextEntry = true
 		self.thirdContainer.addSubview(passwordFieldConfirmRegister)
-		self.passwordFieldConfirmRegister.attributedPlaceholder = NSAttributedString(string: "Confirm password", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		self.passwordFieldConfirmRegister.textColor = textFieldTextColor
-		self.passwordFieldConfirmRegister.font = UIFont(name: "Lato-Regular", size: kText15)
+		self.passwordFieldConfirmRegister.attributedPlaceholder = NSAttributedString(string: "Confirm password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.passwordFieldConfirmRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.passwordFieldConfirmRegister.autocapitalizationType = UITextAutocapitalizationType.None
-		self.passwordFieldConfirmRegister.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-		self.passwordFieldConfirmRegister.backgroundColor = whitePrimary
+		self.passwordFieldConfirmRegister.returnKeyType = .Done
 		self.passwordFieldConfirmRegister.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.passwordFieldRegister.snp_bottom).offset(1)
+			make.top.equalTo(self.passwordFieldRegister.snp_bottom).offset(-1)
 			make.left.equalTo(self.thirdContainer.snp_left).offset(24)
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
-			make.height.equalTo(50)
 		}
 		
 		let registerAccountButton = UIButton()
 		self.registerAccountButton = registerAccountButton
 		self.thirdContainer.addSubview(self.registerAccountButton)
 		self.registerAccountButton.setTitle("Sign up", forState: UIControlState.Normal)
-		self.registerAccountButton.setTitleColor(whitePrimary, forState: UIControlState.Normal)
-		self.registerAccountButton.setTitleColor(redPrimarySelected, forState: UIControlState.Highlighted)
+		self.registerAccountButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
 		self.registerAccountButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		self.registerAccountButton.setBackgroundColor(redPrimary, forState: UIControlState.Normal)
-		self.registerAccountButton.setBackgroundColor(redPrimarySelected, forState: UIControlState.Highlighted)
+		self.registerAccountButton.setBackgroundColor(Color.redPrimary, forState: UIControlState.Normal)
+		self.registerAccountButton.setBackgroundColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
 		self.registerAccountButton.addTarget(self, action: "createAccount:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.registerAccountButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.passwordFieldConfirmRegister.snp_bottom)
@@ -544,6 +514,31 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	
 	func adjustUI(){
 		
+	}
+	
+	//MARK: TextField delegates
+	
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		
+		dismissKeyboard()
+		textField.resignFirstResponder()
+		
+		switch (textField) {
+		case self.emailField:
+			self.passwordField.becomeFirstResponder()
+		case self.firstnameField:
+			self.lastnameField.becomeFirstResponder()
+		case self.lastnameField:
+			self.emailFieldRegister.becomeFirstResponder()
+		case self.emailFieldRegister:
+			self.passwordFieldRegister.becomeFirstResponder()
+		case self.passwordFieldRegister:
+			self.passwordFieldConfirmRegister.becomeFirstResponder()
+		default:
+			return false
+		}
+		
+		return false
 	}
 	
 	//MARK: KEYBOARD VIEW MOVER, WITH viewDidDis/Appear AND textfielddelegate
@@ -572,11 +567,13 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		var aRect = self.view.frame
 		aRect.size.height -= keyboardFrame.height
 		
-		let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
-		
-		if self.activeField != nil {
-			if (CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
-				self.scrollView.scrollRectToVisible(frame, animated: true)
+		if activeField != nil {
+			let frame = CGRectMake(self.activeField.frame.minX, self.activeField.frame.minY, self.activeField.frame.width, self.activeField.frame.height + (self.view.frame.height * 0.2))
+			
+			if self.activeField != nil {
+				if !(CGRectContainsPoint(aRect, self.activeField.frame.origin)) {
+					self.scrollView.scrollRectToVisible(frame, animated: true)
+				}
 			}
 		}
 	}
@@ -590,12 +587,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	//MARK: Actions
 	
 	func facebookLogin(sender: UIButton) {
+		
 		ApiHelper.loginWithFacebook { (err) -> Void in
 			self.loginCompleted()
 		}
 	}
 	
-	func twitterLogin(sender: UIButton) {
+	//removed 13-11-15
+	/*func twitterLogin(sender: UIButton) {
 		
 		PFTwitterUtils.logInWithBlock { (user, error) -> Void in
 			if error != nil{
@@ -603,30 +602,69 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				
 			}else{
 				
-				if user!.isNew{
+				if user!.isNew   {
 					print("User signed up and logged in through Twitta!")
 					self.getTwitterUserInfo()
 					
 					PFUser.currentUser()!["loginProvider"] = "twitter"
 					PFUser.currentUser()!.saveInBackground()
 					
-				}else{
+				} else {
 					
 					print("User logged in through Twitta")
 					self.getTwitterUserInfo()
 				}
 			}
 		}
-		
-	}
+	}*/
 	
 	func emailLogin(sender: UIButton) {
+		dismissKeyboard()
+		var errorMsg: String?
+		var openAlert = false
+		
+		
+		if self.emailField.text == "" || self.passwordField.text == "" {
+			errorMsg = "Please enter your email address and password"
+			openAlert = true
+		} else if !(self.emailField.text!.isEmail()) {
+			errorMsg = "Please enter a valid email address"
+			openAlert = true
+		}
+		
+		if openAlert {
+			let popup = UIAlertController(title: errorMsg!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+			}))
+			
+			self.presentViewController(popup, animated: true, completion: nil)
+			popup.view.tintColor = Color.redPrimary
+			
+			return
+		}
+		
+		
 		ApiHelper.loginWithEmail(self.emailField.text!, password: self.passwordField.text!, block: { (error) -> Void in
 			if error != nil {
 				print("\(error)")
+				
+				if error!.code == 100 {
+					errorMsg = "No internet connection"
+				} else if error!.code == 101 {
+					errorMsg = "Invalid email address or password"
+				} else {
+					errorMsg = "Error code: \(error!.code)"
+				}
+				
+				
+				let popup = UIAlertController(title: errorMsg, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+				popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+				}))
+				
+				self.presentViewController(popup, animated: true, completion: nil)
+				popup.view.tintColor = Color.redPrimary
 			} else {
 				self.loginCompleted()
-				self.getEmailInfo()
 			}
 		})
 	}
@@ -636,54 +674,75 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	}
 	
 	func createAccount(sender: UIButton) {
-		if self.emailFieldRegister.text?.characters.count ==  0 || self.passwordFieldRegister.text?.characters.count == 0 || self.firstnameField.text?.characters.count == 0 || self.lastnameField.text?.characters.count == 0 {
-			return
+		dismissKeyboard()
+		
+		var errorMsg: String?
+		var openAlert = false
+		
+		
+		if self.emailFieldRegister.text == "" || self.passwordFieldRegister.text == "" || self.firstnameField.text == "" || self.lastnameField.text == "" || self.passwordFieldRegister.text == "" || self.passwordFieldConfirmRegister.text == "" {
+			errorMsg = "Please fill in all the required fields"
+			openAlert = true
+		} else if !(self.emailFieldRegister.text!.isEmail()) {
+			errorMsg = "Please enter a valid email address"
+			openAlert = true
+		} else if self.passwordFieldRegister.text != self.passwordFieldConfirmRegister.text {
+			errorMsg = "Passwords don't match"
+			openAlert = true
+			
+			self.passwordFieldRegister.text = ""
+			self.passwordFieldConfirmRegister.text = ""
 		}
 		
-		if self.passwordFieldRegister.text != self.passwordFieldConfirmRegister.text {
+		if openAlert {
+			let popup = UIAlertController(title: errorMsg!, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+			}))
+			
+			self.presentViewController(popup, animated: true, completion: nil)
+			popup.view.tintColor = Color.redPrimary
+			
 			return
 		}
 		
 		ApiHelper.registerWithEmail(self.emailFieldRegister.text!, password: self.passwordFieldRegister.text!, firstName: self.firstnameField.text!, lastName: self.lastnameField.text!) { (error) -> Void in
 			
 			if error != nil {
-				print("\(error)")
+				if error!.code == 100 {
+					errorMsg = "No internet connection"
+				} else if error!.code == 202 || error!.code == 203 {
+					errorMsg = "This email is already registered"
+				} else {
+					errorMsg = "Error code: \(error!.code)"
+				}
+				
+				let popup = UIAlertController(title: errorMsg, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+				popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+				}))
+				
+				self.presentViewController(popup, animated: true, completion: nil)
+				popup.view.tintColor = Color.redPrimary
 				
 			} else {
-				
-				ApiHelper.loginWithEmail(self.emailFieldRegister.text!, password: self.passwordFieldRegister.text!, block: { (error) -> Void in
-					
-					if error != nil {
-						print("\(error)")
-						
-					} else {
-						
-						self.getEmailInfo()
-						self.loginCompleted()
-					}
-				})
+				self.loginCompleted()
 			}
 		}
 	}
 	
 	func skipLogin(sender: AnyObject) {
+		dismissKeyboard()
 		self.loginCompleted()
 	}
 	
 	//Login
 	
-	func getTwitterUserInfo(){
-	}
-	
-	func getEmailInfo(){
-		PFUser.currentUser()!.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-			self.loginCompleted()
-		})
+	func getTwitterUserInfo() {
 	}
 	
 	func loginCompleted() {
+		dismissKeyboard()
 		ApiHelper.getCurrentUserPrivateInfo()
-		delegate?.onLogin()
+		self.delegate?.onLogin()
 	}
 	
 	//MARK: ANIMATE FIRST <-> SECOND VIEW
@@ -706,11 +765,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				}, completion: nil)
 			
 			self.emailActive = true
-			DismissKeyboard()
+			dismissKeyboard()
 			
 		} else if self.fieldEditing {
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			
 		} else {
 			
@@ -728,7 +787,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				}, completion: nil)
 			
 			self.emailActive = false
-			DismissKeyboard()
+			dismissKeyboard()
 		}
 	}
 	
@@ -751,11 +810,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				}, completion: nil)
 			
 			self.registerActive = true
-			DismissKeyboard()
+			dismissKeyboard()
 			
 		} else if self.fieldEditing {
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			
 		} else {
 			
@@ -773,7 +832,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 				}, completion: nil)
 			
 			self.registerActive = false
-			DismissKeyboard()
+			dismissKeyboard()
 		}
 	}
 	

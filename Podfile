@@ -4,17 +4,21 @@
 target 'Nelper' do
 
 use_frameworks!
+inhibit_all_warnings!
 
-pod 'GoogleMaps', '~> 1.10.2'
+pod 'GoogleMaps'
 pod 'Alamofire'
 pod 'SnapKit'
-pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git', :branch => 'xcode7'
+pod 'SwiftyJSON'
 pod 'iCarousel'
-pod 'LayerKit'
+pod 'SDWebImage'
 pod 'Stripe'
 pod 'SupportKit'
 pod 'FXBlurView'
-pod 'ParkedTextField' #TODO: INSTALL POD FOR $ TEXTFIELD?
+pod 'ParkedTextField'
+pod 'SVProgressHUD'
+pod 'MGSwipeTableCell'
+pod 'Atlas'
 
 end
 

@@ -12,6 +12,8 @@ import CoreLocation
 import GoogleMaps
 import Stripe
 import Alamofire
+import SVProgressHUD
+import SDWebImage
 
 class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate, FilterSortViewControllerDelegate, MKMapViewDelegate {
 	
@@ -27,7 +29,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	var filtersButton:UIButton!
 	
 	var nelpTasks = [Task]()
-	var findNelpTasks = [FindNelpTask]()
+	var findNelpTasks = [Task]()
 	
 	var mapView: MKMapView!
 	var currentLocation: CLLocation?
@@ -49,10 +51,20 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	var mapInfoBlurView: UIVisualEffectView!
 	var isFirstExpandExec: Bool = true
 	
+	var selectedCell: BrowseTaskViewCell?
+	
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		//Print all fonts to test installation
+		/*for family: String in UIFont.familyNames() {
+			print("\(family)")
+			for names: String in UIFont.fontNamesForFamilyName(family) {
+				print("== \(names)")
+			}
+		}*/
 		
 		placesClient = GMSPlacesClient()
 		
@@ -62,17 +74,19 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.createTaskTableView()
 		self.loadData()
 		self.extendedLayoutIncludesOpaqueBars = true
-		
 		self.adjustUI()
+		
+		//Checks for Localization Permission
+		PermissionHelper.sharedInstance.checkLocationStatus()
 	}
 	
 	override func viewDidAppear(animated: Bool) {
 		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
 			self.loadData()
 		}
-		
 		let rootvc: TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
 		rootvc.presentedVC = self
+		SVProgressHUD.dismiss()
 	}
 	
 	//MARK: Creating the View
@@ -88,25 +102,16 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		let navBar = NavBar()
 		self.navBar = navBar
 		self.view.addSubview(self.navBar)
+		
+		let filtersBtn = UIButton()
+		filtersBtn.addTarget(self, action: "didTapFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.filtersButton = filtersBtn
 		self.navBar.setTitle("Browse Tasks")
 		self.navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
 			make.left.equalTo(self.view.snp_left)
 			make.height.equalTo(64)
-		}
-		
-		let filtersButton = UIButton()
-		self.navBar.addSubview(filtersButton)
-		self.filtersButton = filtersButton
-		filtersButton.setImage(UIImage(named: "filters-inactive"), forState: UIControlState.Normal)
-		filtersButton.imageEdgeInsets = UIEdgeInsetsMake(13, 16, 8, 18)
-		filtersButton.addTarget(self, action: "didTapFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
-		filtersButton.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(navBar.snp_right)
-			make.bottom.equalTo(navBar.snp_bottom)
-			make.height.equalTo(50)
-			make.width.equalTo(60)
 		}
 		
 		self.navBar.layoutIfNeeded()
@@ -128,12 +133,12 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		let contentView = UIView()
 		self.contentView = contentView
 		backgroundView.addSubview(contentView)
-		contentView.backgroundColor = whiteBackground
+		contentView.backgroundColor = Color.whiteBackground
 		contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(backgroundView.snp_top)
 			make.left.equalTo(backgroundView.snp_left)
 			make.right.equalTo(backgroundView.snp_right)
-			make.bottom.greaterThanOrEqualTo(backgroundView)
+			make.bottom.equalTo(backgroundView.snp_bottom)
 		}
 		
 		self.defaultMapHeight = 250
@@ -158,7 +163,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			make.top.equalTo(mapContainer.snp_bottom).offset(2)
 			make.right.equalTo(contentView.snp_right)
 			make.left.equalTo(contentView.snp_left)
-			make.height.equalTo(backgroundView.snp_height).offset(-defaultMapHeight)
+			make.bottom.equalTo(contentView.snp_bottom).inset(self.tabBarController!.tabBar.bounds.height)
 		}
 	}
 	
@@ -173,7 +178,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.tableView.dataSource = self
 		tableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
 		tableView.registerClass(BrowseTaskViewCell.classForCoder(), forCellReuseIdentifier: BrowseTaskViewCell.reuseIdentifier)
-		self.tableView.backgroundColor = whiteBackground
+		self.tableView.backgroundColor = Color.whiteBackground
 		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		
 		self.tableViewContainer.addSubview(tableView)
@@ -213,6 +218,9 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			let userLocation: CLLocation = self.locationManager.location!
 			self.currentLocation = userLocation
 			LocationHelper.sharedInstance.currentLocation = PFGeoPoint(latitude:userLocation.coordinate.latitude, longitude:userLocation.coordinate.longitude)
+			
+			LocationHelper.sharedInstance.currentCLLocation = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude,longitude: userLocation.coordinate.longitude)
+			
 			let userLocationForCenter = userLocation.coordinate
 			let span: MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
 			let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
@@ -288,10 +296,15 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			if pinView == nil {
 				
 				pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+				let customPinAnnotation = pinView!.annotation as? BrowseMKAnnotation
+				
 				pinView!.canShowCallout = false
-				pinView!.image = UIImage(named: "pin-MK")
+				
+				//print("\(customPinAnnotation!.title!) of category \(customPinAnnotation!.category!) created")
+				let pinCategory = customPinAnnotation!.category
+				pinView!.image = UIImage(named: "\(pinCategory!)-pin")
 				pinView!.layer.zPosition = -1
-				pinView!.centerOffset = CGPointMake(0, -20)
+				pinView!.centerOffset = CGPointMake(0, -25)
 				
 			} else {
 				pinView!.annotation = annotation
@@ -302,20 +315,71 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		return nil
 	}
 	
+	func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+		//Might cause perfomance issue, TBD
+		for view in views {
+			if view.annotation is BrowseMKAnnotation {
+				let customPinAnnotation = view.annotation as? BrowseMKAnnotation
+				let pinCategory = customPinAnnotation!.category
+				view.image = UIImage(named: "\(pinCategory!)-pin")
+			}
+		}
+	}
+	
 	func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
 		
 		if view.isKindOfClass(MKAnnotationView) && !(view.annotation!.isKindOfClass(MKUserLocation)) {
 			self.annotationIsSelected = true
 			view.layer.zPosition = 0
-			view.image = UIImage(named: "pinSelected-MK")
 			
-			var center = view.annotation!.coordinate
+			let pinViewAnnotation = view.annotation as? BrowseMKAnnotation
+			let pinCategory = pinViewAnnotation!.category
 			
-			if self.mapExpanded {
+			view.image = UIImage(named: "\(pinCategory!)-pin-sel")
+			
+			let center = view.annotation!.coordinate
+			
+			/*if self.mapExpanded {
 				center.latitude -= mapView.region.span.latitudeDelta * 0.10
 			}
+			mapView.setCenterCoordinate(center, animated: true)*/
 			
-			mapView.setCenterCoordinate(center, animated: true)
+			let zoomSpan = MKCoordinateSpanMake(0.012, 0.012)
+			let zoomedRegion = MKCoordinateRegionMake(center, zoomSpan)
+			let currentSpan = mapView.region.span
+			
+			if mapView.region.span.longitudeDelta > zoomSpan.longitudeDelta {
+				mapView.setRegion(zoomedRegion, animated: true)
+			} else {
+				mapView.setRegion(MKCoordinateRegionMake(center, currentSpan), animated: true)
+			}
+			
+			if !(self.mapExpanded) {
+				
+				/*let cells = NSMutableArray()
+				for var j = 0; j < self.tableView.numberOfSections; ++j {
+					for var i = 0; i < self.tableView.numberOfRowsInSection(j); ++i {
+						cells.addObject(self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: j))!)
+					}
+				}*/
+				
+				for view in self.tableView.subviews {
+					for tableViewCell in view.subviews {
+						if tableViewCell is BrowseTaskViewCell {
+							let selectedCell = tableViewCell as? BrowseTaskViewCell
+							
+							if selectedCell!.task.objectId == pinViewAnnotation!.task.objectId {
+								let index = selectedCell!.cellIndexPath
+								selectedCell!.cellSelected()
+								self.selectedCell = selectedCell
+								self.tableView.scrollToRowAtIndexPath(index, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+								
+							}
+						}
+					}
+				}
+			
+			}
 			
 			setAnnotationInfo(view)
 		}
@@ -325,10 +389,16 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		if view.isKindOfClass(MKAnnotationView) && !(view.annotation!.isKindOfClass(MKUserLocation)) {
 			self.annotationIsSelected = false
 			view.layer.zPosition = -1
-			view.image = UIImage(named: "pin-MK")
+			
+			let pinViewAnnotation = view.annotation as? BrowseMKAnnotation
+			let pinCategory = pinViewAnnotation!.category
+			
+			view.image = UIImage(named: "\(pinCategory!)-pin")
 			
 			if self.mapExpanded {
 				removeAnnotationInfo(view)
+			} else {
+				self.selectedCell?.cellDeselected()
 			}
 		}
 	}
@@ -343,7 +413,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			let mapInfoBlurView = UIVisualEffectView(effect: blurEffect)
 			self.mapInfoBlurView = mapInfoBlurView
 			self.mapView.addSubview(mapInfoBlurView)
-			mapInfoBlurView.backgroundColor = whitePrimary.colorWithAlphaComponent(0)
+			mapInfoBlurView.backgroundColor = Color.whitePrimary.colorWithAlphaComponent(0)
 			mapInfoBlurView.snp_makeConstraints { (make) -> Void in
 				make.left.equalTo(self.mapView.snp_left).offset(10)
 				make.bottom.equalTo(self.mapView.snp_bottom).offset(200)
@@ -353,9 +423,9 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			mapInfoBlurView.layoutIfNeeded()
 			
 			let infoButton = mapTaskButton()
-			infoButton.layer.borderColor = grayDetails.CGColor
+			infoButton.layer.borderColor = Color.grayDetails.CGColor
 			infoButton.layer.borderWidth = 1
-			infoButton.setBackgroundColor(grayDetails.colorWithAlphaComponent(0.4), forState: UIControlState.Highlighted)
+			infoButton.setBackgroundColor(Color.grayDetails.colorWithAlphaComponent(0.4), forState: UIControlState.Highlighted)
 			infoButton.addTarget(self, action: "infoButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 			infoButton.selectedTask = pinViewAnnotation!.task
 			mapInfoBlurView.addSubview(infoButton)
@@ -396,18 +466,18 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			taskTitleLabel.textAlignment = NSTextAlignment.Left
 			taskTitleLabel.numberOfLines = 1
 			taskTitleLabel.text = pinViewAnnotation?.title
-			taskTitleLabel.textColor = blackPrimary.colorWithAlphaComponent(0.7)
+			taskTitleLabel.textColor = Color.blackPrimary
 			taskTitleLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 			taskTitleLabel.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(userPicture.snp_top).offset(2)
-				make.left.equalTo(userPicture.snp_right).offset(12)
+				make.left.equalTo(userPicture.snp_right).offset(18)
 				make.right.equalTo(infoButton.snp_right).offset(-10)
 			}
 			
 			let author = UILabel()
 			infoButton.addSubview(author)
 			author.font = UIFont(name: "Lato-Light", size: kText13)
-			author.textColor = blackTextColor
+			author.textColor = Color.blackTextColor
 			author.text = pinViewAnnotation!.poster
 
 			let dateHelper = DateHelper()
@@ -417,28 +487,28 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			infoButton.addSubview(creationDate)
 			creationDate.text = "Posted \(dateHelper.timeAgoSinceDate(pinViewAnnotation!.date!, numericDates: true))"
 			creationDate.font = UIFont(name: "Lato-Light", size: kText13)
-			creationDate.textColor = blackTextColor
+			creationDate.textColor = Color.blackTextColor
 			
 			let moneyContainer = UIView()
 			infoButton.addSubview(moneyContainer)
-			moneyContainer.backgroundColor = redPrimary
+			moneyContainer.backgroundColor = Color.whiteBackground
 			moneyContainer.layer.cornerRadius = 3
 			moneyContainer.snp_makeConstraints { (make) -> Void in
 				make.right.equalTo(mapInfoBlurView.snp_right).offset(-20)
-				make.bottom.equalTo(creationDate.snp_bottom).offset(-2)
+				make.centerY.equalTo(userPicture.snp_centerY).offset(pictureSize / 5)
 				make.width.equalTo(55)
 				make.height.equalTo(35)
 			}
 			
 			creationDate.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(author.snp_bottom).offset(7)
+				make.top.equalTo(author.snp_bottom).offset(4)
 				make.left.equalTo(author.snp_left)
 				make.right.equalTo(moneyContainer.snp_left).offset(6)
 			}
 			
 			author.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(taskTitleLabel.snp_bottom).offset(8)
-				make.left.equalTo(userPicture.snp_right).offset(22)
+				make.left.equalTo(taskTitleLabel)
 				make.right.equalTo(moneyContainer.snp_left).offset(6)
 			}
 			
@@ -447,11 +517,34 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			let moneyLabel = UILabel()
 			moneyContainer.addSubview(moneyLabel)
 			moneyLabel.textAlignment = NSTextAlignment.Center
-			moneyLabel.textColor = whitePrimary
+			moneyLabel.textColor = Color.blackPrimary
 			moneyLabel.text = price+"$"
-			moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
+			moneyLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 			moneyLabel.snp_makeConstraints { (make) -> Void in
 				make.edges.equalTo(moneyContainer.snp_edges)
+			}
+			
+			let appliedNotice = UILabel()
+			infoButton.addSubview(appliedNotice)
+			appliedNotice.text = "Applied"
+			appliedNotice.font = UIFont(name: "Lato-Regular", size: kText15)
+			appliedNotice.textColor = Color.redPrimary
+			appliedNotice.snp_makeConstraints { (make) -> Void in
+				make.centerX.equalTo(moneyContainer.snp_centerX)
+				make.centerY.equalTo(taskTitleLabel.snp_centerY)
+			}
+			
+			let task = pinViewAnnotation!.task
+			
+			if task.application != nil && task.application!.state != .Canceled {
+				appliedNotice.hidden = false
+				taskTitleLabel.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(userPicture.snp_top).offset(2)
+					make.left.equalTo(userPicture.snp_right).offset(18)
+					make.right.equalTo(appliedNotice.snp_left).offset(-10)
+				})
+			} else {
+				appliedNotice.hidden = true
 			}
 			
 			mapInfoBlurView.snp_makeConstraints { (make) -> Void in
@@ -496,12 +589,11 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	//MARK: Filters
 	
 	func checkFilters() {
-		if self.arrayOfFilters.isEmpty && self.minPrice == nil && self.maxDistance == nil {
-			self.filtersButton.setImage(UIImage(named: "filters-inactive"), forState: UIControlState.Normal)
-			
-			self.filtersButton.imageEdgeInsets = UIEdgeInsetsMake(13, 16, 8, 18)
+		if self.arrayOfFilters.isEmpty {
+			self.navBar.filtersButtonView!.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		} else {
-			self.filtersButton.setImage(UIImage(named: "filters-active"), forState: UIControlState.Normal)
+			print("bold")
+			self.navBar.filtersButtonView!.titleLabel!.font = UIFont(name: "Lato-Black", size: kTitle17)
 		}
 	}
 	
@@ -512,10 +604,10 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	*/
 	
 	func onPullToRefresh() {
-		if self.arrayOfFilters.isEmpty && self.sortBy == nil && self.minPrice == nil && self.maxDistance == nil {
+		if self.arrayOfFilters.isEmpty && self.sortBy == nil {
 			self.loadData()
 		} else {
-			self.loadDataWithFilters(self.arrayOfFilters, sort: self.sortBy, minPrice: self.minPrice, maxDistance: self.maxDistance)
+			self.loadDataWithFilters(self.arrayOfFilters, sort: self.sortBy)
 		}
 	}
 	
@@ -523,7 +615,20 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	Fetches the required date from Backend
 	*/
 	func loadData() {
-		ApiHelper.listNelpTasksWithBlock(nil, sortBy: nil, minPrice: nil, maxDistance: nil, block: {(nelpTasks: [Task]?, error: NSError?) -> Void in
+		var distance: String?
+		
+		if CLLocationManager.locationServicesEnabled() {
+			switch (CLLocationManager.authorizationStatus()) {
+			case .NotDetermined, .Restricted, .Denied:
+				distance = nil
+			case .AuthorizedAlways, .AuthorizedWhenInUse:
+				distance = "distance"
+			}
+		} else {
+			distance = nil
+		}
+		
+		ApiHelper.listNelpTasksWithBlock(nil, sortBy: distance, block: {(nelpTasks: [Task]?, error: NSError?) -> Void in
 			if error != nil {
 				
 			} else {
@@ -531,6 +636,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 				self.createPins()
 				self.refreshView?.endRefreshing()
 				self.tableView?.reloadData()
+				self.sortBy = "distance"
 			}
 		})
 	}
@@ -544,8 +650,8 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	- parameter maxDistance: Maximum Distance Filter Value
 	*/
 	
-	func loadDataWithFilters(filters:Array<String>?, sort:String?, minPrice:Double?, maxDistance:Double?){
-		ApiHelper.listNelpTasksWithBlock(filters, sortBy: sort,minPrice:minPrice, maxDistance:maxDistance, block: {(nelpTasks: [Task]?, error: NSError?) -> Void in
+	func loadDataWithFilters(filters:Array<String>?, sort:String?) {
+		ApiHelper.listNelpTasksWithBlock(filters, sortBy: sort, block: {(nelpTasks: [Task]?, error: NSError?) -> Void in
 			if error != nil {
 				print(error)
 			} else {
@@ -568,21 +674,59 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		
 		let cell = self.tableView.dequeueReusableCellWithIdentifier(BrowseTaskViewCell.reuseIdentifier, forIndexPath: indexPath) as! BrowseTaskViewCell
 		
+		if self.sortBy == "priceOffered" {
+			cell.moneyContainer.backgroundColor = Color.redPrimary
+			cell.price.textColor = Color.whitePrimary
+		} else {
+			cell.moneyContainer.backgroundColor = Color.whiteBackground
+			cell.price.textColor = Color.blackPrimary
+		}
+		
 		let task = self.nelpTasks[indexPath.item]
 		cell.setNelpTask(task)
-		cell.setImages(task)
+		if (self.sortBy == "distance" || self.sortBy == "priceOffered") && LocationHelper.sharedInstance.currentCLLocation != nil{
+			cell.setLocation()
+		}
+		if task.user.profilePictureURL != nil{
+		cell.picture.sd_setImageWithURL(NSURL(string: task.user.profilePictureURL!), placeholderImage: UIImage(named: "noProfilePicture"))
+		}else{
+			cell.picture.image = UIImage(named:"noProfilePicture")
+		}
+		cell.cellIndexPath = indexPath
 		
 		return cell
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let selectedTask = self.nelpTasks[indexPath.row]
-		let vc = BrowseDetailsViewController()
-		vc.hidesBottomBarWhenPushed = true
-		vc.task = selectedTask
-		self.navigationController?.pushViewController(vc, animated: true)
+		
+		if selectedTask.application != nil && selectedTask.application!.state != .Canceled {
+			let nextVC = MyApplicationDetailsView(poster: selectedTask.application!.task.user, application: selectedTask.application!)
+			nextVC.hidesBottomBarWhenPushed = true
+			dispatch_async(dispatch_get_main_queue()) {
+				self.navigationController?.pushViewController(nextVC, animated: true)
+			}
+		} else {
+			let vc = BrowseDetailsViewController()
+			vc.hidesBottomBarWhenPushed = true
+			vc.task = selectedTask
+			self.navigationController?.pushViewController(vc, animated: true)
+		}
 	}
 	
+	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+		
+		UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+			cell.alpha = 1
+			}, completion: nil)
+		
+		/*if (indexPath.row == tableView.indexPathsForVisibleRows!.last!.row) {
+			
+			UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				cell.alpha = 1
+				}, completion: nil)
+		}*/
+	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return 85
@@ -636,13 +780,10 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	- parameter maxDistance: Maximum Distance filter value
 	*/
 	
-	func didTapAddFilters(filters: Array<String>?, sort: String?, minPrice:Double?, maxDistance:Double?){
+	func didTapAddFilters(filters: Array<String>?, sort: String?) {
 		self.arrayOfFilters = filters!
 		self.sortBy = sort
-		print(filters!, terminator: "")
-		self.minPrice = minPrice
-		self.maxDistance = maxDistance
-		self.loadDataWithFilters(filters, sort: sort, minPrice: minPrice, maxDistance: maxDistance)
+		self.loadDataWithFilters(filters, sort: sort)
 		self.checkFilters()
 	}
 	
@@ -652,13 +793,11 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		
 	}
 	
-	func didTapFiltersButton(sender:UIButton){
+	func didTapFiltersButton(sender: UIButton){
 		let nextVC =  FilterSortViewController()
 		nextVC.arrayOfFiltersFromPrevious = self.arrayOfFilters
 		nextVC.previousSortBy = self.sortBy
 		nextVC.delegate = self
-		nextVC.previousMinPrice = self.minPrice
-		nextVC.previousMaxDistance = self.maxDistance
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	

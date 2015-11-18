@@ -58,7 +58,7 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 		let contentView = UIView()
 		self.contentView = contentView
 		self.view.addSubview(contentView)
-		self.contentView.backgroundColor = whiteBackground
+		self.contentView.backgroundColor = Color.whiteBackground
 		self.contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.navBar.snp_bottom)
 			make.left.equalTo(self.view.snp_left)
@@ -73,7 +73,7 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 		self.tableView.delegate = self
 		self.tableView.dataSource = self
 		self.tableView.registerClass(MainSettingsViewCell.classForCoder(), forCellReuseIdentifier: MainSettingsViewCell.reuseIdentifier)
-		self.tableView.backgroundColor = whiteBackground
+		self.tableView.backgroundColor = Color.whiteBackground
 		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		self.contentView.addSubview(tableView)
 		self.tableView.snp_makeConstraints { (make) -> Void in
@@ -138,14 +138,15 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.backButton = previousBtn
-		self.contentView.backgroundColor = whiteBackground
+		self.contentView.backgroundColor = Color.whiteBackground
 	}
 	
 	
 	//MARK: ACTIONS
 	func backButtonTapped(sender: UIButton) {
+		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Slide)
 		self.navigationController?.popViewControllerAnimated(true)
-		view.endEditing(true) // dissmiss keyboard without delay
+		view.endEditing(true) // dismiss keyboard without delay
 	}
 	
 }

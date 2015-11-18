@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 class FaqViewController: UIViewController {
 	
@@ -41,7 +42,7 @@ class FaqViewController: UIViewController {
 		let contentView = UIView()
 		self.contentView = contentView
 		self.view.addSubview(contentView)
-		self.contentView.backgroundColor = whiteBackground
+		self.contentView.backgroundColor = Color.whiteBackground
 		self.contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.navBar.snp_bottom)
 			make.left.equalTo(self.view.snp_left)
@@ -49,7 +50,7 @@ class FaqViewController: UIViewController {
 			make.bottom.equalTo(self.view.snp_bottom)
 		}
 		
-		let webView = UIWebView()
+		let webView = WKWebView()
 		self.contentView.addSubview(webView)
 		webView.loadRequest(NSURLRequest(URL: NSURL(string: "https://www.nelper.ca/faq")!))
 		webView.snp_makeConstraints { (make) -> Void in
@@ -65,6 +66,6 @@ class FaqViewController: UIViewController {
 	//MARK: ACTIONS
 	func backButtonTapped(sender: UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
-		view.endEditing(true) // dissmiss keyboard without delay
+		view.endEditing(true) // dismiss keyboard without delay
 	}
 }

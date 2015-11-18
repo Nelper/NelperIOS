@@ -11,7 +11,7 @@ import Foundation
 class PageControllerOval: UIView {
 	override func drawRect(rect: CGRect) {
 		let ovalPath = UIBezierPath(ovalInRect: CGRectMake(0, 0, self.frame.width, self.frame.height))
-		blackPrimary.colorWithAlphaComponent(0.5).setFill()
+		UIColor.blackColor().colorWithAlphaComponent(0.5).setFill()
 		ovalPath.fill()
 	}
 }

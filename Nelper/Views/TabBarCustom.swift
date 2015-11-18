@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import SVProgressHUD
 
 class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	
@@ -42,21 +43,20 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 		self.tabBar.translucent = false
 		let browseVC = UINavigationController(rootViewController: BrowseViewController())
 		browseVC.navigationBarHidden = true
-//		let browseVC = BrowseViewController()
 		let browseVCItem = UITabBarItem(title: "Browse tasks", image: UIImage(named: "browse_default"), selectedImage: UIImage(named: "browse_default"))
 		browseVC.tabBarItem = browseVCItem
 		
-		let nelpCenterVC = UINavigationController(rootViewController:NelpCenterViewController())
+		let nelpCenterVC = UINavigationController(rootViewController: NelpCenterViewController())
 		nelpCenterVC.navigationBarHidden = true
 		let nelpCenterVCItem = UITabBarItem(title: "Nelp Center", image: UIImage(named: "nelpcenter_default"), selectedImage: UIImage(named: "nelpcenter_default"))
 		nelpCenterVC.tabBarItem = nelpCenterVCItem
 		
-		let postVC = UINavigationController(rootViewController:PostTaskCategoriesViewController())
+		let postVC = UINavigationController(rootViewController: PostTaskCategoriesViewController())
 		postVC.navigationBarHidden = true
 		let postVCItem = UITabBarItem(title: "Post a task", image: UIImage(named: "post_task"), selectedImage: UIImage(named: "post_task"))
 		postVC.tabBarItem = postVCItem
 		
-		//		let moreVC = MoreViewController(menuViewController: UIViewController(), contentViewController: MoreMenuTableViewController())
+		//let moreVC = MoreViewController(menuViewController: UIViewController(), contentViewController: MoreMenuTableViewController())
 		let moreVC = UINavigationController(rootViewController: MoreViewController())
 		moreVC.navigationBarHidden = true
 		let moreVCItem = UITabBarItem(title: "More", image: UIImage(named: "menu"), selectedImage: UIImage(named: "more"))
@@ -65,24 +65,63 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 		let controllersArray = [browseVC, nelpCenterVC, postVC, moreVC]
 		
 		self.viewControllers = controllersArray
-		self.tabBar.tintColor = redPrimary
+		self.tabBar.tintColor = Color.redPrimary
 		
 	}
 	
 	func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
 		if viewController != self.viewControllers![3] {
 			self.viewIsCreated = false
+			
+			if !(self.selectedViewController == viewController) && viewController == self.viewControllers![1] {
+				SVProgressHUD.setBackgroundColor(Color.redPrimary)
+				SVProgressHUD.setForegroundColor(Color.whitePrimary)
+				SVProgressHUD.show()
+			}
+			
+			//Animation
+			let tabViewControllers = tabBarController.viewControllers
+			let fromView = tabBarController.selectedViewController!.view
+			let toView = viewController.view
+			if (fromView == toView) {
+				return false
+			}
+			
+			let toIndex = tabViewControllers?.indexOf(viewController)
+			
+			let offScreenRight = CGAffineTransformMakeTranslation(toView.frame.width / 3, 0)
+			
+			toView.transform = offScreenRight
+			
+			toView.alpha = 0
+			fromView.layer.zPosition = -1
+			self.view.addSubview(fromView)
+			
+			self.view.userInteractionEnabled = false
+			
+			UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseOut, animations:  {
+				toView.transform = CGAffineTransformIdentity
+				toView.alpha = 1
+				}, completion:  { finished in
+					fromView.removeFromSuperview()
+					tabBarController.selectedIndex = toIndex!
+					self.view.userInteractionEnabled = true
+			})
 		}
 		
 		if viewController == self.viewControllers![3] {
 			if self.moreIsOpen == false {
 				
+				self.tabBar.userInteractionEnabled = false
+				
+				UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Slide)
+				
 				if self.viewIsCreated == false {
 					
 					let backgroundDark = UIView()
 					self.backgroundDark = backgroundDark
-					presentedVC.view.addSubview(backgroundDark)
-					self.backgroundDark.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+					self.presentedVC.view.addSubview(backgroundDark)
+					self.backgroundDark.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
 					self.backgroundDark.alpha = 0
 					self.backgroundDark.snp_makeConstraints(closure: { (make) -> Void in
 						make.edges.equalTo(presentedVC.view.snp_edges)
@@ -93,10 +132,9 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 					
 					let nextVC = MoreViewController()
 					self.nextVC = nextVC
-					presentedVC.addChildViewController(nextVC)
-					presentedVC.view.addSubview(nextVC.view)
+					self.presentedVC.addChildViewController(nextVC)
+					self.presentedVC.view.addSubview(nextVC.view)
 					nextVC.didMoveToParentViewController(presentedVC)
-					
 					nextVC.fullView = presentedVC
 					
 					nextVC.view.snp_makeConstraints(closure: { (make) -> Void in
@@ -122,6 +160,8 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 				UIView.animateWithDuration(0.4, animations: { () -> Void in
 					self.nextVC.view.layoutIfNeeded()
 					self.backgroundDark.alpha = 1
+					}, completion: { (finished: Bool) in
+						self.tabBar.userInteractionEnabled = true
 				})
 				
 				swipeRec.addTarget(self, action: "swipedView")
@@ -150,6 +190,9 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	}
 	
 	func closeMoreMenu() {
+		self.tabBar.userInteractionEnabled = false
+		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+		
 		nextVC.view.snp_remakeConstraints(closure: { (make) -> Void in
 			make.top.equalTo(presentedVC.view.snp_top)
 			make.bottom.equalTo(presentedVC.view.snp_bottom)
@@ -163,6 +206,8 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 		UIView.animateWithDuration(0.4, animations: { () -> Void in
 			self.nextVC.view.layoutIfNeeded()
 			self.backgroundDark.alpha = 0
+			}, completion: { (finished: Bool) in
+				self.tabBar.userInteractionEnabled = true
 		})
 		
 		nextVC.closingAnimation()

@@ -102,7 +102,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		setTextFields()
 		
 		//KEYBOARD
-		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 		self.tap = tap
 		self.view.addGestureRecognizer(tap)
 		self.emailTextField.delegate = self
@@ -171,7 +171,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		let backgroundView = UIView()
 		self.backgroundView = backgroundView
 		self.view.addSubview(self.backgroundView)
-		self.backgroundView.backgroundColor = whiteBackground
+		self.backgroundView.backgroundColor = Color.whiteBackground
 		self.backgroundView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.navBar.snp_bottom)
 			make.left.equalTo(self.view.snp_left)
@@ -214,7 +214,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.generalContainer.contentView.addSubview(self.emailLabel)
 		self.emailLabel.text = "Email"
 		self.emailLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		self.emailLabel.textColor = darkGrayText
+		self.emailLabel.textColor = Color.darkGrayText
 		self.emailLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.generalContainer.contentView.snp_top).offset(15)
 			make.left.equalTo(self.generalContainer.snp_left).offset(self.kPadding)
@@ -239,7 +239,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.generalContainer.contentView.addSubview(self.phoneLabel)
 		self.phoneLabel.text = "Phone"
 		self.phoneLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		self.phoneLabel.textColor = darkGrayText
+		self.phoneLabel.textColor = Color.darkGrayText
 		self.phoneLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.emailTextField.snp_bottom).offset(15)
 			make.left.equalTo(self.emailLabel.snp_left)
@@ -248,7 +248,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		let phoneTextField = DefaultTextFieldView()
 		self.phoneTextField = phoneTextField
 		self.generalContainer.contentView.addSubview(self.phoneTextField)
-		self.phoneTextField.attributedPlaceholder = NSAttributedString(string: "None", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
+		self.phoneTextField.attributedPlaceholder = NSAttributedString(string: "None", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.phoneTextField.keyboardType = UIKeyboardType.NamePhonePad
 		self.phoneTextField.autocorrectionType = UITextAutocorrectionType.No
 		self.phoneTextField.autocapitalizationType = UITextAutocapitalizationType.None
@@ -278,11 +278,11 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.addLocationButton = addLocationButton
 		self.locationsContainer.titleView.addSubview(self.addLocationButton)
 		self.addLocationButton.setTitle("Add", forState: UIControlState.Normal)
-		self.addLocationButton.backgroundColor = redPrimary.colorWithAlphaComponent(0)
+		self.addLocationButton.backgroundColor = Color.redPrimary.colorWithAlphaComponent(0)
 		self.addLocationButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
 		self.addLocationButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
-		self.addLocationButton.setTitleColor(redPrimary, forState: UIControlState.Normal)
-		self.addLocationButton.setTitleColor(darkGrayDetails, forState: UIControlState.Highlighted)
+		self.addLocationButton.setTitleColor(Color.redPrimary, forState: UIControlState.Normal)
+		self.addLocationButton.setTitleColor(Color.darkGrayDetails, forState: UIControlState.Highlighted)
 		self.addLocationButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.addLocationButton.addTarget(self, action: "addTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.addLocationButton.snp_makeConstraints { (make) -> Void in
@@ -316,7 +316,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.passwordContainer.contentView.addSubview(self.currentLabel)
 			self.currentLabel.text = "Current password"
 			self.currentLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-			self.currentLabel.textColor = darkGrayText
+			self.currentLabel.textColor = Color.darkGrayText
 			self.currentLabel.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.passwordContainer.contentView.snp_top).offset(15)
 				make.left.equalTo(self.passwordContainer.snp_left).offset(self.kPadding)
@@ -326,7 +326,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.currentTextField = currentTextField
 			self.passwordContainer.contentView.addSubview(self.currentTextField)
 			
-			self.currentTextField.attributedPlaceholder = NSAttributedString(string: "**********", attributes: [NSForegroundColorAttributeName: darkGrayDetails])
+			self.currentTextField.attributedPlaceholder = NSAttributedString(string: "**********", attributes: [NSForegroundColorAttributeName: Color.darkGrayDetails])
 			self.currentTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 			self.currentTextField.keyboardType = UIKeyboardType.Default
 			self.currentTextField.autocorrectionType = UITextAutocorrectionType.No
@@ -343,7 +343,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.passwordContainer.contentView.addSubview(self.newLabel)
 			self.newLabel.text = "New password"
 			self.newLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-			self.newLabel.textColor = darkGrayText
+			self.newLabel.textColor = Color.darkGrayText
 			self.newLabel.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.currentTextField.snp_bottom).offset(15)
 				make.left.equalTo(self.passwordContainer.snp_left).offset(self.kPadding)
@@ -354,10 +354,10 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.passwordContainer.contentView.addSubview(self.newTextField)
 			self.newTextField.font = UIFont(name: "Lato-Regular", size: kText15)
 			self.newTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-			self.newTextField.textColor = darkGrayDetails
-			self.newTextField.backgroundColor = whitePrimary
+			self.newTextField.textColor = Color.darkGrayDetails
+			self.newTextField.backgroundColor = Color.whitePrimary
 			self.newTextField.layer.borderWidth = 0.5
-			self.newTextField.layer.borderColor = grayDetails.CGColor
+			self.newTextField.layer.borderColor = Color.grayDetails.CGColor
 			self.newTextField.keyboardType = UIKeyboardType.Default
 			self.newTextField.autocorrectionType = UITextAutocorrectionType.No
 			self.newTextField.autocapitalizationType = UITextAutocapitalizationType.None
@@ -373,7 +373,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.passwordContainer.contentView.addSubview(self.confirmLabel)
 			self.confirmLabel.text = "Confirm new password"
 			self.confirmLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-			self.confirmLabel.textColor = darkGrayText
+			self.confirmLabel.textColor = Color.darkGrayText
 			self.confirmLabel.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.newTextField.snp_bottom).offset(15)
 				make.left.equalTo(self.passwordContainer.snp_left).offset(self.kPadding)
@@ -425,7 +425,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.deleteContainer.contentView.addSubview(self.deletionNoticeLabel)
 		self.deletionNoticeLabel.text = "Account deletion is permanent"
 		self.deletionNoticeLabel.font = UIFont(name: "Lato-Light", size: kText15)
-		self.deletionNoticeLabel.textColor = redPrimary
+		self.deletionNoticeLabel.textColor = Color.redPrimary
 		self.deletionNoticeLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.deleteContainer.contentView.snp_top).offset(15)
 			make.left.equalTo(self.deleteContainer.snp_left).offset(self.kPadding)
@@ -434,9 +434,9 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		let deleteButton = SecondaryActionButton()
 		self.deleteButton = deleteButton
 		self.deleteContainer.addSubview(deleteButton)
-		self.deleteButton.backgroundColor = whitePrimary
+		self.deleteButton.backgroundColor = Color.whitePrimary
 		self.deleteButton.setTitle("Delete my account", forState: UIControlState.Normal)
-		self.deleteButton.setTitleColor(darkGrayText, forState: UIControlState.Normal)
+		self.deleteButton.setTitleColor(Color.darkGrayText, forState: UIControlState.Normal)
 		self.deleteButton.addTarget(self, action: "deleteAccountButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.deleteButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.deletionNoticeLabel.snp_bottom).offset(15)
@@ -478,7 +478,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.locationsContainer.contentView.addSubview(self.emptyLocationsLabel)
 			self.emptyLocationsLabel.text = "No locations yet"
 			self.emptyLocationsLabel.font = UIFont(name: "Lato-Light", size: kText15)
-			self.emptyLocationsLabel.textColor = darkGrayDetails
+			self.emptyLocationsLabel.textColor = Color.darkGrayDetails
 			self.emptyLocationsLabel.sizeToFit()
 			self.emptyLocationsLabel.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.locationsContainer.contentView.snp_top).offset(15)
@@ -492,7 +492,6 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				make.bottom.equalTo(self.emptyLocationsLabel.snp_bottom).offset(20)
 			}
 			
-			self.deleteContainer.layoutIfNeeded()
 			self.contentView.layoutIfNeeded()
 			
 		} else {
@@ -502,7 +501,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.locationsContainer.contentView.addSubview(self.locationNameLabel)
 			self.locationNameLabel.text = "Name"
 			self.locationNameLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-			self.locationNameLabel.textColor = darkGrayText
+			self.locationNameLabel.textColor = Color.darkGrayText
 			self.locationNameLabel.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.locationsContainer.contentView.snp_top).offset(15)
 				make.left.equalTo(self.locationsContainer.snp_left).offset(self.kPadding)
@@ -513,7 +512,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.locationsContainer.contentView.addSubview(self.locationAddressLabel)
 			self.locationAddressLabel.text = "Address"
 			self.locationAddressLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-			self.locationAddressLabel.textColor = darkGrayText
+			self.locationAddressLabel.textColor = Color.darkGrayText
 			self.locationAddressLabel.snp_makeConstraints { (make) -> Void in
 				make.centerY.equalTo(self.locationNameLabel.snp_centerY)
 				make.left.equalTo(self.locationNameLabel.snp_right).offset(50)
@@ -526,10 +525,10 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				let locationContainer = AccountSettingsLocationButton()
 				self.locationContainer = locationContainer
 				self.locationsContainer.contentView.addSubview(self.locationContainer)
-				self.locationContainer.backgroundColor = whitePrimary
+				self.locationContainer.backgroundColor = Color.whitePrimary
 				self.locationContainer.assignedLocationIndex = i
 				print(i)
-				self.locationContainer.setBackgroundColor(grayDetails, forState: UIControlState.Highlighted)
+				self.locationContainer.setBackgroundColor(Color.grayDetails, forState: UIControlState.Highlighted)
 				self.locationContainer.addTarget(self, action: "locationContainerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 				
 				self.locationContainer.snp_makeConstraints { (make) -> Void in
@@ -543,7 +542,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				self.locationContainer.addSubview(self.locationName)
 				self.locationName.text = self.locations![i].name
 				self.locationName.font = UIFont(name: "Lato-Light", size: kText15)
-				self.locationName.textColor = darkGrayText
+				self.locationName.textColor = Color.darkGrayText
 				self.locationName.snp_makeConstraints { (make) -> Void in
 					make.top.equalTo(self.locationContainer.snp_top)
 					make.left.equalTo(self.locationNameLabel.snp_left)
@@ -555,7 +554,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				self.locationAddress.text = self.locations![i].formattedTextLabel
 				self.locationAddress.numberOfLines = 0
 				self.locationAddress.font = UIFont(name: "Lato-Light", size: kText15)
-				self.locationAddress.textColor = darkGrayText
+				self.locationAddress.textColor = Color.darkGrayText
 				self.locationAddress.snp_makeConstraints { (make) -> Void in
 					make.top.equalTo(self.locationContainer.snp_top)
 					make.left.equalTo(self.locationAddressLabel.snp_left)
@@ -565,7 +564,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				/*let locationContainerLine = UIView()
 				self.locationContainerLine = locationContainerLine
 				self.locationContainer.addSubview(locationContainerLine)
-				self.locationContainerLine.backgroundColor = darkGrayDetails.colorWithAlphaComponent(0.5)
+				self.locationContainerLine.backgroundColor = Color.darkGrayDetails.colorWithAlphaComponent(0.5)
 				self.locationContainerLine.snp_makeConstraints { (make) -> Void in
 					make.top.equalTo(self.locationName.snp_top)
 					make.right.equalTo(self.locationName.snp_left).offset(-6)
@@ -606,7 +605,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	
 	func showLocationDelete(button: AccountSettingsLocationButton) {
 		
-		DismissKeyboard()
+		dismissKeyboard()
 		
 		if self.deleteLocationViewIsOpened {
 			self.locationBlurView.removeFromSuperview()
@@ -642,10 +641,10 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		locationBlurView.addSubview(deleteButton)
 		deleteButton.addTarget(self, action: "deleteLocationTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		deleteButton.setTitle("Delete", forState: .Normal)
-		deleteButton.layer.borderColor = redPrimary.CGColor
+		deleteButton.layer.borderColor = Color.redPrimary.CGColor
 		deleteButton.layer.borderWidth = 1
-		deleteButton.setTitleColor(redPrimary, forState: .Normal)
-		deleteButton.setTitleColor(darkGrayDetails.colorWithAlphaComponent(0.6), forState: .Highlighted)
+		deleteButton.setTitleColor(Color.redPrimary, forState: .Normal)
+		deleteButton.setTitleColor(Color.darkGrayDetails.colorWithAlphaComponent(0.6), forState: .Highlighted)
 		deleteButton.assignedLocationIndex = button.assignedLocationIndex
 		print(button.assignedLocationIndex)
 		deleteButton.snp_makeConstraints { (make) -> Void in
@@ -659,10 +658,10 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		locationBlurView.addSubview(cancelButton)
 		cancelButton.addTarget(self, action: "cancelLocationDeletionTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		cancelButton.setTitle("Cancel", forState: .Normal)
-		cancelButton.layer.borderColor = darkGrayDetails.CGColor
+		cancelButton.layer.borderColor = Color.darkGrayDetails.CGColor
 		cancelButton.layer.borderWidth = 1
-		cancelButton.setTitleColor(darkGrayDetails, forState: .Normal)
-		cancelButton.setTitleColor(darkGrayDetails.colorWithAlphaComponent(0.6), forState: .Highlighted)
+		cancelButton.setTitleColor(Color.darkGrayDetails, forState: .Normal)
+		cancelButton.setTitleColor(Color.darkGrayDetails.colorWithAlphaComponent(0.6), forState: .Highlighted)
 		cancelButton.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(locationBlurView.snp_centerY)
 			make.left.equalTo(locationBlurView.snp_centerX).offset(30)
@@ -678,7 +677,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	
 	//MARK: KEYBOARD, WITH viewDidDis/Appear AND textfielddelegate
 	
-	func DismissKeyboard() {
+	func dismissKeyboard() {
 		view.endEditing(true)
 		
 		if self.deleteLocationViewIsOpened {
@@ -784,7 +783,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		}
 		
 		if self.settingsWereEdited {
-			DismissKeyboard()
+			dismissKeyboard()
 			
 			let popup = UIAlertController(title: "Discard changes?", message: "Your changes will not be saved", preferredStyle: UIAlertControllerStyle.Alert)
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
@@ -795,14 +794,15 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				self.locationsModified = false
 				self.setLocationView(true)
 			}))
-			popup.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action) -> Void in
+			popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
 			}))
 			
 			self.presentViewController(popup, animated: true, completion: nil)
+			popup.view.tintColor = Color.redPrimary
 			
 		} else {
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			self.navigationController?.popViewControllerAnimated(true)
 		}
 	}
@@ -845,7 +845,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				}
 			}
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			
 			let popup = UIAlertController(title: "Incorrect fields", message: popupMessage, preferredStyle: UIAlertControllerStyle.Alert)
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
@@ -855,7 +855,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		} else {
 			//Textfields are correct: save settings
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			
 			let saveConfirmationBlurView = FXBlurView(frame: self.view.bounds)
 			self.saveConfirmationBlurView = saveConfirmationBlurView
@@ -879,7 +879,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			let saveConfirmationContainer = UIView()
 			self.saveConfirmationContainer = saveConfirmationContainer
 			self.saveConfirmationBlurView.addSubview(self.saveConfirmationContainer)
-			self.saveConfirmationContainer.backgroundColor = whitePrimary
+			self.saveConfirmationContainer.backgroundColor = Color.whitePrimary
 			self.saveConfirmationContainer.snp_makeConstraints { (make) -> Void in
 				make.centerX.equalTo(self.view.snp_centerX)
 				make.centerY.equalTo(self.view.snp_centerY)
@@ -893,7 +893,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.saveConfirmationLabel.text = "Settings saved!"
 			self.saveConfirmationLabel.alpha = 0
 			self.saveConfirmationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-			self.saveConfirmationLabel.textColor = darkGrayText
+			self.saveConfirmationLabel.textColor = Color.darkGrayText
 			self.saveConfirmationLabel.snp_makeConstraints { (make) -> Void in
 				make.centerX.equalTo(self.saveConfirmationContainer.snp_centerX)
 				make.centerY.equalTo(self.saveConfirmationContainer.snp_centerY)
@@ -952,7 +952,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		
 		if self.fieldEditing {
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			
 		} else {
 			
@@ -963,7 +963,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	}
 	
 	func addTapped(sender: UIButton) {
-		DismissKeyboard()
+		dismissKeyboard()
 		
 		UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false, UIScreen.mainScreen().scale)
 		self.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
@@ -984,7 +984,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	func deleteAccountButtonTapped(sender: UIButton) {
 		if self.fieldEditing {
 			
-			DismissKeyboard()
+			dismissKeyboard()
 			
 		} else {
 			

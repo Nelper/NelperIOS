@@ -1,6 +1,6 @@
 //
 //  ATLUIImageHelper.m
-//  Pods
+//  Atlas
 //
 //  Created by Kabir Mahal on 3/18/15.
 //

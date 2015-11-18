@@ -11,6 +11,7 @@ import MapKit
 import GoogleMaps
 import Stripe
 import ParseCrashReporting
+import SVProgressHUD
 
 @UIApplicationMain
 
@@ -70,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 			self.window?.rootViewController = tabVC
 		}
 		
-		//		NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveLayerObjectsDidChangeNotification:", name: LYRClientObjectsDidChangeNotification, object: layerClient)
+		//NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveLayerObjectsDidChangeNotification:", name: LYRClientObjectsDidChangeNotification, object: layerClient)
 		
 		return true
 	}
@@ -78,8 +79,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	func showLogin(animated: Bool) {
 		let loginVC = LoginViewController()
 		loginVC.delegate = self
-		if animated && false {
-			self.window?.rootViewController?.presentViewController(loginVC, animated: true, completion: nil)
+		if animated {
+			UIView.transitionWithView(self.window!, duration: 0.3, options: .TransitionCrossDissolve, animations: { () -> Void in
+				self.window!.rootViewController = loginVC
+				}, completion: nil)
+			
 		} else {
 			self.window!.rootViewController = loginVC
 		}
@@ -88,10 +92,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	
 	// LoginViewControllerDelegate
 	func onLogin() {
-		let tabVC = initAppViewController()
-		self.loginLayer()
-		self.loginSupportKit()
-		self.window?.rootViewController = tabVC
+		
+		let tabVC = self.initAppViewController()
+		
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+			
+			self.loginLayer()
+			self.loginSupportKit()
+			self.window?.rootViewController = tabVC
+			
+			dispatch_async(dispatch_get_main_queue(), {
+				SVProgressHUD.dismiss()
+			})
+		})
+		
 		self.window?.rootViewController?.presentViewController(tabVC, animated: true, completion: nil)
 	}
 	
@@ -115,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	
 	func loginSupportKit(){
 		let supportKitSettings = (SKTSettings(appToken: "9x5o1paxgfpjzzsgodj80yti3"))
-		supportKitSettings.conversationAccentColor = redPrimary
+		supportKitSettings.conversationAccentColor = Color.redPrimary
 		SKTUser.currentUser().firstName = PFUser.currentUser()?.objectForKey("name") as? String
 		SupportKit.initWithSettings(supportKitSettings)
 		SupportKit.login(PFUser.currentUser()!.objectId, jwt: nil)
@@ -249,23 +263,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	}
 	
 	
-	//	func didReceiveTypingIndicator(notification:NSNotification){
-	//
-	//		var participantID : AnyObject = notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]!
-	//		notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]! = "Your neighbor" as AnyObject
-	//
-	//		if notification.userInfo![LYRTypingIndicatorValueUserInfoKey] != nil{
-	//			var typingIndicator: UInt = notification.userInfo![LYRTypingIndicatorValueUserInfoKey] as! UInt
-	//			if typingIndicator == 0{
-	//			notification.object!.sendTypingIndicator(LYRTypingIndicator.DidBegin)
-	//			}else if typingIndicator == 1 {
-	//				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidFinish)
-	//
-	//			}else if typingIndicator == 2{
-	//				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidPause)
-	//			}
-	//		}
-	//	}
+	/*func didReceiveTypingIndicator(notification:NSNotification){
+		
+		var participantID : AnyObject = notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]!
+		notification.userInfo![LYRTypingIndicatorParticipantUserInfoKey]! = "Your neighbor" as AnyObject
+		
+		if notification.userInfo![LYRTypingIndicatorValueUserInfoKey] != nil{
+			var typingIndicator: UInt = notification.userInfo![LYRTypingIndicatorValueUserInfoKey] as! UInt
+			if typingIndicator == 0{
+				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidBegin)
+			}else if typingIndicator == 1 {
+				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidFinish)
+				
+			}else if typingIndicator == 2{
+				notification.object!.sendTypingIndicator(LYRTypingIndicator.DidPause)
+			}
+		}
+	}*/
 	
 	func applicationDidFinishLaunching(application: UIApplication) {
 		UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent

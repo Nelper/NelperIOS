@@ -8,8 +8,10 @@
 
 import UIKit
 import Alamofire
+import SVProgressHUD
+import SDWebImage
 
-class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MyApplicationDetailsViewDelegate, SegmentControllerDelegate {
+class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MyApplicationDetailsViewDelegate, SegmentControllerDelegate, MyTaskDetailsViewControllerDelegate {
 	
 	@IBOutlet weak var navBar: NavBar!
 	@IBOutlet weak var containerView: UIView!
@@ -19,7 +21,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	var profilePicture:UIImageView!
 	var tasksContainer:UIView!
-	var nelpTasks = [FindNelpTask]()
+	var nelpTasks = [Task]()
 	var nelpApplications = [TaskApplication]()
 	var myTasksTableView: UITableView!
 	var myApplicationsTableView:UITableView!
@@ -34,18 +36,30 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		loadData()
-		createView()
-		createMyTasksTableView()
-		createMyApplicationsTableView()
-		adjustUI()
+			
+			self.loadData()
+			self.createView()
+			self.createMyTasksTableView()
+			self.createMyApplicationsTableView()
+			self.adjustUI()
+		
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		self.myTasksTableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
+		self.myApplicationsTableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
 		self.loadData()
 		let rootvc:TabBarCustom = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarCustom
 		rootvc.presentedVC = self
-
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
 	}
 	
 	//MARK: View Creation
@@ -78,7 +92,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		let tasksContainer = UIView()
 		containerView.addSubview(tasksContainer)
 		self.tasksContainer = tasksContainer
-		tasksContainer.backgroundColor = whiteBackground
+		tasksContainer.backgroundColor = Color.whiteBackground
 		tasksContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(segmentControllerView.snp_bottom)
 			make.width.equalTo(self.view.snp_width)
@@ -90,18 +104,20 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 
 		let tableView = UITableView()
 		tableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
-		tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0)
 		
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.registerClass(NelpTasksTableViewCell.classForCoder(), forCellReuseIdentifier: NelpTasksTableViewCell.reuseIdentifier)
-		tableView.backgroundColor = whiteBackground
+		tableView.backgroundColor = Color.whiteBackground
 		
 		self.tasksContainer.addSubview(tableView)
 		tableView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.tasksContainer.snp_edges)
 		}
 		self.myTasksTableView = tableView
+		self.myTasksTableView.alpha = 0
+		//self.myTasksTableView.transform = CGAffineTransformMakeTranslation(-500, 0)
 		self.myTasksTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 	}
 	
@@ -112,8 +128,8 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tableViewApplications.delegate = self
 		tableViewApplications.dataSource = self
 		tableViewApplications.registerClass(NelpApplicationsTableViewCell.classForCoder(), forCellReuseIdentifier: NelpApplicationsTableViewCell.reuseIdentifier)
-		tableViewApplications.backgroundColor = whiteBackground
-		tableViewApplications.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		tableViewApplications.backgroundColor = Color.whiteBackground
+		tableViewApplications.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0)
 
 		self.tasksContainer.addSubview(tableViewApplications)
 		tableViewApplications.snp_makeConstraints { (make) -> Void in
@@ -121,6 +137,8 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		}
 		
 		self.myApplicationsTableView = tableViewApplications
+		self.myApplicationsTableView.alpha = 0
+		self.myApplicationsTableView.transform = CGAffineTransformMakeTranslation(500, 0)
 		self.myApplicationsTableView.hidden = true
 		self.myApplicationsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 	}
@@ -135,7 +153,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	//MARK: DATA
 	
-	
 	func onPullToRefresh() {
 		loadData()
 	}
@@ -145,7 +162,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	Load User's Task and Applications
 	*/
 	func loadData() {
-		ApiHelper.listMyNelpTasksWithBlock { (nelpTasks: [FindNelpTask]?, error: NSError?) -> Void in
+		ApiHelper.listMyNelpTasksWithBlock { (nelpTasks: [Task]?, error: NSError?) -> Void in
 			if error != nil {
 				print(error, terminator: "")
 			} else {
@@ -171,6 +188,11 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.myApplicationsTableView.reloadData()
 	}
 	
+	//MARK: My Task Details View Controller Delegate
+	
+	func didEditTask(task:Task){
+	}
+	
 	
 	//MARK: Tableview Delegate and Datasource
 	
@@ -184,6 +206,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		
 		if(tableView == myTasksTableView) {
 			if (!self.nelpTasks.isEmpty) {
 				let cellTask = NelpTasksTableViewCell()
@@ -209,6 +232,18 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		return cell
 	}
 	
+	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+		
+		if (indexPath.row == tableView.indexPathsForVisibleRows!.last!.row) {
+			SVProgressHUD.dismiss()
+			
+			UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				self.myTasksTableView.alpha = 1
+				//self.myTasksTableView.transform = CGAffineTransformMakeTranslation(0, 0)
+				}, completion: nil)
+		}
+	}
+	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if(tableView == myTasksTableView) {
 			let task = nelpTasks[indexPath.row]
@@ -222,6 +257,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				}
 			} else {
 			let nextVC = MyTaskDetailsViewController(task: task)
+			nextVC.delegate = self
 			nextVC.hidesBottomBarWhenPushed = true
 			dispatch_async(dispatch_get_main_queue()) {
 				self.navigationController?.pushViewController(nextVC, animated: true)
@@ -285,11 +321,35 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	func onIndexChange(index: Int) {
 		if index == 0 {
-			self.myApplicationsTableView.hidden = true
 			self.myTasksTableView.hidden = false
+			self.segmentControllerView.userInteractionEnabled = false
+			
+			UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				self.myTasksTableView.alpha = 1
+				self.myTasksTableView.transform = CGAffineTransformMakeTranslation(0, 0)
+				
+				self.myApplicationsTableView.alpha = 0
+				
+				}, completion: { (complete: Bool) in
+					self.myApplicationsTableView.transform = CGAffineTransformMakeTranslation(200, 0)
+					self.myApplicationsTableView.hidden = true
+					self.segmentControllerView.userInteractionEnabled = true
+			})
 		} else if index == 1 {
 			self.myApplicationsTableView.hidden = false
-			self.myTasksTableView.hidden = true
+			self.segmentControllerView.userInteractionEnabled = false
+			
+			UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				self.myApplicationsTableView.alpha = 1
+				self.myApplicationsTableView.transform = CGAffineTransformMakeTranslation(0, 0)
+				
+				self.myTasksTableView.alpha = 0
+				
+				}, completion: { (complete: Bool) in
+					self.myTasksTableView.transform = CGAffineTransformMakeTranslation(-200, 0)
+					self.myTasksTableView.hidden = true
+					self.segmentControllerView.userInteractionEnabled = true
+			})
 		}
 	}
 }

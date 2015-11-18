@@ -12,26 +12,27 @@ import Alamofire
 
 class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewControllerDelegate {
 	
-	var contentView:UIView!
-	var scrollView:UIScrollView!
-	var task:FindNelpTask!
-	var acceptedApplicant:User!
+	var contentView: UIView!
+	var scrollView: UIScrollView!
+	var task: Task!
+	var acceptedApplicant: User!
 	var applicationPrice: Int!
-	var acceptedApplication:TaskApplication!
-	var picture:UIImageView!
+	var acceptedApplication: TaskApplication!
+	var taskInfoPagingView: TaskInfoPagingView!
+	var picture: UIImageView!
 	var ratingStarsView: RatingStars!
-	var chatButton:UIButton!
-	var conversationController:UINavigationController?
-	var tempVC:UIViewController!
-	var fakeButton:UIButton!
-	var navBar:NavBar!
-	var leaveFeedbackLine:UIView!
-	var leaveFeedbackImageView:UIImageView!
-	var paymentImageView:UIImageView!
-	var paymentLine:UIView!
-	var approvedTaskImageView:UIImageView!
-	var approvedTaskLine:UIView!
-	var progressButton:UIButton!
+	var chatButton: UIButton!
+	var conversationController: UINavigationController?
+	var tempVC: UIViewController!
+	var fakeButton: UIButton!
+	var navBar: NavBar!
+	var leaveFeedbackLine: UIView!
+	var leaveFeedbackImageView: UIImageView!
+	var paymentImageView: UIImageView!
+	var paymentLine: UIView!
+	var approvedTaskImageView: UIImageView!
+	var approvedTaskLine: UIView!
+	var progressButton: UIButton!
 	
 	//MARK: Initialization
 	
@@ -44,7 +45,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	
 	//MARK:Creating the View
 
-	func createView(){
+	func createView() {
 		
 		let navBar = NavBar()
 		self.navBar = navBar
@@ -67,7 +68,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 			make.width.equalTo(self.view.snp_width)
 			make.bottom.equalTo(self.view.snp_bottom)
 		}
-		backgroundView.backgroundColor = whiteBackground
+		backgroundView.backgroundColor = Color.whiteBackground
 		
 		let scrollView = UIScrollView()
 		self.scrollView = scrollView
@@ -86,39 +87,31 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 			make.height.greaterThanOrEqualTo(backgroundView.snp_height)
 			make.width.equalTo(backgroundView.snp_width)
 		}
-		contentView.backgroundColor = whiteBackground
+		contentView.backgroundColor = Color.whiteBackground
 		
-		let taskLabelContainer = UIView()
-		self.contentView.addSubview(taskLabelContainer)
-		taskLabelContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(contentView.snp_top)
-			make.width.equalTo(contentView.snp_width)
-			make.height.equalTo(65)
-		}
+		//Task info
 		
-		let taskLabel = UILabel()
-		taskLabel.textAlignment = NSTextAlignment.Center
-		taskLabel.numberOfLines = 0
-		taskLabel.text = self.task.title
-		taskLabelContainer.addSubview(taskLabel)
-		taskLabel.textColor = darkGrayDetails
-		taskLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		taskLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskLabelContainer.snp_top).offset(4)
-			make.bottom.equalTo(taskLabelContainer.snp_bottom).offset(-4)
-			make.left.equalTo(taskLabelContainer.snp_left).offset(8)
-			make.right.equalTo(taskLabelContainer.snp_right).offset(-8)
+		let taskInfoPagingView = TaskInfoPagingView(task: self.task, acceptedApplication: self.acceptedApplication)
+		self.taskInfoPagingView = taskInfoPagingView
+		self.addChildViewController(taskInfoPagingView)
+		taskInfoPagingView.didMoveToParentViewController(self)
+		contentView.addSubview(taskInfoPagingView.view)
+		taskInfoPagingView.view.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(contentView.snp_top).offset(20)
+			make.left.equalTo(contentView.snp_left)
+			make.right.equalTo(contentView.snp_right)
+			make.height.equalTo(taskInfoPagingView.height + taskInfoPagingView.pagingContainerHeight)
 		}
 		
 		//Progress + Payment Container
 		
 		let progressContainer = UIView()
 		contentView.addSubview(progressContainer)
-		progressContainer.layer.borderColor = grayDetails.CGColor
+		progressContainer.layer.borderColor = Color.grayDetails.CGColor
 		progressContainer.layer.borderWidth = 1
-		progressContainer.backgroundColor = whitePrimary
+		progressContainer.backgroundColor = Color.whitePrimary
 		progressContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(taskLabelContainer.snp_bottom)
+			make.top.equalTo(taskInfoPagingView.view.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left)
 			make.right.equalTo(contentView.snp_right)
 		}
@@ -131,10 +124,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		nelperAcceptedLabel.numberOfLines = 0
 		nelperAcceptedLabel.textAlignment = NSTextAlignment.Center
 		nelperAcceptedLabel.text = "Nelper \nAccepted"
-		nelperAcceptedLabel.textColor = blackPrimary
+		nelperAcceptedLabel.textColor = Color.blackPrimary
 		nelperAcceptedLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		nelperAcceptedLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(progressContainer.snp_top).offset(20)
+			make.top.equalTo(progressContainer.snp_top).offset(30)
 			make.left.equalTo(progressContainer.snp_left).offset(12)
 		}
 		
@@ -151,7 +144,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		
 		let nelperAcceptedLine = UIView()
 		progressContainer.addSubview(nelperAcceptedLine)
-		nelperAcceptedLine.backgroundColor = blackPrimary
+		nelperAcceptedLine.backgroundColor = Color.blackPrimary
 		nelperAcceptedLine.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(nelperAcceptedLabel.snp_bottom)
 			make.bottom.equalTo(nelperAcceptedImageView.snp_top).offset(-2)
@@ -178,7 +171,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		leaveFeedbackLabel.numberOfLines = 0
 		leaveFeedbackLabel.textAlignment = NSTextAlignment.Center
 		leaveFeedbackLabel.text = "Rating\n&\nFeedback"
-		leaveFeedbackLabel.textColor = blackPrimary
+		leaveFeedbackLabel.textColor = Color.blackPrimary
 		leaveFeedbackLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		leaveFeedbackLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(leaveFeedbackImageView.snp_bottom).offset(10)
@@ -187,7 +180,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		
 		let leaveFeedbackLine = UIView()
 		progressContainer.addSubview(leaveFeedbackLine)
-		leaveFeedbackLine.backgroundColor = blackPrimary
+		leaveFeedbackLine.backgroundColor = Color.blackPrimary
 		leaveFeedbackLine.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(leaveFeedbackImageView.snp_bottom).offset(2)
 			make.bottom.equalTo(leaveFeedbackLabel.snp_top)
@@ -212,7 +205,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		paymentLabel.numberOfLines = 0
 		paymentLabel.textAlignment = NSTextAlignment.Center
 		paymentLabel.text = "Payment Sent"
-		paymentLabel.textColor = blackPrimary
+		paymentLabel.textColor = Color.blackPrimary
 		paymentLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		paymentLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(paymentImageView.snp_bottom).offset(20)
@@ -221,7 +214,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		
 		let paymentLine = UIView()
 		progressContainer.addSubview(paymentLine)
-		paymentLine.backgroundColor = blackPrimary
+		paymentLine.backgroundColor = Color.blackPrimary
 		paymentLine.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(paymentImageView.snp_bottom).offset(2)
 			make.bottom.equalTo(paymentLabel.snp_top)
@@ -246,7 +239,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		approvedTaskLabel.numberOfLines = 0
 		approvedTaskLabel.textAlignment = NSTextAlignment.Center
 		approvedTaskLabel.text = "Approved task completion"
-		approvedTaskLabel.textColor = blackPrimary
+		approvedTaskLabel.textColor = Color.blackPrimary
 		approvedTaskLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		approvedTaskLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(nelperAcceptedLabel.snp_centerY)
@@ -255,7 +248,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		
 		let approvedTaskLine = UIView()
 		progressContainer.addSubview(approvedTaskLine)
-		approvedTaskLine.backgroundColor = blackPrimary
+		approvedTaskLine.backgroundColor = Color.blackPrimary
 		approvedTaskLine.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(approvedTaskImageView.snp_top).offset(-2)
 			make.top.equalTo(approvedTaskLabel.snp_bottom)
@@ -267,7 +260,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		let lineBetweenAcceptedAndPayment = UIView()
 		self.paymentLine = lineBetweenAcceptedAndPayment
 		progressContainer.addSubview(lineBetweenAcceptedAndPayment)
-		lineBetweenAcceptedAndPayment.backgroundColor = progressGreen
+		lineBetweenAcceptedAndPayment.backgroundColor = Color.progressGreen
 		lineBetweenAcceptedAndPayment.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(nelperAcceptedImageView.snp_centerY)
 			make.left.equalTo(nelperAcceptedImageView.snp_right)
@@ -278,7 +271,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		let lineBetweenPaymentAndApprove = UIView()
 		self.approvedTaskLine = lineBetweenPaymentAndApprove
 		progressContainer.addSubview(lineBetweenPaymentAndApprove)
-		lineBetweenPaymentAndApprove.backgroundColor = pendingYellow
+		lineBetweenPaymentAndApprove.backgroundColor = Color.pendingYellow
 		lineBetweenPaymentAndApprove.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(paymentImageView.snp_centerY)
 			make.left.equalTo(paymentImageView.snp_right)
@@ -289,7 +282,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		let lineBetweenApproveAndRating = UIView()
 		self.leaveFeedbackLine = lineBetweenApproveAndRating
 		progressContainer.addSubview(lineBetweenApproveAndRating)
-		lineBetweenApproveAndRating.backgroundColor = blackPrimary
+		lineBetweenApproveAndRating.backgroundColor = Color.blackPrimary
 		lineBetweenApproveAndRating.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(paymentImageView.snp_centerY)
 			make.left.equalTo(approvedTaskImageView.snp_right)
@@ -301,9 +294,9 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		
 		let nelperPayLine = UIView()
 		progressContainer.addSubview(nelperPayLine)
-		nelperPayLine.backgroundColor = grayDetails
+		nelperPayLine.backgroundColor = Color.grayDetails
 		nelperPayLine.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(paymentLabel.snp_bottom).offset(40)
+			make.top.equalTo(paymentLabel.snp_bottom).offset(60)
 			make.centerX.equalTo(progressContainer.snp_centerX)
 			make.width.equalTo(progressContainer.snp_width).dividedBy(1.2)
 			make.height.equalTo(1)
@@ -319,6 +312,15 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 			make.height.equalTo(60)
 		}
 
+		let priceLabel = UILabel()
+		progressContainer.addSubview(priceLabel)
+		priceLabel.text = "\(self.applicationPrice!)$"
+		priceLabel.textColor = Color.blackPrimary
+		priceLabel.font = UIFont(name: "Lato-Light", size: 30)
+		priceLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(nelperPayLogo.snp_bottom).offset(20)
+			make.centerX.equalTo(progressContainer.snp_centerX)
+		}
 		
 		//Payment Button
 		
@@ -328,8 +330,8 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		paymentButton.setTitle("Proceed to Payment", forState: UIControlState.Normal)
 		paymentButton.addTarget(self, action: "didTapPaymentButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		paymentButton.snp_makeConstraints { (make) -> Void in
-		make.top.equalTo(nelperPayLine.snp_bottom).offset(40)
-		make.centerX.equalTo(progressContainer.snp_centerX)
+			make.top.equalTo(priceLabel.snp_bottom).offset(15)
+			make.centerX.equalTo(progressContainer.snp_centerX)
 		}
 		
 		//About Nelper Pay
@@ -337,12 +339,11 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		let aboutNelperPayLabel = UILabel()
 		progressContainer.addSubview(aboutNelperPayLabel)
 		aboutNelperPayLabel.text = "About NelperPay"
-		aboutNelperPayLabel.textColor = blackPrimary
-		aboutNelperPayLabel.backgroundColor = whitePrimary
+		aboutNelperPayLabel.textColor = Color.blackPrimary
+		aboutNelperPayLabel.backgroundColor = Color.whitePrimary
 		aboutNelperPayLabel.font = UIFont(name: "Lato-Regular", size: kProgressBarTextFontSize)
 		aboutNelperPayLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(paymentButton.snp_bottom).offset(20)
-			make.bottom.equalTo(progressContainer.snp_bottom).offset(-20)
 			make.centerX.equalTo(progressContainer.snp_centerX).offset(10)
 		}
 		
@@ -356,6 +357,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 			make.width.equalTo(20)
 		}
 		
+		progressContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(aboutNelperPayButton.snp_bottom).offset(20)
+		}
+		
 		self.setCompletionState()
 		
 		
@@ -363,44 +368,42 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		
 		let applicantContainer = UIView()
 		contentView.addSubview(applicantContainer)
-		applicantContainer.backgroundColor = whitePrimary
-		applicantContainer.layer.borderColor = grayDetails.CGColor
+		applicantContainer.backgroundColor = Color.whitePrimary
+		applicantContainer.layer.borderColor = Color.grayDetails.CGColor
 		applicantContainer.layer.borderWidth = 1
 		applicantContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(progressContainer.snp_bottom).offset(20)
-			make.width.equalTo(contentView.snp_width)
-			make.height.equalTo(backgroundView.snp_height).dividedBy(2)
-			make.bottom.equalTo(contentView.snp_bottom).offset(-20)
+			make.left.equalTo(contentView.snp_left).offset(-1)
+			make.right.equalTo(contentView.snp_right).offset(1)
 		}
 		
-		//Header
+		//Title header
 		
 		let headerContainer = UIView()
 		applicantContainer.addSubview(headerContainer)
-		headerContainer.backgroundColor = whitePrimary
-		headerContainer.layer.borderWidth = 1
-		headerContainer.layer.borderColor = grayDetails.CGColor
+		headerContainer.backgroundColor = Color.whitePrimary
 		headerContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(applicantContainer.snp_top)
-			make.width.equalTo(applicantContainer.snp_width)
-			make.height.equalTo(applicantContainer.snp_height).dividedBy(5)
+			make.left.equalTo(applicantContainer.snp_left)
+			make.right.equalTo(applicantContainer.snp_right)
+			make.height.equalTo(50)
 		}
 		
 		let acceptedIcon = UIImageView()
 		headerContainer.addSubview(acceptedIcon)
-		acceptedIcon.image = UIImage(named: "accepted")
+		acceptedIcon.image = UIImage(named: "profile-red")
 		acceptedIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		acceptedIcon.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(headerContainer.snp_centerY)
+			make.centerY.equalTo(headerContainer.snp_centerY).offset(1)
 			make.left.equalTo(headerContainer.snp_left).offset(20)
-			make.width.equalTo(30)
-			make.height.equalTo(30)
+			make.width.equalTo(25)
+			make.height.equalTo(25)
 		}
 		
 		let acceptedApplicantLabel = UILabel()
 		headerContainer.addSubview(acceptedApplicantLabel)
 		acceptedApplicantLabel.text = "Accepted Nelper"
-		acceptedApplicantLabel.textColor = blackPrimary
+		acceptedApplicantLabel.textColor = Color.blackPrimary
 		acceptedApplicantLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		acceptedApplicantLabel.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(acceptedIcon.snp_centerY)
@@ -409,135 +412,36 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		
 		//Applicant
 		
-		let profileContainer = UIView()
-		applicantContainer.addSubview(profileContainer)
-		applicantContainer.backgroundColor = whitePrimary
-		applicantContainer.layer.borderColor = grayDetails.CGColor
-		applicantContainer.layer.borderWidth = 1
+		let profileContainer = ProfileCellView(user: self.acceptedApplicant)
+		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
+		self.picture = profileContainer.picture
+		self.contentView.addSubview(profileContainer)
 		profileContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(headerContainer.snp_bottom)
-			make.width.equalTo(applicantContainer.snp_width)
-			make.height.equalTo(applicantContainer.snp_height).dividedBy(3)
+			make.left.equalTo(applicantContainer.snp_left)
+			make.right.equalTo(applicantContainer.snp_right)
+			make.height.equalTo(90)
 		}
 		
-		//Profile picture
-		
-		let profilePicture = UIImageView()
-		self.picture = profilePicture
-		profileContainer.addSubview(profilePicture)
-		let pictureSize: CGFloat = 70
-		profilePicture.layer.cornerRadius = pictureSize / 2
-		profilePicture.clipsToBounds = true
-		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
-		profilePicture.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(profileContainer.snp_left).offset(16)
-			make.centerY.equalTo(profileContainer.snp_centerY)
-			make.height.equalTo(pictureSize)
-			make.width.equalTo(pictureSize)
-		}
-		
-		//Name
-		
-		let applicantName = UILabel()
-		profileContainer.addSubview(applicantName)
-		applicantName.text = self.acceptedApplicant.name
-		applicantName.textColor = blackPrimary
-		applicantName.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		applicantName.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(profilePicture.snp_centerY).offset(-15)
-			make.left.equalTo(profilePicture.snp_right).offset(15)
-			make.right.equalTo(profileContainer.snp_right).offset(-10)
-		}
-		
-		//Rating
-		
-		let ratingStarsView = RatingStars()
-		self.ratingStarsView = ratingStarsView
-		self.ratingStarsView.style = "dark"
-		self.ratingStarsView.starHeight = 15
-		self.ratingStarsView.starWidth = 15
-		self.ratingStarsView.starPadding = 5
-		self.ratingStarsView.textSize = kText15
-		self.ratingStarsView.userCompletedTasks = acceptedApplicant.completedTasks
-		self.ratingStarsView.userRating = acceptedApplicant.rating
-		profileContainer.addSubview(ratingStarsView)
-		ratingStarsView.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(applicantName.snp_left)
-			make.centerY.equalTo(profilePicture.snp_centerY).offset(15)
-			make.width.equalTo((ratingStarsView.starWidth + ratingStarsView.starPadding) * 6)
-			make.height.equalTo(ratingStarsView.starHeight)
-		}
-		
-		//Money View
-		
-		let moneyView = UIView()
-		moneyView.contentMode = UIViewContentMode.ScaleAspectFill
-		moneyView.backgroundColor = whiteBackground
-		moneyView.layer.cornerRadius = 3
-		profileContainer.addSubview(moneyView)
-		moneyView.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(ratingStarsView.snp_right).offset(28)
-			make.centerY.equalTo(ratingStarsView.snp_centerY)
-			make.height.equalTo(35)
-			make.width.equalTo(55)
-		}
-		
-		//Money Label
-		
-		let moneyLabel = UILabel()
-		profileContainer.addSubview(moneyLabel)
-		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = blackPrimary
-		moneyLabel.text = "$\(applicationPrice)"
-		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
-		moneyLabel.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(moneyView.snp_edges)
-		}
-		
-		//Arrow
-		
-		let arrow = UIButton()
-		profileContainer.addSubview(arrow)
-		arrow.setBackgroundImage(UIImage(named: "arrow_applicant_cell.png"), forState: UIControlState.Normal)
-		arrow.alpha = 0.2
-		arrow.contentMode = UIViewContentMode.ScaleAspectFill
-		arrow.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(profileContainer.snp_right).offset(-18)
-			make.centerY.equalTo(profileContainer.snp_centerY)
-			make.height.equalTo(25)
-			make.width.equalTo(15)
-		}
-		
-		let profileUnderline = UIView()
-		applicantContainer.addSubview(profileUnderline)
-		profileUnderline.backgroundColor = grayDetails
-		profileUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileContainer.snp_bottom)
-			make.width.equalTo(applicantContainer.snp_width)
-			make.centerX.equalTo(applicantContainer.snp_centerX)
-			make.height.equalTo(0.5)
-		}
-		
-		let profileTapAction = UITapGestureRecognizer(target: self, action: "didTapProfile:")
-		profileContainer.addGestureRecognizer(profileTapAction)
+		//Nelper info Container
 		
 		let informationContainer = UIView()
 		applicantContainer.addSubview(informationContainer)
-		informationContainer.backgroundColor = whitePrimary
+		informationContainer.backgroundColor = Color.whitePrimary
 		informationContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileUnderline.snp_bottom)
-			make.bottom.equalTo(applicantContainer.snp_bottom)
-			make.width.equalTo(applicantContainer.snp_width)
+			make.top.equalTo(profileContainer.snp_bottom)
+			make.left.equalTo(applicantContainer.snp_left)
+			make.right.equalTo(applicantContainer.snp_right)
 		}
 		
 		let emailLabel = UILabel()
 		informationContainer.addSubview(emailLabel)
 		emailLabel.text = "cvinette@nelper.ca"
-		emailLabel.textColor = blackPrimary
+		emailLabel.textColor = Color.darkGrayDetails
 		emailLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		emailLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
-			make.centerY.equalTo(informationContainer.snp_centerY).offset(-30)
+			make.top.equalTo(informationContainer.snp_top).offset(20)
 		}
 	
 		let emailIcon = UIImageView()
@@ -546,14 +450,14 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		emailIcon.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(emailLabel.snp_left).offset(-15)
 			make.centerY.equalTo(emailLabel.snp_centerY)
-			make.height.equalTo(30)
-			make.width.equalTo(30)
+			make.height.equalTo(25)
+			make.width.equalTo(25)
 		}
 		
 		let phoneLabel = UILabel()
 		informationContainer.addSubview(phoneLabel)
-		phoneLabel.text = "000-000-000"
-		phoneLabel.textColor = blackPrimary
+		phoneLabel.text = "000-000-0000"
+		phoneLabel.textColor = Color.darkGrayDetails
 		phoneLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		phoneLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
@@ -566,8 +470,20 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		phoneIcon.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(phoneLabel.snp_left).offset(-15)
 			make.centerY.equalTo(phoneLabel.snp_centerY)
-			make.height.equalTo(30)
-			make.width.equalTo(30)
+			make.height.equalTo(25)
+			make.width.equalTo(25)
+		}
+		
+		informationContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(phoneIcon.snp_bottom).offset(20)
+		}
+		
+		applicantContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(informationContainer.snp_bottom)
+		}
+		
+		contentView.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(applicantContainer.snp_bottom).offset(50)
 		}
 		
 		//Chat Button
@@ -575,7 +491,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		let chatButton = UIButton()
 		self.chatButton = chatButton
 		self.view.addSubview(chatButton)
-		chatButton.backgroundColor = grayBlue
+		chatButton.backgroundColor = Color.redPrimary
 		chatButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
 		chatButton.setImage(UIImage(named: "down_arrow"), forState: UIControlState.Selected)
 		chatButton.addTarget(self, action: "chatButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -592,7 +508,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		let fakeButton = UIButton()
 		self.fakeButton = fakeButton
 		self.view.addSubview(fakeButton)
-		fakeButton.backgroundColor = grayBlue
+		fakeButton.backgroundColor = Color.grayBlue
 		fakeButton.setImage(UIImage(named: "chat_icon"), forState: UIControlState.Normal)
 		fakeButton.setImage(UIImage(named: "collapse_chat"), forState: UIControlState.Selected)
 		fakeButton.imageView!.contentMode = UIViewContentMode.Center
@@ -618,9 +534,9 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 //	case Completed
 //	case Rated
 	
-	func setCompletionState(){
+	func setCompletionState() {
 		
-		switch (self.task!.completionState){
+		switch (self.task!.completionState) {
 		case .Accepted:
 			self.setAccepted()
 		case .PaymentSent:
@@ -636,19 +552,19 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	
 	func setAccepted(){
 		self.paymentImageView.image = UIImage(named: "pending")
-		self.paymentLine.backgroundColor = pendingYellow
-		self.approvedTaskLine.backgroundColor = pendingYellow
+		self.paymentLine.backgroundColor = Color.pendingYellow
+		self.approvedTaskLine.backgroundColor = Color.pendingYellow
 		self.approvedTaskImageView.image = UIImage(named:"pending")
-		self.leaveFeedbackLine.backgroundColor = pendingYellow
+		self.leaveFeedbackLine.backgroundColor = Color.pendingYellow
 		self.leaveFeedbackImageView.image = UIImage(named:"pending")
 	}
 	
 	func setPaymentSent(){
 		self.paymentImageView.image = UIImage(named: "accepted")
-		self.paymentLine.backgroundColor = progressGreen
-		self.approvedTaskLine.backgroundColor = pendingYellow
+		self.paymentLine.backgroundColor = Color.progressGreen
+		self.approvedTaskLine.backgroundColor = Color.pendingYellow
 		self.approvedTaskImageView.image = UIImage(named:"pending")
-		self.leaveFeedbackLine.backgroundColor = pendingYellow
+		self.leaveFeedbackLine.backgroundColor = Color.pendingYellow
 		self.leaveFeedbackImageView.image = UIImage(named:"pending")
 		self.progressButton.setTitle("Approve Task", forState: UIControlState.Normal)
 		self.progressButton.setTitle("Sure?", forState: UIControlState.Selected)
@@ -658,10 +574,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	
 	func setCompleted(){
 		self.paymentImageView.image = UIImage(named: "accepted")
-		self.paymentLine.backgroundColor = progressGreen
-		self.approvedTaskLine.backgroundColor = progressGreen
+		self.paymentLine.backgroundColor = Color.progressGreen
+		self.approvedTaskLine.backgroundColor = Color.progressGreen
 		self.approvedTaskImageView.image = UIImage(named:"accepted")
-		self.leaveFeedbackLine.backgroundColor = pendingYellow
+		self.leaveFeedbackLine.backgroundColor = Color.pendingYellow
 		self.leaveFeedbackImageView.image = UIImage(named:"pending")
 		self.progressButton.selected = false
 		self.progressButton.setTitle("Rate your Nelper", forState: UIControlState.Normal)
@@ -671,14 +587,14 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	
 	func setRated(){
 		self.paymentImageView.image = UIImage(named: "accepted")
-		self.paymentLine.backgroundColor = progressGreen
-		self.approvedTaskLine.backgroundColor = progressGreen
+		self.paymentLine.backgroundColor = Color.progressGreen
+		self.approvedTaskLine.backgroundColor = Color.progressGreen
 		self.approvedTaskImageView.image = UIImage(named:"accepted")
-		self.leaveFeedbackLine.backgroundColor = progressGreen
+		self.leaveFeedbackLine.backgroundColor = Color.progressGreen
 		self.leaveFeedbackImageView.image = UIImage(named:"accepted")
 		self.progressButton.setTitle("Completed", forState: UIControlState.Normal)
 		self.progressButton.removeTarget(self, action: "didTapRateYourNelperButton:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.progressButton.setBackgroundColor(progressGreen, forState: UIControlState.Normal)
+		self.progressButton.setBackgroundColor(Color.progressGreen, forState: UIControlState.Normal)
 		self.progressButton.enabled = false
 	}
 	
@@ -690,10 +606,10 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	- parameter applicant: The Applicant
 	*/
 	
-	func setImages(applicant:User){
-		if(applicant.profilePictureURL != nil){
+	func setImages(applicant:User) {
+		if(applicant.profilePictureURL != nil) {
 			let fbProfilePicture = applicant.profilePictureURL
-			request(.GET,fbProfilePicture!).response(){
+			request(.GET,fbProfilePicture!).response() {
 				(_, _, data, _) in
 				let image = UIImage(data: data as NSData!)
 				self.picture.image = image
@@ -703,7 +619,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	
 	// MARK: Setters
 	func setApplicant(){
-		for application in self.task.applications{
+		for application in self.task.applications {
 			if application.state == .Accepted {
 				self.acceptedApplicant = application.user!
 				self.acceptedApplication = application

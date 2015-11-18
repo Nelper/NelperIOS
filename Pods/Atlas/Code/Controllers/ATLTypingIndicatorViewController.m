@@ -105,9 +105,9 @@
         NSMutableString *textForUndisplayedParticipants = [NSMutableString new];
         [textForUndisplayedParticipants appendFormat:@"%ld", (unsigned long)undisplayedCount];
         if (displayedFirstNamesCount > 0 && undisplayedCount == 1) {
-            [textForUndisplayedParticipants appendString:@" other"];
+            [textForUndisplayedParticipants appendString:ATLLocalizedString(@"atl.typingindicator.spaces.other.key", @" other", nil)];
         } else if (displayedFirstNamesCount > 0) {
-            [textForUndisplayedParticipants appendString:@" others"];
+            [textForUndisplayedParticipants appendString:ATLLocalizedString(@"atl.typingindicator.spaces.others.key", @" others", nil)];
         }
         [strings addObject:textForUndisplayedParticipants];
         
@@ -141,18 +141,18 @@
     NSUInteger lastIndex = participantStrings.count - 1;
     [participantStrings enumerateObjectsUsingBlock:^(NSString *participantString, NSUInteger index, BOOL *stop) {
         if (index == lastIndex && participantStrings.count == 2) {
-            [text appendString:@" and "];
+            [text appendString:ATLLocalizedString(@"atl.typingindicator.spaces.and.key", @" and ", nil)];
         } else if (index == lastIndex && participantStrings.count > 2) {
-            [text appendString:@", and "];
+            [text appendString:ATLLocalizedString(@"atl.typingindicator.spaces.comma.and.key", @", and ", nil)];
         } else if (index > 0) {
-            [text appendString:@", "];
+            [text appendString:ATLLocalizedString(@"atl.typingindicator.spaces.comma.key", @", ", nil)];
         }
         [text appendString:participantString];
     }];
     if (participantsCount == 1) {
-        [text appendString:@" is typing…"];
+        [text appendString:ATLLocalizedString(@"atl.typingindicator.istyping.key", @" is typing…", nil)];
     } else {
-        [text appendString:@" are typing…"];
+        [text appendString:ATLLocalizedString(@"atl.typingindicator.aretyping.key", @" are typing…", nil)];
     }
     return text;
 }
@@ -167,9 +167,11 @@
 - (void)configureToLabelConstraints
 {
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_label attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:8]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_label attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:-8]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_label attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_label attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+    NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:_label attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:-8];
+    rightConstraint.priority = 800;
+    [self.view addConstraint:rightConstraint];
 }
 
 @end

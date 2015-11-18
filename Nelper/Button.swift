@@ -23,9 +23,9 @@ extension UIButton {
 
 class PrimaryActionButton: UIButton {
 	
-	private var buttonColor = redPrimary
-	private var buttonColorSelected = redPrimarySelected
-	private var buttonLabelColor = whitePrimary
+	private var buttonColor = Color.redPrimary
+	private var buttonColorSelected = Color.redPrimarySelected
+	private var buttonLabelColor = Color.whitePrimary
 	
 	var height = 40 {
 		didSet {
@@ -57,7 +57,7 @@ class PrimaryActionButton: UIButton {
 	}
 	
 	func createView() {
-		self.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
 		self.setBackgroundColor(buttonColor, forState: UIControlState.Normal)
 		self.setBackgroundColor(buttonColorSelected, forState: UIControlState.Highlighted)
 		self.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
@@ -72,11 +72,11 @@ class PrimaryActionButton: UIButton {
 class PrimaryBorderActionButton: UIButton {
 	
 	private var buttonColor = UIColor.clearColor()
-	private var buttonColorSelected = redPrimary
-	private var buttonLabelColor = redPrimary
-	private var buttonLabelSelectedColor = whitePrimary
+	private var buttonColorSelected = Color.redPrimary
+	private var buttonLabelColor = Color.redPrimary
+	private var buttonLabelSelectedColor = Color.whitePrimary
 	private var buttonBorderWidth: CGFloat = 1
-	private var buttonBorderColor = redPrimary
+	private var buttonBorderColor = Color.redPrimary
 	
 	var height = 40 {
 		didSet {
@@ -108,7 +108,7 @@ class PrimaryBorderActionButton: UIButton {
 	}
 	
 	func createView() {
-		self.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
 		self.setBackgroundColor(buttonColor, forState: UIControlState.Normal)
 		self.setBackgroundColor(buttonColorSelected, forState: UIControlState.Highlighted)
 		self.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
@@ -125,11 +125,11 @@ class PrimaryBorderActionButton: UIButton {
 
 class SecondaryActionButton: UIButton {
 	
-	private var buttonColor = whiteBackground
-	private var buttonBorderColor = darkGrayDetails
+	private var buttonColor = Color.whiteBackground
+	private var buttonBorderColor = Color.darkGrayDetails
 	private var buttonBorderWidth: CGFloat = 0.5
-	private var buttonLabelColor = darkGrayDetails
-	private var buttonLabelColorSelected = blackPrimary
+	private var buttonLabelColor = Color.darkGrayDetails
+	private var buttonLabelColorSelected = Color.blackPrimary
 	
 	var height = 40 {
 		didSet {
@@ -161,7 +161,7 @@ class SecondaryActionButton: UIButton {
 	}
 	
 	func createView() {
-		self.setTitleColor(whitePrimary, forState: UIControlState.Normal)
+		self.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
 		self.backgroundColor = buttonColor
 		self.layer.borderColor = buttonBorderColor.CGColor
 		self.layer.borderWidth = buttonBorderWidth

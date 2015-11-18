@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import SnapKit
 import Alamofire
+import SVProgressHUD
 
 class MoreViewController: UIViewController {
 	
@@ -22,12 +23,12 @@ class MoreViewController: UIViewController {
 	private var kTextSize: CGFloat!
 	private var isFirstSection = true
 	
-	private var sections = [(title: String, icon: UIImage?, action: Selector)]()
+	private var sections = [(title: String, icon: UIImage?, item: String)]()
 	
 	private var numberOfSections: Int!
 	private var iconHeight: Int!
-	private var sectionHeight: Int!
-	private var sectionPadding: Int!
+	private var sectionHeight: CGFloat!
+	private var sectionPadding: CGFloat!
 	
 	private var sectionIcons = [UIImageView]()
 	private var sectionButtons = [UIButton]()
@@ -39,11 +40,11 @@ class MoreViewController: UIViewController {
 		
 		//SET SECTIONS
 		let sections = [
-			(title: "My Profile", icon: UIImage(named: "noProfilePicture"), action: Selector("profileTapped:")),
-			(title: "Settings", icon: UIImage(named:"settings-menu"), action: Selector("settingsTapped:")),
-			(title: "Support", icon: UIImage(named:"support-menu"), action: Selector("supportTapped:")),
-			(title: "FAQ", icon: UIImage(named:"faq-menu"), action: Selector("faqTapped:")),
-			(title: "Logout", icon: UIImage(named:"logout-menu"), action: Selector("logoutTapped:"))
+			(title: "My Profile", icon: UIImage(named: "noProfilePicture"), item: "profile"),
+			(title: "Settings", icon: UIImage(named:"settings-menu"), item: "settings"),
+			(title: "Support", icon: UIImage(named:"support-menu"), item: "support"),
+			(title: "FAQ", icon: UIImage(named:"faq-menu"), item: "faq"),
+			(title: "Logout", icon: UIImage(named:"logout-menu"), item: "logout")
 		]
 		self.sections = sections
 		self.numberOfSections = sections.count
@@ -68,6 +69,16 @@ class MoreViewController: UIViewController {
 			make.edges.equalTo(self.view.snp_edges)
 		}
 		
+		let verticalLine = UIView()
+		blurEffectView.addSubview(verticalLine)
+		verticalLine.backgroundColor = Color.blackPrimary.colorWithAlphaComponent(0.7)
+		verticalLine.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(blurEffectView.snp_left)
+			make.width.equalTo(0.5)
+			make.height.equalTo(blurEffectView.snp_height)
+			make.top.equalTo(blurEffectView.snp_top)
+		}
+		
 		//CONTAINER
 		let sectionContainer = UIView()
 		self.sectionContainer = sectionContainer
@@ -86,14 +97,15 @@ class MoreViewController: UIViewController {
 			let sectionButton = UIButton()
 			self.sectionButton = sectionButton
 			self.sectionButton.setTitle(self.sections[index].title, forState: UIControlState.Normal)
-			self.sectionButton.setTitleColor(blackPrimary.colorWithAlphaComponent(0.8), forState: UIControlState.Normal)
+			self.sectionButton.setTitleColor(Color.blackPrimary.colorWithAlphaComponent(0.8), forState: UIControlState.Normal)
 			self.sectionButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTextSize)
-			self.sectionButton.setBackgroundColor(whitePrimary.colorWithAlphaComponent(0.5), forState: UIControlState.Highlighted)
+			self.sectionButton.setBackgroundColor(Color.whitePrimary.colorWithAlphaComponent(0.5), forState: UIControlState.Highlighted)
 			self.sectionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-			self.sectionButton.addTarget(self, action: self.sections[index].action, forControlEvents: UIControlEvents.TouchUpInside)
+			self.sectionButton.addTarget(self, action: "sectionTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+			self.sectionButton.tag = index
 			self.sectionContainer.addSubview(sectionButton)
 			self.sectionButton.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.sectionContainer.snp_top).offset(index * (self.sectionHeight + self.sectionPadding))
+				make.top.equalTo(self.sectionContainer.snp_top).offset(CGFloat(index) * (self.sectionHeight + self.sectionPadding))
 				make.left.equalTo(self.sectionContainer.snp_right)
 				make.width.equalTo(self.sectionContainer.snp_width)
 				make.height.equalTo(self.sectionHeight)
@@ -105,7 +117,7 @@ class MoreViewController: UIViewController {
 				let separatorLine = UIView()
 				self.separatorLine = separatorLine
 				self.sectionButton.addSubview(separatorLine)
-				self.separatorLine.backgroundColor = blackPrimary.colorWithAlphaComponent(0.2)
+				self.separatorLine.backgroundColor = Color.blackPrimary.colorWithAlphaComponent(0.2)
 				self.separatorLine.alpha = 0.5
 				self.separatorLine.snp_updateConstraints { (make) -> Void in
 					make.height.equalTo(0.5)
@@ -139,7 +151,7 @@ class MoreViewController: UIViewController {
 					self.sectionIcon!.layer.cornerRadius = 0
 				}
 				
-				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, ((CGFloat(iconHeight) * 2) + 10), 0, 0)
+				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, ((CGFloat(iconHeight) * 2) + 15), 0, 0)
 				
 				self.sectionIcons.append(self.sectionIcon!)
 				
@@ -199,33 +211,52 @@ class MoreViewController: UIViewController {
 	
 	//MARK: ACTIONS
 	
-	func profileTapped(sender: UIButton) {
-		let nextVC = FullProfileViewController()
-		nextVC.hidesBottomBarWhenPushed = true
-		self.navigationController?.pushViewController(nextVC, animated: true)
-	}
-	
-	func settingsTapped(sender: UIButton) {
-		let nextVC = MainSettingsViewController()
-		nextVC.hidesBottomBarWhenPushed = true
-		self.navigationController?.pushViewController(nextVC, animated: true)
-	}
-	
-	func logoutTapped(sender: UIButton) {
-		ApiHelper.logout()
+	func sectionTapped(sender: UIButton) {
+		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+		var nextVC: UIViewController?
 		
+		switch self.sections[sender.tag].item {
+		case "profile":
+			nextVC = FullProfileViewController()
+		case "settings":
+			nextVC = MainSettingsViewController()
+		case "support":
+			SupportKit.show()
+			return
+		case "faq":
+			nextVC = FaqViewController()
+		case "logout":
+			SVProgressHUD.setBackgroundColor(UIColor.whiteColor())
+			SVProgressHUD.setForegroundColor(Color.redPrimary)
+			SVProgressHUD.showWithStatus("Logging out")
+			
+			self.blurEffectView.snp_remakeConstraints { (make) -> Void in
+				make.edges.equalTo(self.view.snp_edges).inset(UIEdgeInsetsMake(0, self.view.bounds.width, 0, 0))
+			}
+			UIView.animateWithDuration(0.4, animations: { () -> Void in
+				self.blurEffectView.layoutIfNeeded()
+			})
+			
+			self.closingAnimation()
+			
+			_ = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: "logoutUser", userInfo: nil, repeats: false)
+			
+			return
+		default:
+			break
+		}
+		
+		nextVC!.hidesBottomBarWhenPushed = true
+		self.navigationController?.pushViewController(nextVC!, animated: true)
+	}
+	
+	func logoutUser() {
+		ApiHelper.logout()
+			
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		appDelegate.showLogin(true)
-	}
-	
-	func supportTapped(sender: UIButton) {
-		SupportKit.show()
-	}
-	
-	func faqTapped(sender: UIButton) {
-		let nextVC = FaqViewController()
-		nextVC.hidesBottomBarWhenPushed = true
-		self.navigationController?.pushViewController(nextVC, animated: true)
+		
+		SVProgressHUD.dismiss()
 	}
 	
 	//MARK: Data

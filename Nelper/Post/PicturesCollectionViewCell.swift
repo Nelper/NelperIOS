@@ -27,7 +27,7 @@ class PicturesCollectionViewCell: UICollectionViewCell {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
-		self.layer.borderColor = grayDetails.CGColor
+		self.layer.borderColor = Color.grayDetails.CGColor
 		self.layer.borderWidth = 0.5
 		self.backgroundColor = UIColor.whiteColor()
 		

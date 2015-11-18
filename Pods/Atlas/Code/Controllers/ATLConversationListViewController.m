@@ -24,6 +24,7 @@
 
 static NSString *const ATLConversationCellReuseIdentifier = @"ATLConversationCellReuseIdentifier";
 static NSString *const ATLImageMIMETypePlaceholderText = @"Attachment: Image";
+static NSString *const ATLVideoMIMETypePlaceholderText = @"Attachment: Video";
 static NSString *const ATLLocationMIMETypePlaceholderText = @"Attachment: Location";
 static NSString *const ATLGIFMIMETypePlaceholderText = @"Attachment: GIF";
 
@@ -48,6 +49,8 @@ static NSString *const ATLGIFMIMETypePlaceholderText = @"Attachment: GIF";
 NSString *const ATLConversationListViewControllerTitle = @"Messages";
 NSString *const ATLConversationTableViewAccessibilityLabel = @"Conversation Table View";
 NSString *const ATLConversationTableViewAccessibilityIdentifier = @"Conversation Table View Identifier";
+NSString *const ATLConversationListViewControllerDeletionModeLocal = @"Local";
+NSString *const ATLConversationListViewControllerDeletionModeGlobal = @"Global";
 
 + (instancetype)conversationListViewControllerWithLayerClient:(LYRClient *)layerClient
 {
@@ -82,6 +85,7 @@ NSString *const ATLConversationTableViewAccessibilityIdentifier = @"Conversation
     _displaysAvatarItem = NO;
     _allowsEditing = YES;
     _rowHeight = 76.0f;
+    _shouldDisplaySearchController = YES;
 }
 
 - (id)init
@@ -103,7 +107,7 @@ NSString *const ATLConversationTableViewAccessibilityIdentifier = @"Conversation
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = ATLConversationListViewControllerTitle;
+    self.title = ATLLocalizedString(@"atl.conversationlist.title.key", ATLConversationListViewControllerTitle, nil);
     self.accessibilityLabel = ATLConversationListViewControllerTitle;
 
     self.tableView.accessibilityLabel = ATLConversationTableViewAccessibilityLabel;
@@ -111,20 +115,22 @@ NSString *const ATLConversationTableViewAccessibilityIdentifier = @"Conversation
     self.tableView.isAccessibilityElement = YES;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
-    [self.searchBar sizeToFit];
-    self.searchBar.translucent = NO;
-    self.searchBar.accessibilityLabel = @"Search Bar";
-    self.searchBar.delegate = self;
-    self.tableView.tableHeaderView = self.searchBar;
-    
+    if (self.shouldDisplaySearchController) {
+        self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+        [self.searchBar sizeToFit];
+        self.searchBar.translucent = NO;
+        self.searchBar.accessibilityLabel = @"Search Bar";
+        self.searchBar.delegate = self;
+        self.tableView.tableHeaderView = self.searchBar;
+        
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
+        self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
 #pragma GCC diagnostic pop
-    self.searchController.delegate = self;
-    self.searchController.searchResultsDelegate = self;
-    self.searchController.searchResultsDataSource = self;
+        self.searchController.delegate = self;
+        self.searchController.searchResultsDelegate = self;
+        self.searchController.searchResultsDataSource = self;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -227,12 +233,17 @@ NSString *const ATLConversationTableViewAccessibilityIdentifier = @"Conversation
         }
     }
     
-    self.queryController = [self.layerClient queryControllerWithQuery:query];
-    self.queryController.delegate = self;
     NSError *error;
+    self.queryController = [self.layerClient queryControllerWithQuery:query error:&error];
+    if (!self.queryController) {
+        NSLog(@"LayerKit failed to create a query controller with error: %@", error);
+        return;
+    }
+    self.queryController.delegate = self;
     BOOL success = [self.queryController execute:&error];
     if (!success) {
         NSLog(@"LayerKit failed to execute query with error: %@", error);
+        return;
     }
     [self.tableView reloadData];
 }
@@ -317,10 +328,10 @@ NSString *const ATLConversationTableViewAccessibilityIdentifier = @"Conversation
         } else {
             switch (deletionMode.integerValue) {
                 case LYRDeletionModeLocal:
-                    actionString = @"Local";
+                    actionString = ATLLocalizedString(@"atl.conversationlist.deletionmode.local.key", ATLConversationListViewControllerDeletionModeLocal, nil);
                     break;
                 case LYRDeletionModeAllParticipants:
-                    actionString = @"Global";
+                    actionString = ATLLocalizedString(@"atl.conversationlist.deletionmode.global.key", ATLConversationListViewControllerDeletionModeGlobal, nil);
                     break;
                 default:
                     break;
@@ -352,7 +363,7 @@ NSString *const ATLConversationTableViewAccessibilityIdentifier = @"Conversation
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.conversationToDelete = [self.queryController objectAtIndexPath:indexPath];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Global" otherButtonTitles:@"Local", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:ATLConversationListViewControllerDeletionModeGlobal otherButtonTitles:ATLConversationListViewControllerDeletionModeLocal, nil];
     [actionSheet showInView:self.view];
 }
 
@@ -466,9 +477,14 @@ NSString *const ATLConversationTableViewAccessibilityIdentifier = @"Conversation
             LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
             query.predicate = [LYRPredicate predicateWithProperty:@"participants" predicateOperator:LYRPredicateOperatorIsIn value:participantIdentifiers];
             query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessage.receivedAt" ascending:NO]];
-            self.searchQueryController = [self.layerClient queryControllerWithQuery:query];
             
             NSError *error;
+            self.searchQueryController = [self.layerClient queryControllerWithQuery:query error:&error];
+            if (!self.queryController) {
+                NSLog(@"LayerKit failed to create a query controller with error: %@", error);
+                return;
+            }
+
             [self.searchQueryController execute:&error];
             [self.searchController.searchResultsTableView reloadData];
         }];
@@ -495,15 +511,17 @@ NSString *const ATLConversationTableViewAccessibilityIdentifier = @"Conversation
         if ([messagePart.MIMEType isEqualToString:ATLMIMETypeTextPlain]) {
             lastMessageText = [[NSString alloc] initWithData:messagePart.data encoding:NSUTF8StringEncoding];
         } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeImageJPEG]) {
-            lastMessageText = ATLImageMIMETypePlaceholderText;
+            lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.text.key", ATLImageMIMETypePlaceholderText, nil);
         } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeImagePNG]) {
-            lastMessageText = ATLImageMIMETypePlaceholderText;
+            lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.png.key", ATLImageMIMETypePlaceholderText, nil);
         } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeImageGIF]) {
-            lastMessageText = ATLGIFMIMETypePlaceholderText;
+            lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.gif.key", ATLGIFMIMETypePlaceholderText, nil);
         } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeLocation]) {
-            lastMessageText = ATLLocationMIMETypePlaceholderText;
+            lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.location.key", ATLLocationMIMETypePlaceholderText, nil);
+        } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeVideoMP4]) {
+            lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.video.key", ATLVideoMIMETypePlaceholderText, nil);
         } else {
-            lastMessageText = ATLImageMIMETypePlaceholderText;
+            lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.default.key", ATLImageMIMETypePlaceholderText, nil);
         }
     return lastMessageText;
 }

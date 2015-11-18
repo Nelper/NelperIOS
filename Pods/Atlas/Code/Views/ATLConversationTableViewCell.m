@@ -25,7 +25,10 @@
 
 static BOOL ATLIsDateInToday(NSDate *date)
 {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     NSCalendarUnit dateUnits = NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+#pragma GCC diagnostic pop    
     NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:dateUnits fromDate:date];
     NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:dateUnits fromDate:[NSDate date]];
     return ([dateComponents day] == [todayComponents day] &&
@@ -153,7 +156,9 @@ static CGFloat const ATLChevronIconViewRightPadding = 14.0f;
     
     _chevronIconView = [[UIImageView alloc] init];
     _chevronIconView.translatesAutoresizingMaskIntoConstraints = NO;
-    _chevronIconView.image = [UIImage imageNamed:@"AtlasResource.bundle/chevron"];
+    
+    NSBundle *resourcesBundle = ATLResourcesBundle();
+    _chevronIconView.image = [UIImage imageNamed:@"chevron" inBundle:resourcesBundle compatibleWithTraitCollection:nil];
     [self.contentView addSubview:_chevronIconView];
     
     [self configureConversationImageViewLayoutContraints];

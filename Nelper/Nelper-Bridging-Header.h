@@ -10,8 +10,8 @@
 #import <MapKit/MapKit.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import "iCarousel.h"
-#import <LayerKit/LayerKit.h>
-#import <Atlas.h>
+#import <Atlas/Atlas.h>
 #import <Stripe/Stripe.h>
 #import <SupportKit/SupportKit.h>
 #import <FXBlurView/FXBlurView.h>
+#import <SDWebImage/UIImageView+WebCache.h>

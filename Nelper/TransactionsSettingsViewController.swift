@@ -41,7 +41,7 @@ class TransactionsSettingsViewController: UIViewController {
 		let contentView = UIView()
 		self.contentView = contentView
 		self.view.addSubview(contentView)
-		self.contentView.backgroundColor = whiteBackground
+		self.contentView.backgroundColor = Color.whiteBackground
 		self.contentView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.navBar.snp_bottom)
 			make.left.equalTo(self.view.snp_left)
@@ -57,6 +57,6 @@ class TransactionsSettingsViewController: UIViewController {
 	//MARK: ACTIONS
 	func backButtonTapped(sender: UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
-		view.endEditing(true) // dissmiss keyboard without delay
+		view.endEditing(true) // dismiss keyboard without delay
 	}
 }

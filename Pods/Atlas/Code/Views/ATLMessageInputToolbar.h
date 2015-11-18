@@ -78,11 +78,12 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
 /**
  @abstract Inserts the mediaAttachment as an attributed text attachment which is inlined with text.
  @param mediaAttachment The `ATLMediaAttachment` instance containing information about the media.
+ @param endLineBreak A `BOOL` which if `YES` inserts a new line after the media attachment insertion.
  @discussion The view will automatically resize the attachment's thumbnail and itself to comfortably
  fit the thumbnail content. The image will also be cached and is accessible via the mediaAttachments
  property.
  */
-- (void)insertMediaAttachment:(ATLMediaAttachment *)mediaAttachment;
+- (void)insertMediaAttachment:(ATLMediaAttachment *)mediaAttachment withEndLineBreak:(BOOL)endLineBreak;
 
 //-----------------------------
 // UI Customization
@@ -96,9 +97,14 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
  
 /**
  @abstract The right accessory button for the view.
- @discussion By default, the button displays the text "SEND".
  */
 @property (nonatomic) UIButton *rightAccessoryButton;
+
+/**
+ @abstract The right accessory button title.
+ @discussion By default, the title is "Send".
+ */
+@property (nonatomic) NSString *rightAccessoryButtonTitle;
 
 /**
  @abstract The font color for the right accessory button in active state.
@@ -109,6 +115,11 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
  @abstract The font color for the right accessory button in disabled state.
  */
 @property (nonatomic) UIColor *rightAccessoryButtonDisabledColor UI_APPEARANCE_SELECTOR;
+
+/**
+ @abstract The font for the right accessory button.
+ */
+@property (nonatomic) UIFont *rightAccessoryButtonFont UI_APPEARANCE_SELECTOR;
 
 /**
  @abstract The image displayed on left accessory button.
@@ -135,6 +146,12 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
 @property (nonatomic) ATLMessageComposeTextView *textInputView;
 
 /**
+  @abstract The margin on top and bottom of the textInputView.
+  @default 7.0f.
+  */
+@property (nonatomic) CGFloat verticalMargin;
+
+/**
  @abstract The delegate object for the view.
  */
 @property (nonatomic, weak) id<ATLMessageInputToolbarDelegate> inputToolBarDelegate;
@@ -152,5 +169,16 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
  @discussion Any existing media attachments will be removed when the right accessory button is tapped.
  */
 @property (nonatomic, readonly) NSArray *mediaAttachments;
+
+//-------------------
+// Layout Accessories
+//-------------------
+
+/**
+ @abstract The view controller whose input accessory view is the `ATLMessageInputToolbar`.
+ @discussion This property is set internally in the `ATLBaseConversationViewController` to change the view's frame
+ to support UISplitViewController usage.  This property should only be set when subclassing `ATLMessageInputToolbar`.
+ */
+@property (nonatomic, weak) UIViewController *containerViewController;
 
 @end

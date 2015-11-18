@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import FXBlurView
+import SDWebImage
 
 class NelpTasksTableViewCell: UITableViewCell {
   
@@ -24,7 +25,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 	var numberOfApplicantsIcon:UIImageView!
 	var numberOfApplicantsLabel:UILabel!
 	
-	var task:FindNelpTask!
+	var task:Task!
 	
 	//MARK: Initialization
 	
@@ -35,15 +36,15 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		let backView = UIView(frame: self.bounds)
 		backView.clipsToBounds = true
-		backView.backgroundColor = whiteBackground
+		backView.backgroundColor = Color.whiteBackground
 		backView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
 		
 		//CellContainer (hackForSpacing)
 		let cellView = UIView()
-		cellView.backgroundColor = whitePrimary
+		cellView.backgroundColor = Color.whitePrimary
 		backView.addSubview(cellView)
 		cellView.layer.borderWidth = 1
-		cellView.layer.borderColor = grayDetails.CGColor
+		cellView.layer.borderColor = Color.grayDetails.CGColor
 		cellView.layer.masksToBounds = true
 		cellView.clipsToBounds = true
 		cellView.snp_makeConstraints { (make) -> Void in
@@ -59,7 +60,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.topContainer.clipsToBounds = true
 		self.topContainer.layer.masksToBounds = true
 		topContainer.layer.borderWidth = 1
-		topContainer.layer.borderColor = grayDetails.CGColor
+		topContainer.layer.borderColor = Color.grayDetails.CGColor
 		cellView.addSubview(topContainer)
 		topContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(cellView.snp_top)
@@ -67,8 +68,14 @@ class NelpTasksTableViewCell: UITableViewCell {
 			make.left.equalTo(cellView.snp_left)
 			make.height.equalTo(85)
 		}
-		topContainer.backgroundColor = whitePrimary
+		topContainer.backgroundColor = Color.whitePrimary
 
+		let darkenView = UIView()
+		topContainer.addSubview(darkenView)
+		darkenView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.05)
+		darkenView.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(topContainer.snp_edges)
+		}
 		
 		//Category Icon
 		let categoryIcon = UIImageView()
@@ -82,7 +89,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 //		var categoryLabel = UILabel()
 //		self.categoryLabel = categoryLabel
-//		categoryLabel.textColor = blackPrimary
+//		categoryLabel.textColor = Color.blackPrimary
 //		categoryLabel.font = UIFont(name: "ABeeZee-Regular", size: kText15)
 //		topContainer.addSubview(categoryLabel)
 //		categoryLabel.snp_makeConstraints { (make) -> Void in
@@ -106,13 +113,13 @@ class NelpTasksTableViewCell: UITableViewCell {
 		//Title Label
 		let titleLabel = UILabel()
 		self.titleLabel = titleLabel
-		titleLabel.textColor = blackPrimary
+		titleLabel.textColor = Color.blackPrimary
 		titleLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		cellView.addSubview(titleLabel)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(topContainer.snp_bottom).offset(4)
-			make.left.equalTo(cellView.snp_left).offset(12)
-			make.right.equalTo(cellView.snp_right).offset(-12)
+			make.left.equalTo(cellView.snp_left).offset(15)
+			make.right.equalTo(cellView.snp_right).offset(-15)
 			make.height.equalTo(40)
 		}
 		
@@ -123,7 +130,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		cellView.addSubview(numberOfApplicantsIcon)
 		numberOfApplicantsIcon.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleLabel.snp_bottom).offset(6)
-			make.left.equalTo(cellView.snp_left).offset(40)
+			make.left.equalTo(cellView.snp_left).offset(30)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
 		}
@@ -132,7 +139,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.numberOfApplicantsLabel = numberOfApplicants
 		self.numberOfApplicants = numberOfApplicants
 		self.numberOfApplicants.font = UIFont(name: "Lato-Light", size: kText14)
-		self.numberOfApplicants.textColor = blackPrimary
+		self.numberOfApplicants.textColor = Color.blackPrimary
 		cellView.addSubview(numberOfApplicants)
 		numberOfApplicants.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(numberOfApplicantsIcon.snp_right).offset(10)
@@ -153,11 +160,11 @@ class NelpTasksTableViewCell: UITableViewCell {
 		
 		let moneyContainer = UIView()
 		cellView.addSubview(moneyContainer)
-		moneyContainer.backgroundColor = whiteBackground
+		moneyContainer.backgroundColor = Color.whiteBackground
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
 			make.centerY.equalTo(numberOfApplicants.snp_centerY)
-			make.right.equalTo(cellView.snp_right).offset(-40)
+			make.right.equalTo(cellView.snp_right).offset(-30)
 			make.width.equalTo(65)
 			make.height.equalTo(38)
 		}
@@ -166,7 +173,7 @@ class NelpTasksTableViewCell: UITableViewCell {
 		self.price = moneyLabel
 		moneyContainer.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = blackPrimary
+		moneyLabel.textColor = Color.blackPrimary
 		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyContainer.snp_edges)
@@ -191,40 +198,54 @@ class NelpTasksTableViewCell: UITableViewCell {
 	/**
 	Set images for cell (Category,header image)
 	
-	- parameter task: <#task description#>
+	- parameter task: task
 	*/
-	func setImages(task:FindNelpTask){
-		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2;
+	func setImages(task:Task) {
+		self.categoryIcon.layer.cornerRadius = self.categoryIcon.frame.size.width / 2
 		self.categoryIcon.clipsToBounds = true
 		self.categoryIcon.image = UIImage(named: task.category!)
-		self.notificationIcon.layer.cornerRadius = self.notificationIcon.frame.size.width / 2;
+		self.notificationIcon.layer.cornerRadius = self.notificationIcon.frame.size.width / 2
 		self.notificationIcon.clipsToBounds = true
 		self.setNotification(task)
-
-		if(task.pictures != nil){
-		if(!task.pictures!.isEmpty){
-		ApiHelper.getPictures(task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
-			self.topContainer.image = imageReturned.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
-		})}}else{
-			
-			self.topContainer.image = UIImage(named: "square_\(task.category!)")!.blurredImageWithRadius(14, iterations: 2, tintColor: nil)
+		
+		if(task.pictures != nil) {
+			if(!task.pictures!.isEmpty) {
+//				ApiHelper.getPictures(task.pictures![0].url! , block: { (imageReturned:UIImage) -> Void in
+				self.topContainer.sd_setImageWithURL(NSURL(string:task.pictures![0].url!), placeholderImage:UIImage(named: "\(task.category!)-nc-bg") )
+				
+				}} else {
+			self.topContainer.image = UIImage(named: "\(task.category!)-nc-bg")
 		}
 		self.topContainer.contentMode = .ScaleAspectFill
 		self.topContainer.clipsToBounds = true
 		
-		if task.state == .Accepted {
+		if task.state == .Accepted && task.completionState == .Accepted {
 			self.numberOfApplicantsIcon.image = UIImage(named: "accepted")
-			self.numberOfApplicantsLabel.text = "Nelper Accepted"
+			self.numberOfApplicantsLabel.text = "Nelper accepted"
+		}else if task.completionState == .PaymentSent{
+			self.numberOfApplicantsIcon.image = UIImage(named: "payment-sent")
+			self.numberOfApplicantsLabel.text = "Payment sent"
+		}else if task.completionState == .Completed{
+			self.numberOfApplicantsIcon.image = UIImage(named: "give-feedback")
+			self.numberOfApplicantsLabel.text = "Rating & Feedback"
+		}else if task.completionState == .PaymentRequested{
+			self.numberOfApplicantsIcon.image = UIImage(named: "payment-request")
+			self.numberOfApplicantsLabel.text = "Payment release requested"
+		}else if task.completionState == .Rated{
+			self.numberOfApplicantsIcon.image = UIImage(named: "accepted")
+			self.numberOfApplicantsLabel.text = "Completed"
 		}
+		
+		
 	}
 	
 	
 	/**
 	Sets the number of applicants and new application notification icon
 	
-	- parameter task: <#task description#>
+	- parameter task: task
 	*/
-	func setNotification(task:FindNelpTask) {
+	func setNotification(task: Task) {
 		
 		if (task.applications.count == 0) {
 			self.numberOfApplicants.text = "0 Nelper"
@@ -250,11 +271,11 @@ class NelpTasksTableViewCell: UITableViewCell {
 	
 	- parameter task: Nelp Task
 	*/
-	func setNelpTask(task: FindNelpTask) {
+	func setNelpTask(task: Task) {
 //		self.categoryLabel.text = task.category!.uppercaseString
 		self.titleLabel.text = task.title
 		let price = String(format: "%.0f", task.priceOffered!)
-		self.price.text = "$"+price
+		self.price.text = price+"$"
 
 	}
 

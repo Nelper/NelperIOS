@@ -53,7 +53,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		setProfilePicture()
 		
 		// looks for tap (keyboard dismiss)
-		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
 		self.tap = tap
 		contentView.addGestureRecognizer(tap)
 	}
@@ -73,7 +73,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		//Profile Header
 		let profileView = UIView()
 		self.view.addSubview(profileView)
-		profileView.backgroundColor = redPrimary
+		profileView.backgroundColor = Color.redPrimary
 		
 		profileView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.navBar.snp_bottom)
@@ -99,14 +99,14 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 		
 		self.profilePicture.layer.cornerRadius = 84 / 2
-		self.profilePicture.layer.borderColor = darkGrayDetails.CGColor
+		self.profilePicture.layer.borderColor = Color.darkGrayDetails.CGColor
 		self.profilePicture.layer.borderWidth = 2
 		
 		//Name
 		let name = UILabel()
 		profileView.addSubview(name)
 		name.numberOfLines = 0
-		name.textColor = whiteBackground
+		name.textColor = Color.whiteBackground
 		name.text = PFUser.currentUser()?.objectForKey("name") as? String
 		name.font = UIFont(name: "Lato-Regular", size: kText15)
 		
@@ -181,7 +181,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		let numberOfTasksLabel = UILabel()
 		profileView.addSubview(numberOfTasksLabel)
 		numberOfTasksLabel.text = "12 tasks completed"
-		numberOfTasksLabel.textColor = whiteBackground
+		numberOfTasksLabel.textColor = Color.whiteBackground
 		numberOfTasksLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		numberOfTasksLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(name.snp_left)
@@ -190,7 +190,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		}
 
 		
-		self.scrollView.backgroundColor = whiteBackground
+		self.scrollView.backgroundColor = Color.whiteBackground
 
 		
         let contentView = UIView()
@@ -204,8 +204,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
             make.width.equalTo(self.backGroundView.snp_width)
         }
 		
-		self.contentView.backgroundColor = whiteBackground
-		self.backGroundView.backgroundColor = whiteBackground
+		self.contentView.backgroundColor = Color.whiteBackground
+		self.backGroundView.backgroundColor = Color.whiteBackground
 		
 		
 		
@@ -214,9 +214,9 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		let whiteContainer = UIView()
 		self.contentView.addSubview(whiteContainer)
 		self.whiteContainer = whiteContainer
-		whiteContainer.layer.borderColor = darkGrayDetails.CGColor
+		whiteContainer.layer.borderColor = Color.darkGrayDetails.CGColor
 		whiteContainer.layer.borderWidth = 1
-		whiteContainer.backgroundColor = whitePrimary
+		whiteContainer.backgroundColor = Color.whitePrimary
 		whiteContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(10)
 			make.left.equalTo(contentView.snp_left)
@@ -229,8 +229,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		
 		let aboutLabel = UILabel()
 		self.whiteContainer.addSubview(aboutLabel)
-		aboutLabel.textColor = blackPrimary
-		aboutLabel.text = "About"
+		aboutLabel.textColor = Color.blackPrimary
+		aboutLabel.text = "About me"
 		aboutLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		aboutLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(profilePicture.snp_left)
@@ -241,8 +241,8 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		self.whiteContainer.addSubview(aboutTextView)
 		self.aboutTextView = aboutTextView
 		aboutTextView.scrollEnabled = false
-		aboutTextView.textColor = blackPrimary
-		aboutTextView.backgroundColor = whitePrimary
+		aboutTextView.textColor = Color.blackPrimary
+		aboutTextView.backgroundColor = Color.whitePrimary
 		aboutTextView.editable = false
 		aboutTextView.font = UIFont(name: "Lato-Regular", size: kText15)
 		aboutTextView.snp_makeConstraints { (make) -> Void in
@@ -275,7 +275,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		let skillsLabel = UILabel()
 		self.skillsLabel = skillsLabel
 		self.whiteContainer.addSubview(skillsLabel)
-		skillsLabel.textColor = blackPrimary
+		skillsLabel.textColor = Color.blackPrimary
 		skillsLabel.text = "Skills"
 		skillsLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		skillsLabel.snp_makeConstraints { (make) -> Void in
@@ -291,7 +291,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		skillsTableView.delegate = self
 		skillsTableView.dataSource = self
 		skillsTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
-		skillsTableView.backgroundColor = whiteBackground
+		skillsTableView.backgroundColor = Color.whiteBackground
 		skillsTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(skillsLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
@@ -314,7 +314,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		let educationLabel = UILabel()
 		self.educationLabel = educationLabel
 		self.whiteContainer.addSubview(educationLabel)
-		educationLabel.textColor = blackPrimary
+		educationLabel.textColor = Color.blackPrimary
 		educationLabel.text = "Education"
 		educationLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		educationLabel.snp_makeConstraints { (make) -> Void in
@@ -330,7 +330,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		educationTableView.delegate = self
 		educationTableView.dataSource = self
 		educationTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
-		educationTableView.backgroundColor = whiteBackground
+		educationTableView.backgroundColor = Color.whiteBackground
 		educationTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(educationLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
@@ -353,7 +353,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		let experienceLabel = UILabel()
 		self.experienceLabel = experienceLabel
 		self.whiteContainer.addSubview(experienceLabel)
-		experienceLabel.textColor = blackPrimary
+		experienceLabel.textColor = Color.blackPrimary
 		experienceLabel.text = "Work experience"
 		experienceLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		experienceLabel.snp_makeConstraints { (make) -> Void in
@@ -369,7 +369,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 		experienceTableView.delegate = self
 		experienceTableView.dataSource = self
 		experienceTableView.registerClass(SkillsTableViewCell.classForCoder(), forCellReuseIdentifier: SkillsTableViewCell.reuseIdentifier)
-		experienceTableView.backgroundColor = whiteBackground
+		experienceTableView.backgroundColor = Color.whiteBackground
 		experienceTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(experienceLabel.snp_bottom).offset(6)
 			make.left.equalTo(aboutTextView.snp_left)
@@ -535,7 +535,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	/**
 	Dismiss Keyboard when screen is tapped
 	*/
-	func DismissKeyboard() {
+	func dismissKeyboard() {
 		view.endEditing(true)
 		if(self.aboutTextView.editable == true){
 			self.aboutTextView.editable = false
@@ -549,58 +549,63 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	- parameter sender: Skill edit button
 	*/
-	func addSkillButtonTapped(sender:UIButton){
+	func addSkillButtonTapped(sender:UIButton) {
+		var skillsTextField: UITextField?
+		
 		let popup = UIAlertController(title: "Add a Skill", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
-        }
-		
+			skillsTextField = textField
+		}
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
-			let skillTitle: String = (popup.textFields!.first?.text!)!
-			self.arrayOfSkills.append(["title":skillTitle])
+			let skillTitle = skillsTextField!.text
+			self.arrayOfSkills.append(["title": skillTitle!])
 			self.refreshTableView()
 		}))
-		
 		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
 		}))
-		
 		presentViewController(popup, animated: true, completion: nil)
+		popup.view.tintColor = Color.redPrimary
     }
 	
 	
 	//Add Education Button
-	func addEducationButtonTapped(sender:UIButton){
+	func addEducationButtonTapped(sender:UIButton) {
+		var educationTextField: UITextField?
+		
 		let popup = UIAlertController(title: "Add Education", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
+			educationTextField = textField
 		}
-		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
-			let educationTitle: String = (popup.textFields!.first?.text!)!
-			self.arrayOfEducation.append(["title":educationTitle])
+			let educationTitle = educationTextField!.text
+			self.arrayOfEducation.append(["title": educationTitle!])
 			self.refreshTableView()
 		}))
-		
 		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
 		}))
 		
 		presentViewController(popup, animated: true, completion: nil)
+		popup.view.tintColor = Color.redPrimary
 	}
 	
 	//Add Experience Button
-	func addExperienceButtonTapped(sender:UIButton){
+	func addExperienceButtonTapped(sender:UIButton) {
+		var experienceTextField: UITextField?
+		
 		let popup = UIAlertController(title: "Add Experience", message: "", preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addTextFieldWithConfigurationHandler { (textField) -> Void in
+			experienceTextField = textField
 		}
-		
 		popup.addAction(UIAlertAction(title: "Add", style: .Default , handler: { (action) -> Void in
-			let experienceTitle: String = (popup.textFields!.first?.text!)!
-			self.arrayOfExperience.append(["title":experienceTitle])
+			let experienceTitle = experienceTextField!.text
+			self.arrayOfExperience.append(["title": experienceTitle!])
 			self.refreshTableView()
 		}))
-		
 		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
 		}))
 		
 		presentViewController(popup, animated: true, completion: nil)
+		popup.view.tintColor = Color.redPrimary
 	}
 
 	

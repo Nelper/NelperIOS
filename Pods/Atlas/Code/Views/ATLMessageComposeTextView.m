@@ -46,7 +46,7 @@ static NSString *const ATLPlaceholderText = @"Enter Message";
 
         self.placeholderLabel = [UILabel new];
         self.placeholderLabel.font = self.font;
-        self.placeholderLabel.text = self.placeholder;
+        self.placeholderLabel.text = ATLLocalizedString(self.placeholder, self.placeholder, nil);;
         self.placeholderLabel.textColor = [UIColor lightGrayColor];
         self.placeholderLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         [self addSubview:self.placeholderLabel];
@@ -84,6 +84,23 @@ static NSString *const ATLPlaceholderText = @"Enter Message";
     }
 }
 
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    if (self.overrideNextResponder != nil)
+        return NO;
+    else
+        return [super canPerformAction:action withSender:sender];
+}
+
+- (UIResponder *)nextResponder
+{
+    if (self.overrideNextResponder != nil) {
+        return self.overrideNextResponder;
+    } else {
+        return [super nextResponder];
+    }
+}
+
 - (void)setFont:(UIFont *)font
 {
     [super setFont:font];
@@ -105,7 +122,7 @@ static NSString *const ATLPlaceholderText = @"Enter Message";
 - (void)setPlaceholder:(NSString *)placeholder
 {
     _placeholder = placeholder;
-    self.placeholderLabel.text = placeholder;
+    self.placeholderLabel.text = ATLLocalizedString(placeholder, placeholder, nil);
     [self setNeedsLayout];
 }
 

@@ -23,7 +23,7 @@ class ApplicantChatViewController : ATLConversationViewController, ATLConversati
 	
 	// MARK - UI
 	func configureUI() {
-		ATLOutgoingMessageCollectionViewCell.appearance().bubbleViewColor = redPrimary
+		ATLOutgoingMessageCollectionViewCell.appearance().bubbleViewColor = Color.redPrimary
 //		self.conversation.sendTypingIndicator(LYRTypingIndicator.DidBegin)
 	}
 	
@@ -86,7 +86,7 @@ class ApplicantChatViewController : ATLConversationViewController, ATLConversati
 			case .Delivered:
 				textColor = UIColor.orangeColor()
 			case .Read:
-				textColor = greenPriceButton
+				textColor = Color.greenPriceButton
 			default:
 				textColor = UIColor.lightGrayColor()
 			}

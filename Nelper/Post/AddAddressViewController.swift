@@ -11,10 +11,11 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import FXBlurView
+import GoogleMaps
 
 protocol AddAddressViewControllerDelegate {
-	func didClosePopup(vc:AddAddressViewController)
-	func didAddLocation(vc:AddAddressViewController)
+	func didClosePopup(vc: AddAddressViewController)
+	func didAddLocation(vc: AddAddressViewController)
 }
 
 class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
@@ -112,7 +113,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		
 		let scrollView = UIScrollView()
 		self.scrollView = scrollView
-		self.scrollView.backgroundColor = blackPrimary.colorWithAlphaComponent(0.4)
+		self.scrollView.backgroundColor = Color.blackPrimary.colorWithAlphaComponent(0.4)
 		self.blurContainer.addSubview(self.scrollView)
 		self.scrollView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.blurContainer.snp_edges)
@@ -142,51 +143,35 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		self.titleLabel = titleLabel
 		popupContainer.addSubview(titleLabel)
 		titleLabel.text	= "Add a location"
-		titleLabel.textColor = whitePrimary
+		titleLabel.textColor = Color.whitePrimary
 		titleLabel.font = UIFont(name: "Lato-Regular", size: kNavTitle18)
 		titleLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(popupContainer.snp_top)
 			make.centerX.equalTo(popupContainer.snp_centerX)
 		}
 		
-		let nameTextField = UITextField()
+		let nameTextField = DefaultTextFieldView()
 		self.nameTextField = nameTextField
 		popupContainer.addSubview(nameTextField)
-		nameTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.70)
-		nameTextField.attributedPlaceholder = NSAttributedString(string: "Name (home, office, etc.)", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		nameTextField.font = UIFont(name: "Lato-Regular", size: kText15)
-		nameTextField.textColor = textFieldTextColor
-		nameTextField.textAlignment = NSTextAlignment.Left
+		nameTextField.attributedPlaceholder = NSAttributedString(string: "Name (home, office, etc.)", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		nameTextField.autocorrectionType = UITextAutocorrectionType.No
-		let paddingViewLocationName = UIView(frame: CGRectMake(0, 0, 10, 0))
-		nameTextField.leftView = paddingViewLocationName
-		nameTextField.leftViewMode = UITextFieldViewMode.Always
 		nameTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(titleLabel.snp_bottom).offset(15)
 			make.left.equalTo(popupContainer.snp_left).offset(8)
 			make.right.equalTo(popupContainer.snp_right).offset(-8)
-			make.height.equalTo(50)
 		}
 		
-		let addressTextField = UITextField()
+		let addressTextField = DefaultTextFieldView()
 		self.addressTextField = addressTextField
 		addressTextField.delegate = self
 		popupContainer.addSubview(addressTextField)
-		addressTextField.backgroundColor = whitePrimary.colorWithAlphaComponent(0.70)
-		addressTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: textFieldPlaceholderColor])
-		addressTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+		addressTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		addressTextField.keyboardType = UIKeyboardType.NumbersAndPunctuation
 		addressTextField.autocorrectionType = UITextAutocorrectionType.No
-		addressTextField.textColor = textFieldTextColor
-		addressTextField.textAlignment = NSTextAlignment.Left
-		let paddingViewLocation = UIView(frame: CGRectMake(0, 0, 10, 0))
-		addressTextField.leftView = paddingViewLocation
-		addressTextField.leftViewMode = UITextFieldViewMode.Always
 		addressTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(nameTextField.snp_bottom).offset(10)
 			make.left.equalTo(popupContainer.snp_left).offset(8)
 			make.right.equalTo(popupContainer.snp_right).offset(-8)
-			make.height.equalTo(50)
 		}
 		
 		let addLocationButton = PrimaryActionButton()
@@ -213,9 +198,9 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		self.autocompleteTableView.dataSource = self
 		self.autocompleteTableView.registerClass(AutocompleteCell.classForCoder(), forCellReuseIdentifier: AutocompleteCell.reuseIdentifier)
 		self.autocompleteTableView.hidden = true
-		self.autocompleteTableView.layer.borderColor = darkGrayDetails.CGColor
+		self.autocompleteTableView.layer.borderColor = Color.darkGrayDetails.CGColor
 		self.autocompleteTableView.layer.borderWidth = 0.5
-		self.autocompleteTableView.backgroundColor = whitePrimary.colorWithAlphaComponent(0.6)
+		self.autocompleteTableView.backgroundColor = Color.whitePrimary.colorWithAlphaComponent(0.6)
 		self.autocompleteTableView.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(addressTextField.snp_bottom)
 			make.left.equalTo(addressTextField.snp_left)
@@ -281,7 +266,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	
 	//MARK: DISMISS KEYBOARD
 	
-	func DismissKeyboard() {
+	func dismissKeyboard() {
 		view.endEditing(true)
 	}
 	
@@ -309,6 +294,20 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		return true
 	}
 	
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		dismissKeyboard()
+		textField.resignFirstResponder()
+		
+		switch (textField) {
+		case self.nameTextField:
+			self.addressTextField.becomeFirstResponder()
+		default:
+			return false
+		}
+		
+		return false
+	}
+	
 	//MARK: Google Places Autocomplete
 	
 	/**
@@ -316,11 +315,11 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	
 	- parameter text: User text (constantly updated)
 	*/
-	func placeAutocomplete(text:String) {
+	func placeAutocomplete(text: String) {
 		let filter = GMSAutocompleteFilter()
-		filter.type = GMSPlacesAutocompleteTypeFilter.Address
+		filter.type = .Address
 		
-		var bounds:GMSCoordinateBounds?
+		var bounds: GMSCoordinateBounds?
 		
 		if LocationHelper.sharedInstance.currentCLLocation != nil{
 			bounds = GMSCoordinateBounds(coordinate: LocationHelper.sharedInstance.currentCLLocation, coordinate: LocationHelper.sharedInstance.currentCLLocation)
@@ -331,15 +330,22 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 				print("Autocomplete error \(error)")
 			}
 			
-			if(results != nil){
+			if (results != nil) {
 				self.autocompleteArray = results as! [GMSAutocompletePrediction]
+				//TODO: FILTER COUNTRY AND KEEP ONLY CANADA
+				/*for result in self.autocompleteArray {
+					let string = result.attributedFullText.string
+					if string.lowercaseString.rangeOfString("canada") == nil {
+						self.autocompleteArray.removeAtIndex(self.autocompleteArray.indexOf(result)!)
+					}
+				}*/
 				self.autocompleteTableView.reloadData()
 				self.autocompleteTableView.hidden = false
-				for result in results! {
+				/*for result in results! {
 					if let result = result as? GMSAutocompletePrediction {
-						//print("Result \(result.attributedFullText) with placeID \(result.placeID)")
+						print("Result \(result.attributedFullText) with placeID \(result.placeID)")
 					}
-				}
+				}*/
 			}
 		})
 	}
@@ -358,10 +364,10 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 		if self.addressTextField.editing == true || self.nameTextField.editing == true {
 			self.view.endEditing(true)
 			if self.autocompleteTableView.hidden == false {
-				self.autocompleteTableView.hidden == true
+				self.autocompleteTableView.hidden = true
 			}
 		} else {
-			DismissKeyboard()
+			dismissKeyboard()
 			self.dismissViewControllerAnimated(true, completion: nil)
 			self.delegate?.didClosePopup(self)
 		}
@@ -425,18 +431,33 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 	}
 	
 	func didTapAddLocationButton(sender:UIButton!) {
-		DismissKeyboard()
+		dismissKeyboard()
 		
 		if self.addressOk == true && self.nameTextField.text?.characters.count > 0 {
-			self.address.name = self.nameTextField.text!
-			self.delegate?.didAddLocation(self)
-			self.dismissViewControllerAnimated(true, completion: nil)
-			self.delegate?.didClosePopup(self)
+			if self.address.country == nil || self.address.country! != "Canada" {
+				let popup = UIAlertController(title: "Invalid address", message: "You must select a valid Canadian address", preferredStyle: UIAlertControllerStyle.Alert)
+				popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+				}))
+				self.presentViewController(popup, animated: true, completion: nil)
+				popup.view.tintColor = Color.redPrimary
+			} else if self.address.postalCode == nil {
+				let popup = UIAlertController(title: "Invalid address", message: "You must select an address with a valid Postal Code", preferredStyle: UIAlertControllerStyle.Alert)
+				popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+				}))
+				self.presentViewController(popup, animated: true, completion: nil)
+				popup.view.tintColor = Color.redPrimary
+			} else {
+				self.address.name = self.nameTextField.text!
+				self.delegate?.didAddLocation(self)
+				self.dismissViewControllerAnimated(true, completion: nil)
+				self.delegate?.didClosePopup(self)
+			}
 		} else {
-			let popup = UIAlertController(title: "Missing information", message: "You must enter a name and select a valid address!", preferredStyle: UIAlertControllerStyle.Alert)
+			let popup = UIAlertController(title: "Missing information", message: "You must enter a name and select a valid address", preferredStyle: UIAlertControllerStyle.Alert)
 			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
 			}))
 			self.presentViewController(popup, animated: true, completion: nil)
+			popup.view.tintColor = Color.redPrimary
 		}
 	}
 	

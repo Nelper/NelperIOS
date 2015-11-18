@@ -28,7 +28,11 @@ class RatingStars: UIView {
 			setRatingView()
 		}
 	}
-	var userCompletedTasks = Int()
+	var userCompletedTasks = Int() {
+		didSet {
+			setRatingView()
+		}
+	}
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -50,13 +54,13 @@ class RatingStars: UIView {
 		
 		//Style
 		if self.style == "light" {
-			styleColor = whitePrimary
+			styleColor = Color.whitePrimary
 			styleImage = "empty_star_white"
 		} else if self.style == "dark" {
-			styleColor = blackPrimary
+			styleColor = Color.blackPrimary
 			styleImage = "empty_star"
 		} else {
-			styleColor = whitePrimary
+			styleColor = Color.whitePrimary
 			styleImage = "empty_star_white"
 		}
 		

@@ -40,7 +40,7 @@
 /**
  *  @see STPPaymentCardTextFieldDelegate
  */
-@property(nonatomic, weak, nullable) id<STPPaymentCardTextFieldDelegate> delegate;
+@property(nonatomic, weak, nullable) IBOutlet id<STPPaymentCardTextFieldDelegate> delegate;
 
 /**
  *  The font used in each child field. Default is [UIFont systemFontOfSize:18]. Set this property to nil to reset to the default.
@@ -91,6 +91,11 @@
  *  The corner radius for the field's border. Default is 5.0.
  */
 @property(nonatomic, assign) IBInspectable CGFloat cornerRadius UI_APPEARANCE_SELECTOR IBInspectable;
+
+/**
+ *  The keyboard appearance for the field. Default is UIKeyboardAppearanceDefault.
+ */
+@property(nonatomic, assign) IBInspectable UIKeyboardAppearance keyboardAppearance UI_APPEARANCE_SELECTOR;
 
 /**
  *  This behaves identically to setting the inputAccessoryView for each child text field.
@@ -152,7 +157,7 @@
 /**
  *  Convenience method to create a STPCard from the currently entered information. Will return nil if not valid.
  */
-@property(nonatomic, readonly, nullable) STPCard *card;
+@property(nonatomic, readonly, nullable) STPCardParams *card;
 
 @end
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import SVProgressHUD
 private let kParseTask = "Task"
 private let kParseTaskPrivate = "TaskPrivate"
 private let kParseTaskApplication = "TaskApplication"
@@ -48,7 +49,12 @@ class ApiHelper {
 	- parameter name:     Name of the user
 	- parameter block:    Block
 	*/
-	static func registerWithEmail(email: String, password: String, firstName: String, lastName: String, block: (ErrorType?) -> Void) {
+	static func registerWithEmail(email: String, password: String, firstName: String, lastName: String, block: (NSError?) -> Void) {
+		
+		
+		SVProgressHUD.setBackgroundColor(UIColor.whiteColor())
+		SVProgressHUD.setForegroundColor(Color.redPrimary)
+		SVProgressHUD.show()
 		let user = PFUser()
 		user.username = email
 		user.email = email
@@ -70,8 +76,8 @@ class ApiHelper {
 					"firstName": firstName,
 					"lastName": lastName,
 				]
-			) { (data, err) -> Void in
-				block(err)
+				) { (data, err) -> Void in
+					block(nil)
 			}
 		}
 	}
@@ -84,8 +90,13 @@ class ApiHelper {
 	
 	- parameter block: Block
 	*/
-	static func loginWithFacebook(block: (ErrorType?) -> Void) {
+	static func loginWithFacebook(block: (NSError?) -> Void) {
 		PFFacebookUtils.logInInBackgroundWithReadPermissions(["public_profile", "email"]) { (user: PFUser?, error: NSError?) -> Void in
+			
+			SVProgressHUD.setBackgroundColor(UIColor.whiteColor())
+			SVProgressHUD.setForegroundColor(Color.redPrimary)
+			SVProgressHUD.show()
+			
 			if error != nil {
 				block(error)
 				return
@@ -114,7 +125,7 @@ class ApiHelper {
 							"pictureURL": profilePictureURL,
 						]
 						) { (data, err) -> Void in
-							block(err)
+							block(nil)
 					}
 				})
 			} else {
@@ -169,42 +180,33 @@ class ApiHelper {
 	- parameter maxDistance:    maximum distance filter
 	- parameter block:          block
 	*/
-	static func listNelpTasksWithBlock(arrayOfFilters:Array<String>?, sortBy: String?,minPrice: Double?, maxDistance: Double?,block: ([Task]?, NSError?) -> Void) {
+	static func listNelpTasksWithBlock(arrayOfFilters:Array<String>?, sortBy: String?, block: ([Task]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
-		if let arrayOfFilters = arrayOfFilters{
-			if arrayOfFilters.count != 0{
-			print(arrayOfFilters.count, terminator: "")
-			var filters = Array<String>()
-			for filter in arrayOfFilters{
-				filters.append(filter)
-				print(filter, terminator: "")
-			}
-			taskQuery.whereKey("category", containedIn:filters)
+		if let arrayOfFilters = arrayOfFilters {
+			if arrayOfFilters.count != 0 {
+				print(arrayOfFilters.count, terminator: "")
+				var filters = Array<String>()
+				for filter in arrayOfFilters {
+					filters.append(filter)
+					print(filter, terminator: "")
+				}
+				taskQuery.whereKey("category", containedIn:filters)
 			}}
 		
-		if let minPrice = minPrice {
-		 taskQuery.whereKey("priceOffered", greaterThanOrEqualTo: minPrice)
-		}
-		
-		if let maxDistance = maxDistance {
-			print(LocationHelper.sharedInstance.currentLocation!, terminator: "")
-			print(maxDistance, terminator: "")
-			let distance:Double = maxDistance
-			taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation!, withinKilometers: distance)
-		}
 		print(sortBy)
-		if let sortBy = sortBy{
-			if sortBy == "distance" && maxDistance == nil{
-					taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation)
-			}else if sortBy == "priceOffered"{
-			taskQuery.orderByDescending(sortBy)
+		if let sortBy = sortBy {
+			if sortBy == "distance" && LocationHelper.sharedInstance.currentLocation != nil {
+				taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation)
+			} else if sortBy == "priceOffered" {
+				taskQuery.orderByDescending(sortBy)
+				//Set to Distance in BrowseTaskViewController if we have userLocation
 			}
-		}else{
+		} else {
 			taskQuery.orderByDescending("createdAt")
 		}
 		taskQuery.includeKey("user")
 		taskQuery.whereKey("state", equalTo: Task.State.Pending.rawValue)
-		taskQuery.limit = 20
+		taskQuery.limit = 100
 		taskQuery.findObjectsInBackgroundWithBlock { (pfTasks, error) -> Void in
 			if error != nil {
 				block(nil, error)
@@ -245,7 +247,7 @@ class ApiHelper {
 	
 	- parameter block: block
 	*/
-	static func listMyNelpTasksWithBlock(block: ([FindNelpTask]?, NSError?) -> Void) {
+	static func listMyNelpTasksWithBlock(block: ([Task]?, NSError?) -> Void) {
 		let taskQuery = PFQuery(className: kParseTask)
 		taskQuery.whereKey("user", equalTo: PFUser.currentUser()!)
 		taskQuery.whereKey("state", containedIn: [Task.State.Pending.rawValue, Task.State.Accepted.rawValue ])
@@ -268,8 +270,8 @@ class ApiHelper {
 					return
 				}
 				
-				let tasks = pfTasks!.map({ (pfTask) -> FindNelpTask in
-					let task = FindNelpTask(parseTask: pfTask as! PFObject)
+				let tasks = pfTasks!.map({ (pfTask) -> Task in
+					let task = Task(parseTask: pfTask as! PFObject)
 					let applications = pfApplications!
 						.filter({ ($0["task"] as! PFObject).objectId == task.objectId })
 						.map({ TaskApplication(parseApplication: $0 as! PFObject) })
@@ -303,8 +305,8 @@ class ApiHelper {
 				return
 			}
 			let applications = pfTaskApplications!.map({ (pfTaskApplication) -> TaskApplication in
-			let application = TaskApplication(parseApplication: pfTaskApplication as! PFObject)
-			return application
+				let application = TaskApplication(parseApplication: pfTaskApplication as! PFObject)
+				return application
 			})
 			block(applications, nil)
 		}
@@ -314,33 +316,33 @@ class ApiHelper {
 		GraphQLClient.query(
 			"{ node(id: \"\(taskId)\") {" +
 				"... on Task {" +
-					"userPrivate {" +
-						"phone," +
-						"email," +
-						"exactLocation {" +
-							"streetNumber," +
-							"route," +
-							"city," +
-							"province," +
-							"country," +
-							"postalCode," +
-							"coords {latitude, longitude}" +
-						"}" +
-					"}" +
+				"userPrivate {" +
+				"phone," +
+				"email," +
+				"exactLocation {" +
+				"streetNumber," +
+				"route," +
+				"city," +
+				"province," +
+				"country," +
+				"postalCode," +
+				"coords {latitude, longitude}" +
+				"}" +
+				"}" +
 				"}" +
 			"}}",
 			variables: nil
-		) { (data, error) -> Void in
-			if let data = data {
-				let dataTaskPrivate = data["node"]!!["userPrivate"]!!
-				let taskPrivate = TaskPrivate()
-				taskPrivate.email = dataTaskPrivate["email"] as? String
-				taskPrivate.phone = dataTaskPrivate["phone"] as? String
-				if let exactLocation = dataTaskPrivate["exactLocation"]! {
-					taskPrivate.location = Location(parseLocation: exactLocation)
+			) { (data, error) -> Void in
+				if let data = data {
+					let dataTaskPrivate = data["node"]!!["userPrivate"]!!
+					let taskPrivate = TaskPrivate()
+					taskPrivate.email = dataTaskPrivate["email"] as? String
+					taskPrivate.phone = dataTaskPrivate["phone"] as? String
+					if let exactLocation = dataTaskPrivate["exactLocation"]! {
+						taskPrivate.location = Location(parseLocation: exactLocation)
+					}
+					block(taskPrivate)
 				}
-				block(taskPrivate);
-			}
 		}
 	}
 	
@@ -356,28 +358,49 @@ class ApiHelper {
 	- parameter block: block
 	*/
 	
-	static func addTask(task: FindNelpTask, block: (FindNelpTask?, NSError?) -> Void) {
-		var input: Dictionary<String, AnyObject> = [
-			"title": task.title,
-			"category": task.category!,
-			"desc": task.desc,
-			"priceOffered": task.priceOffered!,
-			"location": task.exactLocation!.createDictionary(),
-		];
-		let pictures = task.pictures?.map({ (p: PFFile) -> Dictionary<String, String> in
-			return [
-				"name": p.name,
-				"url": p.url!,
-			]
-		})
-		if let pictures = pictures {
-			input["pictures"] = pictures
+	static func addTask(task: Task, block: (Task?, ErrorType?) -> Void) {
+		uploadPictures(task.pictures) { (error) -> Void in
+			if error != nil {
+				block(nil, error)
+				return
+			}
+			var input: Dictionary<String, AnyObject> = [
+				"title": task.title,
+				"category": task.category!,
+				"desc": task.desc,
+				"priceOffered": task.priceOffered!,
+				"location": task.exactLocation!.createDictionary(),
+			];
+			let pictures = task.pictures?.map({ (p: PFFile) -> Dictionary<String, String> in
+				return [
+					"name": p.name,
+					"url": p.url!,
+				]
+			})
+			if let pictures = pictures {
+				input["pictures"] = pictures
+			}
+			GraphQLClient.mutation(
+				"PostTask",
+				input: input,
+				query: "{newTaskEdge{node{objectId}}}") { (res, error) -> Void in
+					if error != nil {
+						block(nil, error)
+						return
+					}
+					task.objectId = res!["postTask"]!!["newTaskEdge"]!!["node"]!!["objectId"]!! as! String
+					block(task, nil)
+			}
 		}
-		GraphQLClient.mutation(
-			"PostTask",
-			input: input) { (res, error) -> Void in
-				print(res)
-				print(error)
+	}
+	
+	private static func uploadPictures(pictures: [PFFile]?, block: (NSError?) -> Void) {
+		if let pictures = pictures {
+			PFObject.saveAllInBackground(pictures, block: { (ok, error) -> Void in
+				block(error)
+			})
+		} else {
+			block(nil)
 		}
 	}
 	
@@ -387,7 +410,7 @@ class ApiHelper {
 	- parameter task: task
 	*/
 	
-	static func editTask(task: FindNelpTask) {
+	static func editTask(task: Task) {
 		
 		let query = PFQuery(className: "Task")
 		query.getObjectInBackgroundWithId(task.objectId, block: { (taskFetched , error) -> Void in
@@ -396,24 +419,25 @@ class ApiHelper {
 			}else if let taskFetched = taskFetched{
 				
 				taskFetched["title"] = task.title
-				taskFetched["description"] = task.desc
+				taskFetched["desc"] = task.desc
 				let location = PFGeoPoint(latitude: task.location!.latitude, longitude: task.location!.longitude)
 				taskFetched["location"] = location
 				if task.pictures == nil {
 					taskFetched["pictures"] = []
 				} else {
-					taskFetched["pictures"] = task.pictures
+					print(task.pictures!.count)
+					taskFetched["pictures"] = task.pictures!
 				}
-				taskFetched.saveInBackground()
+				taskFetched.save()
 			}
 		})
 	}
 	
 	//Delete the task
-	static func deleteTask(task: FindNelpTask) {
+	static func deleteTask(task: Task) {
 		let parseTask = PFObject(className: kParseTask)
 		parseTask.objectId = task.objectId
-		parseTask["state"] = FindNelpTask.State.Deleted.rawValue
+		parseTask["state"] = Task.State.Deleted.rawValue
 		parseTask.saveEventually()
 	}
 	
@@ -442,12 +466,11 @@ class ApiHelper {
 	}
 	
 	static func cancelApplyForTaskWithApplication(application: TaskApplication) {
-		print(application.objectId, terminator: "")
 		let parseApplication = PFObject(withoutDataWithClassName:kParseTaskApplication, objectId:application.objectId)
 		parseApplication["state"] = TaskApplication.State.Canceled.rawValue
 		parseApplication.saveEventually()
 	}
-		
+	
 	//Accept applicant
 	
 	static func acceptApplication(application: TaskApplication, block: () -> Void) {
@@ -459,7 +482,6 @@ class ApiHelper {
 				"state": "ACCEPTED",
 			],
 			block: {(data) -> Void in
-				print(data)
 				block()
 			}
 		)
@@ -499,7 +521,7 @@ class ApiHelper {
 	}
 	
 	//Set task as viewed
-	static func setTaskViewed(task: FindNelpTask) {
+	static func setTaskViewed(task: Task) {
 		let parseApplications = task.applications
 			.filter({ $0.isNew })
 			.map({ (a: TaskApplication) -> PFObject in
@@ -593,4 +615,5 @@ class ApiHelper {
 		userPrivateData["phone"] = phone
 		userPrivateData.saveEventually()
 	}
+	
 }

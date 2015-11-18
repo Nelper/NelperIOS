@@ -32,7 +32,7 @@ class SegmentController: UIControl {
 	var selectedIndex : Int = 0 {
 		didSet {
 			for label in labels {
-				label.textColor = darkGrayDetails
+				label.textColor = Color.darkGrayDetails
 			}
 			
 			displayNewSelectIndex()
@@ -51,10 +51,10 @@ class SegmentController: UIControl {
 	}
 	
 	func adjustUI() {
-		layer.borderColor = grayDetails.CGColor
-		layer.borderWidth = 1
-		backgroundColor = whitePrimary
-		insertSubview(thumbLine, atIndex: 0)
+		//layer.borderColor = Color.grayDetails.CGColor
+		//layer.borderWidth = 1
+		self.backgroundColor = Color.whitePrimary
+		self.insertSubview(thumbLine, atIndex: 0)
 		//insertSubview(thumbView, atIndex: 0)
 	}
 	
@@ -71,12 +71,12 @@ class SegmentController: UIControl {
 			label.text = items[index - 1]
 			label.font = UIFont(name: "Lato-Regular", size: kTitle17)
 			label.textAlignment = .Center
-			label.textColor = darkGrayDetails
+			label.textColor = Color.darkGrayDetails
 			self.addSubview(label)
 			labels.append(label)
 		}
 		
-		labels[0].textColor = redPrimary
+		labels[0].textColor = Color.redPrimary
 	}
 	
 	override func layoutSubviews() {
@@ -91,11 +91,11 @@ class SegmentController: UIControl {
 		selectFrame.size.width = newWidth
 		
 		thumbLine.frame = CGRect(x: selectFrame.minX, y: (selectFrame.maxY - self.thumbLineHeight), width: selectFrame.width, height: self.thumbLineHeight)
-		thumbLine.backgroundColor = redPrimary
+		thumbLine.backgroundColor = Color.redPrimary
 		thumbLine.layer.zPosition = 1
 		
 		//thumbView.frame = selectFrame
-		//thumbView.backgroundColor = whitePrimary
+		//thumbView.backgroundColor = Color.whitePrimary
 		//thumbView.layer.cornerRadius = thumbView.frame.height / 2
 
 		let labelHeight = self.bounds.height
@@ -107,6 +107,10 @@ class SegmentController: UIControl {
 			let xPosition = CGFloat(index) * labelWidth
 			label.frame = CGRectMake(xPosition, 0, labelWidth, labelHeight)
 		}
+		
+		let bottomLine = UIView(frame: CGRect(x: 0, y: self.frame.maxY, width: self.frame.width, height: 1))
+		self.addSubview(bottomLine)
+		bottomLine.backgroundColor = Color.grayDetails
 	}
 	
 	override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
@@ -128,8 +132,8 @@ class SegmentController: UIControl {
 	}
 	
 	func displayNewSelectIndex() {
-		var label = labels[selectedIndex]
-		label.textColor = redPrimary
+		let label = labels[selectedIndex]
+		label.textColor = Color.redPrimary
 		
 		UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
 			self.thumbLine.frame = CGRect(x: label.frame.minX, y: (label.frame.maxY - self.thumbLineHeight), width: label.frame.width, height: self.thumbLineHeight)
