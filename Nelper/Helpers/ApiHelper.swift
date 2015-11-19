@@ -183,16 +183,13 @@ class ApiHelper {
 		let taskQuery = PFQuery(className: kParseTask)
 		if let arrayOfFilters = arrayOfFilters {
 			if arrayOfFilters.count != 0 {
-				print(arrayOfFilters.count, terminator: "")
 				var filters = Array<String>()
 				for filter in arrayOfFilters {
 					filters.append(filter)
-					print(filter, terminator: "")
 				}
 				taskQuery.whereKey("category", containedIn:filters)
 			}}
 		
-		print(sortBy)
 		if let sortBy = sortBy {
 			if sortBy == "distance" && LocationHelper.sharedInstance.currentLocation != nil {
 				taskQuery.whereKey("location", nearGeoPoint: LocationHelper.sharedInstance.currentLocation)

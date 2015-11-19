@@ -16,7 +16,7 @@ class MoreViewController: UIViewController {
 	
 	private var blurEffectView: UIVisualEffectView!
 	
-	private var sectionContainer: UIView!
+	var sectionContainer: UIView!
 	private var sectionButton: UIButton!
 	private var sectionIcon: UIImageView?
 	private var separatorLine: UIView!
@@ -35,12 +35,13 @@ class MoreViewController: UIViewController {
 	
 	var fullView: UIViewController!
 	
+	var tabBarViewController: TabBarViewController!
+	var inSection = false
+	
 	//MARK: Init
 	
 	init(fullView: UIViewController?) {
 		super.init(nibName: nil, bundle: nil)
-		
-		
 		
 		self.fullView = fullView
 	}
@@ -53,6 +54,8 @@ class MoreViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		self.tabBarViewController = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarViewController
 		
 		//Set sections
 		let sections = [
@@ -73,6 +76,13 @@ class MoreViewController: UIViewController {
 		
 		self.createView()
 		self.setProfilePicture()
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		if inSection {
+			self.tabBarViewController.updateMoreMenuState(false)
+		}
+		self.inSection = false
 	}
 	
 	//MARK: UI
@@ -274,7 +284,9 @@ class MoreViewController: UIViewController {
 			break
 		}
 		
-		nextVC!.hidesBottomBarWhenPushed = true
+		self.tabBarViewController.updateMoreMenuState(true)
+		
+		self.inSection = true
 		self.navigationController?.pushViewController(nextVC!, animated: true)
 	}
 	

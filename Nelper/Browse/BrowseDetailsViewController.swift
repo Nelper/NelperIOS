@@ -537,7 +537,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	
 	func backButtonTapped(sender: UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
-	
 		view.endEditing(true)
 	}
 	

@@ -27,7 +27,8 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	var selectedIndex: Int!
 	
 	var backgroundDark: UIView!
-	var moreVC: UIViewController!
+	var moreVC: UINavigationController!
+	let menuToScreenRatio: CGFloat = 0.70
 	let swipeRec = UISwipeGestureRecognizer()
 	let tapRec = UITapGestureRecognizer()
 	
@@ -137,22 +138,18 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 		
 		//View
 		
-		let menuToScreenRatio: CGFloat = 0.70
-		
 		self.tabBar.userInteractionEnabled = false
 		
-		let MoreViewNavigationController = UINavigationController(rootViewController: MoreViewController(fullView: self))
-		MoreViewNavigationController.navigationBarHidden = true
-		
-		let moreVC = MoreViewNavigationController
+		let moreVC = UINavigationController(rootViewController: MoreViewController(fullView: self))
 		self.moreVC = moreVC
+		moreVC.navigationBarHidden = true
 		self.addChildViewController(moreVC)
 		self.view.addSubview(moreVC.view)
 		moreVC.didMoveToParentViewController(self)
 		moreVC.view.snp_makeConstraints(closure: { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.bottom.equalTo(self.view.snp_bottom)
-			make.width.equalTo(self.view.snp_width).multipliedBy(menuToScreenRatio)
+			make.width.equalTo(self.view.snp_width).multipliedBy(self.menuToScreenRatio)
 			make.left.equalTo(self.view.snp_right)
 		})
 		moreVC.view.layer.zPosition = 3
@@ -176,8 +173,8 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 			make.left.equalTo(self.view.snp_right).offset(-moreVC.view.frame.width)
 		})
 		
-		UIView.animateWithDuration(0.3, animations: { () -> Void in
-			backgroundDark.transform = CGAffineTransformMakeTranslation(-self.view.frame.width * menuToScreenRatio, 0)
+		UIView.animateWithDuration(0.4, animations: { () -> Void in
+			backgroundDark.transform = CGAffineTransformMakeTranslation(-self.view.frame.width * self.menuToScreenRatio, 0)
 			moreVC.view.layoutIfNeeded()
 			self.backgroundDark.alpha = 1
 			}, completion: { (finished: Bool) in
@@ -190,6 +187,58 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 		
 		self.view.addGestureRecognizer(self.tapRec)
 		self.tapRec.addTarget(self, action: "closingGesture:")
+	}
+	
+	//MARK: Update more menu layout
+	
+	func updateMoreMenuState(inSection: Bool) {
+		let rootMoreVC = self.moreVC.viewControllers.first as! MoreViewController
+		
+		if inSection {
+			self.moreVC.view.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.view.snp_top)
+				make.bottom.equalTo(self.view.snp_bottom)
+				make.width.equalTo(self.view.snp_width).multipliedBy(1)
+				make.left.equalTo(self.view.snp_right).offset(-self.view.frame.width)
+			})
+			
+			UIView.animateWithDuration(0.2, animations: { () -> Void in
+				rootMoreVC.sectionContainer.alpha = 0
+				}, completion: { (finished: Bool) in
+			})
+			
+			UIView.animateWithDuration(0.4, animations: { () -> Void in
+				self.moreVC.view.layoutIfNeeded()
+				}, completion: { (finished: Bool) in
+					self.backgroundDark.hidden = true
+			})
+			
+			self.view.removeGestureRecognizer(swipeRec)
+			self.view.removeGestureRecognizer(tapRec)
+		} else {
+			self.moreVC.view.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.view.snp_top)
+				make.bottom.equalTo(self.view.snp_bottom)
+				make.width.equalTo(self.view.snp_width).multipliedBy(self.menuToScreenRatio)
+				make.left.equalTo(self.view.snp_right).offset(-moreVC.view.frame.width * self.menuToScreenRatio)
+			})
+			
+			self.backgroundDark.hidden = false
+			
+			UIView.animateWithDuration(0.2, animations: { () -> Void in
+				rootMoreVC.sectionContainer.alpha = 1
+				}, completion: { (finished: Bool) in
+			})
+			
+			UIView.animateWithDuration(0.4, animations: { () -> Void in
+				self.moreVC.view.layoutIfNeeded()
+				rootMoreVC.sectionContainer.alpha = 1
+				}, completion: { (finished: Bool) in
+			})
+			
+			self.view.addGestureRecognizer(self.swipeRec)
+			self.view.addGestureRecognizer(self.tapRec)
+		}
 	}
 	
 	//MARK: Close and remove More VC

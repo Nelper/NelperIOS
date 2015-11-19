@@ -672,7 +672,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			if error != nil {
 				print(error)
 			} else {
-				print(nelpTasks!.count)
 				self.nelpTasks = nelpTasks!
 				self.createPins()
 				self.refreshView?.endRefreshing()
@@ -866,7 +865,11 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		let vc = BrowseDetailsViewController()
 		vc.hidesBottomBarWhenPushed = true
 		vc.task = selectedTask
-		self.navigationController?.pushViewController(vc, animated: true)
+		
+		self.hideTabBar()
+		dispatch_async(dispatch_get_main_queue()) {
+			self.navigationController?.pushViewController(vc, animated: true)
+		}
 	}
 }
 
