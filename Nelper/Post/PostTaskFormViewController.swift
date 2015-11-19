@@ -865,7 +865,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		dismissKeyboard()
 		imagePicker.allowsEditing = false
 		imagePicker.sourceType = .PhotoLibrary
-		presentViewController(imagePicker, animated: true, completion: nil)
+		
+		let tabBarViewController = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarViewController
+		tabBarViewController.presentViewController(imagePicker, animated: true, completion: nil)
 	}
 	
 	/**

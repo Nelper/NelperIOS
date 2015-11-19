@@ -771,7 +771,8 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	func didTapAddImage(sender:UIButton){
 		imagePicker.allowsEditing = false
 		imagePicker.sourceType = .PhotoLibrary
-		presentViewController(imagePicker, animated: true, completion: nil)
+		let tabBarViewController = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarViewController
+		tabBarViewController.presentViewController(imagePicker, animated: true, completion: nil)
 	}
 	
 	func didRemovePicture(vc: PicturesCollectionViewCell) {
