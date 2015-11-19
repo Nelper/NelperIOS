@@ -92,10 +92,8 @@ class ApiHelper {
 	*/
 	static func loginWithFacebook(block: (NSError?) -> Void) {
 		PFFacebookUtils.logInInBackgroundWithReadPermissions(["public_profile", "email"]) { (user: PFUser?, error: NSError?) -> Void in
-			
-			SVProgressHUD.setBackgroundColor(UIColor.whiteColor())
-			SVProgressHUD.setForegroundColor(Color.redPrimary)
-			SVProgressHUD.show()
+
+			//
 			
 			if error != nil {
 				block(error)

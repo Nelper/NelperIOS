@@ -93,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 	// LoginViewControllerDelegate
 	func onLogin() {
 		
-		let tabVC = self.initAppViewController(LoginViewController())
+		let tabVC = self.initAppViewController(BrowseViewController())
 		
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
 			
@@ -106,7 +106,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 			})
 		})
 		
-		self.window?.rootViewController?.presentViewController(tabVC, animated: true, completion: nil)
+		//self.window?.rootViewController?.presentViewController(tabVC, animated: true, completion: nil)
+		UIView.transitionWithView(self.window!, duration: 0.2, options: .TransitionCrossDissolve, animations: { () -> Void in
+			self.window!.rootViewController = tabVC
+			}, completion: nil)
 	}
 	
 	// Init the main app tab view controller

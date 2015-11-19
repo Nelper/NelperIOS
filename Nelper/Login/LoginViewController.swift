@@ -588,6 +588,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	
 	func facebookLogin(sender: UIButton) {
 		
+		SVProgressHUD.setBackgroundColor(UIColor.whiteColor())
+		SVProgressHUD.setForegroundColor(Color.redPrimary)
+		SVProgressHUD.show()
+		
 		ApiHelper.loginWithFacebook { (err) -> Void in
 			self.loginCompleted()
 		}

@@ -36,6 +36,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
 		self.pictures = self.task.pictures
 		self.setImages(self.task.user!)
 		self.createView()
@@ -43,7 +44,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	}
 	
 	//MARK: View Creation
-	
+		
 	func createView(){
 		
 		let containerView = UIView()

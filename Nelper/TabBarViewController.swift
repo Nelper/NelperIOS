@@ -13,6 +13,7 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	//MARK: var
 	
 	var tabBar: TabBarControl!
+	var tabBarImage: UIImage!
 	var contentView: UIViewController?
 	
 	var viewControllers = [
@@ -48,11 +49,9 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	//MARK: Create TabBar
 	
 	func createTabBar() {
-		
 		let tabBar = TabBarControl()
 		self.tabBar = tabBar
 		self.view.addSubview(tabBar)
-		tabBar.layer.zPosition = 1
 		tabBar.delegate = self
 		tabBar.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.view.snp_left)
@@ -93,8 +92,10 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 			self.contentView = contentView
 			self.view.addSubview(contentView.view)
 			contentView.view.snp_makeConstraints { (make) -> Void in
-				make.edges.equalTo(self.view.snp_edges).inset(UIEdgeInsetsMake(0, 0, 49, 0))
+				make.edges.equalTo(self.view.snp_edges).inset(UIEdgeInsetsMake(0, 0, 0, 0))
 			}
+			
+			self.view.bringSubviewToFront(self.tabBar)
 			
 		} else {
 			
@@ -107,7 +108,7 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 			self.contentView = contentView
 			self.view.addSubview(contentView.view)
 			contentView.view.snp_makeConstraints { (make) -> Void in
-				make.edges.equalTo(self.view.snp_edges).inset(UIEdgeInsetsMake(0, 0, 49, 0))
+				make.edges.equalTo(self.view.snp_edges).inset(UIEdgeInsetsMake(0, 0, 0, 0))
 			}
 			
 			let offScreenRight = CGAffineTransformMakeTranslation(contentView.view.frame.width / 3, 0)
@@ -123,6 +124,8 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 					fromView.removeFromSuperview()
 					self.view.userInteractionEnabled = true
 			})
+			
+			self.view.bringSubviewToFront(self.tabBar)
 		}
 		
 		self.selectedViewController = vc
@@ -215,17 +218,16 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	
 	//MARK: Hide tabBar
 	
-	func tabBarHidden(tabBarHidden: Bool) {
-		if tabBarHidden {
-			self.contentView!.view.snp_remakeConstraints { (make) -> Void in
-				make.edges.equalTo(self.view.snp_edges).inset(UIEdgeInsetsMake(0, 0, 0, 0))
-			}
-			self.tabBar.hidden = true
+	func tabBarWillHide(willHide: Bool) {
+		if willHide {
+			UIGraphicsBeginImageContextWithOptions(self.tabBar.bounds.size, false, UIScreen.mainScreen().scale)
+			self.tabBar.drawViewHierarchyInRect(self.tabBar.bounds, afterScreenUpdates: true)
+			let tabBarImage = UIGraphicsGetImageFromCurrentImageContext()
+			UIGraphicsEndImageContext()
+			self.tabBarImage = tabBarImage
+			print(tabBarImage)
 		} else {
 			self.tabBar.hidden = false
-			self.contentView!.view.snp_updateConstraints { (make) -> Void in
-				make.edges.equalTo(self.view.snp_edges).inset(UIEdgeInsetsMake(0, 0, 49, 0))
-			}
 		}
 	}
 	

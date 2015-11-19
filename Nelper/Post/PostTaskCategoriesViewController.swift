@@ -32,6 +32,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 	var categoryContainers = [CategoryCardViewController]()
 	
 	var tabBarViewController: TabBarViewController!
+	var tabBarFakeView: UIImageView!
 	
 	//MARK: Initialization
 	
@@ -45,7 +46,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 	}
 	
 	override func viewWillAppear(animated: Bool) {
-		self.tabBarViewController.tabBarHidden(false)
+		self.tabBarViewController.tabBarWillHide(false)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -77,7 +78,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 			make.top.equalTo(navBar.snp_bottom)
 			make.left.equalTo(self.view.snp_left)
 			make.right.equalTo(self.view.snp_right)
-			make.bottom.equalTo(self.view.snp_bottom)
+			make.bottom.equalTo(self.view.snp_bottom).offset(-49)
 		}
 		
 		let scrollView = UIScrollView()
@@ -112,7 +113,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 			make.centerX.equalTo(contentView.snp_centerX)
 		}
 		
-		//Tap Gesture Recognizer for Categories
+		//Category boxes
 		
 		let topPadding = 20
 		let sidePadding = 20
@@ -149,9 +150,21 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 			categoryContainer.layoutIfNeeded()
 			self.categoryContainers.append(categoryContainer)
 		}
+		
+		//Fake view for tabbar transition
+		
+		let tabBarFakeView = UIImageView()
+		self.tabBarFakeView = tabBarFakeView
+		self.view.addSubview(tabBarFakeView)
+		tabBarFakeView.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(self.view.snp_left)
+			make.right.equalTo(self.view.snp_right)
+			make.bottom.equalTo(self.view.snp_bottom)
+			make.height.equalTo(49)
+		}
 	}
 	
-	//MARK:View Delegate Method
+	//MARK: View Delegate Method
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
@@ -166,8 +179,8 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 	func moveToNextView() {
 		let nextScreenVC = PostTaskFormViewController(task: self.task)
 		nextScreenVC.delegate = self
-		self.tabBarViewController.tabBarHidden(true)
 		
+		self.hideTabBar()
 		dispatch_async(dispatch_get_main_queue()) {
 			self.navigationController?.pushViewController(nextScreenVC, animated: true)
 		}
@@ -187,5 +200,13 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 	
 	func dismiss() {
 		
+	}
+	
+	//MARK: Utilities
+	
+	func hideTabBar() {
+		self.tabBarViewController!.tabBarWillHide(true)
+		self.tabBarFakeView.image = self.tabBarViewController.tabBarImage
+		self.tabBarViewController!.tabBar.hidden = true
 	}
 }

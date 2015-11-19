@@ -54,6 +54,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	var selectedCell: BrowseTaskViewCell?
 	
 	var tabBarViewController: TabBarViewController!
+	var tabBarFakeView: UIImageView!
 	
 	//MARK: Initialization
 	
@@ -85,7 +86,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	}
 	
 	override func viewWillAppear(animated: Bool) {
-		self.tabBarViewController.tabBarHidden(false)
+		self.tabBarViewController.tabBarWillHide(false)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -169,7 +170,17 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			make.top.equalTo(mapContainer.snp_bottom).offset(2)
 			make.right.equalTo(contentView.snp_right)
 			make.left.equalTo(contentView.snp_left)
-			make.bottom.equalTo(contentView.snp_bottom)
+			make.bottom.equalTo(contentView.snp_bottom).offset(-49)
+		}
+		
+		let tabBarFakeView = UIImageView()
+		self.tabBarFakeView = tabBarFakeView
+		self.view.addSubview(tabBarFakeView)
+		tabBarFakeView.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(self.view.snp_left)
+			make.right.equalTo(self.view.snp_right)
+			make.bottom.equalTo(self.view.snp_bottom)
+			make.height.equalTo(49)
 		}
 	}
 	
@@ -708,14 +719,14 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		
 		if selectedTask.application != nil && selectedTask.application!.state != .Canceled {
 			let nextVC = MyApplicationDetailsView(poster: selectedTask.application!.task.user, application: selectedTask.application!)
-			self.tabBarViewController.tabBarHidden(true)
+			self.hideTabBar()
 			dispatch_async(dispatch_get_main_queue()) {
 				self.navigationController?.pushViewController(nextVC, animated: true)
 			}
 		} else {
 			let vc = BrowseDetailsViewController()
 			vc.task = selectedTask
-			self.tabBarViewController.tabBarHidden(true)
+			self.hideTabBar()
 			dispatch_async(dispatch_get_main_queue()) {
 				self.navigationController?.pushViewController(vc, animated: true)
 			}
@@ -795,18 +806,26 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.checkFilters()
 	}
 	
+	//MARK: Utilities
+	
+	func hideTabBar() {
+		self.tabBarViewController!.tabBarWillHide(true)
+		self.tabBarFakeView.image = self.tabBarViewController.tabBarImage
+		self.tabBarViewController!.tabBar.hidden = true
+	}
+	
 	//MARK: Actions
 	
 	@IBAction func centerMapOnUser(sender: AnyObject) {
 		
 	}
 	
-	func didTapFiltersButton(sender: UIButton){
+	func didTapFiltersButton(sender: UIButton) {
 		let nextVC =  FilterSortViewController()
 		nextVC.arrayOfFiltersFromPrevious = self.arrayOfFilters
 		nextVC.previousSortBy = self.sortBy
 		nextVC.delegate = self
-		self.presentViewController(nextVC, animated: true, completion: nil)
+		self.tabBarViewController.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
 	func mapTapped(sender: UITapGestureRecognizer) {

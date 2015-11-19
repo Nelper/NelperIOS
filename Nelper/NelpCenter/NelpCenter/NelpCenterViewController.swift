@@ -36,6 +36,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	var goToButton:PrimaryActionButton!
 	
 	var tabBarViewController: TabBarViewController!
+	var tabBarFakeView: UIImageView!
 	
 	//MARK: Initialization
 
@@ -50,15 +51,13 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		
 		self.loadData()
 		self.createView()
-		self.createMyTasksTableView()
-		self.createMyApplicationsTableView()
 		self.adjustUI()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		self.tabBarViewController.tabBarHidden(false)
+		self.tabBarViewController.tabBarWillHide(false)
 		
 		self.myTasksTableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
 		self.myApplicationsTableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
@@ -108,7 +107,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		tasksContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(segmentControllerView.snp_bottom)
 			make.width.equalTo(self.view.snp_width)
-			make.bottom.equalTo(self.view.snp_bottom)
+			make.bottom.equalTo(self.view.snp_bottom).offset(-49)
 		}
 		
 		//Empty Applications/Tasks warning label
@@ -138,6 +137,19 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		goToButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(emptyTableViewWarning.snp_bottom).offset(20)
 			make.centerX.equalTo(tasksContainer)
+		}
+		
+		self.createMyTasksTableView()
+		self.createMyApplicationsTableView()
+		
+		let tabBarFakeView = UIImageView()
+		self.tabBarFakeView = tabBarFakeView
+		self.view.addSubview(tabBarFakeView)
+		tabBarFakeView.snp_makeConstraints { (make) -> Void in
+			make.left.equalTo(self.view.snp_left)
+			make.right.equalTo(self.view.snp_right)
+			make.bottom.equalTo(self.view.snp_bottom)
+			make.height.equalTo(49)
 		}
 	}
 	
@@ -306,14 +318,14 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			if task.state == .Accepted {
 				let nextVC = MyTaskDetailsAcceptedViewController()
 				nextVC.task = task
-				self.tabBarViewController.tabBarHidden(true)
+				self.hideTabBar()
 				dispatch_async(dispatch_get_main_queue()) {
 					self.navigationController?.pushViewController(nextVC, animated: true)
 				}
 			} else {
 			let nextVC = MyTaskDetailsViewController(task: task)
 			nextVC.delegate = self
-			self.tabBarViewController.tabBarHidden(true)
+				self.hideTabBar()
 			dispatch_async(dispatch_get_main_queue()) {
 				self.navigationController?.pushViewController(nextVC, animated: true)
 			}
@@ -325,7 +337,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				let nextVC = MyApplicationDetailsAcceptedViewController()
 				nextVC.poster = application.task.user
 				nextVC.application = application
-				self.tabBarViewController.tabBarHidden(true)
+				self.hideTabBar()
 				dispatch_async(dispatch_get_main_queue()) {
 					self.navigationController?.pushViewController(nextVC, animated: true)
 				}
@@ -333,7 +345,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			} else {
 				let nextVC = MyApplicationDetailsView(poster: application.task.user, application: application)
 				nextVC.delegate = self
-				self.tabBarViewController.tabBarHidden(true)
+				self.hideTabBar()
 				dispatch_async(dispatch_get_main_queue()) {
 					self.navigationController?.pushViewController(nextVC, animated: true)
 				}
@@ -360,6 +372,14 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			return 200
 		}
 		return 0
+	}
+	
+	//MARK: Utilities
+	
+	func hideTabBar() {
+		self.tabBarViewController!.tabBarWillHide(true)
+		self.tabBarFakeView.image = self.tabBarViewController.tabBarImage
+		self.tabBarViewController!.tabBar.hidden = true
 	}
 	
 	//MARK: Actions

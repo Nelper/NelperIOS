@@ -885,7 +885,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	- parameter sender: Add Address Button
 	*/
-	func didTapAddLocation(sender:UIButton) {
+	func didTapAddLocation(sender: UIButton) {
 		dismissKeyboard()
 		
 		UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false, UIScreen.mainScreen().scale)
@@ -904,7 +904,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.popupShown = true
 	}
 	
-	func didTapDeleteAddress(sender:UIButton){
+	func didTapDeleteAddress(sender: UIButton) {
 		if self.locations!.isEmpty == false {
 		self.locations?.removeAtIndex(self.locationsPickerView!.selectedRowInComponent(0))
 		}
