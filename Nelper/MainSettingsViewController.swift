@@ -144,7 +144,6 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 	
 	//MARK: ACTIONS
 	func backButtonTapped(sender: UIButton) {
-		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Slide)
 		self.navigationController?.popViewControllerAnimated(true)
 		view.endEditing(true) // dismiss keyboard without delay
 	}

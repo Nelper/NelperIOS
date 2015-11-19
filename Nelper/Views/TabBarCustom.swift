@@ -57,7 +57,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 		postVC.tabBarItem = postVCItem
 		
 		//let moreVC = MoreViewController(menuViewController: UIViewController(), contentViewController: MoreMenuTableViewController())
-		let moreVC = UINavigationController(rootViewController: MoreViewController())
+		let moreVC = UINavigationController(rootViewController: MoreViewController(fullView: nil))
 		moreVC.navigationBarHidden = true
 		let moreVCItem = UITabBarItem(title: "More", image: UIImage(named: "menu"), selectedImage: UIImage(named: "more"))
 		moreVC.tabBarItem = moreVCItem
@@ -130,7 +130,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 					backgroundDark.addGestureRecognizer(tapRec)
 					backgroundDark.userInteractionEnabled = true
 					
-					let nextVC = MoreViewController()
+					let nextVC = MoreViewController(fullView: nil)
 					self.nextVC = nextVC
 					self.presentedVC.addChildViewController(nextVC)
 					self.presentedVC.view.addSubview(nextVC.view)

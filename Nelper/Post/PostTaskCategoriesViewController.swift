@@ -31,13 +31,21 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 	
 	var categoryContainers = [CategoryCardViewController]()
 	
+	var tabBarViewController: TabBarViewController!
+	
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		self.tabBarViewController = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarViewController
+		
 		self.task = Task()
 		self.createView()
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		self.tabBarViewController.tabBarHidden(false)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -158,7 +166,7 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 	func moveToNextView() {
 		let nextScreenVC = PostTaskFormViewController(task: self.task)
 		nextScreenVC.delegate = self
-		nextScreenVC.hidesBottomBarWhenPushed = true
+		self.tabBarViewController.tabBarHidden(true)
 		
 		dispatch_async(dispatch_get_main_queue()) {
 			self.navigationController?.pushViewController(nextScreenVC, animated: true)

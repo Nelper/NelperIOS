@@ -35,6 +35,8 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	var emptyTasksWarning = "No active tasks."
 	var goToButton:PrimaryActionButton!
 	
+	var tabBarViewController: TabBarViewController!
+	
 	//MARK: Initialization
 
 	convenience init() {
@@ -43,16 +45,21 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-			self.loadData()
-			self.createView()
-			self.createMyTasksTableView()
-			self.createMyApplicationsTableView()
-			self.adjustUI()
 		
+		self.tabBarViewController = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarViewController
+		
+		self.loadData()
+		self.createView()
+		self.createMyTasksTableView()
+		self.createMyApplicationsTableView()
+		self.adjustUI()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		
+		self.tabBarViewController.tabBarHidden(false)
+		
 		self.myTasksTableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
 		self.myApplicationsTableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
 	}
@@ -299,14 +306,14 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			if task.state == .Accepted {
 				let nextVC = MyTaskDetailsAcceptedViewController()
 				nextVC.task = task
-				nextVC.hidesBottomBarWhenPushed = true
+				self.tabBarViewController.tabBarHidden(true)
 				dispatch_async(dispatch_get_main_queue()) {
 					self.navigationController?.pushViewController(nextVC, animated: true)
 				}
 			} else {
 			let nextVC = MyTaskDetailsViewController(task: task)
 			nextVC.delegate = self
-			nextVC.hidesBottomBarWhenPushed = true
+			self.tabBarViewController.tabBarHidden(true)
 			dispatch_async(dispatch_get_main_queue()) {
 				self.navigationController?.pushViewController(nextVC, animated: true)
 			}
@@ -318,18 +325,18 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				let nextVC = MyApplicationDetailsAcceptedViewController()
 				nextVC.poster = application.task.user
 				nextVC.application = application
-				nextVC.hidesBottomBarWhenPushed = true
+				self.tabBarViewController.tabBarHidden(true)
 				dispatch_async(dispatch_get_main_queue()) {
 					self.navigationController?.pushViewController(nextVC, animated: true)
 				}
 				
 			} else {
-			let nextVC = MyApplicationDetailsView(poster: application.task.user, application: application)
-			nextVC.delegate = self
-				nextVC.hidesBottomBarWhenPushed = true
-			dispatch_async(dispatch_get_main_queue()) {
-				self.navigationController?.pushViewController(nextVC, animated: true)
-			}
+				let nextVC = MyApplicationDetailsView(poster: application.task.user, application: application)
+				nextVC.delegate = self
+				self.tabBarViewController.tabBarHidden(true)
+				dispatch_async(dispatch_get_main_queue()) {
+					self.navigationController?.pushViewController(nextVC, animated: true)
+				}
 			}
 		}
 		

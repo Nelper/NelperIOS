@@ -35,10 +35,26 @@ class MoreViewController: UIViewController {
 	
 	var fullView: UIViewController!
 	
+	//MARK: Init
+	
+	init(fullView: UIViewController?) {
+		super.init(nibName: nil, bundle: nil)
+		
+		
+		
+		self.fullView = fullView
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+	    fatalError("init(coder:) has not been implemented")
+	}
+	
+	//MARK: View
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		//SET SECTIONS
+		//Set sections
 		let sections = [
 			(title: "My Profile", icon: UIImage(named: "noProfilePicture"), item: "profile"),
 			(title: "Settings", icon: UIImage(named:"settings-menu"), item: "settings"),
@@ -49,7 +65,7 @@ class MoreViewController: UIViewController {
 		self.sections = sections
 		self.numberOfSections = sections.count
 		
-		//SET LAYOUT K
+		//Set layout k
 		self.iconHeight = 40
 		self.sectionHeight = 75
 		self.sectionPadding = 0
@@ -59,10 +75,21 @@ class MoreViewController: UIViewController {
 		self.setProfilePicture()
 	}
 	
+	//MARK: UI
+	
 	func createView(){
 		
-		//BLUR
-		let blurEffect = UIBlurEffect(style: .ExtraLight)
+		let whiteView = UIView()
+		whiteView.backgroundColor = Color.whitePrimary
+		self.view.addSubview(whiteView)
+		whiteView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.view.snp_top)
+			make.left.equalTo(self.view.snp_left)
+			make.right.equalTo(self.view.snp_right)
+			make.height.equalTo(64)
+		}
+		
+		let blurEffect = UIBlurEffect(style: .Light)
 		self.blurEffectView = UIVisualEffectView(effect: blurEffect)
 		self.view.addSubview(blurEffectView)
 		self.blurEffectView.snp_makeConstraints { (make) -> Void in
@@ -79,7 +106,7 @@ class MoreViewController: UIViewController {
 			make.top.equalTo(blurEffectView.snp_top)
 		}
 		
-		//CONTAINER
+		//Container
 		let sectionContainer = UIView()
 		self.sectionContainer = sectionContainer
 		self.blurEffectView.addSubview(sectionContainer)
@@ -91,7 +118,7 @@ class MoreViewController: UIViewController {
 		}
 		self.sectionContainer.layoutIfNeeded()
 		
-		//EACH SECTIONS
+		//Each sections
 		for index in 0...(numberOfSections - 1) {
 			
 			let sectionButton = UIButton()
@@ -160,7 +187,7 @@ class MoreViewController: UIViewController {
 				self.sectionButton.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0)
 			}
 			
-			//ANIMATION
+			//Animation
 			let animationDuration = (Double(index) * 0.1) + 0.4
 			
 			self.sectionButton.snp_updateConstraints { (make) -> Void in
@@ -178,7 +205,8 @@ class MoreViewController: UIViewController {
 		}
 	}
 	
-	//MARK ANIMATIONS
+	//MARK: Animations
+	
 	func closingAnimation() {
 		
 		for sectionButton in self.sectionButtons {
@@ -209,10 +237,10 @@ class MoreViewController: UIViewController {
 		}
 	}
 	
-	//MARK: ACTIONS
+	//MARK: Actions
 	
 	func sectionTapped(sender: UIButton) {
-		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+		//UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
 		var nextVC: UIViewController?
 		
 		switch self.sections[sender.tag].item {

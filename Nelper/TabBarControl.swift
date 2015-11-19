@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol TabBarControlDelegate {
-	func selectedIndex(index: Int)
+	func didSelectIndex(index: Int)
 }
 
 class TabBarControl: UIControl {
@@ -150,14 +150,14 @@ class TabBarControl: UIControl {
 		}
 		
 		if calculatedIndex != nil {
-			self.didSelectIndex(calculatedIndex!)
+			self.didSelectIndex(calculatedIndex!, loadView: true)
 			sendActionsForControlEvents(.ValueChanged)
 		}
 		
 		return false
 	}
 	
-	func didSelectIndex(index: Int) {
+	func didSelectIndex(index: Int, loadView: Bool) {
 		if self.lastIndex == index {
 			return
 		}
@@ -170,6 +170,8 @@ class TabBarControl: UIControl {
 		
 		self.lastIndex = index
 		
-		self.delegate?.selectedIndex(index)
+		if loadView {
+			self.delegate?.didSelectIndex(index)
+		}
 	}
 }

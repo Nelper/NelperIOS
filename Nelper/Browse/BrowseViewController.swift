@@ -53,6 +53,8 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	
 	var selectedCell: BrowseTaskViewCell?
 	
+	var tabBarViewController: TabBarViewController!
+	
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
@@ -66,6 +68,8 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			}
 		}*/
 		
+		self.tabBarViewController = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarViewController
+		
 		placesClient = GMSPlacesClient()
 		
 		self.createView()
@@ -78,6 +82,10 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		
 		//Checks for Localization Permission
 		PermissionHelper.sharedInstance.checkLocationStatus()
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		self.tabBarViewController.tabBarHidden(false)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -700,15 +708,17 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		
 		if selectedTask.application != nil && selectedTask.application!.state != .Canceled {
 			let nextVC = MyApplicationDetailsView(poster: selectedTask.application!.task.user, application: selectedTask.application!)
-			nextVC.hidesBottomBarWhenPushed = true
+			self.tabBarViewController.tabBarHidden(true)
 			dispatch_async(dispatch_get_main_queue()) {
 				self.navigationController?.pushViewController(nextVC, animated: true)
 			}
 		} else {
 			let vc = BrowseDetailsViewController()
-			vc.hidesBottomBarWhenPushed = true
 			vc.task = selectedTask
-			self.navigationController?.pushViewController(vc, animated: true)
+			self.tabBarViewController.tabBarHidden(true)
+			dispatch_async(dispatch_get_main_queue()) {
+				self.navigationController?.pushViewController(vc, animated: true)
+			}
 		}
 	}
 	
