@@ -92,6 +92,7 @@ class TabBarControl: UIControl {
 			imageView.tintColor = Color.darkGrayDetails
 			imageView.contentMode = .ScaleAspectFit
 			imageView.userInteractionEnabled = false
+			imageView.transform = CGAffineTransformMakeScale(0.9, 0.9)
 			itemView.addSubview(imageView)
 			
 			self.images.append(imageView)
@@ -136,6 +137,7 @@ class TabBarControl: UIControl {
 		}
 		
 		self.images[0].tintColor = Color.redPrimary
+		self.images[0].transform = CGAffineTransformMakeScale(1, 1)
 		self.labels[0].textColor = Color.redPrimary
 	}
 	
@@ -164,6 +166,12 @@ class TabBarControl: UIControl {
 		
 		self.images[index].tintColor = Color.redPrimary
 		self.images[self.lastIndex].tintColor = Color.darkGrayDetails
+		
+		UIView.animateWithDuration(0.2, animations: { () -> Void in
+			self.images[index].transform = CGAffineTransformMakeScale(1, 1)
+			self.images[self.lastIndex].transform = CGAffineTransformMakeScale(0.9, 0.9)
+		})
+		
 		
 		self.labels[index].textColor = Color.redPrimary
 		self.labels[self.lastIndex].textColor = Color.darkGrayDetails

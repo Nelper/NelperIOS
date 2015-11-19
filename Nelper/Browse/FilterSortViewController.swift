@@ -292,7 +292,7 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 		if sender.selected {
 			UIView.animateWithDuration(0.15, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
 				sender.alpha = 1
-				sender.transform = CGAffineTransformMakeScale(1.05, 1.05)
+				sender.transform = CGAffineTransformMakeScale(1, 1)
 				}, completion: nil )
 			
 			self.arrayOfFilters.append(category)
@@ -300,7 +300,7 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 		} else {
 			UIView.animateWithDuration(0.15, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
 				sender.alpha = 0.3
-				sender.transform = CGAffineTransformMakeScale(1, 1)
+				sender.transform = CGAffineTransformMakeScale(0.9, 0.9)
 				}, completion: nil )
 			
 			for (var i = 0 ; i < self.arrayOfFilters.count ; i++) {
@@ -320,13 +320,13 @@ class FilterSortViewController: UIViewController, CategoryFiltersDelegate {
 			
 			UIView.animateWithDuration(0.15, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
 				sender.alpha = 1
-				sender.transform = CGAffineTransformMakeScale(1.05, 1.05)
+				sender.transform = CGAffineTransformMakeScale(1, 1)
 				}, completion: nil )
 			self.lastFilterWasAll = true
 		} else {
 			UIView.animateWithDuration(0.15, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
 				sender.alpha = 0.3
-				sender.transform = CGAffineTransformMakeScale(1, 1)
+				sender.transform = CGAffineTransformMakeScale(0.9, 0.9)
 				}, completion: nil )
 			
 			self.arrayOfFilters.removeAll(keepCapacity: false)

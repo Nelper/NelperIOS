@@ -62,6 +62,7 @@ class CategoryFilters: UIView {
 			categoryImage.contentMode = .ScaleAspectFit
 			categoryImage.alpha = 0.3
 			categoryImage.addTarget(self, action: "categoryTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+			categoryImage.transform = CGAffineTransformMakeScale(0.9, 0.9)
 			categoryImage.tag = i
 			
 			categoryImages.append(categoryImage)
