@@ -140,6 +140,19 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 		
 		self.tabBar.userInteractionEnabled = false
 		
+		let backgroundDark = UIView()
+		self.backgroundDark = backgroundDark
+		self.view.addSubview(backgroundDark)
+		backgroundDark.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+		backgroundDark.alpha = 0
+		backgroundDark.snp_makeConstraints(closure: { (make) -> Void in
+			make.top.equalTo(self.view.snp_top)
+			make.left.equalTo(self.view.snp_left)
+			make.bottom.equalTo(self.view.snp_bottom)
+			make.width.equalTo(self.view.snp_width)
+		})
+		backgroundDark.layoutIfNeeded()
+		
 		let moreVC = UINavigationController(rootViewController: MoreViewController(fullView: self))
 		self.moreVC = moreVC
 		moreVC.navigationBarHidden = true
@@ -152,22 +165,7 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 			make.width.equalTo(self.view.snp_width).multipliedBy(self.menuToScreenRatio)
 			make.left.equalTo(self.view.snp_right)
 		})
-		moreVC.view.layer.zPosition = 3
 		moreVC.view.layoutIfNeeded()
-		
-		let backgroundDark = UIView()
-		self.backgroundDark = backgroundDark
-		self.view.addSubview(backgroundDark)
-		backgroundDark.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
-		backgroundDark.alpha = 0
-		backgroundDark.snp_makeConstraints(closure: { (make) -> Void in
-			make.top.equalTo(self.view.snp_top)
-			make.left.equalTo(self.view.snp_left)
-			make.bottom.equalTo(self.view.snp_bottom)
-			make.width.equalTo(self.view.snp_width)
-		})
-		backgroundDark.layer.zPosition = 2
-		backgroundDark.layoutIfNeeded()
 		
 		moreVC.view.snp_updateConstraints(closure: { (make) -> Void in
 			make.left.equalTo(self.view.snp_right).offset(-moreVC.view.frame.width)
@@ -274,7 +272,6 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 			let tabBarImage = UIGraphicsGetImageFromCurrentImageContext()
 			UIGraphicsEndImageContext()
 			self.tabBarImage = tabBarImage
-			print(tabBarImage)
 		} else {
 			self.tabBar.hidden = false
 		}

@@ -25,13 +25,14 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	var locationManager = CLLocationManager()
 	var currentLocation: CLLocation?
 	
-	var noActiveApplications:Bool = false
-	var noActiveTasks:Bool = false
-	var emptyTableViewWarning:UILabel!
+	var noActiveApplications: Bool = false
+	var noActiveTasks: Bool = false
+	
+	var emptyTableViewWarning: UILabel!
+	var goToButton: PrimaryActionButton!
 	
 	var emptyApplicationsWarning = "No active applications."
 	var emptyTasksWarning = "No active tasks."
-	var goToButton:PrimaryActionButton!
 	
 	var tabBarViewController: TabBarViewController!
 	var tabBarFakeView: UIImageView!
@@ -55,16 +56,29 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		
 		self.myTasksTableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
 		self.myApplicationsTableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
+		
+		if self.noActiveApplications && self.noActiveTasks {
+			self.emptyTableViewWarning.hidden = false
+			self.goToButton.hidden = false
+			SVProgressHUD.dismiss()
+		} else {
+			self.emptyTableViewWarning.hidden = true
+			self.goToButton.hidden = true
+		}
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-		SVProgressHUD.dismiss()
 		super.viewDidAppear(animated)
 		self.loadData()
 	}
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
+	}
+	
+	override func viewDidDisappear(animated: Bool) {
+		self.segmentControllerView.selectedIndex = 0
+		self.segmentControllerView.displayNewSelectIndex()
 	}
 	
 	//MARK: View Creation
@@ -133,7 +147,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.emptyTableViewWarning.font =  UIFont(name: "Lato-Regular", size: kTitle17)
 		self.emptyTableViewWarning.textColor = Color.darkGrayDetails
 		self.emptyTableViewWarning.snp_makeConstraints { (make) -> Void in
-			make.center.equalTo(tasksContainer)
+			make.top.equalTo(tasksContainer.snp_top).offset(30)
 			make.left.equalTo(tasksContainer).offset(30)
 			make.right.equalTo(tasksContainer).offset(-30)
 		}
@@ -187,7 +201,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		//self.myTasksTableView.transform = CGAffineTransformMakeTranslation(-500, 0)
 		self.myTasksTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		
-		if self.noActiveTasks == true{
+		if self.noActiveTasks == true {
 			tableView.hidden = true
 		}
 	}
@@ -213,7 +227,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.myApplicationsTableView.hidden = true
 		self.myApplicationsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		
-		if self.noActiveApplications == true{
+		if self.noActiveApplications == true {
 			tableViewApplications.hidden = true
 		}
 	}
@@ -241,7 +255,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				print(error, terminator: "")
 			} else {
 				self.nelpTasks = nelpTasks!
-				if self.nelpTasks.count == 0{
+				if self.nelpTasks.count == 0 {
 					self.noActiveTasks = true
 				}
 				self.myTasksTableView?.reloadData()
@@ -253,7 +267,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				print(error, terminator: "")
 			} else {
 				self.nelpApplications = nelpApplications!
-				if self.nelpApplications.count == 0{
+				if self.nelpApplications.count == 0 {
 					self.noActiveApplications = true
 				}
 				self.myApplicationsTableView?.reloadData()
@@ -336,12 +350,12 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 					self.navigationController?.pushViewController(nextVC, animated: true)
 				}
 			} else {
-			let nextVC = MyTaskDetailsViewController(task: task)
-			nextVC.delegate = self
+				let nextVC = MyTaskDetailsViewController(task: task)
+				nextVC.delegate = self
 				self.hideTabBar()
-			dispatch_async(dispatch_get_main_queue()) {
-				self.navigationController?.pushViewController(nextVC, animated: true)
-			}
+				dispatch_async(dispatch_get_main_queue()) {
+					self.navigationController?.pushViewController(nextVC, animated: true)
+				}
 			}
 		} else if (tableView == myApplicationsTableView) {
 			let application = nelpApplications[indexPath.row]
@@ -411,9 +425,16 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		if index == 0 {
 			self.emptyTableViewWarning.text = self.emptyTasksWarning
 			self.goToButton.setTitle("Post a Task", forState: .Normal)
-			if self.noActiveTasks == false{
-			self.myTasksTableView.hidden = false
+			
+			if self.noActiveTasks {
+				self.emptyTableViewWarning.hidden = false
+				self.goToButton.hidden = false
+			} else {
+				self.myTasksTableView.hidden = false
+				self.emptyTableViewWarning.hidden = true
+				self.goToButton.hidden = true
 			}
+			
 			self.segmentControllerView.userInteractionEnabled = false
 			
 			UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
@@ -430,8 +451,14 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		} else if index == 1 {
 			self.emptyTableViewWarning.text = self.emptyApplicationsWarning
 			self.goToButton.setTitle("Browse Tasks", forState: .Normal)
-			if self.noActiveApplications == false{
-			self.myApplicationsTableView.hidden = false
+			
+			if self.noActiveApplications {
+				self.emptyTableViewWarning.hidden = false
+				self.goToButton.hidden = false
+			} else {
+				self.myApplicationsTableView.hidden = false
+				self.emptyTableViewWarning.hidden = true
+				self.goToButton.hidden = true
 			}
 			self.segmentControllerView.userInteractionEnabled = false
 			

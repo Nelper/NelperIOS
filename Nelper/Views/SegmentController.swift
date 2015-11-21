@@ -36,7 +36,6 @@ class SegmentController: UIControl {
 			}
 			
 			displayNewSelectIndex()
-			
 		}
 	}
 	
@@ -141,7 +140,5 @@ class SegmentController: UIControl {
 		}, completion: nil)
 
 		self.delegate?.onIndexChange(selectedIndex)
-		
 	}
-	
 }

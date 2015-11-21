@@ -861,13 +861,13 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	- parameter sender: Add pictures button
 	*/
-	func attachPicturesButtonTapped(sender: UIButton){
+	func attachPicturesButtonTapped(sender: UIButton) {
 		dismissKeyboard()
-		imagePicker.allowsEditing = false
-		imagePicker.sourceType = .PhotoLibrary
+		self.imagePicker.allowsEditing = false
+		self.imagePicker.sourceType = .PhotoLibrary
 		
-		let tabBarViewController = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarViewController
-		tabBarViewController.presentViewController(imagePicker, animated: true, completion: nil)
+		//let tabBarViewController = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarViewController
+		self.navigationController!.viewControllers.last!.presentViewController(self.imagePicker, animated: true, completion: nil)
 	}
 	
 	/**
@@ -879,7 +879,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	func backButtonTapped(sender: UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
-		view.endEditing(true) // dismiss keyboard without delay
+		dismissKeyboard()
 	}
 	
 	/**
@@ -931,7 +931,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	
-	func updateLocationInfoToFirstComponent(){
+	func updateLocationInfoToFirstComponent() {
 		self.locationTextField!.text = self.locations?[0].name
 		
 		self.streetAddressLabel.text = self.locations?[0].formattedTextLabelNoPostal
