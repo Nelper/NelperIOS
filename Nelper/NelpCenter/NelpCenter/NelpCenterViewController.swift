@@ -16,12 +16,12 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	var navBar: NavBar!
 	var segmentControllerView: SegmentController!
 	
-	var profilePicture:UIImageView!
-	var tasksContainer:UIView!
+	var profilePicture: UIImageView!
+	var tasksContainer: UIView!
 	var nelpTasks = [Task]()
 	var nelpApplications = [TaskApplication]()
 	var myTasksTableView: UITableView!
-	var myApplicationsTableView:UITableView!
+	var myApplicationsTableView: UITableView!
 	var locationManager = CLLocationManager()
 	var currentLocation: CLLocation?
 	
@@ -147,7 +147,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		self.emptyTableViewWarning.font =  UIFont(name: "Lato-Regular", size: kTitle17)
 		self.emptyTableViewWarning.textColor = Color.darkGrayDetails
 		self.emptyTableViewWarning.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(tasksContainer.snp_top).offset(30)
+			make.top.equalTo(tasksContainer.snp_top).offset(60)
 			make.left.equalTo(tasksContainer).offset(30)
 			make.right.equalTo(tasksContainer).offset(-30)
 		}

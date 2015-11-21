@@ -56,6 +56,8 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	var tabBarViewController: TabBarViewController!
 	var tabBarFakeView: UIImageView!
 	
+	var noTaskToShowLabel: UILabel!
+	
 	//MARK: Initialization
 	
 	override func viewDidLoad() {
@@ -79,7 +81,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.createTaskTableView()
 		self.loadData()
 		self.extendedLayoutIncludesOpaqueBars = true
-		self.adjustUI()
 		
 		//Checks for Localization Permission
 		PermissionHelper.sharedInstance.checkLocationStatus()
@@ -195,13 +196,30 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		let tableViewContainer = UIView()
 		self.tableViewContainer = tableViewContainer
 		contentView.addSubview(tableViewContainer)
-		tableViewContainer.backgroundColor = UIColor.clearColor()
+		tableViewContainer.backgroundColor = Color.whitePrimary
 		tableViewContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(mapContainer.snp_bottom).offset(2)
 			make.right.equalTo(contentView.snp_right)
 			make.left.equalTo(contentView.snp_left)
 			make.bottom.equalTo(contentView.snp_bottom).offset(-49)
 		}
+		
+		let noTaskToShowLabel = UILabel()
+		self.noTaskToShowLabel = noTaskToShowLabel
+		tableViewContainer.addSubview(noTaskToShowLabel)
+		noTaskToShowLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		noTaskToShowLabel.textColor = Color.darkGrayDetails
+		noTaskToShowLabel.text = "No task found"
+		noTaskToShowLabel.textAlignment = .Center
+		noTaskToShowLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.tableViewContainer.snp_top).offset(60)
+			make.centerX.equalTo(self.tableViewContainer.snp_centerX)
+		}
+		noTaskToShowLabel.layer.zPosition = 5
+		noTaskToShowLabel.userInteractionEnabled = false
+		noTaskToShowLabel.hidden = true
+		noTaskToShowLabel.alpha = 0
+		noTaskToShowLabel.transform = CGAffineTransformMakeTranslation(0, 30)
 		
 		let tabBarFakeView = UIImageView()
 		self.tabBarFakeView = tabBarFakeView
@@ -225,7 +243,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.tableView.dataSource = self
 		tableView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
 		tableView.registerClass(BrowseTaskViewCell.classForCoder(), forCellReuseIdentifier: BrowseTaskViewCell.reuseIdentifier)
-		self.tableView.backgroundColor = Color.whiteBackground
+		self.tableView.backgroundColor = UIColor.clearColor()
 		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		
 		self.tableViewContainer.addSubview(tableView)
@@ -237,6 +255,9 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		tableView.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.tableViewContainer.snp_edges)
 		}
+		
+		tableView.transform = CGAffineTransformMakeTranslation(0, 30)
+		tableView.alpha = 0
 		
 		self.refreshView = refreshView
 	}
@@ -289,10 +310,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	}
 	
 	//MARK: UI
-	
-	func adjustUI() {
-		
-	}
 	
 	func createPins() {
 		self.mapView.delegate = self
@@ -719,7 +736,22 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	//MARK: Table View Data Source and Delegate
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return self.nelpTasks.count
+		let count = self.nelpTasks.count
+		
+		if count == 0 {
+			self.noTaskToShowLabel.hidden = false
+			
+			UIView.animateWithDuration(0.3, delay: 0.5, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+				self.noTaskToShowLabel.transform = CGAffineTransformMakeTranslation(0, 0)
+				self.noTaskToShowLabel.alpha = 1
+				}, completion: nil)
+		} else {
+			self.noTaskToShowLabel.hidden = true
+			self.noTaskToShowLabel.alpha = 0
+			self.noTaskToShowLabel.transform = CGAffineTransformMakeTranslation(0, 30)
+		}
+		
+		return count
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -770,16 +802,14 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	
 	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
 		
-		UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
-			cell.alpha = 1
-			}, completion: nil)
-		
-		/*if (indexPath.row == tableView.indexPathsForVisibleRows!.last!.row) {
+		if (indexPath.row == tableView.indexPathsForVisibleRows!.last!.row) {
+			SVProgressHUD.dismiss()
 			
 			UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
-				cell.alpha = 1
+				self.tableView.alpha = 1
+				self.tableView.transform = CGAffineTransformMakeTranslation(0, 0)
 				}, completion: nil)
-		}*/
+		}
 	}
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
