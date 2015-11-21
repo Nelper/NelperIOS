@@ -35,7 +35,6 @@
 		19DB243C1BB70E8000468E91 /* PosterProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB242A1BB70E8000468E91 /* PosterProfileViewController.swift */; };
 		19DB243D1BB70E8000468E91 /* NelpApplicationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB242C1BB70E8000468E91 /* NelpApplicationsTableViewCell.swift */; };
 		19DB243E1BB70E8000468E91 /* NelpCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB242D1BB70E8000468E91 /* NelpCenterViewController.swift */; };
-		19DB243F1BB70E8000468E91 /* NelpCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DB242E1BB70E8000468E91 /* NelpCenterViewController.xib */; };
 		19DB24401BB70E8000468E91 /* NelpTasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB242F1BB70E8000468E91 /* NelpTasksTableViewCell.swift */; };
 		19DB24411BB70E8000468E91 /* ApplicantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24311BB70E8000468E91 /* ApplicantCell.swift */; };
 		19DB24421BB70E8000468E91 /* ApplicantChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB24321BB70E8000468E91 /* ApplicantChatViewController.swift */; };
@@ -180,7 +179,6 @@
 		19DB242A1BB70E8000468E91 /* PosterProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterProfileViewController.swift; sourceTree = "<group>"; };
 		19DB242C1BB70E8000468E91 /* NelpApplicationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpApplicationsTableViewCell.swift; sourceTree = "<group>"; };
 		19DB242D1BB70E8000468E91 /* NelpCenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpCenterViewController.swift; sourceTree = "<group>"; };
-		19DB242E1BB70E8000468E91 /* NelpCenterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NelpCenterViewController.xib; sourceTree = "<group>"; };
 		19DB242F1BB70E8000468E91 /* NelpTasksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NelpTasksTableViewCell.swift; sourceTree = "<group>"; };
 		19DB24311BB70E8000468E91 /* ApplicantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicantCell.swift; sourceTree = "<group>"; };
 		19DB24321BB70E8000468E91 /* ApplicantChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicantChatViewController.swift; sourceTree = "<group>"; };
@@ -428,7 +426,6 @@
 			children = (
 				19DB242C1BB70E8000468E91 /* NelpApplicationsTableViewCell.swift */,
 				19DB242D1BB70E8000468E91 /* NelpCenterViewController.swift */,
-				19DB242E1BB70E8000468E91 /* NelpCenterViewController.xib */,
 				19DB242F1BB70E8000468E91 /* NelpTasksTableViewCell.swift */,
 			);
 			path = NelpCenter;
@@ -715,7 +712,6 @@
 				C059CB6A1BF1AEA000AD2730 /* Lato-Black.ttf in Resources */,
 				F7EE46B81B6D219C005ECFCA /* Podfile in Resources */,
 				19DB243B1BB70E8000468E91 /* MyApplicationDetailsView.xib in Resources */,
-				19DB243F1BB70E8000468E91 /* NelpCenterViewController.xib in Resources */,
 				19DB24441BB70E8000468E91 /* ApplicantProfileViewController.xib in Resources */,
 				19DB24481BB70E8000468E91 /* MyTaskDetailsViewController.xib in Resources */,
 				199EF2001B37A0A500B25B07 /* LaunchScreen.xib in Resources */,

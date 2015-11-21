@@ -111,15 +111,15 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.navBar = navBar
 		self.view.addSubview(self.navBar)
 		
-		let filtersBtn = UIButton()
+		/*let filtersBtn = UIButton()
 		filtersBtn.addTarget(self, action: "didTapFiltersButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.filtersButton = filtersBtn
-		self.navBar.setTitle("Browse Tasks")
+		self.navBar.setTitle("Browse Tasks")*/
 		self.navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
 			make.left.equalTo(self.view.snp_left)
-			make.height.equalTo(64)
+			make.height.equalTo(Helper.statusBarHeight)
 		}
 		
 		self.navBar.layoutIfNeeded()
@@ -148,8 +148,8 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			make.bottom.equalTo(backgroundView.snp_bottom)
 		}
 		
-		self.defaultMapHeight = 250
-		self.expandedMapHeight = self.view.frame.height - self.navBar.frame.height// - self.tabBarController!.tabBar.frame.height
+		self.defaultMapHeight = 257
+		self.expandedMapHeight = self.view.frame.height + 2 - Helper.statusBarHeight - 49
 		
 		let mapContainer = UIView()
 		self.mapContainer = mapContainer
@@ -159,7 +159,37 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			make.top.equalTo(contentView.snp_top)
 			make.right.equalTo(contentView.snp_right)
 			make.left.equalTo(contentView.snp_left)
-			make.height.equalTo(defaultMapHeight)
+			make.bottom.equalTo(contentView.snp_top).offset(defaultMapHeight)
+		}
+		
+		let buttonSize: CGFloat = 50
+		
+		let mapButton = UIButton()
+		mapButton.setBackgroundImage(UIImage(named: "buttonBackground"), forState: .Normal)
+		mapButton.setImage(UIImage(named: "fullMap"), forState: .Normal)
+		mapButton.setImage(UIImage(named: "list"), forState: .Selected)
+		mapButton.contentMode = .ScaleAspectFill
+		mapButton.addTarget(self, action: "mapButtonTapped:", forControlEvents: .TouchUpInside)
+		mapButton.selected = false
+		contentView.addSubview(mapButton)
+		mapButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(contentView.snp_top).offset(10)
+			make.left.equalTo(contentView.snp_left).offset(20)
+			make.width.equalTo(buttonSize)
+			make.height.equalTo(buttonSize)
+		}
+		
+		let filtersButton = UIButton()
+		filtersButton.setBackgroundImage(UIImage(named: "buttonBackground"), forState: .Normal)
+		filtersButton.setImage(UIImage(named: "filters"), forState: .Normal)
+		mapButton.contentMode = .ScaleAspectFit
+		filtersButton.addTarget(self, action: "filtersButtonTapped:", forControlEvents: .TouchUpInside)
+		contentView.addSubview(filtersButton)
+		filtersButton.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(contentView.snp_top).offset(10)
+			make.right.equalTo(contentView.snp_right).offset(-20)
+			make.width.equalTo(buttonSize)
+			make.height.equalTo(buttonSize)
 		}
 		
 		let tableViewContainer = UIView()
@@ -230,6 +260,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.mapView.showsPointsOfInterest = false
 		self.mapContainer.addSubview(mapView)
 		self.mapView.showsUserLocation = true
+		self.mapView.rotateEnabled = false
 		
 		if ((self.locationManager.location) != nil) {
 			let userLocation: CLLocation = self.locationManager.location!
@@ -249,11 +280,11 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			make.edges.equalTo(self.mapContainer.snp_edges)
 		}
 		
-		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "mapTapped:")
+		/*let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "mapTapped:")
 		self.tap = tap
 		self.tap.delegate = self
 		self.tap.numberOfTapsRequired = 1
-		self.mapView.addGestureRecognizer(tap)
+		self.mapView.addGestureRecognizer(tap)*/
 		
 	}
 	
@@ -285,7 +316,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 				let image = UIImage(named: "noProfilePicture")
 				pinImage = image
 				
-				let taskPin: BrowseMKAnnotation = BrowseMKAnnotation(coordinate: location, task: task, image: pinImage!, title: task.title, category: task.category!, price: task.priceOffered!, poster: task.user.name, date: task.createdAt)
+				let taskPin: BrowseMKAnnotation = BrowseMKAnnotation(coordinate: location, task: task, image: pinImage!, title: task.title, category: task.category!, price: task.priceOffered!, poster: task.user.name, date: task.createdAt, tag: 0)
 				self.mapView.addAnnotation(taskPin)
 			}
 		}
@@ -352,6 +383,11 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			let pinViewAnnotation = view.annotation as? BrowseMKAnnotation
 			let pinCategory = pinViewAnnotation!.category
 			
+			if pinViewAnnotation!.tag == 1 {
+				return
+			}
+			pinViewAnnotation!.tag = 1
+			
 			view.image = UIImage(named: "\(pinCategory!)-pin-sel")
 			
 			let center = view.annotation!.coordinate
@@ -361,7 +397,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			}
 			mapView.setCenterCoordinate(center, animated: true)*/
 			
-			let zoomSpan = MKCoordinateSpanMake(0.012, 0.012)
+			let zoomSpan = MKCoordinateSpanMake(0.014, 0.014)
 			let zoomedRegion = MKCoordinateRegionMake(center, zoomSpan)
 			let currentSpan = mapView.region.span
 			
@@ -395,7 +431,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 						}
 					}
 				}
-			
 			}
 			
 			setAnnotationInfo(view)
@@ -409,6 +444,8 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			
 			let pinViewAnnotation = view.annotation as? BrowseMKAnnotation
 			let pinCategory = pinViewAnnotation!.category
+			
+			pinViewAnnotation!.tag = 0
 			
 			view.image = UIImage(named: "\(pinCategory!)-pin")
 			
@@ -588,15 +625,15 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		if self.mapInfoBlurView != nil {
 			
 			if self.mapExpanded {
-				self.mapInfoBlurView.snp_updateConstraints { (make) -> Void in
-					make.bottom.equalTo(self.mapView.snp_bottom).offset(200)
-				}
-				self.mapInfoBlurView.setNeedsLayout()
 				
-				UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
-					self.mapInfoBlurView.layoutIfNeeded()
-					self.mapInfoBlurView.removeFromSuperview()
-					}, completion: nil)
+				let reuseableView = self.mapInfoBlurView
+				
+				UIView.animateWithDuration(0.4, delay: 0.0, options: [.CurveEaseOut], animations: {
+					reuseableView.transform = CGAffineTransformMakeTranslation(0, self.mapInfoBlurView.frame.height * 1.5)
+					reuseableView.alpha = 0
+					}, completion: { (finished: Bool) in
+						reuseableView.removeFromSuperview()
+				})
 			} else {
 				//TODO NOT EXPANDED MAP, TASK INFO
 			}
@@ -607,10 +644,9 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	
 	func checkFilters() {
 		if self.arrayOfFilters.isEmpty {
-			self.navBar.filtersButtonView!.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTitle17)
+			//filters off
 		} else {
-			print("bold")
-			self.navBar.filtersButtonView!.titleLabel!.font = UIFont(name: "Lato-Black", size: kTitle17)
+			//filters on
 		}
 	}
 	
@@ -767,14 +803,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	
 	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		
-		//		var userLocation: CLLocation = self.locationManager.location
-		//		self.currentLocation = userLocation
-		//		var userLocationForCenter = userLocation.coordinate
-		//		var span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
-		//		var locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(userLocationForCenter, span)
-		//		self.mapView.setRegion(locationToZoom, animated: true)
-		//		self.mapView.setCenterCoordinate(userLocationForCenter, animated: true)
-		
 		if self.currentLocation != nil{
 			LocationHelper.sharedInstance.currentLocation = PFGeoPoint(latitude:self.currentLocation!.coordinate.latitude, longitude:self.currentLocation!.coordinate.longitude)
 			LocationHelper.sharedInstance.currentCLLocation = CLLocationCoordinate2D(latitude: self.currentLocation!.coordinate.latitude, longitude: self.currentLocation!.coordinate.longitude)
@@ -819,7 +847,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		
 	}
 	
-	func didTapFiltersButton(sender: UIButton) {
+	func filtersButtonTapped(sender: UIButton) {
 		let nextVC =  FilterSortViewController()
 		nextVC.arrayOfFiltersFromPrevious = self.arrayOfFilters
 		nextVC.previousSortBy = self.sortBy
@@ -827,37 +855,52 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		self.tabBarViewController.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
-	func mapTapped(sender: UITapGestureRecognizer) {
+	func mapButtonTapped(sender: UIButton) {
 		
-		let touchPoint = sender.locationInView(self.mapView)
+		sender.selected = !sender.selected
+		
+		/*let touchPoint = sender.locationInView(self.mapView)
 		let touchView = self.mapView.hitTest(touchPoint, withEvent: nil)!
 		
-		if !touchView.isKindOfClass(MKAnnotationView) && self.annotationIsSelected == false {
+		if !touchView.isKindOfClass(MKAnnotationView) && self.annotationIsSelected == false {*/
 			if self.mapExpanded == false {
 				
 				self.mapContainer.snp_updateConstraints { (make) -> Void in
-					make.height.equalTo(self.expandedMapHeight)
+					make.bottom.equalTo(self.contentView.snp_top).offset(self.expandedMapHeight)
+				}
+				
+				self.tableViewContainer.snp_remakeConstraints { (make) -> Void in
+					make.top.equalTo(mapContainer.snp_bottom).offset(2)
+					make.right.equalTo(contentView.snp_right)
+					make.left.equalTo(contentView.snp_left)
+					make.bottom.equalTo(contentView.snp_bottom)
 				}
 				
 				UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
-					self.mapContainer.layoutIfNeeded()
-					self.tableViewContainer.layoutIfNeeded()
+					self.contentView.layoutIfNeeded()
 					}, completion: nil)
 				
 				self.mapExpanded = true
 			} else {
+				
 				self.mapContainer.snp_updateConstraints { (make) -> Void in
-					make.height.equalTo(self.defaultMapHeight)
+					make.bottom.equalTo(contentView.snp_top).offset(defaultMapHeight)
+				}
+				
+				self.tableViewContainer.snp_remakeConstraints { (make) -> Void in
+					make.top.equalTo(mapContainer.snp_bottom).offset(2)
+					make.right.equalTo(contentView.snp_right)
+					make.left.equalTo(contentView.snp_left)
+					make.bottom.equalTo(contentView.snp_bottom).offset(-49)
 				}
 				
 				UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations:  {
-					self.mapContainer.layoutIfNeeded()
-					self.tableViewContainer.layoutIfNeeded()
+					self.contentView.layoutIfNeeded()
 					}, completion: nil)
 				
 				self.mapExpanded = false
 			}
-		}
+		//}
 	}
 	
 	func infoButtonTapped(sender: mapTaskButton) {

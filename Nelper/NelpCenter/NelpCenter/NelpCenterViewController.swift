@@ -13,9 +13,7 @@ import SDWebImage
 
 class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MyApplicationDetailsViewDelegate, SegmentControllerDelegate, MyTaskDetailsViewControllerDelegate {
 	
-	@IBOutlet weak var navBar: NavBar!
-	@IBOutlet weak var containerView: UIView!
-	
+	var navBar: NavBar!
 	var segmentControllerView: SegmentController!
 	
 	var profilePicture:UIImageView!
@@ -40,10 +38,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	//MARK: Initialization
 
-	convenience init() {
-		self.init(nibName: "NelpCenterViewController", bundle: nil)
-	}
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -75,11 +69,31 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	//MARK: View Creation
 	
-	func createView(){
+	func createView() {
+		
+		let navBar = NavBar()
+		self.navBar = navBar
+		self.view.addSubview(self.navBar)
+		//self.navBar.setTitle("Nelp Center")
+		self.navBar.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.view.snp_top)
+			make.right.equalTo(self.view.snp_right)
+			make.left.equalTo(self.view.snp_left)
+			make.height.equalTo(Helper.statusBarHeight)
+		}
+		
+		let containerView = UIView()
+		self.view.addSubview(containerView)
+		containerView.backgroundColor = Color.whiteBackground
+		containerView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(navBar.snp_bottom)
+			make.left.equalTo(self.view.snp_left)
+			make.right.equalTo(self.view.snp_right)
+			make.bottom.equalTo(self.view.snp_bottom)
+		}
 		
 		//Location
 		self.locationManager.delegate = self
-		
 		if self.locationManager.location != nil {
 			self.locationManager.delegate = self
 			let userLocation: CLLocation = self.locationManager.location!
@@ -89,7 +103,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		//Segment Controller
 		
 		self.segmentControllerView = SegmentController()
-		self.containerView.addSubview(segmentControllerView)
+		containerView.addSubview(segmentControllerView)
 		self.segmentControllerView.delegate = self
 		self.segmentControllerView.items = ["My Tasks", "My Applications"]
 		self.segmentControllerView.snp_makeConstraints { (make) -> Void in
@@ -208,7 +222,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	func adjustUI() {
 		self.extendedLayoutIncludesOpaqueBars = true
-		self.navBar.setTitle("Nelp Center")
 		
 	}
 	

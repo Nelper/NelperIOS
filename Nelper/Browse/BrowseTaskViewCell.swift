@@ -233,7 +233,7 @@ class BrowseTaskViewCell: UITableViewCell {
 	}
 	
 	func cellSelected() {
-		self.cellView.backgroundColor = Color.redPrimarySelected
+		self.cellView.backgroundColor = UIColor.whiteColor()
 	}
 	
 	func cellDeselected() {

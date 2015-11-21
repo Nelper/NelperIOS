@@ -61,12 +61,12 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 		
 		let navBar = NavBar()
 		self.view.addSubview(navBar)
-		navBar.setTitle("Post a Task")
+		//navBar.setTitle("Post a Task")
 		navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
 			make.left.equalTo(self.view.snp_left)
-			make.height.equalTo(64)
+			make.height.equalTo(Helper.statusBarHeight)
 		}
 		
 		//ScrollView + ContentView
@@ -103,9 +103,9 @@ class PostTaskCategoriesViewController: UIViewController, UITextFieldDelegate, U
 		//Select your category label
 		
 		let selectCategoryLabel = UILabel()
-		contentView.addSubview(selectCategoryLabel);
+		contentView.addSubview(selectCategoryLabel)
 		selectCategoryLabel.text = "Select a Category"
-		selectCategoryLabel.textColor = Color.blackPrimary
+		selectCategoryLabel.textColor = Color.textFieldTextColor
 		selectCategoryLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		
 		selectCategoryLabel.snp_makeConstraints { (make) -> Void in

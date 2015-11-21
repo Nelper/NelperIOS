@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import FXBlurView
 
 extension UIButton {
 	func setBackgroundColor(color: UIColor, forState: UIControlState) {
@@ -43,10 +44,9 @@ class PrimaryActionButton: UIButton {
 		super.init(frame: frame)
 		createView()
 	}
-	
-	required init(coder: NSCoder) {
-		super.init(coder: coder)!
-		createView()
+
+	required init?(coder aDecoder: NSCoder) {
+	    fatalError("init(coder:) has not been implemented")
 	}
 	
 	func setSize() {

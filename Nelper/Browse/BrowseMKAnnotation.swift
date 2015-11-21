@@ -19,8 +19,9 @@ class BrowseMKAnnotation: NSObject, MKAnnotation {
 	var price: Double?
 	var poster: String?
 	var date: NSDate?
+	var tag: Int?
 	
-	init(coordinate: CLLocationCoordinate2D, task: Task, image: UIImage, title: String, category: String, price: Double, poster: String, date: NSDate) {
+	init(coordinate: CLLocationCoordinate2D, task: Task, image: UIImage, title: String, category: String, price: Double, poster: String, date: NSDate, tag: Int) {
 		self.coordinate = coordinate
 		self.task = task
 		self.image = image
@@ -29,6 +30,7 @@ class BrowseMKAnnotation: NSObject, MKAnnotation {
 		self.price = price
 		self.poster = poster
 		self.date = date
+		self.tag = tag
 	}
 }
 
