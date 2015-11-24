@@ -32,7 +32,7 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 		self.sections = [
 			(title: "Account", viewController: accountVc),
 			(title: "Notifications", viewController: notificationsVc),
-			(title: "Bank Deposits", viewController: bankVc),
+			(title: "Bank Account", viewController: bankVc),
 			(title: "Transaction History", viewController: transactionsVc)
 		]
 		

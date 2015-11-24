@@ -31,8 +31,8 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	var emptyTableViewWarning: UILabel!
 	var goToButton: PrimaryActionButton!
 	
-	var emptyApplicationsWarning = "No active applications."
-	var emptyTasksWarning = "No active tasks."
+	var emptyApplicationsWarning = "No active applications"
+	var emptyTasksWarning = "No active tasks"
 	
 	var tabBarViewController: TabBarViewController!
 	var tabBarFakeView: UIImageView!

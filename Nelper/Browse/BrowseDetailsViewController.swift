@@ -242,7 +242,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		let locationNoticeLabel = UILabel()
 		taskContainer.addSubview(locationNoticeLabel)
-		locationNoticeLabel.text = "Exact location in this 400m area"
+		locationNoticeLabel.text = "Exact location inside this 400m area"
 		locationNoticeLabel.textColor = Color.darkGrayDetails
 		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kText13)
 		locationNoticeLabel.snp_makeConstraints { (make) -> Void in

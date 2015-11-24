@@ -34,6 +34,11 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	
 	//MARK: Init
 	
+	/**
+	init
+	
+	- parameter vc: the first viewcontroller to be displayed
+	*/
 	init(vc: UIViewController?) {
 		super.init(nibName: nil, bundle: nil)
 		
@@ -49,6 +54,9 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	
 	//MARK: Create TabBar
 	
+	/**
+	creates the tabbar. this is only called once in init
+	*/
 	func createTabBar() {
 		let tabBar = TabBarControl()
 		self.tabBar = tabBar
@@ -64,11 +72,11 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	
 	//MARK: TabBarControl delegate
 	
-	/*Browse: 0
-	NelpCenter: 1
-	PostTask: 2
-	More: 3*/
+	/**
+	called by tabBarControl when the user taps a new section in the tabBar
 	
+	- parameter index: the selected index (0: browse, 1: nelp center, 2: post, 3: more)
+	*/
 	func didSelectIndex(index: Int) {
 		
 		if index == 3 {
@@ -82,6 +90,12 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	
 	//MARK: Create VC
 	
+	/**
+	creates the selected viewController (not for more menu)
+	
+	- parameter vc:       the viewcontroller to be displayed (ex: BrowseViewController())
+	- parameter animated: true if the transition is animated
+	*/
 	func createVC(vc: UIViewController!, animated: Bool) {
 		
 		let viewNavigationController = UINavigationController(rootViewController: vc)
@@ -134,6 +148,9 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	
 	//MARK: Create More VC
 	
+	/**
+	creates the more menu vc. call closeMoreVC to remove this view and close with animation
+	*/
 	func createMoreVC() {
 		
 		//View
@@ -189,6 +206,11 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	
 	//MARK: Update more menu layout
 	
+	/**
+	called when we enter or exit a section in the navigation controller (more menu in this case)
+	
+	- parameter inSection: true if we are entering a section (ex: profile) and need the more menu VC to be full screen
+	*/
 	func updateMoreMenuState(inSection: Bool) {
 		let rootMoreVC = self.moreVC.viewControllers.first as! MoreViewController
 		
@@ -241,6 +263,9 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	
 	//MARK: Close and remove More VC
 	
+	/**
+	called to close the more menu with animations
+	*/
 	func closeMoreMenu() {
 		self.tabBar.didSelectIndex(selectedIndex, loadView: false)
 		
@@ -265,6 +290,11 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	
 	//MARK: Hide tabBar
 	
+	/**
+	called to hide the tabbar when entering a navigation controller
+	
+	- parameter willHide: true ito hide the tabbar
+	*/
 	func tabBarWillHide(willHide: Bool) {
 		if willHide {
 			UIGraphicsBeginImageContextWithOptions(self.tabBar.bounds.size, false, UIScreen.mainScreen().scale)
@@ -279,8 +309,22 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	
 	//MARK: Actions
 	
+	/**
+	close more menu on tap or swipe gesture
+	
+	- parameter sender: tap and swipe gesture
+	*/
 	func closingGesture(sender: AnyObject) {
 		self.closeMoreMenu()
+	}
+	
+	/**
+	call this to force a tab to be displayed
+	
+	- parameter index: 0: browse, 1: nelp center, 2: post a task
+	*/
+	func forceSelectedIndex(index: Int) {
+		self.tabBar.didSelectIndex(index, loadView: true)
 	}
 	
 }

@@ -20,9 +20,9 @@ class TabBarControl: UIControl {
 	var lastIndex: Int = 0
 	
 	var items = [
-		(title: "Browse tasks", image: UIImage(named: "browse_default")),
+		(title: "Browse Tasks", image: UIImage(named: "browse_default")),
 		(title: "Nelp Center", image: UIImage(named: "nelpcenter_default")),
-		(title: "Post a task", image: UIImage(named: "post_task")),
+		(title: "Post a Task", image: UIImage(named: "post_task")),
 		(title: "More", image: UIImage(named: "menu"))
 	]
 	

@@ -768,14 +768,17 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		
 		let task = self.nelpTasks[indexPath.item]
 		cell.setNelpTask(task)
-		if (self.sortBy == "distance" || self.sortBy == "priceOffered") && LocationHelper.sharedInstance.currentCLLocation != nil{
+		
+		if (self.sortBy == "distance" || self.sortBy == "priceOffered") && LocationHelper.sharedInstance.currentCLLocation != nil {
 			cell.setLocation()
 		}
-		if task.user.profilePictureURL != nil{
-		cell.picture.sd_setImageWithURL(NSURL(string: task.user.profilePictureURL!), placeholderImage: UIImage(named: "noProfilePicture"))
-		}else{
+		
+		if task.user.profilePictureURL != nil {
+			cell.picture.sd_setImageWithURL(NSURL(string: task.user.profilePictureURL!), placeholderImage: UIImage(named: "noProfilePicture"))
+		} else {
 			cell.picture.image = UIImage(named:"noProfilePicture")
 		}
+		
 		cell.cellIndexPath = indexPath
 		
 		return cell
@@ -852,8 +855,6 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	
 	- parameter filters:     Filters to apply
 	- parameter sort:        Sorting to apply
-	- parameter minPrice:    Minimum Price Filter Value
-	- parameter maxDistance: Maximum Distance filter value
 	*/
 	
 	func didTapAddFilters(filters: Array<String>?, sort: String?) {
@@ -933,6 +934,11 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		//}
 	}
 	
+	/**
+	infoButton is the view that is displayed in fullMap when the user taps on a pin (displaying task informations)
+	
+	- parameter sender: the view displaying task informations
+	*/
 	func infoButtonTapped(sender: mapTaskButton) {
 		let selectedTask = sender.selectedTask
 		let vc = BrowseDetailsViewController()

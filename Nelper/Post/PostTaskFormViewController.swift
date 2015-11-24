@@ -412,7 +412,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.left.equalTo(self.contentView.snp_left).offset(contentInset * 2)
 			make.right.equalTo(self.contentView.snp_right).offset(-contentInset * 2)
 			make.top.equalTo(picturesContainer.snp_bottom).offset(20)
-			make.height.equalTo(40)
+			make.height.equalTo(50)
 			make.centerX.equalTo(self.contentView.snp_centerX)
 			make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
 		}
@@ -854,6 +854,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.scrollView.scrollIndicatorInsets = contentInsets
 	}
 	
+	//MARK: Utilities
+	
+	func dismissKeyboard() {
+		view.endEditing(true)
+	}
+	
 	//MARK: Actions
 	
 	/**
@@ -870,16 +876,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.navigationController!.viewControllers.last!.presentViewController(self.imagePicker, animated: true, completion: nil)
 	}
 	
-	/**
-	Dismiss Keyboard
-	*/
-	func dismissKeyboard() {
-		view.endEditing(true)
-	}
-	
 	func backButtonTapped(sender: UIButton) {
-		self.navigationController?.popViewControllerAnimated(true)
 		dismissKeyboard()
+		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
 	/**
@@ -907,29 +906,41 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	func didTapDeleteAddress(sender: UIButton) {
-		if self.locations!.isEmpty == false {
-		self.locations?.removeAtIndex(self.locationsPickerView!.selectedRowInComponent(0))
-		}
-		self.locationsPickerView!.reloadAllComponents()
-		if !self.locations!.isEmpty {
-			self.locationsPickerView!.selectRow(0, inComponent: 0, animated: true)
-			self.task.location = GeoPoint(latitude:Double(self.locations![0].coords!["latitude"]!),longitude: Double(self.locations![0].coords!["longitude"]!))
-			self.task.city = self.locations![0].city
-			self.updateLocationInfoToFirstComponent()
-		} else {
-			locationTextField!.text = ""
-			streetAddressLabel.text = "You haven't saved any address yet!"
-			self.task.city = nil
-			self.task.location = nil
-			self.task.exactLocation = nil
-		}
+		dismissKeyboard()
 		
-		ApiHelper.updateUserLocations(self.locations!)
-		PFUser.currentUser()!.saveInBackground()
+		let popup = UIAlertController(title: "Delete '\(self.locationTextField!.text!)'?", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+		popup.addAction(UIAlertAction(title: "Delete", style: .Default, handler: { (action) -> Void in
+			self.presentViewController(popup, animated: true, completion: nil)
+			popup.view.tintColor = Color.redPrimary
+			
+			if self.locations!.isEmpty == false {
+				self.locations?.removeAtIndex(self.locationsPickerView!.selectedRowInComponent(0))
+			}
+			self.locationsPickerView!.reloadAllComponents()
+			if !self.locations!.isEmpty {
+				self.locationsPickerView!.selectRow(0, inComponent: 0, animated: true)
+				self.task.location = GeoPoint(latitude:Double(self.locations![0].coords!["latitude"]!),longitude: Double(self.locations![0].coords!["longitude"]!))
+				self.task.city = self.locations![0].city
+				self.updateLocationInfoToFirstComponent()
+			} else {
+				self.locationTextField!.text = ""
+				self.streetAddressLabel.text = "You haven't saved any addresses yet!"
+				self.task.city = nil
+				self.task.location = nil
+				self.task.exactLocation = nil
+			}
+			
+			ApiHelper.updateUserLocations(self.locations!)
+			PFUser.currentUser()!.saveInBackground()
+			
+			self.setLocations(true)
+		}))
+		popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+		}))
 		
-		setLocations(true)
+		self.presentViewController(popup, animated: true, completion: nil)
+		popup.view.tintColor = Color.redPrimary
 	}
-	
 	
 	func updateLocationInfoToFirstComponent() {
 		self.locationTextField!.text = self.locations?[0].name
@@ -1059,5 +1070,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	func dismissVC() {
 		self.navigationController!.setViewControllers([NelpCenterViewController()], animated: true)
 		self.navigationController?.popViewControllerAnimated(false)
+		
+		let tabBarViewController = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarViewController
+		tabBarViewController.tabBar.didSelectIndex(1, loadView: false)
 	}
 }

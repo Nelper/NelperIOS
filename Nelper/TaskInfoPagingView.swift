@@ -549,6 +549,11 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 			}, completion: nil)
 	}
 	
+	/**
+	Updates the UI to show which page is displayed
+	
+	- parameter activeView: the displayed view (from 1 to ...)
+	*/
 	func updateActivePage(activeView: Int) {
 		switch activeView {
 		case 1:
@@ -768,13 +773,6 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		
 	}
 	
-	func didTapAddImage(sender:UIButton){
-		imagePicker.allowsEditing = false
-		imagePicker.sourceType = .PhotoLibrary
-		let tabBarViewController = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarViewController
-		tabBarViewController.presentViewController(imagePicker, animated: true, completion: nil)
-	}
-	
 	func didRemovePicture(vc: PicturesCollectionViewCell) {
 		self.images.removeAtIndex(vc.tag)
 		self.picturesCollectionView.reloadData()
@@ -811,9 +809,19 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	func imagePickerControllerDidCancel(picker: UIImagePickerController) {
 		dismissViewControllerAnimated(true, completion: nil)
 	}
+
+	//MARK: Utilities
 	
 	func dismissKeyboard() {
 		view.endEditing(true)
 	}
 	
+	//MARK: Actions
+	
+	func didTapAddImage(sender: UIButton) {
+		imagePicker.allowsEditing = false
+		imagePicker.sourceType = .PhotoLibrary
+		let tabBarViewController = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarViewController
+		tabBarViewController.presentViewController(imagePicker, animated: true, completion: nil)
+	}
 }
