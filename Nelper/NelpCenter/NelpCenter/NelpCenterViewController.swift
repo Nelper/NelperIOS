@@ -60,7 +60,6 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 		if self.noActiveApplications && self.noActiveTasks {
 			self.emptyTableViewWarning.hidden = false
 			self.goToButton.hidden = false
-			SVProgressHUD.dismiss()
 		} else {
 			self.emptyTableViewWarning.hidden = true
 			self.goToButton.hidden = true
@@ -291,17 +290,21 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	//MARK: Tableview Delegate and Datasource
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		if(tableView == self.myTasksTableView) {
-			return nelpTasks.count
+		if self.nelpTasks.count == 0 && self.nelpApplications.count == 0 {
+			SVProgressHUD.dismiss()
+		}
+		
+		if (tableView == self.myTasksTableView) {
+			return self.nelpTasks.count
 		} else if (tableView == self.myApplicationsTableView) {
-			return nelpApplications.count
+			return self.nelpApplications.count
 		}
 		return 0
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-		if(tableView == myTasksTableView) {
+		if (tableView == myTasksTableView) {
 			if (!self.nelpTasks.isEmpty) {
 				let cellTask = NelpTasksTableViewCell()
 				cellTask.selectionStyle = UITableViewCellSelectionStyle.None
@@ -312,7 +315,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 				return cellTask
 			}
 		} else if (tableView == myApplicationsTableView) {
-			if(!self.nelpApplications.isEmpty) {
+			if (!self.nelpApplications.isEmpty) {
 				let cellApplication = NelpApplicationsTableViewCell()
 				cellApplication.selectionStyle = UITableViewCellSelectionStyle.None
 				let nelpApplication = self.nelpApplications[indexPath.item]

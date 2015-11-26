@@ -17,6 +17,7 @@ protocol SegmentControllerDelegate {
 class SegmentController: UIControl {
 	
 	private var labels = [UILabel]()
+	private var bottomLine: UIView!
 	var thumbView = UIView()
 	var thumbLine = UIView()
 	let thumbLineHeight: CGFloat! = 3
@@ -43,10 +44,9 @@ class SegmentController: UIControl {
 		super.init(frame: frame)
 		adjustUI()
 	}
-	
-	required init(coder: NSCoder) {
-		super.init(coder: coder)!
-		adjustUI()
+
+	required init?(coder aDecoder: NSCoder) {
+	    fatalError("init(coder:) has not been implemented")
 	}
 	
 	func adjustUI() {
@@ -107,7 +107,12 @@ class SegmentController: UIControl {
 			label.frame = CGRectMake(xPosition, 0, labelWidth, labelHeight)
 		}
 		
-		let bottomLine = UIView(frame: CGRect(x: 0, y: self.frame.maxY, width: self.frame.width, height: 1))
+		if self.bottomLine != nil {
+			self.bottomLine.removeFromSuperview()
+		}
+		
+		let bottomLine = UIView(frame: CGRectMake(0, self.frame.maxY - 1, self.frame.width, 1))
+		self.bottomLine = bottomLine
 		self.addSubview(bottomLine)
 		bottomLine.backgroundColor = Color.grayDetails
 	}

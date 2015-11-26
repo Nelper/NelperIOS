@@ -19,6 +19,10 @@ public struct Helper {
 		return UIApplication.sharedApplication().statusBarFrame.height
 	}
 	
+	static var appBuild: String {
+		return NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
+	}
+	
 	/**
 	- returns: the language of the user's phone
 	*/

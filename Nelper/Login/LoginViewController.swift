@@ -512,7 +512,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		}
 	}
 	
-	func adjustUI(){
+	func adjustUI() {
 		
 	}
 	

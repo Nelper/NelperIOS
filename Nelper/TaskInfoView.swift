@@ -207,7 +207,7 @@ class TaskInfoView: UIView, MKMapViewDelegate, iCarouselDataSource, iCarouselDel
 		taskContainer.addSubview(locationNoticeLabel)
 		locationNoticeLabel.text = "Exact location inside this 400m area"
 		locationNoticeLabel.textColor = Color.darkGrayDetails
-		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kText13)
+		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kText12)
 		locationNoticeLabel.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskContainer.snp_left).offset(8)
 			make.bottom.equalTo(mapContainer.snp_top).offset(-2)

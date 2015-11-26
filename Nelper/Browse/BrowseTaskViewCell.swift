@@ -24,6 +24,7 @@ class BrowseTaskViewCell: UITableViewCell {
 	var task: Task!
 	var cellIndexPath: NSIndexPath!
 	var moneyContainer: UIView!
+	var appliedContainer: UIView!
 	var appliedNotice: UILabel!
 	
 	//MARK: Initialization
@@ -117,26 +118,40 @@ class BrowseTaskViewCell: UITableViewCell {
 			make.edges.equalTo(moneyContainer.snp_edges)
 		}
 		
+		let appliedContainer = UIView()
+		self.appliedContainer = appliedContainer
+		cellView.addSubview(appliedContainer)
+		appliedContainer.backgroundColor = Color.redPrimarySelected
+		appliedContainer.layer.cornerRadius = 3
+		appliedContainer.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(moneyContainer.snp_top).offset(7)
+			make.left.equalTo(moneyContainer.snp_left)
+			make.right.equalTo(moneyContainer.snp_right)
+			make.height.equalTo(moneyContainer.snp_height)
+		}
+		
 		let appliedNotice = UILabel()
 		self.appliedNotice = appliedNotice
-		cellView.addSubview(appliedNotice)
+		appliedContainer.addSubview(appliedNotice)
 		appliedNotice.text = "Applied"
-		appliedNotice.font = UIFont(name: "Lato-Regular", size: kText15)
-		appliedNotice.textColor = Color.redPrimary
+		appliedNotice.textAlignment = NSTextAlignment.Center
+		appliedNotice.font = UIFont(name: "Lato-Regular", size: kText13)
+		appliedNotice.textColor = Color.whitePrimary
 		appliedNotice.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(moneyContainer.snp_centerX)
-			make.centerY.equalTo(title.snp_centerY)
+			make.edges.equalTo(appliedContainer.snp_edges).inset(UIEdgeInsetsMake(0, 0, 7, 0))
 		}
+		
+		cellView.bringSubviewToFront(moneyContainer)
 		
 		/*let rightArrow = UIImageView()
 		cellView.addSubview(rightArrow)
 		rightArrow.image = UIImage(named: "arrow_applicant_cell")
 		rightArrow.alpha = 0.2
 		rightArrow.snp_makeConstraints { (make) -> Void in
-		make.left.equalTo(moneyContainer.snp_right).offset(24)
-		make.centerY.equalTo(cellView.snp_centerY)
-		make.width.equalTo(15)
-		make.height.equalTo(25)
+			make.left.equalTo(moneyContainer.snp_right).offset(24)
+			make.centerY.equalTo(cellView.snp_centerY)
+			make.width.equalTo(15)
+			make.height.equalTo(25)
 		}*/
 		
 		let separatorLine = UIView()
@@ -196,14 +211,14 @@ class BrowseTaskViewCell: UITableViewCell {
 		self.categoryPicture.image = UIImage(named: task.category!)
 		
 		if self.task.application != nil && self.task.application!.state != .Canceled {
-			self.appliedNotice.hidden = false
+			self.appliedContainer.hidden = false
 			self.title.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.picture.snp_top).offset(2)
 				make.left.equalTo(self.picture.snp_right).offset(18)
 				make.right.equalTo(self.appliedNotice.snp_left).offset(-10)
 			})
 		} else {
-			self.appliedNotice.hidden = true
+			self.appliedContainer.hidden = true
 		}
 	}
 	

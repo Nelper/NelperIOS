@@ -505,7 +505,7 @@ class MyTaskDetailsViewController: UIViewController, UITableViewDataSource, UITa
 				self.delegate.didEditTask(self.task)
 				self.navigationController?.popViewControllerAnimated(true)
 			}))
-			popup.addAction(UIAlertAction(title: "Discard changes", style: .Default, handler: { (action) -> Void in
+			popup.addAction(UIAlertAction(title: "Discard changes", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
 				//Resets info and changes the view
 				if self.task.pictures != nil {
 					self.taskInfoPagingView.pictures = self.task.pictures!

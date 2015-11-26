@@ -158,9 +158,10 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.navBar.backButton = previousBtn
+		/*removed 25-11-2015, replaced with back arrow saving
 		let saveBtn = UIButton()
 		saveBtn.addTarget(self, action: "saveButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.saveButton = saveBtn
+		self.navBar.saveButton = saveBtn*/
 		self.navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
@@ -227,6 +228,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.emailTextField.keyboardType = UIKeyboardType.EmailAddress
 		self.emailTextField.autocorrectionType = UITextAutocorrectionType.No
 		self.emailTextField.autocapitalizationType = UITextAutocapitalizationType.None
+		self.emailTextField.returnKeyType = .Next
 		self.emailTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.emailLabel.snp_bottom).offset(10)
 			make.left.equalTo(self.emailLabel.snp_left)
@@ -252,6 +254,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.phoneTextField.keyboardType = UIKeyboardType.NamePhonePad
 		self.phoneTextField.autocorrectionType = UITextAutocorrectionType.No
 		self.phoneTextField.autocapitalizationType = UITextAutocapitalizationType.None
+		self.phoneTextField.returnKeyType = .Done
 		self.phoneTextField.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.phoneLabel.snp_bottom).offset(10)
 			make.left.equalTo(self.phoneLabel.snp_left)
@@ -331,6 +334,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.currentTextField.keyboardType = UIKeyboardType.Default
 			self.currentTextField.autocorrectionType = UITextAutocorrectionType.No
 			self.currentTextField.autocapitalizationType = UITextAutocapitalizationType.None
+			self.currentTextField.returnKeyType = .Next
 			self.currentTextField.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.currentLabel.snp_bottom).offset(10)
 				make.left.equalTo(self.currentLabel.snp_left)
@@ -361,6 +365,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.newTextField.keyboardType = UIKeyboardType.Default
 			self.newTextField.autocorrectionType = UITextAutocorrectionType.No
 			self.newTextField.autocapitalizationType = UITextAutocapitalizationType.None
+			self.newTextField.returnKeyType = .Next
 			self.newTextField.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.newLabel.snp_bottom).offset(10)
 				make.left.equalTo(self.newLabel.snp_left)
@@ -386,6 +391,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.confirmTextField.keyboardType = UIKeyboardType.Default
 			self.confirmTextField.autocorrectionType = UITextAutocorrectionType.No
 			self.confirmTextField.autocapitalizationType = UITextAutocapitalizationType.None
+			self.confirmTextField.returnKeyType = .Done
 			self.confirmTextField.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.confirmLabel.snp_bottom).offset(10)
 				make.left.equalTo(self.newTextField.snp_left)
@@ -673,7 +679,26 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		
 	}
 	
-	//MARK: KEYBOARD, WITH viewDidDis/Appear AND textfielddelegate
+	//MARK: Texfield delegates
+	
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		
+		dismissKeyboard()
+		textField.resignFirstResponder()
+		
+		switch (textField) {
+		case self.emailTextField:
+			self.phoneTextField.becomeFirstResponder()
+		case self.currentTextField:
+			self.newTextField.becomeFirstResponder()
+		case self.newTextField:
+			self.confirmTextField.becomeFirstResponder()
+		default:
+			return false
+		}
+		
+		return false
+	}
 	
 	func dismissKeyboard() {
 		view.endEditing(true)
@@ -755,25 +780,24 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		setLocationView(true)
 	}
 	
+	/**
+	checks if the user edited their settings; if they did, pops an alert and asks if they want to discard or save changes
+	if changes are to be saved, valides the fields and, if needed, pops an alert to fix errors
+	
+	- parameter sender: navbar back arrow
+	*/
 	func backButtonTapped(sender: UIButton) {
 		
 		if (self.loginProvider == "email") {
 			if (self.emailTextField.text != self.userEmail) || (self.phoneTextField.text != self.userPhone) || (self.currentTextField?.text != "") || (self.newTextField?.text != "") || (self.confirmTextField?.text != "") || self.locationsModified {
-			
 				self.settingsWereEdited = true
-			
 			} else {
-			
 				self.settingsWereEdited = false
 			}
 		} else {
-			
 			if (self.emailTextField.text != self.userEmail) || (self.phoneTextField.text != self.userPhone) || self.locationsModified {
-				
 				self.settingsWereEdited = true
-				
 			} else {
-				
 				self.settingsWereEdited = false
 			}
 		}
@@ -781,8 +805,142 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		if self.settingsWereEdited {
 			dismissKeyboard()
 			
-			let popup = UIAlertController(title: "Discard changes?", message: "Your changes will not be saved", preferredStyle: UIAlertControllerStyle.Alert)
-			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+			self.textFieldError = false
+			self.textFieldErrorMessages.removeAll()
+			
+			//TODO: LINK PARSE AND PASSWORDS
+			if self.newTextField?.text != self.confirmTextField?.text {
+				print("passwords dont match")
+				self.textFieldError = true
+				self.textFieldErrorMessages.append("New passwords don't match")
+			}
+			
+			if !self.emailTextField.text!.isEmail() {
+				print("not a valid email address")
+				self.textFieldError = true
+				self.textFieldErrorMessages.append("Please enter a valid email address")
+			}
+			
+			//TODO: REVIEW FORMAT? Helper -> extension.swift
+			if !self.phoneTextField.text!.isPhoneNumber() && self.phoneTextField.text != "" {
+				print("not a valid 10 digits phone number")
+				self.textFieldError = true
+				self.textFieldErrorMessages.append("Please enter a valid 10 digits phone number")
+			}
+			
+			let popup = UIAlertController(title: "Your settings were edited", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+			popup.addAction(UIAlertAction(title: "Save changes", style: .Default, handler: { (action) -> Void in
+				
+				if self.textFieldError {
+					//There is an incorrect field
+					
+					var popupMessage = ""
+					
+					for i in 0...(self.textFieldErrorMessages.count - 1) {
+						if i == 0 {
+							popupMessage = self.textFieldErrorMessages[i]
+						} else {
+							popupMessage += "\n\(self.textFieldErrorMessages[i])"
+						}
+					}
+					
+					self.dismissKeyboard()
+					
+					let popup = UIAlertController(title: "Incorrect fields", message: popupMessage, preferredStyle: UIAlertControllerStyle.Alert)
+					popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+					}))
+					
+					self.presentViewController(popup, animated: true, completion: nil)
+					popup.view.tintColor = Color.redPrimary
+					
+				} else {
+					//Textfields are correct: save settings
+					
+					self.dismissKeyboard()
+					
+					let saveConfirmationBlurView = FXBlurView(frame: self.view.bounds)
+					self.saveConfirmationBlurView = saveConfirmationBlurView
+					self.saveConfirmationBlurView.alpha = 0
+					self.saveConfirmationBlurView.tintColor = UIColor.clearColor()
+					self.saveConfirmationBlurView.updateInterval = 100
+					self.saveConfirmationBlurView.iterations = 2
+					self.saveConfirmationBlurView.blurRadius = 4
+					self.saveConfirmationBlurView.dynamic = false
+					self.saveConfirmationBlurView.underlyingView = self.view
+					self.view.addSubview(self.saveConfirmationBlurView)
+					
+					let saveConfirmationBackground = UIView()
+					self.saveConfirmationBackground = saveConfirmationBackground
+					self.saveConfirmationBlurView.addSubview(self.saveConfirmationBackground)
+					self.saveConfirmationBackground.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
+					self.saveConfirmationBackground.snp_makeConstraints { (make) -> Void in
+						make.edges.equalTo(self.saveConfirmationBlurView.snp_edges)
+					}
+					
+					let saveConfirmationContainer = UIView()
+					self.saveConfirmationContainer = saveConfirmationContainer
+					self.saveConfirmationBlurView.addSubview(self.saveConfirmationContainer)
+					self.saveConfirmationContainer.backgroundColor = Color.whitePrimary
+					self.saveConfirmationContainer.snp_makeConstraints { (make) -> Void in
+						make.centerX.equalTo(self.view.snp_centerX)
+						make.centerY.equalTo(self.view.snp_centerY)
+						make.width.equalTo(self.view.snp_width).multipliedBy(0.7)
+						make.height.equalTo(0)
+					}
+					
+					let saveConfirmationLabel = UILabel()
+					self.saveConfirmationLabel = saveConfirmationLabel
+					self.saveConfirmationContainer.addSubview(saveConfirmationLabel)
+					self.saveConfirmationLabel.text = "Settings saved!"
+					self.saveConfirmationLabel.alpha = 0
+					self.saveConfirmationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+					self.saveConfirmationLabel.textColor = Color.darkGrayText
+					self.saveConfirmationLabel.snp_makeConstraints { (make) -> Void in
+						make.centerX.equalTo(self.saveConfirmationContainer.snp_centerX)
+						make.centerY.equalTo(self.saveConfirmationContainer.snp_centerY)
+					}
+					
+					self.saveConfirmationContainer.layoutIfNeeded()
+					
+					self.saveConfirmationContainer.snp_updateConstraints { (make) -> Void in
+						make.height.equalTo(100)
+					}
+					
+					UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+						self.saveConfirmationBlurView.alpha = 1
+						self.saveConfirmationContainer.layoutIfNeeded()
+						}, completion: nil)
+					
+					UIView.animateWithDuration(0.4, delay: 0.2, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+						self.saveConfirmationLabel.alpha = 1
+						}, completion: nil)
+					
+					self.saveConfirmationContainer.snp_updateConstraints { (make) -> Void in
+						make.height.equalTo(0)
+					}
+					
+					UIView.animateWithDuration(0.2, delay: 2.5, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+						self.saveConfirmationLabel.alpha = 0
+						}, completion: nil)
+					
+					UIView.animateWithDuration(0.2, delay: 2.7, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+						self.saveConfirmationBlurView.alpha = 0
+						self.saveConfirmationContainer.layoutIfNeeded()
+						}, completion: nil)
+					
+					_ = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "dismissVC", userInfo: nil, repeats: false)
+					
+					self.locationsModified = false
+					self.userEmail = self.emailTextField.text
+					self.userPhone = self.phoneTextField.text
+					
+					//Update Parse
+					ApiHelper.updateUserAccountSettings(self.emailTextField.text!, phone: self.phoneTextField.text)
+					ApiHelper.updateUserLocations(self.locations!)
+				}
+				
+			}))
+			popup.addAction(UIAlertAction(title: "Discard changes", style: .Cancel, handler: { (action) -> Void in
 				//Change the view and resets fields and locations
 				self.navigationController?.popViewControllerAnimated(true)
 				self.setTextFields()
@@ -790,150 +948,20 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				self.locationsModified = false
 				self.setLocationView(true)
 			}))
-			popup.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
-			}))
 			
 			self.presentViewController(popup, animated: true, completion: nil)
 			popup.view.tintColor = Color.redPrimary
 			
 		} else {
 			
-			dismissKeyboard()
+			self.dismissKeyboard()
 			self.navigationController?.popViewControllerAnimated(true)
 		}
 	}
 	
+	/*removed 25-11-2015, replaced with back arrow saving
 	func saveButtonTapped(sender: UIButton) {
-		
-		self.textFieldError = false
-		self.textFieldErrorMessages.removeAll()
-		
-		//TODO: LINK PARSE AND PASSWORDS
-		if self.newTextField?.text != self.confirmTextField?.text {
-			print("passwords dont match")
-			self.textFieldError = true
-			self.textFieldErrorMessages.append("New passwords don't match")
-		}
-		
-		if !self.emailTextField.text!.isEmail() {
-			print("not a valid email address")
-			self.textFieldError = true
-			self.textFieldErrorMessages.append("Please enter a valid email address")
-		}
-		
-		//TODO: REVIEW FORMAT? Helper -> extension.swift
-		if !self.phoneTextField.text!.isPhoneNumber() && self.phoneTextField.text != "" {
-			print("not a valid 10 digits phone number")
-			self.textFieldError = true
-			self.textFieldErrorMessages.append("Please enter a valid 10 digits phone number")
-		}
-		
-		if self.textFieldError {
-			//There is an incorrect field
-			
-			var popupMessage = ""
-			
-			for i in 0...(self.textFieldErrorMessages.count - 1) {
-				if i == 0 {
-					popupMessage = self.textFieldErrorMessages[i]
-				} else {
-					popupMessage += "\n\(self.textFieldErrorMessages[i])"
-				}
-			}
-			
-			dismissKeyboard()
-			
-			let popup = UIAlertController(title: "Incorrect fields", message: popupMessage, preferredStyle: UIAlertControllerStyle.Alert)
-			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
-			}))
-			self.presentViewController(popup, animated: true, completion: nil)
-			
-		} else {
-			//Textfields are correct: save settings
-			
-			dismissKeyboard()
-			
-			let saveConfirmationBlurView = FXBlurView(frame: self.view.bounds)
-			self.saveConfirmationBlurView = saveConfirmationBlurView
-			self.saveConfirmationBlurView.alpha = 0
-			self.saveConfirmationBlurView.tintColor = UIColor.clearColor()
-			self.saveConfirmationBlurView.updateInterval = 100
-			self.saveConfirmationBlurView.iterations = 2
-			self.saveConfirmationBlurView.blurRadius = 4
-			self.saveConfirmationBlurView.dynamic = false
-			self.saveConfirmationBlurView.underlyingView = self.view
-			self.view.addSubview(self.saveConfirmationBlurView)
-			
-			let saveConfirmationBackground = UIView()
-			self.saveConfirmationBackground = saveConfirmationBackground
-			self.saveConfirmationBlurView.addSubview(self.saveConfirmationBackground)
-			self.saveConfirmationBackground.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
-			self.saveConfirmationBackground.snp_makeConstraints { (make) -> Void in
-				make.edges.equalTo(self.saveConfirmationBlurView.snp_edges)
-			}
-			
-			let saveConfirmationContainer = UIView()
-			self.saveConfirmationContainer = saveConfirmationContainer
-			self.saveConfirmationBlurView.addSubview(self.saveConfirmationContainer)
-			self.saveConfirmationContainer.backgroundColor = Color.whitePrimary
-			self.saveConfirmationContainer.snp_makeConstraints { (make) -> Void in
-				make.centerX.equalTo(self.view.snp_centerX)
-				make.centerY.equalTo(self.view.snp_centerY)
-				make.width.equalTo(self.view.snp_width).multipliedBy(0.7)
-				make.height.equalTo(0)
-			}
-			
-			let saveConfirmationLabel = UILabel()
-			self.saveConfirmationLabel = saveConfirmationLabel
-			self.saveConfirmationContainer.addSubview(saveConfirmationLabel)
-			self.saveConfirmationLabel.text = "Settings saved!"
-			self.saveConfirmationLabel.alpha = 0
-			self.saveConfirmationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-			self.saveConfirmationLabel.textColor = Color.darkGrayText
-			self.saveConfirmationLabel.snp_makeConstraints { (make) -> Void in
-				make.centerX.equalTo(self.saveConfirmationContainer.snp_centerX)
-				make.centerY.equalTo(self.saveConfirmationContainer.snp_centerY)
-			}
-			
-			self.saveConfirmationContainer.layoutIfNeeded()
-			
-			self.saveConfirmationContainer.snp_updateConstraints { (make) -> Void in
-				make.height.equalTo(100)
-			}
-			
-			UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
-				self.saveConfirmationBlurView.alpha = 1
-				self.saveConfirmationContainer.layoutIfNeeded()
-				}, completion: nil)
-			
-			UIView.animateWithDuration(0.4, delay: 0.2, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
-				self.saveConfirmationLabel.alpha = 1
-				}, completion: nil)
-			
-			self.saveConfirmationContainer.snp_updateConstraints { (make) -> Void in
-				make.height.equalTo(0)
-			}
-			
-			UIView.animateWithDuration(0.2, delay: 2.5, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
-				self.saveConfirmationLabel.alpha = 0
-				}, completion: nil)
-			
-			UIView.animateWithDuration(0.2, delay: 2.7, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
-				self.saveConfirmationBlurView.alpha = 0
-				self.saveConfirmationContainer.layoutIfNeeded()
-				}, completion: nil)
-			
-			_ = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "dismissVC", userInfo: nil, repeats: false)
-			
-			self.locationsModified = false
-			self.userEmail = self.emailTextField.text
-			self.userPhone = phoneTextField.text
-			
-			//Update Parse
-			ApiHelper.updateUserAccountSettings(self.emailTextField.text!, phone: self.phoneTextField.text)
-			ApiHelper.updateUserLocations(self.locations!)
-	 }
-	}
+	}*/
 	
 	override func viewWillDisappear(animated: Bool) {
 		

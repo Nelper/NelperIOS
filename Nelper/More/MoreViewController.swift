@@ -106,6 +106,16 @@ class MoreViewController: UIViewController {
 			make.edges.equalTo(self.view.snp_edges)
 		}
 		
+		let versionInfo = UILabel()
+		blurEffectView.addSubview(versionInfo)
+		versionInfo.text = "App Build: "+Helper.appBuild
+		versionInfo.font = UIFont(name: "Lato-Regular", size: 12)
+		versionInfo.textColor = Color.darkGrayDetails.colorWithAlphaComponent(0.6)
+		versionInfo.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(blurEffectView.snp_bottom).offset(-10)
+			make.left.equalTo(blurEffectView.snp_left).offset(30)
+		}
+		
 		let verticalLine = UIView()
 		blurEffectView.addSubview(verticalLine)
 		verticalLine.backgroundColor = Color.blackPrimary.colorWithAlphaComponent(0.7)
@@ -136,7 +146,7 @@ class MoreViewController: UIViewController {
 			self.sectionButton.setTitle(self.sections[index].title, forState: UIControlState.Normal)
 			self.sectionButton.setTitleColor(Color.blackPrimary.colorWithAlphaComponent(0.8), forState: UIControlState.Normal)
 			self.sectionButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: kTextSize)
-			self.sectionButton.setBackgroundColor(Color.whitePrimary.colorWithAlphaComponent(0.5), forState: UIControlState.Highlighted)
+			self.sectionButton.setBackgroundColor(Color.blackPrimary.colorWithAlphaComponent(0.2), forState: UIControlState.Highlighted)
 			self.sectionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
 			self.sectionButton.addTarget(self, action: "sectionTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 			self.sectionButton.tag = index
