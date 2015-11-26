@@ -62,8 +62,7 @@ class MyApplicationDetailsView: UIViewController {
 	
 	//MARK: View Creation
 	
-	func createView(){
-		
+	func createView() {
 		
 		//Background View + ScrollView
 		
@@ -100,124 +99,15 @@ class MyApplicationDetailsView: UIViewController {
 		
 		//Status Container
 		
-		let statusContainer = UIView()
+		let statusContainer = ApplicationSummaryView(application: self.application)
 		self.statusContainer = statusContainer
 		self.contentView.addSubview(statusContainer)
-		self.statusContainer.layer.borderColor = Color.grayDetails.CGColor
-		self.statusContainer.layer.borderWidth = 1
 		statusContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.contentView).offset(10)
+			make.top.equalTo(self.contentView).offset(20)
 			make.left.equalTo(self.containerView.snp_left).offset(-1)
 			make.right.equalTo(self.containerView.snp_right).offset(1)
 		}
-		statusContainer.backgroundColor = Color.whitePrimary
-		
-		let statusTitle = UILabel()
-		statusContainer.addSubview(statusTitle)
-		statusTitle.text = "Status"
-		statusTitle.textColor = Color.darkGrayDetails
-		statusTitle.font = UIFont(name: "Lato-Regular", size: kText14)
-		statusTitle.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(statusContainer.snp_top).offset(10)
-			make.centerX.equalTo(statusContainer.snp_centerX)
-		}
-		
-		//Set strings
-		var price: String
-		
-		price = String(format: "%.0f", self.application.price!)
-		
-		let statusLabel = UILabel()
-		statusLabel.backgroundColor = UIColor.clearColor()
-		statusContainer.addSubview(statusLabel)
-		statusLabel.text = self.fetchStatusText()
-		statusLabel.numberOfLines = 0
-		statusLabel.textColor = Color.blackTextColor
-		statusLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		statusLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(statusContainer.snp_centerX).offset(14)
-			make.top.equalTo(statusTitle.snp_bottom).offset(6)
-		}
-		
-		let statusIcon = UIImageView()
-		self.applicationStatusIcon = statusIcon
-		statusContainer.addSubview(statusIcon)
-		statusIcon.image = UIImage(named: "pin")
-		statusIcon.contentMode = UIViewContentMode.ScaleAspectFit
-		statusIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(26)
-			make.width.equalTo(26)
-			make.centerY.equalTo(statusLabel.snp_centerY)
-			make.right.equalTo(statusLabel.snp_left).offset(-10)
-		}
-		
-		//Date label 
-		
-		let dateTitle = UILabel()
-		statusContainer.addSubview(dateTitle)
-		dateTitle.text = "Applied"
-		dateTitle.textColor = Color.darkGrayDetails
-		dateTitle.font = UIFont(name: "Lato-Regular", size: kText14)
-		dateTitle.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(statusLabel.snp_bottom).offset(22)
-			make.centerX.equalTo(statusContainer.snp_centerX)
-		}
-		
-		let dateLabel = UILabel()
-		dateLabel.backgroundColor = UIColor.clearColor()
-		statusContainer.addSubview(dateLabel)
-		dateLabel.text = "3 hours ago"
-		dateLabel.textColor = Color.blackTextColor
-		dateLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		dateLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(dateTitle.snp_bottom).offset(6)
-			make.centerX.equalTo(statusContainer.snp_centerX).offset(13)
-		}
-		
-		let dateIcon = UIImageView()
-		statusContainer.addSubview(dateIcon)
-		dateIcon.image = UIImage(named: "pin")
-		dateIcon.contentMode = UIViewContentMode.ScaleAspectFit
-		dateIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(30)
-			make.width.equalTo(30)
-			make.centerY.equalTo(dateLabel.snp_centerY)
-			make.right.equalTo(dateLabel.snp_left).offset(-10)
-		}
-		
-		//Price title
-		let priceTitle = UILabel()
-		statusContainer.addSubview(priceTitle)
-		priceTitle.text = "My offer"
-		priceTitle.textColor = Color.darkGrayDetails
-		priceTitle.font = UIFont(name: "Lato-Regular", size: kText14)
-		priceTitle.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(dateLabel.snp_bottom).offset(22)
-			make.centerX.equalTo(statusContainer.snp_centerX)
-		}
-		
-		let moneyContainer = UIView()
-		statusContainer.addSubview(moneyContainer)
-		moneyContainer.backgroundColor = Color.whiteBackground
-		moneyContainer.layer.cornerRadius = 3
-		moneyContainer.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(statusContainer)
-			make.top.equalTo(priceTitle.snp_bottom).offset(6)
-			make.width.equalTo(55)
-			make.height.equalTo(35)
-			make.bottom.equalTo(statusContainer).offset(-10)
-		}
-		
-		let moneyLabel = UILabel()
-		moneyContainer.addSubview(moneyLabel)
-		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.textColor = Color.blackPrimary
-		moneyLabel.text = price+"$"
-		moneyLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		moneyLabel.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(moneyContainer.snp_edges)
-		}
-		
+				
 		//Profile Container
 		
 		let profileContainer = ProfileCellView(user: self.application.task.user)
@@ -225,7 +115,7 @@ class MyApplicationDetailsView: UIViewController {
 		self.picture = profileContainer.picture
 		self.contentView.addSubview(profileContainer)
 		profileContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(statusContainer.snp_bottom).offset(10)
+			make.top.equalTo(statusContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
 			make.height.equalTo(90)
@@ -248,7 +138,7 @@ class MyApplicationDetailsView: UIViewController {
 		cancelContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(taskInfoContainer.snp_bottom).offset(30)
 			make.width.equalTo(self.contentView.snp_width)
-			make.height.equalTo(120)
+			make.height.equalTo(100)
 			make.bottom.equalTo(self.contentView.snp_bottom)
 		}
 		
@@ -315,7 +205,6 @@ class MyApplicationDetailsView: UIViewController {
 				self.picture.image = image
 			}
 		}
-		self.applicationStatusIcon.image = self.fetchStatusIcon()
 	}
 	
 	//MARK: View Delegate Methods
@@ -339,40 +228,6 @@ class MyApplicationDetailsView: UIViewController {
 		
 		self.chatButton.layer.mask = maskLayer
 		self.fakeButton.layer.mask = maskLayerFake
-	}
-	
-	//MARK: Utilities
-	
-	/**
-	Small method to set the correct category icon
-	
-	- returns: Proper Category Icon
-	*/
-	func fetchStatusIcon() -> UIImage{
-		
-		switch self.application.state{
-		case .Accepted:
-			return UIImage(named: "accepted")!
-		case .Pending:
-			return UIImage(named: "pending")!
-		case .Denied:
-			return UIImage(named: "denied")!
-		default:
-			return UIImage()
-		}
-	}
-	
-	func fetchStatusText() -> String{
-		switch self.application.state{
-		case .Accepted:
-			return "Accepted"
-		case .Pending:
-			return "Application Pending"
-		case .Denied:
-			return "Denied"
-		default:
-			return "Something went wrong :-/"
-		}
 	}
 	
 	//MARK: Actions

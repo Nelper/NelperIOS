@@ -39,6 +39,8 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	var secondO: PageControllerOval!
 	var thirdO: PageControllerOval!
 	
+	var applicationStatusIcon: UIImageView!
+	
 	var height: CGFloat = 270
 	var pagingContainerHeight: CGFloat = 50
 	
@@ -232,72 +234,107 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 			make.centerX.equalTo(secondContainer.snp_centerX)
 		}
 		
-		//Set strings
-		var offerLabel: String
-		var price: String
+		//Set strings and images
+		var dateText: String
+		var offerText: String
+		var priceText: String
+		var statusText: String
+		var statusImage: UIImage
 		
-		if acceptedApplication != nil {
-			offerLabel = "Agreed price"
-			price = "\(self.acceptedApplication!.price!)"
+		if self.acceptedApplication != nil {
+			dateText = "\(DateHelper().timeAgoSinceDate(self.acceptedApplication!.createdAt!, numericDates: true))"
+			offerText = "Agreed price"
+			priceText = "\(self.acceptedApplication!.price!)"
+			statusText = ApiHelper.fetchStatusText(self.acceptedApplication!)
+			statusImage = ApiHelper.fetchStatusIcon(self.acceptedApplication!)
 		} else {
-			offerLabel = "My offer"
-			price = String(format: "%.0f", self.task.priceOffered!)
+			dateText = "\(DateHelper().timeAgoSinceDate(self.task.createdAt!, numericDates: true))"
+			offerText = "My offer"
+			priceText = String(format: "%.0f", self.task.priceOffered!)
+			statusText = ApiHelper.fetchStatusText(self.task)
+			statusImage = ApiHelper.fetchStatusIcon(self.task)
 		}
 		
-		let streetAddressLabel = UILabel()
-		streetAddressLabel.backgroundColor = UIColor.clearColor()
-		secondContainer.addSubview(streetAddressLabel)
-		streetAddressLabel.text = self.task.exactLocation!.formattedTextLabelNoPostal
-		streetAddressLabel.numberOfLines = 0
-		streetAddressLabel.textColor = Color.darkGrayDetails
-		streetAddressLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		streetAddressLabel.snp_makeConstraints { (make) -> Void in
+		let statusTitle = UILabel()
+		secondContainer.addSubview(statusTitle)
+		statusTitle.text = "Status"
+		statusTitle.textColor = Color.darkGrayDetails
+		statusTitle.font = UIFont(name: "Lato-Regular", size: kText14)
+		statusTitle.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(detailsLabel.snp_top).offset(15)
+			make.centerX.equalTo(secondContainer.snp_centerX)
+		}
+		
+		//Status label
+		
+		let statusLabel = UILabel()
+		statusLabel.backgroundColor = UIColor.clearColor()
+		secondContainer.addSubview(statusLabel)
+		statusLabel.text = statusText
+		statusLabel.numberOfLines = 0
+		statusLabel.textColor = Color.blackTextColor
+		statusLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		statusLabel.snp_makeConstraints { (make) -> Void in
 			make.centerX.equalTo(secondContainer.snp_centerX).offset(14)
-			make.bottom.equalTo(secondContainer.snp_centerY).offset(-30)
+			make.top.equalTo(statusTitle.snp_bottom).offset(6)
 		}
 		
-		let pinIcon = UIImageView()
-		secondContainer.addSubview(pinIcon)
-		pinIcon.image = UIImage(named: "pin")
-		pinIcon.contentMode = UIViewContentMode.ScaleAspectFit
-		pinIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(30)
-			make.width.equalTo(30)
-			make.centerY.equalTo(streetAddressLabel.snp_centerY)
-			make.right.equalTo(streetAddressLabel.snp_left).offset(-10)
+		let statusIcon = UIImageView()
+		self.applicationStatusIcon = statusIcon
+		secondContainer.addSubview(statusIcon)
+		statusIcon.image = statusImage
+		statusIcon.contentMode = UIViewContentMode.ScaleAspectFit
+		statusIcon.snp_makeConstraints { (make) -> Void in
+			make.height.equalTo(26)
+			make.width.equalTo(26)
+			make.centerY.equalTo(statusLabel.snp_centerY)
+			make.right.equalTo(statusLabel.snp_left).offset(-10)
+		}
+		
+		//Date label
+		
+		let dateTitle = UILabel()
+		secondContainer.addSubview(dateTitle)
+		dateTitle.text = "Applied"
+		dateTitle.textColor = Color.darkGrayDetails
+		dateTitle.font = UIFont(name: "Lato-Regular", size: kText14)
+		dateTitle.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(statusLabel.snp_bottom).offset(22)
+			make.centerX.equalTo(secondContainer.snp_centerX)
 		}
 		
 		let dateLabel = UILabel()
 		dateLabel.backgroundColor = UIColor.clearColor()
 		secondContainer.addSubview(dateLabel)
-		dateLabel.text = "3 hours ago"
-		dateLabel.textColor = Color.darkGrayDetails
+		dateLabel.text = dateText
+		dateLabel.textColor = Color.blackTextColor
 		dateLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		dateLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(dateTitle.snp_bottom).offset(6)
 			make.centerX.equalTo(secondContainer.snp_centerX).offset(13)
-			make.centerY.equalTo(secondContainer.snp_centerY).offset(10)
 		}
 		
 		let dateIcon = UIImageView()
 		secondContainer.addSubview(dateIcon)
-		dateIcon.image = UIImage(named: "pin")
+		dateIcon.image = UIImage(named: "time")
 		dateIcon.contentMode = UIViewContentMode.ScaleAspectFit
 		dateIcon.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(30)
-			make.width.equalTo(30)
+			make.height.equalTo(25)
+			make.width.equalTo(25)
 			make.centerY.equalTo(dateLabel.snp_centerY)
 			make.right.equalTo(dateLabel.snp_left).offset(-10)
 		}
 		
-		let myOfferLabel = UILabel()
-		myOfferLabel.backgroundColor = UIColor.clearColor()
-		secondContainer.addSubview(myOfferLabel)
-		myOfferLabel.text = offerLabel
-		myOfferLabel.textColor = Color.darkGrayDetails
-		myOfferLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		myOfferLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(secondContainer.snp_centerX).offset(-28)
-			make.top.equalTo(secondContainer.snp_centerY).offset(60)
+		//Price label
+		
+		let priceTitle = UILabel()
+		secondContainer.addSubview(priceTitle)
+		priceTitle.text = offerText
+		priceTitle.textColor = Color.darkGrayDetails
+		priceTitle.font = UIFont(name: "Lato-Regular", size: kText14)
+		priceTitle.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(dateLabel.snp_bottom).offset(22)
+			make.centerX.equalTo(secondContainer.snp_centerX)
 		}
 		
 		let moneyContainer = UIView()
@@ -305,18 +342,19 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		moneyContainer.backgroundColor = Color.whiteBackground
 		moneyContainer.layer.cornerRadius = 3
 		moneyContainer.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(myOfferLabel.snp_right).offset(12)
-			make.centerY.equalTo(myOfferLabel.snp_centerY)
+			make.centerX.equalTo(secondContainer)
+			make.top.equalTo(priceTitle.snp_bottom).offset(6)
 			make.width.equalTo(55)
 			make.height.equalTo(35)
+			make.bottom.equalTo(secondContainer).offset(-15)
 		}
 		
 		let moneyLabel = UILabel()
 		moneyContainer.addSubview(moneyLabel)
 		moneyLabel.textAlignment = NSTextAlignment.Center
 		moneyLabel.textColor = Color.blackPrimary
-		moneyLabel.text = price+"$"
-		moneyLabel.font = UIFont(name: "Lato-Light", size: kText15)
+		moneyLabel.text = priceText+"$"
+		moneyLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		moneyLabel.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyContainer.snp_edges)
 		}
@@ -352,7 +390,7 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		let noPicturesLabel = UILabel()
 		self.noPicturesLabel = noPicturesLabel
 		thirdContainer.addSubview(noPicturesLabel)
-		noPicturesLabel.text = "You have not added any pictures for this task"
+		noPicturesLabel.text = "You haven't added any pictures for this task"
 		noPicturesLabel.textColor = Color.darkGrayDetails
 		noPicturesLabel.font = UIFont(name: "Lato-Regular", size: kText15)
 		noPicturesLabel.snp_makeConstraints { (make) -> Void in
@@ -481,6 +519,8 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 		self.categoryIcon.clipsToBounds = true
 		self.categoryIcon.image = UIImage(named: task.category!)
 	}
+	
+	
 	
 	/**
 	Moves the view to the next horizontal container

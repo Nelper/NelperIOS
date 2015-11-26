@@ -71,6 +71,7 @@
 		C08D19B21BE40D2900B70DEE /* FaqViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D19B11BE40D2900B70DEE /* FaqViewController.swift */; };
 		C0ACB2001BD88C7300DFC3CB /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACB1FF1BD88C7300DFC3CB /* Shapes.swift */; };
 		C0B2A99C1BF9739D00A999AA /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2A99B1BF9739D00A999AA /* Timer.swift */; };
+		C0B8CC401C07BC3B00E47A40 /* ApplicationSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B8CC3F1C07BC3B00E47A40 /* ApplicationSummaryView.swift */; };
 		C0BED3961BCF413800CE3B63 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3951BCF413800CE3B63 /* AccountSettingsViewController.swift */; };
 		C0BED3981BCF458600CE3B63 /* NotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3971BCF458600CE3B63 /* NotificationsSettingsViewController.swift */; };
 		C0BED39A1BCF45E900CE3B63 /* BankSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED3991BCF45E900CE3B63 /* BankSettingsViewController.swift */; };
@@ -216,6 +217,7 @@
 		C08D19B11BE40D2900B70DEE /* FaqViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FaqViewController.swift; path = Nelper/FaqViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0ACB1FF1BD88C7300DFC3CB /* Shapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
 		C0B2A99B1BF9739D00A999AA /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
+		C0B8CC3F1C07BC3B00E47A40 /* ApplicationSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationSummaryView.swift; sourceTree = "<group>"; };
 		C0BED3951BCF413800CE3B63 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountSettingsViewController.swift; path = Nelper/AccountSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0BED3971BCF458600CE3B63 /* NotificationsSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationsSettingsViewController.swift; path = Nelper/NotificationsSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0BED3991BCF45E900CE3B63 /* BankSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BankSettingsViewController.swift; path = Nelper/BankSettingsViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -312,6 +314,7 @@
 				F7A003BA1BF9A8C600D0B568 /* ProfileCellView.swift */,
 				C042A0EF1BFA9EFD00BB6E10 /* TaskInfoView.swift */,
 				C042A0F11BFAC08F00BB6E10 /* TaskInfoPagingView.swift */,
+				C0B8CC3F1C07BC3B00E47A40 /* ApplicationSummaryView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -794,6 +797,7 @@
 				C0ACB2001BD88C7300DFC3CB /* Shapes.swift in Sources */,
 				19DB244F1BB7119C00468E91 /* AddAddressViewController.swift in Sources */,
 				19DB24531BB7119C00468E91 /* PostTaskFormViewController.swift in Sources */,
+				C0B8CC401C07BC3B00E47A40 /* ApplicationSummaryView.swift in Sources */,
 				19761A171B6850C4001600E1 /* BaseModel.swift in Sources */,
 				19DB24461BB70E8000468E91 /* MyTaskDetailsAcceptedViewController.swift in Sources */,
 				196176C51BCB0BF000F2AF5F /* GraphQLClient.swift in Sources */,

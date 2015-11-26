@@ -441,7 +441,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			
 			let locationLabel = UILabel()
 			locationContainer.addSubview(locationLabel)
-			locationLabel.text = "Select your task location"
+			locationLabel.text = "Select a location for your task"
 			locationLabel.textColor = Color.blackPrimary
 			locationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 			locationLabel.snp_makeConstraints { (make) -> Void in

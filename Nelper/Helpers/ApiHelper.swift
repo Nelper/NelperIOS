@@ -612,4 +612,84 @@ class ApiHelper {
 		userPrivateData.saveEventually()
 	}
 	
+	//Returns status informations
+	
+	/**
+	Get the status icon
+	
+	- parameter object: the task or taskApplication
+	
+	- returns: the UIImage of the object's status
+	*/
+	static func fetchStatusIcon(object: AnyObject) -> UIImage {
+		
+		if object is TaskApplication {
+			let object = object as! TaskApplication
+			
+			switch object.state {
+			case .Accepted:
+				return UIImage(named: "accepted")!
+			case .Pending:
+				return UIImage(named: "pending")!
+			case .Denied:
+				return UIImage(named: "denied")!
+			default:
+				return UIImage()
+			}
+		} else if object is Task {
+			let object = object as! Task
+			
+			switch object.state {
+			case .Accepted:
+				return UIImage(named: "accepted")!
+			case .Pending:
+				return UIImage(named: "applicants")!
+			case .Completed:
+				return UIImage(named: "accepted")!
+			default:
+				return UIImage()
+			}
+		} else {
+			print("ERROR: object parameter of ApiHelper.fetchStatusIcon must be Task or TaskApplication")
+			return UIImage()
+		}
+	}
+	
+	/**
+	sets status text
+	
+	- returns: status text string
+	*/
+	static func fetchStatusText(object: AnyObject) -> String {
+		if object is TaskApplication {
+			let object = object as! TaskApplication
+			
+			switch object.state {
+			case .Accepted:
+				return "Accepted"
+			case .Pending:
+				return "Application Pending"
+			case .Denied:
+				return "Declined"
+			default:
+				return "Something went wrong :-/"
+			}
+		} else if object is Task {
+			let object = object as! Task
+			
+			switch object.state {
+			case .Accepted:
+				return "Nelper accepted"
+			case .Pending:
+				return "No Application"
+			case .Completed:
+				return "Task completed"
+			default:
+				return "Something went wrong :-/"
+			}
+		} else {
+			print("ERROR: object parameter of ApiHelper.fetchStatusText must be Task or TaskApplication")
+			return ""
+		}
+	}
 }

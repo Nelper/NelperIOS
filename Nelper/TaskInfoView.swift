@@ -126,15 +126,14 @@ class TaskInfoView: UIView, MKMapViewDelegate, iCarouselDataSource, iCarouselDel
 		moneyLabelPoster.textAlignment = NSTextAlignment.Center
 		moneyLabelPoster.text = "$\(Int(application.task.priceOffered!))"
 		moneyLabelPoster.textColor = Color.blackPrimary
-		moneyLabelPoster.font = UIFont(name: "Lato-Light", size: kText15)
+		moneyLabelPoster.font = UIFont(name: "Lato-Regular", size: kText15)
 		moneyLabelPoster.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(moneyTagPoster.snp_edges)
 		}
 		
 		let postDateLabel = UILabel()
 		taskContainer.addSubview(postDateLabel)
-		let dateHelper = DateHelper()
-		postDateLabel.text = "Posted \(dateHelper.timeAgoSinceDate(application.task.createdAt!, numericDates: true))"
+		postDateLabel.text = "Posted \(DateHelper().timeAgoSinceDate(application.task.createdAt!, numericDates: true))"
 		postDateLabel.textColor = Color.darkGrayDetails
 		postDateLabel.font = UIFont(name: "Lato-Regular", size: kText14)
 		

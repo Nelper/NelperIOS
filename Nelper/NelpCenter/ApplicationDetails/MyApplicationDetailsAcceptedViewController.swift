@@ -94,128 +94,12 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 		self.navBar.backButton = previousBtn
 		self.navBar.setTitle("My Application")
 		
-		//Header
-		
-		let statusContainer = UIView()
-		self.statusContainer = statusContainer
-		self.statusContainer.layer.borderColor = Color.grayDetails.CGColor
-		self.statusContainer.layer.borderWidth = 1
-		self.containerView.addSubview(statusContainer)
-		statusContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.navBar.snp_bottom)
-			make.left.equalTo(self.containerView.snp_left).offset(-1)
-			make.right.equalTo(self.containerView.snp_right).offset(1)
-			make.height.equalTo(80)
-		}
-		statusContainer.backgroundColor = Color.whitePrimary
-		
-		//My Offer
-		
-		let yourOfferLabel = UILabel()
-		statusContainer.addSubview(yourOfferLabel)
-		yourOfferLabel.text = "Agreed price"
-		yourOfferLabel.textColor = Color.darkGrayDetails
-		yourOfferLabel.font = UIFont(name: "Lato-Regular", size: kText12)
-		yourOfferLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(statusContainer.snp_centerX)
-			make.centerY.equalTo(statusContainer.snp_centerY).offset(-20)
-		}
-		
-		let moneyTag = UIView()
-		statusContainer.addSubview(moneyTag)
-		moneyTag.backgroundColor = Color.whiteBackground
-		moneyTag.layer.cornerRadius = 3
-		moneyTag.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(yourOfferLabel.snp_centerY).offset(32)
-			make.centerX.equalTo(statusContainer.snp_centerX)
-			make.width.equalTo(52)
-			make.height.equalTo(25)
-		}
-		
-		let moneyLabel = UILabel()
-		moneyTag.addSubview(moneyLabel)
-		moneyLabel.textAlignment = NSTextAlignment.Center
-		moneyLabel.text = "$\(self.application.price!)"
-		moneyLabel.textColor = Color.blackPrimary
-		moneyLabel.font = UIFont(name: "Lato-Regular", size: kText14)
-		moneyLabel.snp_makeConstraints { (make) -> Void in
-			make.edges.equalTo(moneyTag.snp_edges)
-		}
-		
-		//Status
-		
-		let applicationStatusLabel = UILabel()
-		statusContainer.addSubview(applicationStatusLabel)
-		applicationStatusLabel.text = "Application Status"
-		applicationStatusLabel.textColor = Color.darkGrayDetails
-		applicationStatusLabel.font = UIFont(name: "Lato-Regular", size: kText12)
-		applicationStatusLabel.snp_makeConstraints { (make) -> Void in
-			make.left.equalTo(statusContainer.snp_left).offset(10)
-			make.centerY.equalTo(yourOfferLabel.snp_centerY)
-		}
-		
-		let statusLabel = UILabel()
-		self.statusLabel = statusLabel
-		statusLabel.text = self.fetchStatusText()
-		statusContainer.addSubview(statusLabel)
-		statusLabel.textColor = Color.blackPrimary
-		statusLabel.font = UIFont(name: "Lato-Regular", size: kText14)
-		statusLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(moneyTag.snp_centerY)
-			make.centerX.equalTo(applicationStatusLabel.snp_centerX).offset(16)
-		}
-		
-		let applicationStatusIcon = UIImageView()
-		statusContainer.addSubview(applicationStatusIcon)
-		self.applicationStatusIcon = applicationStatusIcon
-		applicationStatusIcon.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(statusLabel.snp_centerY)
-			make.right.equalTo(statusLabel.snp_left).offset(-6)
-			make.height.equalTo(25)
-			make.width.equalTo(25)
-		}
-		
-		//Date
-		
-		let appliedDate = UILabel()
-		statusContainer.addSubview(appliedDate)
-		appliedDate.textAlignment  = NSTextAlignment.Center
-		appliedDate.text = "Applied"
-		appliedDate.textColor = Color.darkGrayDetails
-		appliedDate.font = UIFont(name: "Lato-Regular", size: kText12)
-		appliedDate.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(yourOfferLabel.snp_centerY)
-			make.right.equalTo(statusContainer.snp_right).offset(-40)
-		}
-		
-		let appliedXDaysAgoLabel = UILabel()
-		statusContainer.addSubview(appliedXDaysAgoLabel)
-		let dateHelpah = DateHelper()
-		appliedXDaysAgoLabel.text = "\(dateHelpah.timeAgoSinceDate(self.application.createdAt!, numericDates: true))"
-		appliedXDaysAgoLabel.textAlignment = NSTextAlignment.Right
-		appliedXDaysAgoLabel.textColor = Color.blackPrimary
-		appliedXDaysAgoLabel.font = UIFont(name: "Lato-Regular", size: kText14)
-		appliedXDaysAgoLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(appliedDate.snp_centerX).offset(10)
-			make.centerY.equalTo(moneyTag.snp_centerY)
-		}
-		
-		let calendarIcon = UIImageView()
-		statusContainer.addSubview(calendarIcon)
-		calendarIcon.image = UIImage(named: "calendar")
-		calendarIcon.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(applicationStatusIcon.snp_centerY)
-			make.right.equalTo(appliedXDaysAgoLabel.snp_left).offset(-6)
-			make.height.equalTo(25)
-			make.width.equalTo(25)
-		}
-		
 		//Background View + ScrollView
 		
 		let background = UIView()
 		self.containerView.addSubview(background)
 		background.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(statusContainer.snp_bottom)
+			make.top.equalTo(navBar.snp_bottom)
 			make.left.equalTo(self.containerView.snp_left)
 			make.right.equalTo(self.containerView.snp_right)
 			make.bottom.equalTo(self.containerView.snp_bottom)
@@ -243,6 +127,17 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 		self.contentView.backgroundColor = Color.whiteBackground
 		background.backgroundColor = Color.whiteBackground
 		
+		//Status Container
+		
+		let statusContainer = ApplicationSummaryView(application: self.application)
+		self.statusContainer = statusContainer
+		self.contentView.addSubview(statusContainer)
+		statusContainer.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.contentView).offset(20)
+			make.left.equalTo(self.containerView.snp_left).offset(-1)
+			make.right.equalTo(self.containerView.snp_right).offset(1)
+		}
+		
 		//Progress + Payment Container
 		
 		let progressContainer = UIView()
@@ -251,7 +146,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 		progressContainer.layer.borderWidth = 1
 		progressContainer.backgroundColor = Color.whitePrimary
 		progressContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(contentView.snp_top).offset(20)
+			make.top.equalTo(statusContainer.snp_bottom).offset(20)
 			make.left.equalTo(contentView.snp_left)
 			make.right.equalTo(contentView.snp_right)
 		}
@@ -648,9 +543,6 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 				self.picture.image = image
 			}
 		}
-		
-		self.applicationStatusIcon.image = self.fetchStatusIcon()
-		
 	}
 	
 	//MARK: MKMapView Delegate Methods
