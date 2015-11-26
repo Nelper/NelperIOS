@@ -88,6 +88,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(true)
 		
+		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardWillShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
 	}

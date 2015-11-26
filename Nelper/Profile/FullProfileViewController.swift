@@ -517,15 +517,17 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	//MARK: Actions
 	
-	func backButtonTapped(sender:UIButton){
-		self.navigationController?.popViewControllerAnimated(true)	}
+	func backButtonTapped(sender:UIButton) {
+		self.navigationController?.popViewControllerAnimated(true)
+		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+	}
 	
 	/**
 	Allows the user to edit the about section
 	
 	- parameter sender: Edit About Button
 	*/
-	func editAbout(sender:UIButton){
+	func editAbout(sender:UIButton) {
 		self.aboutTextView.editable = true
 		self.aboutTextView.becomeFirstResponder()
 		
@@ -537,7 +539,7 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	*/
 	func dismissKeyboard() {
 		view.endEditing(true)
-		if(self.aboutTextView.editable == true){
+		if(self.aboutTextView.editable == true) {
 			self.aboutTextView.editable = false
 			PFUser.currentUser()!["about"] = self.aboutTextView.text
 		}

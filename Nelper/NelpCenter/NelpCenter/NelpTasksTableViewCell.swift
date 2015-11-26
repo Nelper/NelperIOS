@@ -180,7 +180,6 @@ class NelpTasksTableViewCell: UITableViewCell {
 		}
 		
 		self.addSubview(backView)
-		
 }
 	
 	required init?(coder aDecoder: NSCoder) {

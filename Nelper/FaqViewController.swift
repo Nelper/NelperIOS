@@ -66,6 +66,8 @@ class FaqViewController: UIViewController {
 	//MARK: ACTIONS
 	func backButtonTapped(sender: UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
-		view.endEditing(true) // dismiss keyboard without delay
+		view.endEditing(true)
+		
+		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Slide)
 	}
 }

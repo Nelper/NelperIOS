@@ -88,6 +88,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	
 	override func viewWillAppear(animated: Bool) {
 		self.tabBarViewController.tabBarWillHide(false)
+		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -120,7 +121,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
 			make.left.equalTo(self.view.snp_left)
-			make.height.equalTo(Helper.statusBarHeight)
+			make.height.equalTo(20)
 		}
 		
 		self.navBar.layoutIfNeeded()

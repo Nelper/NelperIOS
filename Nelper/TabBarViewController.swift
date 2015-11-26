@@ -152,6 +152,7 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	creates the more menu vc. call closeMoreVC to remove this view and close with animation
 	*/
 	func createMoreVC() {
+		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Slide)
 		
 		//View
 		
@@ -268,6 +269,7 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	*/
 	func closeMoreMenu() {
 		self.tabBar.didSelectIndex(selectedIndex, loadView: false)
+		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
 		
 		self.moreVC.view.snp_updateConstraints(closure: { (make) -> Void in
 			make.left.equalTo(self.view.snp_right)
