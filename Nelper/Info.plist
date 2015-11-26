@@ -53,7 +53,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need your location in order to find tasks near you!</string>
+	<string>Your location is needed to find tasks near you!</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Black.tff</string>
@@ -91,6 +91,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<true/>
 </dict>
 </plist>

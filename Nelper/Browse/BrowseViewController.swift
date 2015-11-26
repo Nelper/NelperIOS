@@ -28,7 +28,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	var refreshView: UIRefreshControl!
 	var filtersButton:UIButton!
 	
-	var nelpTasks = [Task]()
+	var tasks = [Task]()
 	var findNelpTasks = [Task]()
 	
 	var mapView: MKMapView!
@@ -314,7 +314,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	func createPins() {
 		self.mapView.delegate = self
 		
-		for task in self.nelpTasks {
+		for task in self.tasks {
 			
 			if (task.location != nil) {
 				let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(task.location!.latitude, task.location!.longitude)
@@ -698,11 +698,11 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			distance = nil
 		}
 		
-		ApiHelper.listNelpTasksWithBlock(nil, sortBy: distance, block: {(nelpTasks: [Task]?, error: NSError?) -> Void in
+		ApiHelper.listNelpTasksWithBlock(nil, sortBy: distance, block: {(tasks: [Task]?, error: NSError?) -> Void in
 			if error != nil {
 				
 			} else {
-				self.nelpTasks = nelpTasks!
+				self.tasks = tasks!
 				self.createPins()
 				self.refreshView?.endRefreshing()
 				self.tableView?.reloadData()
@@ -721,11 +721,11 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	*/
 	
 	func loadDataWithFilters(filters:Array<String>?, sort:String?) {
-		ApiHelper.listNelpTasksWithBlock(filters, sortBy: sort, block: {(nelpTasks: [Task]?, error: NSError?) -> Void in
+		ApiHelper.listNelpTasksWithBlock(filters, sortBy: sort, block: {(tasks: [Task]?, error: NSError?) -> Void in
 			if error != nil {
 				print(error)
 			} else {
-				self.nelpTasks = nelpTasks!
+				self.tasks = tasks!
 				self.createPins()
 				self.refreshView?.endRefreshing()
 				self.tableView?.reloadData()
@@ -736,7 +736,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	//MARK: Table View Data Source and Delegate
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		let count = self.nelpTasks.count
+		let count = self.tasks.count
 		
 		if count == 0 {
 			self.noTaskToShowLabel.hidden = false
@@ -766,7 +766,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 			cell.price.textColor = Color.blackPrimary
 		}
 		
-		let task = self.nelpTasks[indexPath.item]
+		let task = self.tasks[indexPath.item]
 		cell.setNelpTask(task)
 		
 		if (self.sortBy == "distance" || self.sortBy == "priceOffered") && LocationHelper.sharedInstance.currentCLLocation != nil {
@@ -785,7 +785,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let selectedTask = self.nelpTasks[indexPath.row]
+		let selectedTask = self.tasks[indexPath.row]
 		
 		if selectedTask.application != nil && selectedTask.application!.state != .Canceled {
 			let nextVC = MyApplicationDetailsView(poster: selectedTask.application!.task.user, application: selectedTask.application!)

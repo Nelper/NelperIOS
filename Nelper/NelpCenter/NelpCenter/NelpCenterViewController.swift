@@ -18,7 +18,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	var profilePicture: UIImageView!
 	var tasksContainer: UIView!
-	var nelpTasks = [Task]()
+	var tasks = [Task]()
 	var nelpApplications = [TaskApplication]()
 	var myTasksTableView: UITableView!
 	var myApplicationsTableView: UITableView!
@@ -249,12 +249,12 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	Load User's Task and Applications
 	*/
 	func loadData() {
-		ApiHelper.listMyNelpTasksWithBlock { (nelpTasks: [Task]?, error: NSError?) -> Void in
+		ApiHelper.listMyNelpTasksWithBlock { (tasks: [Task]?, error: NSError?) -> Void in
 			if error != nil {
 				print(error, terminator: "")
 			} else {
-				self.nelpTasks = nelpTasks!
-				if self.nelpTasks.count == 0 {
+				self.tasks = tasks!
+				if self.tasks.count == 0 {
 					self.noActiveTasks = true
 				}
 				self.myTasksTableView?.reloadData()
@@ -290,12 +290,12 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	//MARK: Tableview Delegate and Datasource
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		if self.nelpTasks.count == 0 && self.nelpApplications.count == 0 {
+		if self.tasks.count == 0 && self.nelpApplications.count == 0 {
 			SVProgressHUD.dismiss()
 		}
 		
 		if (tableView == self.myTasksTableView) {
-			return self.nelpTasks.count
+			return self.tasks.count
 		} else if (tableView == self.myApplicationsTableView) {
 			return self.nelpApplications.count
 		}
@@ -305,10 +305,10 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
 		if (tableView == myTasksTableView) {
-			if (!self.nelpTasks.isEmpty) {
+			if (!self.tasks.isEmpty) {
 				let cellTask = NelpTasksTableViewCell()
 				cellTask.selectionStyle = UITableViewCellSelectionStyle.None
-				let task = self.nelpTasks[indexPath.item]
+				let task = self.tasks[indexPath.item]
 				cellTask.setNelpTask(task)
 				cellTask.setImages(task)
 				
@@ -343,7 +343,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if(tableView == myTasksTableView) {
-			let task = nelpTasks[indexPath.row]
+			let task = tasks[indexPath.row]
 			
 			if task.state == .Accepted {
 				let nextVC = MyTaskDetailsAcceptedViewController()
@@ -387,9 +387,9 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 //	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 //		if(tableView == myTasksTableView) {
 //			if (editingStyle == UITableViewCellEditingStyle.Delete){
-//				let task = nelpTasks[indexPath.row];
+//				let task = tasks[indexPath.row];
 //				ApiHelper.deleteTask(task)
-//				self.nelpTasks.removeAtIndex(indexPath.row)
+//				self.tasks.removeAtIndex(indexPath.row)
 //				self.myTasksTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
 //			}
 //		}

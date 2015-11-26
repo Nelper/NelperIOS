@@ -121,7 +121,7 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 			self.navigationController?.pushViewController(selectedSection.viewController, animated: true)
 		}
 			
-		/*let selectedTask = self.nelpTasks[indexPath.row]
+		/*let selectedTask = self.tasks[indexPath.row]
 		let vc = BrowseDetailsViewController()
 		vc.task = selectedTask
 		self.presentViewController(vc, animated: false, completion: nil)*/

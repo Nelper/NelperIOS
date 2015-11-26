@@ -76,6 +76,8 @@ class MoreViewController: UIViewController {
 		
 		self.createView()
 		self.setProfilePicture()
+		
+		self.setNeedsStatusBarAppearanceUpdate()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -83,6 +85,10 @@ class MoreViewController: UIViewController {
 			self.tabBarViewController.updateMoreMenuState(false)
 		}
 		self.inSection = false
+	}
+	
+	override func prefersStatusBarHidden() -> Bool {
+		return true
 	}
 	
 	//MARK: UI
