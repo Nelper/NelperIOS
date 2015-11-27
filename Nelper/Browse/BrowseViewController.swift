@@ -88,7 +88,7 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	
 	override func viewWillAppear(animated: Bool) {
 		self.tabBarViewController.tabBarWillHide(false)
-		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+		Helper.statusBarHidden(false, animation: .Slide)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -182,10 +182,14 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 		}
 		
 		let filtersButton = UIButton()
+		self.filtersButton = filtersButton
 		filtersButton.setBackgroundImage(UIImage(named: "buttonBackground"), forState: .Normal)
 		filtersButton.setImage(UIImage(named: "filters"), forState: .Normal)
-		mapButton.contentMode = .ScaleAspectFit
+		filtersButton.setBackgroundImage(UIImage(named: "buttonBackground-selected"), forState: .Selected)
+		filtersButton.setImage(UIImage(named: "filters-selected"), forState: .Selected)
+		filtersButton.contentMode = .ScaleAspectFill
 		filtersButton.addTarget(self, action: "filtersButtonTapped:", forControlEvents: .TouchUpInside)
+		filtersButton.selected = false
 		contentView.addSubview(filtersButton)
 		filtersButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(contentView.snp_top).offset(10)
@@ -662,9 +666,9 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 	
 	func checkFilters() {
 		if self.arrayOfFilters.isEmpty {
-			//filters off
+			self.filtersButton.selected = false
 		} else {
-			//filters on
+			self.filtersButton.selected = true
 		}
 	}
 	

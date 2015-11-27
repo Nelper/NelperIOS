@@ -26,12 +26,12 @@ class TransactionsSettingsViewController: UIViewController {
 		//NAVBAR
 		let navBar = NavBar()
 		self.navBar = navBar
-		self.view.addSubview(self.navBar)
-		self.navBar.setTitle("Transaction History")
+		self.view.addSubview(navBar)
+		navBar.setTitle("Transaction History")
 		let previousBtn = UIButton()
 		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.backButton = previousBtn
-		self.navBar.snp_makeConstraints { (make) -> Void in
+		navBar.backButton = previousBtn
+		navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
 			make.left.equalTo(self.view.snp_left)
@@ -41,12 +41,20 @@ class TransactionsSettingsViewController: UIViewController {
 		let contentView = UIView()
 		self.contentView = contentView
 		self.view.addSubview(contentView)
-		self.contentView.backgroundColor = Color.whiteBackground
-		self.contentView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.navBar.snp_bottom)
+		contentView.backgroundColor = Color.whiteBackground
+		contentView.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(navBar.snp_bottom)
 			make.left.equalTo(self.view.snp_left)
 			make.right.equalTo(self.view.snp_right)
 			make.bottom.equalTo(self.view.snp_bottom)
+		}
+		
+		let giveFeedbackView = GiveFeedbackView()
+		self.addChildViewController(giveFeedbackView)
+		giveFeedbackView.didMoveToParentViewController(self)
+		contentView.addSubview(giveFeedbackView.view)
+		giveFeedbackView.view.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(contentView.snp_edges)
 		}
 	}
 	
@@ -57,6 +65,6 @@ class TransactionsSettingsViewController: UIViewController {
 	//MARK: ACTIONS
 	func backButtonTapped(sender: UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
-		view.endEditing(true) // dismiss keyboard without delay
+		view.endEditing(true)
 	}
 }

@@ -38,7 +38,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		super.viewDidLoad()
 		
 		self.pictures = self.task.pictures
-		self.setImages(self.task.user!)
 		self.createView()
 		self.adjustUI()
 	}
@@ -103,8 +102,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		//Profile Container
 		
 		let profileContainer = ProfileCellView(user: self.task.user)
-		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
-		self.picture = profileContainer.picture
+		profileContainer.profileContainer.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
 		self.contentView.addSubview(profileContainer)
 		profileContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.contentView.snp_top).offset(20)
@@ -191,7 +189,7 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 		
 		let postedIcon = UIImageView()
 		taskContainer.addSubview(postedIcon)
-		postedIcon.image = UIImage(named:"calendar")
+		postedIcon.image = UIImage(named:"time")
 		postedIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		postedIcon.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(30)
@@ -444,25 +442,6 @@ class BrowseDetailsViewController: UIViewController,iCarouselDataSource,iCarouse
 	
 	func adjustUI() {
 		
-	}
-	
-	//MARK: DATA
-	
-	/**
-	Sets the Applications images(Category, Task poster profile pic)
-	
-	- parameter applicant: Task Poster
-	*/
-	
-	func setImages(poster:User){
-		if (poster.profilePictureURL != nil) {
-			let fbProfilePicture = poster.profilePictureURL
-			request(.GET,fbProfilePicture!).response() {
-				(_, _, data, _) in
-				let image = UIImage(data: data as NSData!)
-				self.picture.image = image
-			}
-		}
 	}
 	
 	//MARK: View Delegate Methods

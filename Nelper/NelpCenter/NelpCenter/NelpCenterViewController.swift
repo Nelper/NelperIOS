@@ -76,8 +76,8 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 	}
 	
 	override func viewDidDisappear(animated: Bool) {
-		self.segmentControllerView.selectedIndex = 0
-		self.segmentControllerView.displayNewSelectIndex()
+		/*self.segmentControllerView.selectedIndex = 0
+		self.segmentControllerView.displayNewSelectIndex()*/
 	}
 	
 	//MARK: View Creation
@@ -346,8 +346,7 @@ class NelpCenterViewController: UIViewController,UITableViewDelegate, UITableVie
 			let task = tasks[indexPath.row]
 			
 			if task.state == .Accepted {
-				let nextVC = MyTaskDetailsAcceptedViewController()
-				nextVC.task = task
+				let nextVC = MyTaskDetailsAcceptedViewController(task: task, application: nil)
 				self.hideTabBar()
 				dispatch_async(dispatch_get_main_queue()) {
 					self.navigationController?.pushViewController(nextVC, animated: true)

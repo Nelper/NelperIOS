@@ -99,7 +99,7 @@ class SkillsTableViewCell: UITableViewCell {
 	//MARK: Setters
 	
 	func sendSkillName(skillName: String){
-			self.skillName.text = skillName
+		self.skillName.text = skillName
 	}
 	
 	func hideTrashCanIcon(){

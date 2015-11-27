@@ -19,7 +19,6 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	var applicationPrice: Int!
 	var acceptedApplication: TaskApplication!
 	var taskInfoPagingView: TaskInfoPagingView!
-	var picture: UIImageView!
 	var ratingStarsView: RatingStars!
 	var chatButton: UIButton!
 	var conversationController: UINavigationController?
@@ -36,10 +35,26 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	
 	//MARK: Initialization
 	
+	/**
+	- parameter task:        the task to load
+	- parameter application: only set if an application has just been accepted, else nil
+	*/
+	convenience init (task: Task, application: TaskApplication?) {
+		self.init()
+		
+		self.task = task
+		
+		if application != nil {
+			self.acceptedApplication = application!
+			self.acceptedApplicant = application!.user!
+			self.applicationPrice = application!.price!
+		} else {
+			self.setApplicant()
+		}
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.setApplicant()
-		self.setImages(acceptedApplicant)
 		self.createView()
 	}
 	
@@ -366,7 +381,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		
 		// Accepted Nelper Container
 		
-		let applicantContainer = UIView()
+		let applicantContainer = ProfileAcceptedView(user: self.acceptedApplicant!)
 		contentView.addSubview(applicantContainer)
 		applicantContainer.backgroundColor = Color.whitePrimary
 		applicantContainer.layer.borderColor = Color.grayDetails.CGColor
@@ -376,111 +391,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
 		}
-		
-		//Title header
-		
-		let headerContainer = UIView()
-		applicantContainer.addSubview(headerContainer)
-		headerContainer.backgroundColor = Color.whitePrimary
-		headerContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(applicantContainer.snp_top)
-			make.left.equalTo(applicantContainer.snp_left)
-			make.right.equalTo(applicantContainer.snp_right)
-			make.height.equalTo(50)
-		}
-		
-		let acceptedIcon = UIImageView()
-		headerContainer.addSubview(acceptedIcon)
-		acceptedIcon.image = UIImage(named: "profile-red")
-		acceptedIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		acceptedIcon.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(headerContainer.snp_centerY).offset(1)
-			make.left.equalTo(headerContainer.snp_left).offset(20)
-			make.width.equalTo(25)
-			make.height.equalTo(25)
-		}
-		
-		let acceptedApplicantLabel = UILabel()
-		headerContainer.addSubview(acceptedApplicantLabel)
-		acceptedApplicantLabel.text = "Accepted Nelper"
-		acceptedApplicantLabel.textColor = Color.blackPrimary
-		acceptedApplicantLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		acceptedApplicantLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(acceptedIcon.snp_centerY)
-			make.left.equalTo(acceptedIcon.snp_right).offset(12)
-		}
-		
-		//Applicant
-		
-		let profileContainer = ProfileCellView(user: self.acceptedApplicant)
-		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
-		self.picture = profileContainer.picture
-		self.contentView.addSubview(profileContainer)
-		profileContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(headerContainer.snp_bottom)
-			make.left.equalTo(applicantContainer.snp_left)
-			make.right.equalTo(applicantContainer.snp_right)
-			make.height.equalTo(90)
-		}
-		
-		//Nelper info Container
-		
-		let informationContainer = UIView()
-		applicantContainer.addSubview(informationContainer)
-		informationContainer.backgroundColor = Color.whitePrimary
-		informationContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileContainer.snp_bottom)
-			make.left.equalTo(applicantContainer.snp_left)
-			make.right.equalTo(applicantContainer.snp_right)
-		}
-		
-		let emailLabel = UILabel()
-		informationContainer.addSubview(emailLabel)
-		emailLabel.text = "cvinette@nelper.ca"
-		emailLabel.textColor = Color.darkGrayDetails
-		emailLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		emailLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
-			make.top.equalTo(informationContainer.snp_top).offset(20)
-		}
-	
-		let emailIcon = UIImageView()
-		informationContainer.addSubview(emailIcon)
-		emailIcon.image = UIImage(named: "at")
-		emailIcon.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(emailLabel.snp_left).offset(-15)
-			make.centerY.equalTo(emailLabel.snp_centerY)
-			make.height.equalTo(25)
-			make.width.equalTo(25)
-		}
-		
-		let phoneLabel = UILabel()
-		informationContainer.addSubview(phoneLabel)
-		phoneLabel.text = "000-000-0000"
-		phoneLabel.textColor = Color.darkGrayDetails
-		phoneLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		phoneLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
-			make.top.equalTo(emailLabel.snp_bottom).offset(30)
-		}
-		
-		let phoneIcon = UIImageView()
-		informationContainer.addSubview(phoneIcon)
-		phoneIcon.image = UIImage(named: "phone")
-		phoneIcon.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(phoneLabel.snp_left).offset(-15)
-			make.centerY.equalTo(phoneLabel.snp_centerY)
-			make.height.equalTo(25)
-			make.width.equalTo(25)
-		}
-		
-		informationContainer.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(phoneIcon.snp_bottom).offset(20)
-		}
-		
-		applicantContainer.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(informationContainer.snp_bottom)
-		}
+		applicantContainer.profileContainer.profileContainer.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
 		
 		contentView.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(applicantContainer.snp_bottom).offset(50)
@@ -521,9 +432,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		}
 		
 		fakeButton.hidden = true
-		
 	}
-	
 	
 	/**
 	Updates the UI of the progress bar depending on the task completion's state
@@ -598,27 +507,8 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		self.progressButton.enabled = false
 	}
 	
-	// MARK: DATA
-	
-	/**
-	Set the Applicant Profile Picture
-	
-	- parameter applicant: The Applicant
-	*/
-	
-	func setImages(applicant:User) {
-		if(applicant.profilePictureURL != nil) {
-			let fbProfilePicture = applicant.profilePictureURL
-			request(.GET,fbProfilePicture!).response() {
-				(_, _, data, _) in
-				let image = UIImage(data: data as NSData!)
-				self.picture.image = image
-			}
-		}
-	}
-	
 	// MARK: Setters
-	func setApplicant(){
+	func setApplicant() {
 		for application in self.task.applications {
 			if application.state == .Accepted {
 				self.acceptedApplicant = application.user!
@@ -628,15 +518,9 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		}
 	}
 	
-	/**
-	Sets the applicant feedback (Static/Hard coded for now)
-	
-	- parameter applicant: Applicant
-	*/
-	
 	// MARK: Stripe Delegate
 	
-	func didSendPayment(){
+	func didSendPayment() {
 		self.setPaymentSent()
 	}
 	
@@ -664,11 +548,11 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	
 	//MARK:Actions
 	
-	func backButtonTapped(sender:UIButton){
+	func backButtonTapped(sender: UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
-	func didTapPaymentButton(sender:UIButton){
+	func didTapPaymentButton(sender: UIButton) {
 		let nextVC = STRPPaymentViewController()
 		nextVC.delegate = self
 		nextVC.task = self.task
@@ -677,26 +561,25 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 		self.presentViewController(nextVC, animated: true, completion: nil)
 	}
 	
-	func didTapApproveTaskButton(sender:UIButton){
+	func didTapApproveTaskButton(sender: UIButton) {
 		if sender.selected == false {
 			sender.selected = true
-		}else if sender.selected == true{
+		} else if sender.selected == true {
 			GraphQLClient.mutation("CompleteTask", input: ["taskId":self.task.id], block: nil)
 			self.setCompleted()
 		}
 	}
 	
-	func didTapRateYourNelperButton(sender:UIButton){
+	func didTapRateYourNelperButton(sender: UIButton) {
 		GraphQLClient.mutation("SendApplicantFeedback", input: ["taskId":self.task.id, "rating":5,"content":"Charles a été génial"], block: nil)
 		self.setRated()
 	}
 	
-	func didTapProfile(gesture:UITapGestureRecognizer){
+	func didTapProfile(gesture: UITapGestureRecognizer) {
 		let nextVC = PosterProfileViewController()
 		nextVC.poster = self.acceptedApplicant
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
 		self.navigationController?.pushViewController(nextVC, animated: true)
-		
 	}
 	
 	/**
@@ -705,41 +588,40 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 	- parameter sender: chat button
 	*/
 	
-	func chatButtonTapped(sender:UIButton){
+	func chatButtonTapped(sender: UIButton) {
 		
 		self.chatButton.selected = !self.chatButton.selected
 		
-		if self.conversationController == nil{
+		if self.conversationController == nil {
 			let participants = Set([self.acceptedApplicant.objectId])
 			print(participants)
 			
-			
 			let conversation = try? LayerManager.sharedInstance.layerClient.newConversationWithParticipants(Set([self.acceptedApplicant.objectId]), options: nil)
 			
-			//		var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
+			//var nextVC = ATLConversationViewController(layerClient: LayerManager.sharedInstance.layerClient)
 			let nextVC = ApplicantChatViewController(layerClient: LayerManager.sharedInstance.layerClient)
 			nextVC.displaysAddressBar = false
-			if conversation != nil{
+			if conversation != nil {
 				nextVC.conversation = conversation
-			}else{
+			} else {
 				let query:LYRQuery = LYRQuery(queryableClass: LYRConversation.self)
 				query.predicate = LYRPredicate(property: "participants", predicateOperator: LYRPredicateOperator.IsEqualTo, value: participants)
 				let result = try? LayerManager.sharedInstance.layerClient.executeQuery(query)
 				nextVC.conversation = result!.firstObject as! LYRConversation
 			}
+			
 			let conversationNavController = UINavigationController(rootViewController: nextVC)
 			self.conversationController = conversationNavController
 			self.conversationController!.setNavigationBarHidden(true, animated: false)
-
 		}
 		
-		if self.chatButton.selected{
+		if self.chatButton.selected {
 			
 			let tempVC = UIViewController()
 			self.tempVC = tempVC
 			self.addChildViewController(tempVC)
 			self.view.addSubview(tempVC.view)
-			//		tempVC.view.backgroundColor = UIColor.yellowColor()
+			//tempVC.view.backgroundColor = UIColor.yellowColor()
 			tempVC.didMoveToParentViewController(self)
 			tempVC.view.backgroundColor = UIColor.clearColor()
 			tempVC.view.snp_makeConstraints { (make) -> Void in
@@ -774,10 +656,7 @@ class MyTaskDetailsAcceptedViewController: UIViewController, STRPPaymentViewCont
 					self.conversationController!.didMoveToParentViewController(tempVC)
 			}
 		} else {
-			
-			
 			UIView.animateWithDuration(0.5, animations: { () -> Void in
-				
 				self.conversationController!.view.addSubview(self.chatButton)
 				self.chatButton.snp_remakeConstraints(closure: { (make) -> Void in
 					make.right.equalTo(self.view.snp_right).offset(2)

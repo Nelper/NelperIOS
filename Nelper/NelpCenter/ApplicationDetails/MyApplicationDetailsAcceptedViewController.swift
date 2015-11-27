@@ -14,7 +14,6 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 	
 	var poster: User!
 	var application: TaskApplication!
-	var picture: UIImageView!
 	var scrollView: UIScrollView!
 	var delegate: MyApplicationDetailsViewDelegate!
 	
@@ -48,8 +47,6 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.createView()
-		self.setImages(self.poster)
-		
 		
 		ApiHelper.getTaskPrivateDataWithId(self.application.task.id) { (taskPrivate) -> Void in
 			//TODO
@@ -58,7 +55,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 			//self.addressLabel.text = taskPrivate.location?.formattedTextLabel
 			
 			let taskLocation = CLLocationCoordinate2DMake((taskPrivate.location?.coords!["latitude"])!, (taskPrivate.location?.coords!["longitude"])!)
-			let span :MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
+			let span : MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
 			let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(taskLocation, span)
 			self.mapView.setRegion(locationToZoom, animated: false)
 			self.mapView.setCenterCoordinate(taskLocation, animated: false)
@@ -348,7 +345,9 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 		
 		//  Poster Container
 		
-		let posterContainer = UIView()
+		// Accepted Nelper Container
+		
+		let posterContainer = ProfileAcceptedView(user: self.poster!)
 		contentView.addSubview(posterContainer)
 		posterContainer.backgroundColor = Color.whitePrimary
 		posterContainer.layer.borderColor = Color.grayDetails.CGColor
@@ -358,121 +357,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 			make.left.equalTo(contentView.snp_left).offset(-1)
 			make.right.equalTo(contentView.snp_right).offset(1)
 		}
-		
-		//Title header
-		
-		let headerContainer = UIView()
-		posterContainer.addSubview(headerContainer)
-		headerContainer.backgroundColor = Color.whitePrimary
-		headerContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(posterContainer.snp_top)
-			make.left.equalTo(posterContainer.snp_left)
-			make.right.equalTo(posterContainer.snp_right)
-			make.height.equalTo(50)
-		}
-		
-		let acceptedIcon = UIImageView()
-		headerContainer.addSubview(acceptedIcon)
-		acceptedIcon.image = UIImage(named: "profile-red")
-		acceptedIcon.contentMode = UIViewContentMode.ScaleAspectFill
-		acceptedIcon.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(headerContainer.snp_centerY).offset(1)
-			make.left.equalTo(headerContainer.snp_left).offset(20)
-			make.width.equalTo(25)
-			make.height.equalTo(25)
-		}
-		
-		let acceptedApplicantLabel = UILabel()
-		headerContainer.addSubview(acceptedApplicantLabel)
-		acceptedApplicantLabel.text = "Task Poster"
-		acceptedApplicantLabel.textColor = Color.blackPrimary
-		acceptedApplicantLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-		acceptedApplicantLabel.snp_makeConstraints { (make) -> Void in
-			make.centerY.equalTo(acceptedIcon.snp_centerY)
-			make.left.equalTo(acceptedIcon.snp_right).offset(12)
-		}
-		
-		//Profile Container
-		
-		let profileContainer = ProfileCellView(user: self.application.task.user)
-		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
-		self.picture = profileContainer.picture
-		posterContainer.addSubview(profileContainer)
-		profileContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(headerContainer.snp_bottom)
-			make.left.equalTo(posterContainer.snp_left)
-			make.right.equalTo(posterContainer.snp_right)
-			make.height.equalTo(90)
-		}
-		
-		/*let profileUnderline = UIView()
-		profileContainer.addSubview(profileUnderline)
-		profileUnderline.backgroundColor = Color.grayDetails
-		profileUnderline.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileContainer.snp_bottom)
-			make.width.equalTo(profileContainer.snp_width)
-			make.centerX.equalTo(profileContainer.snp_centerX)
-			make.height.equalTo(0.5)
-		}*/
-		
-		//Poster info Container
-		
-		let informationContainer = UIView()
-		posterContainer.addSubview(informationContainer)
-		informationContainer.backgroundColor = Color.whitePrimary
-		informationContainer.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(profileContainer.snp_bottom)
-			make.left.equalTo(posterContainer.snp_left)
-			make.right.equalTo(posterContainer.snp_right)
-		}
-		
-		let emailLabel = UILabel()
-		informationContainer.addSubview(emailLabel)
-		emailLabel.textColor = Color.darkGrayDetails
-		emailLabel.text = "email@nelper.ca"
-		emailLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		emailLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
-			make.top.equalTo(informationContainer.snp_top).offset(20)
-		}
-		
-		let emailIcon = UIImageView()
-		informationContainer.addSubview(emailIcon)
-		emailIcon.image = UIImage(named: "at")
-		emailIcon.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(emailLabel.snp_left).offset(-15)
-			make.centerY.equalTo(emailLabel.snp_centerY)
-			make.height.equalTo(25)
-			make.width.equalTo(25)
-		}
-		
-		let phoneLabel = UILabel()
-		informationContainer.addSubview(phoneLabel)
-		phoneLabel.textColor = Color.darkGrayDetails
-		phoneLabel.text = "514-827-3745"
-		phoneLabel.font = UIFont(name: "Lato-Regular", size: kText15)
-		phoneLabel.snp_makeConstraints { (make) -> Void in
-			make.centerX.equalTo(informationContainer.snp_centerX).offset(15)
-			make.top.equalTo(emailLabel.snp_bottom).offset(30)
-		}
-		
-		let phoneIcon = UIImageView()
-		informationContainer.addSubview(phoneIcon)
-		phoneIcon.image = UIImage(named: "phone")
-		phoneIcon.snp_makeConstraints { (make) -> Void in
-			make.right.equalTo(phoneLabel.snp_left).offset(-15)
-			make.centerY.equalTo(phoneLabel.snp_centerY)
-			make.height.equalTo(25)
-			make.width.equalTo(25)
-		}
-		
-		informationContainer.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(phoneIcon.snp_bottom).offset(20)
-		}
-		
-		posterContainer.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(informationContainer.snp_bottom)
-		}
+		posterContainer.profileContainer.profileContainer.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
 		
 		//Task info container
 		
@@ -524,25 +409,6 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 		}
 		
 		fakeButton.hidden = true
-	}
-	
-	
-	//MARK: DATA
-	
-	/**
-	Set the images
-	
-	- parameter applicant: Applicant
-	*/
-	func setImages(applicant:User) {
-		if(applicant.profilePictureURL != nil) {
-			let fbProfilePicture = applicant.profilePictureURL
-			request(.GET,fbProfilePicture!).response() {
-				(_, _, data, _) in
-				let image = UIImage(data: data as NSData!)
-				self.picture.image = image
-			}
-		}
 	}
 	
 	//MARK: MKMapView Delegate Methods
@@ -618,15 +484,15 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 	
 	//MARK: Actions
 	
-	func backButtonTapped(sender:UIButton) {
+	func backButtonTapped(sender: UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
 	}
 	
-	func didTapTaskCompleted(sender:UIButton) {
+	func didTapTaskCompleted(sender: UIButton) {
 		
 	}
 	
-	func didTapCancelButton(sender:UIButton) {
+	func didTapCancelButton(sender: UIButton) {
 		if sender.selected == false {
 			sender.selected = true
 			
@@ -638,7 +504,7 @@ class MyApplicationDetailsAcceptedViewController: UIViewController, MKMapViewDel
 		}
 	}
 	
-	func didTapProfile(sender:UIView) {
+	func didTapProfile(sender: UIView) {
 		let nextVC = PosterProfileViewController()
 		nextVC.poster = self.poster
 		nextVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve

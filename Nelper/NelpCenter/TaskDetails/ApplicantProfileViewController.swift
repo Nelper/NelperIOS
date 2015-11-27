@@ -541,7 +541,7 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 	- parameter applicant: The Applicant
 	*/
 	
-	func setImages(applicant:User){
+	func setImages(applicant:User) {
 		if(applicant.profilePictureURL != nil){
 			let fbProfilePicture = applicant.profilePictureURL
 			request(.GET,fbProfilePicture!).response(){
@@ -739,7 +739,13 @@ class ApplicantProfileViewController: UIViewController, UITableViewDelegate, UIT
 		self.application.task.state = .Accepted
 		
 		ApiHelper.acceptApplication(self.application) {
-			// TODO: This should navigate to the accepted application view and not the my tasks list.
+			let viewControllers = self.navigationController?.viewControllers
+			
+			let nextVC = MyTaskDetailsAcceptedViewController(task: self.application.task, application: self.application)
+			
+			let newViewControllers: [UIViewController] = [viewControllers![0], nextVC, viewControllers!.last!]
+			self.navigationController?.setViewControllers(newViewControllers, animated: false)
+			
 			self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(false, completion: nil)
 			self.navigationController?.popViewControllerAnimated(true)
 		}

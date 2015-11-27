@@ -79,6 +79,9 @@
 		C0BED39F1BCF4E3C00CE3B63 /* UIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED39E1BCF4E3C00CE3B63 /* UIElements.swift */; };
 		C0C6EFDA1BFBDDF50042ACBF /* TabBarControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6EFD91BFBDDF40042ACBF /* TabBarControl.swift */; };
 		C0C6EFDD1BFC0E930042ACBF /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6EFDC1BFC0E930042ACBF /* TabBarViewController.swift */; };
+		C0DE35181C08B29200962139 /* ProfileAcceptedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE35171C08B29200962139 /* ProfileAcceptedView.swift */; };
+		C0DE351A1C08C3BA00962139 /* ProfileFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE35191C08C3BA00962139 /* ProfileFeedbackView.swift */; };
+		C0DE351C1C08C54500962139 /* GiveFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE351B1C08C54500962139 /* GiveFeedbackView.swift */; };
 		C0EB01B51BD19BFD00F24F43 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EB01B41BD19BFD00F24F43 /* Extensions.swift */; };
 		F7067AB41B56001300F19745 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7067AB31B56001300F19745 /* FontHelper.swift */; };
 		F70E23E41B58836900B7ADA9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E23E31B58836900B7ADA9 /* ImageIO.framework */; };
@@ -225,6 +228,9 @@
 		C0BED39E1BCF4E3C00CE3B63 /* UIElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIElements.swift; sourceTree = "<group>"; };
 		C0C6EFD91BFBDDF40042ACBF /* TabBarControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarControl.swift; path = ../TabBarControl.swift; sourceTree = "<group>"; };
 		C0C6EFDC1BFC0E930042ACBF /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarViewController.swift; path = Nelper/TabBarViewController.swift; sourceTree = SOURCE_ROOT; };
+		C0DE35171C08B29200962139 /* ProfileAcceptedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileAcceptedView.swift; sourceTree = "<group>"; };
+		C0DE35191C08C3BA00962139 /* ProfileFeedbackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileFeedbackView.swift; sourceTree = "<group>"; };
+		C0DE351B1C08C54500962139 /* GiveFeedbackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiveFeedbackView.swift; sourceTree = "<group>"; };
 		C0EB01B41BD19BFD00F24F43 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Nelper/Extensions.swift; sourceTree = SOURCE_ROOT; };
 		F7067AB31B56001300F19745 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontHelper.swift; path = Nelper/Helpers/FontHelper.swift; sourceTree = SOURCE_ROOT; };
 		F70E23E31B58836900B7ADA9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -312,9 +318,12 @@
 				C04FF0021BB86873001E204F /* Button.swift */,
 				C0B2A99B1BF9739D00A999AA /* Timer.swift */,
 				F7A003BA1BF9A8C600D0B568 /* ProfileCellView.swift */,
+				C0DE35171C08B29200962139 /* ProfileAcceptedView.swift */,
 				C042A0EF1BFA9EFD00BB6E10 /* TaskInfoView.swift */,
 				C042A0F11BFAC08F00BB6E10 /* TaskInfoPagingView.swift */,
 				C0B8CC3F1C07BC3B00E47A40 /* ApplicationSummaryView.swift */,
+				C0DE35191C08C3BA00962139 /* ProfileFeedbackView.swift */,
+				C0DE351B1C08C54500962139 /* GiveFeedbackView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -791,6 +800,7 @@
 				C03B1B8A1BDF426B00AFD349 /* BrowseMKAnnotation.swift in Sources */,
 				19DB24521BB7119C00468E91 /* PostTaskCategoriesViewController.swift in Sources */,
 				F7A003B91BF974FA00D0B568 /* PermissionHelper.swift in Sources */,
+				C0DE35181C08B29200962139 /* ProfileAcceptedView.swift in Sources */,
 				C02C74901BF0109B008251F7 /* CategoryFilters.swift in Sources */,
 				F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */,
 				C0BED39F1BCF4E3C00CE3B63 /* UIElements.swift in Sources */,
@@ -812,6 +822,7 @@
 				F762D0061B4B66B000812235 /* LoginViewController.swift in Sources */,
 				19DB24421BB70E8000468E91 /* ApplicantChatViewController.swift in Sources */,
 				C042A0F01BFA9EFD00BB6E10 /* TaskInfoView.swift in Sources */,
+				C0DE351A1C08C3BA00962139 /* ProfileFeedbackView.swift in Sources */,
 				C0196C981BB5B49300901155 /* SegmentController.swift in Sources */,
 				19DB245D1BB711AA00468E91 /* BrowseViewController.swift in Sources */,
 				19DB24391BB70E8000468E91 /* MyApplicationDetailsAcceptedViewController.swift in Sources */,
@@ -826,6 +837,7 @@
 				C087D8D91BB7199A00AA205B /* Rating.swift in Sources */,
 				F7E8F9351B953A57007D44D8 /* LayerManager.swift in Sources */,
 				C04FF0031BB86873001E204F /* Button.swift in Sources */,
+				C0DE351C1C08C54500962139 /* GiveFeedbackView.swift in Sources */,
 				19DB24631BB711B500468E91 /* FullProfileViewController.swift in Sources */,
 				F73A45C01B72FEA400FD8C79 /* LocationHelper.swift in Sources */,
 				19DB24451BB70E8000468E91 /* EditTaskViewController.swift in Sources */,

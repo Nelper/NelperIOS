@@ -154,7 +154,7 @@ class TaskInfoView: UIView, MKMapViewDelegate, iCarouselDataSource, iCarouselDel
 		
 		let postedIcon = UIImageView()
 		taskContainer.addSubview(postedIcon)
-		postedIcon.image = UIImage(named:"calendar")
+		postedIcon.image = UIImage(named:"time")
 		postedIcon.contentMode = UIViewContentMode.ScaleAspectFill
 		postedIcon.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(30)
@@ -166,11 +166,10 @@ class TaskInfoView: UIView, MKMapViewDelegate, iCarouselDataSource, iCarouselDel
 		let cityLabel = UILabel()
 		taskContainer.addSubview(cityLabel)
 		cityLabel.font = UIFont(name: "Lato-Regular", size: kText14)
-		cityLabel.text = application.task.city!
 		cityLabel.textColor = Color.darkGrayDetails
 		cityLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(postedIcon.snp_bottom).offset(30)
-			make.centerX.equalTo(taskContainer.snp_centerX).offset(13)
+			make.centerX.equalTo(taskContainer.snp_centerX).offset(15)
 		}
 		
 		let pinIcon = UIImageView()
@@ -181,7 +180,7 @@ class TaskInfoView: UIView, MKMapViewDelegate, iCarouselDataSource, iCarouselDel
 			make.height.equalTo(30)
 			make.width.equalTo(30)
 			make.centerY.equalTo(cityLabel.snp_centerY)
-			make.right.equalTo(cityLabel.snp_left).offset(-7)
+			make.right.equalTo(cityLabel.snp_left).offset(-8)
 		}
 		
 		//Map Container
@@ -204,7 +203,6 @@ class TaskInfoView: UIView, MKMapViewDelegate, iCarouselDataSource, iCarouselDel
 		
 		let locationNoticeLabel = UILabel()
 		taskContainer.addSubview(locationNoticeLabel)
-		locationNoticeLabel.text = "Exact location inside this 400m area"
 		locationNoticeLabel.textColor = Color.darkGrayDetails
 		locationNoticeLabel.font = UIFont(name: "Lato-Regular", size: kText12)
 		locationNoticeLabel.snp_makeConstraints { (make) -> Void in
@@ -223,7 +221,12 @@ class TaskInfoView: UIView, MKMapViewDelegate, iCarouselDataSource, iCarouselDel
 			make.edges.equalTo(mapContainer.snp_edges)
 		}
 		
+		//Accepted setters
+		
 		if !(accepted) {
+			cityLabel.text = application.task.city!
+			locationNoticeLabel.text = "Exact location inside this 400m area"
+			
 			let taskLocation = CLLocationCoordinate2DMake(application.task.location!.latitude, application.task.location!.longitude)
 			let span: MKCoordinateSpan = MKCoordinateSpanMake(0.015 , 0.015)
 			let locationToZoom: MKCoordinateRegion = MKCoordinateRegionMake(taskLocation, span)
@@ -232,6 +235,10 @@ class TaskInfoView: UIView, MKMapViewDelegate, iCarouselDataSource, iCarouselDel
 			
 			let circle = MKCircle(centerCoordinate: taskLocation, radius: 400)
 			mapView.addOverlay(circle)
+		} else {
+			cityLabel.text = application.task.exactLocation!.formattedTextLabelNoPostal
+			cityLabel.numberOfLines = 0
+			locationNoticeLabel.text = "Exact location displayed"
 		}
 			
 		//Task Image Container

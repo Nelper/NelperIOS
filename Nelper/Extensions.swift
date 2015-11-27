@@ -29,6 +29,10 @@ public struct Helper {
 	public func deviceLanguage() -> String {
 		return NSBundle.mainBundle().preferredLocalizations[0]
 	}
+	
+	static public func statusBarHidden(hidden: Bool, animation: UIStatusBarAnimation) {
+		UIApplication.sharedApplication().setStatusBarHidden(hidden, withAnimation: animation)
+	}
 }
 
 //MARK: Extenstions

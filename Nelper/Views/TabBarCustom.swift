@@ -114,7 +114,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 				
 				self.tabBar.userInteractionEnabled = false
 				
-				UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Slide)
+				Helper.statusBarHidden(true, animation: .Slide)
 				
 				if self.viewIsCreated == false {
 					
@@ -191,7 +191,7 @@ class TabBarCustom: UITabBarController, UITabBarControllerDelegate {
 	
 	func closeMoreMenu() {
 		self.tabBar.userInteractionEnabled = false
-		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+		Helper.statusBarHidden(false, animation: .Slide)
 		
 		nextVC.view.snp_remakeConstraints(closure: { (make) -> Void in
 			make.top.equalTo(presentedVC.view.snp_top)

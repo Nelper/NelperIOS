@@ -73,6 +73,5 @@ class CategoryFilters: UIView {
 	func categoryTapped(sender: UIButton) {
 		let category: String! = self.categories[sender.tag]
 		self.delegate.categoryTapped(sender, category: category)
-		
 	}
 }

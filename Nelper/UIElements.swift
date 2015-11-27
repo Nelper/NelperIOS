@@ -147,30 +147,3 @@ extension ParkedTextField {
 		self.leftViewMode = .Always
 	}
 }
-
-class ShowPasswordButton: UIButton {
-	
-	var assignedTextField: UITextField?
-	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		
-		createView()
-	}
-	
-	required init(coder: NSCoder) {
-		super.init(coder: coder)!
-		
-		createView()
-	}
-	
-	func createView() {
-		self.setImage(UIImage(named: "show"), forState: .Normal)
-		self.contentMode = .ScaleAspectFit
-		self.snp_makeConstraints { (make) -> Void in
-			make.width.equalTo(35)
-			make.height.equalTo(35)
-		}
-
-	}
-}

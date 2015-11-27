@@ -42,6 +42,7 @@ class SegmentController: UIControl {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
+		
 		adjustUI()
 	}
 
@@ -50,8 +51,6 @@ class SegmentController: UIControl {
 	}
 	
 	func adjustUI() {
-		//layer.borderColor = Color.grayDetails.CGColor
-		//layer.borderWidth = 1
 		self.backgroundColor = Color.whitePrimary
 		self.insertSubview(thumbLine, atIndex: 0)
 		//insertSubview(thumbView, atIndex: 0)
@@ -89,7 +88,9 @@ class SegmentController: UIControl {
 		let newWidth = CGRectGetWidth(selectFrame) / CGFloat(items.count)
 		selectFrame.size.width = newWidth
 		
-		thumbLine.frame = CGRect(x: selectFrame.minX, y: (selectFrame.maxY - self.thumbLineHeight), width: selectFrame.width, height: self.thumbLineHeight)
+		if self.selectedIndex == 0 {
+			thumbLine.frame = CGRect(x: selectFrame.minX, y: (selectFrame.maxY - self.thumbLineHeight), width: selectFrame.width, height: self.thumbLineHeight)
+		}
 		thumbLine.backgroundColor = Color.redPrimary
 		thumbLine.layer.zPosition = 1
 		

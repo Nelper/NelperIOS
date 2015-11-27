@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Alamofire
 
 class ProfileCellView: UIView {
 	
-	var picture: UIImageView!
-	var button: UIButton!
+	var profilePicture: UIImageView!
+	var profileContainer: UIButton!
 	
 	var userName: String!
 	var rating: Double!
@@ -19,8 +20,9 @@ class ProfileCellView: UIView {
 
 	init(user: User) {
 		super.init(frame: CGRectZero)
-
+		
 		self.createView(user)
+		self.setImages(user)
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -30,7 +32,7 @@ class ProfileCellView: UIView {
 	func createView(user: User) {
 		
 		let profileContainer = UIButton()
-		self.button = profileContainer
+		self.profileContainer = profileContainer
 		self.addSubview(profileContainer)
 		profileContainer.layer.borderColor = Color.grayDetails.CGColor
 		profileContainer.layer.borderWidth = 1
@@ -41,7 +43,7 @@ class ProfileCellView: UIView {
 		}
 		
 		let profilePicture = UIImageView()
-		self.picture = profilePicture
+		self.profilePicture = profilePicture
 		profileContainer.addSubview(profilePicture)
 		let pictureSize:CGFloat = 70
 		profilePicture.contentMode = UIViewContentMode.ScaleAspectFill
@@ -77,7 +79,7 @@ class ProfileCellView: UIView {
 		ratingStarsView.userCompletedTasks = user.completedTasks
 		ratingStarsView.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(nameLabel.snp_left)
-			make.top.equalTo(picture.snp_centerY).offset(spacing)
+			make.top.equalTo(profilePicture.snp_centerY).offset(spacing)
 			make.width.equalTo((ratingStarsView.starWidth + ratingStarsView.starPadding) * 6)
 			make.height.equalTo(ratingStarsView.starHeight)
 		}
@@ -92,6 +94,23 @@ class ProfileCellView: UIView {
 			make.centerY.equalTo(profileContainer.snp_centerY)
 			make.height.equalTo(30)
 			make.width.equalTo(30)
+		}
+	}
+	
+	/**
+	Set the Applicant Profile Picture
+	
+	- parameter applicant: The Applicant
+	*/
+	
+	func setImages(user: User) {
+		if (user.profilePictureURL != nil) {
+			let fbProfilePicture = user.profilePictureURL
+			request(.GET,fbProfilePicture!).response() {
+				(_, _, data, _) in
+				let image = UIImage(data: data as NSData!)
+				self.profilePicture.image = image
+			}
 		}
 	}
 }

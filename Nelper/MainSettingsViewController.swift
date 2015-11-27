@@ -38,7 +38,6 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 		
 		createView()
 		createTableView()
-		adjustUI()
 	}
 
 	func createView() {
@@ -48,6 +47,9 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 		self.navBar = navBar
 		self.view.addSubview(self.navBar)
 		self.navBar.setTitle("Settings")
+		let previousBtn = UIButton()
+		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		self.navBar.backButton = previousBtn
 		self.navBar.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.view.snp_top)
 			make.right.equalTo(self.view.snp_right)
@@ -83,6 +85,8 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 			make.bottom.equalTo(self.contentView.snp_bottom)
 		}
 	}
+	
+	//Tableview delegate
 	
 	func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
 		tableView.cellForRowAtIndexPath(indexPath)?.backgroundColor = UIColor.whiteColor()
@@ -132,22 +136,10 @@ class MainSettingsViewController: UIViewController, UITableViewDelegate, UITable
 		return cellHeight
 	}
 	
-	func adjustUI() {
-		
-		//NAVBAR
-		let previousBtn = UIButton()
-		previousBtn.addTarget(self, action: "backButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		self.navBar.backButton = previousBtn
-		self.contentView.backgroundColor = Color.whiteBackground
-	}
-	
-	
 	//MARK: ACTIONS
+	
 	func backButtonTapped(sender: UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
 		view.endEditing(true)
-		
-		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
 	}
-	
 }

@@ -519,7 +519,6 @@ class FullProfileViewController: UIViewController, UITextViewDelegate, UITableVi
 	
 	func backButtonTapped(sender:UIButton) {
 		self.navigationController?.popViewControllerAnimated(true)
-		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
 	}
 	
 	/**

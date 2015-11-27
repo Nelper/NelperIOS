@@ -83,11 +83,17 @@ class MoreViewController: UIViewController {
 			self.tabBarViewController.updateMoreMenuState(false)
 		}
 		self.inSection = false
+		
+		Helper.statusBarHidden(true, animation: .Slide)
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		Helper.statusBarHidden(true, animation: .Slide)
 	}
 	
 	//MARK: UI
 	
-	func createView(){
+	func createView() {
 		
 		let whiteView = UIView()
 		whiteView.backgroundColor = Color.whitePrimary
@@ -261,6 +267,7 @@ class MoreViewController: UIViewController {
 	
 	func sectionTapped(sender: UIButton) {
 		var nextVC: UIViewController?
+		Helper.statusBarHidden(false, animation: .Slide)
 		
 		switch self.sections[sender.tag].item {
 		case "profile":

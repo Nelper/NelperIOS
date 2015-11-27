@@ -94,7 +94,6 @@ class TaskInfoPagingView: UIViewController, UICollectionViewDataSource, UICollec
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
 		
 		//force description textView to center its content (animated)
 		let textView = self.descriptionTextView

@@ -57,7 +57,6 @@ class MyApplicationDetailsView: UIViewController {
 		self.navBar.backButton = previousBtn
 		self.navBar.setTitle("My Application")
 		self.createView()
-		self.setImages(self.poster)
 	}
 	
 	//MARK: View Creation
@@ -111,8 +110,7 @@ class MyApplicationDetailsView: UIViewController {
 		//Profile Container
 		
 		let profileContainer = ProfileCellView(user: self.application.task.user)
-		profileContainer.button.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
-		self.picture = profileContainer.picture
+		profileContainer.profileContainer.addTarget(self, action: "didTapProfile:", forControlEvents: .TouchUpInside)
 		self.contentView.addSubview(profileContainer)
 		profileContainer.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(statusContainer.snp_bottom).offset(20)
@@ -186,25 +184,6 @@ class MyApplicationDetailsView: UIViewController {
 		}
 		
 		fakeButton.hidden = true
-	}
-	
-	
-	//MARK: DATA
-	
-	/**
-	Sets the Applications images(Category, Task poster profile pic)
-	
-	- parameter applicant: Task Poster
-	*/
-	func setImages(applicant:User) {
-		if(applicant.profilePictureURL != nil) {
-			let fbProfilePicture = applicant.profilePictureURL
-			request(.GET,fbProfilePicture!).response() {
-				(_, _, data, _) in
-				let image = UIImage(data: data as NSData!)
-				self.picture.image = image
-			}
-		}
 	}
 	
 	//MARK: View Delegate Methods
@@ -351,9 +330,7 @@ class MyApplicationDetailsView: UIViewController {
 					whiteView.alpha = 1
 					self.conversationController!.didMoveToParentViewController(tempVC)
 			}
-		}else{
-			
-			
+		} else {
 			UIView.animateWithDuration(0.5, animations: { () -> Void in
 				self.whiteView.alpha = 0
 				self.conversationController!.view.addSubview(self.chatButton)
