@@ -107,11 +107,9 @@ class DefaultTextFieldView: UITextField {
 		
 		createView()
 	}
-	
-	required init(coder: NSCoder) {
-		super.init(coder: coder)!
-		
-		createView()
+
+	required init?(coder aDecoder: NSCoder) {
+	    fatalError("init(coder:) has not been implemented")
 	}
 	
 	func createView() {
@@ -129,7 +127,7 @@ class DefaultTextFieldView: UITextField {
 		
 		
 		self.snp_makeConstraints { (make) -> Void in
-			make.height.equalTo(50)
+			make.height.equalTo(40)
 		}
 		
 		let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.size.height))

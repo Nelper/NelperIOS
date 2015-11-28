@@ -62,6 +62,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	var userPrivateData: UserPrivateData!
 	
+	var acceptedIcon = UIImage(named: "accepted")
+	var exclamationIcon = UIImage(named: "exclamation")
+	
+	var textFieldError: Bool!
+	var textFieldErrorMessages = [String]()
+	
 	//MARK: Initialization
 	
 	init(task: Task) {
@@ -73,7 +79,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.locations = userPrivateData.locations
 		
 		if !self.locations!.isEmpty {
-			self.task.location = GeoPoint(latitude:self.locations![0].coords!["latitude"]!,longitude: self.locations![0].coords!["longitude"]!)
+			self.task.location = GeoPoint(latitude: self.locations![0].coords!["latitude"]!, longitude: self.locations![0].coords!["longitude"]!)
 			self.task.city = self.locations![0].city
 			self.task.exactLocation = self.locations![0]
 		} else {
@@ -232,6 +238,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		taskFormContainer.addSubview(taskTitleTextField)
 		taskTitleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		taskTitleTextField.returnKeyType = .Next
+		taskTitleTextField.addTarget(self, action: "textFieldDidChange:", forControlEvents: .EditingChanged)
 		taskTitleTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(taskTitleLabel.snp_bottom).offset(10)
@@ -241,7 +248,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let titleStatus = UIImageView()
 		self.titleStatus = titleStatus
 		taskFormContainer.addSubview(titleStatus)
-		titleStatus.image = UIImage(named: "exclamation")
+		titleStatus.image = nil
 		titleStatus.contentMode = UIViewContentMode.ScaleAspectFit
 		titleStatus.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(taskTitleTextField.snp_right)
@@ -285,7 +292,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		let descriptionStatus = UIImageView()
 		self.descriptionStatus = descriptionStatus
 		taskFormContainer.addSubview(descriptionStatus)
-		descriptionStatus.image = UIImage(named: "exclamation")
+		descriptionStatus.image = nil
 		descriptionStatus.contentMode = UIViewContentMode.ScaleAspectFit
 		descriptionStatus.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(descriptionTextView.snp_right)
@@ -324,17 +331,18 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		priceOfferedTextField.returnKeyType = .Done
 		priceOfferedTextField.autocorrectionType = .No
 		priceOfferedTextField.addLeftView(10)
+		priceOfferedTextField.addTarget(self, action: "textFieldDidChange:", forControlEvents: .EditingChanged)
 		priceOfferedTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
 			make.top.equalTo(priceOfferedLabel.snp_bottom).offset(10)
 			make.right.equalTo(titleTextField.snp_right)
-			make.height.equalTo(50)
+			make.height.equalTo(40)
 		}
 		
 		let priceStatus = UIImageView()
 		self.priceStatus = priceStatus
 		taskFormContainer.addSubview(priceStatus)
-		priceStatus.image = UIImage(named: "exclamation")
+		priceStatus.image = nil
 		priceStatus.contentMode = UIViewContentMode.ScaleAspectFit
 		priceStatus.snp_makeConstraints { (make) -> Void in
 			make.right.equalTo(priceOfferedTextField.snp_right)
@@ -468,7 +476,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			//Location Label + TextField
 			let locationLabel = UILabel()
 			locationContainer.addSubview(locationLabel)
-			locationLabel.text = "Select your task location"
+			locationLabel.text = "Select a location for your task"
 			locationLabel.textColor = Color.blackPrimary
 			locationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 			locationLabel.snp_makeConstraints { (make) -> Void in
@@ -500,8 +508,22 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 				make.left.equalTo(locationLabel.snp_left)
 				make.top.equalTo(locationLabel.snp_bottom).offset(10)
 				make.right.equalTo(self.contentView.snp_right).offset(-100)
-				make.height.equalTo(50)
+				make.height.equalTo(40)
 			}
+			
+			let toolBar = UIToolbar()
+			toolBar.barStyle = .Default
+			toolBar.translucent = true
+			toolBar.tintColor = Color.redPrimary
+			toolBar.sizeToFit()
+			
+			let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: "donePicker:")
+			let spacingButton = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+			
+			toolBar.setItems([spacingButton, doneButton], animated: false)
+			toolBar.userInteractionEnabled = true
+			
+			locationTextField.inputAccessoryView = toolBar
 			
 			let addLocationButton = PrimaryBorderActionButton()
 			locationContainer.addSubview(addLocationButton)
@@ -563,8 +585,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	func convertImagesToData() {
 		self.task.pictures = Array()
 		for image in self.arrayOfPictures{
-			let imageData = UIImageJPEGRepresentation(image , 0.50)
-			let imageFile = PFFile(name:"image.png", data:imageData!)
+			let imageData = UIImageJPEGRepresentation(image, 0.50)
+			let imageFile = PFFile(name:"image.png", data: imageData!)
 			self.task.pictures!.append(imageFile)
 		}
 	}
@@ -601,7 +623,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	// returns the # of rows in each component..
-	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 		return (self.locations?.count)!
 	}
 	
@@ -609,17 +631,18 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		return self.locations![row].name
 	}
 	
-	func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
-	{
+	func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 		self.locationTextField!.text = self.locations?[row].name
 		
 		self.streetAddressLabel.text = self.locations?[row].formattedTextLabelNoPostal
 		
-		
-		self.task.location = GeoPoint(latitude:Double(self.locations![row].coords!["latitude"]!),longitude: Double(self.locations![row].coords!["longitude"]!))
+		self.task.location = GeoPoint(latitude: Double(self.locations![row].coords!["latitude"]!), longitude: Double(self.locations![row].coords!["longitude"]!))
 		self.task.city = self.locations![row].city
 		self.task.exactLocation = self.locations![row]
-		//view.endEditing(true)
+	}
+	
+	func donePicker(sender: UIBarButtonItem) {
+		self.locationTextField?.resignFirstResponder()
 	}
 	
 	//MARK: Picture Cell Delegate
@@ -671,36 +694,44 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			}, completion: nil)
 	}
 	
+	func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+		dismissViewControllerAnimated(true, completion: nil)
+	}
+	
 	//MARK: Textfield and Textview Delegate
 	
-	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-		
-		//Textfield validations
-		//TODO!!
-		if textField == self.locationTextField {
-			return textField != self.locationTextField
-		} else if textField == self.titleTextField {
-			
-			let textFieldRange: NSRange = NSMakeRange(0, textField.text!.characters.count)
-			
-			if NSEqualRanges(textFieldRange, range) && string.characters.count >= 6 {
-				self.titleStatus.image = UIImage(named: "accepted")
-			} else if NSEqualRanges(textFieldRange, range)	&& string.characters.count == 0 {
-				self.titleStatus.image = nil
+	func textFieldDidChange(textField: UITextField) {
+		if textField == self.titleTextField {
+			if textField.text!.characters.count >= 4 {
+				self.titleStatus.image = self.acceptedIcon
 			} else {
-				self.titleStatus.image = UIImage(named: "exclamation")
+				self.titleStatus.image = self.exclamationIcon
 			}
 		} else if textField == self.priceOffered {
-			let textFieldRange:NSRange = NSMakeRange(0, textField.text!.characters.count)
+			let textField = textField as! ParkedTextField
+			var value: Int? = Int(textField.typedText)
 			
-			if NSEqualRanges(textFieldRange, range) && string.characters.count >= 6 {
-				self.priceStatus.image = UIImage(named: "accepted")
-			} else if (NSEqualRanges(textFieldRange, range) && string.characters.count == 0) {
-				self.priceStatus.image = nil
+			if value == nil {
+				value = 0
+			}
+			
+			if value! >= 10 && value! <= 200 {
+				self.priceStatus.image = self.acceptedIcon
 			} else {
-				self.priceStatus.image = UIImage(named: "exclamation")
+				self.priceStatus.image = self.exclamationIcon
 			}
 		}
+	}
+	
+	func textViewDidChange(textView: UITextView) {
+		if textView.text!.characters.count >= 4 {
+			self.descriptionStatus.image = self.acceptedIcon
+		} else {
+			self.descriptionStatus.image = self.exclamationIcon
+		}
+	}
+	
+	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
 		
 		//Restrict to numbers
 		if textField == self.priceOffered {
@@ -714,19 +745,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-		//TextView validations
-		//TODO!!
-		if textView == self.descriptionTextView {
-			let textViewRange: NSRange = NSMakeRange(0, textView.text!.characters.count)
-			
-			if NSEqualRanges(textViewRange, range) && text.characters.count >= 6 {
-				self.descriptionStatus.image = UIImage(named: "accepted")
-			} else if NSEqualRanges(textViewRange, range)	&& text.characters.count == 0 {
-				self.descriptionStatus.image = nil
-			} else {
-				self.descriptionStatus.image = UIImage(named: "exclamation")
-			}
-		}
 		
 		//textViewShouldReturn hack
 		let resultRange = text.rangeOfCharacterFromSet(NSCharacterSet.newlineCharacterSet(), options: .BackwardsSearch)
@@ -742,17 +760,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		dismissKeyboard()
 		textField.resignFirstResponder()
+		
 		if textField == self.titleTextField {
 			self.descriptionTextView.becomeFirstResponder()
 		}
 		
 		return false
-	}
-
-	//Image picker, TODO: relocate this
-	
-	func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-		dismissViewControllerAnimated(true, completion: nil)
 	}
 	
 	//MARK: View Delegate Method
@@ -910,8 +923,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		
 		let popup = UIAlertController(title: "Delete '\(self.locationTextField!.text!)'?", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
 		popup.addAction(UIAlertAction(title: "Delete", style: .Default, handler: { (action) -> Void in
-			self.presentViewController(popup, animated: true, completion: nil)
-			popup.view.tintColor = Color.redPrimary
 			
 			if self.locations!.isEmpty == false {
 				self.locations?.removeAtIndex(self.locationsPickerView!.selectedRowInComponent(0))
@@ -977,93 +988,138 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	func postButtonTapped(sender: UIButton) {
 		dismissKeyboard()
 		
-		if self.arrayOfPictures.count != 0 {
-			self.convertImagesToData()
+		self.textFieldError = false
+		self.textFieldErrorMessages.removeAll()
+		
+		if self.titleStatus.image != self.acceptedIcon {
+			self.textFieldError = true
+			self.textFieldErrorMessages.append("Please enter a title of at least 4 characters")
 		}
 		
-		self.task.state = .Pending
-		self.task.title = self.titleTextField!.text
+		if self.descriptionStatus.image != self.acceptedIcon {
+			self.textFieldError = true
+			self.textFieldErrorMessages.append("Please enter a description of at least 4 characters")
+		}
 		
-		if self.descriptionTextView!.text != nil {
-			self.task.desc = self.descriptionTextView!.text
+		if self.priceStatus.image != self.acceptedIcon {
+			self.textFieldError = true
+			self.textFieldErrorMessages.append("The amount you are offering must be between 10$ and 200$")
+		}
+		
+		if self.locations!.isEmpty {
+			self.textFieldError = true
+			self.textFieldErrorMessages.append("Please add a location for your task")
+		}
+		
+		if self.textFieldError == true {
+			
+			var popupMessage = ""
+			
+			for i in 0...(self.textFieldErrorMessages.count - 1) {
+				if i == 0 {
+					popupMessage = self.textFieldErrorMessages[i]
+				} else {
+					popupMessage += "\n\(self.textFieldErrorMessages[i])"
+				}
+			}
+			
+			let popup = UIAlertController(title: "Incorrect fields", message: popupMessage, preferredStyle: UIAlertControllerStyle.Alert)
+			popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+			}))
+			
+			self.presentViewController(popup, animated: true, completion: nil)
+			popup.view.tintColor = Color.redPrimary
+			
 		} else {
-			self.task.desc = ""
-		}
-		
-		self.task.priceOffered = Double(self.priceOffered!.typedText)
-		
-		ApiHelper.addTask(self.task, block: { (task, error) -> Void in
-			self.delegate?.nelpTaskAdded(self.task)
 			
-			let saveConfirmationBlurView = FXBlurView(frame: self.view.bounds)
-			saveConfirmationBlurView.alpha = 0
-			saveConfirmationBlurView.tintColor = UIColor.clearColor()
-			saveConfirmationBlurView.updateInterval = 100
-			saveConfirmationBlurView.iterations = 2
-			saveConfirmationBlurView.blurRadius = 4
-			saveConfirmationBlurView.dynamic = false
-			saveConfirmationBlurView.underlyingView = self.view
-			self.view.addSubview(saveConfirmationBlurView)
-			
-			let saveConfirmationBackground = UIView()
-			saveConfirmationBlurView.addSubview(saveConfirmationBackground)
-			saveConfirmationBackground.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
-			saveConfirmationBackground.snp_makeConstraints { (make) -> Void in
-				make.edges.equalTo(saveConfirmationBlurView.snp_edges)
+			if self.arrayOfPictures.count != 0 {
+				self.convertImagesToData()
 			}
 			
-			let saveConfirmationContainer = UIView()
-			saveConfirmationBlurView.addSubview(saveConfirmationContainer)
-			saveConfirmationContainer.backgroundColor = Color.whitePrimary
-			saveConfirmationContainer.snp_makeConstraints { (make) -> Void in
-				make.centerX.equalTo(self.view.snp_centerX)
-				make.centerY.equalTo(self.view.snp_centerY)
-				make.width.equalTo(self.view.snp_width).multipliedBy(0.7)
-				make.height.equalTo(0)
+			self.task.state = .Pending
+			self.task.title = self.titleTextField!.text
+			
+			if self.descriptionTextView!.text != nil {
+				self.task.desc = self.descriptionTextView!.text
+			} else {
+				self.task.desc = ""
 			}
 			
-			let saveConfirmationLabel = UILabel()
-			saveConfirmationContainer.addSubview(saveConfirmationLabel)
-			saveConfirmationLabel.text = "Your task has been posted!"
-			saveConfirmationLabel.alpha = 0
-			saveConfirmationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
-			saveConfirmationLabel.textColor = Color.darkGrayText
-			saveConfirmationLabel.textAlignment = .Center
-			saveConfirmationLabel.snp_makeConstraints { (make) -> Void in
-				make.centerX.equalTo(saveConfirmationContainer.snp_centerX)
-				make.centerY.equalTo(saveConfirmationContainer.snp_centerY)
-			}
+			self.task.priceOffered = Double(self.priceOffered!.typedText)
 			
-			saveConfirmationContainer.layoutIfNeeded()
-			
-			saveConfirmationContainer.snp_updateConstraints { (make) -> Void in
-				make.height.equalTo(100)
-			}
-			
-			UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
-				saveConfirmationBlurView.alpha = 1
-				saveConfirmationContainer.layoutIfNeeded()
-				}, completion: nil)
-			
-			UIView.animateWithDuration(0.4, delay: 0.2, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
-				saveConfirmationLabel.alpha = 1
-				}, completion: nil)
-			
-			saveConfirmationContainer.snp_updateConstraints { (make) -> Void in
-				make.height.equalTo(0)
-			}
-			
-			UIView.animateWithDuration(0.2, delay: 2.5, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
-				saveConfirmationLabel.alpha = 0
-				}, completion: nil)
-			
-			UIView.animateWithDuration(0.2, delay: 2.7, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+			ApiHelper.addTask(self.task, block: { (task, error) -> Void in
+				self.delegate?.nelpTaskAdded(self.task)
+				
+				let saveConfirmationBlurView = FXBlurView(frame: self.view.bounds)
 				saveConfirmationBlurView.alpha = 0
+				saveConfirmationBlurView.tintColor = UIColor.clearColor()
+				saveConfirmationBlurView.updateInterval = 100
+				saveConfirmationBlurView.iterations = 2
+				saveConfirmationBlurView.blurRadius = 4
+				saveConfirmationBlurView.dynamic = false
+				saveConfirmationBlurView.underlyingView = self.view
+				self.view.addSubview(saveConfirmationBlurView)
+				
+				let saveConfirmationBackground = UIView()
+				saveConfirmationBlurView.addSubview(saveConfirmationBackground)
+				saveConfirmationBackground.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
+				saveConfirmationBackground.snp_makeConstraints { (make) -> Void in
+					make.edges.equalTo(saveConfirmationBlurView.snp_edges)
+				}
+				
+				let saveConfirmationContainer = UIView()
+				saveConfirmationBlurView.addSubview(saveConfirmationContainer)
+				saveConfirmationContainer.backgroundColor = Color.whitePrimary
+				saveConfirmationContainer.snp_makeConstraints { (make) -> Void in
+					make.centerX.equalTo(self.view.snp_centerX)
+					make.centerY.equalTo(self.view.snp_centerY)
+					make.width.equalTo(self.view.snp_width).multipliedBy(0.7)
+					make.height.equalTo(0)
+				}
+				
+				let saveConfirmationLabel = UILabel()
+				saveConfirmationContainer.addSubview(saveConfirmationLabel)
+				saveConfirmationLabel.text = "Your task has been posted!"
+				saveConfirmationLabel.alpha = 0
+				saveConfirmationLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
+				saveConfirmationLabel.textColor = Color.darkGrayText
+				saveConfirmationLabel.textAlignment = .Center
+				saveConfirmationLabel.snp_makeConstraints { (make) -> Void in
+					make.centerX.equalTo(saveConfirmationContainer.snp_centerX)
+					make.centerY.equalTo(saveConfirmationContainer.snp_centerY)
+				}
+				
 				saveConfirmationContainer.layoutIfNeeded()
-				}, completion: nil)
-			
-			_ = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "dismissVC", userInfo: nil, repeats: false)
-		})
+				
+				saveConfirmationContainer.snp_updateConstraints { (make) -> Void in
+					make.height.equalTo(100)
+				}
+				
+				UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+					saveConfirmationBlurView.alpha = 1
+					saveConfirmationContainer.layoutIfNeeded()
+					}, completion: nil)
+				
+				UIView.animateWithDuration(0.4, delay: 0.2, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+					saveConfirmationLabel.alpha = 1
+					}, completion: nil)
+				
+				saveConfirmationContainer.snp_updateConstraints { (make) -> Void in
+					make.height.equalTo(0)
+				}
+				
+				UIView.animateWithDuration(0.2, delay: 2.5, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+					saveConfirmationLabel.alpha = 0
+					}, completion: nil)
+				
+				UIView.animateWithDuration(0.2, delay: 2.7, options: UIViewAnimationOptions.CurveEaseOut, animations:  {
+					saveConfirmationBlurView.alpha = 0
+					saveConfirmationContainer.layoutIfNeeded()
+					}, completion: nil)
+				
+				_ = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "dismissVC", userInfo: nil, repeats: false)
+			})
+		}
 	}
 	
 	//TODO: FIX NEXT VIEW NELP CENTER MY TASKS
