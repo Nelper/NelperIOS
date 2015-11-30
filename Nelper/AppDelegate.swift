@@ -59,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		
 		if PFUser.currentUser() == nil {
 			// If the user is not logged show the login page.
+			
 			self.showLogin(false)
 		} else {
 			GraphQLClient.userId = PFUser.currentUser()?.objectId

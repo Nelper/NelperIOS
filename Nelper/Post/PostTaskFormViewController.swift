@@ -415,7 +415,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		createTaskButton.backgroundColor = Color.redPrimary
 		createTaskButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		createTaskButton.addTarget(self, action: "postButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-		
 		createTaskButton.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(self.contentView.snp_left).offset(contentInset * 2)
 			make.right.equalTo(self.contentView.snp_right).offset(-contentInset * 2)
@@ -489,6 +488,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			locationTextField.delegate = self
 			locationContainer.addSubview(locationTextField)
 			locationTextField.backgroundColor = Color.whitePrimary
+			locationTextField.tintColor = locationTextField.backgroundColor
 			locationTextField.text = self.locations!.first!.name!
 			locationTextField.attributedPlaceholder = NSAttributedString(string: "Address", attributes: [NSForegroundColorAttributeName: Color.blackPrimary.colorWithAlphaComponent(0.75)])
 			locationTextField.font = UIFont(name: "Lato-Regular", size: kText15)

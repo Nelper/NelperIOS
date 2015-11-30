@@ -67,6 +67,10 @@
 		C04FF0031BB86873001E204F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04FF0021BB86873001E204F /* Button.swift */; };
 		C059CB681BF1ABB100AD2730 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C059CB671BF1ABB100AD2730 /* Lato-Bold.ttf */; };
 		C059CB6A1BF1AEA000AD2730 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C059CB691BF1AEA000AD2730 /* Lato-Black.ttf */; };
+		C06BE25B1C0B9FCC0036A0BE /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BE25A1C0B9FCB0036A0BE /* OnboardingPageViewController.swift */; };
+		C06BE25D1C0BA40D0036A0BE /* OnboardingFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BE25C1C0BA40D0036A0BE /* OnboardingFirstViewController.swift */; };
+		C06BE25F1C0BA4220036A0BE /* OnboardingSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BE25E1C0BA4220036A0BE /* OnboardingSecondViewController.swift */; };
+		C06BE2611C0BA43B0036A0BE /* OnboardingThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06BE2601C0BA43B0036A0BE /* OnboardingThirdViewController.swift */; };
 		C087D8D91BB7199A00AA205B /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087D8D81BB7199A00AA205B /* Rating.swift */; };
 		C08D19B21BE40D2900B70DEE /* FaqViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D19B11BE40D2900B70DEE /* FaqViewController.swift */; };
 		C0ACB2001BD88C7300DFC3CB /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACB1FF1BD88C7300DFC3CB /* Shapes.swift */; };
@@ -216,6 +220,10 @@
 		C04FF0021BB86873001E204F /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		C059CB671BF1ABB100AD2730 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		C059CB691BF1AEA000AD2730 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
+		C06BE25A1C0B9FCB0036A0BE /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
+		C06BE25C1C0BA40D0036A0BE /* OnboardingFirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingFirstViewController.swift; sourceTree = "<group>"; };
+		C06BE25E1C0BA4220036A0BE /* OnboardingSecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingSecondViewController.swift; sourceTree = "<group>"; };
+		C06BE2601C0BA43B0036A0BE /* OnboardingThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingThirdViewController.swift; sourceTree = "<group>"; };
 		C087D8D81BB7199A00AA205B /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		C08D19B11BE40D2900B70DEE /* FaqViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FaqViewController.swift; path = Nelper/FaqViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0ACB1FF1BD88C7300DFC3CB /* Shapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
@@ -360,6 +368,7 @@
 		199EF1F01B37A0A500B25B07 /* Nelper */ = {
 			isa = PBXGroup;
 			children = (
+				C06BE2591C0B9F7C0036A0BE /* OnboardingPage */,
 				192635431B744C57005597E3 /* Views */,
 				C0C6EFDB1BFC0E4C0042ACBF /* TabBar */,
 				C04598C91BCE02E400AFA579 /* Settings */,
@@ -512,6 +521,17 @@
 			);
 			name = Settings;
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		C06BE2591C0B9F7C0036A0BE /* OnboardingPage */ = {
+			isa = PBXGroup;
+			children = (
+				C06BE25A1C0B9FCB0036A0BE /* OnboardingPageViewController.swift */,
+				C06BE25C1C0BA40D0036A0BE /* OnboardingFirstViewController.swift */,
+				C06BE25E1C0BA4220036A0BE /* OnboardingSecondViewController.swift */,
+				C06BE2601C0BA43B0036A0BE /* OnboardingThirdViewController.swift */,
+			);
+			name = OnboardingPage;
 			sourceTree = "<group>";
 		};
 		C08D19B01BE40CB100B70DEE /* FAQ */ = {
@@ -806,6 +826,7 @@
 				C0BED39F1BCF4E3C00CE3B63 /* UIElements.swift in Sources */,
 				C0ACB2001BD88C7300DFC3CB /* Shapes.swift in Sources */,
 				19DB244F1BB7119C00468E91 /* AddAddressViewController.swift in Sources */,
+				C06BE25B1C0B9FCC0036A0BE /* OnboardingPageViewController.swift in Sources */,
 				19DB24531BB7119C00468E91 /* PostTaskFormViewController.swift in Sources */,
 				C0B8CC401C07BC3B00E47A40 /* ApplicationSummaryView.swift in Sources */,
 				19761A171B6850C4001600E1 /* BaseModel.swift in Sources */,
@@ -825,6 +846,7 @@
 				C0DE351A1C08C3BA00962139 /* ProfileFeedbackView.swift in Sources */,
 				C0196C981BB5B49300901155 /* SegmentController.swift in Sources */,
 				19DB245D1BB711AA00468E91 /* BrowseViewController.swift in Sources */,
+				C06BE25F1C0BA4220036A0BE /* OnboardingSecondViewController.swift in Sources */,
 				19DB24391BB70E8000468E91 /* MyApplicationDetailsAcceptedViewController.swift in Sources */,
 				F7F007051B9767D0009766C1 /* STRPPaymentViewController.swift in Sources */,
 				199EF1F41B37A0A500B25B07 /* AppDelegate.swift in Sources */,
@@ -834,8 +856,10 @@
 				19DB24511BB7119C00468E91 /* CategoryCardViewController.swift in Sources */,
 				F72F284F1B53607C00CD3B0B /* ThemeHelper.swift in Sources */,
 				190F623E1B4F5CAB0091A1D1 /* Task.swift in Sources */,
+				C06BE2611C0BA43B0036A0BE /* OnboardingThirdViewController.swift in Sources */,
 				C087D8D91BB7199A00AA205B /* Rating.swift in Sources */,
 				F7E8F9351B953A57007D44D8 /* LayerManager.swift in Sources */,
+				C06BE25D1C0BA40D0036A0BE /* OnboardingFirstViewController.swift in Sources */,
 				C04FF0031BB86873001E204F /* Button.swift in Sources */,
 				C0DE351C1C08C54500962139 /* GiveFeedbackView.swift in Sources */,
 				19DB24631BB711B500468E91 /* FullProfileViewController.swift in Sources */,

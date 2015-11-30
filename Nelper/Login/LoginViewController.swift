@@ -253,7 +253,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.bottom.equalTo(self.twitterButton.snp_bottom).offset(-5)
 		}*/
 		
-		
 		let emailButton = UIButton()
 		self.emailButton = emailButton
 		self.firstContainer.addSubview(self.emailButton)
@@ -267,6 +266,24 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.emailButton.addTarget(self, action: "didTapEmailButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.emailButton.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(self.firstContainer.snp_bottom).offset(-55)
+			make.left.equalTo(self.firstContainer.snp_left).offset(24)
+			make.right.equalTo(self.firstContainer.snp_right).offset(-24)
+			make.height.equalTo(50)
+		}
+		
+		//TODO: REMOVE THIS
+		let testButton = UIButton()
+		self.firstContainer.addSubview(testButton)
+		testButton.layer.borderColor = Color.whitePrimary.CGColor
+		testButton.layer.borderWidth = 1
+		testButton.setBackgroundColor(Color.redPrimary, forState: UIControlState.Normal)
+		testButton.setBackgroundColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
+		testButton.setTitle("TEST ONBOARDING", forState: UIControlState.Normal)
+		testButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
+		testButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
+		testButton.addTarget(self, action: "showOnboarding:", forControlEvents: UIControlEvents.TouchUpInside)
+		testButton.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(emailButton.snp_top).offset(-15)
 			make.left.equalTo(self.firstContainer.snp_left).offset(24)
 			make.right.equalTo(self.firstContainer.snp_right).offset(-24)
 			make.height.equalTo(50)
@@ -842,5 +859,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		}
 	}
 	
+	//TODO: REMOVE THIS
+	func showOnboarding(sender: UIButton) {
+		let onboardingVC = OnboardingPageViewController()
+		UIView.transitionWithView(self.view!, duration: 0.3, options: .TransitionCrossDissolve, animations: { () -> Void in
+			UIApplication.sharedApplication().delegate!.window!?.rootViewController = onboardingVC
+			}, completion: nil)
+	}
 }
 
