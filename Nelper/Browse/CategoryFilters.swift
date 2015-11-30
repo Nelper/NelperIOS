@@ -16,7 +16,7 @@ protocol CategoryFiltersDelegate {
 class CategoryFilters: UIView {
 	
 	var imageSize = 50
-	var padding = 20
+	var padding = 22
 	var delegate: CategoryFiltersDelegate!
 	var categoryImages = [UIButton]()
 	
