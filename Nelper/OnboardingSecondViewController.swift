@@ -22,7 +22,7 @@ class OnboardingSecondViewController: UIViewController {
 	var categoryImages = [UIButton]()
 	
 	let imageSize = 40
-	let padding = 15
+	var padding = Int()
 	
 	var categoryLabel: UILabel!
 	var displayedIndex = Int()
@@ -35,6 +35,8 @@ class OnboardingSecondViewController: UIViewController {
 		super.viewDidLoad()
 		
 		self.displayedIndex = 0
+		
+		self.padding = Int(self.view.frame.width) / 25
 		
 		self.createView()
 	}
@@ -86,8 +88,21 @@ class OnboardingSecondViewController: UIViewController {
 		titleLabel.font = UIFont(name: "Lato-Light", size: 31)
 		titleLabel.textAlignment = NSTextAlignment.Center
 		titleLabel.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(contentView.snp_centerY).offset(-80)
+			make.bottom.equalTo(contentView.snp_centerY).offset(-120)
 			make.centerX.equalTo(contentView.snp_centerX)
+		}
+		
+		let descLabel = UILabel()
+		contentView.addSubview(descLabel)
+		descLabel.text = "De la tonte de pelouse à l'installation d'un routeur"
+		descLabel.textColor = Color.textFieldTextColor
+		descLabel.numberOfLines = 0
+		descLabel.font = UIFont(name: "Lato-Light", size: 20)
+		descLabel.textAlignment = NSTextAlignment.Center
+		descLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(titleLabel.snp_bottom).offset(40)
+			make.left.equalTo(contentView.snp_left).offset(25)
+			make.right.equalTo(contentView.snp_right).offset(-25)
 		}
 		
 		let categoriesView = UIView()
@@ -108,7 +123,7 @@ class OnboardingSecondViewController: UIViewController {
 		}
 		
 		categoriesView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(titleLabel.snp_bottom).offset(60)
+			make.top.equalTo(descLabel.snp_bottom).offset(60)
 			make.centerX.equalTo(contentView.snp_centerX)
 			make.height.equalTo(self.imageSize)
 			make.width.equalTo(self.categoryImages.count * (self.imageSize + self.padding) - self.padding)
