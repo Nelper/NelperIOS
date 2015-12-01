@@ -11,7 +11,7 @@ import Foundation
 class OnboardingSecondViewController: UIViewController {
 	
 	let categories: [(id: String, name: String)] = [
-		(id: "technology", name: "Support informatique et électronnique"),
+		(id: "technology", name: "Support informatique et électronique"),
 		(id: "business", name: "Affaires et administration"),
 		(id: "multimedia", name: "Multimédia"),
 		(id: "gardening", name: "Jardinage"),
@@ -100,7 +100,6 @@ class OnboardingSecondViewController: UIViewController {
 			categoryImage.setImage(UIImage(named: self.categories[i].id+"-filter"), forState: .Normal)
 			categoryImage.contentMode = .ScaleAspectFit
 			categoryImage.alpha = 0
-			categoryImage.addTarget(self, action: "categoryTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 			categoryImage.transform = CGAffineTransformMakeScale(0.9, 0.9)
 			categoryImage.tag = i
 			

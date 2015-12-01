@@ -92,11 +92,20 @@ class ApiHelper {
 	*/
 	static func loginWithFacebook(block: (NSError?) -> Void) {
 		PFFacebookUtils.logInInBackgroundWithReadPermissions(["public_profile", "email"]) { (user: PFUser?, error: NSError?) -> Void in
-
-			//
 			
 			if error != nil {
 				block(error)
+				return
+			}
+			
+			if (user == nil) {
+				SVProgressHUD.dismiss()
+				let popup = UIAlertController(title: "Facebook login canceled", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+				popup.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action) -> Void in
+				}))
+				
+				UIApplication.sharedApplication().delegate!.window!?.rootViewController!.presentViewController(popup, animated: true, completion: nil)
+				popup.view.tintColor = Color.redPrimary
 				return
 			}
 			
