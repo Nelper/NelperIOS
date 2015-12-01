@@ -20,7 +20,7 @@ class CategoryFilters: UIView {
 	var delegate: CategoryFiltersDelegate!
 	var categoryImages = [UIButton]()
 	
-	var categories = [
+	let categories = [
 		"all",
 		"technology",
 		"business",
@@ -36,11 +36,9 @@ class CategoryFilters: UIView {
 		
 		createView()
 	}
-	
-	required init(coder: NSCoder) {
-		super.init(coder: coder)!
-		
-		createView()
+
+	required init?(coder aDecoder: NSCoder) {
+	    fatalError("init(coder:) has not been implemented")
 	}
 	
 	func createView() {

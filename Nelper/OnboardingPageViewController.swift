@@ -13,12 +13,19 @@ class OnboardingPageViewController: UIPageViewController, UIPageViewControllerDa
 	var pagingViewControllers = [
 		(OnboardingFirstViewController()),
 		(OnboardingSecondViewController()),
-		(OnboardingThirdViewController())
+		(OnboardingThirdViewController()),
+		(OnboardingFourthViewController()),
+		(OnboardingFifthViewController())
 	]
 	
 	var currentPagingViewController: UIViewController!
 	
 	var pageControl: UIPageControl!
+	
+	var goButton: PrimaryActionButton!
+	var firstLoad = true
+	
+	let pageControlHeight = 50
 
 	//MARK: Init
 	
@@ -46,6 +53,7 @@ class OnboardingPageViewController: UIPageViewController, UIPageViewControllerDa
 		}
 		
 		self.createPageControl()
+		self.createGoButton()
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -59,20 +67,67 @@ class OnboardingPageViewController: UIPageViewController, UIPageViewControllerDa
 	// MARK: UI
 	
 	func createPageControl() {
+		let pageControlBackground = UIView()
+		self.view.addSubview(pageControlBackground)
+		pageControlBackground.backgroundColor = Color.redPrimary
+		pageControlBackground.snp_makeConstraints { (make) -> Void in
+			make.bottom.equalTo(self.view.snp_bottom)
+			make.left.equalTo(self.view.snp_left)
+			make.right.equalTo(self.view.snp_right)
+			make.height.equalTo(self.pageControlHeight)
+		}
+		
 		let pageControl = UIPageControl()
 		self.pageControl = pageControl
 		pageControl.numberOfPages = self.pagingViewControllers.count
 		pageControl.currentPage = 0
-		pageControl.tintColor = Color.redPrimary
-		pageControl.pageIndicatorTintColor = Color.redPrimarySelected.colorWithAlphaComponent(0.5)
-		pageControl.currentPageIndicatorTintColor = Color.redPrimary
+		//pageControl.tintColor = Color.redPrimary
+		pageControl.pageIndicatorTintColor = UIColor.whiteColor().colorWithAlphaComponent(0.3)
+		pageControl.currentPageIndicatorTintColor = Color.whitePrimary
 		self.view.addSubview(pageControl)
 		pageControl.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(self.view.snp_bottom)
 			make.centerX.equalTo(self.view.snp_centerX)
+			make.centerY.equalTo(pageControlBackground.snp_centerY)
 		}
 		
 		self.view.bringSubviewToFront(pageControl)
+	}
+	
+	func createGoButton() {
+		let goButton =  PrimaryActionButton()
+		self.goButton = goButton
+		self.view.addSubview(goButton)
+		goButton.setTitle("Débuter!", forState: .Normal)
+		goButton.addTarget(self, action: "goButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+		goButton.snp_remakeConstraints { (make) -> Void in
+			make.bottom.equalTo(self.view.snp_bottom)
+			make.left.equalTo(self.view.snp_left)
+			make.right.equalTo(self.view.snp_right)
+			make.height.equalTo(self.pageControlHeight)
+		}
+		goButton.transform = CGAffineTransformMakeTranslation(self.view.frame.width, 0)
+		goButton.alpha = 0
+		
+		self.view.bringSubviewToFront(goButton)
+	}
+	
+	func updateGoButtonLayout(hidden: Bool) {
+		if self.firstLoad {
+			self.firstLoad = false
+			return
+		}
+		
+		if !(hidden) {
+			UIView.animateWithDuration(0.4, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.goButton.transform = CGAffineTransformMakeTranslation(0, 0)
+				self.goButton.alpha = 1
+				}, completion: nil)
+		} else {
+			UIView.animateWithDuration(0.4, delay: 0.0, options: [.CurveEaseOut], animations:  {
+				self.goButton.transform = CGAffineTransformMakeTranslation(self.view.frame.width, 0)
+				self.goButton.alpha = 0
+				}, completion: nil)
+		}
 	}
 	
 	//MARK: pageViewController Delegate
@@ -82,6 +137,8 @@ class OnboardingPageViewController: UIPageViewController, UIPageViewControllerDa
 		
 		self.pageControl.currentPage = index
 		self.currentPagingViewController = viewController
+		
+		self.updateGoButtonLayout(true)
 		
 		if index == 0 {
 			return nil
@@ -97,9 +154,17 @@ class OnboardingPageViewController: UIPageViewController, UIPageViewControllerDa
 		self.currentPagingViewController = viewController
 		
 		if index == self.pagingViewControllers.count - 1 {
+			self.updateGoButtonLayout(false)
 			return nil
 		}
 		
 		return self.pagingViewControllers[index + 1]
+	}
+	
+	//MARK: Actions
+	
+	func goButtonTapped(sender: PrimaryActionButton) {
+		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		appDelegate.showLogin(true)
 	}
 }

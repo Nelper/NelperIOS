@@ -83,6 +83,8 @@
 		C0BED39F1BCF4E3C00CE3B63 /* UIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BED39E1BCF4E3C00CE3B63 /* UIElements.swift */; };
 		C0C6EFDA1BFBDDF50042ACBF /* TabBarControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6EFD91BFBDDF40042ACBF /* TabBarControl.swift */; };
 		C0C6EFDD1BFC0E930042ACBF /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6EFDC1BFC0E930042ACBF /* TabBarViewController.swift */; };
+		C0DD0F041C0CFE3200F890AD /* OnboardingFourthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD0F031C0CFE3200F890AD /* OnboardingFourthViewController.swift */; };
+		C0DD0F061C0CFE8300F890AD /* OnboardingFifthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DD0F051C0CFE8300F890AD /* OnboardingFifthViewController.swift */; };
 		C0DE35181C08B29200962139 /* ProfileAcceptedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE35171C08B29200962139 /* ProfileAcceptedView.swift */; };
 		C0DE351A1C08C3BA00962139 /* ProfileFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE35191C08C3BA00962139 /* ProfileFeedbackView.swift */; };
 		C0DE351C1C08C54500962139 /* GiveFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE351B1C08C54500962139 /* GiveFeedbackView.swift */; };
@@ -236,6 +238,8 @@
 		C0BED39E1BCF4E3C00CE3B63 /* UIElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIElements.swift; sourceTree = "<group>"; };
 		C0C6EFD91BFBDDF40042ACBF /* TabBarControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarControl.swift; path = ../TabBarControl.swift; sourceTree = "<group>"; };
 		C0C6EFDC1BFC0E930042ACBF /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarViewController.swift; path = Nelper/TabBarViewController.swift; sourceTree = SOURCE_ROOT; };
+		C0DD0F031C0CFE3200F890AD /* OnboardingFourthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingFourthViewController.swift; sourceTree = "<group>"; };
+		C0DD0F051C0CFE8300F890AD /* OnboardingFifthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingFifthViewController.swift; sourceTree = "<group>"; };
 		C0DE35171C08B29200962139 /* ProfileAcceptedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileAcceptedView.swift; sourceTree = "<group>"; };
 		C0DE35191C08C3BA00962139 /* ProfileFeedbackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileFeedbackView.swift; sourceTree = "<group>"; };
 		C0DE351B1C08C54500962139 /* GiveFeedbackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiveFeedbackView.swift; sourceTree = "<group>"; };
@@ -321,10 +325,10 @@
 				C0ACB1FF1BD88C7300DFC3CB /* Shapes.swift */,
 				C0BED39E1BCF4E3C00CE3B63 /* UIElements.swift */,
 				192635441B744D9C005597E3 /* NavBar.swift */,
+				C0B2A99B1BF9739D00A999AA /* Timer.swift */,
 				C0196C971BB5B49300901155 /* SegmentController.swift */,
 				F775C0C61B803E9600F7525B /* TabBarCustom.swift */,
 				C04FF0021BB86873001E204F /* Button.swift */,
-				C0B2A99B1BF9739D00A999AA /* Timer.swift */,
 				F7A003BA1BF9A8C600D0B568 /* ProfileCellView.swift */,
 				C0DE35171C08B29200962139 /* ProfileAcceptedView.swift */,
 				C042A0EF1BFA9EFD00BB6E10 /* TaskInfoView.swift */,
@@ -530,6 +534,8 @@
 				C06BE25C1C0BA40D0036A0BE /* OnboardingFirstViewController.swift */,
 				C06BE25E1C0BA4220036A0BE /* OnboardingSecondViewController.swift */,
 				C06BE2601C0BA43B0036A0BE /* OnboardingThirdViewController.swift */,
+				C0DD0F031C0CFE3200F890AD /* OnboardingFourthViewController.swift */,
+				C0DD0F051C0CFE8300F890AD /* OnboardingFifthViewController.swift */,
 			);
 			name = OnboardingPage;
 			sourceTree = "<group>";
@@ -817,6 +823,7 @@
 				19DB24241BB61B6B00468E91 /* Location.swift in Sources */,
 				19DB24651BB711B500468E91 /* SkillsTableViewCell.swift in Sources */,
 				19DB24431BB70E8000468E91 /* ApplicantProfileViewController.swift in Sources */,
+				C0DD0F061C0CFE8300F890AD /* OnboardingFifthViewController.swift in Sources */,
 				C03B1B8A1BDF426B00AFD349 /* BrowseMKAnnotation.swift in Sources */,
 				19DB24521BB7119C00468E91 /* PostTaskCategoriesViewController.swift in Sources */,
 				F7A003B91BF974FA00D0B568 /* PermissionHelper.swift in Sources */,
@@ -824,6 +831,7 @@
 				C02C74901BF0109B008251F7 /* CategoryFilters.swift in Sources */,
 				F775C0C71B803E9600F7525B /* TabBarCustom.swift in Sources */,
 				C0BED39F1BCF4E3C00CE3B63 /* UIElements.swift in Sources */,
+				C0DD0F041C0CFE3200F890AD /* OnboardingFourthViewController.swift in Sources */,
 				C0ACB2001BD88C7300DFC3CB /* Shapes.swift in Sources */,
 				19DB244F1BB7119C00468E91 /* AddAddressViewController.swift in Sources */,
 				C06BE25B1C0B9FCC0036A0BE /* OnboardingPageViewController.swift in Sources */,

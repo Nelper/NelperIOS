@@ -60,7 +60,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		if PFUser.currentUser() == nil {
 			// If the user is not logged show the login page.
 			
-			self.showLogin(false)
+			self.showOnboarding()
+			//self.showLogin(false)
 		} else {
 			GraphQLClient.userId = PFUser.currentUser()?.objectId
 			GraphQLClient.sessionToken = PFUser.currentUser()?.sessionToken
@@ -75,6 +76,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
 		//NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveLayerObjectsDidChangeNotification:", name: LYRClientObjectsDidChangeNotification, object: layerClient)
 		
 		return true
+	}
+	
+	func showOnboarding() {
+		let onboardingVC = OnboardingPageViewController()
+		UIView.transitionWithView(self.window!, duration: 0.3, options: .TransitionCrossDissolve, animations: { () -> Void in
+			self.window!.rootViewController = onboardingVC
+			}, completion: nil)
 	}
 	
 	func showLogin(animated: Bool) {

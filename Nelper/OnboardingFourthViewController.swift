@@ -1,29 +1,19 @@
 //
-//  OnboardingThirdViewController.swift
+//  OnboardingFourthViewController.swift
 //  Nelper
 //
-//  Created by Pierre-Luc Benoit on 2015-11-29.
+//  Created by Pierre-Luc Benoit on 2015-11-30.
 //  Copyright © 2015 Nelper. All rights reserved.
 //
 
 import Foundation
 
-class OnboardingThirdViewController: UIViewController {
-	
-	var goButton: PrimaryActionButton!
+class OnboardingFourthViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		self.createView()
-	}
-	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-	}
-	
-	override func viewDidDisappear(animated: Bool) {
-		super.viewDidDisappear(animated)
 	}
 	
 	func createView() {
@@ -37,35 +27,33 @@ class OnboardingThirdViewController: UIViewController {
 			make.edges.equalTo(self.view.snp_edges)
 		}
 		
-		contentView.layoutIfNeeded()
-		
 		let titleLabel = UILabel()
 		contentView.addSubview(titleLabel)
-		titleLabel.text = "Faites compléter\nvos tâches"
+		titleLabel.text = "Devenez un Nelper"
 		titleLabel.textColor = Color.whitePrimary
 		titleLabel.numberOfLines = 0
 		titleLabel.font = UIFont(name: "Lato-Light", size: 31)
 		titleLabel.textAlignment = NSTextAlignment.Center
 		titleLabel.snp_makeConstraints { (make) -> Void in
-			make.bottom.equalTo(contentView.snp_centerY).offset(-120)
+			make.bottom.equalTo(contentView.snp_centerY).offset(-150)
 			make.centerX.equalTo(contentView.snp_centerX)
 		}
 		
 		let descLabel = UILabel()
 		contentView.addSubview(descLabel)
-		descLabel.text = "Il y a quelqu'un dans votre\nvoisinage qui peut vous aider."
+		descLabel.text = "Vous souhaitez mettre à profit\nvos talents et faire de l'argent?"
 		descLabel.textColor = Color.whitePrimary
 		descLabel.numberOfLines = 0
 		descLabel.font = UIFont(name: "Lato-Light", size: 20)
 		descLabel.textAlignment = NSTextAlignment.Center
 		descLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(titleLabel.snp_bottom).offset(50)
+			make.top.equalTo(titleLabel.snp_bottom).offset(70)
 			make.centerX.equalTo(contentView.snp_centerX)
 		}
 		
 		let descLabel2 = UILabel()
 		contentView.addSubview(descLabel2)
-		descLabel2.text = "Publier une tâche est gratuit."
+		descLabel2.text = "Parcourez, appliquez, et complétez\ndes tâches dès maintenant."
 		descLabel2.textColor = Color.whitePrimary
 		descLabel2.numberOfLines = 0
 		descLabel2.font = UIFont(name: "Lato-Light", size: 20)
@@ -77,19 +65,14 @@ class OnboardingThirdViewController: UIViewController {
 		
 		let tabImage = UIImageView()
 		contentView.addSubview(tabImage)
-		tabImage.image = UIImage(named: "onboarding-post")
+		tabImage.image = UIImage(named: "onboarding-browse")
 		tabImage.contentMode = .ScaleAspectFit
 		tabImage.alpha = 0.8
 		tabImage.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(descLabel2.snp_bottom).offset(65)
+			make.top.equalTo(descLabel2.snp_bottom).offset(50)
 			make.centerX.equalTo(contentView.snp_centerX)
 			make.width.equalTo(60)
 			make.height.equalTo(60)
 		}
 	}
-	
-//MARK: Actions
-	
-	
-	
 }
