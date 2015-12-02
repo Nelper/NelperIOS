@@ -18,8 +18,8 @@ class GiveFeedbackView: UIViewController, UITextViewDelegate {
 	private var starImages = [UIButton]()
 	var selectedRating = 1
 	
-	var starWidth = 50
-	var starHeight = 50
+	var starWidth = 40
+	var starHeight = 40
 	var starPadding = 10
 	
 	var starSelectedAlpha: CGFloat = 1

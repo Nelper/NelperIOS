@@ -12,7 +12,6 @@ import Alamofire
 import SwiftyJSON
 import FXBlurView
 import GoogleMaps
-import ParkedTextField
 
 protocol PostTaskFormViewControllerDelegate {
 	func nelpTaskAdded(task: Task) -> Void
@@ -26,10 +25,10 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	var task: Task!
 	var placesClient: GMSPlacesClient?
 	var locationTextField: UITextField?
-	var titleTextField: UITextField!
+	var titleTextField: DefaultTextFieldView!
 	var descriptionTextView: UITextView!
 	var descriptionStatus: UIImageView!
-	var priceOffered: ParkedTextField!
+	var priceOffered: DefaultTextFieldView!
 	var autocompleteArray = [GMSAutocompletePrediction]()
 	var tap: UITapGestureRecognizer?
 	var contentView: UIView!
@@ -67,6 +66,8 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	
 	var textFieldError: Bool!
 	var textFieldErrorMessages = [String]()
+	
+	var moneyLabel: UILabel!
 	
 	//MARK: Initialization
 	
@@ -232,11 +233,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.top.equalTo(taskFormContainer.snp_top).offset(15)
 			make.left.equalTo(contentView.snp_left).offset(contentInset)
 		}
-		let taskTitleTextField = DefaultTextFieldView()
+		
+		let taskTitleTextField = DefaultTextFieldView(isPriceTextField: false)
 		taskTitleTextField.delegate = self
 		self.titleTextField = taskTitleTextField
 		taskFormContainer.addSubview(taskTitleTextField)
-		taskTitleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
+		taskTitleTextField.attributedPlaceholder = NSAttributedString(string: " Title", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		taskTitleTextField.returnKeyType = .Next
 		taskTitleTextField.addTarget(self, action: "textFieldDidChange:", forControlEvents: .EditingChanged)
 		taskTitleTextField.snp_makeConstraints { (make) -> Void in
@@ -276,11 +278,11 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		descriptionTextView.backgroundColor = Color.whitePrimary
 		descriptionTextView.font = UIFont(name: "Lato-Regular", size: kText15)
 		descriptionTextView.textColor = Color.textFieldPlaceholderColor
-		descriptionTextView.textAlignment = NSTextAlignment.Left
+		descriptionTextView.textAlignment = NSTextAlignment.Justified
 		descriptionTextView.layer.borderColor = Color.grayDetails.CGColor
 		descriptionTextView.layer.borderWidth = 1
-		descriptionTextView.layer.sublayerTransform = CATransform3DMakeTranslation(6, 0, 0)
-		descriptionTextView.text = "Description   "
+		descriptionTextView.textContainerInset = UIEdgeInsetsMake(9, 7, 0, 0)
+		descriptionTextView.text = " Description   "
 		descriptionTextView.returnKeyType = .Next
 		descriptionTextView.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
@@ -313,24 +315,20 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.left.equalTo(taskTitleTextField.snp_left)
 		}
 		
-		let priceOfferedTextField = ParkedTextField()
+		let priceOfferedTextField = DefaultTextFieldView(isPriceTextField: true)
 		priceOfferedTextField.delegate = self
 		self.priceOffered = priceOfferedTextField
 		taskFormContainer.addSubview(priceOfferedTextField)
 		priceOfferedTextField.backgroundColor = Color.whitePrimary
 		priceOfferedTextField.font = UIFont(name: "Lato-Regular", size: kText15)
-		priceOfferedTextField.parkedText = " $"
-		priceOfferedTextField.parkedTextFont = UIFont(name: "Lato-Regular", size: kText15)
-		priceOfferedTextField.parkedTextColor = Color.textFieldTextColor
 		priceOfferedTextField.textColor = Color.textFieldTextColor
 		priceOfferedTextField.clearButtonMode = .WhileEditing
 		priceOfferedTextField.textAlignment = NSTextAlignment.Left
 		priceOfferedTextField.layer.borderColor = Color.grayDetails.CGColor
 		priceOfferedTextField.layer.borderWidth = 1
-		priceOfferedTextField.keyboardType = .NumbersAndPunctuation
+		priceOfferedTextField.keyboardType = .NumberPad
 		priceOfferedTextField.returnKeyType = .Done
 		priceOfferedTextField.autocorrectionType = .No
-		priceOfferedTextField.addLeftView(10)
 		priceOfferedTextField.addTarget(self, action: "textFieldDidChange:", forControlEvents: .EditingChanged)
 		priceOfferedTextField.snp_makeConstraints { (make) -> Void in
 			make.left.equalTo(taskTitleLabel.snp_left)
@@ -338,6 +336,31 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			make.right.equalTo(titleTextField.snp_right)
 			make.height.equalTo(40)
 		}
+		
+		let moneyLabel = UILabel()
+		self.moneyLabel = moneyLabel
+		priceOfferedTextField.addSubview(moneyLabel)
+		moneyLabel.text = "$"
+		moneyLabel.font = UIFont(name: "Lato-Regular", size: kText15)
+		moneyLabel.textColor = Color.textFieldPlaceholderColor
+		moneyLabel.snp_makeConstraints(closure: { (make) -> Void in
+			make.left.equalTo(priceOfferedTextField.snp_left).offset(10)
+			make.centerY.equalTo(priceOfferedTextField.snp_centerY)
+		})
+		
+		let toolBar = UIToolbar()
+		toolBar.barStyle = .Default
+		toolBar.translucent = true
+		toolBar.tintColor = Color.redPrimary
+		toolBar.sizeToFit()
+		
+		let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: "doneToolbar:")
+		let spacingButton = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+		
+		toolBar.setItems([spacingButton, doneButton], animated: false)
+		toolBar.userInteractionEnabled = true
+		
+		priceOfferedTextField.inputAccessoryView = toolBar
 		
 		let priceStatus = UIImageView()
 		self.priceStatus = priceStatus
@@ -517,7 +540,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			toolBar.tintColor = Color.redPrimary
 			toolBar.sizeToFit()
 			
-			let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: "donePicker:")
+			let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: "doneToolbar:")
 			let spacingButton = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
 			
 			toolBar.setItems([spacingButton, doneButton], animated: false)
@@ -539,15 +562,13 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			let streetAddressLabel = UILabel()
 			self.streetAddressLabel = streetAddressLabel
 			streetAddressLabel.text = self.locations?.first?.formattedTextLabelNoPostal
-			
 			locationContainer.addSubview(streetAddressLabel)
 			streetAddressLabel.numberOfLines = 0
 			streetAddressLabel.textColor = Color.darkGrayDetails
 			streetAddressLabel.font = UIFont(name: "Lato-Light", size: kText15)
 			streetAddressLabel.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(locationTextField.snp_bottom).offset(16)
-				make.left.equalTo(locationTextField.snp_left).offset(5)
-				make.right.equalTo(taskFormContainer.snp_right).offset(-25)
+				make.centerX.equalTo(locationTextField.snp_centerX)
 			}
 			
 			let deleteAddressButton = SecondaryActionButton()
@@ -556,10 +577,9 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			deleteAddressButton.setTitle("Delete this location", forState: UIControlState.Normal)
 			self.deleteAddressButton.addTarget(self, action: "didTapDeleteAddress:", forControlEvents: UIControlEvents.TouchUpInside)
 			deleteAddressButton.backgroundColor = Color.whitePrimary
-			deleteAddressButton.width = 200
 			deleteAddressButton.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(streetAddressLabel.snp_bottom).offset(15)
-				make.left.equalTo(streetAddressLabel.snp_left)
+				make.centerX.equalTo(locationTextField.snp_centerX)
 			}
 			
 			locationContainer.snp_makeConstraints { (make) -> Void in
@@ -622,7 +642,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		return 1
 	}
 	
-	// returns the # of rows in each component..
 	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 		return (self.locations?.count)!
 	}
@@ -639,10 +658,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.task.location = GeoPoint(latitude: Double(self.locations![row].coords!["latitude"]!), longitude: Double(self.locations![row].coords!["longitude"]!))
 		self.task.city = self.locations![row].city
 		self.task.exactLocation = self.locations![row]
-	}
-	
-	func donePicker(sender: UIBarButtonItem) {
-		self.locationTextField?.resignFirstResponder()
 	}
 	
 	//MARK: Picture Cell Delegate
@@ -707,9 +722,18 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			} else {
 				self.titleStatus.image = self.exclamationIcon
 			}
+			
+			if self.titleStatus.image == self.acceptedIcon {
+				textField.layer.borderColor = Color.grayDetails.CGColor
+			}
 		} else if textField == self.priceOffered {
-			let textField = textField as! ParkedTextField
-			var value: Int? = Int(textField.typedText)
+			if textField.text == "" || textField.text == nil {
+				moneyLabel.textColor = Color.textFieldPlaceholderColor
+			} else {
+				moneyLabel.textColor = Color.textFieldTextColor
+			}
+			
+			var value: Int? = Int(textField.text!)
 			
 			if value == nil {
 				value = 0
@@ -720,6 +744,10 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			} else {
 				self.priceStatus.image = self.exclamationIcon
 			}
+			
+			if self.priceStatus.image == self.acceptedIcon {
+				textField.layer.borderColor = Color.grayDetails.CGColor
+			}
 		}
 	}
 	
@@ -728,6 +756,10 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			self.descriptionStatus.image = self.acceptedIcon
 		} else {
 			self.descriptionStatus.image = self.exclamationIcon
+		}
+		
+		if self.descriptionStatus.image == self.acceptedIcon {
+			textView.layer.borderColor = Color.grayDetails.CGColor
 		}
 	}
 	
@@ -738,7 +770,11 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 			let nonDigits = NSCharacterSet(charactersInString: "0123456789").invertedSet
 			let compSepByCharInSet = string.componentsSeparatedByCharactersInSet(nonDigits)
 			let numberFiltered = compSepByCharInSet.joinWithSeparator("")
+			
 			return string == numberFiltered
+			
+		} else if textField == self.titleTextField {
+			return textField.text!.characters.count + (string.characters.count - range.length) <= 80
 		}
 		
 		return true
@@ -751,10 +787,11 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		if resultRange != nil {
 			self.descriptionTextView.resignFirstResponder()
 			self.priceOffered.becomeFirstResponder()
+			
 			return false
 		}
 		
-		return true
+		return textView.text.characters.count + (text.characters.count - range.length) <= 600
 	}
 	
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -774,7 +811,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		super.viewDidLayoutSubviews()
 		self.scrollView.contentSize = self.contentView.frame.size
 	}
-	
 	
 	//MARK: Add Address Location Delegate
 	
@@ -812,13 +848,26 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	func textFieldDidEndEditing(textField: UITextField) {
 		self.activeField = nil
 		self.fieldEditing = false
+		
+		switch textField {
+		case self.titleTextField:
+			if self.titleStatus.image == self.exclamationIcon {
+				textField.layer.borderColor = Color.redPrimarySelected.colorWithAlphaComponent(0.7).CGColor
+			}
+		case self.priceOffered:
+			if self.priceStatus.image == self.exclamationIcon {
+				textField.layer.borderColor = Color.redPrimarySelected.colorWithAlphaComponent(0.7).CGColor
+			}
+		default:
+			break
+		}
 	}
 	
 	func textViewDidBeginEditing(textView: UITextView) {
 		self.activeField = textView
 		self.fieldEditing = true
 		
-		if textView.text == "Description   " {
+		if textView.text == " Description   " {
 			textView.text = ""
 			textView.textColor = Color.textFieldTextColor
 		}
@@ -829,8 +878,12 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.fieldEditing = false
 		
 		if textView.text == "" {
-			textView.text = "Description   "
+			textView.text = " Description   "
 			textView.textColor = Color.textFieldPlaceholderColor
+		}
+		
+		if self.descriptionStatus.image == self.exclamationIcon {
+			textView.layer.borderColor = Color.redPrimarySelected.colorWithAlphaComponent(0.7).CGColor
 		}
 	}
 	
@@ -874,6 +927,17 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 	}
 	
 	//MARK: Actions
+	
+	/**
+	Resigns first responder of the toolbar's textField
+	*/
+	func doneToolbar(sender: UIBarButtonItem) {
+		if self.locationTextField!.isFirstResponder() {
+			self.locationTextField?.resignFirstResponder()
+		} else if self.priceOffered.isFirstResponder() {
+			self.priceOffered.resignFirstResponder()
+		}
+	}
 	
 	/**
 	Allow the user to attach pictures
@@ -1045,7 +1109,7 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 				self.task.desc = ""
 			}
 			
-			self.task.priceOffered = Double(self.priceOffered!.typedText)
+			self.task.priceOffered = Double(self.priceOffered.text!)
 			
 			ApiHelper.addTask(self.task, block: { (task, error) -> Void in
 				self.delegate?.nelpTaskAdded(self.task)

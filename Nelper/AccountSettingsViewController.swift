@@ -45,11 +45,11 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	var willShowPassword = false
 	var passwordContainer: DefaultContainerView!
 	var currentLabel: UILabel!
-	var currentTextField: DefaultTextFieldView!
+	var currentTextField: DefaultTextFieldView?
 	var newLabel: UILabel!
-	var newTextField: DefaultTextFieldView!
+	var newTextField: DefaultTextFieldView?
 	var confirmLabel: UILabel!
-	var confirmTextField: DefaultTextFieldView!
+	var confirmTextField: DefaultTextFieldView?
 	
 	var deleteContainer: DefaultContainerView!
 	var deletionNoticeLabel: UILabel!
@@ -221,7 +221,7 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			make.left.equalTo(self.generalContainer.snp_left).offset(self.kPadding)
 		}
 		
-		let emailTextField = DefaultTextFieldView()
+		let emailTextField = DefaultTextFieldView(isPriceTextField: false)
 		self.emailTextField = emailTextField
 		self.generalContainer.contentView.addSubview(self.emailTextField)
 		self.emailTextField.font = UIFont(name: "Lato-Regular", size: kText15)
@@ -247,11 +247,11 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			make.left.equalTo(self.emailLabel.snp_left)
 		}
 		
-		let phoneTextField = DefaultTextFieldView()
+		let phoneTextField = DefaultTextFieldView(isPriceTextField: false)
 		self.phoneTextField = phoneTextField
 		self.generalContainer.contentView.addSubview(self.phoneTextField)
 		self.phoneTextField.attributedPlaceholder = NSAttributedString(string: "None", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
-		self.phoneTextField.keyboardType = UIKeyboardType.NamePhonePad
+		self.phoneTextField.keyboardType = .NumberPad
 		self.phoneTextField.autocorrectionType = UITextAutocorrectionType.No
 		self.phoneTextField.autocapitalizationType = UITextAutocapitalizationType.None
 		self.phoneTextField.returnKeyType = .Done
@@ -260,6 +260,20 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			make.left.equalTo(self.phoneLabel.snp_left)
 			make.right.equalTo(self.emailTextField.snp_right)
 		}
+		
+		let toolBar = UIToolbar()
+		toolBar.barStyle = .Default
+		toolBar.translucent = true
+		toolBar.tintColor = Color.redPrimary
+		toolBar.sizeToFit()
+		
+		let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: "doneToolbar:")
+		let spacingButton = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+		
+		toolBar.setItems([spacingButton, doneButton], animated: false)
+		toolBar.userInteractionEnabled = true
+		
+		phoneTextField.inputAccessoryView = toolBar
 		
 		self.generalContainer.snp_makeConstraints { (make) -> Void in
 			make.bottom.equalTo(self.phoneTextField.snp_bottom).offset(kPadding)
@@ -325,17 +339,16 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				make.left.equalTo(self.passwordContainer.snp_left).offset(self.kPadding)
 			}
 			
-			let currentTextField = DefaultTextFieldView()
+			let currentTextField = DefaultTextFieldView(isPriceTextField: false)
 			self.currentTextField = currentTextField
-			self.passwordContainer.contentView.addSubview(self.currentTextField)
-			
-			self.currentTextField.attributedPlaceholder = NSAttributedString(string: "**********", attributes: [NSForegroundColorAttributeName: Color.darkGrayDetails])
-			self.currentTextField.font = UIFont(name: "Lato-Regular", size: kText15)
-			self.currentTextField.keyboardType = UIKeyboardType.Default
-			self.currentTextField.autocorrectionType = UITextAutocorrectionType.No
-			self.currentTextField.autocapitalizationType = UITextAutocapitalizationType.None
-			self.currentTextField.returnKeyType = .Next
-			self.currentTextField.snp_makeConstraints { (make) -> Void in
+			self.passwordContainer.contentView.addSubview(currentTextField)
+			currentTextField.attributedPlaceholder = NSAttributedString(string: "**********", attributes: [NSForegroundColorAttributeName: Color.darkGrayDetails])
+			currentTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+			currentTextField.keyboardType = UIKeyboardType.Default
+			currentTextField.autocorrectionType = UITextAutocorrectionType.No
+			currentTextField.autocapitalizationType = UITextAutocapitalizationType.None
+			currentTextField.returnKeyType = .Next
+			currentTextField.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.currentLabel.snp_bottom).offset(10)
 				make.left.equalTo(self.currentLabel.snp_left)
 				make.right.equalTo(self.passwordContainer.snp_right).offset(-self.kPadding)
@@ -349,24 +362,24 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.newLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 			self.newLabel.textColor = Color.darkGrayText
 			self.newLabel.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.currentTextField.snp_bottom).offset(15)
+				make.top.equalTo(currentTextField.snp_bottom).offset(15)
 				make.left.equalTo(self.passwordContainer.snp_left).offset(self.kPadding)
 			}
 			
-			let newTextField = DefaultTextFieldView()
+			let newTextField = DefaultTextFieldView(isPriceTextField: false)
 			self.newTextField = newTextField
-			self.passwordContainer.contentView.addSubview(self.newTextField)
-			self.newTextField.font = UIFont(name: "Lato-Regular", size: kText15)
-			self.newTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-			self.newTextField.textColor = Color.darkGrayDetails
-			self.newTextField.backgroundColor = Color.whitePrimary
-			self.newTextField.layer.borderWidth = 0.5
-			self.newTextField.layer.borderColor = Color.grayDetails.CGColor
-			self.newTextField.keyboardType = UIKeyboardType.Default
-			self.newTextField.autocorrectionType = UITextAutocorrectionType.No
-			self.newTextField.autocapitalizationType = UITextAutocapitalizationType.None
-			self.newTextField.returnKeyType = .Next
-			self.newTextField.snp_makeConstraints { (make) -> Void in
+			self.passwordContainer.contentView.addSubview(newTextField)
+			newTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+			newTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
+			newTextField.textColor = Color.darkGrayDetails
+			newTextField.backgroundColor = Color.whitePrimary
+			newTextField.layer.borderWidth = 0.5
+			newTextField.layer.borderColor = Color.grayDetails.CGColor
+			newTextField.keyboardType = UIKeyboardType.Default
+			newTextField.autocorrectionType = UITextAutocorrectionType.No
+			newTextField.autocapitalizationType = UITextAutocapitalizationType.None
+			newTextField.returnKeyType = .Next
+			newTextField.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.newLabel.snp_bottom).offset(10)
 				make.left.equalTo(self.newLabel.snp_left)
 				make.right.equalTo(self.passwordContainer.snp_right).offset(-self.kPadding)
@@ -380,21 +393,21 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			self.confirmLabel.font = UIFont(name: "Lato-Regular", size: kTitle17)
 			self.confirmLabel.textColor = Color.darkGrayText
 			self.confirmLabel.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.newTextField.snp_bottom).offset(15)
+				make.top.equalTo(newTextField.snp_bottom).offset(15)
 				make.left.equalTo(self.passwordContainer.snp_left).offset(self.kPadding)
 			}
 			
-			let confirmTextField = DefaultTextFieldView()
+			let confirmTextField = DefaultTextFieldView(isPriceTextField: false)
 			self.confirmTextField = confirmTextField
-			self.passwordContainer.contentView.addSubview(self.confirmTextField)
-			self.confirmTextField.font = UIFont(name: "Lato-Regular", size: kText15)
-			self.confirmTextField.keyboardType = UIKeyboardType.Default
-			self.confirmTextField.autocorrectionType = UITextAutocorrectionType.No
-			self.confirmTextField.autocapitalizationType = UITextAutocapitalizationType.None
-			self.confirmTextField.returnKeyType = .Done
-			self.confirmTextField.snp_makeConstraints { (make) -> Void in
+			self.passwordContainer.contentView.addSubview(confirmTextField)
+			confirmTextField.font = UIFont(name: "Lato-Regular", size: kText15)
+			confirmTextField.keyboardType = UIKeyboardType.Default
+			confirmTextField.autocorrectionType = UITextAutocorrectionType.No
+			confirmTextField.autocapitalizationType = UITextAutocapitalizationType.None
+			confirmTextField.returnKeyType = .Done
+			confirmTextField.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.confirmLabel.snp_bottom).offset(10)
-				make.left.equalTo(self.newTextField.snp_left)
+				make.left.equalTo(newTextField.snp_left)
 				make.right.equalTo(self.passwordContainer.snp_right).offset(-self.kPadding)
 			}
 			
@@ -430,11 +443,11 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.deletionNoticeLabel = deletionNoticeLabel
 		self.deleteContainer.contentView.addSubview(self.deletionNoticeLabel)
 		self.deletionNoticeLabel.text = "Account deletion is permanent"
-		self.deletionNoticeLabel.font = UIFont(name: "Lato-Light", size: kText15)
+		self.deletionNoticeLabel.font = UIFont(name: "Lato-Light", size: kText14)
 		self.deletionNoticeLabel.textColor = Color.redPrimary
 		self.deletionNoticeLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.deleteContainer.contentView.snp_top).offset(15)
-			make.left.equalTo(self.deleteContainer.snp_left).offset(self.kPadding)
+			make.centerX.equalTo(self.deleteContainer.snp_centerX)
 		}
 		
 		let deleteButton = SecondaryActionButton()
@@ -442,11 +455,10 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		self.deleteContainer.addSubview(deleteButton)
 		self.deleteButton.backgroundColor = Color.whitePrimary
 		self.deleteButton.setTitle("Delete my account", forState: UIControlState.Normal)
-		self.deleteButton.setTitleColor(Color.darkGrayText, forState: UIControlState.Normal)
 		self.deleteButton.addTarget(self, action: "deleteAccountButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.deleteButton.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.deletionNoticeLabel.snp_bottom).offset(15)
-			make.left.equalTo(self.deleteContainer.snp_left).offset(self.kPadding)
+			make.top.equalTo(self.deletionNoticeLabel.snp_bottom).offset(10)
+			make.centerX.equalTo(self.deleteContainer.snp_centerX)
 		}
 		
 		self.deleteContainer.snp_makeConstraints { (make) -> Void in
@@ -635,12 +647,12 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 			make.bottom.equalTo(button.snp_bottom).offset(8)
 		}
 		
-		let darken = UIView()
+		/*let darken = UIView()
 		locationBlurView.addSubview(darken)
 		darken.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.4)
 		darken.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(locationBlurView.snp_edges)
-		}
+		}*/
 		
 		let deleteButton = AccountSettingsLocationButton()
 		locationBlurView.addSubview(deleteButton)
@@ -689,15 +701,54 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 		switch (textField) {
 		case self.emailTextField:
 			self.phoneTextField.becomeFirstResponder()
-		case self.currentTextField:
-			self.newTextField.becomeFirstResponder()
-		case self.newTextField:
-			self.confirmTextField.becomeFirstResponder()
+		case let field where field == self.currentTextField:
+			self.newTextField!.becomeFirstResponder()
+		case let field where field == self.newTextField:
+			self.confirmTextField!.becomeFirstResponder()
 		default:
 			return false
 		}
 		
 		return false
+	}
+	
+	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+		
+		if textField == self.phoneTextField {
+			let newString = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
+			let components = newString.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet)
+			
+			let decimalString: NSString = components.joinWithSeparator("")
+			let length = decimalString.length
+			
+			if (length == 0) || (length > 10) || (length > 11) {
+				let  newLength: Int = (textField.text! as NSString).length + (string as NSString).length - range.length
+				return (newLength > 10) ? false : true
+			}
+			
+			var index: Int = 0
+			let formattedString = NSMutableString()
+			
+			if (length - index > 3) {
+				let areaCode = decimalString.substringWithRange(NSMakeRange(index, 3))
+				formattedString.appendFormat("(%@) ", areaCode)
+				index += 3
+			}
+			
+			if (length - index > 3) {
+				let prefix = decimalString.substringWithRange(NSMakeRange(index, 3))
+				formattedString.appendFormat("%@-", prefix)
+				index += 3
+			}
+			
+			let remainder = decimalString.substringFromIndex(index)
+			formattedString.appendString(remainder)
+			textField.text = formattedString as String
+			
+			return false
+		} else {
+			return true
+		}
 	}
 	
 	func dismissKeyboard() {
@@ -765,6 +816,15 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 	
 	//MARK: ACTIONS
 	
+	/**
+	Resigns first responder of the toolbar's textField
+	*/
+	func doneToolbar(sender: UIBarButtonItem) {
+		if self.phoneTextField.isFirstResponder() {
+			self.phoneTextField.resignFirstResponder()
+		}
+	}
+	
 	func cancelLocationDeletionTapped(sender: UIButton?) {
 		self.locationBlurView.removeFromSuperview()
 		self.deleteLocationViewIsOpened = false
@@ -821,8 +881,9 @@ class AccountSettingsViewController: UIViewController, UITextFieldDelegate, UIGe
 				self.textFieldErrorMessages.append("Please enter a valid email address")
 			}
 			
-			//TODO: REVIEW FORMAT? Helper -> extension.swift
-			if !self.phoneTextField.text!.isPhoneNumber() && self.phoneTextField.text != "" {
+			let decimalPhoneString = (self.phoneTextField.text!.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet)).joinWithSeparator("")
+			
+			if !decimalPhoneString.isPhoneNumber() && self.phoneTextField.text != "" {
 				print("not a valid 10 digits phone number")
 				self.textFieldError = true
 				self.textFieldErrorMessages.append("Please enter a valid 10 digits phone number")

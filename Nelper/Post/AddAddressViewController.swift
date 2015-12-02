@@ -150,7 +150,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 			make.centerX.equalTo(popupContainer.snp_centerX)
 		}
 		
-		let nameTextField = DefaultTextFieldView()
+		let nameTextField = DefaultTextFieldView(isPriceTextField: false)
 		self.nameTextField = nameTextField
 		popupContainer.addSubview(nameTextField)
 		nameTextField.attributedPlaceholder = NSAttributedString(string: "Name (home, office, etc.)", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
@@ -161,7 +161,7 @@ class AddAddressViewController: UIViewController, UIGestureRecognizerDelegate, U
 			make.right.equalTo(popupContainer.snp_right).offset(-8)
 		}
 		
-		let addressTextField = DefaultTextFieldView()
+		let addressTextField = DefaultTextFieldView(isPriceTextField: false)
 		self.addressTextField = addressTextField
 		addressTextField.delegate = self
 		popupContainer.addSubview(addressTextField)

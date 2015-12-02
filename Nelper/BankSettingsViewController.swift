@@ -54,7 +54,7 @@ class BankSettingsViewController: UIViewController {
 		let noAccountNotice = UILabel()
 		noAccountNotice.textAlignment = NSTextAlignment.Center
 		contentView.addSubview(noAccountNotice)
-		noAccountNotice.text = "You have not linked a bank account yet"
+		noAccountNotice.text = "You haven't linked a bank account yet"
 		noAccountNotice.numberOfLines = 0
 		noAccountNotice.font =  UIFont(name: "Lato-Regular", size: kTitle17)
 		noAccountNotice.textColor = Color.darkGrayDetails

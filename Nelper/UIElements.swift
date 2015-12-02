@@ -102,10 +102,11 @@ class DefaultContainerView: UIView {
 
 class DefaultTextFieldView: UITextField {
 	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
+	init(isPriceTextField: Bool) {
+		super.init(frame: CGRectZero)
 		
 		createView()
+		createLeftView(isPriceTextField)
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -129,8 +130,18 @@ class DefaultTextFieldView: UITextField {
 		self.snp_makeConstraints { (make) -> Void in
 			make.height.equalTo(40)
 		}
+	}
+	
+	func createLeftView(isPriceTextField: Bool) {
 		
-		let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.size.height))
+		var leftView: UIView!
+		
+		if isPriceTextField {
+			leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: self.frame.size.height))
+		} else {
+			leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.size.height))
+		}
+		
 		leftView.backgroundColor = self.backgroundColor
 		self.leftView = leftView
 		self.leftViewMode = .Always

@@ -256,12 +256,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		let emailButton = UIButton()
 		self.emailButton = emailButton
 		self.firstContainer.addSubview(self.emailButton)
-		self.emailButton.layer.borderColor = Color.whitePrimary.CGColor
+		self.emailButton.layer.borderColor = Color.whitePrimary.colorWithAlphaComponent(0.7).CGColor
 		self.emailButton.layer.borderWidth = 1
 		self.emailButton.setBackgroundColor(Color.redPrimary, forState: UIControlState.Normal)
 		self.emailButton.setBackgroundColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
 		self.emailButton.setTitle("Email sign in", forState: UIControlState.Normal)
-		self.emailButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
+		self.emailButton.setTitleColor(Color.whitePrimary.colorWithAlphaComponent(0.7), forState: UIControlState.Normal)
 		self.emailButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.emailButton.addTarget(self, action: "didTapEmailButton:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.emailButton.snp_makeConstraints { (make) -> Void in
@@ -284,10 +284,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.bottom.equalTo(contentView.snp_bottom)
 		}
 		
-		let emailField = DefaultTextFieldView()
+		let emailField = DefaultTextFieldView(isPriceTextField: false)
 		self.emailField = emailField
 		self.secondContainer.addSubview(emailField)
-		self.emailField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
+		self.emailField.attributedPlaceholder = NSAttributedString(string: " Email", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.emailField.keyboardType = UIKeyboardType.EmailAddress
 		self.emailField.autocapitalizationType = UITextAutocapitalizationType.None
 		self.emailField.returnKeyType = .Next
@@ -308,11 +308,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.height.equalTo(1)
 		}
 		
-		let passwordField = DefaultTextFieldView()
+		let passwordField = DefaultTextFieldView(isPriceTextField: false)
 		self.passwordField = passwordField
 		self.secondContainer.addSubview(passwordField)
 		self.passwordField.secureTextEntry = true
-		self.passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
+		self.passwordField.attributedPlaceholder = NSAttributedString(string: " Password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.passwordField.autocapitalizationType = UITextAutocapitalizationType.None
 		self.passwordField.returnKeyType = .Done
 		self.passwordField.snp_makeConstraints { (make) -> Void in
@@ -395,10 +395,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.bottom.equalTo(self.contentView.snp_bottom)
 		}
 		
-		let firstnameField = DefaultTextFieldView()
+		let firstnameField = DefaultTextFieldView(isPriceTextField: false)
 		self.firstnameField = firstnameField
 		self.thirdContainer.addSubview(firstnameField)
-		self.firstnameField.attributedPlaceholder = NSAttributedString(string: "First name", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
+		self.firstnameField.attributedPlaceholder = NSAttributedString(string: " First name", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.firstnameField.autocorrectionType = UITextAutocorrectionType.No
 		self.firstnameField.returnKeyType = .Next
 		self.firstnameField.snp_makeConstraints { (make) -> Void in
@@ -418,10 +418,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.height.equalTo(1)
 		}
 		
-		let lastnameField = DefaultTextFieldView()
+		let lastnameField = DefaultTextFieldView(isPriceTextField: false)
 		self.lastnameField = lastnameField
 		self.thirdContainer.addSubview(lastnameField)
-		self.lastnameField.attributedPlaceholder = NSAttributedString(string: "Last name", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
+		self.lastnameField.attributedPlaceholder = NSAttributedString(string: " Last name", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.lastnameField.autocorrectionType = UITextAutocorrectionType.No
 		self.lastnameField.returnKeyType = .Next
 		self.lastnameField.snp_makeConstraints { (make) -> Void in
@@ -430,10 +430,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
 		}
 		
-		let emailFieldRegister = DefaultTextFieldView()
+		let emailFieldRegister = DefaultTextFieldView(isPriceTextField: false)
 		self.emailFieldRegister = emailFieldRegister
 		self.thirdContainer.addSubview(emailFieldRegister)
-		self.emailFieldRegister.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
+		self.emailFieldRegister.attributedPlaceholder = NSAttributedString(string: " Email", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.emailFieldRegister.keyboardType = UIKeyboardType.EmailAddress
 		self.emailFieldRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.emailFieldRegister.autocapitalizationType = UITextAutocapitalizationType.None
@@ -444,11 +444,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.right.equalTo(self.thirdContainer.snp_right).offset(-24)
 		}
 		
-		let passwordFieldRegister = DefaultTextFieldView()
+		let passwordFieldRegister = DefaultTextFieldView(isPriceTextField: false)
 		self.passwordFieldRegister = passwordFieldRegister
 		self.thirdContainer.addSubview(passwordFieldRegister)
 		self.passwordFieldRegister.secureTextEntry = true
-		self.passwordFieldRegister.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
+		self.passwordFieldRegister.attributedPlaceholder = NSAttributedString(string: " Password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.passwordFieldRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.passwordFieldRegister.autocapitalizationType = UITextAutocapitalizationType.None
 		self.passwordFieldRegister.returnKeyType = .Next
@@ -469,11 +469,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			make.height.equalTo(1)
 		}
 		
-		let passwordFieldConfirmRegister = DefaultTextFieldView()
+		let passwordFieldConfirmRegister = DefaultTextFieldView(isPriceTextField: false)
 		self.passwordFieldConfirmRegister = passwordFieldConfirmRegister
 		self.passwordFieldConfirmRegister.secureTextEntry = true
 		self.thirdContainer.addSubview(passwordFieldConfirmRegister)
-		self.passwordFieldConfirmRegister.attributedPlaceholder = NSAttributedString(string: "Confirm password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
+		self.passwordFieldConfirmRegister.attributedPlaceholder = NSAttributedString(string: " Confirm password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
 		self.passwordFieldConfirmRegister.autocorrectionType = UITextAutocorrectionType.No
 		self.passwordFieldConfirmRegister.autocapitalizationType = UITextAutocapitalizationType.None
 		self.passwordFieldConfirmRegister.returnKeyType = .Done
@@ -488,9 +488,9 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 		self.thirdContainer.addSubview(self.registerAccountButton)
 		self.registerAccountButton.setTitle("Sign up", forState: UIControlState.Normal)
 		self.registerAccountButton.setTitleColor(Color.whitePrimary, forState: UIControlState.Normal)
+		self.registerAccountButton.setTitleColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
 		self.registerAccountButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: kTitle17)
 		self.registerAccountButton.setBackgroundColor(Color.redPrimary, forState: UIControlState.Normal)
-		self.registerAccountButton.setBackgroundColor(Color.redPrimarySelected, forState: UIControlState.Highlighted)
 		self.registerAccountButton.addTarget(self, action: "createAccount:", forControlEvents: UIControlEvents.TouchUpInside)
 		self.registerAccountButton.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.passwordFieldConfirmRegister.snp_bottom)
@@ -547,11 +547,21 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 	func textFieldDidBeginEditing(textField: UITextField) {
 		self.activeField = textField
 		self.fieldEditing = true
+		
+		if textField == self.passwordFieldRegister || textField == self.passwordFieldConfirmRegister {
+			self.passwordFieldRegister.attributedPlaceholder = NSAttributedString(string: " At least 6 characters", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
+			self.passwordFieldConfirmRegister.attributedPlaceholder = NSAttributedString(string: " At least 6 characters", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
+		}
 	}
 	
 	func textFieldDidEndEditing(textField: UITextField) {
 		self.activeField = nil
 		self.fieldEditing = false
+		
+		if textField == self.passwordFieldRegister || textField == self.passwordFieldConfirmRegister {
+			self.passwordFieldRegister.attributedPlaceholder = NSAttributedString(string: " Password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
+			self.passwordFieldConfirmRegister.attributedPlaceholder = NSAttributedString(string: " Confirm password", attributes: [NSForegroundColorAttributeName: Color.textFieldPlaceholderColor])
+		}
 	}
 	
 	func keyboardDidShow(notification: NSNotification) {
@@ -693,6 +703,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate, UIText
 			openAlert = true
 		} else if self.passwordFieldRegister.text != self.passwordFieldConfirmRegister.text {
 			errorMsg = "Passwords don't match"
+			openAlert = true
+			
+			self.passwordFieldRegister.text = ""
+			self.passwordFieldConfirmRegister.text = ""
+		} else if self.passwordFieldRegister.text!.characters.count < 6 {
+			errorMsg = "Your password must be at least 6 characters long"
 			openAlert = true
 			
 			self.passwordFieldRegister.text = ""
