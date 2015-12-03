@@ -600,27 +600,38 @@ class BrowseViewController: UIViewController, CLLocationManagerDelegate, UIGestu
 				make.edges.equalTo(moneyContainer.snp_edges)
 			}
 			
+			let appliedContainer = UIView()
+			infoButton.addSubview(appliedContainer)
+			appliedContainer.backgroundColor = Color.redPrimarySelected
+			appliedContainer.layer.cornerRadius = 3
+			appliedContainer.snp_makeConstraints { (make) -> Void in
+				make.bottom.equalTo(moneyContainer.snp_top).offset(-5)
+				make.left.equalTo(moneyContainer.snp_left)
+				make.right.equalTo(moneyContainer.snp_right)
+				make.height.equalTo(25)
+			}
+			
 			let appliedNotice = UILabel()
-			infoButton.addSubview(appliedNotice)
+			appliedContainer.addSubview(appliedNotice)
 			appliedNotice.text = "Applied"
-			appliedNotice.font = UIFont(name: "Lato-Regular", size: kText15)
-			appliedNotice.textColor = Color.redPrimary
+			appliedNotice.textAlignment = NSTextAlignment.Center
+			appliedNotice.font = UIFont(name: "Lato-Regular", size: kText13)
+			appliedNotice.textColor = Color.whitePrimary
 			appliedNotice.snp_makeConstraints { (make) -> Void in
-				make.centerX.equalTo(moneyContainer.snp_centerX)
-				make.centerY.equalTo(taskTitleLabel.snp_centerY)
+				make.edges.equalTo(appliedContainer.snp_edges).inset(UIEdgeInsetsMake(0, 0, 0, 0))
 			}
 			
 			let task = pinViewAnnotation!.task
 			
 			if task.application != nil && task.application!.state != .Canceled {
-				appliedNotice.hidden = false
+				appliedContainer.hidden = false
 				taskTitleLabel.snp_remakeConstraints(closure: { (make) -> Void in
 					make.top.equalTo(userPicture.snp_top).offset(2)
 					make.left.equalTo(userPicture.snp_right).offset(18)
 					make.right.equalTo(appliedNotice.snp_left).offset(-10)
 				})
 			} else {
-				appliedNotice.hidden = true
+				appliedContainer.hidden = true
 			}
 			
 			mapInfoBlurView.snp_makeConstraints { (make) -> Void in

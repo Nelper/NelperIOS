@@ -1192,6 +1192,6 @@ class PostTaskFormViewController: UIViewController, UITextFieldDelegate, UITextV
 		self.navigationController?.popViewControllerAnimated(false)
 		
 		let tabBarViewController = UIApplication.sharedApplication().delegate!.window!?.rootViewController as! TabBarViewController
-		tabBarViewController.tabBar.didSelectIndex(1, loadView: false)
+		tabBarViewController.tabBar.didSelectIndex(1, loadView: true)
 	}
 }

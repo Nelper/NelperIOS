@@ -141,8 +141,6 @@ class BrowseTaskViewCell: UITableViewCell {
 			make.edges.equalTo(appliedContainer.snp_edges).inset(UIEdgeInsetsMake(0, 0, 0, 0))
 		}
 		
-		cellView.bringSubviewToFront(moneyContainer)
-		
 		/*let rightArrow = UIImageView()
 		cellView.addSubview(rightArrow)
 		rightArrow.image = UIImage(named: "arrow_applicant_cell")

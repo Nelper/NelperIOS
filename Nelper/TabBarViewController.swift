@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SVProgressHUD
 
 class TabBarViewController: UIViewController, TabBarControlDelegate {
 	
@@ -82,6 +83,10 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 		if index == 3 {
 			self.createMoreVC()
 			return
+		} else if index == 1 {
+			SVProgressHUD.setBackgroundColor(Color.redPrimary)
+			SVProgressHUD.setForegroundColor(Color.whitePrimary)
+			SVProgressHUD.show()
 		}
 		
 		self.createVC(self.viewControllers[index], animated:  true)
