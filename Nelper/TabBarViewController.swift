@@ -154,7 +154,7 @@ class TabBarViewController: UIViewController, TabBarControlDelegate {
 	//MARK: Create More VC
 	
 	/**
-	creates the more menu vc. call closeMoreVC to remove this view and close with animation
+	creates the more menu vc. call closeMoreMenu to remove this view and close with animation
 	*/
 	func createMoreVC() {
 		Helper.statusBarHidden(true, animation: .Slide)

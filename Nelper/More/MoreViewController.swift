@@ -291,6 +291,7 @@ class MoreViewController: UIViewController {
 				self.blurEffectView.layoutIfNeeded()
 			})
 			
+			self.tabBarViewController.closeMoreMenu()
 			self.closingAnimation()
 			
 			_ = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: "logoutUser", userInfo: nil, repeats: false)
